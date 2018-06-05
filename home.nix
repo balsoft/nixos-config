@@ -1,0 +1,1 @@
+/home/balsoft/.config/nixpkgs/home.nix

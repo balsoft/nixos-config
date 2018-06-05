@@ -1,0 +1,1 @@
+/etc/nixos/configuration.nix
