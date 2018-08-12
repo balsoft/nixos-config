@@ -41,19 +41,12 @@
 				    ((cmd_time=$cmd_end - $cmd_start))
 				fi
 				if [ $retval -eq 0 ]; then
-				    cmdstat="succesfully"
-				    sound="/home/balsoft/.local/share/gnome-shell/extensions/timepp@zagortenay333/data/sounds/bell.ogg"
+				    cmdstat="✓"
 				else
-				    cmdstat="with errors"
-				    sound="/home/balsoft/.local/share/gnome-shell/extensions/timepp@zagortenay333/data/sounds/goat.ogg"
-				fi
-				if [ ! -z "$cmd" -a $cmd_time -gt 10 -a ! $term_window = $(active_window_id) ]; then
-				    if [ ! -z $SSH_TTY ] ; then
-					${pkgs.libnotify}/bin/notify-send -i utilities-terminal -u low "$cmd on `hostname` completed $cmdstat" "\"$cmd\" took $cmd_time seconds"
-				    else
-					${pkgs.libnotify}/bin/notify-send -i utilities-terminal -u low ""$cmd" completed $cmdstat" "\"$cmd\" took $cmd_time seconds"
-				    fi	
-				    ${pkgs.gnome3.gsound}/bin/gsound-play -f $sound
+				    cmdstat="✘"
+				    fi
+				if [ ! -z "$cmd" -a ! $term_window = $(active_window_id) ]; then
+					${pkgs.libnotify}/bin/notify-send -i utilities-terminal -u low "$cmd $cmdstat" "in `date -u -d @$cmd_time +'%T'`"
 				fi
 				unset cmd
 			}
@@ -86,8 +79,8 @@
 		};
 		theme = 
 		{
-			name = "Adapta-Nokto-Teal";
-			package = pkgs.adapta-gtk-theme;
+			name = "Breeze-Dark";
+			package = pkgs.gnome-breeze;
 		};
 		
 	};
@@ -97,20 +90,17 @@
 		wget
 		curl
 		chromium
-		gnome3.epiphany
+		midori
 		# IDE
 		vscode
 		geany
 		kdevelop
 		jetbrains.pycharm-community
 		# Messaging
-		discord
 		tdesktop
 		telepathy_haze
 		telepathy_idle
 		libnotify
-		gnome3.evolution
-		skype
 		# Audio/Video
 		vlc
 		kdenlive
@@ -119,19 +109,15 @@
 		zip
 		unrar
 		mc
-		gnome3.gnome-terminal
-		tilix
-		gnome3.gnome-tweak-tool
-		transmission
-		qtstyleplugin-kvantum-qt4
 		nox
-		gnome3.gnome-maps
-		gnome3.gnome-clocks
 		pinta
-		adapta-backgrounds
-		gnome3.gnome-weather
 		wine
-		gnome3.gnome-calendar
+		kolourpaint
+		krita
+		ktorrent
+		wireshark
+		wpsoffice
+		
 	];
 	home.keyboard = {
 		options = ["grp:caps_toggle" "grp_led:caps"];
@@ -139,21 +125,15 @@
 	xdg = {
 		enable = true;
 		configFile."libinput-gestures.conf".text = ''
-gesture swipe up 4 _internal ws_up
-gesture swipe down 4 _internal ws_down
-gesture pinch in 2 dbus-send --session --type=method_call --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:Main.overview.toggle();
-gesture pinch out 2 dbus-send --session --type=method_call --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:Main.overview.toggle();
-gesture swipe left 4 dbus-send --session --type=method_call --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:Main.wm._switchApp();  
-gesture swipe right 4 dbus-send --session --type=method_call --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:Main.wm._switchApp();  
+gesture swipe up 4 xdotool key "Alt+quoteright"
+gesture swipe down 4 xdotool key "Alt+asciitilde"
+gesture pinch in 2 xdotool key "Ctrl+F8"
+gesture pinch out 2 xdotool key "Ctrl+F8"
+gesture swipe left 3 xdotool key "Ctrl+Tab"
+gesture swipe right 3 xdotool key "Ctrl+Shift+Tab"
+gesture swipe up 3 xdotool key "Pause"
+gesture swipe down 3 xdotool key "Pause"
 		'';
 	};
-	home.file = {
-		"run_gnome_session.nixsh".text = ''
-#! /usr/bin/env nix-shell
-#! nix-shell -p glib.dev -i bash
-XDG_SESSION_TYPE=wayland dbus-run-session ${pkgs.gnome3.gnome-session}/bin/gnome-session
-		'';
-	};
-	
 	programs.command-not-found.enable = true;
 }

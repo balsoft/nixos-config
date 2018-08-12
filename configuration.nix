@@ -7,11 +7,10 @@
 {
 	# ========================== HARDWARE =====================================
 	imports = [
-		./hardware-configuration.nix
-        "${builtins.fetchTarball https://github.com/rycee/home-manager/archive/master.tar.gz}/nixos"
+		/etc/nixos/hardware-configuration.nix
 	];
 	
-	hardware.cpu.amd.updateMicrocode = true;
+	hardware.cpu.intel.updateMicrocode = true;
 	hardware.opengl.enable = true;
 	hardware.opengl.driSupport32Bit = true;
 	# =========================================================================
@@ -28,18 +27,18 @@
 				useOSProber = true;
 				device = "nodev";
 			};
-			systemd-boot.enable = true;
 			efi = {
 				canTouchEfiVariables = true;
 				efiSysMountPoint = "/boot";
 			};
 		};
-		consoleLogLevel = 0;
+		consoleLogLevel = 3;
 		kernelPackages = pkgs.linuxPackages_latest;
-		kernelParams = ["scsi_mod.use_blk_mq=1"];
-		extraModprobeConfig = ''
-options iwlwifi bt_coex_active=0
-		'';
+		kernelParams = [ "quiet" "scsi_mod.use_blk_mq=1" "modeset" "nofb" "rd.systemd.show_status=auto" "rd.udev.log_priority=3" ];
+		kernel.sysctl = {
+			"kernel.printk" = "3 3 3 3";
+			"vm.swappiness" = "0";
+		};
 	};
 	# =========================================================================
 	
@@ -47,23 +46,23 @@ options iwlwifi bt_coex_active=0
 	
 	# ======================== FILESYSTEMS ====================================
 	fileSystems = {
-		"/".device = "/dev/sda5";
-		"/home/".device = "/dev/sda4";
+		"/".device = "/dev/sda8";
+		"/home".device = "/dev/sda7";
 		"/boot".device = "/dev/sda1";
-		"/run/media/ubuntu".device = "/dev/sda2";
 	};
 	
 	services.udev.extraRules = ''
-		ACTION=="add|change", KERNEL=="sd*[!0-9]|sr*", ATTR{queue/scheduler}="bfq"
+		#ACTION=="add|change", KERNEL=="sd*[!0-9]|sr*", ATTR{queue/scheduler}="bfq"
+		ACTION=="change", SUBSYSTEM=="power_supply", ATTR{online}=="0", RUN+="${pkgs.systemd}/bin/systemctl start battery"
+	    ACTION=="change", SUBSYSTEM=="power_supply", ATTR{online}=="1", RUN+="${pkgs.systemd}/bin/systemctl start ac"
 	'';
 
 	swapDevices = [
 		{
-		    device = "/dev/sda3"; 
+		    device = "/dev/sda6"; 
 		}
 	];
 	
-	security.pam.enableEcryptfs = true; # For /home
 	# =========================================================================
 	
 	
@@ -78,7 +77,7 @@ options iwlwifi bt_coex_active=0
 	# ====================== NETWORKING =======================================
 	networking = {
 		networkmanager.enable = true;
-		hostName = "HP-Laptop";
+		hostName = "ASUS-Laptop";
 		firewall.enable = false;
 	};
 	# =========================================================================
@@ -88,44 +87,22 @@ options iwlwifi bt_coex_active=0
 	# ===================== GRAPHICS & FONTS ==================================
 	services.xserver = {
         enable = true;
-		videoDrivers = [ "amdgpu" ];
+		videoDrivers = [ "intel" ];
 		libinput = {
 			enable = true;
 			sendEventsMode = "disabled-on-external-mouse";
 			middleEmulation = false;
 		};
-		#desktopManager.plasma5.enable = true;
-		desktopManager.gnome3.enable = true;
-		desktopManager.mate.enable = true;
-		#displayManager.lightdm.enable = true;
-		displayManager.slim = {
-			enable = false;
-#			#autoLogin = true;
-#			defaultUser = "balsoft";
+		desktopManager.wallpaper.combineScreens = false;
+		desktopManager.wallpaper.mode = "fill";
+		displayManager.sddm = {
+			enable = true;
+			autoLogin.enable = true;
+			autoLogin.user = "balsoft";
 		};
-		displayManager.job.execCmd = "";
+		desktopManager.plasma5.enable = true;
+		displayManager.slim.enable = false;
 	};
-	programs.bash.shellInit = ''
-		if [[ `tty` = /dev/tty2 ]]
-		then
-			while true
-			do
-				echo "============================== STARTING PLASMA 5 ================================="
-				dbus-launch startplasmacompositor
-				echo "================================ RESTARTING ======================================"
-			done
-
-		fi
-		if [[ `tty` = /dev/tty1 ]]
-		then
-			while true
-			do	
-				echo "=========================== STARTING GNOME SHELL ================================="
-				/home/balsoft/run_gnome_session.nixsh
-				echo "=========================== EXITING GNOME SHELL =================================="
-			done
-		fi
-	'';
 	fonts = {
 		fonts = with pkgs; 
 		[
@@ -135,6 +112,8 @@ options iwlwifi bt_coex_active=0
 			roboto-mono
 			roboto-slab
 			powerline-fonts
+			noto-fonts
+			noto-fonts-emoji
 		];
 		enableDefaultFonts = true;
 	};
@@ -157,24 +136,23 @@ options iwlwifi bt_coex_active=0
 	
 	
 	# ====================== PROGRAMS & SERVICES ==============================
-	virtualisation.virtualbox.host.enable = true;
-	
+#	virtualisation.virtualbox.host.enable = true;
+	virtualisation.libvirtd.enable = true;	
 	system.autoUpgrade = {
 		dates = "19:00";
 		enable = true; 	
 	};
+
+	  nixpkgs.config.packageOverrides = pkgs: {
+	    nur = pkgs.callPackage (import (builtins.fetchGit {
+	      url = "https://github.com/nix-community/NUR";
+	    })) {};
+	  };
 	
 	services.openssh.enable = true;
-	services.postgresql = {
-		enable = true;
-		authentication = lib.mkForce ''
-		    # Generated file; do not edit!
-		    # TYPE  DATABASE        USER            ADDRESS                 METHOD
-		    local   all             all                                     trust
-		    host    all             all             127.0.0.1/32            trust
-		    host    all             all             ::1/128                 trust
-		'';
-	};
+
+#	programs.flatpak.enable = true;
+
 	services.printing = {
 		enable = true;
 		drivers = [ pkgs.gutenprint ];
@@ -185,19 +163,13 @@ options iwlwifi bt_coex_active=0
 		pkgs.gnome3.gconf
 	];
 
-	services.gnome3 = {
-		chrome-gnome-shell.enable = true;
-		gpaste.enable = true;
-		gvfs.enable = true;
-		gnome-online-accounts.enable = true;
-	};
-
 	services.tor = {
 		enable = true;
 		client.enable = true;
 		client.privoxy.enable = true;
 		torsocks.enable = true;
 	};
+	services.teamviewer.enable = true;
 
 	services.avahi.enable = true;
 	programs.adb.enable = true;
@@ -216,19 +188,30 @@ options iwlwifi bt_coex_active=0
 			'';
 		};
 	};
-	systemd.services.fix_touchpad = {
-        description = "Fix touchpad bug";
-        after = ["suspend.target"];
-        wantedBy = ["suspend.target"];
+	systemd.services.systemd-udev-settle.enable = false;
+	systemd.services.leds_setup = {
+		enable = true;
+		description = "Set up leds triggers";
+		wantedBy = ["multi-user.target"];
+		script = ''
+			echo "phy0rx" > /sys/class/leds/asus-wireless\:\:airplane/trigger
+		'';
+	};
+	systemd.services.battery = {
+        enable = true;
+        description = "Executes commands needed on battery power";
         script = ''
-			echo "Fixing touchpad on `date`"
-            /run/current-system/sw/bin/modprobe -r psmouse
-            /run/current-system/sw/bin/modprobe psmouse
-			echo "Done fixing touchpad"
+            ${pkgs.linuxPackages_latest.cpupower}/bin/cpupower frequency-set -g powersave
+            ${pkgs.hdparm}/bin/hdparm -B 1 /dev/sda
         '';
 	};
-	environment.variables = {
-		QT_STYLE_OVERRIDE = "kvantum";
+	systemd.services.ac = {
+        enable = true;
+        description = "Executes commands needed on ac power";
+        script = ''
+            ${pkgs.linuxPackages_latest.cpupower}/bin/cpupower frequency-set -g performance
+            ${pkgs.hdparm}/bin/hdparm -B 255 /dev/sda
+        '';
 	};
 	services.packagekit.enable = true;
 	hardware.sensor.iio.enable = true;
@@ -246,7 +229,7 @@ options iwlwifi bt_coex_active=0
 	users.mutableUsers = false;
 	users.extraUsers.balsoft = {
 		isNormalUser = true;
-		extraGroups = ["sudo" "wheel" "networkmanager" "disk" "sound" "pulse" "adbusers" "input"];
+		extraGroups = ["sudo" "wheel" "networkmanager" "disk" "sound" "pulse" "adbusers" "input" "libvirtd"];
 		description = "Александр Бантьев";
 		uid = 1000;
 		password = "";
