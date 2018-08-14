@@ -22,8 +22,6 @@
 			];
 		};
 		initExtra = ''
-			#randomquote(){${pkgs.curl}/bin/curl -s $(${pkgs.curl}/bin/curl -s "http://bash.im/forweb/"|grep -o "http://bash.im/quote/[[:digit:]]*") | iconv -f CP1251 -t UTF-8 | ${pkgs.gnugrep}/bin/grep "<div class=\"text\">[^<]*" -a|${pkgs.gnused}/bin/sed "s/<br>/\x0a/g" | ${pkgs.gnused}/bin/sed "s/<br \/>/\x0a/"|${pkgs.gnused}/bin/sed "s/<div class=\x22text\x22>//"|${pkgs.gnused}/bin/sed "s/<\/div>//"|${pkgs.gnused}/bin/sed "s/&quot;/\"/g" |${pkgs.gnused}/bin/sed "s/&gt;/>/g"| ${pkgs.gnused}/bin/sed "s/&lt;/</g"| ${pkgs.gnused}/bin/sed 's/^\s*//g'}
-			# commands to ignore
 			cmdignore=(htop tmux top vim)
 			function active_window_id () {
 				if [[ -n $DISPLAY ]] ; then
@@ -96,6 +94,7 @@
 		geany
 		kdevelop
 		jetbrains.pycharm-community
+		kate
 		# Messaging
 		tdesktop
 		telepathy_haze
@@ -117,10 +116,19 @@
 		ktorrent
 		wireshark
 		wpsoffice
-		
+		micro
+		cmake
+		gnumake
+		gcc
+		gdb
+		python3
+		qalculate-gtk
+		typora
+		libreoffice-fresh
 	];
 	home.keyboard = {
 		options = ["grp:caps_toggle" "grp_led:caps"];
+		layout = "us,ru";
 	};
 	xdg = {
 		enable = true;
@@ -135,5 +143,6 @@ gesture swipe up 3 xdotool key "Pause"
 gesture swipe down 3 xdotool key "Pause"
 		'';
 	};
+	news.display = "silent";
 	programs.command-not-found.enable = true;
 }
