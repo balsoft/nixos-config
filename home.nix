@@ -1,6 +1,6 @@
 
 {pkgs, ...}:
-{
+rec {
 	programs.home-manager = {
 		enable = true;
 		path = https://github.com/rycee/home-manager/archive/master.tar.gz;
@@ -9,13 +9,11 @@
 	programs.zsh = {
 		enable = true;
 		enableAutosuggestions = true;
-		enableCompletion = true;
-		oh-my-zsh = 
-		{
+		enableCompletion = programs.zsh.enableAutosuggestions;
+		oh-my-zsh = {
 			enable = true;
 			theme = "agnoster";
-			plugins = 
-			[
+			plugins = [
 				"git"
 				"compleat"
 				"dirhistory"
@@ -44,7 +42,7 @@
 				    cmdstat="✘"
 				    fi
 				if [ ! -z "$cmd" -a ! $term_window = $(active_window_id) ]; then
-					${pkgs.libnotify}/bin/notify-send -i utilities-terminal -u low "$cmd $cmdstat" "in `date -u -d @$cmd_time +'%T'`"
+					${pkgs.libnotify}/bin/notify-send -i utilities-terminal -u low "$cmdstat $cmd" "in `date -u -d @$cmd_time +'%T'`"
 				fi
 				unset cmd
 			}
@@ -133,12 +131,12 @@
 	xdg = {
 		enable = true;
 		configFile."libinput-gestures.conf".text = ''
-gesture swipe up 4 xdotool key "Alt+quoteright"
-gesture swipe down 4 xdotool key "Alt+asciitilde"
+gesture swipe down 4 xdotool key "Alt+quoteright"
+gesture swipe up 4 xdotool key "Alt+asciitilde"
 gesture pinch in 2 xdotool key "Ctrl+F8"
 gesture pinch out 2 xdotool key "Ctrl+F8"
-gesture swipe left 3 xdotool key "Ctrl+Tab"
-gesture swipe right 3 xdotool key "Ctrl+Shift+Tab"
+gesture swipe right 3 xdotool key "Ctrl+Tab"
+gesture swipe left 3 xdotool key "Ctrl+Shift+Tab"
 gesture swipe up 3 xdotool key "Pause"
 gesture swipe down 3 xdotool key "Pause"
 		'';

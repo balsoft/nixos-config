@@ -37,34 +37,10 @@
 		kernelParams = [ "quiet" "scsi_mod.use_blk_mq=1" "modeset" "nofb" "rd.systemd.show_status=auto" "rd.udev.log_priority=3" ];
 		kernel.sysctl = {
 			"kernel.printk" = "3 3 3 3";
-			"vm.swappiness" = "0";
+			"vm.swappiness" = 0;
 		};
 	};
 	# =========================================================================
-	
-	
-	
-	# ======================== FILESYSTEMS ====================================
-	fileSystems = {
-		"/".device = "/dev/sda8";
-		"/home".device = "/dev/sda7";
-		"/boot".device = "/dev/sda1";
-	};
-	
-	services.udev.extraRules = ''
-		#ACTION=="add|change", KERNEL=="sd*[!0-9]|sr*", ATTR{queue/scheduler}="bfq"
-		ACTION=="change", SUBSYSTEM=="power_supply", ATTR{online}=="0", RUN+="${pkgs.systemd}/bin/systemctl start battery"
-	    ACTION=="change", SUBSYSTEM=="power_supply", ATTR{online}=="1", RUN+="${pkgs.systemd}/bin/systemctl start ac"
-	'';
-
-	swapDevices = [
-		{
-		    device = "/dev/sda6"; 
-		}
-	];
-	
-	# =========================================================================
-	
 	
 	
 	# ====================== TIME & LOCALE ====================================
@@ -77,7 +53,6 @@
 	# ====================== NETWORKING =======================================
 	networking = {
 		networkmanager.enable = true;
-		hostName = "ASUS-Laptop";
 		firewall.enable = false;
 	};
 	# =========================================================================
@@ -87,7 +62,6 @@
 	# ===================== GRAPHICS & FONTS ==================================
 	services.xserver = {
         enable = true;
-		videoDrivers = [ "intel" ];
 		libinput = {
 			enable = true;
 			sendEventsMode = "disabled-on-external-mouse";
@@ -126,10 +100,6 @@
 		enable = true;
 		package = pkgs.pulseaudioFull;
 		support32Bit = true;
-	};
-	
-	hardware.bluetooth = {
-		enable = true;
 	};
 	# =========================================================================
 	
@@ -189,6 +159,13 @@
 		};
 	};
 	systemd.services.systemd-udev-settle.enable = false;
+	
+	services.udev.extraRules = ''
+		ACTION=="add|change", KERNEL=="sd*[!0-9]|sr*", ATTR{queue/scheduler}="bfq"
+		ACTION=="change", SUBSYSTEM=="power_supply", ATTR{online}=="0", RUN+="${pkgs.systemd}/bin/systemctl start battery"
+	    ACTION=="change", SUBSYSTEM=="power_supply", ATTR{online}=="1", RUN+="${pkgs.systemd}/bin/systemctl start ac"
+	'';
+	
 	systemd.services.leds_setup = {
 		enable = true;
 		description = "Set up leds triggers";
@@ -224,7 +201,6 @@
 	
 	# ======================= USERS & SECURITY ================================
 	security.apparmor.enable = true;
-	# Define a user account. Don't forget to set a password with ‘passwd’.
 	nixpkgs.config.allowUnfree = true;
 	users.mutableUsers = false;
 	users.extraUsers.balsoft = {
