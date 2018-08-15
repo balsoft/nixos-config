@@ -2,8 +2,7 @@
 # your system.	Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, ... }:
-
+{ config, pkgs, lib, ... }: 
 {
 	# ========================== HARDWARE =====================================
 	imports = [
@@ -34,7 +33,14 @@
 		};
 		consoleLogLevel = 3;
 		kernelPackages = pkgs.linuxPackages_latest;
-		kernelParams = [ "quiet" "scsi_mod.use_blk_mq=1" "modeset" "nofb" "rd.systemd.show_status=auto" "rd.udev.log_priority=3" ];
+		kernelParams = [ 
+            "quiet" 
+            "scsi_mod.use_blk_mq=1" 
+            "modeset" 
+            "nofb" 
+            "rd.systemd.show_status=auto" 
+            "rd.udev.log_priority=3" 
+        ];
 		kernel.sysctl = {
 			"kernel.printk" = "3 3 3 3";
 			"vm.swappiness" = 0;
