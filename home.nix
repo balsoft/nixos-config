@@ -1,5 +1,4 @@
-
-{pkgs, ...}:
+{pkgs, lib, ...}:
 rec {
 	programs.home-manager = {
 		enable = true;
@@ -123,6 +122,34 @@ rec {
 		qalculate-gtk
 		typora
 		libreoffice-fresh
+		
+		(stdenv.mkDerivation {
+            name = "plasma-active-window-control";
+            src = fetchGit {
+                url = "git://anongit.kde.org/plasma-active-window-control";
+                rev = "eeb0d8e39237d9f81799ac50e23723c317bead0c";
+            };
+            buildInputs = [ cmake qt5.qtbase qt5.qtx11extras xorg.libxcb xorg.libSM extra-cmake-modules ] ++
+            (with kdeFrameworks; [knewstuff karchive kglobalaccel kcrash plasma-framework kactivities kcoreaddons kdbusaddons kdeclarative kwayland kwindowsystem kpackage kxmlgui kiconthemes ki18n knotifications]);
+        })
+        
+        (stdenv.mkDerivation {
+            name = "plasma-kdeconnect-sms";
+            src = fetchGit {
+                url = https://github.com/comexpertise/plasma-kdeconnect-sms;
+                rev = "58497d9f2e485843316ef663adab5e12ebd94872";
+            };
+            buildInputs = [ cmake gnumake gcc extra-cmake-modules ] ++ (with kdeFrameworks; [plasma-framework kwindowsystem]);
+        })
+        
+        (stdenv.mkDerivation {
+            name = "ultimate-gmail-feed";
+            src = fetchGit {
+                url = https://github.com/intika/ultimategmailfeed;
+                rev = "e3c387867692a6b88ea8a0b5b8276d26848eccf7";		
+            };
+            buildInputs = [ cmake gnumake gcc extra-cmake-modules ] ++ (with kdeFrameworks; [plasma-framework kwindowsystem]);
+        })
 	];
 	home.keyboard = {
 		options = ["grp:caps_toggle" "grp_led:caps"];
