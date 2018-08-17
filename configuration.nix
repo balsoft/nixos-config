@@ -7,6 +7,7 @@
 	# ========================== HARDWARE =====================================
 	imports = [
 		/etc/nixos/hardware-configuration.nix
+		/etc/nixos/local-configuration.nix
 	];
 	
 	hardware.opengl.enable = true;
