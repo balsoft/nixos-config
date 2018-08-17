@@ -97,6 +97,7 @@ rec {
 		telepathy_haze
 		telepathy_idle
 		libnotify
+		quaternion
 		# Audio/Video
 		vlc
 		kdenlive

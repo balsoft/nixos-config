@@ -9,7 +9,6 @@
 		/etc/nixos/hardware-configuration.nix
 	];
 	
-	hardware.cpu.intel.updateMicrocode = true;
 	hardware.opengl.enable = true;
 	hardware.opengl.driSupport32Bit = true;
 	# =========================================================================
@@ -172,14 +171,6 @@
 	    ACTION=="change", SUBSYSTEM=="power_supply", ATTR{online}=="1", RUN+="${pkgs.systemd}/bin/systemctl start ac"
 	'';
 	
-	systemd.services.leds_setup = {
-		enable = true;
-		description = "Set up leds triggers";
-		wantedBy = ["multi-user.target"];
-		script = ''
-			echo "phy0rx" > /sys/class/leds/asus-wireless\:\:airplane/trigger
-		'';
-	};
 	systemd.services.battery = {
         enable = true;
         description = "Executes commands needed on battery power";
