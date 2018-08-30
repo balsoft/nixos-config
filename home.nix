@@ -22,7 +22,7 @@ rec {
 			cmdignore=(htop tmux top vim)
 			function active_window_id () {
 				if [[ -n $DISPLAY ]] ; then
-				    xprop -root _NET_ACTIVE_WINDOW | awk '{print $5}'
+				    ${pkgs.xorg.xprop}xprop -root _NET_ACTIVE_WINDOW | awk '{print $5}'
 				    return
 				fi
 				echo nowindowid
@@ -59,7 +59,6 @@ rec {
 			# make sure this plays nicely with any existing preexec
 			preexec_functions+=( notifyosd-preexec )
 			XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
-			export QT_STYLE_OVERRIDE=kvantum
 		'';
 	};
 
@@ -69,8 +68,8 @@ rec {
 		enable = true;
 		iconTheme = 
 		{
-			name = "Papirus-Dark";
-			package = pkgs.papirus-icon-theme;
+			name = "breeze-dark";
+			package = pkgs.breeze-icons;
 		};
 		theme = 
 		{
@@ -121,7 +120,7 @@ rec {
 		gdb
 		python3
 		qalculate-gtk
-		typora
+		#typora
 		libreoffice-fresh
 		
 		(stdenv.mkDerivation {
@@ -151,15 +150,26 @@ rec {
             };
             buildInputs = [ cmake gnumake gcc extra-cmake-modules ] ++ (with kdeFrameworks; [plasma-framework kwindowsystem]);
         })
+        
+        (stdenv.mkDerivation {
+                name = "plasma-applet-weather-widget";
+                src = fetchGit {
+                	url = https://github.com/kotelnik/plasma-applet-weather-widget;
+                	rev = "02779f9cbf740a1a61776b904c5eb622788e6834";
+                };
+                unpackPhase = "";
+                buildInputs = [cmake qt5.qtbase qt5.qtquickcontrols extra-cmake-modules] ++ (builtins.filter stdenv.lib.isDerivation (builtins.attrValues kdeFrameworks));
+        })
 	];
 	home.keyboard = {
 		options = ["grp:caps_toggle" "grp_led:caps"];
 		layout = "us,ru";
 	};
+	home.sessionVariables.EDITOR = "micro";
 	xdg = {
 		enable = true;
 		configFile."libinput-gestures.conf".text = ''
-gesture swipe down 4 xdotool key "Alt+quoteright"
+gesture swipe down 4 xdotool key "Alt+quoteleft"
 gesture swipe up 4 xdotool key "Alt+asciitilde"
 gesture pinch in 2 xdotool key "Ctrl+F8"
 gesture pinch out 2 xdotool key "Ctrl+F8"

@@ -40,6 +40,8 @@
             "nofb" 
             "rd.systemd.show_status=auto" 
             "rd.udev.log_priority=3" 
+            "pti=off" 
+            "spectre_v2=off"
         ];
 		kernel.sysctl = {
 			"kernel.printk" = "3 3 3 3";
@@ -84,8 +86,7 @@
 		displayManager.slim.enable = false;
 	};
 	fonts = {
-		fonts = with pkgs; 
-		[
+		fonts = with pkgs; [
 			terminus_font
 			opensans-ttf
 			roboto
@@ -112,6 +113,7 @@
 	
 	
 	# ====================== PROGRAMS & SERVICES ==============================
+	environment.systemPackages = builtins.filter pkgs.stdenv.lib.isDerivation (builtins.attrValues pkgs.kdeApplications);
 #	virtualisation.virtualbox.host.enable = true;
 	virtualisation.libvirtd.enable = true;	
 	system.autoUpgrade = {
@@ -119,24 +121,22 @@
 		enable = true; 	
 	};
 
-	  nixpkgs.config.packageOverrides = pkgs: {
+    nixpkgs.config.packageOverrides = pkgs: {
 	    nur = pkgs.callPackage (import (builtins.fetchGit {
-	      url = "https://github.com/nix-community/NUR";
+            url = "https://github.com/nix-community/NUR";
 	    })) {};
-	  };
+    };
 	
 	services.openssh.enable = true;
-
-#	programs.flatpak.enable = true;
 
 	services.printing = {
 		enable = true;
 		drivers = [ pkgs.gutenprint ];
 	};
 	
-	
+	hardware.bluetooth.enable = true;	
 	services.dbus.packages = [
-		pkgs.gnome3.gconf
+#		pkgs.gconf
 	];
 
 	services.tor = {
