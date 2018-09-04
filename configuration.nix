@@ -74,16 +74,22 @@
 			enable = true;
 			sendEventsMode = "disabled-on-external-mouse";
 			middleEmulation = false;
+			naturalScrolling = true;
 		};
 		desktopManager.wallpaper.combineScreens = false;
 		desktopManager.wallpaper.mode = "fill";
-		displayManager.sddm = {
+		displayManager.auto = {
 			enable = true;
-			autoLogin.enable = true;
-			autoLogin.user = "balsoft";
+			#autoLogin.enable = true;
+			user = "balsoft";
 		};
-		desktopManager.plasma5.enable = true;
-		displayManager.slim.enable = false;
+#		desktopManager.plasma5.enable = true;
+		desktopManager.default = "none";
+		windowManager.i3.enable = true;
+		windowManager.default = "i3";
+		desktopManager.xterm.enable = false;
+		layout = "us,ru";
+		xkbOptions = "grp:caps_toggle grp_led:caps";
 	};
 	fonts = {
 		fonts = with pkgs; [
@@ -114,6 +120,12 @@
 	
 	# ====================== PROGRAMS & SERVICES ==============================
 	environment.systemPackages = builtins.filter pkgs.stdenv.lib.isDerivation (builtins.attrValues pkgs.kdeApplications);
+	environment.sessionVariables = {
+            EDITOR = "micro";
+            QT_QPA_PLATFORMTHEME = "qt5ct";
+            GTK_THEME = "Breeze-Dark";
+    };
+
 #	virtualisation.virtualbox.host.enable = true;
 	virtualisation.libvirtd.enable = true;	
 	system.autoUpgrade = {
@@ -145,7 +157,13 @@
 		client.privoxy.enable = true;
 		torsocks.enable = true;
 	};
-	services.teamviewer.enable = true;
+	#services.teamviewer.enable = true;
+
+	services.compton = { 
+		enable = true;
+		backend = "glx";
+		vSync = "opengl";
+	};
 
 	services.avahi.enable = true;
 	programs.adb.enable = true;
@@ -160,7 +178,7 @@
 		serviceConfig = {
 			User = "balsoft";
 			ExecStart = ''
-				${pkgs.google-drive-ocamlfuse}/bin/google-drive-ocamlfuse -debug "/home/balsoft/Google Drive/"
+				${pkgs.google-drive-ocamlfuse}/bin/google-drive-ocamlfuse -f "/home/balsoft/Google Drive/"
 			'';
 		};
 	};
@@ -188,7 +206,6 @@
             ${pkgs.hdparm}/bin/hdparm -B 255 /dev/sda
         '';
 	};
-	services.packagekit.enable = true;
 	hardware.sensor.iio.enable = true;
 	i18n = {
 		defaultLocale = "en_GB.UTF-8";
