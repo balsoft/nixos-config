@@ -96,16 +96,7 @@ XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 	xsession.windowManager.i3 = {
 		enable = true;
 		config = {
-			bars = [
-				{
-					colors = {
-						background = thm.bg;
-						statusline = thm.fg;
-					};
-					position = "top";
-					command = "polybar top";
-				}			
-			];
+			bars = [];
 			fonts = [ "RobotoMono 9" ];
 			colors = rec{
 				background = thm.bg;
@@ -130,6 +121,7 @@ XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 				{ command = "${pkgs.kmix}/bin/kmix"; }
 				{ command = "${pkgs.plasma-workspace}/bin/klipper"; }
 				{ command = "${pkgs.xorg.setxkbmap}/bin/setxkbmap -layout '${home.keyboard.layout}' -options '${builtins.concatStringsSep "," home.keyboard.options}'"; }
+				{ command = "polybar -r top"; always = true; }
 			];
 			keybindings = let modifier = xsession.windowManager.i3.config.modifier;
 			in ({
@@ -180,7 +172,7 @@ XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 				foreground = thm.fg;
 				modules-left = "i3";
 				modules-center = "date";
-				modules-right = "battery";
+				modules-right = " cpu battery";
 				tray-position = "right";
 			};
 			
@@ -200,9 +192,8 @@ XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 				type = "internal/battery";		
 			};
 
-			"module/network" = {
-				type = "internal/network";
-				interface = "wlp1s0";		
+			"module/cpu" = {
+				type = "internal/cpu";
 			};
 		};
 		script = "";
