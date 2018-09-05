@@ -162,7 +162,6 @@ XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 		};
 		config = {
 			"bar/top" = {
-				monitor = "\${env:MONITOR:eDP1}";
 				font-0 = "Roboto Mono:size=11;1";
 				font-1 = "Noto Sans:size=11;1";
 				width = "100%";
