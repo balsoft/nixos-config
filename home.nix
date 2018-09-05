@@ -122,13 +122,13 @@ XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 				{ command = "${pkgs.kmix}/bin/kmix"; }
 				{ command = "${pkgs.plasma-workspace}/bin/klipper"; }
 				{ command = "${pkgs.xorg.setxkbmap}/bin/setxkbmap -layout '${home.keyboard.layout}' -options '${builtins.concatStringsSep "," home.keyboard.options}'"; }
-				{ command = "polybar -r top"; always = true; }
+				{ command = "polybar -r top"; }
 				{ command = "dunst"; }
 			];
 			keybindings = let modifier = xsession.windowManager.i3.config.modifier;
 			in ({
 				"${modifier}+q" = "kill";
-				"${modifier}+Pause" = "exec ${pkgs.kdeApplications.konsole}/bin/konsole";
+				"${modifier}+Return" = "exec ${pkgs.kdeApplications.konsole}/bin/konsole";
 				"${modifier}+t" = "exec ${pkgs.tdesktop}/bin/telegram-desktop";
 				"${modifier}+l" = "layout toggle";
 				"${modifier}+Left" = "focus left";
@@ -317,7 +317,7 @@ XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 			"albert/albert.conf".text = genIni {
 				General = {
 					frontendId = "org.albert.frontend.boxmodel.qml";
-					hotkey = "Meta+Return";
+					hotkey = "Meta+Space";
 					showTray = false;
 					terminal = "${pkgs.konsole}/bin/konsole -e";
 				};
