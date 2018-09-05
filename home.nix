@@ -3,6 +3,7 @@ let
 thm = {
 	bg = "#31363b";
 	fg = "#efefef";
+	bd = "#3caae4";
 };
 genIni = lib.generators.toINI {
   mkKeyValue = key: value:
@@ -122,6 +123,7 @@ XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 				{ command = "${pkgs.plasma-workspace}/bin/klipper"; }
 				{ command = "${pkgs.xorg.setxkbmap}/bin/setxkbmap -layout '${home.keyboard.layout}' -options '${builtins.concatStringsSep "," home.keyboard.options}'"; }
 				{ command = "polybar -r top"; always = true; }
+				{ command = "dunst"; }
 			];
 			keybindings = let modifier = xsession.windowManager.i3.config.modifier;
 			in ({
@@ -197,6 +199,43 @@ XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 		};
 		script = "";
 	};
+
+	services.dunst = {
+		enable = true;
+		iconTheme = {
+			name = "breeze-dark";
+			package = pkgs.breeze-icons;
+		};
+		settings = {
+			global = {
+				geometry = "300x5-30+50";
+				transparency = 10;
+				frame_color = thm.bd;
+				font = "Roboto Mono 13";
+				padding = 15;
+				horizontal_padding = 17;
+			};
+			
+			urgency_low = {
+				background = thm.bg;
+				foreground = thm.fg;
+				timeout = 5;
+			};
+			
+			urgency_normal = {
+				background = "#2b3034";
+				foreground = thm.fg;
+				timeout = 10;
+			};
+			
+			urgency_critical = {
+				background = thm.fg;
+				foreground = thm.bg;
+				timeout = 15;
+			};
+		};
+	};
+	
 	home.packages = with pkgs; [
 		# Internet
 		wget
