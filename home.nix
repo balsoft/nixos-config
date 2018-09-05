@@ -173,7 +173,7 @@ XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 				foreground = thm.fg;
 				modules-left = "i3";
 				modules-center = "date";
-				modules-right = " cpu battery";
+				modules-right = " cpu ram battery";
 				tray-position = "right";
 			};
 			
@@ -190,11 +190,20 @@ XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 			};
 
 			"module/battery" = {
-				type = "internal/battery";		
+				type = "internal/battery";
+				label-charging = "CHR: %percentage%% (%time%) | ";
+				label-discharging = "BAT: %percentage%% (%time%) | ";
+				label-full = "FULL | ";
 			};
 
 			"module/cpu" = {
 				type = "internal/cpu";
+				label = " CPU: %percentage%% | ";
+			};
+
+			"module/ram" = {
+				type = "internal/memory";
+				label = "RAM: %percentage_used%% | ";
 			};
 		};
 		script = "";
