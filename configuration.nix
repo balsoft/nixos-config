@@ -189,6 +189,7 @@
 		ACTION=="add|change", KERNEL=="sd*[!0-9]|sr*", ATTR{queue/scheduler}="bfq"
 		ACTION=="change", SUBSYSTEM=="power_supply", ATTR{online}=="0", RUN+="${pkgs.systemd}/bin/systemctl start battery"
 	    ACTION=="change", SUBSYSTEM=="power_supply", ATTR{online}=="1", RUN+="${pkgs.systemd}/bin/systemctl start ac"
+	    ACTION=="add|change", SUBSYSTEM=="backlight", MODE:="0777"
 	'';
 	
 	systemd.services.battery = {

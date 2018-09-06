@@ -149,6 +149,10 @@ XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 			) // builtins.listToAttrs (
 				builtins.genList (x: {name = "${modifier}+Shift+${toString x}"; value = "move container to workspace ${toString x}";}) 10
 			));
+			keycodebindings = {
+				"232" = "exec echo $((`cat /sys/class/backlight/*/brightness`-10)) > /sys/class/backlight/*/brightness";
+				"233" = "exec echo $((`cat /sys/class/backlight/*/brightness`-10)) > /sys/class/backlight/*/brightness";
+			};
 		};
 	};
 
@@ -225,7 +229,7 @@ XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 
 			"module/network" = {
 				type = "internal/network";
-				interface = "wlo1";
+				interface = "wlan0";
 				label-connected = "W: %essid%";
 				format-connected-foreground = thm.green;
 				format-disconnected-foreground = thm.red;
