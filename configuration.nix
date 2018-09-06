@@ -90,7 +90,7 @@
 		windowManager.i3.enable = true;
 		windowManager.default = "i3";
 		layout = "us,ru";
-		xkbOptions = "grp:caps_toggle grp_led:caps";
+		xkbOptions = "grp:caps_toggle,grp_led:caps";
 	};
 	fonts = {
 		fonts = with pkgs; [

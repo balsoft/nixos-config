@@ -323,7 +323,7 @@ XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 		ksysguard
 	];
 	home.keyboard = {
-		options = ["grp:caps_toggle" "grp_led:caps"];
+		options = ["grp:caps_toggle,grp_led:caps"];
 		layout = "us,ru";
 	};
 	home.sessionVariables = {
