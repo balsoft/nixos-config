@@ -79,16 +79,16 @@
 		};
 		desktopManager.wallpaper.combineScreens = false;
 		desktopManager.wallpaper.mode = "fill";
-		displayManager.auto = {
+		displayManager.lightdm = {
 			enable = true;
-			#autoLogin.enable = true;
-			user = "balsoft";
+			autoLogin.enable = true;
+			autoLogin.user = "balsoft";
+			greeter.enable = false;
 		};
 #		desktopManager.plasma5.enable = true;
 		desktopManager.default = "none";
 		windowManager.i3.enable = true;
 		windowManager.default = "i3";
-		desktopManager.xterm.enable = false;
 		layout = "us,ru";
 		xkbOptions = "grp:caps_toggle grp_led:caps";
 	};
