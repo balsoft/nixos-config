@@ -3,7 +3,9 @@ let
 thm = {
 	bg = "#31363b";
 	fg = "#efefef";
-	bd = "#3caae4";
+	blue = "#3caae4";
+	green = "#11d116";
+	red = "#f67400";
 };
 genIni = lib.generators.toINI {
   mkKeyValue = key: value:
@@ -164,17 +166,16 @@ XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 		};
 		config = {
 			"bar/top" = {
-				#font-0 = "PowerlineSymbols:size=15;3";
-				font-0 = "Roboto Mono:size=11;1";
+				font-0 = "Roboto Mono for Powerline:size=11;0";
 				font-1 = "Noto Sans:size=11;1";
 				width = "100%";
-				height = "3%";
+				height = "25px";
 				radius = 0;
 				background = thm.bg;
 				foreground = thm.fg;
 				modules-left = "i3";
 				modules-center = "date";
-				modules-right = "cpu pipe ram pipe battery";
+				modules-right = "cpu pipe temp pipe ram pipe battery pipe network";
 				tray-position = "right";
 			};
 			
@@ -188,7 +189,7 @@ XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 
 			"module/i3" = {
 				type = "internal/i3";
-				label-focused-foreground = thm.bd;		
+				label-focused-foreground = thm.blue;		
 			};
 
 			"module/pipe" = {
@@ -196,21 +197,38 @@ XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 				content = " | ";		
 			};
 
+			"module/temp" = {
+				type = "internal/temperature";
+				warn-temperature = 70;
+				label-warn-foreground = thm.red;
+			};
+			
 			"module/battery" = {
 				type = "internal/battery";
+				format-charging-background = thm.bg;
+				format-charging-foreground = thm.green;
 				label-charging = "CHR: %percentage%% (%time%)";
 				label-discharging = "BAT: %percentage%% (%time%)";
+				format-full-foreground = thm.blue;
 				label-full = "FULL";
 			};
 
 			"module/cpu" = {
 				type = "internal/cpu";
-				label = " CPU: %percentage%%";
+				label = "%{A1:${pkgs.ksysguard}/bin/ksysguard:}CPU: %percentage%%%{A}";
 			};
 
 			"module/ram" = {
 				type = "internal/memory";
-				label = "RAM: %percentage_used%%";
+				label = "%{A1:${pkgs.ksysguard}/bin/ksysguard:}RAM: %gb_used%/%gb_total%%{A}";
+			};
+
+			"module/network" = {
+				type = "internal/network";
+				interface = "wlo1";
+				label-connected = "W: %essid%";
+				format-connected-foreground = thm.green;
+				format-disconnected-foreground = thm.red;
 			};
 		};
 		script = "";
@@ -226,7 +244,7 @@ XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 			global = {
 				geometry = "300x5-30+50";
 				transparency = 10;
-				frame_color = thm.bd;
+				frame_color = thm.blue;
 				font = "Roboto Mono 13";
 				padding = 15;
 				horizontal_padding = 17;
@@ -298,6 +316,7 @@ XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 		breeze-qt5
 		units
 		goldendict
+		ksysguard
 	];
 	home.keyboard = {
 		options = ["grp:caps_toggle" "grp_led:caps"];
