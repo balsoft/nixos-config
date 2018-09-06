@@ -164,6 +164,7 @@ XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 		};
 		config = {
 			"bar/top" = {
+				#font-0 = "PowerlineSymbols:size=15;3";
 				font-0 = "Roboto Mono:size=11;1";
 				font-1 = "Noto Sans:size=11;1";
 				width = "100%";
@@ -173,7 +174,7 @@ XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 				foreground = thm.fg;
 				modules-left = "i3";
 				modules-center = "date";
-				modules-right = " cpu ram battery";
+				modules-right = "cpu pipe ram pipe battery";
 				tray-position = "right";
 			};
 			
@@ -186,24 +187,30 @@ XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 			};
 
 			"module/i3" = {
-				type = "internal/i3";		
+				type = "internal/i3";
+				label-focused-foreground = thm.bd;		
+			};
+
+			"module/pipe" = {
+				type = "custom/text";
+				content = " | ";		
 			};
 
 			"module/battery" = {
 				type = "internal/battery";
-				label-charging = "CHR: %percentage%% (%time%) | ";
-				label-discharging = "BAT: %percentage%% (%time%) | ";
-				label-full = "FULL | ";
+				label-charging = "CHR: %percentage%% (%time%)";
+				label-discharging = "BAT: %percentage%% (%time%)";
+				label-full = "FULL";
 			};
 
 			"module/cpu" = {
 				type = "internal/cpu";
-				label = " CPU: %percentage%% | ";
+				label = " CPU: %percentage%%";
 			};
 
 			"module/ram" = {
 				type = "internal/memory";
-				label = "RAM: %percentage_used%% | ";
+				label = "RAM: %percentage_used%%";
 			};
 		};
 		script = "";
