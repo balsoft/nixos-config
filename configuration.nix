@@ -18,6 +18,9 @@
 	
 	# ============================ BOOT =======================================
 	boot = {
+		loader.grub.enable = true;
+		loader.grub.version = 2;
+		loader.grub.useOSProber = true;
 		consoleLogLevel = 3;
 		kernelPackages = pkgs.linuxPackages_latest;
 		kernelParams = [ 
