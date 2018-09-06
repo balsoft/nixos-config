@@ -18,19 +18,6 @@
 	
 	# ============================ BOOT =======================================
 	boot = {
-		loader = {
-			grub = {
-				enable = true;
-				version = 2;
-				efiSupport = true;
-				useOSProber = true;
-				device = "nodev";
-			};
-			efi = {
-				canTouchEfiVariables = true;
-				efiSysMountPoint = "/boot";
-			};
-		};
 		consoleLogLevel = 3;
 		kernelPackages = pkgs.linuxPackages_latest;
 		kernelParams = [ 
