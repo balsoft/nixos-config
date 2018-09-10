@@ -7,15 +7,20 @@ thm = {
 	green = "#11d116";
 	red = "#f67400";
 };
+term = "${pkgs.kdeApplications.konsole}/bin/konsole";
+
+secret = import ./secret.nix;
+
+scripts = import ./scripts {inherit pkgs; inherit secret; theme=thm;};
 genIni = lib.generators.toINI {
   mkKeyValue = key: value:
     let
-      value' =
+      mvalue =
         if builtins.isBool value then (if value then "true" else "false")
         else if (builtins.isString value && key != "include-file") then value
         else builtins.toString value;
     in
-      "${key}=${value'}";
+      "${key}=${mvalue}";
 };
 in
 rec {
@@ -37,48 +42,7 @@ rec {
 				"dirhistory"
 			];
 		};
-		initExtra = ''
-cmdignore=(htop tmux top vim)
-function active_window_id () {
-	if [[ -n $DISPLAY ]] ; then
-	    ${pkgs.xorg.xprop}/bin/xprop -root _NET_ACTIVE_WINDOW | awk '{print $5}'
-	    return
-	fi
-	echo nowindowid
-}
-
-# end and compare timer, notify-send if needed
-function notifyosd-precmd() {
-	retval=$?
-	if [ ! -z "$cmd" ]; then
-	    cmd_end=`date +%s`
-	    ((cmd_time=$cmd_end - $cmd_start))
-	fi
-	if [ $retval -eq 0 ]; then
-	    cmdstat="✓"
-	else
-	    cmdstat="✘"
-	    fi
-	if [ ! -z "$cmd" -a ! $term_window = $(active_window_id) ]; then
-		${pkgs.libnotify}/bin/notify-send -i utilities-terminal -u low "$cmdstat $cmd" "in `date -u -d @$cmd_time +'%T'`"
-	fi
-	unset cmd
-}
-
-# make sure this plays nicely with any existing precmd
-precmd_functions+=( notifyosd-precmd )
-
-# get command name and start the timer
-function notifyosd-preexec() {
-    cmd=$1
-    term_window=$(active_window_id)
-    cmd_start=`date +%s`
-}
-
-# make sure this plays nicely with any existing preexec
-preexec_functions+=( notifyosd-preexec )
-XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
-		'';
+		initExtra = scripts.zshrc;
 	};
 
 	gtk = {
@@ -110,6 +74,12 @@ XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 					childBorder = thm.bg;
 					indicator = thm.fg;
 				};
+				focusedInactive = unfocused;
+				urgent = unfocused // {
+                    text = thm.fg;
+                    border = thm.red;
+                    childBorder = thm.red;
+				};
 				focused = unfocused // {
                     text = thm.fg;
 				};
@@ -121,16 +91,13 @@ XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 			startup = [
 				{ command = "${pkgs.albert}/bin/albert"; always = true; }
 				{ command = "${pkgs.tdesktop}/bin/telegram-desktop"; workspace = "9";}
-				{ command = "${pkgs.kmix}/bin/kmix"; }
-				{ command = "${pkgs.plasma-workspace}/bin/klipper"; }
-				{ command = "${pkgs.xorg.setxkbmap}/bin/setxkbmap -layout '${home.keyboard.layout}' -options '${builtins.concatStringsSep "," home.keyboard.options}'"; }
-				{ command = "polybar -r top"; }
+				{ command = "pkill polybar; polybar top"; always = true; }
 				{ command = "dunst"; }
 			];
 			keybindings = let modifier = xsession.windowManager.i3.config.modifier;
 			in ({
 				"${modifier}+q" = "kill";
-				"${modifier}+Return" = "exec ${pkgs.kdeApplications.konsole}/bin/konsole";
+				"${modifier}+Return" = "exec ${term}";
 				"${modifier}+t" = "exec ${pkgs.tdesktop}/bin/telegram-desktop";
 				"${modifier}+l" = "layout toggle";
 				"${modifier}+Left" = "focus left";
@@ -144,6 +111,7 @@ XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 				"${modifier}+f" = "fullscreen toggle";
 				"${modifier}+r" = "mode resize";
 				"${modifier}+b" = "exec ${pkgs.falkon}/bin/falkon";
+				"${modifier}+c" = "exec ${pkgs.chromium}/bin/chromium";
 			} // builtins.listToAttrs (
 				builtins.genList (x: {name = "${modifier}+${toString x}"; value = "workspace ${toString x}";}) 10
 			) // builtins.listToAttrs (
@@ -152,6 +120,7 @@ XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 			keycodebindings = {
 				"232" = "exec echo $((`cat /sys/class/backlight/*/brightness`-10)) > /sys/class/backlight/*/brightness";
 				"233" = "exec echo $((`cat /sys/class/backlight/*/brightness`-10)) > /sys/class/backlight/*/brightness";
+				"107" = "exec scrot -e 'mv $f ~/Pictures && notify-send \"Screenshot saved as ~/Pictures/$f\"'";
 			};
 		};
 	};
@@ -170,37 +139,41 @@ XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 		};
 		config = {
 			"bar/top" = {
-				font-0 = "Roboto Mono for Powerline:size=11;0";
-				font-1 = "Noto Sans:size=11;1";
+				font-0 = "Roboto Mono for Powerline:size=11;2";
+				font-3 = "Roboto Mono for Powerline:size=17;4";
+				font-1 = "Noto Sans Symbols2:size=15;4";
+				font-2 = "Noto Emoji:size=11;2";
 				width = "100%";
 				height = "25px";
 				radius = 0;
 				background = thm.bg;
 				foreground = thm.fg;
-				modules-left = "i3";
-				modules-center = "date";
-				modules-right = "cpu pipe temp pipe ram pipe battery pipe network";
-				tray-position = "right";
+				modules-left = "left_side";
+				modules-center = "i3";
+				modules-right = "info cpu freq temp ram pipe battery pipe network";
+				tray-position = "none";
 			};
-			
-			"module/date" = {
-				type = "internal/date";
-				internal = 5;
-				date = "%d.%m.%y";
-				time = "%H:%M";
-				label = "%time%  %date%";
-			};
-
 			"module/i3" = {
 				type = "internal/i3";
-				label-focused-foreground = thm.blue;		
+				label-focused-foreground = thm.blue;
+				label-urgent-foreground = thm.red;
+			};
+
+			"module/left_side" = {
+				type = "custom/script";
+				exec = scripts.polybar.left_side;
+				interval = 30;
 			};
 
 			"module/pipe" = {
 				type = "custom/text";
-				content = " | ";		
+				content = " | ";
 			};
-
+			"module/plend" = {
+                type = "custom/text";
+                content = "%{B-}%{T4}%{T-} %{F-}";
+			};
+			
 			"module/temp" = {
 				type = "internal/temperature";
 				warn-temperature = 70;
@@ -211,28 +184,52 @@ XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 				type = "internal/battery";
 				format-charging-background = thm.bg;
 				format-charging-foreground = thm.green;
-				label-charging = "CHR: %percentage%% (%time%)";
-				label-discharging = "BAT: %percentage%% (%time%)";
+				label-charging = "%{T3}⚡ %{T-}%percentage%% (%time%)";
+				label-discharging = "%{T3}🔋%{T-} %percentage%% (%time%)";
 				format-full-foreground = thm.blue;
-				label-full = "FULL";
+				label-full = "%{T3}⚡ %{T-}FULL";
 			};
 
 			"module/cpu" = {
 				type = "internal/cpu";
-				label = "%{A1:${pkgs.ksysguard}/bin/ksysguard:}CPU: %percentage%%%{A}";
+				label = " %percentage%%";
 			};
 
+			"module/freq" = {
+                type = "custom/script";
+                exec = "echo `cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq`/1000000 | ${pkgs.bc}/bin/bc -l";
+                label = " %output:0:4%GHz ";
+			};
+			
 			"module/ram" = {
 				type = "internal/memory";
-				label = "%{A1:${pkgs.ksysguard}/bin/ksysguard:}RAM: %gb_used%/%gb_total%%{A}";
+				label = " %gb_free%%{A}";
 			};
 
 			"module/network" = {
 				type = "internal/network";
 				interface = "wlan0";
-				label-connected = "W: %essid%";
+				label-connected = "%{T3}📶%{T-} %essid%";
 				format-connected-foreground = thm.green;
 				format-disconnected-foreground = thm.red;
+			};
+			
+			"module/diskicon" = {
+                type = "custom/text";
+                content = "%{T3}💾 %{T-}";
+			};
+			
+			"module/info" = {
+                type = "custom/script";
+                exec = "echo `whoami`@`hostname`";
+                label = "%{A1:${pkgs.ksysguard}/bin/ksysguard:}%{T3}💻%{T-} %output%";
+			};
+			
+			"module/disk" = {
+                type = "internal/fs";
+                mount-0 = "/";
+                mount-1 = "/home";
+                label-mounted = "%mountpoint%: %free%";
 			};
 		};
 		script = "";
@@ -246,7 +243,7 @@ XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 		};
 		settings = {
 			global = {
-				geometry = "300x5-30+50";
+				geometry = "500x5-30+50";
 				transparency = 10;
 				frame_color = thm.blue;
 				font = "Roboto Mono 13";
@@ -271,6 +268,38 @@ XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 				foreground = thm.bg;
 				timeout = 15;
 			};
+		};
+	};
+
+	programs.autorandr = {
+		enable = true;
+		hooks = {
+			postswitch = {
+				"notify-i3" = "${pkgs.i3}/bin/i3-msg restart";
+			};
+		};
+		profiles = {
+			"dacha" = {
+				fingerprint = {
+					eDP = "00ffffffffffff0030e4f60400000000001a01049522137803a1c59459578f27205054000000010101010101010101010101010101012e3680a070381f403020350058c210000019222480a070381f403020350058c210000019000000fd00283c43430e010a20202020202000000002000c47ff0a3c6e1c151f6e0000000052";
+					HDMI-A-0 = "00ffffffffffff0006b3cc24010101011a1a010380351e78ea0565a756529c270f5054afcf80714f8180818fb30081409500a9408bc0023a801871382d40582c45000f282100001e000000fd00304b1e5311000a202020202020000000fc00565a3234390a20202020202020000000ff0047364c4d52533034383636390a018902031df14a900403011412051f1013230907078301000065030c001000023a801871382d40582c45000f282100001e011d8018711c1620582c25000f282100009e011d007251d01e206e2855000f282100001e8c0ad08a20e02d10103e96000f282100001800000000000000000000000000000000000000000000000000004a";
+				};
+				config = {
+					eDP = {
+                        enable = true;
+                        primary = true;
+                        position = "0x0";
+                        mode = "1920x1080";
+                        rate = "60.00";
+					};
+					HDMI-A-0 = {
+						enable = true;
+						position = "1920x0";
+						mode = "1920x1080";
+						rate = "60.00";
+					};
+				};
+			};		
 		};
 	};
 	
@@ -298,12 +327,8 @@ XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 		# Tools
 		zip
 		unrar
-		mc
-		nox
-		pinta
 		wine
 		kolourpaint
-		krita
 		ktorrent
 		wireshark
 		#wpsoffice
@@ -314,13 +339,17 @@ XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 		gdb
 		python3
 		qalculate-gtk
-		#typora
-		libreoffice-fresh
 		qt5ct
 		breeze-qt5
 		units
 		goldendict
 		ksysguard
+		scrot
+		xclip
+		abiword
+		gnumeric
+		kile
+		texlive.combined.scheme-full
 	];
 	home.keyboard = {
 		options = ["grp:caps_toggle,grp_led:caps"];
@@ -330,6 +359,7 @@ XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 		EDITOR = "micro";
 		QT_QPA_PLATFORMTHEME = "qt5ct";
 		GTK_THEME = "Breeze-Dark";
+		LESS = "-asrRix8";
 	};
 	xdg = {
 		enable = true;
@@ -402,6 +432,27 @@ XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 			};
 		};
 	};
+	
+	accounts = {
+        email.accounts.gmail = {
+            address = "${secret.gmail.user}@gmail.com";
+            flavor = "gmail.com";
+            passwordCommand = "echo '${secret.gmail.password}'";
+            userName = secret.gmail.user;
+			realName = "Александр Бантьев";
+            primary = true;
+			mbsync = {
+				enable = true;
+				create = "maildir";
+			};
+			msmtp.enable = true;
+			notmuch.enable = true;
+        };
+	};
+	programs.mbsync.enable = true;
+	programs.msmtp.enable = true;
+	programs.notmuch.enable = true;
+	
 	news.display = "silent";
 	programs.command-not-found.enable = true;
 }
