@@ -62,7 +62,7 @@ rec {
 
 	xsession.windowManager.i3 = {
 		enable = true;
-		config = {
+		config = rec {
 			bars = [];
 			fonts = [ "RobotoMono 9" ];
 			colors = rec{
@@ -94,8 +94,8 @@ rec {
 				{ command = "pkill polybar; polybar top"; always = true; }
 				{ command = "dunst"; }
 			];
-			keybindings = let modifier = xsession.windowManager.i3.config.modifier;
-			in ({
+			keybindings =
+			({
 				"${modifier}+q" = "kill";
 				"${modifier}+Return" = "exec ${term}";
 				"${modifier}+t" = "exec ${pkgs.tdesktop}/bin/telegram-desktop";
@@ -352,6 +352,14 @@ rec {
 		texlive.combined.scheme-full
 		gcalcli
 	];
+
+	programs.git = {
+		enable = true;
+		userEmail = "balsoft@yandex.ru";
+		userName = "Александр Бантьев";
+
+	};
+
 	home.keyboard = {
 		options = ["grp:caps_toggle,grp_led:caps"];
 		layout = "us,ru";
@@ -386,8 +394,7 @@ rec {
 				"org.albert.extension.calculator".enabled = true;
 				"org.albert.extension.files" = {
 					enabled = true;
-					filters = "application/*, image/*";
-					fuzzy = true;		
+					filters = "application/*, image/*";	
 				};
 				"org.albert.extension.python" = {
 					enabled = true;
@@ -419,10 +426,10 @@ rec {
 					background_color="\"@Variant(\\0\\0\\0\\x43\\x1\\xff\\xff\\x31\\x31\\x36\\x36;;\\0\\0)\"";
 					border_color="\"@Variant(\\0\\0\\0\\x43\\x1\\xff\\xff==\\xae\\xae\\xe9\\xe9\\0\\0)\"";
 					border_size=1;
-					icon_size=10;
-					input_fontsize=10;
-					item_description_fontsize=8;
-					item_title_fontsize=9;
+					icon_size=15;
+					input_fontsize=15;
+					item_description_fontsize=12;
+					item_title_fontsize=14;
 					max_items=10;
 					padding=6;
 					radius=2;
