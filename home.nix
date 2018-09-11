@@ -149,8 +149,8 @@ rec {
 				background = thm.bg;
 				foreground = thm.fg;
 				modules-left = "left_side";
-				modules-center = "i3";
-				modules-right = "info cpu freq temp ram pipe battery pipe network";
+				modules-center = "i3 pipe bl";
+				modules-right = "right_side";
 				tray-position = "none";
 			};
 			"module/i3" = {
@@ -161,8 +161,14 @@ rec {
 
 			"module/left_side" = {
 				type = "custom/script";
-				exec = scripts.polybar.left_side;
+				exec = (scripts.polybar.left_side (with scripts.polybar; [weather now next email]));
 				interval = 30;
+			};
+
+			"module/right_side" = {
+				type = "custom/script";
+				exec = (scripts.polybar.right_side (with scripts.polybar; [status battery network]));
+				interval = 10;
 			};
 
 			"module/pipe" = {
@@ -230,6 +236,20 @@ rec {
                 mount-0 = "/";
                 mount-1 = "/home";
                 label-mounted = "%mountpoint%: %free%";
+			};
+
+			"module/audio" = {
+				type = "internal/alsa";
+
+				format-volume = "<ramp-volume> <label-volume>";
+				label-muted = "%{T3}🔇%{T-}";
+
+				ramp-volume-0 = "%{T3}🔈%{T-}";
+				ramp-volume-1 = "%{T3}🔉%{T-}";
+				ramp-volume-2 = "%{T3}🔊%{T-}";
+			};
+			"module/bl" = {
+				type = "internal/xbacklight";
 			};
 		};
 		script = "";
@@ -323,6 +343,8 @@ rec {
 		# Audio/Video
 		vlc
 		kdenlive
+		frei0r
+		ffmpeg-full
 		google-play-music-desktop-player
 		# Tools
 		zip
@@ -426,8 +448,8 @@ rec {
 					background_color="\"@Variant(\\0\\0\\0\\x43\\x1\\xff\\xff\\x31\\x31\\x36\\x36;;\\0\\0)\"";
 					border_color="\"@Variant(\\0\\0\\0\\x43\\x1\\xff\\xff==\\xae\\xae\\xe9\\xe9\\0\\0)\"";
 					border_size=1;
-					icon_size=15;
-					input_fontsize=15;
+					icon_size=17;
+					input_fontsize=17;
 					item_description_fontsize=12;
 					item_title_fontsize=14;
 					max_items=10;
@@ -435,7 +457,7 @@ rec {
 					radius=2;
 					settingsbutton_size=10;
 					spacing=5;
-					window_width=300;
+					window_width=700;
 				};
 			};
 		};
