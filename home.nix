@@ -140,16 +140,17 @@ rec {
 		config = {
 			"bar/top" = {
 				font-0 = "Roboto Mono for Powerline:size=11;2";
-				font-3 = "Roboto Mono for Powerline:size=17;4";
-				font-1 = "Noto Sans Symbols2:size=15;4";
+				font-3 = "Roboto Mono for Powerline:size=24;5";
+				font-1 = "Noto Sans Symbols:size=15;4";
 				font-2 = "Noto Emoji:size=11;2";
+				font-4 = "Unifont:size-11;2";
 				width = "100%";
 				height = "25px";
 				radius = 0;
 				background = thm.bg;
 				foreground = thm.fg;
 				modules-left = "left_side";
-				modules-center = "i3 pipe bl";
+				modules-center = "i3";
 				modules-right = "right_side";
 				tray-position = "none";
 			};

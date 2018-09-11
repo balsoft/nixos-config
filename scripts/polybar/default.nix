@@ -97,8 +97,7 @@ rec {
         name = "network.sh";
         text = ''
             #!${pkgs.bash}/bin/bash
-            WIFI="`nmcli d w | grep "\*" | awk '{print "%{T2}"$8"%{T-} " $2}'`"
-            echo -n "%{F${theme.bg}}"
+            WIFI="`nmcli d w | grep "\*" | awk '{print "%{F${theme.bg}}%{T5}"$8"%{T-}" $2}'`"
             if [[ `wc -l <<< "$WIFI"` -eq 0 ]]
             then
                 echo "W down"
@@ -144,7 +143,7 @@ rec {
             echo -n "`top -b -n2 -p 1 | fgrep "Cpu(s)" | tail -1 | awk -F'id,' -v prefix="$prefix" '{ split($1, vs, ","); v=vs[length(vs)]; sub("%", "", v); printf "%s%.1f%%\n", prefix, 100 - v }'` "
             echo -n $(${pkgs.bc}/bin/bc -l <<< "scale=2; `cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq`/1000000")
             echo -n "GHz "
-            echo -n "$((`cat /sys/class/thermal/thermal_zone*/temp | sort | tail -1`/1000)) "
+            echo -n "$((`cat /sys/class/thermal/thermal_zone*/temp | sort | tail -1`/1000))° "
             echo "`free | tail -2 | head -1 | awk '{print "scale=3; "$7"/1000000"}' | ${pkgs.bc}/bin/bc -l` GB"
             echo "${theme.fg}"
         '';
@@ -160,7 +159,12 @@ rec {
                 cur_color=''${color[index]}
                 cur_text=''${text[index]}
                 prev_color=''${color[`expr $index - 1`]}
-                echo -n "%{B$prev_color}%{F$cur_color}%{T4} %{T-}%{B$cur_color}$cur_text"
+                if [[ $cur_color = $prev_color ]]
+                then
+                    echo -n "%{B$prev_color}%{F${theme.bg}}%{T4} %{T-}$cur_text"
+                else
+                    echo -n "%{B$prev_color}%{F$cur_color}%{T4} %{T-}%{B$cur_color}$cur_text"
+                fi
             done'';
         executable = true;
     });
