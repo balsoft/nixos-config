@@ -350,6 +350,7 @@ rec {
 		gnumeric
 		kile
 		texlive.combined.scheme-full
+		gcalcli
 	];
 	home.keyboard = {
 		options = ["grp:caps_toggle,grp_led:caps"];
@@ -449,10 +450,10 @@ rec {
 			notmuch.enable = true;
         };
 	};
+
 	programs.mbsync.enable = true;
 	programs.msmtp.enable = true;
 	programs.notmuch.enable = true;
-	
 	news.display = "silent";
 	programs.command-not-found.enable = true;
 }

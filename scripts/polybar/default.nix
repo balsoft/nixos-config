@@ -65,7 +65,7 @@ rec {
         else
             color=${theme.blue}
         fi
-        echo ": `echo "$AGENDA_NEXT" | awk '{print $3; print $4; print $5}'`"
+        echo ": `echo "$AGENDA_NEXT" | awk '{print $3 " " $4 " " $5}'`"
         echo $color
     ''; executable = true;};
     left_side = pkgs.writeTextFile {
