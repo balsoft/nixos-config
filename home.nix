@@ -371,7 +371,7 @@ rec {
 		abiword
 		gnumeric
 		kile
-		texlive.combined.scheme-full
+		texlive.combined.scheme-basic
 		gcalcli
 	];
 
