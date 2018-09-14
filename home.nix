@@ -392,6 +392,7 @@ rec {
 		QT_QPA_PLATFORMTHEME = "qt5ct";
 		GTK_THEME = "Breeze-Dark";
 		LESS = "-asrRix8";
+		SSH_ASKPASS = "${pkgs.ksshaskpass}/bin/ksshaskpass";
 	};
 	xdg = {
 		enable = true;
