@@ -141,7 +141,7 @@ rec {
 			"bar/top" = {
 				font-0 = "Roboto Mono for Powerline:size=11;2";
 				font-3 = "Roboto Mono for Powerline:size=24;5";
-				font-1 = "Noto Sans Symbols:size=15;4";
+				font-1 = "Noto Sans Symbols2:size=15;4";
 				font-2 = "Noto Emoji:size=11;2";
 				font-4 = "Unifont:size-11;2";
 				width = "100%";
