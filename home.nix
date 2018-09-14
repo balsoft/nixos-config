@@ -461,8 +461,285 @@ rec {
 					window_width=700;
 				};
 			};
+			"kdeglobals".text = ''
+				[$Version]
+				update_info=fonts_global.upd:Fonts_Global,fonts_global_toolbar.upd:Fonts_Global_Toolbar
+				
+				[ColorEffects:Disabled]
+				ChangeSelectionColor=
+				Color=56,56,56
+				ColorAmount=0
+				ColorEffect=0
+				ContrastAmount=0.65
+				ContrastEffect=1
+				Enable=
+				IntensityAmount=0.1
+				IntensityEffect=2
+				
+				[ColorEffects:Inactive]
+				ChangeSelectionColor=true
+				Color=112,111,110
+				ColorAmount=0.025
+				ColorEffect=2
+				ContrastAmount=0.1
+				ContrastEffect=2
+				Enable=false
+				IntensityAmount=0
+				IntensityEffect=0
+				
+				[Colors:Button]
+				BackgroundAlternate=77,77,77
+				BackgroundNormal=49,54,59
+				DecorationFocus=61,174,233
+				DecorationHover=61,174,233
+				ForegroundActive=61,174,233
+				ForegroundInactive=189,195,199
+				ForegroundLink=41,128,185
+				ForegroundNegative=218,68,83
+				ForegroundNeutral=246,116,0
+				ForegroundNormal=239,240,241
+				ForegroundPositive=39,174,96
+				ForegroundVisited=127,140,141
+				
+				[Colors:Complementary]
+				BackgroundAlternate=59,64,69
+				BackgroundNormal=49,54,59
+				DecorationFocus=30,146,255
+				DecorationHover=61,174,230
+				ForegroundActive=246,116,0
+				ForegroundInactive=175,176,179
+				ForegroundLink=61,174,230
+				ForegroundNegative=237,21,21
+				ForegroundNeutral=201,206,59
+				ForegroundNormal=239,240,241
+				ForegroundPositive=17,209,22
+				ForegroundVisited=61,174,230
+				
+				[Colors:Selection]
+				BackgroundAlternate=29,153,243
+				BackgroundNormal=61,174,233
+				DecorationFocus=61,174,233
+				DecorationHover=61,174,233
+				ForegroundActive=252,252,252
+				ForegroundInactive=239,240,241
+				ForegroundLink=253,188,75
+				ForegroundNegative=218,68,83
+				ForegroundNeutral=246,116,0
+				ForegroundNormal=239,240,241
+				ForegroundPositive=39,174,96
+				ForegroundVisited=189,195,199
+				
+				[Colors:Tooltip]
+				BackgroundAlternate=77,77,77
+				BackgroundNormal=49,54,59
+				DecorationFocus=61,174,233
+				DecorationHover=61,174,233
+				ForegroundActive=61,174,233
+				ForegroundInactive=189,195,199
+				ForegroundLink=41,128,185
+				ForegroundNegative=218,68,83
+				ForegroundNeutral=246,116,0
+				ForegroundNormal=239,240,241
+				ForegroundPositive=39,174,96
+				ForegroundVisited=127,140,141
+				
+				[Colors:View]
+				BackgroundAlternate=49,54,59
+				BackgroundNormal=35,38,41
+				DecorationFocus=61,174,233
+				DecorationHover=61,174,233
+				ForegroundActive=61,174,233
+				ForegroundInactive=189,195,199
+				ForegroundLink=41,128,185
+				ForegroundNegative=218,68,83
+				ForegroundNeutral=246,116,0
+				ForegroundNormal=239,240,241
+				ForegroundPositive=39,174,96
+				ForegroundVisited=127,140,141
+				
+				[Colors:Window]
+				BackgroundAlternate=77,77,77
+				BackgroundNormal=49,54,59
+				DecorationFocus=61,174,233
+				DecorationHover=61,174,233
+				ForegroundActive=61,174,233
+				ForegroundInactive=189,195,199
+				ForegroundLink=41,128,185
+				ForegroundNegative=218,68,83
+				ForegroundNeutral=246,116,0
+				ForegroundNormal=239,240,241
+				ForegroundPositive=39,174,96
+				ForegroundVisited=127,140,141
+				
+				[DesktopIcons]
+				ActiveColor=169,156,255
+				ActiveColor2=0,0,0
+				ActiveEffect=togamma
+				ActiveSemiTransparent=false
+				ActiveValue=0.699999988079071
+				Animated=true
+				DefaultColor=144,128,248
+				DefaultColor2=0,0,0
+				DefaultEffect=none
+				DefaultSemiTransparent=false
+				DefaultValue=1
+				DisabledColor=34,202,0
+				DisabledColor2=0,0,0
+				DisabledEffect=togray
+				DisabledSemiTransparent=true
+				DisabledValue=1
+				Size=48
+				
+				[DialogIcons]
+				ActiveColor=169,156,255
+				ActiveColor2=0,0,0
+				ActiveEffect=none
+				ActiveSemiTransparent=false
+				ActiveValue=1
+				Animated=false
+				DefaultColor=144,128,248
+				DefaultColor2=0,0,0
+				DefaultEffect=none
+				DefaultSemiTransparent=false
+				DefaultValue=1
+				DisabledColor=34,202,0
+				DisabledColor2=0,0,0
+				DisabledEffect=togray
+				DisabledSemiTransparent=true
+				DisabledValue=1
+				Size=32
+				
+				[General]
+				BrowserApplication[$e]=chromium-browser.desktop
+				ColorScheme=Breeze Dark
+				Name=Breeze Dark
+				fixed=Monospace,10,-1,5,50,0,0,0,0,0
+				font=Roboto,10,-1,5,50,0,0,0,0,0
+				menuFont=Roboto,10,-1,5,50,0,0,0,0,0
+				shadeSortColumn=true
+				smallestReadableFont=Roboto,8,-1,5,57,0,0,0,0,0,Medium
+				toolBarFont=Roboto,10,-1,5,50,0,0,0,0,0
+				
+				[Icons]
+				Theme=breeze-dark
+				
+				[KDE]
+				DoubleClickInterval=400
+				LookAndFeelPackage=org.kde.breezedark.desktop
+				ShowDeleteCommand=false
+				SingleClick=true
+				StartDragDist=4
+				StartDragTime=500
+				WheelScrollLines=3
+				contrast=4
+				widgetStyle=Breeze
+				
+				[KFileDialog Settings]
+				Automatically select filename extension=true
+				Breadcrumb Navigation=false
+				Decoration position=0
+				LocationCombo Completionmode=5
+				PathCombo Completionmode=5
+				Previews=false
+				Show Bookmarks=false
+				Show Full Path=false
+				Show Preview=false
+				Show Speedbar=true
+				Show hidden files=false
+				Sort by=Name
+				Sort directories first=true
+				Sort reversed=false
+				Speedbar Width=141
+				View Style=Simple
+				listViewIconSize=0
+				
+				[KShortcutsDialog Settings]
+				Dialog Size=600,480
+				
+				[MainToolbarIcons]
+				ActiveColor=169,156,255
+				ActiveColor2=0,0,0
+				ActiveEffect=none
+				ActiveSemiTransparent=false
+				ActiveValue=1
+				Animated=false
+				DefaultColor=144,128,248
+				DefaultColor2=0,0,0
+				DefaultEffect=none
+				DefaultSemiTransparent=false
+				DefaultValue=1
+				DisabledColor=34,202,0
+				DisabledColor2=0,0,0
+				DisabledEffect=togray
+				DisabledSemiTransparent=true
+				DisabledValue=1
+				Size=22
+				
+				[PanelIcons]
+				ActiveColor=169,156,255
+				ActiveColor2=0,0,0
+				ActiveEffect=togamma
+				ActiveSemiTransparent=false
+				ActiveValue=0.699999988079071
+				Animated=false
+				DefaultColor=144,128,248
+				DefaultColor2=0,0,0
+				DefaultEffect=none
+				DefaultSemiTransparent=false
+				DefaultValue=1
+				DisabledColor=34,202,0
+				DisabledColor2=0,0,0
+				DisabledEffect=togray
+				DisabledSemiTransparent=true
+				DisabledValue=1
+				Size=48
+				
+				[PreviewSettings]
+				MaximumRemoteSize=0
+				
+				[SmallIcons]
+				ActiveColor=169,156,255
+				ActiveColor2=0,0,0
+				ActiveEffect=none
+				ActiveSemiTransparent=false
+				ActiveValue=1
+				Animated=false
+				DefaultColor=144,128,248
+				DefaultColor2=0,0,0
+				DefaultEffect=none
+				DefaultSemiTransparent=false
+				DefaultValue=1
+				DisabledColor=34,202,0
+				DisabledColor2=0,0,0
+				DisabledEffect=togray
+				DisabledSemiTransparent=true
+				DisabledValue=1
+				Size=16
+				
+				[ToolbarIcons]
+				ActiveColor=169,156,255
+				ActiveColor2=0,0,0
+				ActiveEffect=none
+				ActiveSemiTransparent=false
+				ActiveValue=1
+				Animated=false
+				DefaultColor=144,128,248
+				DefaultColor2=0,0,0
+				DefaultEffect=none
+				DefaultSemiTransparent=false
+				DefaultValue=1
+				DisabledColor=34,202,0
+				DisabledColor2=0,0,0
+				DisabledEffect=togray
+				DisabledSemiTransparent=true
+				DisabledValue=1
+				Size=22
+				
+			'';
 		};
 	};
+
+	home.file.".icons/default".source = "${pkgs.breeze-qt5}/share/icons/breeze_cursors";
 	
 	accounts = {
         email.accounts.gmail = {
