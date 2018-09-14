@@ -188,6 +188,7 @@
         script = ''
             ${pkgs.linuxPackages_latest.cpupower}/bin/cpupower frequency-set -g powersave
             ${pkgs.hdparm}/bin/hdparm -B 1 /dev/sda
+			echo "500" > /sys/class/backlight/*/brightness
         '';
 	};
 	systemd.services.ac = {
@@ -196,8 +197,10 @@
         script = ''
             ${pkgs.linuxPackages_latest.cpupower}/bin/cpupower frequency-set -g performance
             ${pkgs.hdparm}/bin/hdparm -B 255 /dev/sda
+			echo "900" > /sys/class/backlight/*/brightness
         '';
 	};
+	services.illum.enable = true;
 	hardware.sensor.iio.enable = true;
 	i18n = {
 		defaultLocale = "en_GB.UTF-8";
