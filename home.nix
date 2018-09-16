@@ -63,6 +63,10 @@ rec {
 	xsession.windowManager.i3 = {
 		enable = true;
 		config = rec {
+			assigns = {
+				"C" = [{ class = "Chromium"; }];
+				"T" = [{ class = "^Telegram"; }];	
+			};
 			bars = [];
 			fonts = [ "RobotoMono 9" ];
 			colors = rec{
@@ -90,15 +94,18 @@ rec {
 			};
 			startup = [
 				{ command = "${pkgs.albert}/bin/albert"; always = true; }
-				{ command = "${pkgs.tdesktop}/bin/telegram-desktop"; workspace = "9";}
+				{ command = "${pkgs.tdesktop}/bin/telegram-desktop"; }
+				{ command = "${pkgs.chromium}/bin/chromium"; }
+				{ command = term; workspace = "0"; }
 				{ command = "pkill polybar; polybar top"; always = true; }
+				{ command = "${pkgs.kmix}/bin/kmix"; }
 				{ command = "dunst"; }
 			];
 			keybindings =
 			({
 				"${modifier}+q" = "kill";
 				"${modifier}+Return" = "exec ${term}";
-				"${modifier}+t" = "exec ${pkgs.tdesktop}/bin/telegram-desktop";
+				"${modifier}+t" = "workspace T";
 				"${modifier}+l" = "layout toggle";
 				"${modifier}+Left" = "focus left";
 				"${modifier}+Right" = "focus right";
@@ -110,8 +117,8 @@ rec {
 				"${modifier}+Shift+Left" = "move left";
 				"${modifier}+f" = "fullscreen toggle";
 				"${modifier}+r" = "mode resize";
-				"${modifier}+b" = "exec ${pkgs.falkon}/bin/falkon";
-				"${modifier}+c" = "exec ${pkgs.chromium}/bin/chromium";
+				#"${modifier}+b" = "exec ${pkgs.falkon}/bin/falkon";
+				"${modifier}+c" = "workspace C";
 			} // builtins.listToAttrs (
 				builtins.genList (x: {name = "${modifier}+${toString x}"; value = "workspace ${toString x}";}) 10
 			) // builtins.listToAttrs (
@@ -134,8 +141,6 @@ rec {
 		enable = true;
 		package = pkgs.polybar.override {
 			i3Support = true;
-			iwSupport = true;
-			
 		};
 		config = {
 			"bar/top" = {
@@ -162,95 +167,23 @@ rec {
 
 			"module/left_side" = {
 				type = "custom/script";
-				exec = (scripts.polybar.left_side (with scripts.polybar; [weather now next email]));
-				interval = 30;
+				exec = (scripts.polybar.left_side (with scripts.polybar; [ 
+					(weather { city-id = "513378"; city = "Ozery"; }) 
+					(now {})
+					(next {}) 
+					(email { user = secret.gmail.user; password = secret.gmail.password; }) 
+				]));
+				tail = true;
 			};
 
 			"module/right_side" = {
 				type = "custom/script";
-				exec = (scripts.polybar.right_side (with scripts.polybar; [status battery network]));
-				interval = 10;
-			};
-
-			"module/pipe" = {
-				type = "custom/text";
-				content = " | ";
-			};
-			"module/plend" = {
-                type = "custom/text";
-                content = "%{B-}%{T4}%{T-} %{F-}";
-			};
-			
-			"module/temp" = {
-				type = "internal/temperature";
-				warn-temperature = 70;
-				label-warn-foreground = thm.red;
-			};
-			
-			"module/battery" = {
-				type = "internal/battery";
-				format-charging-background = thm.bg;
-				format-charging-foreground = thm.green;
-				label-charging = "%{T3}⚡ %{T-}%percentage%% (%time%)";
-				label-discharging = "%{T3}🔋%{T-} %percentage%% (%time%)";
-				format-full-foreground = thm.blue;
-				label-full = "%{T3}⚡ %{T-}FULL";
-			};
-
-			"module/cpu" = {
-				type = "internal/cpu";
-				label = " %percentage%%";
-			};
-
-			"module/freq" = {
-                type = "custom/script";
-                exec = "echo `cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq`/1000000 | ${pkgs.bc}/bin/bc -l";
-                label = " %output:0:4%GHz ";
-			};
-			
-			"module/ram" = {
-				type = "internal/memory";
-				label = " %gb_free%%{A}";
-			};
-
-			"module/network" = {
-				type = "internal/network";
-				interface = "wlan0";
-				label-connected = "%{T3}📶%{T-} %essid%";
-				format-connected-foreground = thm.green;
-				format-disconnected-foreground = thm.red;
-			};
-			
-			"module/diskicon" = {
-                type = "custom/text";
-                content = "%{T3}💾 %{T-}";
-			};
-			
-			"module/info" = {
-                type = "custom/script";
-                exec = "echo `whoami`@`hostname`";
-                label = "%{A1:${pkgs.ksysguard}/bin/ksysguard:}%{T3}💻%{T-} %output%";
-			};
-			
-			"module/disk" = {
-                type = "internal/fs";
-                mount-0 = "/";
-                mount-1 = "/home";
-                label-mounted = "%mountpoint%: %free%";
-			};
-
-			"module/audio" = {
-				type = "internal/alsa";
-
-				format-volume = "<ramp-volume> <label-volume>";
-				label-muted = "%{T3}🔇%{T-}";
-
-				ramp-volume-0 = "%{T3}🔈%{T-}";
-				ramp-volume-1 = "%{T3}🔉%{T-}";
-				ramp-volume-2 = "%{T3}🔊%{T-}";
-			};
-			"module/bl" = {
-				type = "internal/xbacklight";
+				exec = (scripts.polybar.right_side (with scripts.polybar; [
+					(status {})
+					(battery {})
+					(network {})
+				]));
+				tail = true;
 			};
 		};
 		script = "";
@@ -374,13 +307,16 @@ rec {
 		kile
 		texlive.combined.scheme-basic
 		gcalcli
-	];
+	] ++(with scripts; [
+		p
+		e
+	]);
 
 	programs.git = {
 		enable = true;
 		userEmail = "balsoft@yandex.ru";
 		userName = "Александр Бантьев";
-
+		
 	};
 
 	home.keyboard = {

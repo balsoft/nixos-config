@@ -1,6 +1,18 @@
 { pkgs, theme, secret, ... }:
 {
-    polybar = import ./polybar { inherit pkgs; inherit theme; inherit secret; };
+    polybar = import ./polybar.nix { inherit pkgs; inherit theme; inherit secret; };
+	p = pkgs.writeTextFile {
+		name = "p";
+		destination = "/bin/p";
+		executable = true;
+		text = "exec /usr/bin/env nix-shell -p $1 --run zsh";
+	};
+	e = pkgs.writeTextFile {
+		name = "e";
+		destination = "/bin/e";
+		executable = true;
+		text = "nix-shell -p $1 --run '$*'";
+	};
     zshrc = ''
 	cmdignore=(htop tmux top vim)
 	function active_window_id () {
@@ -43,4 +55,5 @@
 	preexec_functions+=( notifyosd-preexec )
 	XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
     '';
+	
 }

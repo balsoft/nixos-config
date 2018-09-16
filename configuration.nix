@@ -8,6 +8,7 @@
 	imports = [
 		/etc/nixos/hardware-configuration.nix
 		/etc/nixos/local-configuration.nix
+		"${builtins.fetchTarball https://github.com/rycee/home-manager/archive/master.tar.gz}/nixos"
 	];
 	
 	hardware.opengl.enable = true;
@@ -220,6 +221,8 @@
 		uid = 1000;
 		password = "";
 	};
+
+	home-manager.users.balsoft = import ./home.nix { inherit pkgs; inherit lib; };
 	# =========================================================================
 	
 	# The NixOS release to be compatible with for stateful data such as databases.
