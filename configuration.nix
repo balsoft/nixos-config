@@ -132,6 +132,14 @@
     };
 	
 	services.openssh.enable = true;
+	
+	programs.light.enable = true;
+
+	services.earlyoom = {
+		enable = true;
+		freeMemThreshold = 5;
+		freeSwapThreshold = 100;
+	};
 
 	services.printing = {
 		enable = true;
@@ -201,7 +209,7 @@
 			echo "900" > /sys/class/backlight/*/brightness
         '';
 	};
-	services.illum.enable = true;
+	#services.illum.enable = true;
 	hardware.sensor.iio.enable = true;
 	i18n = {
 		defaultLocale = "en_GB.UTF-8";

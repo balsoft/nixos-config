@@ -97,6 +97,7 @@ rec {
 				{ command = "${pkgs.tdesktop}/bin/telegram-desktop"; }
 				{ command = "${pkgs.chromium}/bin/chromium"; }
 				{ command = term; workspace = "0"; }
+				{ command = "${pkgs.kdeconnect}/lib/libexec/kdeconnectd"; }
 				{ command = "pkill polybar; polybar top"; always = true; }
 				{ command = "${pkgs.kmix}/bin/kmix"; }
 				{ command = "dunst"; }
@@ -132,10 +133,6 @@ rec {
 		};
 	};
 
-	services.kdeconnect = {
-		enable = true;
-		indicator = true;
-	};
 	
 	services.polybar = {
 		enable = true;
@@ -169,6 +166,7 @@ rec {
 				type = "custom/script";
 				exec = (scripts.polybar.left_side (with scripts.polybar; [ 
 					(weather { city-id = "513378"; city = "Ozery"; }) 
+					(time {})
 					(now {})
 					(next {}) 
 					(email { user = secret.gmail.user; password = secret.gmail.password; }) 
@@ -203,6 +201,7 @@ rec {
 				font = "Roboto Mono 13";
 				padding = 15;
 				horizontal_padding = 17;
+				word_wrap = true;
 			};
 			
 			urgency_low = {
@@ -307,6 +306,7 @@ rec {
 		kile
 		texlive.combined.scheme-basic
 		gcalcli
+		kdeconnect
 	] ++(with scripts; [
 		p
 		e
