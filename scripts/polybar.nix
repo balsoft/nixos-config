@@ -142,6 +142,7 @@ rec {
         name = "polybar-left-side";
         text = ''
             #!${pkgs.bash}/bin/bash
+            echo -n " "
             ${start_scripts arr}
             while true
             do
@@ -169,10 +170,10 @@ rec {
         name = "network";
         text = ''
             #!${pkgs.bash}/bin/bash
-            WIFI="`nmcli d w | grep "\*" | awk '{print "%{F${theme.bg}}%{T5}"$8"%{T-}" $2}'`"
+            WIFI="`nmcli d w | grep "\*" | awk '{print "%{F${theme.bg}}%{T5}"$8"%{T-} " $2}'`"
             if [[ `wc -c <<< "$WIFI"` -lt 4 ]]
             then
-                echo "%{F${theme.bg}}W down"
+                echo "%{F${theme.bg}} W down"
                 echo "${color_down}"
             else
                 echo "$WIFI"
@@ -244,7 +245,7 @@ rec {
                     fi
                 done
                 sleep 1
-                echo
+                echo " "
             done'';
         executable = true;
     });

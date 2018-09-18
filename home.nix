@@ -42,6 +42,9 @@ rec {
 				"dirhistory"
 			];
 		};
+		shellAliases = {
+			"p" = "nix-shell -p $1 --run zsh";
+		};
 		initExtra = scripts.zshrc;
 	};
 
@@ -308,8 +311,6 @@ rec {
 		gcalcli
 		kdeconnect
 	] ++(with scripts; [
-		p
-		e
 	]);
 
 	programs.git = {
