@@ -8,7 +8,7 @@ rec {
             while true
             do
                 ${script} 2>/dev/null > /tmp/${script.name}.new
-                if [[ -e /tmp/${script.name}.new ]] && [[ `wc -l < /tmp/${script.name}.new` -gt 1 ]] && [[ `wc -c < /tmp/${script.name}.new` -lt 100 ]]
+                if [[ -e /tmp/${script.name}.new ]] && [[ `wc -l < /tmp/${script.name}.new` -gt 1 ]]
                 then
                     mv /tmp/${script.name}.new /tmp/${script.name}
                 fi
