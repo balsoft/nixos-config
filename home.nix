@@ -121,7 +121,8 @@ rec {
 				"${modifier}+Shift+Left" = "move left";
 				"${modifier}+f" = "fullscreen toggle";
 				"${modifier}+r" = "mode resize";
-				#"${modifier}+b" = "exec ${pkgs.falkon}/bin/falkon";
+				"${modifier}+d" = "exec ${pkgs.dolphin}/bin/dolphin";
+				"${modifier}+Escape" = "exec ${pkgs.ksysguard}/bin/ksysguard";
 				"${modifier}+c" = "workspace C";
 			} // builtins.listToAttrs (
 				builtins.genList (x: {name = "${modifier}+${toString x}"; value = "workspace ${toString x}";}) 10
