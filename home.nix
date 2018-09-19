@@ -12,6 +12,9 @@ term = "${pkgs.kdeApplications.konsole}/bin/konsole";
 secret = import ./secret.nix;
 
 scripts = import ./scripts {inherit pkgs; inherit secret; theme=thm;};
+
+customPackages = import ./packages {inherit pkgs;};
+
 genIni = lib.generators.toINI {
   mkKeyValue = key: value:
     let
@@ -100,9 +103,10 @@ rec {
 				{ command = "${pkgs.tdesktop}/bin/telegram-desktop"; }
 				{ command = "${pkgs.chromium}/bin/chromium"; }
 				{ command = term; workspace = "0"; }
-				{ command = "${pkgs.kdeconnect}/lib/libexec/kdeconnectd"; }
+				{ command = "${pkgs.kdeconnect}/lib/libexec/kdeconnectd -platform offscreen"; }
 				{ command = "pkill polybar; polybar top"; always = true; }
 				{ command = "${pkgs.kmix}/bin/kmix"; }
+				{ command = "${customPackages.mconnect}/bin/mconnect"; }
 				{ command = "dunst"; }
 			];
 			keybindings =
@@ -260,7 +264,8 @@ rec {
 		};
 	};
 	
-	home.packages = with pkgs; [
+	home.packages = 
+	(with pkgs; [
 		# Internet
 		wget
 		curl
@@ -311,7 +316,10 @@ rec {
 		texlive.combined.scheme-basic
 		gcalcli
 		kdeconnect
-	] ++(with scripts; [
+	]) 
+	++ 
+	(with customPackages; [
+		mconnect
 	]);
 
 	programs.git = {
@@ -675,6 +683,16 @@ rec {
 				Size=22
 				
 			'';
+			"mconnect/mconnect.conf".text = genIni {
+				"main" = {
+					devices = "lge";
+				};
+				lge = {
+					name = "lge";
+					type = "phone";
+					allowed = 1;
+				};
+			};
 		};
 	};
 
