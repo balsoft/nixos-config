@@ -39,6 +39,9 @@
 			"vm.swappiness" = 0;
 		};
 	};
+
+	hardware.bluetooth.enable = true;	
+	services.logind.extraConfig = "HandlePowerKey=suspend";
 	# =========================================================================
 	
 	
@@ -146,7 +149,6 @@
 		drivers = [ pkgs.gutenprint ];
 	};
 	
-	hardware.bluetooth.enable = true;	
 	services.dbus.packages = [
 #		pkgs.gconf
 	];
