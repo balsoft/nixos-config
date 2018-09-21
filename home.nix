@@ -685,10 +685,15 @@ rec {
 			'';
 			"mconnect/mconnect.conf".text = genIni {
 				"main" = {
-					devices = "lge";
+					devices = "lge;huawei";
 				};
 				lge = {
 					name = "lge";
+					type = "phone";
+					allowed = 1;
+				};
+				huawei = {
+					name = "huawei";
 					type = "phone";
 					allowed = 1;
 				};
