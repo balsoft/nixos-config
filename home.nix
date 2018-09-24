@@ -344,6 +344,7 @@ rec {
 	home.sessionVariables = {
 		EDITOR = "micro";
 		QT_QPA_PLATFORMTHEME = "qt5ct";
+		QT_SCALE_FACTOR = 1;
 		GTK_THEME = "Breeze-Dark";
 		LESS = "-asrRix8";
 		SSH_ASKPASS = "${pkgs.ksshaskpass}/bin/ksshaskpass";
@@ -403,16 +404,16 @@ rec {
 					background_color="\"@Variant(\\0\\0\\0\\x43\\x1\\xff\\xff\\x31\\x31\\x36\\x36;;\\0\\0)\"";
 					border_color="\"@Variant(\\0\\0\\0\\x43\\x1\\xff\\xff==\\xae\\xae\\xe9\\xe9\\0\\0)\"";
 					border_size=1;
-					icon_size=17;
-					input_fontsize=17;
-					item_description_fontsize=12;
-					item_title_fontsize=14;
+					icon_size=20;
+					input_fontsize=28;
+					item_description_fontsize=22;
+					item_title_fontsize=24;
 					max_items=10;
 					padding=6;
 					radius=2;
 					settingsbutton_size=10;
 					spacing=5;
-					window_width=700;
+					window_width=1200;
 				};
 			};
 			"kdeglobals".text = ''
