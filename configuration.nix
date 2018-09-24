@@ -109,6 +109,8 @@
 		package = pkgs.pulseaudioFull;
 		support32Bit = true;
 	};
+	#sound.enable = true;
+	#sound.mediaKeys.enable = true;
 	# =========================================================================
 	
 	
@@ -123,6 +125,14 @@
 
 #	virtualisation.virtualbox.host.enable = true;
 	virtualisation.libvirtd.enable = true;	
+	systemd.automounts = [
+		{
+			automountConfig = { DirectoryMode = "0777"; };
+			wantedBy = [ "multi-user.target" ];
+			enable = true;
+			where = "/media";
+		}
+	];
 	system.autoUpgrade = {
 		dates = "19:00";
 		enable = true; 	

@@ -7,13 +7,14 @@ rec {
         text = ''
             while true
             do
+                touch /tmp/${script.name}.new
                 ${script} 2>/dev/null > /tmp/${script.name}.new
                 if [[ -e /tmp/${script.name}.new ]] && [[ `wc -l < /tmp/${script.name}.new` -gt 1 ]]
                 then
                     mv /tmp/${script.name}.new /tmp/${script.name}
                 fi
                 sleep ${toString interval}
-            done
+            done 2> /dev/null
         '';
     };
 
