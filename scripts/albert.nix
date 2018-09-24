@@ -9,7 +9,7 @@
     __version__ = "0.1"
     __author__ = "Alexander Bantyev"
     __dependencies__ = []
-    iconPath = iconLookup('calc')
+    iconPath = iconLookup('accessories-calculator')
     def handleQuery(query):
         if query.string == "":
             return []
