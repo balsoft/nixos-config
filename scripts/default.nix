@@ -2,6 +2,8 @@
 {
     polybar = import ./polybar.nix { inherit pkgs; inherit theme; inherit secret; };
 	
+	albert = import ./albert.nix { inherit pkgs; };
+
     zshrc = ''
 	cmdignore=(htop tmux top vim)
 	function active_window_id () {

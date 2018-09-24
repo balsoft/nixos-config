@@ -127,6 +127,10 @@ rec {
 				"${modifier}+r" = "mode resize";
 				"${modifier}+d" = "exec ${pkgs.dolphin}/bin/dolphin";
 				"${modifier}+Escape" = "exec ${pkgs.ksysguard}/bin/ksysguard";
+				"${modifier}+Print" = "exec scrot -e 'mv $f ~/Pictures && notify-send \"Screenshot saved as ~/Pictures/$f\"'";
+				"${modifier}+Shift+Print" = "exec scrot -e 'xclip -in $f && notify-send \"Screenshot copied to clipboard\"'";
+				"--release ${modifier}+Control+Print" = "exec scrot -s -e 'mv $f ~/Pictures && notify-send \"Screenshot saved as ~/Pictures/$f\"'";
+				"--release ${modifier}+Control+Shift+Print" = "exec scrot -s -e 'xclip -in $f && notify-send \"Screenshot copied to clipboard\"'";
 				"${modifier}+c" = "workspace C";
 			} // builtins.listToAttrs (
 				builtins.genList (x: {name = "${modifier}+${toString x}"; value = "workspace ${toString x}";}) 10
@@ -136,9 +140,9 @@ rec {
 			keycodebindings = {
 				"232" = "exec echo $((`cat /sys/class/backlight/*/brightness`-10)) > /sys/class/backlight/*/brightness";
 				"233" = "exec echo $((`cat /sys/class/backlight/*/brightness`-10)) > /sys/class/backlight/*/brightness";
-				"107" = "exec scrot -e 'mv $f ~/Pictures && notify-send \"Screenshot saved as ~/Pictures/$f\"'";
 			};
 		};
+		extraConfig = "hide_edge_borders smart";
 	};
 
 	
@@ -303,6 +307,7 @@ rec {
 		gdb
 		python3
 		qalculate-gtk
+		libqalculate
 		qt5ct
 		breeze-qt5
 		units
@@ -361,14 +366,13 @@ rec {
 					terminal = "${pkgs.konsole}/bin/konsole -e";
 				};
 				"org.albert.extension.applications".enabled = true;
-				"org.albert.extension.calculator".enabled = true;
 				"org.albert.extension.files" = {
 					enabled = true;
 					filters = "application/*, image/*";	
 				};
 				"org.albert.extension.python" = {
 					enabled = true;
-					enabled_modules = "Python, Wikipedia, GoogleTranslate, Kill, Locate, Units, Currency, GoldenDict";
+					enabled_modules = "Python, Wikipedia, GoogleTranslate, Kill, qalc";
 				};
 				"org.albert.extension.ssh".enabled = true;
 				"org.albert.extension.system" = {
@@ -703,6 +707,8 @@ rec {
 
 	home.file.".icons/default".source = "${pkgs.breeze-qt5}/share/icons/breeze_cursors";
 	
+	home.file.".local/share/albert/org.albert.extension.python/modules/qalc.py".text = scripts.albert.qalc;
+
 	accounts = {
         email.accounts.gmail = {
             address = "${secret.gmail.user}@gmail.com";

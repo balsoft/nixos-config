@@ -129,14 +129,14 @@ rec {
 
     text_and_color_for_powerline = (arr: ''
             ${builtins.concatStringsSep "\n" (builtins.genList (i: ''
-            [[ -e "/tmp/${(builtins.elemAt arr i).name}" ]] && readarray -t arr${builtins.toString i} < "/tmp/${(builtins.elemAt arr i).name}"
+            [[ -e "/tmp/${(builtins.elemAt arr i).name}" ]] && {readarray -t arr${builtins.toString i} < "/tmp/${(builtins.elemAt arr i).name}"
             text[${builtins.toString i}]=''${arr${builtins.toString i}[0]}
             color[${builtins.toString i}]=''${arr${builtins.toString i}[1]}
-            '') (builtins.length arr))}
+            }'') (builtins.length arr))}
             color[${builtins.toString (builtins.length arr)}]="${theme.bg}"
     '');
 
-    start_scripts = (arr: builtins.concatStringsSep "\n" (map (x: "${x} &") arr));
+    start_scripts = (arr: builtins.concatStringsSep "\n" (map (x: "touch /tmp/${x.name} && ${x} &") arr));
 
     left_side = (arr: pkgs.writeTextFile {
         name = "polybar-left-side";
