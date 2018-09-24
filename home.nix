@@ -107,6 +107,7 @@ rec {
 				{ command = "pkill polybar; polybar top"; always = true; }
 				{ command = "${pkgs.kmix}/bin/kmix"; }
 				{ command = "${customPackages.mconnect}/bin/mconnect"; }
+				{ command = "${pkgs.polkit-kde-agent}/lib/libexec/polkit-kde-authentication-agent-1"; }
 				{ command = "dunst"; }
 			];
 			keybindings =
@@ -263,6 +264,8 @@ rec {
 			};		
 		};
 	};
+
+	services.udiskie.enable = true;
 	
 	home.packages = 
 	(with pkgs; [
