@@ -406,7 +406,7 @@ rec {
 					border_size=1;
 					icon_size=20;
 					input_fontsize=28;
-					item_description_fontsize=22;
+					item_description_fontsize=20;
 					item_title_fontsize=24;
 					max_items=10;
 					padding=6;

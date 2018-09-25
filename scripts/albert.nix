@@ -13,8 +13,8 @@
     def handleQuery(query):
         if query.string == "":
             return []
-        qalc_out = subprocess.getoutput('${pkgs.libqalculate}/bin/qalc -s "exact 0" -t "%s"' % query.string)
-        qalc_out_exact = subprocess.getoutput('${pkgs.libqalculate}/bin/qalc -s "exact 1" -t "%s"' % query.string)
+        qalc_out = subprocess.getoutput('${pkgs.libqalculate}/bin/qalc -s "exact 0" -t "%s"' % query.string, timeout=0.5)
+        qalc_out_exact = subprocess.getoutput('${pkgs.libqalculate}/bin/qalc -s "exact 1" -t "%s"' % query.string, timeout=0.5)
         return [
             Item(
                 id="qalc",
