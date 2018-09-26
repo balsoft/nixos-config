@@ -7,14 +7,13 @@ rec {
         text = ''
             while true
             do
-                touch /tmp/${script.name}.new
                 ${script} 2>/dev/null > /tmp/${script.name}.new
                 if [[ -e /tmp/${script.name}.new ]] && [[ `wc -l < /tmp/${script.name}.new` -gt 1 ]]
                 then
                     mv /tmp/${script.name}.new /tmp/${script.name}
                 fi
                 sleep ${toString interval}
-            done 2> /dev/null
+            done
         '';
     };
 
@@ -130,38 +129,33 @@ rec {
 
     text_and_color_for_powerline = (arr: ''
             ${builtins.concatStringsSep "\n" (builtins.genList (i: ''
-            [[ -e "/tmp/${(builtins.elemAt arr i).name}" ]] && readarray -t arr${builtins.toString i} < "/tmp/${(builtins.elemAt arr i).name}"
+            readarray -t arr${builtins.toString i} < "/tmp/${(builtins.elemAt arr i).name}"
             text[${builtins.toString i}]=''${arr${builtins.toString i}[0]}
             color[${builtins.toString i}]=''${arr${builtins.toString i}[1]}
             '') (builtins.length arr))}
             color[${builtins.toString (builtins.length arr)}]="${theme.bg}"
     '');
 
-    start_scripts = (arr: builtins.concatStringsSep "\n" (map (x: "touch /tmp/${x.name} && ${x} &") arr));
+    start_scripts = (arr: builtins.concatStringsSep "\n" (map (x: "${x} &") arr));
 
     left_side = (arr: pkgs.writeTextFile {
         name = "polybar-left-side";
         text = ''
             #!${pkgs.bash}/bin/bash
-            echo -n " "
             ${start_scripts arr}
             while true
             do
                 ${text_and_color_for_powerline arr}
                 for index in `seq 0 ${builtins.toString(builtins.length arr)}`
                 do 
-
                     cur_color=''${color[index]}
                     cur_text=''${text[index]}
                     next_color=''${color[`expr $index + 1`]}
-                    if [[ ! -z "$cur_text" ]]
-                    then
-                        if [[ $cur_color = $next_color ]]
-                        then 
-                            echo -n "%{B$cur_color}$cur_text%{B$next_color}%{F$cur_color}%{T4} %{T-}"
-                        else
-                            echo -n "%{B$cur_color}$cur_text%{B$next_color}%{F$cur_color}%{T4} %{T-}"
-                        fi
+                    if [[ $cur_color = $next_color ]]
+                    then 
+                        echo -n "%{B$cur_color}$cur_text%{B$next_color}%{F$cur_color}%{T4} %{T-}"
+                    else
+                        echo -n "%{B$cur_color}$cur_text%{B$next_color}%{F$cur_color}%{T4} %{T-}"
                     fi
                 done
                 echo
@@ -175,10 +169,10 @@ rec {
         name = "network";
         text = ''
             #!${pkgs.bash}/bin/bash
-            WIFI="`nmcli d w | grep "\*" | awk '{print "%{F${theme.bg}}%{T5}"$8"%{T-} " $2}'`"
+            WIFI="`nmcli d w | grep "\*" | awk '{print "%{F${theme.bg}}%{T5}"$8"%{T-}" $2}'`"
             if [[ `wc -c <<< "$WIFI"` -lt 4 ]]
             then
-                echo "%{F${theme.bg}} W down"
+                echo "%{F${theme.bg}}W down"
                 echo "${color_down}"
             else
                 echo "$WIFI"
@@ -242,18 +236,15 @@ rec {
                     cur_color=''${color[index]}
                     cur_text=''${text[index]}
                     prev_color=''${color[`expr $index - 1`]}
-                    if [[ ! -z "$cur_text" ]]
+                    if [[ $cur_color = $prev_color ]]
                     then
-                        if [[ $cur_color = $prev_color ]]
-                        then
-                            echo -n "%{B$prev_color}%{F${theme.bg}}%{T4} %{T-}$cur_text"
-                        else
-                            echo -n "%{B$prev_color}%{F$cur_color}%{T4} %{T-}%{B$cur_color}$cur_text"
-                        fi
+                        echo -n "%{B$prev_color}%{F${theme.bg}}%{T4} %{T-}$cur_text"
+                    else
+                        echo -n "%{B$prev_color}%{F$cur_color}%{T4} %{T-}%{B$cur_color}$cur_text"
                     fi
                 done
                 sleep 1
-                echo " "
+                echo
             done'';
         executable = true;
     });
