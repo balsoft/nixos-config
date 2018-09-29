@@ -99,7 +99,7 @@ rec {
 				border = 0;
 			};
 			startup = [
-				{ command = "${pkgs.albert}/bin/albert"; always = true; }
+				{ command = "QT_SCALE_FACTOR=1 ${pkgs.albert}/bin/albert"; always = true; }
 				{ command = "${pkgs.tdesktop}/bin/telegram-desktop"; }
 				{ command = "${pkgs.chromium}/bin/chromium"; }
 				{ command = term; workspace = "0"; }
@@ -109,6 +109,7 @@ rec {
 				{ command = "${customPackages.mconnect}/bin/mconnect"; }
 				{ command = "${pkgs.polkit-kde-agent}/lib/libexec/polkit-kde-authentication-agent-1"; }
 				{ command = "dunst"; }
+				{ command = "xrandr --output eDP1 --auto --primary --output HDMI2 --auto --right-of eDP1"; always = true; }
 			];
 			keybindings =
 			({

@@ -195,6 +195,8 @@
 		};
 	};
 	systemd.services.systemd-udev-settle.enable = false;
+
+	services.upower.enable = true;
 	
 	services.udev.extraRules = ''
 		ACTION=="add|change", KERNEL=="sd*[!0-9]|sr*", ATTR{queue/scheduler}="bfq"
