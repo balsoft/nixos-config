@@ -2,12 +2,15 @@
 # your system.	Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
+device: 
 { config, pkgs, lib, ... }: 
+let 
+	isLaptop = (!isNull(builtins.match device "-Laptop"));
+in
 {
 	# ========================== HARDWARE =====================================
 	imports = [
 		/etc/nixos/hardware-configuration.nix
-		/etc/nixos/local-configuration.nix
 		"${builtins.fetchTarball https://github.com/rycee/home-manager/archive/master.tar.gz}/nixos"
 	];
 	
@@ -19,9 +22,17 @@
 	
 	# ============================ BOOT =======================================
 	boot = {
-		loader.grub.enable = true;
-		loader.grub.version = 2;
-		loader.grub.useOSProber = true;
+		loader = {
+			grub.enable = true;
+			grub.version = 2;
+			grub.useOSProber = true;
+		} // (if device == "Lenovo-Workstation" then { # Non-UEFI config
+			grub.device = "/dev/sda";
+		} else { # UEFI config
+			grub.efiSupport = true;
+			grub.device = "nodev";
+			efi.installAsRemovable = true;
+		});
 		consoleLogLevel = 3;
 		kernelPackages = pkgs.linuxPackages_latest;
 		kernelParams = [ 
@@ -33,7 +44,9 @@
             "rd.udev.log_priority=3" 
             "pti=off" 
             "spectre_v2=off"
-        ];
+        ] ++ (if device == "Prestigio-Laptop" then [
+			"intel_idle.max_cstate=1"
+		] else []);
 		kernel.sysctl = {
 			"kernel.printk" = "3 3 3 3";
 			"vm.swappiness" = 0;
@@ -57,6 +70,7 @@
 		networkmanager.enable = true;
 		firewall.enable = false;
 		usePredictableInterfaceNames = false;
+		hostName = device;
 	};
 	# =========================================================================
 
@@ -109,8 +123,6 @@
 		package = pkgs.pulseaudioFull;
 		support32Bit = true;
 	};
-	#sound.enable = true;
-	#sound.mediaKeys.enable = true;
 	# =========================================================================
 	
 	
@@ -125,14 +137,7 @@
 
 #	virtualisation.virtualbox.host.enable = true;
 	virtualisation.libvirtd.enable = true;	
-	systemd.automounts = [
-		{
-			automountConfig = { DirectoryMode = "0777"; };
-			wantedBy = [ "multi-user.target" ];
-			enable = true;
-			where = "/media";
-		}
-	];
+	
 	system.autoUpgrade = {
 		dates = "19:00";
 		enable = true; 	
@@ -146,7 +151,7 @@
 	
 	services.openssh.enable = true;
 	
-	programs.light.enable = true;
+	programs.light.enable = isLaptop;
 
 	services.earlyoom = {
 		enable = true;
@@ -204,7 +209,7 @@
 	'';
 	
 	systemd.services.battery = {
-        enable = true;
+        enable = isLaptop;
         description = "Executes commands needed on battery power";
         script = ''
             ${pkgs.linuxPackages_latest.cpupower}/bin/cpupower frequency-set -g powersave
@@ -213,7 +218,7 @@
         '';
 	};
 	systemd.services.ac = {
-        enable = true;
+        enable = isLaptop;
         description = "Executes commands needed on ac power";
         script = ''
             ${pkgs.linuxPackages_latest.cpupower}/bin/cpupower frequency-set -g performance
@@ -221,8 +226,8 @@
 			echo "900" > /sys/class/backlight/*/brightness
         '';
 	};
-	services.illum.enable = true;
-	hardware.sensor.iio.enable = true;
+	services.illum.enable = isLaptop;
+	hardware.sensor.iio.enable = (device == "HP-Laptop");
 	i18n = {
 		defaultLocale = "en_GB.UTF-8";
 	};
@@ -242,7 +247,7 @@
 		password = "";
 	};
 
-	home-manager.users.balsoft = import ./home.nix { inherit pkgs; inherit lib; };
+	home-manager.users.balsoft = import ./home.nix device { inherit pkgs; inherit lib; };
 	# =========================================================================
 	
 	# The NixOS release to be compatible with for stateful data such as databases.
