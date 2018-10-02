@@ -147,7 +147,9 @@ in
 	    nur = pkgs.callPackage (import (builtins.fetchGit {
             url = "https://github.com/nix-community/NUR";
 	    })) {};
-    };
+    } // (if device == "Prestigio-Laptop" then {
+		grub2 = (import <nixpkgs> {system = "i686-linux";}).grub2;
+	} else {});
 	
 	services.openssh.enable = true;
 	
