@@ -5,7 +5,7 @@
 device: 
 { config, pkgs, lib, ... }: 
 let 
-	isLaptop = (!isNull(builtins.match device "-Laptop"));
+	isLaptop = (!isNull(builtins.match ".*Laptop" device));
 in
 {
 	# ========================== HARDWARE =====================================
