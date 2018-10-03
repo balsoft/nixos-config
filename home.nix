@@ -1,30 +1,31 @@
-{pkgs, lib, ...}:
+device: {pkgs, lib, ...}:
 let
-thm = {
-	bg = "#31363b";
-	fg = "#efefef";
-	blue = "#3caae4";
-	green = "#11d116";
-	red = "#f67400";
+	thm = {
+		bg = "#31363b";
+		fg = "#efefef";
+		blue = "#3caae4";
+		green = "#11d116";
+		red = "#f67400";
+	};
+	term = "${pkgs.kdeApplications.konsole}/bin/konsole";
+
+	secret = import ./secret.nix;
+
+	scripts = import ./scripts {inherit pkgs; inherit secret; theme=thm;};
+
+	customPackages = import ./packages {inherit pkgs;};
+
+	genIni = lib.generators.toINI {
+	mkKeyValue = key: value:
+		let
+		mvalue =
+			if builtins.isBool value then (if value then "true" else "false")
+			else if (builtins.isString value && key != "include-file") then value
+			else builtins.toString value;
+		in
+		"${key}=${mvalue}";
 };
-term = "${pkgs.kdeApplications.konsole}/bin/konsole";
-
-secret = import ./secret.nix;
-
-scripts = import ./scripts {inherit pkgs; inherit secret; theme=thm;};
-
-customPackages = import ./packages {inherit pkgs;};
-
-genIni = lib.generators.toINI {
-  mkKeyValue = key: value:
-    let
-      mvalue =
-        if builtins.isBool value then (if value then "true" else "false")
-        else if (builtins.isString value && key != "include-file") then value
-        else builtins.toString value;
-    in
-      "${key}=${mvalue}";
-};
+	isLaptop = (!isNull(builtins.match device "-Laptop"));
 in
 rec {
 	programs.home-manager = {
@@ -192,7 +193,9 @@ rec {
 				type = "custom/script";
 				exec = (scripts.polybar.right_side (with scripts.polybar; [
 					(status {})
+				] ++ (if isLaptop then [
 					(battery {})
+				] else []) ++ [
 					(network {})
 				]));
 				tail = true;
