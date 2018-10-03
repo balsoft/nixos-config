@@ -230,6 +230,14 @@ in
 			echo "900" > /sys/class/backlight/*/brightness
         '';
 	};
+	systemd.services.leds_setup = {
+			enable = (device == "ASUS-Laptop");
+			description = "Set up leds triggers";
+			wantedBy = ["multi-user.target"];
+			script = ''
+					echo "phy0rx" > /sys/class/leds/asus-wireless\:\:airplane/trigger
+			'';
+	};
 	services.illum.enable = isLaptop;
 	hardware.sensor.iio.enable = (device == "HP-Laptop");
 	i18n = {
