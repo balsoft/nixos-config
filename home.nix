@@ -25,7 +25,8 @@ let
 		in
 		"${key}=${mvalue}";
 };
-	isLaptop = (!isNull(builtins.match device "-Laptop"));
+	isLaptop = (!isNull(builtins.match ".*Laptop" device));
+	smallScreen = (device == "Prestigio-Laptop");
 in
 rec {
 	programs.home-manager = {
@@ -156,13 +157,13 @@ rec {
 		};
 		config = {
 			"bar/top" = {
-				font-0 = "Roboto Mono for Powerline:size=11;2";
-				font-3 = "Roboto Mono for Powerline:size=24;5";
+				font-0 = "Roboto Mono for Powerline:size=" + (if smallScreen then "8;1" else "11;2");
+				font-3 = "Roboto Mono for Powerline:size=" + (if smallScreen then "18;4" else "24;5");
 				font-1 = "Noto Sans Symbols2:size=15;4";
-				font-2 = "Noto Emoji:size=11;2";
-				font-4 = "Unifont:size-11;2";
+				font-2 = "Noto Emoji:size=" + (if smallScreen then "8;1" else "11;2");
+				font-4 = "Unifont:size=" + (if smallScreen then "8;1" else "11;2");
 				width = "100%";
-				height = "25px";
+				height = if smallScreen then "19px" else "25px";
 				radius = 0;
 				background = thm.bg;
 				foreground = thm.fg;
@@ -193,7 +194,7 @@ rec {
 				type = "custom/script";
 				exec = (scripts.polybar.right_side (with scripts.polybar; [
 					(status {})
-				] ++ (if isLaptop then [
+				] ++ (if isLaptop && device != "Prestigio-Laptop" then [
 					(battery {})
 				] else []) ++ [
 					(network {})
@@ -338,7 +339,6 @@ rec {
 		enable = true;
 		userEmail = "balsoft@yandex.ru";
 		userName = "Александр Бантьев";
-		
 	};
 
 	home.keyboard = {
