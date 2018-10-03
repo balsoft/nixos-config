@@ -157,7 +157,7 @@ rec {
 		config = {
 			"bar/top" = {
 				font-0 = "Roboto Mono for Powerline:size=" + (if smallScreen then "8;1" else "11;2");
-				font-3 = "Roboto Mono for Powerline:size=24;5";
+				font-3 = "Roboto Mono for Powerline:size=" + (if smallScreen then "18;4" else "24;5");
 				font-1 = "Noto Sans Symbols2:size=15;4";
 				font-2 = "Noto Emoji:size=" + (if smallScreen then "8;1" else "11;2");
 				font-4 = "Unifont:size=" + (if smallScreen then "8;1" else "11;2");
@@ -193,7 +193,7 @@ rec {
 				type = "custom/script";
 				exec = (scripts.polybar.right_side (with scripts.polybar; [
 					(status {})
-				] ++ (if isLaptop then [
+				] ++ (if isLaptop && device != "Prestigio-Laptop" then [
 					(battery {})
 				] else []) ++ [
 					(network {})
@@ -338,7 +338,6 @@ rec {
 		enable = true;
 		userEmail = "balsoft@yandex.ru";
 		userName = "Александр Бантьев";
-		
 	};
 
 	home.keyboard = {

@@ -6,6 +6,7 @@ device:
 { config, pkgs, lib, ... }: 
 let 
 	isLaptop = (!isNull(builtins.match ".*Laptop" device));
+	isShared = (device == "Prestigio-Laptop");
 in
 {
 	# ========================== HARDWARE =====================================
@@ -26,6 +27,7 @@ in
 			grub.enable = true;
 			grub.version = 2;
 			grub.useOSProber = true;
+			timeout = 1;
 		} // (if device == "Lenovo-Workstation" then { # Non-UEFI config
 			grub.device = "/dev/sda";
 		} else { # UEFI config
@@ -51,6 +53,7 @@ in
 			"kernel.printk" = "3 3 3 3";
 			"vm.swappiness" = 0;
 		};
+		blacklistedKernelModules = if device == "Prestigio-Laptop" then [ "axp288_charger" "axp288_fuel_gauge" "axp288_adc" ] else [];
 	};
 
 	hardware.bluetooth.enable = true;	
@@ -89,9 +92,9 @@ in
 		desktopManager.wallpaper.mode = "fill";
 		displayManager.lightdm = {
 			enable = true;
-			autoLogin.enable = true;
+			autoLogin.enable = !isShared;
 			autoLogin.user = "balsoft";
-			greeter.enable = false;
+			greeter.enable = isShared;
 		};
 #		desktopManager.plasma5.enable = true;
 		desktopManager.default = "none";
@@ -241,15 +244,43 @@ in
 	security.apparmor.enable = true;
 	nixpkgs.config.allowUnfree = true;
 	users.mutableUsers = false;
-	users.extraUsers.balsoft = {
+	users.users.balsoft = {
 		isNormalUser = true;
 		extraGroups = ["sudo" "wheel" "networkmanager" "disk" "sound" "pulse" "adbusers" "input" "libvirtd"];
 		description = "Александр Бантьев";
 		uid = 1000;
+	} // (if isShared then {
+		hashedPassword = "YotlMqtSycvPk";
+	} else {
 		password = "";
+	});
+	users.users.svetlana-banteva = {
+		isNormalUser = true;
+		extraGroups = ["pulse" "input"];
+		description = "Светлана Бантьева";
+		password = "";		
 	};
 
 	home-manager.users.balsoft = import ./home.nix device { inherit pkgs; inherit lib; };
+	home-manager.users.svetlana-banteva = {
+		
+		xsession.windowManager.i3 = {
+			enable = true;
+			config = {
+				startup = [
+					{ command = "chromium"; }
+				];
+				modifier = "Mod4";
+			};
+		};
+		home.keyboard = {
+			options = ["grp:ctrl_shift"];
+			layout = "us,ru";
+		};
+		home.packages = with pkgs; [
+			chromium
+		];
+	};
 	# =========================================================================
 	
 	# The NixOS release to be compatible with for stateful data such as databases.
