@@ -131,6 +131,15 @@ in
 				keys = [ 230 ];
 				command = "expr 1 + `cat '/sys/class/leds/asus::kbd_backlight/brightness'` > '/sys/class/leds/asus::kbd_backlight/brightness'";
 			}
+			{
+				keys = [25 125];
+				command = ''
+					${pkgs.xorg.xrandr}/bin/xrandr --output HDMI2 --off
+					${pkgs.xorg.xrandr}/bin/xrandr --output HDMI2 --auto
+					${pkgs.xorg.xrandr}/bin/xrandr --output eDP1 --preferred --primary --left-of o --output HDMI2 --nograb --noprimary --auto
+					/run/current-system/sw/bin/pkill compton
+				'';
+			}
 		] else []) ++ [
 			{
 				keys = [ 225 ];

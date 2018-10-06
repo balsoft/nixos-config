@@ -55,11 +55,6 @@ rec {
 
 	gtk = {
 		enable = true;
-		iconTheme = 
-		{
-			name = "breeze-dark";
-			package = pkgs.breeze-icons;
-		};
 		theme = 
 		{
 			name = "Breeze-Dark";
@@ -107,7 +102,6 @@ rec {
 				{ command = term; workspace = "0"; }
 				{ command = "${pkgs.kdeconnect}/lib/libexec/kdeconnectd -platform offscreen"; }
 				{ command = "pkill polybar; polybar top"; always = true; }
-				#{ command = "${pkgs.kmix}/bin/kmix"; }
 				{ command = "${customPackages.mconnect}/bin/mconnect"; }
 				{ command = "${pkgs.polkit-kde-agent}/lib/libexec/polkit-kde-authentication-agent-1"; }
 				{ command = "dunst"; }
@@ -137,6 +131,7 @@ rec {
 				"--release ${modifier}+Shift+Print" = "exec scrot -s -e 'mv $f ~/Pictures && notify-send \"Screenshot saved as ~/Pictures/$f\"'";
 				"--release ${modifier}+Control+Shift+Print" = "exec scrot -s -e 'xclip -selection clipboard -t image/png -i $f && notify-send \"Screenshot copied to clipboard\"'";
 				"${modifier}+c" = "workspace C";
+				"${modifier}+x" = "move workspace to output right";	
 			} // builtins.listToAttrs (
 				builtins.genList (x: {name = "${modifier}+${toString x}"; value = "workspace ${toString x}";}) 10
 			) // builtins.listToAttrs (
@@ -712,7 +707,7 @@ rec {
 		};
 	};
 
-	home.file.".icons/default".source = "${pkgs.breeze-qt5}/share/icons/breeze_cursors";
+	home.file.".icons/default".source = "${pkgs.paper-icon-theme}/share/icons/Paper-Mono-Dark";
 	
 	home.file.".local/share/albert/org.albert.extension.python/modules/qalc.py".text = scripts.albert.qalc;
 
