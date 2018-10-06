@@ -224,7 +224,7 @@ rec {
         executable = true;
     });
     right_side = (arr: pkgs.writeTextFile {
-        name = "polybar-right-side.sh";
+        name = "polybar-right-side";
         text = ''
             #!${pkgs.bash}/bin/bash
             ${start_scripts arr}
