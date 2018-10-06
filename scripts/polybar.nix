@@ -95,7 +95,7 @@ rec {
         #!${pkgs.bash}/bin/bash
         ping -c 1 calendar.google.com &> /dev/null || exit 1 
         echo -n "%{F${theme.red}}"
-        echo "`${pkgs.gcalcli}/bin/gcalcli --nocolor agenda 'now' 'now+1s' | head -2 | tail -1 | awk '{$1=""; $2=""; $3=""; $4=""; print}' | tr -s ' '`" 
+        echo "`PYTHONIOENCODING=utf8 ${pkgs.gcalcli}/bin/gcalcli --nocolor agenda 'now' 'now+1s' | head -2 | tail -1 | awk '{$1=""; $2=""; $3=""; $4=""; print}' | tr -s ' '`" 
         echo "${theme.fg}"
         '';
         executable = true;
@@ -106,7 +106,7 @@ rec {
         text = ''
             #!${pkgs.bash}/bin/bash
             ping -c 1 calendar.google.com &> /dev/null || exit 1 
-            AGENDA_NEXT="`${pkgs.gcalcli}/bin/gcalcli --nocolor --nostarted search "*" 'now' 'now+6d' | head -2 | tail -1`"
+            AGENDA_NEXT="`PYTHONIOENCODING=utf8 ${pkgs.gcalcli}/bin/gcalcli --nocolor --nostarted search "*" 'now' 'now+6d' | head -2 | tail -1`"
             DATE="`awk '{print $1 " " $2}' <<< "$AGENDA_NEXT"`"
             echo -n "%{F${theme.bg}}📅 "
             if [[ `date -d "$DATE" +'%u'` -eq `date +'%u'` ]]
