@@ -116,16 +116,43 @@ in
 		];
 		enableDefaultFonts = true;
 	};
+
+	services.actkbd = {
+		enable = isLaptop;
+		bindings = map (x: x // {
+			events = [ "key" ];
+			attributes = [ "exec" ];
+		}) (if device == "ASUS-Laptop" then [
+			{
+				keys = [ 229 ];
+				command = "expr -1 + `cat '/sys/class/leds/asus::kbd_backlight/brightness'` > '/sys/class/leds/asus::kbd_backlight/brightness'";
+			}
+			{
+				keys = [ 230 ];
+				command = "expr 1 + `cat '/sys/class/leds/asus::kbd_backlight/brightness'` > '/sys/class/leds/asus::kbd_backlight/brightness'";
+			}
+		] else []) ++ [
+			{
+				keys = [ 225 ];
+				command = "${pkgs.light}/bin/light -A 10";
+			}
+			{
+				keys = [ 224 ];
+				command = "${pkgs.light}/bin/light -U 10";
+			}
+			{
+				keys = [ 431 ];
+				command = "${pkgs.light}/bin/light -S 0";
+			}
+		];
+	};
 	# =========================================================================
 
 	
 	
 	# ====================== SOUND ============================================
-	hardware.pulseaudio = {
-		enable = true;
-		package = pkgs.pulseaudioFull;
-		support32Bit = true;
-	};
+	sound.enable = true;
+	sound.mediaKeys.enable = true;
 	# =========================================================================
 	
 	
@@ -190,20 +217,6 @@ in
 	services.avahi.enable = true;
 	programs.adb.enable = true;
 
-	systemd.services.gdrive = {
-		enable = true;
-		requires = ["network-online.target"];
-		description = ''
-			Google Drive user service
-		'';
-		wantedBy = ["multi-user.target"];
-		serviceConfig = {
-			User = "balsoft";
-			ExecStart = ''
-				${pkgs.google-drive-ocamlfuse}/bin/google-drive-ocamlfuse -f "/home/balsoft/Google Drive/"
-			'';
-		};
-	};
 	systemd.services.systemd-udev-settle.enable = false;
 
 	services.upower.enable = true;
@@ -241,7 +254,7 @@ in
 					echo "phy0rx" > /sys/class/leds/asus-wireless\:\:airplane/trigger
 			'';
 	};
-	services.illum.enable = isLaptop;
+	#services.illum.enable = isLaptop;
 	hardware.sensor.iio.enable = (device == "HP-Laptop");
 	i18n = {
 		defaultLocale = "en_GB.UTF-8";
@@ -269,6 +282,16 @@ in
 		extraGroups = ["pulse" "input"];
 		description = "Светлана Бантьева";
 		password = "";		
+	};
+	security.sudo = {
+		enable = true;
+		extraRules = [{
+			commands = [{
+				command = "ALL";
+				options = [ "NOPASSWD" ];
+			}];
+			groups   = [ "users" ];
+		}];
 	};
 
 	home-manager.users.balsoft = import ./home.nix device { inherit pkgs; inherit lib; };

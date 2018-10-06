@@ -107,11 +107,12 @@ rec {
 				{ command = term; workspace = "0"; }
 				{ command = "${pkgs.kdeconnect}/lib/libexec/kdeconnectd -platform offscreen"; }
 				{ command = "pkill polybar; polybar top"; always = true; }
-				{ command = "${pkgs.kmix}/bin/kmix"; }
+				#{ command = "${pkgs.kmix}/bin/kmix"; }
 				{ command = "${customPackages.mconnect}/bin/mconnect"; }
 				{ command = "${pkgs.polkit-kde-agent}/lib/libexec/polkit-kde-authentication-agent-1"; }
 				{ command = "dunst"; }
 				{ command = "xrandr --output eDP1 --auto --primary --output HDMI2 --auto --right-of eDP1"; always = true; }
+				{ command = "google-drive-ocamlfuse '/home/balsoft/Google Drive/'"; }
 			];
 			keybindings =
 			({
@@ -132,19 +133,15 @@ rec {
 				"${modifier}+d" = "exec ${pkgs.dolphin}/bin/dolphin";
 				"${modifier}+Escape" = "exec ${pkgs.ksysguard}/bin/ksysguard";
 				"${modifier}+Print" = "exec scrot -e 'mv $f ~/Pictures && notify-send \"Screenshot saved as ~/Pictures/$f\"'";
-				"${modifier}+Shift+Print" = "exec scrot -e 'xclip -in $f && notify-send \"Screenshot copied to clipboard\"'";
-				"--release ${modifier}+Control+Print" = "exec scrot -s -e 'mv $f ~/Pictures && notify-send \"Screenshot saved as ~/Pictures/$f\"'";
-				"--release ${modifier}+Control+Shift+Print" = "exec scrot -s -e 'xclip -in $f && notify-send \"Screenshot copied to clipboard\"'";
+				"${modifier}+Control+Print" = "exec scrot -e 'xclip -selection clipboard -t image/png -i $f && notify-send \"Screenshot copied to clipboard\"'";
+				"--release ${modifier}+Shift+Print" = "exec scrot -s -e 'mv $f ~/Pictures && notify-send \"Screenshot saved as ~/Pictures/$f\"'";
+				"--release ${modifier}+Control+Shift+Print" = "exec scrot -s -e 'xclip -selection clipboard -t image/png -i $f && notify-send \"Screenshot copied to clipboard\"'";
 				"${modifier}+c" = "workspace C";
 			} // builtins.listToAttrs (
 				builtins.genList (x: {name = "${modifier}+${toString x}"; value = "workspace ${toString x}";}) 10
 			) // builtins.listToAttrs (
 				builtins.genList (x: {name = "${modifier}+Shift+${toString x}"; value = "move container to workspace ${toString x}";}) 10
 			));
-			keycodebindings = {
-				"232" = "exec echo $((`cat /sys/class/backlight/*/brightness`-10)) > /sys/class/backlight/*/brightness";
-				"233" = "exec echo $((`cat /sys/class/backlight/*/brightness`-10)) > /sys/class/backlight/*/brightness";
-			};
 		};
 		extraConfig = "hide_edge_borders smart";
 	};
@@ -328,7 +325,9 @@ rec {
 		kile
 		texlive.combined.scheme-basic
 		gcalcli
+		google-drive-ocamlfuse
 		kdeconnect
+		nix-zsh-completions
 	]) 
 	++ 
 	(with customPackages; [
@@ -368,7 +367,7 @@ rec {
 			'';
 			"albert/albert.conf".text = genIni {
 				General = {
-					frontendId = "org.albert.frontend.boxmodel.qml";
+					frontendId = "org.albert.frontend.qmlboxmodel";
 					hotkey = "Meta+Space";
 					showTray = false;
 					terminal = "${pkgs.konsole}/bin/konsole -e";
@@ -391,7 +390,7 @@ rec {
 				};
 				"org.albert.extension.terminal".enabled = true;
 				"org.albert.extension.websearch".enabled = true;
-				"org.albert.frontend.boxmodel.qml" = {
+				"org.albert.frontend.qmlboxmodel" = {
 					enabled = true;
 					alwaysOnTop=true;
 					clearOnHide=false;
@@ -402,7 +401,7 @@ rec {
 					windowPosition="@Point(299 13)";
 				};
 			};
-			"albert/org.albert.frontend.boxmodel.qml/style_properties.ini".text = genIni {
+			"albert/org.albert.frontend.qmlboxmodel/style_properties.ini".text = genIni {
 				BoxModel = {
 					animation_duration=0;
 					background_color="\"@Variant(\\0\\0\\0\\x43\\x1\\xff\\xff\\x31\\x31\\x36\\x36;;\\0\\0)\"";
