@@ -155,6 +155,12 @@ in
 			}
 		];
 	};
+	
+	services.compton = { 
+		enable = true;
+		backend = "xr_glx_hybrid";
+		vSync = "drm";
+	};
 	# =========================================================================
 
 	
@@ -218,11 +224,6 @@ in
 	};
 	#services.teamviewer.enable = true;
 
-	services.compton = { 
-		enable = true;
-		backend = "glx";
-		vSync = "opengl";
-	};
 
 	services.avahi.enable = true;
 	programs.adb.enable = true;
