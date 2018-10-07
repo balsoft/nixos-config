@@ -71,8 +71,8 @@ rec {
 		enable = true;
 		config = rec {
 			assigns = {
-				"C" = [{ class = "Chromium"; }];
-				"T" = [{ class = "^Telegram"; }];	
+				"🌐" = [{ class = "Chromium"; }];
+				"💬" = [{ class = "^Telegram"; }];	
 			};
 			bars = [];
 			fonts = [ "RobotoMono 9" ];
@@ -98,6 +98,7 @@ rec {
 			modifier = "Mod4";
 			window = {
 				border = 0;
+				hideEdgeBorders = "smart";
 			};
 			startup = [
 				{ command = "QT_SCALE_FACTOR=1 ${pkgs.albert}/bin/albert"; always = true; }
@@ -111,6 +112,7 @@ rec {
 				{ command = "dunst"; }
 				{ command = "xrandr --output eDP1 --auto --primary --output HDMI2 --auto --right-of eDP1"; always = true; }
 				{ command = "google-drive-ocamlfuse '/home/balsoft/Google Drive/'"; }
+
 				{ command = "cp ~/.config/konsolerc.home ~/.config/konsolerc"; always = true; }
 				{ command = "cp ~/.config/katerc.home ~/.config/katerc"; always = true; }
 			];
@@ -118,7 +120,6 @@ rec {
 			({
 				"${modifier}+q" = "kill";
 				"${modifier}+Return" = "exec ${term}";
-				"${modifier}+t" = "workspace T";
 				"${modifier}+l" = "layout toggle";
 				"${modifier}+Left" = "focus left";
 				"${modifier}+Right" = "focus right";
@@ -130,21 +131,29 @@ rec {
 				"${modifier}+Shift+Left" = "move left";
 				"${modifier}+f" = "fullscreen toggle";
 				"${modifier}+r" = "mode resize";
+				"${modifier}+Shift+f" = "floating toggle";
 				"${modifier}+d" = "exec ${pkgs.dolphin}/bin/dolphin";
 				"${modifier}+Escape" = "exec ${pkgs.ksysguard}/bin/ksysguard";
 				"${modifier}+Print" = "exec scrot -e 'mv $f ~/Pictures && notify-send \"Screenshot saved as ~/Pictures/$f\"'";
-				"${modifier}+Control+Print" = "exec scrot -e 'xclip -selection clipboard -t image/png -i $f && notify-send \"Screenshot copied to clipboard\"'";
+				"${modifier}+Control+Print" = "exec scrot -e 'xclip -selection clipboard -t image/png -i $f && notify-send \"Screenshot copied to clipboard\"'; rm $f";
 				"--release ${modifier}+Shift+Print" = "exec scrot -s -e 'mv $f ~/Pictures && notify-send \"Screenshot saved as ~/Pictures/$f\"'";
-				"--release ${modifier}+Control+Shift+Print" = "exec scrot -s -e 'xclip -selection clipboard -t image/png -i $f && notify-send \"Screenshot copied to clipboard\"'";
-				"${modifier}+c" = "workspace C";
+				"--release ${modifier}+Control+Shift+Print" = "exec scrot -s -e 'xclip -selection clipboard -t image/png -i $f && notify-send \"Screenshot copied to clipboard\"'; rm -f";
 				"${modifier}+x" = "move workspace to output right";	
+				"${modifier}+c" = "workspace 🌐";
+				"${modifier}+Shift+c" = "move container to workspace 🌐";
+				"${modifier}+t" = "workspace 💬";
+				"${modifier}+Shift+t" = "move container to workspace 💬";
 			} // builtins.listToAttrs (
 				builtins.genList (x: {name = "${modifier}+${toString x}"; value = "workspace ${toString x}";}) 10
 			) // builtins.listToAttrs (
 				builtins.genList (x: {name = "${modifier}+Shift+${toString x}"; value = "move container to workspace ${toString x}";}) 10
 			));
+			keycodebindings = {
+				"122" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume 0 -10%";
+				"123" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume 0 +10%";
+				"121" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-mute 0 toggle";
+			};
 		};
-		extraConfig = "hide_edge_borders smart";
 	};
 
 	

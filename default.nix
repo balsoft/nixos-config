@@ -174,7 +174,6 @@ in
 		enable = true;
 		package = pkgs.pulseaudioFull;		
 	};
-	sound.mediaKeys.enable = true;
 	# =========================================================================
 	
 	
