@@ -167,7 +167,8 @@ in
 	
 	
 	# ====================== PROGRAMS & SERVICES ==============================
-	environment.systemPackages = builtins.filter pkgs.stdenv.lib.isDerivation (builtins.attrValues pkgs.kdeApplications);
+	environment.systemPackages = (builtins.filter pkgs.stdenv.lib.isDerivation (builtins.attrValues pkgs.kdeApplications))
+		++ [pkgs.bluez-alsa];
 	environment.sessionVariables = {
             EDITOR = "micro";
             QT_QPA_PLATFORMTHEME = "qt5ct";

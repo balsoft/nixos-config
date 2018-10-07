@@ -55,6 +55,10 @@ rec {
 
 	gtk = {
 		enable = true;
+		iconTheme = {
+			name = "Papirus-Dark";
+			package = pkgs.papirus-icon-theme;
+		};
 		theme = 
 		{
 			name = "Breeze-Dark";
@@ -107,6 +111,8 @@ rec {
 				{ command = "dunst"; }
 				{ command = "xrandr --output eDP1 --auto --primary --output HDMI2 --auto --right-of eDP1"; always = true; }
 				{ command = "google-drive-ocamlfuse '/home/balsoft/Google Drive/'"; }
+				{ command = "cp ~/.config/konsolerc.home ~/.config/konsolerc"; always = true; }
+				{ command = "cp ~/.config/katerc.home ~/.config/katerc"; always = true; }
 			];
 			keybindings =
 			({
@@ -402,7 +408,7 @@ rec {
 					background_color="\"@Variant(\\0\\0\\0\\x43\\x1\\xff\\xff\\x31\\x31\\x36\\x36;;\\0\\0)\"";
 					border_color="\"@Variant(\\0\\0\\0\\x43\\x1\\xff\\xff==\\xae\\xae\\xe9\\xe9\\0\\0)\"";
 					border_size=1;
-					icon_size=20;
+					icon_size=46;
 					input_fontsize=28;
 					item_description_fontsize=20;
 					item_title_fontsize=24;
@@ -497,8 +503,8 @@ rec {
 				ForegroundVisited=127,140,141
 				
 				[Colors:View]
-				BackgroundAlternate=49,54,59
-				BackgroundNormal=35,38,41
+				BackgroundAlternate=77,77,77
+				BackgroundNormal=49,54,59
 				DecorationFocus=61,174,233
 				DecorationHover=61,174,233
 				ForegroundActive=61,174,233
@@ -689,6 +695,55 @@ rec {
 				Size=22
 				
 			'';
+			"qt5ct/qt5ct.conf".text = genIni {
+				Appearance = {
+					color_scheme_path = "${pkgs.qt5ct}/share/qt5ct/colors/airy.conf";
+					custom_palette = false;
+					icon_theme = "Papirus-Dark";
+					standard_dialogs = "default";
+					style = "Breeze";
+				};
+
+				Fonts = {
+					fixed = "@Variant(\\0\\0\\0@\\0\\0\\0\\x16\\0R\\0o\\0\\x62\\0o\\0t\\0o\\0 \\0M\\0o\\0n\\0o@(\\0\\0\\0\\0\\0\\0\\xff\\xff\\xff\\xff\\x5\\x1\\0\\x32\\x10)"; # Roboto Mono Regular 12
+					general= "@Variant(\\0\\0\\0@\\0\\0\\0\\f\\0R\\0o\\0\\x62\\0o\\0t\\0o@(\\0\\0\\0\\0\\0\\0\\xff\\xff\\xff\\xff\\x5\\x1\\0\\x32\\x10)"; # Roboto Regular 12
+				};
+				Interface = {
+					activate_item_on_single_click = 1;
+					buttonbox_layout = 0;
+					cursor_flash_time = 1000;
+					dialog_buttons_have_icons = 1;
+					double_click_interval = 400;
+					gui_effects = "@Invalid()";
+					menus_have_icons = true;
+					stylesheets = "@Invalid()";
+					toolbutton_style = 4;
+					underline_shortcut = 1;
+					wheel_scroll_lines = 3;
+				};
+			};
+			"konsolerc.home".text = genIni {
+				"Desktop Entry".DefaultProfile = "Default.profile";
+				KonsoleWindow.ShowMenuBarByDefault = false;
+			};
+
+			"katerc.home".text = genIni {
+				"KTextEditor Renderer" = {
+					"Animate Bracket Matching" = false;
+					"Schema" = "Breeze Dark";
+					"Show Indentation Lines" = true;
+					"Show Whole Bracket Expression" = false;
+					"Word Wrap Marker" = true;
+				};
+				UiSettings = {
+					ColorScheme = "Breeze Dark";
+				};
+			};
+
+			"kateschemarc".text = genIni {
+				"Breeze Dark"."Color Background" = "49,54,59";
+			};
+
 			"mconnect/mconnect.conf".text = genIni {
 				"main" = {
 					devices = "lge;huawei";
@@ -706,10 +761,19 @@ rec {
 			};
 		};
 	};
-
-	home.file.".icons/default".source = "${pkgs.paper-icon-theme}/share/icons/Paper-Mono-Dark";
-	
-	home.file.".local/share/albert/org.albert.extension.python/modules/qalc.py".text = scripts.albert.qalc;
+	xdg.dataFile."albert/org.albert.extension.python/modules/qalc.py".text = scripts.albert.qalc;
+	xdg.dataFile."konsole/Default.profile".text = genIni {
+		Appearance.ColorScheme = "Breeze";
+		"Cursor Options".CursorShape = 1;
+		General = {
+			Command = "zsh";
+			Name = "Default";
+			Parent = "FALLBACK/";
+		};
+		Scrolling.HistoryMode = 2;
+		"Terminal Features".BlinkingCursorEnabled = true;
+	};
+	home.file.".icons/default".source = "${pkgs.breeze-qt5}/share/icons/breeze_cursors";
 
 	accounts = {
         email.accounts.gmail = {
