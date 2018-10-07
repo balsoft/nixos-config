@@ -7,6 +7,7 @@ device:
 let 
 	isLaptop = (!isNull(builtins.match ".*Laptop" device));
 	isShared = (device == "Prestigio-Laptop");
+	cpu = if device == "HP-Laptop" then "amd" else "intel";
 in
 {
 	# ========================== HARDWARE =====================================
@@ -14,6 +15,8 @@ in
 		/etc/nixos/hardware-configuration.nix
 		"${builtins.fetchTarball https://github.com/rycee/home-manager/archive/master.tar.gz}/nixos"
 	];
+
+	hardware.cpu.${cpu}.updateMicrocode = true;
 	
 	hardware.opengl.enable = true;
 	hardware.opengl.driSupport32Bit = true;
@@ -167,6 +170,10 @@ in
 	
 	# ====================== SOUND ============================================
 	sound.enable = true;
+	hardware.pulseaudio = {
+		enable = true;
+		package = pkgs.pulseaudioFull;		
+	};
 	sound.mediaKeys.enable = true;
 	# =========================================================================
 	
