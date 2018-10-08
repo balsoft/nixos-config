@@ -158,12 +158,6 @@ in
 			}
 		];
 	};
-	
-	services.compton = { 
-		enable = true;
-		backend = "xr_glx_hybrid";
-		vSync = "drm";
-	};
 	# =========================================================================
 
 	
