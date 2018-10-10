@@ -72,7 +72,7 @@ rec {
 		config = rec {
 			assigns = {
 				"🌐" = [{ class = "Chromium"; }];
-				"💬" = [{ class = "^Telegram"; }];	
+				"💬" = [{ class = "^Telegram"; } { class = "Trojita"; }];	
 			};
 			bars = [];
 			fonts = [ "RobotoMono 9" ];
@@ -112,6 +112,7 @@ rec {
 				{ command = "dunst"; }
 				{ command = "xrandr --output eDP1 --auto --primary --output HDMI2 --auto --right-of eDP1"; always = true; }
 				{ command = "google-drive-ocamlfuse '/home/balsoft/Google Drive/'"; }
+				{ command = "trojita"; }
 
 				{ command = "cp ~/.config/konsolerc.home ~/.config/konsolerc"; always = true; }
 				{ command = "cp ~/.config/katerc.home ~/.config/katerc"; always = true; }
@@ -156,6 +157,13 @@ rec {
 		};
 	};
 
+	services.compton = {
+		enable = true;
+		menuOpacity = "0.8";
+		blur = true;
+		backend = "glx";
+		vSync = "opengl-swc";
+	};
 	
 	services.polybar = {
 		enable = true;
@@ -337,6 +345,7 @@ rec {
 		gcalcli
 		google-drive-ocamlfuse
 		kdeconnect
+		trojita
 		nix-zsh-completions
 	]) 
 	++ 
@@ -766,6 +775,58 @@ rec {
 					name = "huawei";
 					type = "phone";
 					allowed = 1;
+				};
+			};
+			"flaska.net/trojita.conf".text = genIni {
+				General = {
+					"app.updates.checkEnabled" = false;
+					"imap.auth.user" = secret.gmail.user;
+					"imap.auth.pass" = secret.gmail.password;
+					"imap.host" = "imap.gmail.com";
+					"imap.method" = "SSL";
+					"imap.needsNetwork" = true;
+					"imap.numberRefreshInterval" = 300;
+					"imap.port" = 993;
+					"imap.proxy.system" = true;
+					"imap.ssl.pemPubKey" = "@ByteArray(-----BEGIN PUBLIC KEY-----\\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtSX6gvNeK+goOTCnEDUI\\nTGwpQ9cz/ifHmJJB3bP0suIl3HnabUgcZMgI2X/rK7+9j53rQWwTq1cf6/CUrKjq\\naqWAtP+L76A4sg5gnh2fvlulCcYWkDWV5i/f2pWNwm6VQjEli0cMLRJ1CufyP3eR\\nOZ2pZzJf/UdnMvnqHCsLFfBNNjayQ4Cp/raxC0bv4MLNsbSXth3rF/GRtFAaPYIp\\nZ7Qj4TY1uRQf1YjP49fD1EKi8aEK5rkE2ujtdydbv92lRpBBD6pR32AcN1UgxCaD\\nwD1Dp+GkxRfXWLqb/SLUuXvcdbhlBPiz8m8Jrqt7Vm8EJ31Go8wRvyEL91ycYGua\\n7QIDAQAB\\n-----END PUBLIC KEY-----\\n)";
+					"imap.startmode" = "ONLINE";
+					"imap.starttls" = true;
+					"imapIdleRenewal" = 29;
+					"msa.method" = "SMTP";
+					"msa.smtp.auth" = true;
+					"msa.smtp.auth.reuseImapCredentials" = true;
+					"msa.smtp.burl" = false;
+					"msa.smtp.host" = "smtp.gmail.com";
+					"msa.smtp.port" = 587;
+					"msa.smtp.starttls" = true;
+					"offline.cache" = "days";
+					"offline.cache.numDays" = "30";
+				};
+				autoMarkRead = {
+					enabled = true;
+					seconds = 0;
+				};
+				composer = {
+					imapSentName = "Sent";
+					saveToImapEnabled = false;
+				};
+				gui = {
+					"mainWindow.layout" = "compact";
+					preferPlaintextRendering = true;
+					showSystray = false;
+					startMinimized = false;
+				};
+				identities = {
+					"1\\address" = "${secret.gmail.user}@gmail.com";
+					"1\\organisation" = "";
+					"1\\realName" = "Alexander Bantyev";
+					"1\\signature" = "";
+					size = 1;
+				};
+				interoperability.revealVersions = true;
+				plugin = {
+					addressbook = "abookaddressbook";
+					password = "cleartextpassword";
 				};
 			};
 		};
