@@ -37,7 +37,8 @@ in
 		} else { # UEFI config
 			grub.efiSupport = true;
 			grub.device = "nodev";
-			#efi.installAsRemovable = true;
+			#grub.canTouchEfiVariables = false;
+			grub.efiInstallAsRemovable = true;
 		});
 		consoleLogLevel = 3;
 		kernelPackages = pkgs.linuxPackages_latest;

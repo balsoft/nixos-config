@@ -161,8 +161,8 @@ rec {
 		enable = true;
 		menuOpacity = "0.8";
 		blur = true;
-		backend = "glx";
-		vSync = "opengl-swc";
+		backend = "xr_glx_hybrid";
+		vSync = "opengl-hwc";
 	};
 	
 	services.polybar = {
