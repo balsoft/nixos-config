@@ -13,7 +13,8 @@ in
 	# ========================== HARDWARE =====================================
 	imports = [
 		/etc/nixos/hardware-configuration.nix
-		"${builtins.fetchTarball https://github.com/rycee/home-manager/archive/master.tar.gz}/nixos"
+#		"${builtins.fetchTarball https://github.com/rycee/home-manager/archive/master.tar.gz}/nixos"
+		"${builtins.fetchGit { url="https://github.com/rycee/home-manager"; ref="master"; }}/nixos"
 	];
 
 	hardware.cpu.${cpu}.updateMicrocode = true;
@@ -53,7 +54,6 @@ in
 			"intel_idle.max_cstate=1"
 		] else []);
 		kernel.sysctl = {
-			"kernel.printk" = "3 3 3 3";
 			"vm.swappiness" = 0;
 		};
 		blacklistedKernelModules = if device == "Prestigio-Laptop" then [ "axp288_charger" "axp288_fuel_gauge" "axp288_adc" ] else [];
@@ -295,35 +295,9 @@ in
 	};
 	security.sudo = {
 		enable = true;
-		extraRules = [{
-			commands = [{
-				command = "ALL";
-				options = [ "NOPASSWD" ];
-			}];
-			groups   = [ "users" ];
-		}];
 	};
 
 	home-manager.users.balsoft = import ./home.nix device { inherit pkgs; inherit lib; };
-	home-manager.users.svetlana-banteva = {
-		
-		xsession.windowManager.i3 = {
-			enable = true;
-			config = {
-				startup = [
-					{ command = "chromium"; }
-				];
-				modifier = "Mod4";
-			};
-		};
-		home.keyboard = {
-			options = ["grp:ctrl_shift"];
-			layout = "us,ru";
-		};
-		home.packages = with pkgs; [
-			chromium
-		];
-	};
 	# =========================================================================
 	
 	# The NixOS release to be compatible with for stateful data such as databases.

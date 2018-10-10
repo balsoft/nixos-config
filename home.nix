@@ -150,9 +150,9 @@ rec {
 				builtins.genList (x: {name = "${modifier}+Shift+${toString x}"; value = "move container to workspace ${toString x}";}) 10
 			));
 			keycodebindings = {
-				"122" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume 0 -10%";
-				"123" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume 0 +10%";
-				"121" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-mute 0 toggle";
+				"122" = "exec ${pkgs.pulseaudioFull}/bin/pactl set-sink-volume 0 -10%";
+				"123" = "exec ${pkgs.pulseaudioFull}/bin/pactl set-sink-volume 0 +10%";
+				"121" = "exec ${pkgs.pulseaudioFull}/bin/pactl set-sink-mute 0 toggle";
 			};
 		};
 	};
