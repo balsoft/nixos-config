@@ -53,7 +53,6 @@ in
 			"intel_idle.max_cstate=1"
 		] else []);
 		kernel.sysctl = {
-			"kernel.printk" = "3 3 3 3";
 			"vm.swappiness" = 0;
 		};
 		blacklistedKernelModules = if device == "Prestigio-Laptop" then [ "axp288_charger" "axp288_fuel_gauge" "axp288_adc" ] else [];
@@ -301,13 +300,6 @@ in
 	};
 	security.sudo = {
 		enable = true;
-		extraRules = [{
-			commands = [{
-				command = "ALL";
-				options = [ "NOPASSWD" ];
-			}];
-			groups   = [ "users" ];
-		}];
 	};
 
 	home-manager.users.balsoft = import ./home.nix device { inherit pkgs; inherit lib; };
