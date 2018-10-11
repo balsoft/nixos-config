@@ -20,7 +20,8 @@ in
 	hardware.cpu.${cpu}.updateMicrocode = true;
 	
 	hardware.opengl.enable = true;
-	hardware.opengl.driSupport32Bit = true;
+	hardware.opengl.driSupport = false;
+	hardware.opengl.driSupport32Bit = false;
 	# =========================================================================
 	
 	
