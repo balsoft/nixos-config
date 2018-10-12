@@ -72,7 +72,7 @@ rec {
 		config = rec {
 			assigns = {
 				"🌐" = [{ class = "Chromium"; }];
-				"💬" = [{ class = "^Telegram"; } { class = "Trojita"; }];	
+				"💬" = [{ class = "^Telegram"; } { class = "Trojitá"; }];	
 			};
 			bars = [];
 			fonts = [ "RobotoMono 9" ];
@@ -113,6 +113,7 @@ rec {
 				{ command = "xrandr --output eDP1 --auto --primary --output HDMI2 --auto --right-of eDP1"; always = true; }
 				{ command = "google-drive-ocamlfuse '/home/balsoft/Google Drive/'"; }
 				{ command = "trojita"; }
+				{ command = "allow_rgb10_configs=false compton --backend glx --vsync opengl-swc"; always = true; }
 
 				{ command = "cp ~/.config/konsolerc.home ~/.config/konsolerc"; always = true; }
 				{ command = "cp ~/.config/katerc.home ~/.config/katerc"; always = true; }
@@ -136,9 +137,9 @@ rec {
 				"${modifier}+d" = "exec ${pkgs.dolphin}/bin/dolphin";
 				"${modifier}+Escape" = "exec ${pkgs.ksysguard}/bin/ksysguard";
 				"${modifier}+Print" = "exec scrot -e 'mv $f ~/Pictures && notify-send \"Screenshot saved as ~/Pictures/$f\"'";
-				"${modifier}+Control+Print" = "exec scrot -e 'xclip -selection clipboard -t image/png -i $f && notify-send \"Screenshot copied to clipboard\"'; rm $f";
+				"${modifier}+Control+Print" = "exec scrot -e 'xclip -selection clipboard -t image/png -i $f && notify-send \"Screenshot copied to clipboard\"; rm $f'";
 				"--release ${modifier}+Shift+Print" = "exec scrot -s -e 'mv $f ~/Pictures && notify-send \"Screenshot saved as ~/Pictures/$f\"'";
-				"--release ${modifier}+Control+Shift+Print" = "exec scrot -s -e 'xclip -selection clipboard -t image/png -i $f && notify-send \"Screenshot copied to clipboard\"'; rm -f";
+				"--release ${modifier}+Control+Shift+Print" = "exec scrot -s -e 'xclip -selection clipboard -t image/png -i $f && notify-send \"Screenshot copied to clipboard\"; rm $f'";
 				"${modifier}+x" = "move workspace to output right";	
 				"${modifier}+c" = "workspace 🌐";
 				"${modifier}+Shift+c" = "move container to workspace 🌐";
@@ -157,14 +158,7 @@ rec {
 		};
 	};
 
-	services.compton = {
-		enable = true;
-		menuOpacity = "0.8";
-		blur = true;
-		backend = "glx";
-		vSync = "opengl-swc";
-	};
-	
+
 	services.polybar = {
 		enable = true;
 		package = pkgs.polybar.override {

@@ -20,7 +20,8 @@ in
 	hardware.cpu.${cpu}.updateMicrocode = true;
 	
 	hardware.opengl.enable = true;
-	hardware.opengl.driSupport32Bit = true;
+	hardware.opengl.driSupport = false;
+	hardware.opengl.driSupport32Bit = false;
 	# =========================================================================
 	
 	
@@ -37,7 +38,8 @@ in
 		} else { # UEFI config
 			grub.efiSupport = true;
 			grub.device = "nodev";
-			#efi.installAsRemovable = true;
+			#grub.canTouchEfiVariables = false;
+			grub.efiInstallAsRemovable = true;
 		});
 		consoleLogLevel = 3;
 		kernelPackages = pkgs.linuxPackages_latest;
