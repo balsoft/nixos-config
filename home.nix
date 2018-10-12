@@ -341,6 +341,8 @@ rec {
 		kdeconnect
 		trojita
 		nix-zsh-completions
+		breeze-icons
+		papirus-icon-theme
 	]) 
 	++ 
 	(with customPackages; [
