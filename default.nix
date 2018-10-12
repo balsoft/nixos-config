@@ -137,13 +137,27 @@ in
 				command = "expr 1 + `cat '/sys/class/leds/asus::kbd_backlight/brightness'` > '/sys/class/leds/asus::kbd_backlight/brightness'";
 			}
 			{
-				keys = [25 125];
-				command = ''
-					${pkgs.xorg.xrandr}/bin/xrandr --output HDMI2 --off
-					${pkgs.xorg.xrandr}/bin/xrandr --output HDMI2 --auto
-					${pkgs.xorg.xrandr}/bin/xrandr --output eDP1 --preferred --primary --left-of o --output HDMI2 --nograb --noprimary --auto
-					/run/current-system/sw/bin/pkill compton
-				'';
+				keys = [560];
+				command = (toString (pkgs.writeTextFile {
+					name = "als-script";
+					text = ''
+						if [[ `cat /sys/devices/platform/asus-nb-wmi/als_enable` -eq 1 ]]
+						then
+							echo "0" > /sys/devices/platform/asus-nb-wmi/als_enable
+							${pkgs.light}/bin/light -I
+						else
+							echo "1" > /sys/devices/platform/asus-nb-wmi/als_enable
+							${pkgs.light}/bin/light -O
+							while true
+							do
+								[[ `cat /sys/devices/platform/asus-nb-wmi/als_enable` -eq 0 ]] && exit 1;
+								${pkgs.light}/bin/light -S $(+`cat '/sys/devices/LNXSYSTM:00/LNXSYBUS:00/ACPI0008:00/iio:device0/in_illuminance_input'`))
+								echo $(((100 - `cat '/sys/devices/LNXSYSTM:00/LNXSYBUS:00/ACPI0008:00/iio:device0/in_illuminance_input'`)/80)) > '/sys/class/leds/asus::kbd_backlight/brightness'
+							done &
+						fi
+					'';
+					executable = true;
+				}));
 			}
 		] else []) ++ [
 			{
@@ -156,7 +170,19 @@ in
 			}
 			{
 				keys = [ 431 ];
-				command = "${pkgs.light}/bin/light -S 0";
+				command = (toString (pkgs.writeTextFile {
+					name = "dark-script";
+					text = ''
+						if [[ `${pkgs.light}/bin/light` = "0.00" ]]
+						then
+							${pkgs.light}/bin/light -O
+						else
+							${pkgs.light}/bin/light -I
+							${pkgs.light}/bin/light -S 0
+						fi
+					'';
+					executable = true;
+				}));
 			}
 		];
 	};
