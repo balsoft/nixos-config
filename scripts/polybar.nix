@@ -26,16 +26,15 @@ rec {
             ping -c 1 api.openweathermap.org &> /dev/null || exit 1 
             get_icon() {
                 case $1 in 
-                    01d) icon=🌣;;
-                    01n) icon=🌙;;
-                    02*) icon=🌤;;
-                    03*) icon=☁;;
-                    04*) icon=🌥;;
-                    09*) icon=🌧;;
-                    10*) icon=🌦;;
-                    11*) icon=🌩;;
-                    13*) icon=🌨;;
-                    50*) icon=🌫;;
+                    01*) icon=;;
+                    02*) icon=;;
+                    03*) icon=;;
+                    04*) icon=;;
+                    09*) icon=;;
+                    10*) icon=;;
+                    11*) icon=;;
+                    13*) icon=;;
+                    50*) icon=;;
                 esac
                 echo $icon
             }
@@ -200,15 +199,14 @@ rec {
         text = ''
             #!${pkgs.bash}/bin/bash
             BATTERY="`${pkgs.acpi}/bin/acpi -b`"
-            STATUS=`awk -F', ' '{print $3}' <<< "$BATTERY" | tr -d ','`
-            CHARGE=`awk -F', ' '{print $4}' <<< "$BATTERY" | tr -d ',%'`
-            TIME=`awk -F', ' '{print $5}' <<< "$BATTERY"`
+            STATUS=`awk -F'[,:] ' '{print $2}' <<< "$BATTERY"`
+            CHARGE=`awk -F'[,%] ' '{print $2}' <<< "$BATTERY"`
+            TIME=`awk -F', ' '{print $3}' <<< "$BATTERY"`
             echo -n "%{F${theme.bg}}"
             case "$STATUS" in
-                Full) echo "%{T6}%{T-} FULL"; echo "${color_full}";;
+                Full) ;& "Not charging") echo "%{T6}%{T-} FULL"; echo "${color_full}";;
                 Charging) echo "%{T3}%{T-} $CHARGE% ($TIME)"; echo "${color_charging}";;
-                Discharging) ;&
-                Not charging)
+                Discharging)
                     if [[ $CHARGE -gt ${builtins.toString low_threshold} ]]
                     then
                         echo "%{T6}%{T-} $CHARGE% ($TIME)";    
