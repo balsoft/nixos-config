@@ -8,6 +8,7 @@ let
 	isLaptop = (!isNull(builtins.match ".*Laptop" device));
 	isShared = (device == "Prestigio-Laptop");
 	cpu = if device == "HP-Laptop" then "amd" else "intel";
+	isSSD = device == "HP-Laptop" || device == "ASUS-Laptop";
 in
 {
 	# ========================== HARDWARE =====================================
@@ -56,9 +57,10 @@ in
 			"intel_idle.max_cstate=1"
 		] else []);
 		kernel.sysctl = {
-			"vm.swappiness" = 0;
+			"vm.swappiness" = if isSSD then 10 else 0;
 		};
 		blacklistedKernelModules = if device == "Prestigio-Laptop" then [ "axp288_charger" "axp288_fuel_gauge" "axp288_adc" ] else [];
+		resumeDevice = if isSSD then "/dev/sda2" else "";
 	};
 
 	hardware.bluetooth.enable = true;	
@@ -108,6 +110,7 @@ in
 		layout = "us,ru";
 		xkbOptions = "grp:caps_toggle,grp_led:caps";
 	};
+	programs.dconf.enable = true;
 	fonts = {
 		fonts = with pkgs; [
 			terminus_font
@@ -229,7 +232,7 @@ in
 	programs.light.enable = isLaptop;
 
 	services.earlyoom = {
-		enable = true;
+		enable = !isSSD;
 		freeMemThreshold = 5;
 		freeSwapThreshold = 100;
 	};

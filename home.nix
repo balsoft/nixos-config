@@ -1,4 +1,5 @@
 device: {pkgs, lib, ...}:
+with import ./support.nix { inherit lib; };
 let
 	thm = {
 		bg = "#31363b";
@@ -7,6 +8,9 @@ let
 		green = "#11d116";
 		red = "#f67400";
 	};
+
+	thmDec = builtins.mapAttrs (name: color: colorHex2Dec color) thm;
+
 	term = "${pkgs.kdeApplications.konsole}/bin/konsole";
 
 	secret = import ./secret.nix;
@@ -15,16 +19,6 @@ let
 
 	customPackages = import ./packages {inherit pkgs;};
 
-	genIni = lib.generators.toINI {
-	mkKeyValue = key: value:
-		let
-		mvalue =
-			if builtins.isBool value then (if value then "true" else "false")
-			else if (builtins.isString value && key != "include-file") then value
-			else builtins.toString value;
-		in
-		"${key}=${mvalue}";
-};
 	isLaptop = (!isNull(builtins.match ".*Laptop" device));
 	smallScreen = (device == "Prestigio-Laptop");
 in
@@ -43,7 +37,7 @@ rec {
 			theme = "agnoster";
 			plugins = [
 				"git"
-#				"compleat"
+				"compleat"
 				"dirhistory"
 			];
 		};
@@ -71,8 +65,8 @@ rec {
 		enable = true;
 		config = rec {
 			assigns = {
-				"🌐" = [{ class = "Chromium"; }];
-				"💬" = [{ class = "^Telegram"; } { class = "Trojitá"; }];	
+				"" = [{ class = "Chromium"; }];
+				"" = [{ class = "^Telegram"; } ];	
 			};
 			bars = [];
 			fonts = [ "RobotoMono 9" ];
@@ -104,7 +98,6 @@ rec {
 				{ command = "QT_SCALE_FACTOR=1 ${pkgs.albert}/bin/albert"; always = true; }
 				{ command = "${pkgs.tdesktop}/bin/telegram-desktop"; }
 				{ command = "${pkgs.chromium}/bin/chromium"; }
-				{ command = term; workspace = "0"; }
 				{ command = "${pkgs.kdeconnect}/lib/libexec/kdeconnectd -platform offscreen"; }
 				{ command = "pkill polybar; polybar top"; always = true; }
 				{ command = "${customPackages.mconnect}/bin/mconnect"; }
@@ -112,8 +105,9 @@ rec {
 				{ command = "dunst"; }
 				{ command = "xrandr --output eDP1 --auto --primary --output HDMI2 --auto --right-of eDP1"; always = true; }
 				{ command = "google-drive-ocamlfuse '/home/balsoft/Google Drive/'"; }
-				{ command = "trojita"; }
-				{ command = "allow_rgb10_configs=false compton --backend glx --vsync opengl-swc"; always = true; }
+				{ command = "trojita"; workspace = ""; }
+				{ command = "allow_rgb10_configs=false ${pkgs.compton}/bin/compton --backend glx --vsync opengl-swc"; always = true; }
+				{ command = "${pkgs.hsetroot}/bin/hsetroot -solid '#31363b'"; always = true; }
 
 				{ command = "cp ~/.config/konsolerc.home ~/.config/konsolerc"; always = true; }
 				{ command = "cp ~/.config/katerc.home ~/.config/katerc"; always = true; }
@@ -141,18 +135,18 @@ rec {
 				"--release ${modifier}+Shift+Print" = "exec scrot -s -e 'mv $f ~/Pictures && notify-send \"Screenshot saved as ~/Pictures/$f\"'";
 				"--release ${modifier}+Control+Shift+Print" = "exec scrot -s -e 'xclip -selection clipboard -t image/png -i $f && notify-send \"Screenshot copied to clipboard\"; rm $f'";
 				"${modifier}+x" = "move workspace to output right";	
-				"${modifier}+c" = "workspace 🌐";
-				"${modifier}+Shift+c" = "move container to workspace 🌐";
-				"${modifier}+t" = "workspace 💬";
-				"${modifier}+Shift+t" = "move container to workspace 💬";
+				"${modifier}+c" = "workspace ";
+				"${modifier}+Shift+c" = "move container to workspace ";
+				"${modifier}+t" = "workspace ";
+				"${modifier}+Shift+t" = "move container to workspace ";
 			} // builtins.listToAttrs (
 				builtins.genList (x: {name = "${modifier}+${toString x}"; value = "workspace ${toString x}";}) 10
 			) // builtins.listToAttrs (
 				builtins.genList (x: {name = "${modifier}+Shift+${toString x}"; value = "move container to workspace ${toString x}";}) 10
 			));
 			keycodebindings = {
-				"122" = "exec ${pkgs.pulseaudioFull}/bin/pactl set-sink-volume 0 -10%";
-				"123" = "exec ${pkgs.pulseaudioFull}/bin/pactl set-sink-volume 0 +10%";
+				"122" = "exec ${pkgs.pulseaudioFull}/bin/pactl set-sink-volume 0 -5%";
+				"123" = "exec ${pkgs.pulseaudioFull}/bin/pactl set-sink-volume 0 +5%";
 				"121" = "exec ${pkgs.pulseaudioFull}/bin/pactl set-sink-mute 0 toggle";
 			};
 		};
@@ -171,6 +165,7 @@ rec {
 				font-1 = "Noto Sans Symbols2:size=15;4";
 				font-2 = "Noto Emoji:size=" + (if smallScreen then "8;1" else "11;2");
 				font-4 = "Unifont:size=" + (if smallScreen then "8;1" else "11;2");
+				font-5 = "Material Icons:size=" + (if smallScreen then "10;2" else "16;4");
 				width = "100%";
 				height = if smallScreen then "19px" else "25px";
 				radius = 0;
@@ -327,6 +322,10 @@ rec {
 		libqalculate
 		qt5ct
 		breeze-qt5
+		adwaita-qt
+		gnome3.adwaita-icon-theme
+		papirus-icon-theme
+		breeze-icons
 		units
 		goldendict
 		ksysguard
@@ -341,6 +340,7 @@ rec {
 		kdeconnect
 		trojita
 		nix-zsh-completions
+		material-icons
 	]) 
 	++ 
 	(with customPackages; [
@@ -361,6 +361,7 @@ rec {
 		EDITOR = "micro";
 		QT_QPA_PLATFORMTHEME = "qt5ct";
 		QT_SCALE_FACTOR = 1;
+		QT_AUTO_SCREEN_SCALE_FACTOR = 0;
 		GTK_THEME = "Breeze-Dark";
 		LESS = "-asrRix8";
 		SSH_ASKPASS = "${pkgs.ksshaskpass}/bin/ksshaskpass";
@@ -384,12 +385,15 @@ rec {
 					hotkey = "Meta+Space";
 					showTray = false;
 					terminal = "${pkgs.konsole}/bin/konsole -e";
+					incrementalSort = true;
 				};
 				"org.albert.extension.applications".enabled = true;
 				"org.albert.extension.files" = {
 					enabled = true;
-					filters = "application/*, image/*";	
+					filters = "application/*, image/*, directory/*, text/*";	
 				};
+				"org.albert.extension.chromebookmarks".enabled = true;
+				"org.albert.extension.mpris".enabled = true;
 				"org.albert.extension.python" = {
 					enabled = true;
 					enabled_modules = "Python, Wikipedia, GoogleTranslate, Kill, qalc";
@@ -398,6 +402,7 @@ rec {
 				"org.albert.extension.system" = {
 						enabled = true;
 						logout = "i3-msg exit";
+						lock = "i3lock";
 						reboot = "reboot";
 						shutdown = "shutdown now";		
 				};
@@ -410,15 +415,17 @@ rec {
 					hideOnClose=false;
 					hideOnFocusLoss=true;
 					showCentered=true;
-					stylePath="${pkgs.albert}/share/albert/org.albert.frontend.boxmodel.qml/styles/BoxModel/MainComponent.qml";
+					stylePath="${pkgs.albert}/share/albert/org.albert.frontend.qmlboxmodel/styles/BoxModel/MainComponent.qml";
 					windowPosition="@Point(299 13)";
 				};
 			};
 			"albert/org.albert.frontend.qmlboxmodel/style_properties.ini".text = genIni {
 				BoxModel = {
 					animation_duration=0;
-					background_color="\"@Variant(\\0\\0\\0\\x43\\x1\\xff\\xff\\x31\\x31\\x36\\x36;;\\0\\0)\"";
-					border_color="\"@Variant(\\0\\0\\0\\x43\\x1\\xff\\xff==\\xae\\xae\\xe9\\xe9\\0\\0)\"";
+					#background_color="\"@Variant(\\0\\0\\0\\x43\\x1\\xff\\xff\\x31\\x31\\x36\\x36;;\\0\\0)\"";
+					background_color = thm.bg;
+					#border_color="\"@Variant(\\0\\0\\0\\x43\\x1\\xff\\xff==\\xae\\xae\\xe9\\xe9\\0\\0)\"";
+					border_color = thm.blue;
 					border_size=1;
 					icon_size=46;
 					input_fontsize=28;
@@ -432,281 +439,96 @@ rec {
 					window_width=1200;
 				};
 			};
-			"kdeglobals".text = ''
-				[$Version]
-				update_info=fonts_global.upd:Fonts_Global,fonts_global_toolbar.upd:Fonts_Global_Toolbar
-				
-				[ColorEffects:Disabled]
-				ChangeSelectionColor=
-				Color=56,56,56
-				ColorAmount=0
-				ColorEffect=0
-				ContrastAmount=0.65
-				ContrastEffect=1
-				Enable=
-				IntensityAmount=0.1
-				IntensityEffect=2
-				
-				[ColorEffects:Inactive]
-				ChangeSelectionColor=true
-				Color=112,111,110
-				ColorAmount=0.025
-				ColorEffect=2
-				ContrastAmount=0.1
-				ContrastEffect=2
-				Enable=false
-				IntensityAmount=0
-				IntensityEffect=0
-				
-				[Colors:Button]
-				BackgroundAlternate=77,77,77
-				BackgroundNormal=49,54,59
-				DecorationFocus=61,174,233
-				DecorationHover=61,174,233
-				ForegroundActive=61,174,233
-				ForegroundInactive=189,195,199
-				ForegroundLink=41,128,185
-				ForegroundNegative=218,68,83
-				ForegroundNeutral=246,116,0
-				ForegroundNormal=239,240,241
-				ForegroundPositive=39,174,96
-				ForegroundVisited=127,140,141
-				
-				[Colors:Complementary]
-				BackgroundAlternate=59,64,69
-				BackgroundNormal=49,54,59
-				DecorationFocus=30,146,255
-				DecorationHover=61,174,230
-				ForegroundActive=246,116,0
-				ForegroundInactive=175,176,179
-				ForegroundLink=61,174,230
-				ForegroundNegative=237,21,21
-				ForegroundNeutral=201,206,59
-				ForegroundNormal=239,240,241
-				ForegroundPositive=17,209,22
-				ForegroundVisited=61,174,230
-				
-				[Colors:Selection]
-				BackgroundAlternate=29,153,243
-				BackgroundNormal=61,174,233
-				DecorationFocus=61,174,233
-				DecorationHover=61,174,233
-				ForegroundActive=252,252,252
-				ForegroundInactive=239,240,241
-				ForegroundLink=253,188,75
-				ForegroundNegative=218,68,83
-				ForegroundNeutral=246,116,0
-				ForegroundNormal=239,240,241
-				ForegroundPositive=39,174,96
-				ForegroundVisited=189,195,199
-				
-				[Colors:Tooltip]
-				BackgroundAlternate=77,77,77
-				BackgroundNormal=49,54,59
-				DecorationFocus=61,174,233
-				DecorationHover=61,174,233
-				ForegroundActive=61,174,233
-				ForegroundInactive=189,195,199
-				ForegroundLink=41,128,185
-				ForegroundNegative=218,68,83
-				ForegroundNeutral=246,116,0
-				ForegroundNormal=239,240,241
-				ForegroundPositive=39,174,96
-				ForegroundVisited=127,140,141
-				
-				[Colors:View]
-				BackgroundAlternate=77,77,77
-				BackgroundNormal=49,54,59
-				DecorationFocus=61,174,233
-				DecorationHover=61,174,233
-				ForegroundActive=61,174,233
-				ForegroundInactive=189,195,199
-				ForegroundLink=41,128,185
-				ForegroundNegative=218,68,83
-				ForegroundNeutral=246,116,0
-				ForegroundNormal=239,240,241
-				ForegroundPositive=39,174,96
-				ForegroundVisited=127,140,141
-				
-				[Colors:Window]
-				BackgroundAlternate=77,77,77
-				BackgroundNormal=49,54,59
-				DecorationFocus=61,174,233
-				DecorationHover=61,174,233
-				ForegroundActive=61,174,233
-				ForegroundInactive=189,195,199
-				ForegroundLink=41,128,185
-				ForegroundNegative=218,68,83
-				ForegroundNeutral=246,116,0
-				ForegroundNormal=239,240,241
-				ForegroundPositive=39,174,96
-				ForegroundVisited=127,140,141
-				
-				[DesktopIcons]
-				ActiveColor=169,156,255
-				ActiveColor2=0,0,0
-				ActiveEffect=togamma
-				ActiveSemiTransparent=false
-				ActiveValue=0.699999988079071
-				Animated=true
-				DefaultColor=144,128,248
-				DefaultColor2=0,0,0
-				DefaultEffect=none
-				DefaultSemiTransparent=false
-				DefaultValue=1
-				DisabledColor=34,202,0
-				DisabledColor2=0,0,0
-				DisabledEffect=togray
-				DisabledSemiTransparent=true
-				DisabledValue=1
-				Size=48
-				
-				[DialogIcons]
-				ActiveColor=169,156,255
-				ActiveColor2=0,0,0
-				ActiveEffect=none
-				ActiveSemiTransparent=false
-				ActiveValue=1
-				Animated=false
-				DefaultColor=144,128,248
-				DefaultColor2=0,0,0
-				DefaultEffect=none
-				DefaultSemiTransparent=false
-				DefaultValue=1
-				DisabledColor=34,202,0
-				DisabledColor2=0,0,0
-				DisabledEffect=togray
-				DisabledSemiTransparent=true
-				DisabledValue=1
-				Size=32
-				
-				[General]
-				BrowserApplication[$e]=chromium-browser.desktop
-				ColorScheme=Breeze Dark
-				Name=Breeze Dark
-				fixed=Monospace,10,-1,5,50,0,0,0,0,0
-				font=Roboto,10,-1,5,50,0,0,0,0,0
-				menuFont=Roboto,10,-1,5,50,0,0,0,0,0
-				shadeSortColumn=true
-				smallestReadableFont=Roboto,8,-1,5,57,0,0,0,0,0,Medium
-				toolBarFont=Roboto,10,-1,5,50,0,0,0,0,0
-				
-				[Icons]
-				Theme=breeze-dark
-				
-				[KDE]
-				DoubleClickInterval=400
-				LookAndFeelPackage=org.kde.breezedark.desktop
-				ShowDeleteCommand=false
-				SingleClick=true
-				StartDragDist=4
-				StartDragTime=500
-				WheelScrollLines=3
-				contrast=4
-				widgetStyle=Breeze
-				
-				[KFileDialog Settings]
-				Automatically select filename extension=true
-				Breadcrumb Navigation=false
-				Decoration position=0
-				LocationCombo Completionmode=5
-				PathCombo Completionmode=5
-				Previews=false
-				Show Bookmarks=false
-				Show Full Path=false
-				Show Preview=false
-				Show Speedbar=true
-				Show hidden files=false
-				Sort by=Name
-				Sort directories first=true
-				Sort reversed=false
-				Speedbar Width=141
-				View Style=Simple
-				listViewIconSize=0
-				
-				[KShortcutsDialog Settings]
-				Dialog Size=600,480
-				
-				[MainToolbarIcons]
-				ActiveColor=169,156,255
-				ActiveColor2=0,0,0
-				ActiveEffect=none
-				ActiveSemiTransparent=false
-				ActiveValue=1
-				Animated=false
-				DefaultColor=144,128,248
-				DefaultColor2=0,0,0
-				DefaultEffect=none
-				DefaultSemiTransparent=false
-				DefaultValue=1
-				DisabledColor=34,202,0
-				DisabledColor2=0,0,0
-				DisabledEffect=togray
-				DisabledSemiTransparent=true
-				DisabledValue=1
-				Size=22
-				
-				[PanelIcons]
-				ActiveColor=169,156,255
-				ActiveColor2=0,0,0
-				ActiveEffect=togamma
-				ActiveSemiTransparent=false
-				ActiveValue=0.699999988079071
-				Animated=false
-				DefaultColor=144,128,248
-				DefaultColor2=0,0,0
-				DefaultEffect=none
-				DefaultSemiTransparent=false
-				DefaultValue=1
-				DisabledColor=34,202,0
-				DisabledColor2=0,0,0
-				DisabledEffect=togray
-				DisabledSemiTransparent=true
-				DisabledValue=1
-				Size=48
-				
-				[PreviewSettings]
-				MaximumRemoteSize=0
-				
-				[SmallIcons]
-				ActiveColor=169,156,255
-				ActiveColor2=0,0,0
-				ActiveEffect=none
-				ActiveSemiTransparent=false
-				ActiveValue=1
-				Animated=false
-				DefaultColor=144,128,248
-				DefaultColor2=0,0,0
-				DefaultEffect=none
-				DefaultSemiTransparent=false
-				DefaultValue=1
-				DisabledColor=34,202,0
-				DisabledColor2=0,0,0
-				DisabledEffect=togray
-				DisabledSemiTransparent=true
-				DisabledValue=1
-				Size=16
-				
-				[ToolbarIcons]
-				ActiveColor=169,156,255
-				ActiveColor2=0,0,0
-				ActiveEffect=none
-				ActiveSemiTransparent=false
-				ActiveValue=1
-				Animated=false
-				DefaultColor=144,128,248
-				DefaultColor2=0,0,0
-				DefaultEffect=none
-				DefaultSemiTransparent=false
-				DefaultValue=1
-				DisabledColor=34,202,0
-				DisabledColor2=0,0,0
-				DisabledEffect=togray
-				DisabledSemiTransparent=true
-				DisabledValue=1
-				Size=22
-				
-			'';
+			"kdeglobals".text = genIni {
+				"Colors:Button" = {
+					BackgroundAlternate = "77,77,77";
+					BackgroundNormal = thmDec.bg;
+					DecorationFocus = "61,174,233";
+					DecorationHover = "61,174,233";
+					ForegroundActive = "61,174,233";
+					ForegroundInactive = "189,195,199";
+					ForegroundLink = "41,128,185";
+					ForegroundNegative = "218,68,83";
+					ForegroundNeutral = "246,116,0";
+					ForegroundNormal = "239,240,241";
+					ForegroundPositive = "39,174,96";
+					ForegroundVisited = "127,140,141";
+				};
+				"Colors:Complementary" = {
+					BackgroundAlternate="48,53,58";
+					BackgroundNormal="49,54,59";
+					DecorationFocus="30,146,255";
+					DecorationHover="61,174,230";
+					ForegroundActive="246,116,0";
+					ForegroundInactive="175,176,179";
+					ForegroundLink="61,174,230";
+					ForegroundNegative="237,21,21";
+					ForegroundNeutral="201,206,59";
+					ForegroundNormal="239,240,241";
+					ForegroundPositive="17,209,22";
+					ForegroundVisited="61,174,230";
+				};
+				"Colors:Selection" = {
+					BackgroundAlternate="29,153,243";
+					BackgroundNormal="61,174,233";
+					DecorationFocus="61,174,233";
+					DecorationHover="61,174,233";
+					ForegroundActive="252,252,252";
+					ForegroundInactive="239,240,241";
+					ForegroundLink="253,188,75";
+					ForegroundNegative="218,68,83";
+					ForegroundNeutral="246,116,0";
+					ForegroundNormal="239,240,241";
+					ForegroundPositive="39,174,96";
+					ForegroundVisited="189,195,199";
+				};
+				"Colors:Tooltip" = {
+					BackgroundAlternate="77,77,77";
+					BackgroundNormal="49,54,59";
+					DecorationFocus="61,174,233";
+					DecorationHover="61,174,233";
+					ForegroundActive="61,174,233";
+					ForegroundInactive="189,195,199";
+					ForegroundLink="41,128,185";
+					ForegroundNegative="218,68,83";
+					ForegroundNeutral="246,116,0";
+					ForegroundNormal="239,240,241";
+					ForegroundPositive="39,174,96";
+					ForegroundVisited="127,140,141";
+				};
+				"Colors:View" = {
+					BackgroundAlternate="48,53,58";
+					BackgroundNormal="49,54,59";
+					DecorationFocus="61,174,233";
+					DecorationHover="61,174,233";
+					ForegroundActive="61,174,233";
+					ForegroundInactive="189,195,199";
+					ForegroundLink="41,128,185";
+					ForegroundNegative="218,68,83";
+					ForegroundNeutral="246,116,0";
+					ForegroundNormal="239,240,241";
+					ForegroundPositive="39,174,96";
+					ForegroundVisited="127,140,141";
+				};
+				"Colors:Window" = {
+					BackgroundAlternate="48,53,58";
+					BackgroundNormal="49,54,59";
+					DecorationFocus="61,174,233";
+					DecorationHover="61,174,233";
+					ForegroundActive="61,174,233";
+					ForegroundInactive="189,195,199";
+					ForegroundLink="41,128,185";
+					ForegroundNegative="218,68,83";
+					ForegroundNeutral="246,116,0";
+					ForegroundNormal="239,240,241";
+					ForegroundPositive="39,174,96";
+					ForegroundVisited="127,140,141";
+				};
+				General = {
+					ColorScheme="Breeze Dark";
+					Name="Breeze Dark";
+				};
+			};
 			"qt5ct/qt5ct.conf".text = genIni {
 				Appearance = {
 					color_scheme_path = "${pkgs.qt5ct}/share/qt5ct/colors/airy.conf";
@@ -753,7 +575,7 @@ rec {
 			};
 
 			"kateschemarc".text = genIni {
-				"Breeze Dark"."Color Background" = "49,54,59";
+				"Breeze Dark"."Color Background" = thmDec.bg;
 			};
 
 			"mconnect/mconnect.conf".text = genIni {
@@ -782,8 +604,6 @@ rec {
 					"imap.numberRefreshInterval" = 300;
 					"imap.port" = 993;
 					"imap.proxy.system" = true;
-					"imap.ssl.pemPubKey" = "@ByteArray(-----BEGIN PUBLIC KEY-----\\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtSX6gvNeK+goOTCnEDUI\\nTGwpQ9cz/ifHmJJB3bP0suIl3HnabUgcZMgI2X/rK7+9j53rQWwTq1cf6/CUrKjq\\naqWAtP+L76A4sg5gnh2fvlulCcYWkDWV5i/f2pWNwm6VQjEli0cMLRJ1CufyP3eR\\nOZ2pZzJf/UdnMvnqHCsLFfBNNjayQ4Cp/raxC0bv4MLNsbSXth3rF/GRtFAaPYIp\\nZ7Qj4TY1uRQf1YjP49fD1EKi8aEK5rkE2ujtdydbv92lRpBBD6pR32AcN1UgxCaD\\nwD1Dp+GkxRfXWLqb/SLUuXvcdbhlBPiz8m8Jrqt7Vm8EJ31Go8wRvyEL91ycYGua\\n7QIDAQAB\\n-----END PUBLIC KEY-----\\n)";
-					"imap.startmode" = "ONLINE";
 					"imap.starttls" = true;
 					"imapIdleRenewal" = 29;
 					"msa.method" = "SMTP";

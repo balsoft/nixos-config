@@ -72,7 +72,7 @@ rec {
             obj.login("${user}", "${password}")
             obj.select()
             l = len(obj.search(None, 'unseen')[1][0].split())
-            print("%{F${theme.bg} }%{A:${pkgs.chromium}/bin/chromium https\://inbox.google.com:}%{T3}📧%{T-} "+str(l)+"%{A-}")
+            print("%{F${theme.bg} }%{A:i3-msg workspace :}%{T6}%{T-} "+str(l)+"%{A-}")
             print("${color_unread}" if l != 0 else "${color_nounread}")
         except:
             pass'';
@@ -83,7 +83,7 @@ rec {
         name = "time";
         text = ''
         #!${pkgs.bash}/bin/bash 
-        echo "`date +'%%{F${theme.bg}} %%{T3}⌚%%{T-} %H:%M %%{T3}📆%%{T-} %A, %d'`"
+        echo "`date +'%%{F${theme.bg}}%%{T6}%%{T-} %H:%M %%{T6}%%{T-} %A, %d'`"
         echo "${theme.fg}"
         '';
         executable = true;
@@ -95,7 +95,7 @@ rec {
         #!${pkgs.bash}/bin/bash
         ping -c 1 calendar.google.com &> /dev/null || exit 1 
         echo -n "%{F${theme.red}}"
-        echo "`PYTHONIOENCODING=utf8 ${pkgs.gcalcli}/bin/gcalcli --nocolor agenda 'now' 'now+1s' | head -2 | tail -1 | awk '{$1=""; $2=""; $3=""; $4=""; print}' | tr -s ' '`" 
+        echo "`PYTHONIOENCODING=utf8 ${pkgs.gcalcli}/bin/gcalcli --nocolor agenda 'now' 'now+1s' --tsv | head -1 | awk '{$1=""; $2=""; $3=""; $4=""; print}' | tr -s ' '`" 
         echo "${theme.fg}"
         '';
         executable = true;
@@ -106,9 +106,9 @@ rec {
         text = ''
             #!${pkgs.bash}/bin/bash
             ping -c 1 calendar.google.com &> /dev/null || exit 1 
-            AGENDA_NEXT="`PYTHONIOENCODING=utf8 ${pkgs.gcalcli}/bin/gcalcli --nocolor search "*" 'now' 'now+6d' --nostarted | head -2 | tail -1`"
+            AGENDA_NEXT="`PYTHONIOENCODING=utf8 ${pkgs.gcalcli}/bin/gcalcli --nocolor search "*" 'now' 'now+6d' --nostarted --tsv | head -1`"
             DATE="`awk '{print $1 " " $2}' <<< "$AGENDA_NEXT"`"
-            echo -n "%{F${theme.bg}}📅 "
+            echo -n "%{F${theme.bg}}%{T6}%{T-} "
             if [[ `date -d "$DATE" +'%u'` -eq `date +'%u'` ]]
             then
                 echo -n `date -d "$DATE" +'%H:%M'`
@@ -121,7 +121,7 @@ rec {
             else
                 color=${theme.blue}
             fi
-            echo ": `awk '{print $3 " " $4 " " $5}' <<< "$AGENDA_NEXT"`"
+            echo ": `awk '{$1=""; $2=""; $3=""; $4=""; print}' <<< "$AGENDA_NEXT" | tr -s " " | tr -s " "`"
             echo $color
         ''; 
         executable = true;
@@ -193,14 +193,15 @@ rec {
             TIME=`awk '{print $5}' <<< "$BATTERY"`
             echo -n "%{F${theme.bg}}"
             case "$STATUS" in
-                Full) echo "%{T3}⚡ %{T-}FULL"; echo "${color_full}";;
-                Charging) echo "%{T3}⚡ %{T-}$CHARGE% ($TIME)"; echo "${color_charging}";;
+                Full) echo "%{T6}%{T-} FULL"; echo "${color_full}";;
+                Charging) echo "%{T3}%{T-} $CHARGE% ($TIME)"; echo "${color_charging}";;
                 Discharging)
-                    echo "%{T3}🔋%{T-} $CHARGE% ($TIME)";
                     if [[ $CHARGE -gt ${builtins.toString low_threshold} ]]
                     then
+                        echo "%{T6}%{T-} $CHARGE% ($TIME)";    
                         echo "${color_discharging}"
                     else
+                        echo "%{T6}%{T-} $CHARGE% ($TIME)";   
                         echo "${color_low}"
                     fi
                 ;;
@@ -213,12 +214,12 @@ rec {
         name = "status";
         text = ''
             echo -n "%{F${theme.bg}}"
-            echo -n "`whoami`@`hostname` "
+            echo -n "%{T6}%{T-} "
             echo -n "`top -b -n2 -p 1 | fgrep "Cpu(s)" | tail -1 | awk -F'id,' -v prefix="$prefix" '{ split($1, vs, ","); v=vs[length(vs)]; sub("%", "", v); printf "%s%.1f%%\n", prefix, 100 - v }'` "
             echo -n $(${pkgs.bc}/bin/bc -l <<< "scale=2; `cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_cur_freq|sort|head -1`/1000000")
             echo -n "GHz "
             echo -n "$((`cat /sys/class/thermal/thermal_zone*/temp | sort | tail -1`/1000))° "
-            echo "`free | tail -2 | head -1 | awk '{print "scale=3; "$7"/1000000"}' | ${pkgs.bc}/bin/bc -l` GB"
+            echo "`free | tail -2 | head -1 | awk '{print "scale=3; "$7"/1000000"}' | ${pkgs.bc}/bin/bc -l`GB"
             echo "${theme.fg}"
         '';
         executable = true;
@@ -235,6 +236,10 @@ rec {
                 do
                     cur_color=''${color[index]}
                     cur_text=''${text[index]}
+                    if [[ -z $cur_text ]]
+                    then
+                        done
+                    fi
                     prev_color=''${color[`expr $index - 1`]}
                     if [[ $cur_color = $prev_color ]]
                     then
