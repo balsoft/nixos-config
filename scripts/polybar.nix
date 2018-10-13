@@ -181,13 +181,13 @@ rec {
         name = "bar-network";
         text = ''
             #!${pkgs.bash}/bin/bash
-            WIFI="`nmcli d w | grep "\*" | awk '{print "%{F${theme.bg}}%{T5}"$8"%{T-}" $2}'`"
-            if [[ `wc -c <<< "$WIFI"` -lt 4 ]]
+            WIFI="`nmcli d w | grep "\*" | awk '{print $7"%"}'`"
+            if [[ `wc -c <<< "$WIFI"` -lt 3 ]]
             then
-                echo "%{F${theme.bg}}W down"
+                echo "%{F${theme.bg}}%{T6}%{T-} "
                 echo "${color_down}"
             else
-                echo "$WIFI"
+                echo "%{F${theme.bg}}%{T6}%{T-} $WIFI "
                 echo "${color_up}"
             fi
         '';
