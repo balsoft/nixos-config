@@ -95,7 +95,7 @@ rec {
 				hideEdgeBorders = "smart";
 			};
 			startup = [
-				{ command = "QT_SCALE_FACTOR=1 ${pkgs.albert}/bin/albert"; always = true; }
+				{ command = "${pkgs.albert}/bin/albert"; always = true; }
 				{ command = "${pkgs.tdesktop}/bin/telegram-desktop"; }
 				{ command = "${pkgs.chromium}/bin/chromium"; }
 				{ command = "${pkgs.kdeconnect}/lib/libexec/kdeconnectd -platform offscreen"; }
@@ -106,7 +106,7 @@ rec {
 				{ command = "xrandr --output eDP1 --auto --primary --output HDMI2 --auto --right-of eDP1"; always = true; }
 				{ command = "google-drive-ocamlfuse '/home/balsoft/Google Drive/'"; }
 				{ command = "trojita"; workspace = ""; }
-				{ command = "allow_rgb10_configs=false ${pkgs.compton}/bin/compton --backend glx --vsync opengl-swc"; always = true; }
+				{ command = "pkill compton; allow_rgb10_configs=false ${pkgs.compton}/bin/compton --backend glx --vsync opengl-swc"; always = true; }
 				{ command = "${pkgs.hsetroot}/bin/hsetroot -solid '#31363b'"; always = true; }
 
 				{ command = "cp ~/.config/konsolerc.home ~/.config/konsolerc"; always = true; }
@@ -145,9 +145,9 @@ rec {
 				builtins.genList (x: {name = "${modifier}+Shift+${toString x}"; value = "move container to workspace ${toString x}";}) 10
 			));
 			keycodebindings = {
-				"122" = "exec ${pkgs.pulseaudioFull}/bin/pactl set-sink-volume 0 -5%";
-				"123" = "exec ${pkgs.pulseaudioFull}/bin/pactl set-sink-volume 0 +5%";
-				"121" = "exec ${pkgs.pulseaudioFull}/bin/pactl set-sink-mute 0 toggle";
+				"122" = "exec ${pkgs.pamixer}/bin/pamixer -d 5";
+				"123" = "exec ${pkgs.pamixer}/bin/pamixer -i 5";
+				"121" = "exec ${pkgs.pamixer}/bin/pamixer -t";
 			};
 		};
 	};
@@ -198,6 +198,7 @@ rec {
 				type = "custom/script";
 				exec = (scripts.polybar.right_side (with scripts.polybar; [
 					(status {})
+					(sound {})
 				] ++ (if isLaptop && device != "Prestigio-Laptop" then [
 					(battery {})
 				] else []) ++ [
@@ -357,15 +358,7 @@ rec {
 		options = ["grp:caps_toggle,grp_led:caps"];
 		layout = "us,ru";
 	};
-	home.sessionVariables = {
-		EDITOR = "micro";
-		QT_QPA_PLATFORMTHEME = "qt5ct";
-		QT_SCALE_FACTOR = 1;
-		QT_AUTO_SCREEN_SCALE_FACTOR = 0;
-		GTK_THEME = "Breeze-Dark";
-		LESS = "-asrRix8";
-		SSH_ASKPASS = "${pkgs.ksshaskpass}/bin/ksshaskpass";
-	};
+	
 	xdg = {
 		enable = true;
 		configFile = { 

@@ -57,7 +57,7 @@ in
 			"intel_idle.max_cstate=1"
 		] else []);
 		kernel.sysctl = {
-			"vm.swappiness" = if isSSD then 10 else 0;
+			"vm.swappiness" = 0;
 		};
 		blacklistedKernelModules = if device == "Prestigio-Laptop" then [ "axp288_charger" "axp288_fuel_gauge" "axp288_adc" ] else [];
 		resumeDevice = if isSSD then "/dev/sda2" else "";
@@ -130,7 +130,7 @@ in
 		bindings = map (x: x // {
 			events = [ "key" ];
 			attributes = [ "exec" ];
-		}) (if device == "ASUS-Laptop" then [
+		}) ((if device == "ASUS-Laptop" then [
 			{
 				keys = [ 229 ];
 				command = "expr -1 + `cat '/sys/class/leds/asus::kbd_backlight/brightness'` > '/sys/class/leds/asus::kbd_backlight/brightness'";
@@ -154,11 +154,10 @@ in
 							while true
 							do
 								[[ `cat /sys/devices/platform/asus-nb-wmi/als_enable` -eq 0 ]] && exit 1;
-								${pkgs.light}/bin/light -S $(+`cat '/sys/devices/LNXSYSTM:00/LNXSYBUS:00/ACPI0008:00/iio:device0/in_illuminance_input'`))
+								${pkgs.light}/bin/light -S $((2 + `cat '/sys/devices/LNXSYSTM:00/LNXSYBUS:00/ACPI0008:00/iio:device0/in_illuminance_input'`*2))
 								echo $(((100 - `cat '/sys/devices/LNXSYSTM:00/LNXSYBUS:00/ACPI0008:00/iio:device0/in_illuminance_input'`)/80)) > '/sys/class/leds/asus::kbd_backlight/brightness'
 							done &
-						fi
-					'';
+						fi'';
 					executable = true;
 				}));
 			}
@@ -182,12 +181,11 @@ in
 						else
 							${pkgs.light}/bin/light -I
 							${pkgs.light}/bin/light -S 0
-						fi
-					'';
+						fi'';
 					executable = true;
 				}));
 			}
-		];
+		]);
 	};
 	# =========================================================================
 
@@ -206,10 +204,15 @@ in
 	# ====================== PROGRAMS & SERVICES ==============================
 	environment.systemPackages = (builtins.filter pkgs.stdenv.lib.isDerivation (builtins.attrValues pkgs.kdeApplications));
 	environment.sessionVariables = {
-            EDITOR = "micro";
-            QT_QPA_PLATFORMTHEME = "qt5ct";
-            GTK_THEME = "Breeze-Dark";
-    };
+		EDITOR = "micro";
+		QT_QPA_PLATFORMTHEME = "qt5ct";
+		QT_SCALE_FACTOR = "1";
+		QT_AUTO_SCREEN_SCALE_FACTOR = "0";
+		GTK_THEME = "Breeze-Dark";
+		LESS = "-asrRix8";
+	};
+
+	programs.ssh.askPassword = "${pkgs.ksshaskpass}/bin/ksshaskpass";
 
 #	virtualisation.virtualbox.host.enable = true;
 	virtualisation.libvirtd.enable = true;	
