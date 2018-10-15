@@ -201,7 +201,7 @@ rec {
             BATTERY="`${pkgs.acpi}/bin/acpi -b`"
             STATUS=`awk -F'[,:] ' '{print $2}' <<< "$BATTERY"`
             CHARGE=`awk -F'[,%] ' '{print $2}' <<< "$BATTERY" | tr -d "%"`
-            TIME=`awk -F', ' '{print $3}' <<< "$BATTERY"`
+            TIME=`awk -F', ' '{print $3}' <<< "$BATTERY" | cut -d " " -f 1`
             case "$STATUS" in
                 Full) ;& "Not charging") text="%{T6}%{T-} FULL"; color="${color_full}";;
                 Charging) text="%{T3}%{T-} $CHARGE% ($TIME)"; color="${color_charging}";;
