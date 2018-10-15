@@ -1,4 +1,4 @@
-{ pkgs, secret, theme, ... }:
+{ pkgs, secret, theme, device, ... }:
 rec {
     wrapScriptToLoop = interval: script:
     pkgs.writeTextFile {
@@ -200,23 +200,24 @@ rec {
             #!${pkgs.bash}/bin/bash
             BATTERY="`${pkgs.acpi}/bin/acpi -b`"
             STATUS=`awk -F'[,:] ' '{print $2}' <<< "$BATTERY"`
-            CHARGE=`awk -F'[,%] ' '{print $2}' <<< "$BATTERY"`
+            CHARGE=`awk -F'[,%] ' '{print $2}' <<< "$BATTERY" | tr -d "%"`
             TIME=`awk -F', ' '{print $3}' <<< "$BATTERY"`
-            echo -n "%{F${theme.bg}}"
             case "$STATUS" in
-                Full) ;& "Not charging") echo "%{T6}%{T-} FULL"; echo "${color_full}";;
-                Charging) echo "%{T3}%{T-} $CHARGE% ($TIME)"; echo "${color_charging}";;
+                Full) ;& "Not charging") text="%{T6}%{T-} FULL"; color="${color_full}";;
+                Charging) text="%{T3}%{T-} $CHARGE% ($TIME)"; color="${color_charging}";;
                 Discharging)
                     if [[ $CHARGE -gt ${builtins.toString low_threshold} ]]
                     then
-                        echo "%{T6}%{T-} $CHARGE% ($TIME)";    
-                        echo "${color_discharging}"
+                        text="%{T6}%{T-} $CHARGE% ($TIME)";    
+                        color="${color_discharging}"
                     else
-                        echo "%{T6}%{T-} $CHARGE% ($TIME)";   
-                        echo "${color_low}"
+                        text="%{T6}%{T-} $CHARGE% ($TIME)";   
+                        color="${color_low}"
                     fi
                 ;;
             esac
+            echo "%{F${theme.bg}}%{A:${pkgs.gnome3.gnome-power-manager}/bin/gnome-power-statistics:}$text%{A-}"
+            echo $color
         '';
         executable = true;
     });
@@ -250,7 +251,7 @@ rec {
                         fi
                     fi
                 fi
-                echo "%{T6}%{F${theme.bg}}$icon%{T-}$volume$end" > /tmp/${name}.new
+                echo "%{A:${pkgs.lxqt.pavucontrol-qt}/bin/pavucontrol-qt:}%{T6}%{F${theme.bg}}$icon%{T-}$volume$end%{A}" > /tmp/${name}.new
                 echo $color >> /tmp/${name}.new
                 mv /tmp/${name}.new /tmp/${name}
                 ${pkgs.inotifyTools}/bin/inotifywait /tmp/${name}_events -qq
@@ -272,6 +273,43 @@ rec {
         '';
         executable = true;
     });
+    brightness = {}: pkgs.writeTextFile rec {
+        name = "bar-brightness";
+        text = ''
+            cd /tmp
+            stdbuf -o0 ${pkgs.acpid}/bin/acpi_listen | stdbuf -o0 grep -e "video/" > ${name}-events &
+            while true
+            do
+                LIGHT=`${pkgs.light}/bin/light | cut -f 1 -d '.'`
+                echo -n "%{F${theme.bg}}" > ${name}.new
+                color=${theme.fg}
+                if [[ $LIGHT -lt 33 ]]
+                then
+                    icon=
+                else
+                    if [[ $LIGHT -lt 66 ]]
+                    then
+                        icon=
+                    else
+                        icon=
+                    fi
+                fi
+                ${if device == "ASUS-Laptop" then ''
+                if [[ `cat /sys/devices/platform/asus-nb-wmi/als_enable` -eq 1 ]] 
+                then
+                    icon=""
+                    color="${theme.blue}"
+                fi
+                '' else ""}
+                echo "%{A1:light -S 0:}%{A4:light -U 5:}%{A5:light -A 5:}$icon $LIGHT%{A}%{A}%{A}" >> ${name}.new
+                echo $color >> ${name}.new
+                mv ${name}.new ${name}
+                ${pkgs.inotifyTools}/bin/inotifywait ${name}-events ${if device == "ASUS-Laptop" then "/sys/devices/platform/asus-nb-wmi/als_enable" else ""} -qq
+                sleep 0.2
+            done
+        '';
+        executable = true;
+    };
     right_side = (arr: pkgs.writeTextFile {
         name = "polybar-right-side";
         text = ''

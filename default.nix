@@ -151,11 +151,16 @@ in
 						else
 							echo "1" > /sys/devices/platform/asus-nb-wmi/als_enable
 							${pkgs.light}/bin/light -O
+							prev_brightness=`${pkgs.light}/bin/light`
 							while true
 							do
 								[[ `cat /sys/devices/platform/asus-nb-wmi/als_enable` -eq 0 ]] && exit 1;
-								${pkgs.light}/bin/light -S $((2 + `cat '/sys/devices/LNXSYSTM:00/LNXSYBUS:00/ACPI0008:00/iio:device0/in_illuminance_input'`*2))
-								echo $(((100 - `cat '/sys/devices/LNXSYSTM:00/LNXSYBUS:00/ACPI0008:00/iio:device0/in_illuminance_input'`)/80)) > '/sys/class/leds/asus::kbd_backlight/brightness'
+								cur_brightness=`cat '/sys/devices/LNXSYSTM:00/LNXSYBUS:00/ACPI0008:00/iio:device0/in_illuminance_input'`
+								brightness=$((($cur_brightness+$prev_brightness)/2))
+								${pkgs.light}/bin/light -S $((2 + $brightness*2))
+								prev_brightness=$cur_brightness
+								echo $(((100 - $brightness)/80)) > '/sys/class/leds/asus::kbd_backlight/brightness'
+								sleep 1
 							done &
 						fi'';
 					executable = true;
@@ -187,6 +192,7 @@ in
 			}
 		]);
 	};
+	services.acpid.enable = true;
 	# =========================================================================
 
 	

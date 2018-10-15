@@ -15,7 +15,7 @@ let
 
 	secret = import ./secret.nix;
 
-	scripts = import ./scripts {inherit pkgs; inherit secret; theme=thm;};
+	scripts = import ./scripts {inherit pkgs; inherit secret; theme=thm; inherit device;};
 
 	customPackages = import ./packages {inherit pkgs;};
 
@@ -200,6 +200,7 @@ rec {
 					(status {})
 					(sound {})
 				] ++ (if isLaptop && device != "Prestigio-Laptop" then [
+					(brightness {})
 					(battery {})
 				] else []) ++ [
 					(network {})
@@ -305,6 +306,7 @@ rec {
 		frei0r
 		ffmpeg-full
 		google-play-music-desktop-player
+		lxqt.pavucontrol-qt
 		# Tools
 		zip
 		unrar
