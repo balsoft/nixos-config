@@ -344,6 +344,8 @@ rec {
 		trojita
 		nix-zsh-completions
 		material-icons
+		breeze-icons
+		papirus-icon-theme
 	]) 
 	++ 
 	(with customPackages; [
