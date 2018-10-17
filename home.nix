@@ -43,6 +43,7 @@ rec {
 		};
 		shellAliases = {
 			"p" = "nix-shell -p $1 --run zsh";
+			"b" = "nix-build '<nixpkgs>' --no-out-link -A $1";
 		};
 		initExtra = scripts.zshrc;
 	};
@@ -315,6 +316,7 @@ rec {
 		ktorrent
 		wireshark
 		#wpsoffice
+		arduino
 		micro
 		cmake
 		gnumake

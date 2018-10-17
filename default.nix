@@ -89,6 +89,7 @@ in
 	# ===================== GRAPHICS & FONTS ==================================
 	services.xserver = {
         enable = true;
+        enableTCP = true;
 		libinput = {
 			enable = true;
 			sendEventsMode = "disabled-on-external-mouse";
