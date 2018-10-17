@@ -37,13 +37,12 @@ rec {
 			theme = "agnoster";
 			plugins = [
 				"git"
-				"compleat"
 				"dirhistory"
 			];
 		};
 		shellAliases = {
 			"p" = "nix-shell -p $1 --run zsh";
-			"b" = "nix-build '<nixpkgs>' --no-out-link -A $1";
+			"b" = "nix-build \"<nixpkgs>\" --no-out-link -A $1";
 		};
 		initExtra = scripts.zshrc;
 	};
@@ -158,6 +157,8 @@ rec {
 		enable = true;
 		package = pkgs.polybar.override {
 			i3Support = true;
+			alsaSupport = false;
+			nlSupport = false;
 		};
 		config = {
 			"bar/top" = {
