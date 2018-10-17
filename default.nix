@@ -157,12 +157,12 @@ in
 							do
 								[[ `cat /sys/devices/platform/asus-nb-wmi/als_enable` -eq 0 ]] && exit 1;
 								cur_brightness=`cat '/sys/devices/LNXSYSTM:00/LNXSYBUS:00/ACPI0008:00/iio:device0/in_illuminance_input'`
-								brightness=$((($cur_brightness+$prev_brightness)/2))
-								${pkgs.light}/bin/light -S $((2 + $brightness*2))
+								brightness=$(($cur_brightness / 2 + $prev_brightness / 2))
+								${pkgs.light}/bin/light -S $((2 + $brightness * 2))
 								prev_brightness=$cur_brightness
 								echo $(((100 - $brightness)/80)) > '/sys/class/leds/asus::kbd_backlight/brightness'
 								sleep 1
-							done &
+							done
 						fi'';
 					executable = true;
 				}));
