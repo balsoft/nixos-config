@@ -132,9 +132,9 @@ rec {
 				"${modifier}+d" = "exec ${pkgs.dolphin}/bin/dolphin";
 				"${modifier}+Escape" = "exec ${pkgs.ksysguard}/bin/ksysguard";
 				"${modifier}+Print" = "exec scrot -e 'mv $f ~/Pictures && notify-send \"Screenshot saved as ~/Pictures/$f\"'";
-				"${modifier}+Control+Print" = "exec scrot -e 'xclip -selection clipboard -t image/png -i $f && notify-send \"Screenshot copied to clipboard\"; rm $f'";
+				"${modifier}+Control+Print" = "exec scrot -e 'xclip -selection clipboard -t image/png -i $f && notify-send \"Screenshot copied to clipboard\" && rm $f'";
 				"--release ${modifier}+Shift+Print" = "exec scrot -s -e 'mv $f ~/Pictures && notify-send \"Screenshot saved as ~/Pictures/$f\"'";
-				"--release ${modifier}+Control+Shift+Print" = "exec scrot -s -e 'xclip -selection clipboard -t image/png -i $f && notify-send \"Screenshot copied to clipboard\"; rm $f'";
+				"--release ${modifier}+Control+Shift+Print" = "exec scrot -s -e 'xclip -selection clipboard -t image/png -i $f && notify-send \"Screenshot copied to clipboard\" && rm $f'";
 				"${modifier}+x" = "move workspace to output right";	
 				"${modifier}+c" = "workspace ";
 				"${modifier}+Shift+c" = "move container to workspace ";
