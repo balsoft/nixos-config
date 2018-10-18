@@ -19,6 +19,13 @@ let
 
 	customPackages = import ./packages {inherit pkgs;};
 
+	devMachine = device != "Prestigio-Laptop";
+
+#	vsCodeExt = { publisher, name, version, sha256?"" }: pkgs.fetchzip {
+#		url = "https://${publisher}.gallery.vsassets.io/_apis/public/gallery/publisher/${publisher}/extension/${name}/${version}/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
+#		inherit sha256;
+#	};
+
 	isLaptop = (!isNull(builtins.match ".*Laptop" device));
 	smallScreen = (device == "Prestigio-Laptop");
 in
@@ -98,7 +105,7 @@ rec {
 				{ command = "${pkgs.albert}/bin/albert"; always = true; }
 				{ command = "${pkgs.tdesktop}/bin/telegram-desktop"; }
 				{ command = "${pkgs.chromium}/bin/chromium"; }
-				{ command = "${pkgs.kdeconnect}/lib/libexec/kdeconnectd -platform offscreen"; }
+				#{ command = "${pkgs.kdeconnect}/lib/libexec/kdeconnectd -platform offscreen"; }
 				{ command = "pkill polybar; polybar top"; always = true; }
 				{ command = "${customPackages.mconnect}/bin/mconnect"; }
 				{ command = "${pkgs.polkit-kde-agent}/lib/libexec/polkit-kde-authentication-agent-1"; }
@@ -108,9 +115,6 @@ rec {
 				{ command = "trojita"; workspace = ""; }
 				{ command = "pkill compton; allow_rgb10_configs=false ${pkgs.compton}/bin/compton --backend glx --vsync opengl-swc"; always = true; }
 				{ command = "${pkgs.hsetroot}/bin/hsetroot -solid '#31363b'"; always = true; }
-
-				{ command = "cp ~/.config/konsolerc.home ~/.config/konsolerc"; always = true; }
-				{ command = "cp ~/.config/katerc.home ~/.config/katerc"; always = true; }
 			];
 			keybindings =
 			({
@@ -290,12 +294,14 @@ rec {
 		wget
 		curl
 		chromium
+	] ++ (if devMachine then [
 		# IDE
 		vscode
 		geany
 		kdevelop
 		jetbrains.pycharm-community
 		kate
+	] else [] ) ++ [
 		# Messaging
 		tdesktop
 		telepathy_haze
@@ -658,6 +664,18 @@ rec {
 		"Terminal Features".BlinkingCursorEnabled = true;
 	};
 	home.file.".icons/default".source = "${pkgs.breeze-qt5}/share/icons/breeze_cursors";
+
+	home.activation = builtins.mapAttrs (name: value: {inherit name; before = []; after = [];} // value) {
+		konsole.data = "$DRY_RUN_CMD cp ~/.config/konsolerc.home ~/.config/konsolerc";
+		kate.data = "$DRY_RUN_CMD cp ~/.config/katerc.home ~/.config/katerc";
+		vscode.data =if devMachine then builtins.concatStringsSep "\n" ((map (ext: "$DRY_RUN_CMD code --install-extension ${ext}") [
+			"AndrewFridley.Breeze-Dark-Theme"
+			"ms-vscode.cpptools"
+			"bbenoist.nix"
+			"eamodio.gitlens"
+			"vsciot-vscode.vscode-arduino"
+		]) ++ ["$DRY_RUN_CMD ${pkgs.patchelf}/bin/patchelf --set-interpreter ${pkgs.glibc}/lib/ld-linux-x86-64.so.2 ~/.vscode/extensions/*/bin/*"]) else "";
+	};
 
 	accounts = {
         email.accounts.gmail = {

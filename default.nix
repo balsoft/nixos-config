@@ -9,6 +9,7 @@ let
 	isShared = (device == "Prestigio-Laptop");
 	cpu = if device == "HP-Laptop" then "amd" else "intel";
 	isSSD = device == "HP-Laptop" || device == "ASUS-Laptop";
+	isHost = isSSD;
 in
 {
 	# ========================== HARDWARE =====================================
@@ -221,8 +222,10 @@ in
 
 	programs.ssh.askPassword = "${pkgs.ksshaskpass}/bin/ksshaskpass";
 
-#	virtualisation.virtualbox.host.enable = true;
-	virtualisation.libvirtd.enable = true;	
+	virtualisation.virtualbox.host.enable = isHost;
+	virtualisation.virtualbox.host.enableHardening = false;
+	
+	#virtualisation.libvirtd.enable = true;	
 	
 	system.autoUpgrade = {
 		dates = "19:00";
@@ -320,7 +323,7 @@ in
 	users.mutableUsers = false;
 	users.users.balsoft = {
 		isNormalUser = true;
-		extraGroups = ["sudo" "wheel" "networkmanager" "disk" "sound" "pulse" "adbusers" "input" "libvirtd"];
+		extraGroups = ["sudo" "wheel" "networkmanager" "disk" "sound" "pulse" "adbusers" "input" "libvirtd" "vboxusers"];
 		description = "Александр Бантьев";
 		uid = 1000;
 	} // (if isShared then {
