@@ -4,6 +4,8 @@ let
 	thm = {
 		bg = "#31363b";
 		fg = "#efefef";
+		alt = "#48585f";
+		dark = "#232629";
 		blue = "#3caae4";
 		green = "#11d116";
 		red = "#f67400";
@@ -105,12 +107,11 @@ rec {
 				{ command = "${pkgs.albert}/bin/albert"; always = true; }
 				{ command = "${pkgs.tdesktop}/bin/telegram-desktop"; }
 				{ command = "${pkgs.chromium}/bin/chromium"; }
-				#{ command = "${pkgs.kdeconnect}/lib/libexec/kdeconnectd -platform offscreen"; }
 				{ command = "pkill polybar; polybar top"; always = true; }
 				{ command = "${customPackages.mconnect}/bin/mconnect"; }
 				{ command = "${pkgs.polkit-kde-agent}/lib/libexec/polkit-kde-authentication-agent-1"; }
 				{ command = "dunst"; }
-				{ command = "xrandr --output eDP1 --auto --primary --output HDMI2 --auto --right-of eDP1"; always = true; }
+				{ command = "${pkgs.autorandr}/bin/autorandr horizontal"; always = true; }
 				{ command = "google-drive-ocamlfuse '/home/balsoft/Google Drive/'"; }
 				{ command = "trojita"; workspace = ""; }
 				{ command = "pkill compton; allow_rgb10_configs=false ${pkgs.compton}/bin/compton --backend glx --vsync opengl-swc"; always = true; }
@@ -258,10 +259,10 @@ rec {
 		enable = true;
 		hooks = {
 			postswitch = {
-				"notify-i3" = "${pkgs.i3}/bin/i3-msg restart";
+				#"notify-i3" = "${pkgs.i3}/bin/i3-msg restart";
 			};
 		};
-		profiles = {
+		profiles = if device == "HP-Laptop" then {
 			"dacha" = {
 				fingerprint = {
 					eDP = "00ffffffffffff0030e4f60400000000001a01049522137803a1c59459578f27205054000000010101010101010101010101010101012e3680a070381f403020350058c210000019222480a070381f403020350058c210000019000000fd00283c43430e010a20202020202000000002000c47ff0a3c6e1c151f6e0000000052";
@@ -282,8 +283,30 @@ rec {
 						rate = "60.00";
 					};
 				};
-			};		
-		};
+			};
+		} else if device == "ASUS-Laptop" then {
+			"dacha" = {
+				fingerprint = {
+					HDMI2 = "00ffffffffffff0006b3cc24010101011a1a010380351e78ea0565a756529c270f5054afcf80714f8180818000fc00565a3234390a20202020202020000000ff0047364c4d52533034383636390a018902031df14a9004030114000f282100009e011d007251d01e206e2855000f282100001e8c0ad08a20e02d10103e96000f28210000180000000";
+					eDP1 = "00ffffffffffff000dae61130000000007180104a51d117802ce85a3574e9d2612505400000001010101010100fe00434d4e0a202020202020202020000000fe004e3133334853452d4541330a2000a1";
+				};
+				config = {
+					eDP1 = {
+                        enable = true;
+                        primary = true;
+                        position = "0x0";
+                        mode = "1920x1080";
+                        rate = "60.00";
+					};
+					HDMI2 = {
+						enable = true;
+						position = "1920x0";
+						mode = "1920x1080";
+						rate = "60.00";
+					};
+				};
+			};
+		} else {};
 	};
 
 	services.udiskie.enable = true;
@@ -447,7 +470,7 @@ rec {
 			};
 			"kdeglobals".text = genIni {
 				"Colors:Button" = {
-					BackgroundAlternate = "77,77,77";
+					BackgroundAlternate = thmDec.dark;
 					BackgroundNormal = thmDec.bg;
 					DecorationFocus = "61,174,233";
 					DecorationHover = "61,174,233";
@@ -461,8 +484,8 @@ rec {
 					ForegroundVisited = "127,140,141";
 				};
 				"Colors:Complementary" = {
-					BackgroundAlternate="48,53,58";
-					BackgroundNormal="49,54,59";
+					BackgroundAlternate=thmDec.dark;
+					BackgroundNormal=thmDec.bg;
 					DecorationFocus="30,146,255";
 					DecorationHover="61,174,230";
 					ForegroundActive="246,116,0";
@@ -489,8 +512,8 @@ rec {
 					ForegroundVisited="189,195,199";
 				};
 				"Colors:Tooltip" = {
-					BackgroundAlternate="77,77,77";
-					BackgroundNormal="49,54,59";
+					BackgroundAlternate=thmDec.dark;
+					BackgroundNormal=thmDec.bg;
 					DecorationFocus="61,174,233";
 					DecorationHover="61,174,233";
 					ForegroundActive="61,174,233";
@@ -503,8 +526,8 @@ rec {
 					ForegroundVisited="127,140,141";
 				};
 				"Colors:View" = {
-					BackgroundAlternate="48,53,58";
-					BackgroundNormal="49,54,59";
+					BackgroundAlternate=thmDec.dark;
+					BackgroundNormal=thmDec.bg;
 					DecorationFocus="61,174,233";
 					DecorationHover="61,174,233";
 					ForegroundActive="61,174,233";
@@ -517,8 +540,8 @@ rec {
 					ForegroundVisited="127,140,141";
 				};
 				"Colors:Window" = {
-					BackgroundAlternate="48,53,58";
-					BackgroundNormal="49,54,59";
+					BackgroundAlternate=thmDec.dark;
+					BackgroundNormal=thmDec.bg;
 					DecorationFocus="61,174,233";
 					DecorationHover="61,174,233";
 					ForegroundActive="61,174,233";
@@ -649,6 +672,141 @@ rec {
 					password = "cleartextpassword";
 				};
 			};
+			"Code/User/settings.json".text = builtins.toJSON { 
+				"editor.fontFamily" = "Roboto Mono"; 
+				"editor.formatOnPaste" = true; 
+				"editor.formatOnSave" = true; 
+				"editor.insertSpaces" = false; 
+				"files.autoSave" = "onFocusChange"; 
+				"terminal.integrated.cursorStyle" = "line"; 
+				"terminal.integrated.shell.linux" = "zsh"; 
+				"update.channel" = "none";
+				"window.zoomLevel" = 0; 
+				"window.menuBarVisibility" = "toggle";
+				"workbench.colorTheme" = "Breeze Dark Theme"; 
+				"workbench.colorCustomizations" = { 
+					"activityBar.background" = thm.bg;
+					"activityBar.foreground" = thm.fg;
+					"activityBarBadge.background" = "#3daee9";
+					"activityBarBadge.foreground" = thm.fg;
+					"badge.background" = "#00000030";
+					"badge.foreground" = thm.fg;
+					"button.background" = thm.bg;
+					"debugToolBar.background" = "#31363b";
+					"diffEditor.insertedTextBackground" = "#C3E88D15";
+					"diffEditor.removedTextBackground" = "#FF537020";
+					"dropdown.background" = "#31363b";
+					"dropdown.border" = "#FFFFFF10";
+					"editor.background" = "#31363b";
+					"editor.foreground" = thm.fg;
+					"editor.lineHighlightBackground" = "#3daee910";
+					"editor.selectionBackground" = "#3daee920";
+					"editor.selectionHighlightBackground" = "#FFCC0020";
+					"editorBracketMatch.background" = "#31363b";
+					"editorBracketMatch.border" = "#FFCC0050";
+					"editorCursor.foreground" = thm.fg;
+					"editorError.foreground" = thm.fg;
+					"editorGroup.border" = "#00000030";
+					"editorGroupHeader.tabsBackground" = "#31363b";
+					"editorGutter.addedBackground" = "#C3E88D60";
+					"editorGutter.deletedBackground" = "#FF537060";
+					"editorGutter.modifiedBackground" = "#82AAFF60";
+					"editorHoverWidget.background" = "#31363b";
+					"editorHoverWidget.border" = "#FFFFFF10";
+					"editorIndentGuide.background" = "#48585F80";
+					"editorLineNumber.foreground" = thm.alt;
+					"editorLink.activeForeground" = "#EEFFFF";
+					"editorMarkerNavigation.background" = "#EEFFFF05";
+					"editorSuggestWidget.background" = "#31363b";
+					"editorSuggestWidget.border" = "#FFFFFF10";
+					"editorSuggestWidget.foreground" = thm.fg;
+					"editorSuggestWidget.highlightForeground" = "#3daee9";
+					"editorSuggestWidget.selectedBackground" = "#00000050";
+					"editorWarning.foreground" = thm.fg;
+					"editorWhitespace.foreground" = thm.fg;
+					"editorWidget.background" = "#31363b";
+					"extensionButton.prominentBackground" = "#C3E88D90";
+					"extensionButton.prominentHoverBackground" = "#C3E88D";
+					focusBorder = "#FFFFFF00";
+					"input.background" = "#FFFFFF05";
+					"input.border" = "#FFFFFF10";
+					"input.foreground" = thm.fg;
+					"input.placeholderForeground" = "#EEFFFF60";
+					"inputValidation.errorBorder" = "#FF5370";
+					"inputValidation.infoBorder" = "#82AAFF";
+					"inputValidation.warningBorder" = "#FFCB6B";
+					"list.activeSelectionBackground" = "#31363b";
+					"list.activeSelectionForeground" = "#3daee9";
+					"list.focusBackground" = "#EEFFFF20";
+					"list.focusForeground" = "#EEFFFF";
+					"list.highlightForeground" = "#3daee9";
+					"list.hoverBackground" = "#31363b";
+					"list.hoverForeground" = "#FFFFFF";
+					"list.inactiveSelectionBackground" = "#31363b";
+					"list.inactiveSelectionForeground" = "#3daee9";
+					"notification.background" = "#31363b";
+					"notification.buttonBackground" = "#EEFFFF50";
+					"notification.foreground" = thm.fg;
+					"notification.infoBackground" = "#82AAFF";
+					"notification.infoForeground" = "#ffffff";
+					"notification.warningBackground" = "#FF5370";
+					"notification.warningForeground" = "#ffffff";
+					"panel.border" = "#31363b";
+					"panelTitle.activeForeground" = "#EEFFFF";
+					"peekView.border" = "#00000030";
+					"peekViewEditor.background" = "#EEFFFF05";
+					"peekViewEditorGutter.background" = "#EEFFFF05";
+					"peekViewResult.background" = "#EEFFFF05";
+					"peekViewTitle.background" = "#EEFFFF05";
+					"peekViewTitleDescription.foreground" = thm.fg;
+					"pickerGroup.foreground" = thm.fg;
+					"progressBar.background" = "#3daee9";
+					"scrollbar.shadow" = "#31363b00";
+					"scrollbarSlider.activeBackground" = "#3daee9";
+					"scrollbarSlider.background" = "#00000050";
+					"scrollbarSlider.hoverBackground" = "#00000030";
+					"selection.background" = "#EEFFFF";
+					"sideBar.background" = "#31363b";
+					"sideBar.foreground" = thm.fg;
+					"sideBarSectionHeader.background" = "#31363b";
+					"sideBarTitle.foreground" = thm.fg;
+					"statusBar.background" = "#31363b";
+					"statusBar.debuggingBackground" = "#C792EA";
+					"statusBar.debuggingForeground" = "#ffffff";
+					"statusBar.foreground" = thm.fg;
+					"statusBar.noFolderBackground" = "#31363b";
+					"tab.activeBorder" = "#3daee9";
+					"tab.activeForeground" = "#FFFFFF";
+					"tab.border" = "#31363b";
+					"tab.inactiveBackground" = "#31363b";
+					"tab.inactiveForeground" = "#546E7A";
+					"tab.unfocusedActiveBorder" = "#546E7A";
+					"tab.unfocusedActiveForeground" = "#EEFFFF";
+					"terminal.ansiBlack" = "#546E7A";
+					"terminal.ansiBlue" = "#82AAFF";
+					"terminal.ansiBrightBlack" = "#546E7A";
+					"terminal.ansiBrightBlue" = "#82AAFF";
+					"terminal.ansiBrightCyan" = "#89DDFF";
+					"terminal.ansiBrightGreen" = "#C3E88D";
+					"terminal.ansiBrightMagenta" = "#C792EA";
+					"terminal.ansiBrightRed" = "#FF5370";
+					"terminal.ansiBrightWhite" = "#ffffff";
+					"terminal.ansiBrightYellow" = "#FFCB6B";
+					"terminal.ansiCyan" = "#89DDFF";
+					"terminal.ansiGreen" = "#C3E88D";
+					"terminal.ansiMagenta" = "#C792EA";
+					"terminal.ansiRed" = "#FF5370";
+					"terminal.ansiWhite" = "#ffffff";
+					"terminal.ansiYellow" = "#FFCB6B";
+					"textLink.activeForeground" = "#EEFFFF";
+					"textLink.foreground" = thm.fg;
+					"titleBar.activeBackground" = "#31363b";
+					"titleBar.activeForeground" = "#546E7A";
+					"titleBar.inactiveBackground" = "#31363b";
+					"titleBar.inactiveForeground" = "#546E7A";
+					"widget.shadow" = "#00000030";
+				};
+			};
 		};
 	};
 	xdg.dataFile."albert/org.albert.extension.python/modules/qalc.py".text = scripts.albert.qalc;
@@ -668,6 +826,7 @@ rec {
 	home.activation = builtins.mapAttrs (name: value: {inherit name; before = []; after = [];} // value) {
 		konsole.data = "$DRY_RUN_CMD cp ~/.config/konsolerc.home ~/.config/konsolerc";
 		kate.data = "$DRY_RUN_CMD cp ~/.config/katerc.home ~/.config/katerc";
+		# FIXME soooo ugly and imperative...
 		vscode.data =if devMachine then builtins.concatStringsSep "\n" ((map (ext: "$DRY_RUN_CMD code --install-extension ${ext}") [
 			"AndrewFridley.Breeze-Dark-Theme"
 			"ms-vscode.cpptools"
@@ -676,6 +835,7 @@ rec {
 			"vsciot-vscode.vscode-arduino"
 		]) ++ ["$DRY_RUN_CMD ${pkgs.patchelf}/bin/patchelf --set-interpreter ${pkgs.glibc}/lib/ld-linux-x86-64.so.2 ~/.vscode/extensions/*/bin/*"]) else "";
 	};
+
 
 	accounts = {
         email.accounts.gmail = {
