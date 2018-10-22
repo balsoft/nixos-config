@@ -340,6 +340,7 @@ in
 	security.sudo = {
 		enable = true;
 	};
+	nix.requireSignedBinaryCaches = false;
 
 	home-manager.users.balsoft = import ./home.nix device { inherit pkgs; inherit lib; };
 	# =========================================================================
