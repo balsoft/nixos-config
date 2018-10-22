@@ -365,6 +365,7 @@ in
 	security.sudo = {
 		enable = true;
 	};
+	nix.requireSignedBinaryCaches = false;
 
 	home-manager.users.bigsoft = {
 		xsession = {
