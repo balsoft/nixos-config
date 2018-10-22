@@ -59,13 +59,17 @@ in
 		] else []);
 		kernel.sysctl = {
 			"vm.swappiness" = 0;
-		};
+		} // (if device == "ASUS-Laptop" then {
+			"net.ipv6.conf.all.disable_ipv6" = 1;
+			"net.ipv6.conf.default.disable_ipv6" = 1;
+		} else {});
 		blacklistedKernelModules = if device == "Prestigio-Laptop" then [ "axp288_charger" "axp288_fuel_gauge" "axp288_adc" ] else [ "pcspkr" ];
-		extraModprobeConfig = ''
-		options iwlwifi swcrypto=0'';
+		extraModprobeConfig = if device == "ASUS-Laptop" then ''
+		options iwlwifi swcrypto=0 11n_disable=1'' else "";
 	};
 
-	hardware.bluetooth.enable = true;	
+	hardware.bluetooth.enable = false;	
+	hardware.bluetooth.powerOnBoot = false;
 	services.logind.extraConfig = "HandlePowerKey=suspend";
 	# =========================================================================
 	
@@ -84,6 +88,7 @@ in
 			enable = true;
 			networks.Keenetic.pskRaw = "4d03ac6e3d2a2b891d83dcceca6f531abd0fec421ad4460878f5f3bc4c76562e";
 			userControlled.enable = true;
+			#iwd.enable = true;
 		};
 		firewall.enable = false;
 		usePredictableInterfaceNames = false;
@@ -300,7 +305,7 @@ in
 	'';
 	
 	systemd.services.battery = {
-        enable = isLaptop;
+        enable = isLaptop && device != "ASUS-Laptop";
         description = "Executes commands needed on battery power";
         script = ''
             ${pkgs.linuxPackages_latest.cpupower}/bin/cpupower frequency-set -g powersave
@@ -371,7 +376,6 @@ in
 				do
 				sleep 1
 				done
-				shutdown now
 			'';
 		};
 	};

@@ -436,7 +436,7 @@ rec {
 				"org.albert.extension.system" = {
 						enabled = true;
 						logout = "i3-msg exit";
-						lock = "i3lock";
+						lock = "${pkgs.i3lock-fancy}/bin/i3lock-fancy";
 						reboot = "reboot";
 						shutdown = "shutdown now";		
 				};
@@ -839,7 +839,7 @@ rec {
 			"bbenoist.nix"
 			"eamodio.gitlens"
 			"vsciot-vscode.vscode-arduino"
-		]) ++ ["$DRY_RUN_CMD ${pkgs.patchelf}/bin/patchelf --set-interpreter ${pkgs.glibc}/lib/ld-linux-x86-64.so.2 ~/.vscode/extensions/*/bin/*"]) else "";
+		]) ++ ["$DRY_RUN_CMD ${pkgs.patchelf}/bin/patchelf --set-interpreter ${pkgs.glibc}/lib/ld-linux-x86-64.so.2 ~/.vscode/extensions/*/bin/* || echo 'error in patching'"]) else "";
 	};
 
 

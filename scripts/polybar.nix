@@ -183,10 +183,10 @@ rec {
             WIFI="`${pkgs.iw}/bin/iw wlan0 info | grep ssid | cut -f2 -d' '`"
             if [[ `wc -c <<< "$WIFI"` -lt 2 ]]
             then
-                echo "%{F${theme.bg}}%{T6}%{T-} "
+                echo "%{F${theme.bg}}%{A:${pkgs.wpa_supplicant_gui}/bin/wpa_gui:}%{T6}%{T-} %{A-}"
                 echo "${color_down}"
             else
-                echo "%{F${theme.bg}}%{T6}%{T-} $WIFI "
+                echo "%{F${theme.bg}}%{A:${pkgs.wpa_supplicant_gui}/bin/wpa_gui:}%{T6}%{T-} $WIFI %{A-}"
                 echo "${color_up}"
             fi
         '';
