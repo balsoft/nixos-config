@@ -112,9 +112,10 @@ rec {
 				{ command = "${pkgs.polkit-kde-agent}/lib/libexec/polkit-kde-authentication-agent-1"; }
 				{ command = "dunst"; }
 				{ command = "${pkgs.autorandr}/bin/autorandr horizontal"; always = true; }
-				{ command = "google-drive-ocamlfuse '/home/balsoft/Google Drive/'"; }
+				#{ command = "google-drive-ocamlfuse '/home/balsoft/Google Drive/'"; }
+				#{ command = "pkill compton; allow_rgb10_configs=false ${pkgs.compton}/bin/compton --backend glx --vsync opengl-swc"; always = true;}
 				{ command = "trojita"; workspace = ""; }
-				{ command = "pkill compton; allow_rgb10_configs=false ${pkgs.compton}/bin/compton --backend glx --vsync opengl-swc"; always = true; }
+				{ command = "google-drive-ocamlfuse -headless -f '/home/balsoft/Google Drive'"; }
 				{ command = "${pkgs.hsetroot}/bin/hsetroot -solid '#31363b'"; always = true; }
 			];
 			keybindings =
@@ -258,8 +259,11 @@ rec {
 	programs.autorandr = {
 		enable = true;
 		hooks = {
+			predetect = {
+				compton = "pkill compton";		
+			};
 			postswitch = {
-				#"notify-i3" = "${pkgs.i3}/bin/i3-msg restart";
+				compton = "allow_rgb10_configs=false ${pkgs.compton}/bin/compton --backend glx --vsync opengl-swc";	
 			};
 		};
 		profiles = if device == "HP-Laptop" then {
@@ -324,6 +328,7 @@ rec {
 		kdevelop
 		jetbrains.pycharm-community
 		kate
+		steam # much dev, very work, wow
 	] else [] ) ++ [
 		# Messaging
 		tdesktop
@@ -828,7 +833,7 @@ rec {
 		konsole.data = "$DRY_RUN_CMD cp ~/.config/konsolerc.home ~/.config/konsolerc";
 		kate.data = "$DRY_RUN_CMD cp ~/.config/katerc.home ~/.config/katerc";
 		# FIXME soooo ugly and imperative...
-		vscode.data =if devMachine then builtins.concatStringsSep "\n" ((map (ext: "$DRY_RUN_CMD code --install-extension ${ext}") [
+		vscode.data =if devMachine then builtins.concatStringsSep " || echo 'Error'\n" ((map (ext: "$DRY_RUN_CMD code --install-extension ${ext}") [
 			"AndrewFridley.Breeze-Dark-Theme"
 			"ms-vscode.cpptools"
 			"bbenoist.nix"

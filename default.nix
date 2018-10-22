@@ -22,8 +22,8 @@ in
 	hardware.cpu.${cpu}.updateMicrocode = true;
 	
 	hardware.opengl.enable = true;
-	hardware.opengl.driSupport = false;
-	hardware.opengl.driSupport32Bit = false;
+	hardware.opengl.driSupport = true;
+	hardware.opengl.driSupport32Bit = true;
 	# =========================================================================
 	
 	
@@ -61,6 +61,8 @@ in
 			"vm.swappiness" = 0;
 		};
 		blacklistedKernelModules = if device == "Prestigio-Laptop" then [ "axp288_charger" "axp288_fuel_gauge" "axp288_adc" ] else [ "pcspkr" ];
+		extraModprobeConfig = ''
+		options iwlwifi swcrypto=0'';
 	};
 
 	hardware.bluetooth.enable = true;	
@@ -215,7 +217,8 @@ in
 	sound.enable = true;
 	hardware.pulseaudio = {
 		enable = true;
-		package = pkgs.pulseaudioFull;		
+		package = pkgs.pulseaudioFull;	
+		support32Bit = true;
 	};
 	# =========================================================================
 	
