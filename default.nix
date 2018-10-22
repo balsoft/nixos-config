@@ -6,7 +6,7 @@ device:
 { config, pkgs, lib, ... }: 
 let 
 	isLaptop = (!isNull(builtins.match ".*Laptop" device));
-	isShared = (device == "Prestigio-Laptop");
+	isShared = (device == "Prestigio-Laptop" || device == "ASUS-Laptop");
 	cpu = if device == "HP-Laptop" then "amd" else "intel";
 	isSSD = device == "HP-Laptop" || device == "ASUS-Laptop";
 	isHost = isSSD;
@@ -22,8 +22,8 @@ in
 	hardware.cpu.${cpu}.updateMicrocode = true;
 	
 	hardware.opengl.enable = true;
-	hardware.opengl.driSupport = false;
-	hardware.opengl.driSupport32Bit = false;
+	hardware.opengl.driSupport = true;
+	hardware.opengl.driSupport32Bit = true;
 	# =========================================================================
 	
 	
@@ -60,8 +60,9 @@ in
 		kernel.sysctl = {
 			"vm.swappiness" = 0;
 		};
-		blacklistedKernelModules = if device == "Prestigio-Laptop" then [ "axp288_charger" "axp288_fuel_gauge" "axp288_adc" ] else [];
-		resumeDevice = if isSSD then "/dev/sda2" else "";
+		blacklistedKernelModules = if device == "Prestigio-Laptop" then [ "axp288_charger" "axp288_fuel_gauge" "axp288_adc" ] else [ "pcspkr" ];
+		extraModprobeConfig = ''
+		options iwlwifi swcrypto=0'';
 	};
 
 	hardware.bluetooth.enable = true;	
@@ -78,7 +79,12 @@ in
 	
 	# ====================== NETWORKING =======================================
 	networking = {
-		networkmanager.enable = true;
+		#networkmanager.enable = true;
+		wireless = {
+			enable = true;
+			networks.Keenetic.pskRaw = "4d03ac6e3d2a2b891d83dcceca6f531abd0fec421ad4460878f5f3bc4c76562e";
+			userControlled.enable = true;
+		};
 		firewall.enable = false;
 		usePredictableInterfaceNames = false;
 		hostName = device;
@@ -104,6 +110,17 @@ in
 			autoLogin.enable = !isShared;
 			autoLogin.user = "balsoft";
 			greeter.enable = isShared;
+			greeters.gtk = {
+				enable = isShared;
+				iconTheme = {
+					package = pkgs.papirus-icon-theme;
+					name = "Papirus-Dark";
+				};
+				theme = {
+					package = pkgs.breeze-gtk;
+					name = "Breeze-Dark";
+				};
+			};
 		};
 #		desktopManager.plasma5.enable = true;
 		desktopManager.default = "none";
@@ -149,21 +166,18 @@ in
 						if [[ `cat /sys/devices/platform/asus-nb-wmi/als_enable` -eq 1 ]]
 						then
 							echo "0" > /sys/devices/platform/asus-nb-wmi/als_enable
-							${pkgs.light}/bin/light -I
+							${pkgs.light}/bin/light -O
 						else
 							echo "1" > /sys/devices/platform/asus-nb-wmi/als_enable
-							${pkgs.light}/bin/light -O
-							prev_brightness=`${pkgs.light}/bin/light`
+							${pkgs.light}/bin/light -I
 							while true
 							do
 								[[ `cat /sys/devices/platform/asus-nb-wmi/als_enable` -eq 0 ]] && exit 1;
-								cur_brightness=`cat '/sys/devices/LNXSYSTM:00/LNXSYBUS:00/ACPI0008:00/iio:device0/in_illuminance_input'`
-								brightness=$(($cur_brightness / 2 + $prev_brightness / 2))
+								brightness=$(((brightness+`cat '/sys/devices/LNXSYSTM:00/LNXSYBUS:00/ACPI0008:00/iio:device0/in_illuminance_input'`)/2))
 								${pkgs.light}/bin/light -S $((2 + $brightness * 2))
-								prev_brightness=$cur_brightness
 								echo $(((100 - $brightness)/80)) > '/sys/class/leds/asus::kbd_backlight/brightness'
 								sleep 1
-							done
+							done &
 						fi'';
 					executable = true;
 				}));
@@ -182,11 +196,11 @@ in
 				command = (toString (pkgs.writeTextFile {
 					name = "dark-script";
 					text = ''
-						if [[ `${pkgs.light}/bin/light` = "0.00" ]]
+						if [[ `${pkgs.light}/bin/light` -eq 0 ]]
 						then
-							${pkgs.light}/bin/light -O
-						else
 							${pkgs.light}/bin/light -I
+						else
+							${pkgs.light}/bin/light -O
 							${pkgs.light}/bin/light -S 0
 						fi'';
 					executable = true;
@@ -203,7 +217,8 @@ in
 	sound.enable = true;
 	hardware.pulseaudio = {
 		enable = true;
-		package = pkgs.pulseaudioFull;		
+		package = pkgs.pulseaudioFull;	
+		support32Bit = true;
 	};
 	# =========================================================================
 	
@@ -222,8 +237,10 @@ in
 
 	programs.ssh.askPassword = "${pkgs.ksshaskpass}/bin/ksshaskpass";
 
-	virtualisation.virtualbox.host.enable = isHost;
-	virtualisation.virtualbox.host.enableHardening = false;
+	virtualisation.virtualbox.host = {
+		enable = isHost;
+		enableHardening = false;
+	};
 	
 	#virtualisation.libvirtd.enable = true;	
 	
@@ -326,21 +343,39 @@ in
 		extraGroups = ["sudo" "wheel" "networkmanager" "disk" "sound" "pulse" "adbusers" "input" "libvirtd" "vboxusers"];
 		description = "Александр Бантьев";
 		uid = 1000;
-	} // (if isShared then {
-		hashedPassword = "YotlMqtSycvPk";
-	} else {
 		password = "";
-	});
+	};
 	users.users.svetlana-banteva = {
 		isNormalUser = true;
 		extraGroups = ["pulse" "input"];
 		description = "Светлана Бантьева";
 		password = "";		
 	};
+	users.users.bigsoft = {
+		isNormalUser = true;
+		extraGroups = [ "pulse" "input" "vboxusers" "networkmanager" ];
+		description = "Игорь Бантьев";
+		password = "";		
+	};
 	security.sudo = {
 		enable = true;
 	};
 	nix.requireSignedBinaryCaches = false;
+
+	home-manager.users.bigsoft = {
+		xsession = {
+			enable = true;
+			windowManager.command = ''
+				MACHINE="Windows"
+				VBoxManage startvm $MACHINE
+				until $(VBoxManage showvminfo --machinereadable $MACHINE | grep -q ^VMState=.poweroff.)
+				do
+				sleep 1
+				done
+				shutdown now
+			'';
+		};
+	};
 
 	home-manager.users.balsoft = import ./home.nix device { inherit pkgs; inherit lib; };
 	# =========================================================================

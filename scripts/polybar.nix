@@ -180,8 +180,8 @@ rec {
         name = "bar-network";
         text = ''
             #!${pkgs.bash}/bin/bash
-            WIFI="`nmcli d w | grep "\*" | awk '{print $7"%"}'`"
-            if [[ `wc -c <<< "$WIFI"` -lt 3 ]]
+            WIFI="`${pkgs.iw}/bin/iw wlan0 info | grep ssid | cut -f2 -d' '`"
+            if [[ `wc -c <<< "$WIFI"` -lt 2 ]]
             then
                 echo "%{F${theme.bg}}%{T6}%{T-} "
                 echo "${color_down}"
