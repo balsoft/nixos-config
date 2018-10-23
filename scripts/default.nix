@@ -1,6 +1,6 @@
-{ pkgs, theme, secret, device, ... }:
+{ pkgs, theme, secret, ... }:
 {
-    polybar = import ./polybar.nix { inherit pkgs; inherit theme; inherit secret; inherit device; };
+    polybar = import ./polybar.nix { inherit pkgs; inherit theme; inherit secret; };
 	
 	albert = import ./albert.nix { inherit pkgs; };
 
