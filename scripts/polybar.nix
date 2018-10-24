@@ -1,4 +1,4 @@
-{ pkgs, secret, theme, device, ... }:
+{ pkgs, secret, theme, ... }:
 rec {
     wrapScriptToLoop = interval: script:
     pkgs.writeTextFile {
@@ -273,7 +273,7 @@ rec {
         '';
         executable = true;
     });
-    brightness = {}: pkgs.writeTextFile rec {
+    brightness = { device }: pkgs.writeTextFile rec {
         name = "bar-brightness";
         text = ''
             cd /tmp
