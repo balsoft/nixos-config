@@ -4,13 +4,7 @@
 
 device: 
 { config, pkgs, lib, ... }: 
-let 
-	isLaptop = (!isNull(builtins.match ".*Laptop" device));
-	isShared = (device == "Prestigio-Laptop" || device == "ASUS-Laptop");
-	cpu = if device == "HP-Laptop" then "amd" else "intel";
-	isSSD = device == "HP-Laptop" || device == "ASUS-Laptop";
-	isHost = isSSD;
-in
+with import ./common.nix device;
 {
 	# ========================== HARDWARE =====================================
 	imports = [
@@ -264,8 +258,14 @@ in
 		grub2 = (import <nixpkgs> {system = "i686-linux";}).grub2;
 	} else {});
 	
-	services.openssh.enable = true;
-	
+	services.openssh = {
+		enable = true;
+		passwordAuthentication = false;
+		authorizedKeysFiles = pkgs.writeTextFile {
+			name = "id_rsa.pub";
+			text = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDd2OdcSHUsgezuV+cpFqk9+Svtup6PxIolv1zokVZdqvS8qxLsA/rwYmQgTnuq4/zK/GIxcUCH4OxYlW6Or4M4G7qrDKcLAUrRPWkectqEooWRflZXkfHduMJhzeOAsBdMfYZQ9024GwKr/4yriw2BGa8GbbAnQxiSeTipzvXHoXuRME+/2GsMFAfHFvxzXRG7dNOiLtLaXEjUPUTcw/fffKy55kHtWxMkEvvcdyR53/24fmO3kLVpEuoI+Mp1XFtX3DvRM9ulgfwZUn8/CLhwSLwWX4Xf9iuzVi5vJOJtMOktQj/MwGk4tY/NPe+sIk+nAUKSdVf0y9k9JrJT98S/";
+		};
+	};
 	programs.light.enable = isLaptop;
 
 	services.earlyoom = {

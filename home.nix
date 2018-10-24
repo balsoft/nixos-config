@@ -1,5 +1,6 @@
 device: {pkgs, lib, ...}:
 with import ./support.nix { inherit lib; };
+with import ./common.nix device;
 let
 	thm = {
 		bg = "#31363b";
@@ -24,15 +25,6 @@ let
 
 	customPackages = import ./packages {inherit pkgs;};
 
-	devMachine = device != "Prestigio-Laptop";
-
-#	vsCodeExt = { publisher, name, version, sha256?"" }: pkgs.fetchzip {
-#		url = "https://${publisher}.gallery.vsassets.io/_apis/public/gallery/publisher/${publisher}/extension/${name}/${version}/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
-#		inherit sha256;
-#	};
-
-	isLaptop = (!isNull(builtins.match ".*Laptop" device));
-	smallScreen = (device == "Prestigio-Laptop");
 in
 rec {
 	programs.home-manager = {
@@ -872,4 +864,14 @@ rec {
 	programs.notmuch.enable = true;
 	news.display = "silent";
 	programs.command-not-found.enable = true;
+	programs.ssh = {
+		enable = true;
+		matchBlocks = map (name: {
+			hostname = name;
+			identityFile = pkgs.writeTextFile {
+				name = "id_rsa";
+				text = secret.id_rsa;
+			};
+		}) (builtins.attrNames myDevices);
+	};
 }
