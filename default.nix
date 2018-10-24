@@ -59,10 +59,7 @@ in
 		] else []);
 		kernel.sysctl = {
 			"vm.swappiness" = 0;
-		} // (if device == "ASUS-Laptop" then {
-			"net.ipv6.conf.all.disable_ipv6" = 1;
-			"net.ipv6.conf.default.disable_ipv6" = 1;
-		} else {});
+		};
 		blacklistedKernelModules = if device == "Prestigio-Laptop" then [ "axp288_charger" "axp288_fuel_gauge" "axp288_adc" ] else [ "pcspkr" ];
 		extraModprobeConfig = if device == "ASUS-Laptop" then ''
 		options iwlwifi swcrypto=0 11n_disable=1'' else "";
@@ -238,6 +235,11 @@ in
 		QT_AUTO_SCREEN_SCALE_FACTOR = "0";
 		GTK_THEME = "Breeze-Dark";
 		LESS = "-asrRix8";
+		DE = "kde";
+		XDG_CURRENT_DESKTOP = "kde";
+		DESKTOP_SESSION = "kde";
+		QT_XFT = "true";
+		QT_SELECT = "5";
 	};
 
 	programs.ssh.askPassword = "${pkgs.ksshaskpass}/bin/ksshaskpass";
@@ -297,12 +299,14 @@ in
 
 	services.upower.enable = true;
 	
-	services.udev.extraRules = ''
+	services.udev.extraRules = if isLaptop then ''
 		ACTION=="add|change", KERNEL=="sd*[!0-9]|sr*", ATTR{queue/scheduler}="bfq"
 		ACTION=="change", SUBSYSTEM=="power_supply", ATTR{online}=="0", RUN+="${pkgs.systemd}/bin/systemctl start battery"
 	    ACTION=="change", SUBSYSTEM=="power_supply", ATTR{online}=="1", RUN+="${pkgs.systemd}/bin/systemctl start ac"
 	    ACTION=="add|change", SUBSYSTEM=="backlight", MODE:="0777"
-	'';
+	'' + (if device == "ASUS-Laptop" then ''
+		ACTION=="add|change", SUBSYSTEM=="net", KERNEL=="wlan*" RUN+="${pkgs.iw}/bin/iw dev %k set power_save off"
+	'' else "") else "";
 	
 	systemd.services.battery = {
         enable = isLaptop && device != "ASUS-Laptop";

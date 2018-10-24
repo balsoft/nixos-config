@@ -819,6 +819,10 @@ rec {
 		};
 	};
 	xdg.dataFile."albert/org.albert.extension.python/modules/qalc.py".text = scripts.albert.qalc;
+	xdg.dataFile."Steam/skins/Metro".source = pkgs.fetchurl {
+		url = "http://metroforsteam.com/downloads/4.3.1.zip";
+		sha256 = "0e4e8bd6e164c60be7924d18ab29ddf966d31dd0db6a6820c213d25bc1a14bd2";
+	};
 	xdg.dataFile."konsole/Default.profile".text = genIni {
 		Appearance.ColorScheme = "Breeze";
 		"Cursor Options".CursorShape = 1;
