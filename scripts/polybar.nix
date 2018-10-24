@@ -18,7 +18,7 @@ rec {
         '';
     };
 
-    weather = { color_good ? theme.green, color_rain ? theme.red, color_cold ? theme.blue, city, city-id, owm-key ? secret.owm-key, terminal ? "${pkgs.konsole}/bin/konsole --noclose --fullscreen -e", interval ? 60 }: 
+    weather = { color_good ? theme.green, color_rain ? theme.orange, color_cold ? theme.blue, city, city-id, owm-key ? secret.owm-key, terminal ? "${pkgs.konsole}/bin/konsole --noclose --fullscreen -e", interval ? 60 }: 
     wrapScriptToLoop interval (pkgs.writeTextFile { 
         name = "bar-weather"; 
         text = ''
@@ -61,7 +61,7 @@ rec {
             fi''; 
         executable = true;
     });
-    email = { color_unread ? theme.red, color_nounread ? theme.green, user, password, interval ? 10}: 
+    email = { color_unread ? theme.orange, color_nounread ? theme.green, user, password, interval ? 10}: 
     wrapScriptToLoop interval (pkgs.writeTextFile { 
         name = "bar-email";
         text = ''
@@ -116,7 +116,7 @@ rec {
             fi
             if [[ $((`date -d "$DATE" +%s`-`date +%s`)) -lt 1800 ]]
             then
-                color=${theme.red}
+                color=${theme.orange}
             else
                 color=${theme.blue}
             fi
@@ -175,7 +175,7 @@ rec {
         executable = true;
     });
 
-    network = {color_down ? theme.red, color_up ? theme.green, interval ? 5}: 
+    network = {color_down ? theme.orange, color_up ? theme.green, interval ? 5}: 
     wrapScriptToLoop interval (pkgs.writeTextFile {
         name = "bar-network";
         text = ''
@@ -193,7 +193,7 @@ rec {
         executable = true;
     });
 
-    battery = {color_charging ? theme.green, color_discharging ? theme.fg, color_full ? theme.blue, color_low ? theme.red, low_threshold ? 10, interval ? 5}: 
+    battery = {color_charging ? theme.green, color_discharging ? theme.fg, color_full ? theme.blue, color_low ? theme.orange, low_threshold ? 10, interval ? 5}: 
     wrapScriptToLoop interval (pkgs.writeTextFile {
         name = "bar-battery";
         text = ''
@@ -247,7 +247,7 @@ rec {
                             color=${theme.green}
                         else
                             icon=""
-                            color=${theme.red}
+                            color=${theme.orange}
                         fi
                     fi
                 fi
