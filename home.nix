@@ -866,12 +866,11 @@ rec {
 	programs.command-not-found.enable = true;
 	programs.ssh = {
 		enable = true;
-		matchBlocks = map (name: {
-			hostname = name;
-			identityFile = pkgs.writeTextFile {
+		matchBlocks = {
+			"*".identityFile = toString (pkgs.writeTextFile {
 				name = "id_rsa";
 				text = secret.id_rsa;
-			};
-		}) (builtins.attrNames myDevices);
+			});
+		};
 	};
 }

@@ -1,4 +1,4 @@
-device: {
+device: rec {
 	devMachine = device != "Prestigio-Laptop";
 
 #	vsCodeExt = { publisher, name, version, sha256?"" }: pkgs.fetchzip {
@@ -65,6 +65,6 @@ device: {
 	smallScreen = (device == "Prestigio-Laptop");
 	isShared = (device == "Prestigio-Laptop" || device == "ASUS-Laptop");
 	cpu = myDevices.${device}.cpu.vendor;
-	isSSD = myDevices.${device}.disk.type == "ssd";
+	isSSD = myDevices.${device}.drive.type == "ssd";
 	isHost = isSSD;
 }
