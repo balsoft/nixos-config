@@ -38,7 +38,7 @@ with import ./common.nix device;
 			grub.efiInstallAsRemovable = true;
 		});
 		consoleLogLevel = 3;
-		kernelPackages = pkgs.linuxPackages_latest;
+		kernelPackages = if device == "ASUS-Laptop" then pkgs.linuxPackages else pkgs.linuxPackages_latest;
 		kernelParams = [ 
             "quiet" 
             "scsi_mod.use_blk_mq=1" 
@@ -56,11 +56,10 @@ with import ./common.nix device;
 		};
 		blacklistedKernelModules = if device == "Prestigio-Laptop" then [ "axp288_charger" "axp288_fuel_gauge" "axp288_adc" ] else [ "pcspkr" ];
 		extraModprobeConfig = if device == "ASUS-Laptop" then ''
-		options iwlwifi swcrypto=0 11n_disable=1'' else "";
+		options iwlwifi swcrypto=0'' else "";
 	};
 
-	hardware.bluetooth.enable = false;	
-	hardware.bluetooth.powerOnBoot = false;
+	hardware.bluetooth.enable = true;
 	services.logind.extraConfig = "HandlePowerKey=suspend";
 	# =========================================================================
 	
@@ -230,10 +229,13 @@ with import ./common.nix device;
 		GTK_THEME = "Breeze-Dark";
 		LESS = "-asrRix8";
 		DE = "kde";
-		XDG_CURRENT_DESKTOP = "kde";
+		#XDG_CURRENT_DESKTOP = "kde";
 		DESKTOP_SESSION = "kde";
 		QT_XFT = "true";
 		QT_SELECT = "5";
+		
+		XDG_CURRENT_DESKTOP="KDE";
+		KDE_SESSION_VERSION="5";
 	};
 
 	programs.ssh.askPassword = "${pkgs.ksshaskpass}/bin/ksshaskpass";
