@@ -6,7 +6,7 @@
 		{
 			"label": "rebuild",
 			"type": "shell",
-			"command": "sudo nixos-rebuild switch",
+			"command": "sudo /run/current-system/sw/bin/nixos-rebuild switch",
 			"group": {
 				"kind": "build",
 				"isDefault": true

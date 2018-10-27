@@ -58,7 +58,7 @@ with import ./common.nix device;
 		extraModprobeConfig = if device == "ASUS-Laptop" then ''
 		options iwlwifi swcrypto=0 11n_disable=1'' else "";
 	};
-
+	systemd.services.dhcpcd.serviceConfig.StartLimitInterval = 1;
 	hardware.bluetooth.enable = false;	
 	hardware.bluetooth.powerOnBoot = false;
 	services.logind.extraConfig = "HandlePowerKey=suspend";
@@ -74,12 +74,11 @@ with import ./common.nix device;
 	
 	# ====================== NETWORKING =======================================
 	networking = {
-		#networkmanager.enable = true;
+		#networkmanager.enable = tfrue;
 		wireless = {
 			enable = true;
 			networks.Keenetic.pskRaw = "4d03ac6e3d2a2b891d83dcceca6f531abd0fec421ad4460878f5f3bc4c76562e";
 			userControlled.enable = true;
-			#iwd.enable = true;
 		};
 		firewall.enable = false;
 		usePredictableInterfaceNames = false;
@@ -271,7 +270,7 @@ with import ./common.nix device;
 	};
 
 	services.printing = {
-		enable = true;
+		enable = false;
 		drivers = [ pkgs.gutenprint ];
 	};
 	
@@ -365,6 +364,9 @@ with import ./common.nix device;
 	};
 	security.sudo = {
 		enable = true;
+		extraConfig = ''
+balsoft ALL = (root) NOPASSWD: /run/current-system/sw/bin/nixos-rebuild switch
+		'';
 	};
 	nix.requireSignedBinaryCaches = false;
 
