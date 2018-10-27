@@ -808,7 +808,26 @@ rec {
 					"widget.shadow" = "#00000030";
 				};
 			};
-		};
+			"mimeapps.list".text = genIni {
+				"Default Applications" = {
+					"text/html" = "chromium-browser.desktop";
+					"image/*" = "org.kde.gwenview.desktop";
+					"application/x-bittorrent" = "org.kde.ktorrent";
+					"application/zip" = "org.kde.ark.desktop";
+					"application/rar" = "org.kde.ark.desktop";
+					"application/7z" = "org.kde.ark.desktop";
+					"application/*tar" = "org.kde.ark.desktop";
+					"application/x-kdenlive" = "org.kde.kdenlive.desktop";
+					"x-scheme-handler/http" = "chromium-browser.desktop";
+					"x-scheme-handler/https" = "chromium-browser.desktop";
+					"x-scheme-handler/about" = "chromium-browser.desktop";
+					"x-scheme-handler/unknown" = "chromium-browser.desktop";
+					"x-scheme-handler/vscode" = "code-url-handler.desktop";
+					"x-scheme-handler/mailto" = "trojita.desktop";
+					"application/pdf" = "org.kde.okular.desktop";
+				};
+			};
+		};	
 	};
 	xdg.dataFile."albert/org.albert.extension.python/modules/qalc.py".text = scripts.albert.qalc;
 	xdg.dataFile."Steam/skins/Metro".source = pkgs.fetchurl {
