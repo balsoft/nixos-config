@@ -70,7 +70,8 @@ rec {
 		config = rec {
 			assigns = {
 				"" = [{ class = "Chromium"; }];
-				"" = [{ class = "^Telegram"; } ];	
+				"" = [{ class = "^Telegram"; } { class = "^VK"; } { class = "^trojita"; } ];	
+
 			};
 			bars = [];
 			fonts = [ "RobotoMono 9" ];
@@ -102,6 +103,7 @@ rec {
 				{ command = "${pkgs.albert}/bin/albert"; always = true; }
 				{ command = "${pkgs.tdesktop}/bin/telegram-desktop"; }
 				{ command = "${pkgs.chromium}/bin/chromium"; }
+				{ command = "${customPackages.vk}/bin/vk"; }
 				{ command = "pkill polybar; polybar top"; always = true; }
 				{ command = "${customPackages.mconnect}/bin/mconnect"; }
 				{ command = "${pkgs.polkit-kde-agent}/lib/libexec/polkit-kde-authentication-agent-1"; }
@@ -109,7 +111,8 @@ rec {
 				{ command = "${pkgs.autorandr}/bin/autorandr horizontal"; always = true; }
 				#{ command = "google-drive-ocamlfuse '/home/balsoft/Google Drive/'"; }
 				#{ command = "pkill compton; allow_rgb10_configs=false ${pkgs.compton}/bin/compton --backend glx --vsync opengl-swc"; always = true;}
-				{ command = "trojita"; workspace = ""; }
+				{ command = "trojita"; }
+				{ command = term; workspace = "0"; }
 				{ command = "google-drive-ocamlfuse -headless -f '/home/balsoft/Google Drive'"; }
 				{ command = "${pkgs.hsetroot}/bin/hsetroot -solid '#31363b'"; always = true; }
 			];
@@ -383,6 +386,7 @@ rec {
 	++ 
 	(with customPackages; [
 		mconnect
+		vk
 	]);
 
 	programs.git = {
@@ -809,7 +813,7 @@ rec {
 					"widget.shadow" = "#00000030";
 				};
 			};
-			"mimeapps.list".text = genIni {
+			"mimeapps.list.home".text = genIni {
 				"Default Applications" = {
 					"text/html" = "chromium-browser.desktop";
 					"image/*" = "org.kde.gwenview.desktop";
@@ -1172,6 +1176,7 @@ rec {
 		konsole.data = "$DRY_RUN_CMD cp ~/.config/konsolerc.home ~/.config/konsolerc";
 		kate.data = "$DRY_RUN_CMD cp ~/.config/katerc.home ~/.config/katerc";
 		user-places.data = "$DRY_RUN_CMD cp ~/.local/share/user-places.xbel.home ~/.local/share/user-places.xbel";
+		mimeapps .data= "$DRY_RUN_CMD cp ~/.config/mimeapps.list.home ~/.config/mimeapps.list";
 		# FIXME soooo ugly and imperative...
 		vscode.data =if devMachine then builtins.concatStringsSep " || echo 'Error'\n" ((map (ext: "$DRY_RUN_CMD code --install-extension ${ext}") [
 			"AndrewFridley.Breeze-Dark-Theme"

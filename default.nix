@@ -58,7 +58,6 @@ with import ./common.nix device;
 		extraModprobeConfig = if device == "ASUS-Laptop" then ''
 		options iwlwifi swcrypto=0'' else "";
 	};
-	systemd.services.dhcpcd.serviceConfig.StartLimitInterval = 1;
 
 	hardware.bluetooth.enable = true;
 	services.logind.extraConfig = "HandlePowerKey=suspend";
@@ -74,9 +73,9 @@ with import ./common.nix device;
 	
 	# ====================== NETWORKING =======================================
 	networking = {
-		#networkmanager.enable = tfrue;
+		networkmanager.enable = true;
 		wireless = {
-			enable = true;
+			enable = false;
 			networks.Keenetic.pskRaw = "4d03ac6e3d2a2b891d83dcceca6f531abd0fec421ad4460878f5f3bc4c76562e";
 			userControlled.enable = true;
 		};
@@ -239,6 +238,8 @@ with import ./common.nix device;
 	};
 
 	programs.ssh.askPassword = "${pkgs.ksshaskpass}/bin/ksshaskpass";
+
+	environment.pathsToLink = [ "/share/zsh" ];
 
 	virtualisation.virtualbox.host = {
 		enable = isHost;
