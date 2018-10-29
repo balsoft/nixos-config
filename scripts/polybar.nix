@@ -180,8 +180,8 @@ rec {
         name = "bar-network";
         text = ''
             #!${pkgs.bash}/bin/bash
-            WIFI="`${pkgs.iw}/bin/iw wlan0 info | grep ssid | cut -f2 -d' '`"
-            if [[ `wc -c <<< "$WIFI"` -lt 2 ]]
+            WIFI="`nmcli d w | grep "\*" | awk '{print $7"%"}'`"
+            if [[ `wc -c <<< "$WIFI"` -lt 3 ]]
             then
                 echo "%{F${theme.bg}}%{A:${pkgs.wpa_supplicant_gui}/bin/wpa_gui &:}%{T6}%{T-} %{A-}"
                 echo "${color_down}"

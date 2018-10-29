@@ -683,7 +683,6 @@ rec {
 				"editor.formatOnSave" = true; 
 				"editor.insertSpaces" = false; 
 				"files.autoSave" = "onFocusChange"; 
-				"git.autofetch" = true;
 				"terminal.integrated.cursorStyle" = "line"; 
 				"terminal.integrated.shell.linux" = "zsh"; 
 				"update.channel" = "none";
