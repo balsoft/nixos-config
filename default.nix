@@ -55,8 +55,6 @@ with import ./common.nix device;
 			"vm.swappiness" = 0;
 		};
 		blacklistedKernelModules = if device == "Prestigio-Laptop" then [ "axp288_charger" "axp288_fuel_gauge" "axp288_adc" ] else [ "pcspkr" ];
-		extraModprobeConfig = if device == "ASUS-Laptop" then ''
-		options iwlwifi swcrypto=0'' else "";
 	};
 
 	hardware.bluetooth.enable = true;
@@ -73,16 +71,21 @@ with import ./common.nix device;
 	
 	# ====================== NETWORKING =======================================
 	networking = {
-		networkmanager.enable = true;
+		networkmanager.enable = false;
 		wireless = {
-			enable = false;
+			enable = true;
 			networks.Keenetic.pskRaw = "4d03ac6e3d2a2b891d83dcceca6f531abd0fec421ad4460878f5f3bc4c76562e";
+			networks.NASHIRAHOTEL = {
+				#extraConfig = "bssid=46:d9:e7:09:d0:b8";
+			};
+			interfaces = [ "wlan0" ];
 			userControlled.enable = true;
 		};
 		firewall.enable = false;
 		usePredictableInterfaceNames = false;
 		hostName = device;
 	};
+	systemd.services.dhcpcd.serviceConfig.Type = lib.mkForce "simple"; # TODO: Make a PR with this change; forking is not acceptable for dhcpcd.
 	# =========================================================================
 
 	
