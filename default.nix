@@ -9,12 +9,13 @@ with import ./common.nix device;
 	# ========================== HARDWARE =====================================
 	imports = [
 		/etc/nixos/hardware-configuration.nix
-#		"${builtins.fetchTarball https://github.com/rycee/home-manager/archive/master.tar.gz}/nixos"
 		"${builtins.fetchGit { url="https://github.com/rycee/home-manager"; ref="master"; }}/nixos"
 	];
 
 	hardware.cpu.${cpu}.updateMicrocode = true;
 	
+	hardware.enableRedistributableFirmware = true;
+
 	hardware.opengl.enable = true;
 	hardware.opengl.driSupport = true;
 	hardware.opengl.driSupport32Bit = true;
@@ -40,20 +41,21 @@ with import ./common.nix device;
 		consoleLogLevel = 3;
 		kernelPackages = if device == "ASUS-Laptop" then pkgs.linuxPackages else pkgs.linuxPackages_latest;
 		kernelParams = [ 
-            "quiet" 
-            "scsi_mod.use_blk_mq=1" 
-            "modeset" 
-            "nofb" 
-            "rd.systemd.show_status=auto" 
-            "rd.udev.log_priority=3" 
-            "pti=off" 
-            "spectre_v2=off"
-        ] ++ (if device == "Prestigio-Laptop" then [
+      "quiet" 
+      "scsi_mod.use_blk_mq=1" 
+      "modeset" 
+      "nofb" 
+      "rd.systemd.show_status=auto" 
+      "rd.udev.log_priority=3" 
+      "pti=off" 
+      "spectre_v2=off"
+    ] ++ (if device == "Prestigio-Laptop" then [
 			"intel_idle.max_cstate=1"
 		] else []);
 		kernel.sysctl = {
 			"vm.swappiness" = 0;
 		};
+		extraModprobeConfig = "options iwlwifi swcrypto=0 bt_coex_active=0 11n_disable=1 power_save=0 power_level=5 bt_coex_active=1";
 		blacklistedKernelModules = if device == "Prestigio-Laptop" then [ "axp288_charger" "axp288_fuel_gauge" "axp288_adc" ] else [ "pcspkr" ];
 	};
 
@@ -74,8 +76,9 @@ with import ./common.nix device;
 		networkmanager.enable = false;
 		wireless = {
 			enable = true;
+			driver = "wext";
 			networks.Keenetic.pskRaw = "4d03ac6e3d2a2b891d83dcceca6f531abd0fec421ad4460878f5f3bc4c76562e";
-			networks.NASHIRAHOTEL = {
+			networks.Jadore = {
 				#extraConfig = "bssid=46:d9:e7:09:d0:b8";
 			};
 			interfaces = [ "wlan0" ];
@@ -100,6 +103,7 @@ with import ./common.nix device;
 			middleEmulation = false;
 			naturalScrolling = true;
 		};
+		videoDrivers = if cpu == "amd" then [ "amdgpu" ] else [ "intel" ];
 		desktopManager.wallpaper.combineScreens = false;
 		desktopManager.wallpaper.mode = "fill";
 		displayManager.lightdm = {
@@ -138,6 +142,14 @@ with import ./common.nix device;
 			noto-fonts
 			noto-fonts-emoji
 		];
+		fontconfig = {
+			enable = true;
+			defaultFonts = {
+				monospace = [ "Roboto Mono 13" ];
+				sansSerif = [ "Roboto 13" ];
+				serif = [ "Roboto Slab 13" ];
+			};
+		};
 		enableDefaultFonts = true;
 	};
 
@@ -222,10 +234,10 @@ with import ./common.nix device;
 	
 	
 	# ====================== PROGRAMS & SERVICES ==============================
-	environment.systemPackages = (builtins.filter pkgs.stdenv.lib.isDerivation (builtins.attrValues pkgs.kdeApplications));
+	environment.systemPackages = (builtins.filter pkgs.stdenv.lib.isDerivation (builtins.attrValues (pkgs.kdeApplications // pkgs.plasma5)));
 	environment.sessionVariables = {
 		EDITOR = "micro";
-		QT_QPA_PLATFORMTHEME = "qt5ct";
+		QT_QPA_PLATFORMTHEME = "kde";
 		QT_SCALE_FACTOR = "1";
 		QT_AUTO_SCREEN_SCALE_FACTOR = "0";
 		GTK_THEME = "Breeze-Dark";
@@ -377,7 +389,7 @@ balsoft ALL = (root) NOPASSWD: /run/current-system/sw/bin/nixos-rebuild switch
 	};
 	nix.requireSignedBinaryCaches = false;
 
-	home-manager.users.bigsoft = {
+	home-manager.users.bigsoft = if device == "ASUS-Laptop" then {
 		xsession = {
 			enable = true;
 			windowManager.command = ''
@@ -388,8 +400,10 @@ balsoft ALL = (root) NOPASSWD: /run/current-system/sw/bin/nixos-rebuild switch
 				sleep 1
 				done
 			'';
-		};
-	};
+		}; 
+	} else {
+
+  };
 
 	home-manager.users.balsoft = import ./home.nix device { inherit pkgs; inherit lib; };
 	# =========================================================================

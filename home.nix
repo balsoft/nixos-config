@@ -45,8 +45,9 @@ rec {
 			];
 		};
 		shellAliases = {
-			"p" = "nix-shell -p $1 --run zsh";
-			"b" = "nix-build \"<nixpkgs>\" --no-out-link -A $1";
+			"p" = "_p(){nix run $1 -c zsh};_p";
+			"r" = "_r(){nix run nixpkgs.$1 -c $1};_r";
+			"b" = "nix-build \"<nixpkgs>\" --no-out-link -A";
 		};
 		initExtra = scripts.zshrc;
 	};
@@ -98,6 +99,10 @@ rec {
 			window = {
 				border = 0;
 				hideEdgeBorders = "smart";
+				commands = [ {
+					command = "focus";
+					criteria = { urgent = "latest"; };
+				} ];
 			};
 			startup = [
 				{ command = "${pkgs.albert}/bin/albert"; always = true; }
@@ -389,6 +394,12 @@ rec {
 		vk
 	]);
 
+	programs.emacs = {
+		enable = true;
+		package = pkgs.emacs;
+		extraPackages = (epkgs: with epkgs; [ nix-mode ]);
+	};
+
 	programs.git = {
 		enable = true;
 		userEmail = "balsoft@yandex.ru";
@@ -561,6 +572,9 @@ rec {
 				General = {
 					ColorScheme="Breeze Dark";
 					Name="Breeze Dark";
+				};
+				Icons = {
+					Theme="Papirus-Dark";
 				};
 			};
 			"qt5ct/qt5ct.conf".text = genIni {
