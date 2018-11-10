@@ -21,7 +21,7 @@ let
 
 	secret = import ./secret.nix;
 
-	scripts = import ./scripts {inherit pkgs; inherit secret; theme=thm; inherit device;};
+	scripts = import ./scripts {inherit pkgs; inherit secret; theme = thm; inherit device;};
 
 	customPackages = import ./packages {inherit pkgs;};
 
@@ -45,8 +45,8 @@ rec {
 			];
 		};
 		shellAliases = {
-			"p" = "_p(){nix run $1 -c zsh};_p";
-			"r" = "_r(){nix run nixpkgs.$1 -c $1};_r";
+			"p" = "_p(){nix run nixpkgs.$1 -c zsh};_p";
+			"r" = "_r(){nix run nixpkgs.$1 -c $@};_r";
 			"b" = "nix-build \"<nixpkgs>\" --no-out-link -A";
 		};
 		initExtra = scripts.zshrc;
@@ -113,9 +113,10 @@ rec {
 				{ command = "${customPackages.mconnect}/bin/mconnect"; }
 				{ command = "${pkgs.polkit-kde-agent}/lib/libexec/polkit-kde-authentication-agent-1"; }
 				{ command = "dunst"; }
+				{ command = "balooctl start"; }
 				{ command = "${pkgs.autorandr}/bin/autorandr horizontal"; always = true; }
 				#{ command = "google-drive-ocamlfuse '/home/balsoft/Google Drive/'"; }
-				#{ command = "pkill compton; allow_rgb10_configs=false ${pkgs.compton}/bin/compton --backend glx --vsync opengl-swc"; always = true;}
+				#{ command = "pkill compton; allow_rgb10_configs = false ${pkgs.compton}/bin/compton --backend glx --vsync opengl-swc"; always = true;}
 				{ command = "trojita"; }
 				{ command = term; workspace = "0"; }
 				{ command = "google-drive-ocamlfuse -headless -f '/home/balsoft/Google Drive'"; }
@@ -258,7 +259,6 @@ rec {
 			};
 		};
 	};
-
 	programs.autorandr = {
 		enable = true;
 		hooks = {
@@ -329,7 +329,6 @@ rec {
 		vscode
 		geany
 		kdevelop
-		jetbrains.pycharm-community
 		kate
 		steam # much dev, very work, wow
 	] else [] ) ++ [
@@ -338,7 +337,6 @@ rec {
 		telepathy_haze
 		telepathy_idle
 		libnotify
-		quaternion
 		# Audio/Video
 		vlc
 		kdenlive
@@ -455,33 +453,33 @@ rec {
 				"org.albert.extension.websearch".enabled = true;
 				"org.albert.frontend.qmlboxmodel" = {
 					enabled = true;
-					alwaysOnTop=true;
-					clearOnHide=false;
-					hideOnClose=false;
-					hideOnFocusLoss=true;
-					showCentered=true;
+					alwaysOnTop = true;
+					clearOnHide = false;
+					hideOnClose = false;
+					hideOnFocusLoss = true;
+					showCentered = true;
 					stylePath="${pkgs.albert}/share/albert/org.albert.frontend.qmlboxmodel/styles/BoxModel/MainComponent.qml";
 					windowPosition="@Point(299 13)";
 				};
 			};
 			"albert/org.albert.frontend.qmlboxmodel/style_properties.ini".text = genIni {
 				BoxModel = {
-					animation_duration=0;
+					animation_duration = 0;
 					#background_color="\"@Variant(\\0\\0\\0\\x43\\x1\\xff\\xff\\x31\\x31\\x36\\x36;;\\0\\0)\"";
 					background_color = thm.bg;
 					#border_color="\"@Variant(\\0\\0\\0\\x43\\x1\\xff\\xff==\\xae\\xae\\xe9\\xe9\\0\\0)\"";
 					border_color = thm.blue;
-					border_size=1;
-					icon_size=46;
-					input_fontsize=28;
-					item_description_fontsize=20;
-					item_title_fontsize=24;
-					max_items=10;
-					padding=6;
-					radius=2;
-					settingsbutton_size=10;
-					spacing=5;
-					window_width=1200;
+					border_size = 1;
+					icon_size = 46;
+					input_fontsize = 28;
+					item_description_fontsize = 20;
+					item_title_fontsize = 24;
+					max_items = 10;
+					padding = 6;
+					radius = 2;
+					settingsbutton_size = 10;
+					spacing = 5;
+					window_width = 1200;
 				};
 			};
 			"kdeglobals".text = genIni {
@@ -500,78 +498,94 @@ rec {
 					ForegroundVisited = thmDec.gray;
 				};
 				"Colors:Complementary" = {
-					BackgroundAlternate=thmDec.dark;
-					BackgroundNormal=thmDec.bg;
-					DecorationFocus=thmDec.blue;
-					DecorationHover=thmDec.blue;
-					ForegroundActive=thmDec.orange;
-					ForegroundInactive=thmDec.alt;
-					ForegroundLink=thmDec.blue;
-					ForegroundNegative=thmDec.red;
-					ForegroundNeutral=thmDec.yellow;
-					ForegroundNormal=thmDec.fg;
-					ForegroundPositive=thmDec.green;
-					ForegroundVisited=thmDec.blue;
+					BackgroundAlternate = thmDec.dark;
+					BackgroundNormal = thmDec.bg;
+					DecorationFocus = thmDec.blue;
+					DecorationHover = thmDec.blue;
+					ForegroundActive = thmDec.orange;
+					ForegroundInactive = thmDec.alt;
+					ForegroundLink = thmDec.blue;
+					ForegroundNegative = thmDec.red;
+					ForegroundNeutral = thmDec.yellow;
+					ForegroundNormal = thmDec.fg;
+					ForegroundPositive = thmDec.green;
+					ForegroundVisited = thmDec.blue;
 				};
 				"Colors:Selection" = {
-					BackgroundAlternate=thmDec.blue;
-					BackgroundNormal=thmDec.blue;
-					DecorationFocus=thmDec.blue;
-					DecorationHover=thmDec.blue;
-					ForegroundActive=thmDec.fg;
-					ForegroundInactive=thmDec.fg;
-					ForegroundLink=thmDec.blue;
-					ForegroundNegative=thmDec.red;
-					ForegroundNeutral=thmDec.orange;
-					ForegroundNormal=thmDec.fg;
-					ForegroundPositive=thmDec.green;
-					ForegroundVisited=thmDec.alt;
+					BackgroundAlternate = thmDec.blue;
+					BackgroundNormal = thmDec.blue;
+					DecorationFocus = thmDec.blue;
+					DecorationHover = thmDec.blue;
+					ForegroundActive = thmDec.fg;
+					ForegroundInactive = thmDec.fg;
+					ForegroundLink = thmDec.blue;
+					ForegroundNegative = thmDec.red;
+					ForegroundNeutral = thmDec.orange;
+					ForegroundNormal = thmDec.fg;
+					ForegroundPositive = thmDec.green;
+					ForegroundVisited = thmDec.alt;
 				};
 				"Colors:Tooltip" = {
-					BackgroundAlternate=thmDec.dark;
-					BackgroundNormal=thmDec.bg;
-					DecorationFocus=thmDec.blue;
-					DecorationHover=thmDec.blue;
-					ForegroundActive=thmDec.blue;
-					ForegroundInactive=thmDec.alt;
-					ForegroundLink=thmDec.blue;
-					ForegroundNegative=thmDec.red;
-					ForegroundNeutral=thmDec.orange;
-					ForegroundNormal=thmDec.fg;
-					ForegroundPositive=thmDec.green;
-					ForegroundVisited=thmDec.gray;
+					BackgroundAlternate = thmDec.dark;
+					BackgroundNormal = thmDec.bg;
+					DecorationFocus = thmDec.blue;
+					DecorationHover = thmDec.blue;
+					ForegroundActive = thmDec.blue;
+					ForegroundInactive = thmDec.alt;
+					ForegroundLink = thmDec.blue;
+					ForegroundNegative = thmDec.red;
+					ForegroundNeutral = thmDec.orange;
+					ForegroundNormal = thmDec.fg;
+					ForegroundPositive = thmDec.green;
+					ForegroundVisited = thmDec.gray;
 				};
 				"Colors:View" = {
-					BackgroundAlternate=thmDec.dark;
-					BackgroundNormal=thmDec.bg;
-					DecorationFocus=thmDec.blue;
-					DecorationHover=thmDec.blue;
-					ForegroundActive=thmDec.blue;
-					ForegroundInactive=thmDec.alt;
-					ForegroundLink=thmDec.blue;
-					ForegroundNegative=thmDec.red;
-					ForegroundNeutral=thmDec.orange;
-					ForegroundNormal=thmDec.fg;
-					ForegroundPositive=thmDec.green;
-					ForegroundVisited=thmDec.gray;
+					BackgroundAlternate = thmDec.dark;
+					BackgroundNormal = thmDec.bg;
+					DecorationFocus = thmDec.blue;
+					DecorationHover = thmDec.blue;
+					ForegroundActive = thmDec.blue;
+					ForegroundInactive = thmDec.alt;
+					ForegroundLink = thmDec.blue;
+					ForegroundNegative = thmDec.red;
+					ForegroundNeutral = thmDec.orange;
+					ForegroundNormal = thmDec.fg;
+					ForegroundPositive = thmDec.green;
+					ForegroundVisited = thmDec.gray;
 				};
 				"Colors:Window" = {
-					BackgroundAlternate=thmDec.dark;
-					BackgroundNormal=thmDec.bg;
-					DecorationFocus=thmDec.blue;
-					DecorationHover=thmDec.blue;
-					ForegroundActive=thmDec.blue;
-					ForegroundInactive=thmDec.alt;
-					ForegroundLink=thmDec.blue;
-					ForegroundNegative=thmDec.red;
-					ForegroundNeutral=thmDec.orange;
-					ForegroundNormal=thmDec.fg;
-					ForegroundPositive=thmDec.green;
-					ForegroundVisited=thmDec.gray;
+					BackgroundAlternate = thmDec.dark;
+					BackgroundNormal = thmDec.bg;
+					DecorationFocus = thmDec.blue;
+					DecorationHover = thmDec.blue;
+					ForegroundActive = thmDec.blue;
+					ForegroundInactive = thmDec.alt;
+					ForegroundLink = thmDec.blue;
+					ForegroundNegative = thmDec.red;
+					ForegroundNeutral = thmDec.orange;
+					ForegroundNormal = thmDec.fg;
+					ForegroundPositive = thmDec.green;
+					ForegroundVisited = thmDec.gray;
 				};
 				General = {
 					ColorScheme="Breeze Dark";
 					Name="Breeze Dark";
+					fixed = "Roboto Mono,11,-1,5,50,0,0,0,0,0";
+					font = "Roboto,11,-1,5,50,0,0,0,0,0";
+					menuFont = "Roboto,11,-1,5,50,0,0,0,0,0";
+					shadeSortColumn = true;
+					smallestReadableFont = "Roboto,8,-1,5,57,0,0,0,0,0,Medium";
+					toolBarFont = "Roboto,11,-1,5,50,0,0,0,0,0";
+				};
+				KDE = {
+					DoubleClickInterval = 400;
+					ShowDeleteCommand = true;
+					SingleClick = false;
+					StartDragDist = 4;
+					StartDragTime = 500;
+					WheelScrollLines = 3;
+					contrast = 4;
+					widgetStyle = "Breeze";
 				};
 				Icons = {
 					Theme="Papirus-Dark";
