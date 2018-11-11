@@ -45,7 +45,7 @@ rec {
 			];
 		};
 		shellAliases = {
-			"p" = "_p(){nix run nixpkgs.$1 -c zsh};_p";
+			"p" = "_p(){exec nix run nixpkgs.$1 -c zsh};_p";
 			"r" = "_r(){nix run nixpkgs.$1 -c $@};_r";
 			"b" = "nix-build \"<nixpkgs>\" --no-out-link -A";
 		};
@@ -385,6 +385,7 @@ rec {
 		breeze-icons
 		papirus-icon-theme
 		kde-cli-tools
+		krita
 	]) 
 	++ 
 	(with customPackages; [
