@@ -427,6 +427,7 @@ rec {
 					frontendId = "org.albert.frontend.qmlboxmodel";
 					hotkey = "Meta+Space";
 					showTray = false;
+					telemetry = true;
 					terminal = "${pkgs.konsole}/bin/konsole -e";
 					incrementalSort = true;
 				};
