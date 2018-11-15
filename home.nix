@@ -45,7 +45,7 @@ rec {
 			];
 		};
 		shellAliases = {
-			"p" = "_p(){exec nix run nixpkgs.$1 -c zsh};_p";
+			"p" = "_p(){nix run nixpkgs.$1 -c zsh};_p";
 			"r" = "_r(){nix run nixpkgs.$1 -c $@};_r";
 			"b" = "nix-build \"<nixpkgs>\" --no-out-link -A";
 		};
@@ -98,7 +98,7 @@ rec {
 			modifier = "Mod4";
 			window = {
 				border = 0;
-				hideEdgeBorders = "smart";
+				hideEdgeBorders = "both";
 				commands = [ {
 					command = "focus";
 					criteria = { urgent = "latest"; };
@@ -109,7 +109,6 @@ rec {
 				{ command = "${pkgs.tdesktop}/bin/telegram-desktop"; }
 				{ command = "${pkgs.chromium}/bin/chromium"; }
 				{ command = "${customPackages.vk}/bin/vk"; }
-				{ command = "pkill polybar; polybar top"; always = true; }
 				{ command = "${customPackages.mconnect}/bin/mconnect"; }
 				{ command = "${pkgs.polkit-kde-agent}/lib/libexec/polkit-kde-authentication-agent-1"; }
 				{ command = "dunst"; }
@@ -187,11 +186,13 @@ rec {
 				modules-center = "i3";
 				modules-right = "right_side";
 				tray-position = "none";
+				monitor = "\${env:MONITOR:}";
 			};
 			"module/i3" = {
 				type = "internal/i3";
 				label-focused-foreground = thm.blue;
 				label-urgent-foreground = thm.orange;
+				pin-workspaces = true;
 			};
 
 			"module/left_side" = {
@@ -263,10 +264,12 @@ rec {
 		enable = true;
 		hooks = {
 			predetect = {
-				compton = "pkill compton";		
+				compton = "pkill compton";
+				polybar = "kill $(pgrep polybar)";
 			};
 			postswitch = {
-				compton = "allow_rgb10_configs=false ${pkgs.compton}/bin/compton --backend glx --vsync opengl-swc";	
+				compton = "allow_rgb10_configs=false ${pkgs.compton}/bin/compton --backend glx --vsync opengl-swc &";	
+				polybar = "for i in $(polybar -m | cut -d ':' -f 1); do MONITOR=$i polybar top & done";
 			};
 		};
 		profiles = if device == "HP-Laptop" then {
@@ -324,13 +327,17 @@ rec {
 		wget
 		curl
 		chromium
-	] ++ (if devMachine then [
-		# IDE
+	] ++ (if goodMachine then [
 		vscode
 		geany
 		kdevelop
 		kate
-		steam # much dev, very work, wow
+		texlive.combined.scheme-full
+		steam
+		krita
+		kdenlive
+		frei0r
+		ffmpeg-full
 	] else [] ) ++ [
 		# Messaging
 		tdesktop
@@ -339,9 +346,6 @@ rec {
 		libnotify
 		# Audio/Video
 		vlc
-		kdenlive
-		frei0r
-		ffmpeg-full
 		google-play-music-desktop-player
 		lxqt.pavucontrol-qt
 		# Tools
@@ -375,7 +379,6 @@ rec {
 		abiword
 		gnumeric
 		kile
-		texlive.combined.scheme-basic
 		gcalcli
 		google-drive-ocamlfuse
 		kdeconnect
@@ -385,7 +388,6 @@ rec {
 		breeze-icons
 		papirus-icon-theme
 		kde-cli-tools
-		krita
 	]) 
 	++ 
 	(with customPackages; [
@@ -626,6 +628,12 @@ rec {
 			};
 
 			"katerc.home".text = genIni {
+				General = {
+					"Show Full Path in Title" = true;
+					"Show Menu Bar" = false;
+					"Show Status Bar" = true;
+					"Show Tab Bar" = true;
+				};
 				"KTextEditor Renderer" = {
 					"Animate Bracket Matching" = false;
 					"Schema" = "Breeze Dark";
@@ -680,7 +688,7 @@ rec {
 					"offline.cache" = "days";
 					"offline.cache.numDays" = "30";
 				};
-				autoMarkRead = {
+				autoMarkRead = { 
 					enabled = true;
 					seconds = 0;
 				};
@@ -689,7 +697,7 @@ rec {
 					saveToImapEnabled = false;
 				};
 				gui = {
-					"mainWindow.layout" = "compact";
+					"mainWindow.layout" = "one-at-time";
 					preferPlaintextRendering = true;
 					showSystray = false;
 					startMinimized = false;
@@ -1208,7 +1216,7 @@ rec {
 		user-places.data = "$DRY_RUN_CMD cp ~/.local/share/user-places.xbel.home ~/.local/share/user-places.xbel";
 		mimeapps .data= "$DRY_RUN_CMD cp ~/.config/mimeapps.list.home ~/.config/mimeapps.list";
 		# FIXME soooo ugly and imperative...
-		vscode.data =if devMachine then builtins.concatStringsSep " || echo 'Error'\n" ((map (ext: "$DRY_RUN_CMD code --install-extension ${ext}") [
+		vscode.data =if goodMachine then builtins.concatStringsSep " || echo 'Error'\n" ((map (ext: "$DRY_RUN_CMD code --install-extension ${ext}") [
 			"AndrewFridley.Breeze-Dark-Theme"
 			"ms-vscode.cpptools"
 			"bbenoist.nix"

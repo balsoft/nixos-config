@@ -1,5 +1,4 @@
 device: rec {
-	devMachine = device != "Prestigio-Laptop";
 
 #	vsCodeExt = { publisher, name, version, sha256?"" }: pkgs.fetchzip {
 #		url = "https://${publisher}.gallery.vsassets.io/_apis/public/gallery/publisher/${publisher}/extension/${name}/${version}/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
@@ -61,10 +60,13 @@ device: rec {
 		};
 	};
 
+	devInfo = myDevices.${device};
+
 	isLaptop = (!isNull(builtins.match ".*Laptop" device));
 	smallScreen = (device == "Prestigio-Laptop");
 	isShared = (device == "Prestigio-Laptop" || device == "ASUS-Laptop");
-	cpu = myDevices.${device}.cpu.vendor;
-	isSSD = myDevices.${device}.drive.type == "ssd";
+	cpu = devInfo.cpu.vendor;
+	isSSD = devInfo.drive.type == "ssd";
+	goodMachine = devInfo.cpu.clock * devInfo.cpu.cores >= 4000 && devInfo.drive.size >= 100 && devInfo.ram >= 8; # Whether machine is powerful enough for heavy stuff
 	isHost = isSSD;
 }
