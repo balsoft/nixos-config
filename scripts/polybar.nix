@@ -138,7 +138,7 @@ rec {
             text[${builtins.toString (builtins.length arr + 1)}]=""
     '');
 
-    start_scripts = (arr: builtins.concatStringsSep "\n" (map (x: "touch /tmp/${x.name}; ${x} &") arr));
+    start_scripts = (arr: (builtins.concatStringsSep "\n" (map (x: "touch /tmp/${x.name}; ${x} &") arr)));
 
     left_side = (arr: pkgs.writeTextFile {
         name = "polybar-left-side";

@@ -265,11 +265,11 @@ rec {
 		hooks = {
 			predetect = {
 				compton = "pkill compton";
-				polybar = "kill $(pgrep polybar)";
+				polybar = "kill $(pgrep polybar); sleep 0.5";
 			};
 			postswitch = {
 				compton = "allow_rgb10_configs=false ${pkgs.compton}/bin/compton --backend glx --vsync opengl-swc &";	
-				polybar = "for i in $(polybar -m | cut -d ':' -f 1); do MONITOR=$i polybar top & done";
+				polybar = "for i in $(polybar -m | cut -d ':' -f 1); do MONITOR=$i polybar top & sleep 0.5; done";
 			};
 		};
 		profiles = if device == "HP-Laptop" then {
@@ -1225,27 +1225,6 @@ rec {
 		]) ++ ["$DRY_RUN_CMD ${pkgs.patchelf}/bin/patchelf --set-interpreter ${pkgs.glibc}/lib/ld-linux-x86-64.so.2 ~/.vscode/extensions/*/bin/* || echo 'error in patching'"]) else "";
 	};
 
-
-	accounts = {
-        email.accounts.gmail = {
-            address = "${secret.gmail.user}@gmail.com";
-            flavor = "gmail.com";
-            passwordCommand = "echo '${secret.gmail.password}'";
-            userName = secret.gmail.user;
-			realName = "Александр Бантьев";
-            primary = true;
-			mbsync = {
-				enable = true;
-				create = "maildir";
-			};
-			msmtp.enable = true;
-			notmuch.enable = true;
-        };
-	};
-
-	programs.mbsync.enable = true;
-	programs.msmtp.enable = true;
-	programs.notmuch.enable = true;
 	news.display = "silent";
 	programs.command-not-found.enable = true;
 	programs.ssh = {
