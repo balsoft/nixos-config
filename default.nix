@@ -9,12 +9,13 @@ with import ./common.nix device;
 	# ========================== HARDWARE =====================================
 	imports = [
 		/etc/nixos/hardware-configuration.nix
-#		"${builtins.fetchTarball https://github.com/rycee/home-manager/archive/master.tar.gz}/nixos"
 		"${builtins.fetchGit { url="https://github.com/rycee/home-manager"; ref="master"; }}/nixos"
 	];
 
 	hardware.cpu.${cpu}.updateMicrocode = true;
 	
+	hardware.enableRedistributableFirmware = true;
+
 	hardware.opengl.enable = true;
 	hardware.opengl.driSupport = true;
 	hardware.opengl.driSupport32Bit = true;
@@ -42,23 +43,22 @@ with import ./common.nix device;
 		consoleLogLevel = 3;
 		kernelPackages = if device == "ASUS-Laptop" then pkgs.linuxPackages else pkgs.linuxPackages_latest;
 		kernelParams = [ 
-            "quiet" 
-            "scsi_mod.use_blk_mq=1" 
-            "modeset" 
-            "nofb" 
-            "rd.systemd.show_status=auto" 
-            "rd.udev.log_priority=3" 
-            "pti=off" 
-            "spectre_v2=off"
-        ] ++ (if device == "Prestigio-Laptop" then [
+      "quiet" 
+      "scsi_mod.use_blk_mq=1" 
+      "modeset" 
+      "nofb" 
+      "rd.systemd.show_status=auto" 
+      "rd.udev.log_priority=3" 
+      "pti=off" 
+      "spectre_v2=off"
+    ] ++ (if device == "Prestigio-Laptop" then [
 			"intel_idle.max_cstate=1"
 		] else []);
 		kernel.sysctl = {
 			"vm.swappiness" = 0;
 		};
+		extraModprobeConfig = "options iwlwifi swcrypto=0 bt_coex_active=0 11n_disable=1 power_save=0 power_level=5 bt_coex_active=1";
 		blacklistedKernelModules = if device == "Prestigio-Laptop" then [ "axp288_charger" "axp288_fuel_gauge" "axp288_adc" ] else [ "pcspkr" ];
-		extraModprobeConfig = if device == "ASUS-Laptop" then ''
-		options iwlwifi swcrypto=0'' else "";
 	};
 
 	hardware.bluetooth.enable = true;
@@ -75,17 +75,22 @@ with import ./common.nix device;
 	
 	# ====================== NETWORKING =======================================
 	networking = {
-		#networkmanager.enable = true;
+		networkmanager.enable = false;
 		wireless = {
 			enable = true;
+			driver = "wext";
 			networks.Keenetic.pskRaw = "4d03ac6e3d2a2b891d83dcceca6f531abd0fec421ad4460878f5f3bc4c76562e";
+			networks.Jadore = {
+				#extraConfig = "bssid=46:d9:e7:09:d0:b8";
+			};
+			interfaces = [ "wlan0" ];
 			userControlled.enable = true;
-			#iwd.enable = true;
 		};
 		firewall.enable = false;
 		usePredictableInterfaceNames = false;
 		hostName = device;
 	};
+	systemd.services.dhcpcd.serviceConfig.Type = lib.mkForce "simple"; # TODO: Make a PR with this change; forking is not acceptable for dhcpcd.
 	# =========================================================================
 
 	
@@ -100,6 +105,7 @@ with import ./common.nix device;
 			middleEmulation = false;
 			naturalScrolling = true;
 		};
+		videoDrivers = if cpu == "amd" then [ "amdgpu" ] else [ "intel" ];
 		desktopManager.wallpaper.combineScreens = false;
 		desktopManager.wallpaper.mode = "fill";
 		displayManager.lightdm = {
@@ -138,6 +144,14 @@ with import ./common.nix device;
 			noto-fonts
 			noto-fonts-emoji
 		];
+		fontconfig = {
+			enable = true;
+			defaultFonts = {
+				monospace = [ "Roboto Mono 13" ];
+				sansSerif = [ "Roboto 13" ];
+				serif = [ "Roboto Slab 13" ];
+			};
+		};
 		enableDefaultFonts = true;
 	};
 
@@ -222,10 +236,10 @@ with import ./common.nix device;
 	
 	
 	# ====================== PROGRAMS & SERVICES ==============================
-	environment.systemPackages = (builtins.filter pkgs.stdenv.lib.isDerivation (builtins.attrValues pkgs.kdeApplications));
+	environment.systemPackages = (builtins.filter pkgs.stdenv.lib.isDerivation (builtins.attrValues (pkgs.kdeApplications // pkgs.plasma5)));
 	environment.sessionVariables = {
 		EDITOR = "micro";
-		QT_QPA_PLATFORMTHEME = "qt5ct";
+		QT_QPA_PLATFORMTHEME = "kde";
 		QT_SCALE_FACTOR = "1";
 		QT_AUTO_SCREEN_SCALE_FACTOR = "0";
 		GTK_THEME = "Breeze-Dark";
@@ -241,6 +255,8 @@ with import ./common.nix device;
 	};
 
 	programs.ssh.askPassword = "${pkgs.ksshaskpass}/bin/ksshaskpass";
+
+	environment.pathsToLink = [ "/share/zsh" ];
 
 	virtualisation.virtualbox.host = {
 		enable = isHost;
@@ -258,10 +274,14 @@ with import ./common.nix device;
 	    nur = pkgs.callPackage (import (builtins.fetchGit {
             url = "https://github.com/nix-community/NUR";
 	    })) {};
+		movit = (import <nixpkgs> {}).movit.overrideAttrs (old: { # Currently, movit fails
+			doCheck = false;
+			GTEST_DIR = "${(import <nixpkgs> {}).gtest.src}/googletest";
+		});
     } // (if device == "Prestigio-Laptop" then {
 		grub2 = (import <nixpkgs> {system = "i686-linux";}).grub2;
 	} else {});
-	
+
 	services.openssh = {
 		enable = true;
 		passwordAuthentication = false;
@@ -275,7 +295,7 @@ with import ./common.nix device;
 	};
 
 	services.printing = {
-		enable = true;
+		enable = false;
 		drivers = [ pkgs.gutenprint ];
 	};
 	
@@ -291,6 +311,7 @@ with import ./common.nix device;
 	};
 	#services.teamviewer.enable = true;
 
+	programs.wireshark.enable = true;
 
 	services.avahi.enable = true;
 	programs.adb.enable = true;
@@ -309,7 +330,7 @@ with import ./common.nix device;
 	'' else "") else "";
 	
 	systemd.services.battery = {
-        enable = isLaptop && device != "ASUS-Laptop";
+        enable = isLaptop;
         description = "Executes commands needed on battery power";
         script = ''
             ${pkgs.linuxPackages_latest.cpupower}/bin/cpupower frequency-set -g powersave
@@ -350,7 +371,7 @@ with import ./common.nix device;
 	users.users.balsoft = {
 		isNormalUser = true;
 		openssh.authorizedKeys.keys = [ "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDd2OdcSHUsgezuV+cpFqk9+Svtup6PxIolv1zokVZdqvS8qxLsA/rwYmQgTnuq4/zK/GIxcUCH4OxYlW6Or4M4G7qrDKcLAUrRPWkectqEooWRflZXkfHduMJhzeOAsBdMfYZQ9024GwKr/4yriw2BGa8GbbAnQxiSeTipzvXHoXuRME+/2GsMFAfHFvxzXRG7dNOiLtLaXEjUPUTcw/fffKy55kHtWxMkEvvcdyR53/24fmO3kLVpEuoI+Mp1XFtX3DvRM9ulgfwZUn8/CLhwSLwWX4Xf9iuzVi5vJOJtMOktQj/MwGk4tY/NPe+sIk+nAUKSdVf0y9k9JrJT98S/ comment" ];
-		extraGroups = ["sudo" "wheel" "networkmanager" "disk" "sound" "pulse" "adbusers" "input" "libvirtd" "vboxusers"];
+		extraGroups = ["sudo" "wheel" "networkmanager" "disk" "sound" "pulse" "adbusers" "input" "libvirtd" "vboxusers" "wireshark"];
 		description = "Александр Бантьев";
 		uid = 1000;
 		password = "";
@@ -369,10 +390,13 @@ with import ./common.nix device;
 	};
 	security.sudo = {
 		enable = true;
+		extraConfig = ''
+balsoft ALL = (root) NOPASSWD: /run/current-system/sw/bin/nixos-rebuild switch
+		'';
 	};
 	nix.requireSignedBinaryCaches = false;
 
-	home-manager.users.bigsoft = {
+	home-manager.users.bigsoft = if device == "ASUS-Laptop" then {
 		xsession = {
 			enable = true;
 			windowManager.command = ''
@@ -383,8 +407,10 @@ with import ./common.nix device;
 				sleep 1
 				done
 			'';
-		};
-	};
+		}; 
+	} else {
+
+  };
 
 	home-manager.users.balsoft = import ./home.nix device { inherit pkgs; inherit lib; };
 	# =========================================================================

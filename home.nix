@@ -21,7 +21,7 @@ let
 
 	secret = import ./secret.nix;
 
-	scripts = import ./scripts {inherit pkgs; inherit secret; theme=thm; inherit device;};
+	scripts = import ./scripts {inherit pkgs; inherit secret; theme = thm; inherit device;};
 
 	customPackages = import ./packages {inherit pkgs;};
 
@@ -45,8 +45,9 @@ rec {
 			];
 		};
 		shellAliases = {
-			"p" = "nix-shell -p $1 --run zsh";
-			"b" = "nix-build \"<nixpkgs>\" --no-out-link -A $1";
+			"p" = "_p(){nix run nixpkgs.$1 -c zsh};_p";
+			"r" = "_r(){nix run nixpkgs.$1 -c $@};_r";
+			"b" = "nix-build \"<nixpkgs>\" --no-out-link -A";
 		};
 		initExtra = scripts.zshrc;
 	};
@@ -70,7 +71,8 @@ rec {
 		config = rec {
 			assigns = {
 				"" = [{ class = "Chromium"; }];
-				"" = [{ class = "^Telegram"; } ];	
+				"" = [{ class = "^Telegram"; } { class = "^VK"; } { class = "^trojita"; } ];	
+
 			};
 			bars = [];
 			fonts = [ "RobotoMono 9" ];
@@ -96,20 +98,26 @@ rec {
 			modifier = "Mod4";
 			window = {
 				border = 0;
-				hideEdgeBorders = "smart";
+				hideEdgeBorders = "both";
+				commands = [ {
+					command = "focus";
+					criteria = { urgent = "latest"; };
+				} ];
 			};
 			startup = [
 				{ command = "${pkgs.albert}/bin/albert"; always = true; }
 				{ command = "${pkgs.tdesktop}/bin/telegram-desktop"; }
 				{ command = "${pkgs.chromium}/bin/chromium"; }
-				{ command = "pkill polybar; polybar top"; always = true; }
+				{ command = "${customPackages.vk}/bin/vk"; }
 				{ command = "${customPackages.mconnect}/bin/mconnect"; }
 				{ command = "${pkgs.polkit-kde-agent}/lib/libexec/polkit-kde-authentication-agent-1"; }
 				{ command = "dunst"; }
+				{ command = "balooctl start"; }
 				{ command = "${pkgs.autorandr}/bin/autorandr horizontal"; always = true; }
 				#{ command = "google-drive-ocamlfuse '/home/balsoft/Google Drive/'"; }
-				#{ command = "pkill compton; allow_rgb10_configs=false ${pkgs.compton}/bin/compton --backend glx --vsync opengl-swc"; always = true;}
-				{ command = "trojita"; workspace = ""; }
+				#{ command = "pkill compton; allow_rgb10_configs = false ${pkgs.compton}/bin/compton --backend glx --vsync opengl-swc"; always = true;}
+				{ command = "trojita"; }
+				{ command = term; workspace = "0"; }
 				{ command = "google-drive-ocamlfuse -headless -f '/home/balsoft/Google Drive'"; }
 				{ command = "${pkgs.hsetroot}/bin/hsetroot -solid '#31363b'"; always = true; }
 			];
@@ -178,11 +186,13 @@ rec {
 				modules-center = "i3";
 				modules-right = "right_side";
 				tray-position = "none";
+				monitor = "\${env:MONITOR:}";
 			};
 			"module/i3" = {
 				type = "internal/i3";
 				label-focused-foreground = thm.blue;
 				label-urgent-foreground = thm.orange;
+				pin-workspaces = true;
 			};
 
 			"module/left_side" = {
@@ -250,15 +260,16 @@ rec {
 			};
 		};
 	};
-
 	programs.autorandr = {
 		enable = true;
 		hooks = {
 			predetect = {
-				compton = "pkill compton";		
+				compton = "pkill compton";
+				polybar = "kill -9 $(pgrep polybar); sleep 0.5";
 			};
 			postswitch = {
-				compton = "allow_rgb10_configs=false ${pkgs.compton}/bin/compton --backend glx --vsync opengl-swc";	
+				compton = "allow_rgb10_configs=false ${pkgs.compton}/bin/compton --backend glx --vsync opengl-swc &";	
+				polybar = "for i in $(polybar -m | cut -d ':' -f 1); do MONITOR=$i polybar top & sleep 0.5; done";
 			};
 		};
 		profiles = if device == "HP-Laptop" then {
@@ -316,26 +327,25 @@ rec {
 		wget
 		curl
 		chromium
-	] ++ (if devMachine then [
-		# IDE
+	] ++ (if goodMachine then [
 		vscode
 		geany
 		kdevelop
-		jetbrains.pycharm-community
 		kate
-		steam # much dev, very work, wow
+		texlive.combined.scheme-full
+		steam
+		krita
+		kdenlive
+		frei0r
+		ffmpeg-full
 	] else [] ) ++ [
 		# Messaging
 		tdesktop
 		telepathy_haze
 		telepathy_idle
 		libnotify
-		quaternion
 		# Audio/Video
 		vlc
-		kdenlive
-		frei0r
-		ffmpeg-full
 		google-play-music-desktop-player
 		lxqt.pavucontrol-qt
 		# Tools
@@ -369,7 +379,6 @@ rec {
 		abiword
 		gnumeric
 		kile
-		texlive.combined.scheme-basic
 		gcalcli
 		google-drive-ocamlfuse
 		kdeconnect
@@ -383,7 +392,14 @@ rec {
 	++ 
 	(with customPackages; [
 		mconnect
+		vk
 	]);
+
+	programs.emacs = {
+		enable = true;
+		package = pkgs.emacs;
+		extraPackages = (epkgs: with epkgs; [ nix-mode ]);
+	};
 
 	programs.git = {
 		enable = true;
@@ -414,6 +430,7 @@ rec {
 					frontendId = "org.albert.frontend.qmlboxmodel";
 					hotkey = "Meta+Space";
 					showTray = false;
+					telemetry = true;
 					terminal = "${pkgs.konsole}/bin/konsole -e";
 					incrementalSort = true;
 				};
@@ -440,33 +457,33 @@ rec {
 				"org.albert.extension.websearch".enabled = true;
 				"org.albert.frontend.qmlboxmodel" = {
 					enabled = true;
-					alwaysOnTop=true;
-					clearOnHide=false;
-					hideOnClose=false;
-					hideOnFocusLoss=true;
-					showCentered=true;
+					alwaysOnTop = true;
+					clearOnHide = false;
+					hideOnClose = false;
+					hideOnFocusLoss = true;
+					showCentered = true;
 					stylePath="${pkgs.albert}/share/albert/org.albert.frontend.qmlboxmodel/styles/BoxModel/MainComponent.qml";
 					windowPosition="@Point(299 13)";
 				};
 			};
 			"albert/org.albert.frontend.qmlboxmodel/style_properties.ini".text = genIni {
 				BoxModel = {
-					animation_duration=0;
+					animation_duration = 0;
 					#background_color="\"@Variant(\\0\\0\\0\\x43\\x1\\xff\\xff\\x31\\x31\\x36\\x36;;\\0\\0)\"";
 					background_color = thm.bg;
 					#border_color="\"@Variant(\\0\\0\\0\\x43\\x1\\xff\\xff==\\xae\\xae\\xe9\\xe9\\0\\0)\"";
 					border_color = thm.blue;
-					border_size=1;
-					icon_size=46;
-					input_fontsize=28;
-					item_description_fontsize=20;
-					item_title_fontsize=24;
-					max_items=10;
-					padding=6;
-					radius=2;
-					settingsbutton_size=10;
-					spacing=5;
-					window_width=1200;
+					border_size = 1;
+					icon_size = 46;
+					input_fontsize = 28;
+					item_description_fontsize = 20;
+					item_title_fontsize = 24;
+					max_items = 10;
+					padding = 6;
+					radius = 2;
+					settingsbutton_size = 10;
+					spacing = 5;
+					window_width = 1200;
 				};
 			};
 			"kdeglobals".text = genIni {
@@ -485,78 +502,97 @@ rec {
 					ForegroundVisited = thmDec.gray;
 				};
 				"Colors:Complementary" = {
-					BackgroundAlternate=thmDec.dark;
-					BackgroundNormal=thmDec.bg;
-					DecorationFocus=thmDec.blue;
-					DecorationHover=thmDec.blue;
-					ForegroundActive=thmDec.orange;
-					ForegroundInactive=thmDec.alt;
-					ForegroundLink=thmDec.blue;
-					ForegroundNegative=thmDec.red;
-					ForegroundNeutral=thmDec.yellow;
-					ForegroundNormal=thmDec.fg;
-					ForegroundPositive=thmDec.green;
-					ForegroundVisited=thmDec.blue;
+					BackgroundAlternate = thmDec.dark;
+					BackgroundNormal = thmDec.bg;
+					DecorationFocus = thmDec.blue;
+					DecorationHover = thmDec.blue;
+					ForegroundActive = thmDec.orange;
+					ForegroundInactive = thmDec.alt;
+					ForegroundLink = thmDec.blue;
+					ForegroundNegative = thmDec.red;
+					ForegroundNeutral = thmDec.yellow;
+					ForegroundNormal = thmDec.fg;
+					ForegroundPositive = thmDec.green;
+					ForegroundVisited = thmDec.blue;
 				};
 				"Colors:Selection" = {
-					BackgroundAlternate=thmDec.blue;
-					BackgroundNormal=thmDec.blue;
-					DecorationFocus=thmDec.blue;
-					DecorationHover=thmDec.blue;
-					ForegroundActive=thmDec.fg;
-					ForegroundInactive=thmDec.fg;
-					ForegroundLink=thmDec.blue;
-					ForegroundNegative=thmDec.red;
-					ForegroundNeutral=thmDec.orange;
-					ForegroundNormal=thmDec.fg;
-					ForegroundPositive=thmDec.green;
-					ForegroundVisited=thmDec.alt;
+					BackgroundAlternate = thmDec.blue;
+					BackgroundNormal = thmDec.blue;
+					DecorationFocus = thmDec.blue;
+					DecorationHover = thmDec.blue;
+					ForegroundActive = thmDec.fg;
+					ForegroundInactive = thmDec.fg;
+					ForegroundLink = thmDec.blue;
+					ForegroundNegative = thmDec.red;
+					ForegroundNeutral = thmDec.orange;
+					ForegroundNormal = thmDec.fg;
+					ForegroundPositive = thmDec.green;
+					ForegroundVisited = thmDec.alt;
 				};
 				"Colors:Tooltip" = {
-					BackgroundAlternate=thmDec.dark;
-					BackgroundNormal=thmDec.bg;
-					DecorationFocus=thmDec.blue;
-					DecorationHover=thmDec.blue;
-					ForegroundActive=thmDec.blue;
-					ForegroundInactive=thmDec.alt;
-					ForegroundLink=thmDec.blue;
-					ForegroundNegative=thmDec.red;
-					ForegroundNeutral=thmDec.orange;
-					ForegroundNormal=thmDec.fg;
-					ForegroundPositive=thmDec.green;
-					ForegroundVisited=thmDec.gray;
+					BackgroundAlternate = thmDec.dark;
+					BackgroundNormal = thmDec.bg;
+					DecorationFocus = thmDec.blue;
+					DecorationHover = thmDec.blue;
+					ForegroundActive = thmDec.blue;
+					ForegroundInactive = thmDec.alt;
+					ForegroundLink = thmDec.blue;
+					ForegroundNegative = thmDec.red;
+					ForegroundNeutral = thmDec.orange;
+					ForegroundNormal = thmDec.fg;
+					ForegroundPositive = thmDec.green;
+					ForegroundVisited = thmDec.gray;
 				};
 				"Colors:View" = {
-					BackgroundAlternate=thmDec.dark;
-					BackgroundNormal=thmDec.bg;
-					DecorationFocus=thmDec.blue;
-					DecorationHover=thmDec.blue;
-					ForegroundActive=thmDec.blue;
-					ForegroundInactive=thmDec.alt;
-					ForegroundLink=thmDec.blue;
-					ForegroundNegative=thmDec.red;
-					ForegroundNeutral=thmDec.orange;
-					ForegroundNormal=thmDec.fg;
-					ForegroundPositive=thmDec.green;
-					ForegroundVisited=thmDec.gray;
+					BackgroundAlternate = thmDec.dark;
+					BackgroundNormal = thmDec.bg;
+					DecorationFocus = thmDec.blue;
+					DecorationHover = thmDec.blue;
+					ForegroundActive = thmDec.blue;
+					ForegroundInactive = thmDec.alt;
+					ForegroundLink = thmDec.blue;
+					ForegroundNegative = thmDec.red;
+					ForegroundNeutral = thmDec.orange;
+					ForegroundNormal = thmDec.fg;
+					ForegroundPositive = thmDec.green;
+					ForegroundVisited = thmDec.gray;
 				};
 				"Colors:Window" = {
-					BackgroundAlternate=thmDec.dark;
-					BackgroundNormal=thmDec.bg;
-					DecorationFocus=thmDec.blue;
-					DecorationHover=thmDec.blue;
-					ForegroundActive=thmDec.blue;
-					ForegroundInactive=thmDec.alt;
-					ForegroundLink=thmDec.blue;
-					ForegroundNegative=thmDec.red;
-					ForegroundNeutral=thmDec.orange;
-					ForegroundNormal=thmDec.fg;
-					ForegroundPositive=thmDec.green;
-					ForegroundVisited=thmDec.gray;
+					BackgroundAlternate = thmDec.dark;
+					BackgroundNormal = thmDec.bg;
+					DecorationFocus = thmDec.blue;
+					DecorationHover = thmDec.blue;
+					ForegroundActive = thmDec.blue;
+					ForegroundInactive = thmDec.alt;
+					ForegroundLink = thmDec.blue;
+					ForegroundNegative = thmDec.red;
+					ForegroundNeutral = thmDec.orange;
+					ForegroundNormal = thmDec.fg;
+					ForegroundPositive = thmDec.green;
+					ForegroundVisited = thmDec.gray;
 				};
 				General = {
 					ColorScheme="Breeze Dark";
 					Name="Breeze Dark";
+					fixed = "Roboto Mono,11,-1,5,50,0,0,0,0,0";
+					font = "Roboto,11,-1,5,50,0,0,0,0,0";
+					menuFont = "Roboto,11,-1,5,50,0,0,0,0,0";
+					shadeSortColumn = true;
+					smallestReadableFont = "Roboto,8,-1,5,57,0,0,0,0,0,Medium";
+					toolBarFont = "Roboto,11,-1,5,50,0,0,0,0,0";
+				};
+				KDE = {
+					DoubleClickInterval = 400;
+					ShowDeleteCommand = true;
+					SingleClick = false;
+					StartDragDist = 4;
+					StartDragTime = 500;
+					WheelScrollLines = 3;
+					contrast = 4;
+					widgetStyle = "Breeze";
+				};
+				Icons = {
+					Theme="Papirus-Dark";
 				};
 			};
 			"qt5ct/qt5ct.conf".text = genIni {
@@ -592,6 +628,12 @@ rec {
 			};
 
 			"katerc.home".text = genIni {
+				General = {
+					"Show Full Path in Title" = true;
+					"Show Menu Bar" = false;
+					"Show Status Bar" = true;
+					"Show Tab Bar" = true;
+				};
 				"KTextEditor Renderer" = {
 					"Animate Bracket Matching" = false;
 					"Schema" = "Breeze Dark";
@@ -646,7 +688,7 @@ rec {
 					"offline.cache" = "days";
 					"offline.cache.numDays" = "30";
 				};
-				autoMarkRead = {
+				autoMarkRead = { 
 					enabled = true;
 					seconds = 0;
 				};
@@ -655,7 +697,7 @@ rec {
 					saveToImapEnabled = false;
 				};
 				gui = {
-					"mainWindow.layout" = "compact";
+					"mainWindow.layout" = "one-at-time";
 					preferPlaintextRendering = true;
 					showSystray = false;
 					startMinimized = false;
@@ -809,7 +851,26 @@ rec {
 					"widget.shadow" = "#00000030";
 				};
 			};
-		};
+			"mimeapps.list.home".text = genIni {
+				"Default Applications" = {
+					"text/html" = "chromium-browser.desktop";
+					"image/*" = "org.kde.gwenview.desktop";
+					"application/x-bittorrent" = "org.kde.ktorrent";
+					"application/zip" = "org.kde.ark.desktop";
+					"application/rar" = "org.kde.ark.desktop";
+					"application/7z" = "org.kde.ark.desktop";
+					"application/*tar" = "org.kde.ark.desktop";
+					"application/x-kdenlive" = "org.kde.kdenlive.desktop";
+					"x-scheme-handler/http" = "chromium-browser.desktop";
+					"x-scheme-handler/https" = "chromium-browser.desktop";
+					"x-scheme-handler/about" = "chromium-browser.desktop";
+					"x-scheme-handler/unknown" = "chromium-browser.desktop";
+					"x-scheme-handler/vscode" = "code-url-handler.desktop";
+					"x-scheme-handler/mailto" = "trojita.desktop";
+					"application/pdf" = "org.kde.okular.desktop";
+				};
+			};
+		};	
 	};
 	xdg.dataFile."albert/org.albert.extension.python/modules/qalc.py".text = scripts.albert.qalc;
 	xdg.dataFile."albert/org.albert.extension.python/modules/nix.py".text = scripts.albert.nix;
@@ -829,13 +890,333 @@ rec {
 		Scrolling.HistoryMode = 2;
 		"Terminal Features".BlinkingCursorEnabled = true;
 	};
+
+	xdg.dataFile."user-places.xbel.home".text = ''
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xbel>
+<xbel xmlns:kdepriv="http://www.kde.org/kdepriv" xmlns:bookmark="http://www.freedesktop.org/standards/desktop-bookmarks" xmlns:mime="http://www.freedesktop.org/standards/shared-mime-info">
+<bookmark href="file:///home/balsoft">
+<title>Home</title>
+<info>
+<metadata owner="http://freedesktop.org">
+	<bookmark:icon name="user-home"/>
+</metadata>
+<metadata owner="http://www.kde.org">
+	<ID>1539244233/0</ID>
+	<isSystemItem>true</isSystemItem>
+	<IsHidden>false</IsHidden>
+</metadata>
+</info>
+</bookmark>
+<bookmark href="file:///home/balsoft/Google Drive">
+<title>Google Drive</title>
+<info>
+<metadata owner="http://freedesktop.org">
+	<bookmark:icon name="google-drive"/>
+</metadata>
+<metadata owner="http://www.kde.org">
+	<ID>1540478729/2</ID>
+	<isSystemItem>false</isSystemItem>
+	<IsHidden>false</IsHidden>
+</metadata>
+</info>
+</bookmark>
+<bookmark href="remote:/">
+<title>Network</title>
+<info>
+<metadata owner="http://freedesktop.org">
+	<bookmark:icon name="network-workgroup"/>
+</metadata>
+<metadata owner="http://www.kde.org">
+	<ID>1539244233/2</ID>
+	<isSystemItem>true</isSystemItem>
+	<IsHidden>false</IsHidden>
+</metadata>
+</info>
+</bookmark>
+<bookmark href="file:///">
+<title>Root</title>
+<info>
+<metadata owner="http://freedesktop.org">
+	<bookmark:icon name="folder-red"/>
+</metadata>
+<metadata owner="http://www.kde.org">
+	<ID>1539244233/3</ID>
+	<isSystemItem>true</isSystemItem>
+	<IsHidden>false</IsHidden>
+</metadata>
+</info>
+</bookmark>
+<bookmark href="trash:/">
+<title>Trash</title>
+<info>
+<metadata owner="http://freedesktop.org">
+	<bookmark:icon name="user-trash-full"/>
+</metadata>
+<metadata owner="http://www.kde.org">
+	<ID>1539244233/4</ID>
+	<isSystemItem>true</isSystemItem>
+	<IsHidden>false</IsHidden>
+</metadata>
+</info>
+</bookmark>
+<bookmark href="file:///home/balsoft/Downloads">
+<title>Downloads</title>
+<info>
+<metadata owner="http://freedesktop.org">
+	<bookmark:icon name="folder-downloads"/>
+</metadata>
+<metadata owner="http://www.kde.org">
+	<ID>1539244233/1</ID>
+	<isSystemItem>true</isSystemItem>
+	<IsHidden>false</IsHidden>
+</metadata>
+</info>
+</bookmark>
+<bookmark href="file:///home/balsoft/Documents/">
+<title>Documents</title>
+<info>
+<metadata owner="http://freedesktop.org">
+	<bookmark:icon name="folder-documents-symbolic"/>
+</metadata>
+<metadata owner="http://www.kde.org">
+	<ID>1540414173/0</ID>
+	<isSystemItem>false</isSystemItem>
+	<IsHidden>false</IsHidden>
+</metadata>
+</info>
+</bookmark>
+<info>
+<metadata owner="http://www.kde.org">
+<GroupState-Places-IsHidden>false</GroupState-Places-IsHidden>
+<GroupState-Remote-IsHidden>false</GroupState-Remote-IsHidden>
+<GroupState-Devices-IsHidden>false</GroupState-Devices-IsHidden>
+<GroupState-RemovableDevices-IsHidden>false</GroupState-RemovableDevices-IsHidden>
+<withBaloo>true</withBaloo>
+<GroupState-SearchFor-IsHidden>false</GroupState-SearchFor-IsHidden>
+<GroupState-RecentlySaved-IsHidden>false</GroupState-RecentlySaved-IsHidden>
+</metadata>
+</info>
+<bookmark href="timeline:/today">
+<title>Today</title>
+<info>
+<metadata owner="http://freedesktop.org">
+	<bookmark:icon name="go-jump-today"/>
+</metadata>
+<metadata owner="http://www.kde.org">
+	<ID>1539244233/5</ID>
+	<isSystemItem>true</isSystemItem>
+	<IsHidden>false</IsHidden>
+</metadata>
+</info>
+</bookmark>
+<bookmark href="timeline:/yesterday">
+<title>Yesterday</title>
+<info>
+<metadata owner="http://freedesktop.org">
+	<bookmark:icon name="view-calendar-day"/>
+</metadata>
+<metadata owner="http://www.kde.org">
+	<ID>1539244233/6</ID>
+	<isSystemItem>true</isSystemItem>
+	<IsHidden>false</IsHidden>
+</metadata>
+</info>
+</bookmark>
+<bookmark href="search:/documents">
+<title>Documents</title>
+<info>
+<metadata owner="http://freedesktop.org">
+	<bookmark:icon name="folder-text"/>
+</metadata>
+<metadata owner="http://www.kde.org">
+	<ID>1539244233/7</ID>
+	<isSystemItem>true</isSystemItem>
+	<IsHidden>false</IsHidden>
+</metadata>
+</info>
+</bookmark>
+<bookmark href="search:/images">
+<title>Images</title>
+<info>
+<metadata owner="http://freedesktop.org">
+	<bookmark:icon name="folder-images"/>
+</metadata>
+<metadata owner="http://www.kde.org">
+	<ID>1539244233/8</ID>
+	<isSystemItem>true</isSystemItem>
+	<IsHidden>false</IsHidden>
+</metadata>
+</info>
+</bookmark>
+<bookmark href="search:/audio">
+<title>Audio Files</title>
+<info>
+<metadata owner="http://freedesktop.org">
+	<bookmark:icon name="folder-sound"/>
+</metadata>
+<metadata owner="http://www.kde.org">
+	<ID>1539244233/9</ID>
+	<isSystemItem>true</isSystemItem>
+	<IsHidden>false</IsHidden>
+</metadata>
+</info>
+</bookmark>
+<bookmark href="search:/videos">
+<title>Videos</title>
+<info>
+<metadata owner="http://freedesktop.org">
+	<bookmark:icon name="folder-videos"/>
+</metadata>
+<metadata owner="http://www.kde.org">
+	<ID>1539244233/10</ID>
+	<isSystemItem>true</isSystemItem>
+	<IsHidden>false</IsHidden>
+</metadata>
+</info>
+</bookmark>
+<bookmark href="">
+<title>Project Folder</title>
+<info>
+<metadata owner="http://freedesktop.org">
+	<bookmark:icon name="folder-favorites"/>
+</metadata>
+<metadata owner="http://www.kde.org">
+	<OnlyInApp>kdenlive</OnlyInApp>
+</metadata>
+</info>
+</bookmark>
+<separator href="file:///">
+<info>
+<metadata owner="http://www.kde.org">
+	<UDI>/org/freedesktop/UDisks2/block_devices/sda2</UDI>
+	<isSystemItem>true</isSystemItem>
+	<IsHidden>false</IsHidden>
+</metadata>
+<metadata owner="http://freedesktop.org">
+	<bookmark:icon name="drive-harddisk"/>
+</metadata>
+</info>
+<title>Linux filesystem</title>
+</separator>
+<bookmark href="file:///home/balsoft/Videos/">
+<title>Videos</title>
+<info>
+<metadata owner="http://freedesktop.org">
+	<bookmark:icon name="folder-videos-symbolic"/>
+</metadata>
+<metadata owner="http://www.kde.org">
+	<ID>1540409511/0</ID>
+	<isSystemItem>false</isSystemItem>
+	<IsHidden>false</IsHidden>
+</metadata>
+</info>
+</bookmark>
+<bookmark href="file:///home/balsoft/Pictures">
+<title>Pictures</title>
+<info>
+<metadata owner="http://freedesktop.org">
+	<bookmark:icon name="folder-pictures-symbolic"/>
+</metadata>
+<metadata owner="http://www.kde.org">
+	<ID>1540409539/1</ID>
+	<isSystemItem>false</isSystemItem>
+	<IsHidden>false</IsHidden>
+</metadata>
+</info>
+</bookmark>
+<bookmark href="file:///home/balsoft/projects">
+<title>projects</title>
+<info>
+<metadata owner="http://freedesktop.org">
+	<bookmark:icon name="user-bookmarks-symbolic"/>
+</metadata>
+<metadata owner="http://www.kde.org">
+	<ID>1540463794/11</ID>
+	<isSystemItem>false</isSystemItem>
+	<IsHidden>false</IsHidden>
+</metadata>
+</info>
+</bookmark>
+<bookmark href="timeline:/calendar/">
+<title>Calendar</title>
+<info>
+<metadata owner="http://freedesktop.org">
+	<bookmark:icon name="view-calendar-timeline"/>
+</metadata>
+<metadata owner="http://www.kde.org">
+	<ID>1540478496/0</ID>
+	<isSystemItem>false</isSystemItem>
+	<IsHidden>false</IsHidden>
+</metadata>
+</info>
+</bookmark>
+<bookmark href="fish://asus-laptop">
+<title>ASUS</title>
+<info>
+<metadata owner="http://freedesktop.org">
+	<bookmark:icon name="laptop"/>
+</metadata>
+<metadata owner="http://www.kde.org">
+	<ID>1540585036/0</ID>
+</metadata>
+</info>
+</bookmark>
+<bookmark href="fish://hp-laptop">
+<title>HP</title>
+<info>
+<metadata owner="http://freedesktop.org">
+	<bookmark:icon name="laptop"/>
+</metadata>
+<metadata owner="http://www.kde.org">
+	<ID>1540585062/1</ID>
+</metadata>
+</info>
+</bookmark>
+<bookmark href="fish://prestigio-laptop">
+<title>Prestigio</title>
+<info>
+<metadata owner="http://freedesktop.org">
+	<bookmark:icon name="laptop"/>
+</metadata>
+<metadata owner="http://www.kde.org">
+	<ID>1540585084/2</ID>
+</metadata>
+</info>
+</bookmark>
+<bookmark href="fish://lenovo-workstation">
+<title>Lenovo</title>
+<info>
+<metadata owner="http://freedesktop.org">
+	<bookmark:icon name="computer"/>
+</metadata>
+<metadata owner="http://www.kde.org">
+	<ID>1540585120/3</ID>
+</metadata>
+</info>
+</bookmark>
+<bookmark href="fish://192.168.1.1">
+<title>Router</title>
+<info>
+<metadata owner="http://freedesktop.org">
+	<bookmark:icon name="network-server-symbolic"/>
+</metadata>
+<metadata owner="http://www.kde.org">
+	<ID>1540585202/4</ID>
+</metadata>
+</info>
+</bookmark>
+</xbel>'';
+
 	home.file.".icons/default".source = "${pkgs.breeze-qt5}/share/icons/breeze_cursors";
 
-	home.activation = builtins.mapAttrs (name: value: {inherit name; before = []; after = [];} // value) {
+	home.activation = builtins.mapAttrs (name: value: {inherit name; before = []; after = [ "linkGeneration" ];} // value) {
 		konsole.data = "$DRY_RUN_CMD cp ~/.config/konsolerc.home ~/.config/konsolerc";
 		kate.data = "$DRY_RUN_CMD cp ~/.config/katerc.home ~/.config/katerc";
+		user-places.data = "$DRY_RUN_CMD cp ~/.local/share/user-places.xbel.home ~/.local/share/user-places.xbel";
+		mimeapps .data= "$DRY_RUN_CMD cp ~/.config/mimeapps.list.home ~/.config/mimeapps.list";
 		# FIXME soooo ugly and imperative...
-		vscode.data =if devMachine then builtins.concatStringsSep " || echo 'Error'\n" ((map (ext: "$DRY_RUN_CMD code --install-extension ${ext}") [
+		vscode.data =if goodMachine then builtins.concatStringsSep " || echo 'Error'\n" ((map (ext: "$DRY_RUN_CMD code --install-extension ${ext}") [
 			"AndrewFridley.Breeze-Dark-Theme"
 			"ms-vscode.cpptools"
 			"bbenoist.nix"
@@ -844,27 +1225,6 @@ rec {
 		]) ++ ["$DRY_RUN_CMD ${pkgs.patchelf}/bin/patchelf --set-interpreter ${pkgs.glibc}/lib/ld-linux-x86-64.so.2 ~/.vscode/extensions/*/bin/* || echo 'error in patching'"]) else "";
 	};
 
-
-	accounts = {
-        email.accounts.gmail = {
-            address = "${secret.gmail.user}@gmail.com";
-            flavor = "gmail.com";
-            passwordCommand = "echo '${secret.gmail.password}'";
-            userName = secret.gmail.user;
-			realName = "Александр Бантьев";
-            primary = true;
-			mbsync = {
-				enable = true;
-				create = "maildir";
-			};
-			msmtp.enable = true;
-			notmuch.enable = true;
-        };
-	};
-
-	programs.mbsync.enable = true;
-	programs.msmtp.enable = true;
-	programs.notmuch.enable = true;
 	news.display = "silent";
 	programs.command-not-found.enable = true;
 	programs.ssh = {

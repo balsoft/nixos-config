@@ -56,7 +56,7 @@ rec {
                 weather_temp=$(echo "$weather" | ${pkgs.jq}/bin/jq ".main.temp" | cut -d "." -f 1)
                 weather_icon=$(echo "$weather" | ${pkgs.jq}/bin/jq -r ".weather[0].icon")
                 
-                echo "%{F${theme.bg} A:${terminal} "curl wttr.in/${city}":}%{T2}$(get_icon "$weather_icon")%{T-}" "$weather_temp°%{A-}"
+                echo "%{F${theme.bg} A:${terminal} "curl wttr.in/${city}" &:}%{T2}$(get_icon "$weather_icon")%{T-}" "$weather_temp°%{A-}"
                 echo $(get_color $weather_temp $weather_icon)
             fi''; 
         executable = true;
@@ -138,7 +138,7 @@ rec {
             text[${builtins.toString (builtins.length arr + 1)}]=""
     '');
 
-    start_scripts = (arr: builtins.concatStringsSep "\n" (map (x: "touch /tmp/${x.name}; ${x} &") arr));
+    start_scripts = (arr: (builtins.concatStringsSep "\n" (map (x: "touch /tmp/${x.name}; ${x} &") arr)));
 
     left_side = (arr: pkgs.writeTextFile {
         name = "polybar-left-side";
@@ -183,10 +183,10 @@ rec {
             WIFI="`${pkgs.iw}/bin/iw wlan0 info | grep ssid | cut -f2 -d' '`"
             if [[ `wc -c <<< "$WIFI"` -lt 2 ]]
             then
-                echo "%{F${theme.bg}}%{A:${pkgs.wpa_supplicant_gui}/bin/wpa_gui:}%{T6}%{T-} %{A-}"
+                echo "%{F${theme.bg}}%{A:${pkgs.wpa_supplicant_gui}/bin/wpa_gui &:}%{T6}%{T-} %{A-}"
                 echo "${color_down}"
             else
-                echo "%{F${theme.bg}}%{A:${pkgs.wpa_supplicant_gui}/bin/wpa_gui:}%{T6}%{T-} $WIFI %{A-}"
+                echo "%{F${theme.bg}}%{A:${pkgs.wpa_supplicant_gui}/bin/wpa_gui &:}%{T6}%{T-} $WIFI %{A-}"
                 echo "${color_up}"
             fi
         '';
@@ -216,7 +216,7 @@ rec {
                     fi
                 ;;
             esac
-            echo "%{F${theme.bg}}%{A:${pkgs.gnome3.gnome-power-manager}/bin/gnome-power-statistics:}$text%{A-}"
+            echo "%{F${theme.bg}}%{A:${pkgs.gnome3.gnome-power-manager}/bin/gnome-power-statistics &:}$text%{A-}"
             echo $color
         '';
         executable = true;
@@ -251,7 +251,7 @@ rec {
                         fi
                     fi
                 fi
-                echo "%{A:${pkgs.lxqt.pavucontrol-qt}/bin/pavucontrol-qt:}%{T6}%{F${theme.bg}}$icon%{T-}$volume$end%{A}" > /tmp/${name}.new
+                echo "%{A:${pkgs.lxqt.pavucontrol-qt}/bin/pavucontrol-qt &:}%{T6}%{F${theme.bg}}$icon%{T-}$volume$end%{A}" > /tmp/${name}.new
                 echo $color >> /tmp/${name}.new
                 mv /tmp/${name}.new /tmp/${name}
                 ${pkgs.inotifyTools}/bin/inotifywait /tmp/${name}_events -qq

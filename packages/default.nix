@@ -1,4 +1,5 @@
 { pkgs }:
 {
-    mconnect = import ./mconnect.nix {inherit pkgs;};
+    mconnect = pkgs.callPackage ./mconnect.nix {};
+    vk = pkgs.callPackage ./vk-messenger.nix {};
 }
