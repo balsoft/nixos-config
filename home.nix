@@ -265,7 +265,7 @@ rec {
 		hooks = {
 			predetect = {
 				compton = "pkill compton";
-				polybar = "kill $(pgrep polybar); sleep 0.5";
+				polybar = "kill -9 $(pgrep polybar); sleep 0.5";
 			};
 			postswitch = {
 				compton = "allow_rgb10_configs=false ${pkgs.compton}/bin/compton --backend glx --vsync opengl-swc &";	
