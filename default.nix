@@ -19,6 +19,8 @@ with import ./common.nix device;
 	hardware.opengl.enable = true;
 	hardware.opengl.driSupport = true;
 	hardware.opengl.driSupport32Bit = true;
+
+	hardware.sane.enable = true;
 	# =========================================================================
 	
 	
