@@ -82,7 +82,7 @@ rec {
 					text = "#555555";
 					border = thm.bg;
 					background = thm.bg;
-					childBorder = thm.bg;
+					childBorder = thm.dark;
 					indicator = thm.fg;
 				};
 				focusedInactive = unfocused;
@@ -98,11 +98,17 @@ rec {
 			modifier = "Mod4";
 			window = {
 				border = 0;
-				hideEdgeBorders = "both";
-				commands = [ {
-					command = "focus";
-					criteria = { urgent = "latest"; };
-				} ];
+				hideEdgeBorders = "none";
+				commands = [ 
+					{
+						command = "focus";
+						criteria = { urgent = "latest"; };
+					} 
+					{
+						command = "border pixel 2px";
+						criteria = { window_role = "popup"; };
+					}
+				];
 			};
 			startup = [
 				{ command = "${pkgs.albert}/bin/albert"; always = true; }
@@ -144,6 +150,7 @@ rec {
 				"--release ${modifier}+Shift+Print" = "exec scrot -s -e 'mv $f ~/Pictures && notify-send \"Screenshot saved as ~/Pictures/$f\"'";
 				"--release ${modifier}+Control+Shift+Print" = "exec scrot -s -e 'xclip -selection clipboard -t image/png -i $f && notify-send \"Screenshot copied to clipboard\" && rm $f'";
 				"${modifier}+x" = "move workspace to output right";	
+				"${modifier}+z" = "exec ${pkgs.i3-easyfocus}/bin/i3-easyfocus";
 				"${modifier}+c" = "workspace ";
 				"${modifier}+Shift+c" = "move container to workspace ";
 				"${modifier}+t" = "workspace ";
@@ -443,7 +450,7 @@ rec {
 				"org.albert.extension.mpris".enabled = true;
 				"org.albert.extension.python" = {
 					enabled = true;
-					enabled_modules = "Python, Wikipedia, GoogleTranslate, Kill, qalc";
+					enabled_modules = "Python, Wikipedia, Kill, qalc, nix, translate";
 				};
 				"org.albert.extension.ssh".enabled = true;
 				"org.albert.extension.system" = {
@@ -871,27 +878,26 @@ rec {
 				};
 			};
 		};	
-	};
-	xdg.dataFile."albert/org.albert.extension.python/modules/qalc.py".text = scripts.albert.qalc;
-	xdg.dataFile."albert/org.albert.extension.python/modules/nix.py".text = scripts.albert.nix;
-	
-	xdg.dataFile."Steam/skins/Metro".source = pkgs.fetchurl {
-		url = "http://metroforsteam.com/downloads/4.3.1.zip";
-		sha256 = "0e4e8bd6e164c60be7924d18ab29ddf966d31dd0db6a6820c213d25bc1a14bd2";
-	};
-	xdg.dataFile."konsole/Default.profile".text = genIni {
-		Appearance.ColorScheme = "Breeze";
-		"Cursor Options".CursorShape = 1;
-		General = {
-			Command = "zsh";
-			Name = "Default";
-			Parent = "FALLBACK/";
-		};
-		Scrolling.HistoryMode = 2;
-		"Terminal Features".BlinkingCursorEnabled = true;
-	};
 
-	xdg.dataFile."user-places.xbel.home".text = ''
+	};
+	xdg.dataFile = {
+		"Steam/skins/Metro".source = pkgs.fetchurl {
+			url = "http://metroforsteam.com/downloads/4.3.1.zip";
+			sha256 = "0e4e8bd6e164c60be7924d18ab29ddf966d31dd0db6a6820c213d25bc1a14bd2";
+		};
+		"konsole/Default.profile".text = genIni {
+			Appearance.ColorScheme = "Breeze";
+			"Cursor Options".CursorShape = 1;
+			General = {
+				Command = "zsh";
+				Name = "Default";
+				Parent = "FALLBACK/";
+			};
+			Scrolling.HistoryMode = 2;
+			"Terminal Features".BlinkingCursorEnabled = true;
+		};	
+
+		"user-places.xbel.home".text = ''
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xbel>
 <xbel xmlns:kdepriv="http://www.kde.org/kdepriv" xmlns:bookmark="http://www.freedesktop.org/standards/desktop-bookmarks" xmlns:mime="http://www.freedesktop.org/standards/shared-mime-info">
@@ -1207,7 +1213,15 @@ rec {
 </info>
 </bookmark>
 </xbel>'';
+	} // builtins.mapAttrs (name: value: {
+		target = "albert/org.albert.extension.python/modules/" + name + ".py";
+		text = value;
+	}) scripts.albert;
 
+
+	#xdg.dataFile."albert/org.albert.extension.python/modules/qalc.py".text = scripts.albert.qalc;
+	#xdg.dataFile."albert/org.albert.extension.python/modules/nix.py".text = scripts.albert.nix;
+	#xdg.dataFile."albert/org.albert.extension.python/modules/translate.py".text = scripts.albert.translate;
 	home.file.".icons/default".source = "${pkgs.breeze-qt5}/share/icons/breeze_cursors";
 
 	home.activation = builtins.mapAttrs (name: value: {inherit name; before = []; after = [ "linkGeneration" ];} // value) {
