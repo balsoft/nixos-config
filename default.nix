@@ -394,7 +394,7 @@ with import ./common.nix device;
 balsoft ALL = (root) NOPASSWD: /run/current-system/sw/bin/nixos-rebuild switch
 		'';
 	};
-	nix.requireSignedBinaryCaches = false;
+	nix.requireSignedBinaryCaches = false;	
 
 	home-manager.users.bigsoft = if device == "ASUS-Laptop" then {
 		xsession = {
