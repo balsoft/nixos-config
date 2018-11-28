@@ -1,4 +1,4 @@
-device: {pkgs, lib, ...}:
+device: {pkgs, lib,  ...}:
 with import ./support.nix { inherit lib; };
 with import ./common.nix device;
 let
@@ -72,6 +72,7 @@ rec {
 
 	xsession.windowManager.i3 = {
 		enable = true;
+		package = pkgs.i3-gaps;
 		config = rec {
 			assigns = {
 				"" = [{ class = "Chromium"; }];
@@ -96,15 +97,19 @@ rec {
                     childBorder = thm.orange;
 				};
 				focused = unfocused // {
-					childBorder = thm.fg;
-					background = thm.fg;
-                    text = thm.bg;
+					childBorder = thm.blue;
+					background = thm.bg;
+                    text = thm.fg;
 				};
+			};
+			gaps = {
+				inner = 12;
+				smartGaps = true;
 			};
 			focus.mouseWarping = true;
 			modifier = "Mod4";
 			window = {
-				border = 0;
+				border = 1;
 				titlebar = false;
 				hideEdgeBorders = "smart";
 				commands = [ 
@@ -163,6 +168,7 @@ rec {
 				"${modifier}+Shift+c" = "move container to workspace ";
 				"${modifier}+t" = "workspace ";
 				"${modifier}+Shift+t" = "move container to workspace ";
+				"${modifier}+k" = "exec ${pkgs.xorg.xkill}/bin/xkill";
 			} // builtins.listToAttrs (
 				builtins.genList (x: {name = "${modifier}+${toString x}"; value = "workspace ${toString x}";}) 10
 			) // builtins.listToAttrs (
@@ -285,7 +291,7 @@ rec {
 				polybar = "kill -9 $(pgrep polybar); sleep 0.5";
 			};
 			postswitch = {
-				compton = "allow_rgb10_configs=false ${pkgs.compton}/bin/compton --backend glx -i 0.7 --vsync opengl-swc &";	
+				compton = "allow_rgb10_configs=false ${pkgs.compton}/bin/compton --backend glx -i 0.7 --vsync opengl-swc -c -C --shadow-exclude '!focused' --shadow-exclude-reg 'x${builtins.elemAt (builtins.split "px" services.polybar.config."bar/top".height) 0}+0+0' &";	
 				polybar = "for i in $(polybar -m | cut -d ':' -f 1); do MONITOR=$i polybar top & sleep 0.5; done";
 			};
 		};

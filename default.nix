@@ -127,7 +127,10 @@ with import ./common.nix device;
 		};
 #		desktopManager.plasma5.enable = true;
 		desktopManager.default = "none";
-		windowManager.i3.enable = true;
+		windowManager.i3 = {
+			enable = true;
+			package = pkgs.i3-gaps;
+		};
 		#windowManager.xmonad.enable = true;
 		windowManager.default = "i3";
 		layout = "us,ru";
