@@ -127,10 +127,10 @@ rec {
 				{ command = "${pkgs.polkit-kde-agent}/lib/libexec/polkit-kde-authentication-agent-1"; }
 				{ command = "dunst"; }
 				{ command = "balooctl start"; }
-				{ command = "${pkgs.autorandr}/bin/autorandr horizontal"; always = true; }
+				{ command = "${pkgs.autorandr}/bin/autorandr --force horizontal"; always = true; }
 				#{ command = "google-drive-ocamlfuse '/home/balsoft/Google Drive/'"; }
 				#{ command = "pkill compton; allow_rgb10_configs = false ${pkgs.compton}/bin/compton --backend glx --vsync opengl-swc"; always = true;}
-				{ command = "trojita"; }
+				{ command = "trojita"; } 
 				{ command = term; workspace = "0"; }
 				{ command = "google-drive-ocamlfuse -headless -f '/home/balsoft/Google Drive'"; }
 				{ command = "${pkgs.hsetroot}/bin/hsetroot -solid '#31363b'"; always = true; }
@@ -226,9 +226,10 @@ rec {
 				type = "custom/script";
 				exec = (scripts.polybar.right_side (with scripts.polybar; [
 					(status {})
-					(brightness { inherit device; })
-				] ++ (if isLaptop && device != "Prestigio-Laptop" then [
+					
+					(if isLaptop then (brightness { inherit device; } else []))
 					(sound {})
+				] ++ (if isLaptop && device != "Prestigio-Laptop" then [
 					(battery {})
 				] else []) ++ [
 					(network {})
@@ -739,6 +740,7 @@ rec {
 				"git.autofetch" = true;
 				"terminal.integrated.cursorStyle" = "line"; 
 				"terminal.integrated.shell.linux" = "zsh"; 
+				"terminal.integrated.rendererType" = "dom";
 				"update.channel" = "none";
 				"window.zoomLevel" = 0; 
 				"window.menuBarVisibility" = "toggle";

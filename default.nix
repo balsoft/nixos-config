@@ -43,22 +43,22 @@ with import ./common.nix device;
 		consoleLogLevel = 3;
 		kernelPackages = if device == "ASUS-Laptop" then pkgs.linuxPackages else pkgs.linuxPackages_latest;
 		kernelParams = [ 
-      "quiet" 
-      "scsi_mod.use_blk_mq=1" 
-      "modeset" 
-      "nofb" 
-      "rd.systemd.show_status=auto" 
-      "rd.udev.log_priority=3" 
-      "pti=off" 
-      "spectre_v2=off"
-    ] ++ (if device == "Prestigio-Laptop" then [
+			"quiet" 
+			"scsi_mod.use_blk_mq=1" 
+			"modeset" 
+			"nofb" 
+			"rd.systemd.show_status=auto" 
+			"rd.udev.log_priority=3" 
+			"pti=off" 
+			"spectre_v2=off"
+		] ++ (if device == "Prestigio-Laptop" then [
 			"intel_idle.max_cstate=1"
 		] else []);
 		kernel.sysctl = {
 			"vm.swappiness" = 0;
 		};
 		extraModprobeConfig = "options iwlwifi swcrypto=0 bt_coex_active=0 11n_disable=1 power_save=0 power_level=5 bt_coex_active=1";
-		blacklistedKernelModules = if device == "Prestigio-Laptop" then [ "axp288_charger" "axp288_fuel_gauge" "axp288_adc" ] else [ "pcspkr" ];
+		blacklistedKernelModules = if device == "Prestigio-Laptop" then [ "axp288_charger" "axp288_fuel_gauge" "axp288_adc" ] else [  ];
 	};
 
 	hardware.bluetooth.enable = true;
@@ -105,7 +105,7 @@ with import ./common.nix device;
 			middleEmulation = false;
 			naturalScrolling = true;
 		};
-		videoDrivers = if cpu == "amd" then [ "amdgpu" ] else [ "intel" ];
+		videoDrivers = if cpu == "amd" then [ "amdgpu" ] else if device == "Lenovo-Workstation" then [ "radeon" ] else [ "intel" ];
 		desktopManager.wallpaper.combineScreens = false;
 		desktopManager.wallpaper.mode = "fill";
 		displayManager.lightdm = {
@@ -296,7 +296,7 @@ with import ./common.nix device;
 	};
 
 	services.printing = {
-		enable = false;
+		enable = device == "Lenovo-Workstation";
 		drivers = [ pkgs.gutenprint ];
 	};
 	
@@ -395,7 +395,7 @@ with import ./common.nix device;
 balsoft ALL = (root) NOPASSWD: /run/current-system/sw/bin/nixos-rebuild switch
 		'';
 	};
-	nix.requireSignedBinaryCaches = false;
+	nix.requireSignedBinaryCaches = false;	
 
 	home-manager.users.bigsoft = if device == "ASUS-Laptop" then {
 		xsession = {
