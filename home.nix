@@ -66,6 +66,10 @@ rec {
 		
 	};
 
+	xsession.windowManager.xmonad = {
+		#enable = true;
+	};
+
 	xsession.windowManager.i3 = {
 		enable = true;
 		config = rec {
@@ -79,10 +83,10 @@ rec {
 			colors = rec{
 				background = thm.bg;
 				unfocused = {
-					text = "#555555";
+					text = thm.fg;
 					border = thm.bg;
-					background = thm.bg;
-					childBorder = thm.dark;
+					background = thm.alt;
+					childBorder = thm.alt;
 					indicator = thm.fg;
 				};
 				focusedInactive = unfocused;
@@ -92,22 +96,26 @@ rec {
                     childBorder = thm.orange;
 				};
 				focused = unfocused // {
-                    text = thm.fg;
+					childBorder = thm.fg;
+					background = thm.fg;
+                    text = thm.bg;
 				};
 			};
+			focus.mouseWarping = true;
 			modifier = "Mod4";
 			window = {
 				border = 0;
-				hideEdgeBorders = "none";
+				titlebar = false;
+				hideEdgeBorders = "smart";
 				commands = [ 
 					{
 						command = "focus";
 						criteria = { urgent = "latest"; };
 					} 
 					{
-						command = "border pixel 2px";
+						command = "border pixel 1px";
 						criteria = { window_role = "popup"; };
-					}
+					} 
 				];
 			};
 			startup = [
@@ -275,7 +283,7 @@ rec {
 				polybar = "kill -9 $(pgrep polybar); sleep 0.5";
 			};
 			postswitch = {
-				compton = "allow_rgb10_configs=false ${pkgs.compton}/bin/compton --backend glx --vsync opengl-swc &";	
+				compton = "allow_rgb10_configs=false ${pkgs.compton}/bin/compton --backend glx -i 0.7 --vsync opengl-swc &";	
 				polybar = "for i in $(polybar -m | cut -d ':' -f 1); do MONITOR=$i polybar top & sleep 0.5; done";
 			};
 		};

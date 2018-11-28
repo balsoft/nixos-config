@@ -128,6 +128,7 @@ with import ./common.nix device;
 #		desktopManager.plasma5.enable = true;
 		desktopManager.default = "none";
 		windowManager.i3.enable = true;
+		#windowManager.xmonad.enable = true;
 		windowManager.default = "i3";
 		layout = "us,ru";
 		xkbOptions = "grp:caps_toggle,grp_led:caps";
