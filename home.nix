@@ -218,10 +218,11 @@ rec {
 				type = "custom/script";
 				exec = (scripts.polybar.right_side (with scripts.polybar; [
 					(status {})
-					
-					(if isLaptop then (brightness { inherit device; } else []))
+				] ++ (lib.optionals isLaptop [
+					(brightness { inherit device; })
+				]) ++ (lib.optionals (device != "Prestigio-Laptop") [
 					(sound {})
-				] ++ (if isLaptop && device != "Prestigio-Laptop" then [
+				]) ++ (if (isLaptop && device != "Prestigio-Laptop") then [
 					(battery {})
 				] else []) ++ [
 					(network {})
