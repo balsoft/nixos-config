@@ -5,13 +5,14 @@ rec {
         name = "${script.name}";
         executable = true;
         text = ''
+            cd /tmp/bar
             while true
             do
-                touch /tmp/${script.name} /tmp/${script.name}.new
-                ${script} 2>/dev/null > /tmp/${script.name}.new
-                if [[ -e /tmp/${script.name}.new ]] && [[ `wc -l < /tmp/${script.name}.new` -gt 1 ]]
+                touch ${script.name} ${script.name}.new
+                ${script} 2>/dev/null > ${script.name}.new
+                if [[ -e ${script.name}.new ]] && [[ `wc -l < ${script.name}.new` -gt 1 ]]
                 then
-                    mv /tmp/${script.name}.new /tmp/${script.name}
+                    mv ${script.name}.new ${script.name}
                 fi
                 sleep ${toString interval}
             done
@@ -20,7 +21,7 @@ rec {
 
     weather = { color_good ? theme.green, color_rain ? theme.orange, color_cold ? theme.blue, city, city-id, owm-key ? secret.owm-key, terminal ? "${pkgs.konsole}/bin/konsole --noclose --fullscreen -e", interval ? 60 }: 
     wrapScriptToLoop interval (pkgs.writeTextFile { 
-        name = "bar-weather"; 
+        name = "weather"; 
         text = ''
             #!${pkgs.bash}/bin/bash
             ping -c 1 api.openweathermap.org &> /dev/null || exit 1 
@@ -63,7 +64,7 @@ rec {
     });
     email = { color_unread ? theme.orange, color_nounread ? theme.green, user, password, interval ? 10}: 
     wrapScriptToLoop interval (pkgs.writeTextFile { 
-        name = "bar-email";
+        name = "email";
         text = ''
         #!${pkgs.python3}/bin/python3
         import imaplib
@@ -80,7 +81,7 @@ rec {
     });
     time = {interval ? 10}:
     wrapScriptToLoop interval (pkgs.writeTextFile { 
-        name = "bar-time";
+        name = "time";
         text = ''
         #!${pkgs.bash}/bin/bash 
         echo "`date +'%%{F${theme.bg}}%%{T6}%%{T-} %H:%M %%{T6}%%{T-} %A, %d'`"
@@ -90,7 +91,7 @@ rec {
     });
     now = {interval ? 60}: 
     wrapScriptToLoop interval (pkgs.writeTextFile { 
-        name = "bar-now";
+        name = "now";
         text = ''
         #!${pkgs.bash}/bin/bash
         ping -c 1 calendar.google.com &> /dev/null || exit 1 
@@ -101,7 +102,7 @@ rec {
     });
     next = {interval ? 60}: 
     wrapScriptToLoop interval (pkgs.writeTextFile {
-        name = "bar-next";
+        name = "next";
         text = ''
             #!${pkgs.bash}/bin/bash
             ping -c 1 calendar.google.com &> /dev/null || exit 1 
@@ -128,7 +129,7 @@ rec {
 
     text_and_color_for_powerline = (arr: ''
             ${builtins.concatStringsSep "\n" (builtins.genList (i: ''
-            readarray -t arr${builtins.toString i} < "/tmp/${(builtins.elemAt arr i).name}"
+            readarray -t arr${builtins.toString i} < "/tmp/bar/${(builtins.elemAt arr i).name}"
             text[${builtins.toString i}]=''${arr${builtins.toString i}[0]}
             color[${builtins.toString i}]=''${arr${builtins.toString i}[1]}
             '') (builtins.length arr))}
@@ -138,13 +139,12 @@ rec {
             text[${builtins.toString (builtins.length arr + 1)}]=""
     '');
 
-    start_scripts = (arr: (builtins.concatStringsSep "\n" (map (x: "touch /tmp/${x.name}; ${x} &") arr)));
+    start_scripts = (arr: ''mkdir -p /tmp/bar; {  ${builtins.concatStringsSep "\n" (map (x: "touch /tmp/bar/${x.name}; ${x} &") arr)} }'');
 
     left_side = (arr: pkgs.writeTextFile {
         name = "polybar-left-side";
         text = ''
             #!${pkgs.bash}/bin/bash
-            ${start_scripts arr}
             while true
             do
                 ${text_and_color_for_powerline arr}
@@ -170,23 +170,23 @@ rec {
                     fi
                 done
                 echo
-                ${pkgs.inotifyTools}/bin/inotifywait /tmp -e moved_to -qq
+                ${pkgs.inotifyTools}/bin/inotifywait /tmp/bar -e moved_to -qq
             done'';
         executable = true;
     });
 
     network = {color_down ? theme.orange, color_up ? theme.green, interval ? 5}: 
     wrapScriptToLoop interval (pkgs.writeTextFile {
-        name = "bar-network";
+        name = "network";
         text = ''
             #!${pkgs.bash}/bin/bash
             WIFI="`${pkgs.iw}/bin/iw wlan0 info | grep ssid | cut -f2 -d' '`"
             if [[ `wc -c <<< "$WIFI"` -lt 2 ]]
             then
-                echo "%{F${theme.bg}}%{A:${pkgs.wpa_supplicant_gui}/bin/wpa_gui &:}%{T6}%{T-} %{A-}"
+                echo "%{F${theme.bg}}%{A:${pkgs.wpa_supplicant_gui}/bin/wpa_gui:}%{T6}%{T-} %{A-}"
                 echo "${color_down}"
             else
-                echo "%{F${theme.bg}}%{A:${pkgs.wpa_supplicant_gui}/bin/wpa_gui &:}%{T6}%{T-} $WIFI %{A-}"
+                echo "%{F${theme.bg}}%{A:${pkgs.wpa_supplicant_gui}/bin/wpa_gui:}%{T6}%{T-} $WIFI %{A-}"
                 echo "${color_up}"
             fi
         '';
@@ -195,7 +195,7 @@ rec {
 
     battery = {color_charging ? theme.green, color_discharging ? theme.fg, color_full ? theme.blue, color_low ? theme.orange, low_threshold ? 10, interval ? 5}: 
     wrapScriptToLoop interval (pkgs.writeTextFile {
-        name = "bar-battery";
+        name = "battery";
         text = ''
             #!${pkgs.bash}/bin/bash
             BATTERY="`${pkgs.acpi}/bin/acpi -b`"
@@ -222,8 +222,9 @@ rec {
         executable = true;
     });
     sound = {}: pkgs.writeTextFile rec {
-        name = "bar-sound";
+        name = "sound";
         text = ''
+            cd /tmp/bar
             stdbuf -o0 pactl subscribe | stdbuf -o0 grep "sink" | stdbuf -o0 grep --invert  "input" > /tmp/${name}_events &
             while true
             do
@@ -251,16 +252,16 @@ rec {
                         fi
                     fi
                 fi
-                echo "%{A:${pkgs.lxqt.pavucontrol-qt}/bin/pavucontrol-qt &:}%{T6}%{F${theme.bg}}$icon%{T-}$volume$end%{A}" > /tmp/${name}.new
-                echo $color >> /tmp/${name}.new
-                mv /tmp/${name}.new /tmp/${name}
+                echo "%{A:${pkgs.lxqt.pavucontrol-qt}/bin/pavucontrol-qt &:}%{T6}%{F${theme.bg}}$icon%{T-}$volume$end%{A}" > ${name}.new
+                echo $color >> ${name}.new
+                mv ${name}.new ${name}
                 ${pkgs.inotifyTools}/bin/inotifywait /tmp/${name}_events -qq
             done'';
         executable = true;
     };
-    status = {interval ? 5}: 
+    status = { interval ? 5 }: 
     wrapScriptToLoop interval (pkgs.writeTextFile {
-        name = "bar-status";
+        name = "status";
         text = ''
             echo -n "%{F${theme.bg}}"
             echo -n "%{T6}%{T-} "
@@ -274,9 +275,9 @@ rec {
         executable = true;
     });
     brightness = { device }: pkgs.writeTextFile rec {
-        name = "bar-brightness";
+        name = "brightness";
         text = ''
-            cd /tmp
+            cd /tmp/bar
             stdbuf -o0 ${pkgs.acpid}/bin/acpi_listen | stdbuf -o0 grep -e "video/" > ${name}-events &
             while true
             do
@@ -314,7 +315,6 @@ rec {
         name = "polybar-right-side";
         text = ''
             #!${pkgs.bash}/bin/bash
-            ${start_scripts arr}
             while true
             do
                 sleep 0.2
@@ -341,7 +341,7 @@ rec {
                     fi
                 done
                 echo
-                ${pkgs.inotifyTools}/bin/inotifywait /tmp -e moved_to -qq
+                ${pkgs.inotifyTools}/bin/inotifywait /tmp/bar -e moved_to -qq
             done'';
         executable = true;
     });

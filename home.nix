@@ -25,6 +25,26 @@ let
 
 	customPackages = import ./packages {inherit pkgs;};
 
+	polybar_left = with scripts.polybar; [ 
+		(weather { city-id = "513378"; city = "Ozery"; }) 
+		(time {})
+		(now {})
+		(next {}) 
+		(email { user = secret.gmail.user; password = secret.gmail.password; }) 
+	];
+
+	polybar_right = with scripts.polybar; [
+		(status {})
+	] ++ (lib.optionals isLaptop [
+		(brightness { inherit device; })
+	]) ++ (lib.optionals (device != "Prestigio-Laptop") [
+		(sound {})
+	]) ++ (if (isLaptop && device != "Prestigio-Laptop") then [
+		(battery {})
+	] else []) ++ [
+		(network {})
+	];
+
 in
 rec {
 	programs.home-manager = {
@@ -68,6 +88,14 @@ rec {
 
 	xsession.windowManager.xmonad = {
 		#enable = true;
+	};
+
+	home.language = let base = "en_GB.UTF-8"; rest = "ru_RU.UTF-8"; in {
+		address = rest;
+		monetary = rest;
+		paper = rest;
+		time = rest;
+		base = base;
 	};
 
 	xsession.windowManager.i3 = {
@@ -131,6 +159,7 @@ rec {
 				{ command = "${customPackages.mconnect}/bin/mconnect"; }
 				{ command = "${pkgs.polkit-kde-agent}/lib/libexec/polkit-kde-authentication-agent-1"; }
 				{ command = "dunst"; }
+				{ command = ''exec ${pkgs.writeTextFile { name = "start_scripts"; text = scripts.polybar.start_scripts (polybar_left ++ polybar_right); executable = true;}}''; }
 				{ command = "balooctl start"; }
 				{ command = "${pkgs.autorandr}/bin/autorandr --force horizontal"; always = true; }
 				#{ command = "google-drive-ocamlfuse '/home/balsoft/Google Drive/'"; }
@@ -140,15 +169,15 @@ rec {
 				{ command = "google-drive-ocamlfuse -headless -f '/home/balsoft/Google Drive'"; }
 				{ command = "${pkgs.hsetroot}/bin/hsetroot -solid '#31363b'"; always = true; }
 			];
-			keybindings =
+			keybindings = let moveMouse = ''"sh -c 'eval `${pkgs.xdotool}/bin/xdotool getactivewindow getwindowgeometry --shell`; ${pkgs.xdotool}/bin/xdotool mousemove $((X+WIDTH/2)) $((Y+HEIGHT/2))'"''; in
 			({
 				"${modifier}+q" = "kill";
 				"${modifier}+Return" = "exec ${term}";
 				"${modifier}+l" = "layout toggle";
-				"${modifier}+Left" = "focus left";
-				"${modifier}+Right" = "focus right";
-				"${modifier}+Up" = "focus up";
-				"${modifier}+Down" = "focus down";
+				"${modifier}+Left" = "focus left; exec ${moveMouse}";
+				"${modifier}+Right" = "focus right; exec ${moveMouse}";
+				"${modifier}+Up" = "focus up; exec ${moveMouse}";
+				"${modifier}+Down" = "focus down; exec ${moveMouse}";
 				"${modifier}+Shift+Up" = "move up";
 				"${modifier}+Shift+Down" = "move down";
 				"${modifier}+Shift+Right" = "move right";
@@ -218,29 +247,13 @@ rec {
 
 			"module/left_side" = {
 				type = "custom/script";
-				exec = (scripts.polybar.left_side (with scripts.polybar; [ 
-					(weather { city-id = "513378"; city = "Ozery"; }) 
-					(time {})
-					(now {})
-					(next {}) 
-					(email { user = secret.gmail.user; password = secret.gmail.password; }) 
-				]));
+				exec = (scripts.polybar.left_side (polybar_left));
 				tail = true;
 			};
 
 			"module/right_side" = {
 				type = "custom/script";
-				exec = (scripts.polybar.right_side (with scripts.polybar; [
-					(status {})
-				] ++ (lib.optionals isLaptop [
-					(brightness { inherit device; })
-				]) ++ (lib.optionals (device != "Prestigio-Laptop") [
-					(sound {})
-				]) ++ (if (isLaptop && device != "Prestigio-Laptop") then [
-					(battery {})
-				] else []) ++ [
-					(network {})
-				]));
+				exec = (scripts.polybar.right_side (polybar_right));
 				tail = true;
 			};
 		};
@@ -291,7 +304,7 @@ rec {
 				polybar = "kill -9 $(pgrep polybar); sleep 0.5";
 			};
 			postswitch = {
-				compton = "allow_rgb10_configs=false ${pkgs.compton}/bin/compton --backend glx -i 0.7 --vsync opengl-swc -c -C --shadow-exclude '!focused' --shadow-exclude-reg 'x${builtins.elemAt (builtins.split "px" services.polybar.config."bar/top".height) 0}+0+0' &";	
+				compton = "allow_rgb10_configs=false ${pkgs.compton}/bin/compton --backend glx -i 0 --vsync opengl-swc -c -C --shadow-exclude '!focused' --shadow-exclude-reg 'x${builtins.elemAt (builtins.split "px" services.polybar.config."bar/top".height) 0}+0+0' &";	
 				polybar = "for i in $(polybar -m | cut -d ':' -f 1); do MONITOR=$i polybar top & sleep 0.5; done";
 			};
 		};
@@ -710,6 +723,7 @@ rec {
 					"msa.smtp.starttls" = true;
 					"offline.cache" = "days";
 					"offline.cache.numDays" = "30";
+					#"imap.ssl.pemPubKey" = ''@ByteArray(-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAg6FBHYh9eogUIKqt08K9\nXbDw8kWgAy06pDv2Z3AQVxP1CzFC1UdXGWFfOb/OLIOyVKm7NEvgv+kXC89PI6TH\nRqNXl2GwESETuBd6kTja0FtbhUxSdt2vxmPImQt5dI2M+7UvFJP0ft8I+nHt/KNZ\nZyqlM636KRtRRU4p6wz2YohMz0GNA+JnKmqNGWoTSUJHrrVYaCPH6dvleJAICWqr\nrMfbx4yoCLvLyEQ0CI9u20yLdgRyzY6OBDsGDhz3Wyuuq2Z9CEnl67oxQ6ToZ8fd\ne7fQ3M8vII/xCHPO5Nc9q4EX+eiu4jh6FlzmOjD0FoWX7E8RQhMeeFGpgS9HNs7Q\noQIDAQAB\n-----END PUBLIC KEY-----\n)'';
 				};
 				autoMarkRead = { 
 					enabled = true;

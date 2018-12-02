@@ -10,6 +10,7 @@ with import ./common.nix device;
 	imports = [
 		/etc/nixos/hardware-configuration.nix
 		"${builtins.fetchGit { url="https://github.com/rycee/home-manager"; ref="master"; }}/nixos"
+		#./modules
 	];
 
 	hardware.cpu.${cpu}.updateMicrocode = true;
@@ -80,9 +81,7 @@ with import ./common.nix device;
 			enable = true;
 			driver = "wext";
 			networks.Keenetic.pskRaw = "4d03ac6e3d2a2b891d83dcceca6f531abd0fec421ad4460878f5f3bc4c76562e";
-			networks.Jadore = {
-				#extraConfig = "bssid=46:d9:e7:09:d0:b8";
-			};
+			networks.BantyevIE.pskRaw = "e3a09c5136e71fa7022a407ffcd0a75acdb4cb733a123bb179dcb5c4762ffe18";
 			interfaces = [ "wlan0" ];
 			userControlled.enable = true;
 		};
@@ -243,6 +242,9 @@ with import ./common.nix device;
 	environment.systemPackages = (builtins.filter pkgs.stdenv.lib.isDerivation (builtins.attrValues (pkgs.kdeApplications // pkgs.plasma5)));
 	environment.sessionVariables = {
 		EDITOR = "micro";
+
+		SHELL = "zsh";
+
 		QT_QPA_PLATFORMTHEME = "kde";
 		QT_SCALE_FACTOR = "1";
 		QT_AUTO_SCREEN_SCALE_FACTOR = "0";

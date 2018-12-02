@@ -16,7 +16,7 @@ chmod +x $out/bin/vk
 '';
 	desktopItem = makeDesktopItem {
 		name = "vk";
-		exec = "vk";
+		exec = "bin/vk";
 		icon = "vk";
 		comment = "Desktop messaging app by Vkontakte team";
 		desktopName = "VK Messenger";
