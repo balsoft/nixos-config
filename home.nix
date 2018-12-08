@@ -118,15 +118,15 @@ rec {
 					indicator = thm.fg;
 				};
 				focusedInactive = unfocused;
-				urgent = unfocused // {
-                    text = thm.fg;
-                    border = thm.orange;
-                    childBorder = thm.orange;
+        urgent = unfocused // {
+          text = thm.fg;
+          border = thm.orange;
+          childBorder = thm.orange;
 				};
 				focused = unfocused // {
 					childBorder = thm.blue;
 					background = thm.bg;
-                    text = thm.fg;
+          text = thm.fg;
 				};
 			};
 			gaps = {
