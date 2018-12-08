@@ -3,11 +3,11 @@ with import ./support.nix { inherit lib; };
 with import ./common.nix device;
 let
 	thm = {
-		bg = "#3b4252";
+		bg = "#2e3440";
 		fg = "#d8dee9";
 		gray = "#7f8c8d";
-		alt = "#8fbcbb";
-		dark = "#2e3440";
+		alt = "#4c566a";
+		dark = "#3b4252";
 		blue = "#5e81ac";
 		green = "#a3be8c";
 		red = "#bf616a";
@@ -80,7 +80,7 @@ rec {
 			name = "Papirus-Dark";
 			package = pkgs.papirus-icon-theme;
 		};
-
+  };
 	xsession.windowManager.xmonad = {
 		#enable = true;
 	};
@@ -791,7 +791,7 @@ rec {
 			sha256 = "0e4e8bd6e164c60be7924d18ab29ddf966d31dd0db6a6820c213d25bc1a14bd2";
 		};
 		"konsole/Default.profile".text = genIni {
-			Appearance.ColorScheme = "Breeze";
+			Appearance.ColorScheme = "nord";
 			"Cursor Options".CursorShape = 1;
 			General = {
 				Command = "zsh";
@@ -800,7 +800,8 @@ rec {
 			};
 			Scrolling.HistoryMode = 2;
 			"Terminal Features".BlinkingCursorEnabled = true;
-		};	
+		};
+    "konsole/nord.colorscheme".source = "${builtins.fetchGit{url="https://github.com/arcticicestudio/nord-konsole"; ref = "4584d10697c81557744cb4f6d664402c835ea93e";}}/src/nord.colorscheme";
 
 		"user-places.xbel.home".text = ''
 <?xml version="1.0" encoding="UTF-8"?>
