@@ -126,7 +126,7 @@ rec {
 				};
 			};
 			gaps = {
-				inner = 12;
+				inner = 6;
 				smartGaps = true;
 			};
 			focus.mouseWarping = true;
@@ -301,7 +301,7 @@ rec {
 				polybar = "kill -9 $(pgrep polybar); sleep 0.5";
 			};
 			postswitch = {
-				compton = "allow_rgb10_configs=false ${pkgs.compton}/bin/compton --backend glx -i 0 --vsync opengl-swc -c -C --shadow-exclude '!focused' --shadow-exclude-reg 'x${builtins.elemAt (builtins.split "px" services.polybar.config."bar/top".height) 0}+0+0' &";	
+				compton = "allow_rgb10_configs=false ${pkgs.compton}/bin/compton --backend glx -i 0 --vsync opengl-swc -C --shadow-exclude '!focused' --shadow-exclude-reg 'x${builtins.elemAt (builtins.split "px" services.polybar.config."bar/top".height) 0}+0+0' &";	
 				polybar = "for i in $(polybar -m | cut -d ':' -f 1); do MONITOR=$i polybar top & sleep 0.5; done";
 			};
 		};
@@ -431,7 +431,7 @@ rec {
 	programs.emacs = {
 		enable = true;
 		package = pkgs.emacs;
-		extraPackages = (epkgs: with epkgs; [ nix-mode haskell-mode ]);
+		extraPackages = (epkgs: with epkgs; [ nix-mode haskell-mode nixos-options nord-theme wakib-keys magit exec-path-from-shell ivy counsel smex projectile which-key markdown-mode ]);
 	};
 
 	programs.git = {
@@ -1130,6 +1130,7 @@ rec {
 	#xdg.dataFile."albert/org.albert.extension.python/modules/translate.py".text = scripts.albert.translate;
 	home.file.".icons/default".source = "${pkgs.breeze-qt5}/share/icons/breeze_cursors";
   home.file.".themes/Nord".source = "${themes.gtk}/nord";
+  home.file.".emacs.d/init.el".source = ./scripts/init.el;
 	home.activation = builtins.mapAttrs (name: value: {inherit name; before = []; after = [ "linkGeneration" ];} // value) {
 		konsole.data = "$DRY_RUN_CMD cp ~/.config/konsolerc.home ~/.config/konsolerc";
 		kate.data = "$DRY_RUN_CMD cp ~/.config/katerc.home ~/.config/katerc";

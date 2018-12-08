@@ -57,12 +57,12 @@ rec {
                 weather_temp=$(echo "$weather" | ${pkgs.jq}/bin/jq ".main.temp" | cut -d "." -f 1)
                 weather_icon=$(echo "$weather" | ${pkgs.jq}/bin/jq -r ".weather[0].icon")
                 
-                echo "%{F${theme.bg} A:${terminal} "curl wttr.in/${city}" &:}%{T2}$(get_icon "$weather_icon")%{T-}" "$weather_temp°%{A-}"
+                echo "%{F${theme.fg} A:${terminal} "curl wttr.in/${city}":}%{T2}$(get_icon "$weather_icon")%{T-}" "$weather_temp°%{A-}"
                 echo $(get_color $weather_temp $weather_icon)
             fi''; 
         executable = true;
     });
-    email = { color_unread ? theme.orange, color_nounread ? theme.green, user, password, interval ? 10}: 
+    email = { color_unread ? theme.orange, color_nounread ? theme.alt, user, password, interval ? 10}: 
     wrapScriptToLoop interval (pkgs.writeTextFile { 
         name = "email";
         text = ''
@@ -73,7 +73,7 @@ rec {
             obj.login("${user}", "${password}")
             obj.select()
             l = len(obj.search(None, 'unseen')[1][0].split())
-            print("%{F${theme.bg} }%{A:i3-msg workspace :}%{T6}%{T-} "+str(l)+"%{A-}")
+            print("%{F${theme.fg} }%{A:i3-msg workspace :}%{T6}%{T-} "+str(l)+"%{A-}")
             print("${color_unread}" if l != 0 else "${color_nounread}")
         except:
             pass'';
@@ -84,8 +84,8 @@ rec {
         name = "time";
         text = ''
         #!${pkgs.bash}/bin/bash 
-        echo "`date +'%%{F${theme.bg}}%%{T6}%%{T-} %H:%M %%{T6}%%{T-} %A, %d'`"
-        echo "${theme.fg}"
+        echo "`date +'%%{F${theme.fg}}%%{T6}%%{T-} %H:%M %%{T6}%%{T-} %A, %d'`"
+        echo "${theme.alt}"
         '';
         executable = true;
     });
@@ -96,7 +96,7 @@ rec {
         #!${pkgs.bash}/bin/bash
         ping -c 1 calendar.google.com &> /dev/null || exit 1 
         echo $(PYTHONIOENCODING=utf8 ${pkgs.gcalcli}/bin/gcalcli --nocolor agenda 'now' 'now+1s' --tsv | head -1 | awk '{$1=""; $2=""; $3=""; $4=""; print}' | tr -s ' ')
-        echo "${theme.fg}"
+        echo "${theme.alt}"
         '';
         executable = true;
     });
@@ -108,7 +108,7 @@ rec {
             ping -c 1 calendar.google.com &> /dev/null || exit 1 
             AGENDA_NEXT="`PYTHONIOENCODING=utf8 ${pkgs.gcalcli}/bin/gcalcli --nocolor search "*" 'now' 'now+6d' --nostarted --tsv | head -1`"
             DATE="`awk '{print $1 " " $2}' <<< "$AGENDA_NEXT"`"
-            echo -n "%{F${theme.bg}}%{T6}%{T-} "
+            echo -n "%{F${theme.fg}}%{T6}%{T-} "
             if [[ `date -d "$DATE" +'%u'` -eq `date +'%u'` ]]
             then
                 echo -n `date -d "$DATE" +'%H:%M'`
@@ -175,7 +175,7 @@ rec {
         executable = true;
     });
 
-    network = {color_down ? theme.orange, color_up ? theme.green, interval ? 5}: 
+    network = {color_down ? theme.orange, color_up ? theme.blue, interval ? 5}: 
     wrapScriptToLoop interval (pkgs.writeTextFile {
         name = "network";
         text = ''
@@ -183,17 +183,17 @@ rec {
             WIFI="`${pkgs.iw}/bin/iw wlan0 info | grep ssid | cut -f2 -d' '`"
             if [[ `wc -c <<< "$WIFI"` -lt 2 ]]
             then
-                echo "%{F${theme.bg}}%{A:${pkgs.wpa_supplicant_gui}/bin/wpa_gui:}%{T6}%{T-} %{A-}"
+                echo "%{F${theme.fg}}%{A:${pkgs.wpa_supplicant_gui}/bin/wpa_gui:}%{T6}%{T-} %{A-}"
                 echo "${color_down}"
             else
-                echo "%{F${theme.bg}}%{A:${pkgs.wpa_supplicant_gui}/bin/wpa_gui:}%{T6}%{T-} $WIFI %{A-}"
+                echo "%{F${theme.fg}}%{A:${pkgs.wpa_supplicant_gui}/bin/wpa_gui:}%{T6}%{T-} $WIFI %{A-}"
                 echo "${color_up}"
             fi
         '';
         executable = true;
     });
 
-    battery = {color_charging ? theme.green, color_discharging ? theme.fg, color_full ? theme.blue, color_low ? theme.orange, low_threshold ? 10, interval ? 5}: 
+    battery = {color_charging ? theme.green, color_discharging ? theme.alt, color_full ? theme.blue, color_low ? theme.orange, low_threshold ? 10, interval ? 5}: 
     wrapScriptToLoop interval (pkgs.writeTextFile {
         name = "battery";
         text = ''
@@ -216,7 +216,7 @@ rec {
                     fi
                 ;;
             esac
-            echo "%{F${theme.bg}}%{A:${pkgs.gnome3.gnome-power-manager}/bin/gnome-power-statistics &:}$text%{A-}"
+            echo "%{F${theme.fg}}%{A:${pkgs.gnome3.gnome-power-manager}/bin/gnome-power-statistics &:}$text%{A-}"
             echo $color
         '';
         executable = true;
@@ -240,19 +240,19 @@ rec {
                     if [[ $volume -lt 33 ]]
                      then
                         icon=""
-                        color=${theme.fg}
+                        color=${theme.alt}
                     else
                         if [[ $volume -lt 66 ]]
                         then
                             icon=""
-                            color=${theme.green}
+                            color=${theme.alt}
                         else
                             icon=""
                             color=${theme.orange}
                         fi
                     fi
                 fi
-                echo "%{A:${pkgs.lxqt.pavucontrol-qt}/bin/pavucontrol-qt &:}%{T6}%{F${theme.bg}}$icon%{T-}$volume$end%{A}" > ${name}.new
+                echo "%{A:${pkgs.lxqt.pavucontrol-qt}/bin/pavucontrol-qt:}%{T6}%{F${theme.fg}}$icon%{T-}$volume$end%{A}" > ${name}.new
                 echo $color >> ${name}.new
                 mv ${name}.new ${name}
                 ${pkgs.inotifyTools}/bin/inotifywait /tmp/${name}_events -qq
@@ -263,14 +263,14 @@ rec {
     wrapScriptToLoop interval (pkgs.writeTextFile {
         name = "status";
         text = ''
-            echo -n "%{F${theme.bg}}"
+            echo -n "%{F${theme.fg}}"
             echo -n "%{T6}%{T-} "
             echo -n "`top -b -n2 -p 1 | fgrep "Cpu(s)" | tail -1 | awk -F'id,' -v prefix="$prefix" '{ split($1, vs, ","); v=vs[length(vs)]; sub("%", "", v); printf "%s%.1f%%\n", prefix, 100 - v }'` "
             echo -n $(${pkgs.bc}/bin/bc -l <<< "scale=2; `cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_cur_freq|sort|head -1`/1000000")
             echo -n "GHz "
             echo -n "$((`cat /sys/class/thermal/thermal_zone*/temp | sort | tail -1`/1000))° "
             echo "`free | tail -2 | head -1 | awk '{print "scale=3; "$7"/1000000"}' | ${pkgs.bc}/bin/bc -l`GB"
-            echo "${theme.fg}"
+            echo "${theme.alt}"
         '';
         executable = true;
     });
@@ -282,8 +282,8 @@ rec {
             while true
             do
                 LIGHT=`${pkgs.light}/bin/light | cut -f 1 -d '.'`
-                echo -n "%{F${theme.bg}}" > ${name}.new
-                color=${theme.fg}
+                echo -n "%{F${theme.fg}}" > ${name}.new
+                color=${theme.alt}
                 if [[ $LIGHT -lt 33 ]]
                 then
                     icon=
