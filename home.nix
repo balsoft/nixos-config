@@ -724,7 +724,6 @@ rec {
 					"msa.smtp.starttls" = true;
 					"offline.cache" = "days";
 					"offline.cache.numDays" = "30";
-					#"imap.ssl.pemPubKey" = ''@ByteArray(-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAg6FBHYh9eogUIKqt08K9\nXbDw8kWgAy06pDv2Z3AQVxP1CzFC1UdXGWFfOb/OLIOyVKm7NEvgv+kXC89PI6TH\nRqNXl2GwESETuBd6kTja0FtbhUxSdt2vxmPImQt5dI2M+7UvFJP0ft8I+nHt/KNZ\nZyqlM636KRtRRU4p6wz2YohMz0GNA+JnKmqNGWoTSUJHrrVYaCPH6dvleJAICWqr\nrMfbx4yoCLvLyEQ0CI9u20yLdgRyzY6OBDsGDhz3Wyuuq2Z9CEnl67oxQ6ToZ8fd\ne7fQ3M8vII/xCHPO5Nc9q4EX+eiu4jh6FlzmOjD0FoWX7E8RQhMeeFGpgS9HNs7Q\noQIDAQAB\n-----END PUBLIC KEY-----\n)'';
 				};
 				autoMarkRead = { 
 					enabled = true;
