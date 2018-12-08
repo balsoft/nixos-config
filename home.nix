@@ -3,16 +3,16 @@ with import ./support.nix { inherit lib; };
 with import ./common.nix device;
 let
 	thm = {
-		bg = "#31363b";
-		fg = "#efefef";
+		bg = "#3b4252";
+		fg = "#d8dee9";
 		gray = "#7f8c8d";
-		alt = "#48585f";
-		dark = "#232629";
-		blue = "#3caae4";
-		green = "#11d116";
-		red = "#da4453";
-		orange = "#f67400";
-		yellow = "#c9ce3b";
+		alt = "#8fbcbb";
+		dark = "#2e3440";
+		blue = "#5e81ac";
+		green = "#a3be8c";
+		red = "#bf616a";
+		orange = "#d08770";
+		yellow = "#ebcb8b";
 	};
 
 	thmDec = builtins.mapAttrs (name: color: colorHex2Dec color) thm;
@@ -22,6 +22,8 @@ let
 	secret = import ./secret.nix;
 
 	scripts = import ./scripts {inherit pkgs; inherit secret; theme = thm; inherit device;};
+
+  themes = import ./themes {inherit thm; inherit pkgs;};
 
 	customPackages = import ./packages {inherit pkgs;};
 
@@ -78,12 +80,6 @@ rec {
 			name = "Papirus-Dark";
 			package = pkgs.papirus-icon-theme;
 		};
-		theme = {
-			name = "Breeze-Dark";
-			package = pkgs.breeze-gtk;
-		};
-		
-	};
 
 	xsession.windowManager.xmonad = {
 		#enable = true;
@@ -166,7 +162,7 @@ rec {
 				{ command = "trojita"; } 
 				{ command = term; workspace = "0"; }
 				{ command = "google-drive-ocamlfuse -headless -f '/home/balsoft/Google Drive'"; }
-				{ command = "${pkgs.hsetroot}/bin/hsetroot -solid '#31363b'"; always = true; }
+				{ command = "${pkgs.hsetroot}/bin/hsetroot -solid '${thm.bg}'"; always = true; }
 			];
 			keybindings = let moveMouse = ''"sh -c 'eval `${pkgs.xdotool}/bin/xdotool getactivewindow getwindowgeometry --shell`; ${pkgs.xdotool}/bin/xdotool mousemove $((X+WIDTH/2)) $((Y+HEIGHT/2))'"''; in
 			({
@@ -285,7 +281,7 @@ rec {
 			};
 			
 			urgency_normal = {
-				background = "#2b3034";
+				background = thm.alt;
 				foreground = thm.fg;
 				timeout = 10;
 			};
@@ -765,129 +761,7 @@ rec {
 				"update.channel" = "none";
 				"window.zoomLevel" = 0; 
 				"window.menuBarVisibility" = "toggle";
-				"workbench.colorTheme" = "Breeze Dark Theme"; 
-				"workbench.colorCustomizations" = { 
-					"activityBar.background" = thm.bg;
-					"activityBar.foreground" = thm.fg;
-					"activityBarBadge.background" = "#3daee9";
-					"activityBarBadge.foreground" = thm.fg;
-					"badge.background" = "#00000030";
-					"badge.foreground" = thm.fg;
-					"button.background" = thm.bg;
-					"debugToolBar.background" = "#31363b";
-					"diffEditor.insertedTextBackground" = "#C3E88D15";
-					"diffEditor.removedTextBackground" = "#FF537020";
-					"dropdown.background" = "#31363b";
-					"dropdown.border" = "#FFFFFF10";
-					"editor.background" = "#31363b";
-					"editor.foreground" = thm.fg;
-					"editor.lineHighlightBackground" = "#3daee910";
-					"editor.selectionBackground" = "#3daee920";
-					"editor.selectionHighlightBackground" = "#FFCC0020";
-					"editorBracketMatch.background" = "#31363b";
-					"editorBracketMatch.border" = "#FFCC0050";
-					"editorCursor.foreground" = thm.fg;
-					"editorError.foreground" = thm.fg;
-					"editorGroup.border" = "#00000030";
-					"editorGroupHeader.tabsBackground" = "#31363b";
-					"editorGutter.addedBackground" = "#C3E88D60";
-					"editorGutter.deletedBackground" = "#FF537060";
-					"editorGutter.modifiedBackground" = "#82AAFF60";
-					"editorHoverWidget.background" = "#31363b";
-					"editorHoverWidget.border" = "#FFFFFF10";
-					"editorIndentGuide.background" = "#48585F80";
-					"editorLineNumber.foreground" = thm.alt;
-					"editorLink.activeForeground" = "#EEFFFF";
-					"editorMarkerNavigation.background" = "#EEFFFF05";
-					"editorSuggestWidget.background" = "#31363b";
-					"editorSuggestWidget.border" = "#FFFFFF10";
-					"editorSuggestWidget.foreground" = thm.fg;
-					"editorSuggestWidget.highlightForeground" = "#3daee9";
-					"editorSuggestWidget.selectedBackground" = "#00000050";
-					"editorWarning.foreground" = thm.fg;
-					"editorWhitespace.foreground" = thm.fg;
-					"editorWidget.background" = "#31363b";
-					"extensionButton.prominentBackground" = "#C3E88D90";
-					"extensionButton.prominentHoverBackground" = "#C3E88D";
-					focusBorder = "#FFFFFF00";
-					"input.background" = "#FFFFFF05";
-					"input.border" = "#FFFFFF10";
-					"input.foreground" = thm.fg;
-					"input.placeholderForeground" = "#EEFFFF60";
-					"inputValidation.errorBorder" = "#FF5370";
-					"inputValidation.infoBorder" = "#82AAFF";
-					"inputValidation.warningBorder" = "#FFCB6B";
-					"list.activeSelectionBackground" = "#31363b";
-					"list.activeSelectionForeground" = "#3daee9";
-					"list.focusBackground" = "#EEFFFF20";
-					"list.focusForeground" = "#EEFFFF";
-					"list.highlightForeground" = "#3daee9";
-					"list.hoverBackground" = "#31363b";
-					"list.hoverForeground" = "#FFFFFF";
-					"list.inactiveSelectionBackground" = "#31363b";
-					"list.inactiveSelectionForeground" = "#3daee9";
-					"notification.background" = "#31363b";
-					"notification.buttonBackground" = "#EEFFFF50";
-					"notification.foreground" = thm.fg;
-					"notification.infoBackground" = "#82AAFF";
-					"notification.infoForeground" = "#ffffff";
-					"notification.warningBackground" = "#FF5370";
-					"notification.warningForeground" = "#ffffff";
-					"panel.border" = "#31363b";
-					"panelTitle.activeForeground" = "#EEFFFF";
-					"peekView.border" = "#00000030";
-					"peekViewEditor.background" = "#EEFFFF05";
-					"peekViewEditorGutter.background" = "#EEFFFF05";
-					"peekViewResult.background" = "#EEFFFF05";
-					"peekViewTitle.background" = "#EEFFFF05";
-					"peekViewTitleDescription.foreground" = thm.fg;
-					"pickerGroup.foreground" = thm.fg;
-					"progressBar.background" = "#3daee9";
-					"scrollbar.shadow" = "#31363b00";
-					"scrollbarSlider.activeBackground" = "#3daee9";
-					"scrollbarSlider.background" = "#00000050";
-					"scrollbarSlider.hoverBackground" = "#00000030";
-					"selection.background" = "#EEFFFF";
-					"sideBar.background" = "#31363b";
-					"sideBar.foreground" = thm.fg;
-					"sideBarSectionHeader.background" = "#31363b";
-					"sideBarTitle.foreground" = thm.fg;
-					"statusBar.background" = "#31363b";
-					"statusBar.debuggingBackground" = "#C792EA";
-					"statusBar.debuggingForeground" = "#ffffff";
-					"statusBar.foreground" = thm.fg;
-					"statusBar.noFolderBackground" = "#31363b";
-					"tab.activeBorder" = "#3daee9";
-					"tab.activeForeground" = "#FFFFFF";
-					"tab.border" = "#31363b";
-					"tab.inactiveBackground" = "#31363b";
-					"tab.inactiveForeground" = "#546E7A";
-					"tab.unfocusedActiveBorder" = "#546E7A";
-					"tab.unfocusedActiveForeground" = "#EEFFFF";
-					"terminal.ansiBlack" = "#546E7A";
-					"terminal.ansiBlue" = "#82AAFF";
-					"terminal.ansiBrightBlack" = "#546E7A";
-					"terminal.ansiBrightBlue" = "#82AAFF";
-					"terminal.ansiBrightCyan" = "#89DDFF";
-					"terminal.ansiBrightGreen" = "#C3E88D";
-					"terminal.ansiBrightMagenta" = "#C792EA";
-					"terminal.ansiBrightRed" = "#FF5370";
-					"terminal.ansiBrightWhite" = "#ffffff";
-					"terminal.ansiBrightYellow" = "#FFCB6B";
-					"terminal.ansiCyan" = "#89DDFF";
-					"terminal.ansiGreen" = "#C3E88D";
-					"terminal.ansiMagenta" = "#C792EA";
-					"terminal.ansiRed" = "#FF5370";
-					"terminal.ansiWhite" = "#ffffff";
-					"terminal.ansiYellow" = "#FFCB6B";
-					"textLink.activeForeground" = "#EEFFFF";
-					"textLink.foreground" = thm.fg;
-					"titleBar.activeBackground" = "#31363b";
-					"titleBar.activeForeground" = "#546E7A";
-					"titleBar.inactiveBackground" = "#31363b";
-					"titleBar.inactiveForeground" = "#546E7A";
-					"widget.shadow" = "#00000030";
-				};
+				"workbench.colorTheme" = "Nord"; 
 			};
 			"mimeapps.list.home".text = genIni {
 				"Default Applications" = {
@@ -1254,7 +1128,7 @@ rec {
 	#xdg.dataFile."albert/org.albert.extension.python/modules/nix.py".text = scripts.albert.nix;
 	#xdg.dataFile."albert/org.albert.extension.python/modules/translate.py".text = scripts.albert.translate;
 	home.file.".icons/default".source = "${pkgs.breeze-qt5}/share/icons/breeze_cursors";
-
+  home.file.".themes/Nord".source = "${themes.gtk}/nord";
 	home.activation = builtins.mapAttrs (name: value: {inherit name; before = []; after = [ "linkGeneration" ];} // value) {
 		konsole.data = "$DRY_RUN_CMD cp ~/.config/konsolerc.home ~/.config/konsolerc";
 		kate.data = "$DRY_RUN_CMD cp ~/.config/katerc.home ~/.config/katerc";
