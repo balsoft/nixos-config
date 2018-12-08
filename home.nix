@@ -198,6 +198,8 @@ rec {
 				"${modifier}+t" = "workspace ";
 				"${modifier}+Shift+t" = "move container to workspace ";
 				"${modifier}+k" = "exec ${pkgs.xorg.xkill}/bin/xkill";
+        "${modifier}+F5" = "restart";
+        "${modifier}+Shift+F5" = "exit";
 			} // builtins.listToAttrs (
 				builtins.genList (x: {name = "${modifier}+${toString x}"; value = "workspace ${toString x}";}) 10
 			) // builtins.listToAttrs (
@@ -247,13 +249,13 @@ rec {
 
 			"module/left_side" = {
 				type = "custom/script";
-				exec = (scripts.polybar.left_side (polybar_left));
+				exec = toString (scripts.polybar.left_side (polybar_left));
 				tail = true;
 			};
 
 			"module/right_side" = {
 				type = "custom/script";
-				exec = (scripts.polybar.right_side (polybar_right));
+				exec = toString (scripts.polybar.right_side (polybar_right));
 				tail = true;
 			};
 		};
@@ -434,7 +436,7 @@ rec {
 	programs.emacs = {
 		enable = true;
 		package = pkgs.emacs;
-		extraPackages = (epkgs: with epkgs; [ nix-mode ]);
+		extraPackages = (epkgs: with epkgs; [ nix-mode haskell-mode ]);
 	};
 
 	programs.git = {
