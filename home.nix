@@ -78,8 +78,7 @@ rec {
 			name = "Papirus-Dark";
 			package = pkgs.papirus-icon-theme;
 		};
-		theme = 
-		{
+		theme = {
 			name = "Breeze-Dark";
 			package = pkgs.breeze-gtk;
 		};
