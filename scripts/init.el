@@ -65,9 +65,8 @@
 ;; -------------------
 ;; Initial Setup
 ;; -------------------
-(tool-bar-mode -1)
-(unless (display-graphic-p)
-  (menu-bar-mode -1))
+(menu-bar-mode -1) 
+(scroll-bar-mode -1)
 
 (cua-selection-mode 1)
 ;;(define-key cua--rectangle-keymap (kbd "ESC") nil)
@@ -169,7 +168,6 @@
 
 ;; find out what ivy uses from smex
 (use-package smex)
-
 ;; -------------------
 ;; Projectile
 ;; -------------------

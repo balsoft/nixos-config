@@ -13,9 +13,10 @@ let
 		red = "#bf616a";
 		orange = "#d08770";
 		yellow = "#ebcb8b";
+    purple = "#b48ead";
+    cyan = "#88c0d0";
 	};
   
-	thmDec = builtins.mapAttrs (name: color: colorHex2Dec color) thm;
 
 	term = "${pkgs.kdeApplications.konsole}/bin/konsole";
 
@@ -23,7 +24,7 @@ let
 
 	scripts = import ./scripts {inherit pkgs; inherit secret; theme = thm; inherit device;};
 
-  themes = import ./themes {inherit thm; inherit pkgs;};
+  themes = import ./themes {inherit thm; inherit pkgs; inherit genIni;};
 
 	customPackages = import ./packages {inherit pkgs;};
 
@@ -501,162 +502,8 @@ rec {
 					windowPosition="@Point(299 13)";
 				};
 			};
-			"albert/org.albert.frontend.qmlboxmodel/style_properties.ini".text = genIni {
-				BoxModel = {
-					animation_duration = 0;
-					#background_color="\"@Variant(\\0\\0\\0\\x43\\x1\\xff\\xff\\x31\\x31\\x36\\x36;;\\0\\0)\"";
-					background_color = thm.bg;
-					#border_color="\"@Variant(\\0\\0\\0\\x43\\x1\\xff\\xff==\\xae\\xae\\xe9\\xe9\\0\\0)\"";
-					border_color = thm.blue;
-					border_size = 1;
-					icon_size = 46;
-					input_fontsize = 28;
-					item_description_fontsize = 20;
-					item_title_fontsize = 24;
-					max_items = 10;
-					padding = 6;
-					radius = 2;
-					settingsbutton_size = 10;
-					spacing = 5;
-					window_width = 1200;
-				};
-			};
-			"kdeglobals".text = genIni {
-				"Colors:Button" = {
-					BackgroundAlternate = thmDec.dark;
-					BackgroundNormal = thmDec.bg;
-					DecorationFocus = thmDec.blue;
-					DecorationHover = thmDec.blue;
-					ForegroundActive = thmDec.blue;
-					ForegroundInactive = thmDec.alt;
-					ForegroundLink = thmDec.blue;
-					ForegroundNegative = thmDec.red;
-					ForegroundNeutral = thmDec.orange;
-					ForegroundNormal = thmDec.fg;
-					ForegroundPositive = thmDec.green;
-					ForegroundVisited = thmDec.gray;
-				};
-				"Colors:Complementary" = {
-					BackgroundAlternate = thmDec.dark;
-					BackgroundNormal = thmDec.bg;
-					DecorationFocus = thmDec.blue;
-					DecorationHover = thmDec.blue;
-					ForegroundActive = thmDec.orange;
-					ForegroundInactive = thmDec.alt;
-					ForegroundLink = thmDec.blue;
-					ForegroundNegative = thmDec.red;
-					ForegroundNeutral = thmDec.yellow;
-					ForegroundNormal = thmDec.fg;
-					ForegroundPositive = thmDec.green;
-					ForegroundVisited = thmDec.blue;
-				};
-				"Colors:Selection" = {
-					BackgroundAlternate = thmDec.blue;
-					BackgroundNormal = thmDec.blue;
-					DecorationFocus = thmDec.blue;
-					DecorationHover = thmDec.blue;
-					ForegroundActive = thmDec.fg;
-					ForegroundInactive = thmDec.fg;
-					ForegroundLink = thmDec.blue;
-					ForegroundNegative = thmDec.red;
-					ForegroundNeutral = thmDec.orange;
-					ForegroundNormal = thmDec.fg;
-					ForegroundPositive = thmDec.green;
-					ForegroundVisited = thmDec.alt;
-				};
-				"Colors:Tooltip" = {
-					BackgroundAlternate = thmDec.dark;
-					BackgroundNormal = thmDec.bg;
-					DecorationFocus = thmDec.blue;
-					DecorationHover = thmDec.blue;
-					ForegroundActive = thmDec.blue;
-					ForegroundInactive = thmDec.alt;
-					ForegroundLink = thmDec.blue;
-					ForegroundNegative = thmDec.red;
-					ForegroundNeutral = thmDec.orange;
-					ForegroundNormal = thmDec.fg;
-					ForegroundPositive = thmDec.green;
-					ForegroundVisited = thmDec.gray;
-				};
-				"Colors:View" = {
-					BackgroundAlternate = thmDec.dark;
-					BackgroundNormal = thmDec.bg;
-					DecorationFocus = thmDec.blue;
-					DecorationHover = thmDec.blue;
-					ForegroundActive = thmDec.blue;
-					ForegroundInactive = thmDec.alt;
-					ForegroundLink = thmDec.blue;
-					ForegroundNegative = thmDec.red;
-					ForegroundNeutral = thmDec.orange;
-					ForegroundNormal = thmDec.fg;
-					ForegroundPositive = thmDec.green;
-					ForegroundVisited = thmDec.gray;
-				};
-				"Colors:Window" = {
-					BackgroundAlternate = thmDec.dark;
-					BackgroundNormal = thmDec.bg;
-					DecorationFocus = thmDec.blue;
-					DecorationHover = thmDec.blue;
-					ForegroundActive = thmDec.blue;
-					ForegroundInactive = thmDec.alt;
-					ForegroundLink = thmDec.blue;
-					ForegroundNegative = thmDec.red;
-					ForegroundNeutral = thmDec.orange;
-					ForegroundNormal = thmDec.fg;
-					ForegroundPositive = thmDec.green;
-					ForegroundVisited = thmDec.gray;
-				};
-				General = {
-					ColorScheme="Breeze Dark";
-					Name="Breeze Dark";
-					fixed = "Roboto Mono,11,-1,5,50,0,0,0,0,0";
-					font = "Roboto,11,-1,5,50,0,0,0,0,0";
-					menuFont = "Roboto,11,-1,5,50,0,0,0,0,0";
-					shadeSortColumn = true;
-					smallestReadableFont = "Roboto,8,-1,5,57,0,0,0,0,0,Medium";
-					toolBarFont = "Roboto,11,-1,5,50,0,0,0,0,0";
-				};
-				KDE = {
-					DoubleClickInterval = 400;
-					ShowDeleteCommand = true;
-					SingleClick = false;
-					StartDragDist = 4;
-					StartDragTime = 500;
-					WheelScrollLines = 3;
-					contrast = 4;
-					widgetStyle = "Breeze";
-				};
-				Icons = {
-					Theme="Papirus-Dark";
-				};
-			};
-			"qt5ct/qt5ct.conf".text = genIni {
-				Appearance = {
-					color_scheme_path = "${pkgs.qt5ct}/share/qt5ct/colors/airy.conf";
-					custom_palette = false;
-					icon_theme = "Papirus-Dark";
-					standard_dialogs = "default";
-					style = "Breeze";
-				};
-
-				Fonts = {
-					fixed = "@Variant(\\0\\0\\0@\\0\\0\\0\\x16\\0R\\0o\\0\\x62\\0o\\0t\\0o\\0 \\0M\\0o\\0n\\0o@(\\0\\0\\0\\0\\0\\0\\xff\\xff\\xff\\xff\\x5\\x1\\0\\x32\\x10)"; # Roboto Mono Regular 12
-					general= "@Variant(\\0\\0\\0@\\0\\0\\0\\f\\0R\\0o\\0\\x62\\0o\\0t\\0o@(\\0\\0\\0\\0\\0\\0\\xff\\xff\\xff\\xff\\x5\\x1\\0\\x32\\x10)"; # Roboto Regular 12
-				};
-				Interface = {
-					activate_item_on_single_click = 1;
-					buttonbox_layout = 0;
-					cursor_flash_time = 1000;
-					dialog_buttons_have_icons = 1;
-					double_click_interval = 400;
-					gui_effects = "@Invalid()";
-					menus_have_icons = true;
-					stylesheets = "@Invalid()";
-					toolbutton_style = 4;
-					underline_shortcut = 1;
-					wheel_scroll_lines = 3;
-				};
-			};
+			"albert/org.albert.frontend.qmlboxmodel/style_properties.ini".text = themes.albert;
+			"kdeglobals".text = themes.kde;
 			"konsolerc.home".text = genIni {
 				"Desktop Entry".DefaultProfile = "Default.profile";
 				KonsoleWindow.ShowMenuBarByDefault = false;
@@ -677,13 +524,11 @@ rec {
 					"Word Wrap Marker" = true;
 				};
 				UiSettings = {
-					ColorScheme = "Breeze Dark";
+					ColorScheme = "Nord";
 				};
 			};
 
-			"kateschemarc".text = genIni {
-				"Breeze Dark"."Color Background" = thmDec.bg;
-			};
+			"kateschemarc".text = themes.kate;
 
 			"mconnect/mconnect.conf".text = genIni {
 				"main" = {
@@ -793,7 +638,7 @@ rec {
 			sha256 = "0e4e8bd6e164c60be7924d18ab29ddf966d31dd0db6a6820c213d25bc1a14bd2";
 		};
 		"konsole/Default.profile".text = genIni {
-			Appearance.ColorScheme = "nord";
+			Appearance.ColorScheme = "my";
 			"Cursor Options".CursorShape = 1;
 			General = {
 				Command = "zsh";
@@ -803,7 +648,7 @@ rec {
 			Scrolling.HistoryMode = 2;
 			"Terminal Features".BlinkingCursorEnabled = true;
 		};
-    "konsole/nord.colorscheme".source = "${builtins.fetchGit{url="https://github.com/arcticicestudio/nord-konsole"; ref = "4584d10697c81557744cb4f6d664402c835ea93e";}}/src/nord.colorscheme";
+    "konsole/my.colorscheme".text = themes.konsole;
 
 		"user-places.xbel.home".text = ''
 <?xml version="1.0" encoding="UTF-8"?>
