@@ -263,8 +263,8 @@ rec {
 	services.dunst = {
 		enable = true;
 		iconTheme = {
-			name = "breeze-dark";
-			package = pkgs.breeze-icons;
+			name = "Papirus-Dark";
+			package = pkgs.papirus-icon-theme;
 		};
 		settings = {
 			global = {
@@ -421,7 +421,6 @@ rec {
 		trojita
 		nix-zsh-completions
 		material-icons
-		breeze-icons
 		papirus-icon-theme
 		kde-cli-tools
 	]) 
@@ -638,7 +637,7 @@ rec {
 			sha256 = "0e4e8bd6e164c60be7924d18ab29ddf966d31dd0db6a6820c213d25bc1a14bd2";
 		};
 		"konsole/Default.profile".text = genIni {
-			Appearance.ColorScheme = "my";
+			Appearance.ColorScheme = "generated";
 			"Cursor Options".CursorShape = 1;
 			General = {
 				Command = "zsh";
@@ -648,7 +647,7 @@ rec {
 			Scrolling.HistoryMode = 2;
 			"Terminal Features".BlinkingCursorEnabled = true;
 		};
-    "konsole/my.colorscheme".text = themes.konsole;
+    "konsole/generated.colorscheme".text = themes.konsole;
 
 		"user-places.xbel.home".text = ''
 <?xml version="1.0" encoding="UTF-8"?>
@@ -976,7 +975,7 @@ rec {
 	#xdg.dataFile."albert/org.albert.extension.python/modules/nix.py".text = scripts.albert.nix;
 	#xdg.dataFile."albert/org.albert.extension.python/modules/translate.py".text = scripts.albert.translate;
 	home.file.".icons/default".source = "${pkgs.breeze-qt5}/share/icons/breeze_cursors";
-  home.file.".themes/Nord".source = "${themes.gtk}/nord";
+  home.file.".themes/Generated".source = "${themes.gtk}/generated";
   home.file.".emacs.d/init.el".source = ./scripts/init.el;
 	home.activation = builtins.mapAttrs (name: value: {inherit name; before = []; after = [ "linkGeneration" ];} // value) {
 		konsole.data = "$DRY_RUN_CMD cp ~/.config/konsolerc.home ~/.config/konsolerc";

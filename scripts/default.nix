@@ -45,6 +45,8 @@
 	# make sure this plays nicely with any existing preexec
 	preexec_functions+=( notifyosd-preexec )
 	XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
+  PS1="$PS1
+ $ "
     '';
 	
 }

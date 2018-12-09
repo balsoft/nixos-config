@@ -27,7 +27,7 @@ let
 in
 rec {
   materia_colors = pkgs.writeTextFile {
-    name = "materia_colors";
+    name = "gtk-generated-colors";
     text = ''
     BG=${thm'.bg}
     FG=${thm'.fg}
@@ -51,7 +51,7 @@ rec {
     '';
   };
   gtk = pkgs.stdenv.mkDerivation rec {
-    name = "materia-theme";
+    name = "generated-gtk-theme";
     src = builtins.fetchGit {
       url = "https://github.com/nana-4/materia-theme";
       rev = "5e11d2aa6cc26f4f7fd8c229214c4e74b802d6b8";
@@ -64,14 +64,14 @@ rec {
       patchShebangs .
       substituteInPlace change_color.sh --replace "\$HOME/.themes" "$out"
       echo "Changing colours:"
-      ./change_color.sh -o nord ${materia_colors}
+      ./change_color.sh -o generated ${materia_colors}
       chmod 555 -R .
     '';
   };
 
   konsole = genIni {
     General = {
-      Description = "my";
+      Description = "generated";
       Opacity = 1;
       Wallpaper = "";
     };
@@ -202,8 +202,8 @@ rec {
 	    ForegroundVisited = thmDec.gray;
 	  };
 	  General = {
-	    ColorScheme="Nord";
-	  	Name="Nord";
+	    ColorScheme="Generated";
+	  	Name="Generated";
 			fixed = "Roboto Mono,11,-1,5,50,0,0,0,0,0";
 			font = "Roboto,11,-1,5,50,0,0,0,0,0";
 			menuFont = "Roboto,11,-1,5,50,0,0,0,0,0";

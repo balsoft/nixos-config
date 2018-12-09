@@ -248,7 +248,7 @@ with import ./common.nix device pkgs;
 		QT_QPA_PLATFORMTHEME = "kde";
 		QT_SCALE_FACTOR = "1";
 		QT_AUTO_SCREEN_SCALE_FACTOR = "0";
-		GTK_THEME = "Nord";
+		GTK_THEME = "Generated";
 		LESS = "-asrRix8";
 		DE = "kde";
 		#XDG_CURRENT_DESKTOP = "kde";
