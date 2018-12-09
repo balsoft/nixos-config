@@ -1,4 +1,4 @@
-device: rec {
+device: pkgs: rec {
 
 #	vsCodeExt = { publisher, name, version, sha256?"" }: pkgs.fetchzip {
 #		url = "https://${publisher}.gallery.vsassets.io/_apis/public/gallery/publisher/${publisher}/extension/${name}/${version}/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage";
@@ -69,4 +69,5 @@ device: rec {
 	isSSD = devInfo.drive.type == "ssd";
 	goodMachine = devInfo.cpu.clock * devInfo.cpu.cores >= 4000 && devInfo.drive.size >= 100 && devInfo.ram >= 8; # Whether machine is powerful enough for heavy stuff
 	isHost = isSSD;
+  editor = "${pkgs.emacs}/bin/emacsclient -c -n -e '(switch-to-buffer nil)'";
 }

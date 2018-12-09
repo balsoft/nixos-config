@@ -39,13 +39,15 @@
   (package-install 'use-package))
 (eval-when-compile
   (require 'use-package))
-(setq use-package-always-ensure f)
-(use-package :ensure f diminish)
+(setq use-package-always-ensure nil)
+(use-package diminish)
+
+(mode-line-bell-mode)
 
 ;; -------------------
 ;; Wakib
 ;; -------------------
-(use-package :ensure f wakib-keys
+(use-package wakib-keys
   :diminish wakib-keys
   :config
   (wakib-keys 1)
@@ -75,7 +77,7 @@
 (advice-add 'substitute-command-keys :around #'wakib-substitute-command-keys)
 
 
-
+(server-start)
 
 
 ;; Menu Bars
@@ -106,8 +108,12 @@
 ;; -------------------
 ;; Theme
 ;; -------------------
-(use-package :ensure f nord-theme
+(use-package nord-theme
   :config
+  (add-hook 'after-make-frame-functions
+        (lambda (frame)
+            (with-selected-frame frame
+                (load-theme 'nord t))))
   (load-theme 'nord t))
 ;; scroll one line at a time (less "jumpy" than defaults)
 
@@ -119,18 +125,21 @@
 
 (setq scroll-step 1) ;; keyboard scroll one line at a time
 
-(use-package :ensure f frames-only-mode)
-
+(use-package frames-only-mode)
+;; Make new frames instead of new windows
+(set 'pop-up-frames 'graphic-only)
+(set 'gdb-use-separate-io-buffer nil)
+(set 'gdb-many-windows nil)
 ;; -------------------
 ;; Magit
 ;; -------------------
-(use-package :ensure f magit
+(use-package magit
   :bind
   (("C-x g" . magit-status )))
 
 
 
-(use-package :ensure f exec-path-from-shell
+(use-package exec-path-from-shell
   :disabled
   :config
   (exec-path-from-shell-copy-env "SSH_AGENT_PID")
@@ -140,7 +149,7 @@
 ;; -------------------
 ;; Ivy
 ;; -------------------
-(use-package :ensure f ivy
+(use-package ivy
   :diminish ivy-mode
   :config
   (ivy-mode 1)
@@ -150,7 +159,7 @@
   (setq ivy-count-format "")
   (setq ivy-initial-inputs-alist nil))
 
-(use-package :ensure f counsel
+(use-package counsel
   :diminish counsel-mode
   :config
   (counsel-mode 1)
@@ -159,14 +168,14 @@
 
 
 ;; find out what ivy uses from smex
-(use-package :ensure f smex)
+(use-package smex)
 
 ;; -------------------
 ;; Projectile
 ;; -------------------
 ;; No deferred loading as bind-keymap
 ;; doesn't handle wakib C-d keymaps
-(use-package :ensure f projectile
+(use-package projectile
   :diminish projectile-mode
   :config
   (setq projectile-completion-system 'ivy)
@@ -186,10 +195,10 @@
 ;; Yasnippet
 ;; -------------------
 
-(use-package :ensure f yasnippet-snippets
+(use-package yasnippet-snippets
   :defer t)
 
-(use-package :ensure f yasnippet
+(use-package yasnippet
   :hook
   ((prog-mode . yas-minor-mode))
   :diminish yas-minor-mode
@@ -200,14 +209,14 @@
   (define-key yas-keymap [remap wakib-previous] 'yas-prev-field))
 
 
-(use-package :ensure f ivy-yasnippet
+(use-package ivy-yasnippet
   :bind ("C-y" . ivy-yasnippet))
 
 
 ;; -------------------
 ;; expand-region
 ;; -------------------
-(use-package :ensure f company               
+(use-package company               
   :diminish company-mode
   :config
   (global-company-mode 1)
@@ -217,19 +226,19 @@
 ;; -------------------
 ;; expand-region
 ;; -------------------
-(use-package :ensure f expand-region
+(use-package expand-region
   :bind ("M-A" . er/expand-region))
 
 ;; -------------------
 ;; avy
 ;; -------------------
-(use-package :ensure f avy
+(use-package avy
   :bind ("M-m" . avy-goto-char-2))
 
 ;; -------------------
 ;; switch-window
 ;; -------------------
-(use-package :ensure f switch-window
+(use-package switch-window
   :bind ("M-H" . switch-window)
   :config
   (setq switch-window-shortcut-style 'qwerty)
@@ -238,7 +247,7 @@
 ;; -------------------
 ;; which-key
 ;; -------------------
-(use-package :ensure f which-key
+(use-package which-key
   :diminish which-key-mode
   :config
   (which-key-mode))
@@ -247,7 +256,7 @@
 ;; multiple-cursors
 ;; -------------------
 ;; TODO - Advice CUA-keyboard-quit to quit mc and rrm
-(use-package :ensure f multiple-cursors
+(use-package multiple-cursors
   :init
   (custom-set-variables `(mc/always-run-for-all ,t))
   :config
@@ -264,7 +273,7 @@
 ;; -------------------
 ;; diff-hl
 ;; -------------------
-(use-package :ensure f diff-hl
+(use-package diff-hl
   :hook
   ((prog-mode . turn-on-diff-hl-mode)
    (magit-post-refresh-hook . diff-hl-magit-post-refresh)))
@@ -272,7 +281,7 @@
 
 
 ;; TODO (change defun rewrite to advice)
-(use-package :ensure f quickrun
+(use-package quickrun
   :init
   (global-set-key [menu-bar tools quickrun] `(menu-item ,"Run Buffer" quickrun))  
   :config
@@ -288,7 +297,7 @@
 
 
 ;; Better Parenthesis
-(use-package :ensure f rainbow-delimiters
+(use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 (show-paren-mode 1)
 ;; TODO - MOVE Electric Pair Mode to user local
@@ -296,7 +305,7 @@
 
 ;; MAJOR MODES
 
-(use-package :ensure f markdown-mode
+(use-package markdown-mode
   :mode "\\.\\(m\\(ark\\)?down\\|md\\)$")
 
 

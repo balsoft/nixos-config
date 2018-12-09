@@ -4,7 +4,7 @@
 
 device: 
 { config, pkgs, lib, ... }: 
-with import ./common.nix device;
+with import ./common.nix device pkgs;
 {
 	# ========================== HARDWARE =====================================
 	imports = [
@@ -241,8 +241,8 @@ with import ./common.nix device;
 	# ====================== PROGRAMS & SERVICES ==============================
 	environment.systemPackages = (builtins.filter pkgs.stdenv.lib.isDerivation (builtins.attrValues (pkgs.kdeApplications // pkgs.plasma5)));
 	environment.sessionVariables = {
-		EDITOR = "micro";
-
+		EDITOR = editor;
+    VISUAL = editor;
 		SHELL = "zsh";
 
 		QT_QPA_PLATFORMTHEME = "kde";
