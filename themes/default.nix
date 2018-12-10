@@ -31,13 +31,13 @@ rec {
     text = ''
     BG=${thm'.bg}
     FG=${thm'.fg}
-    BTN_BG=${thm'.bg}
+    BTN_BG=${thm'.dark}
     BTN_FG=${thm'.fg}
     MENU_BG=${thm'.bg}
     MENU_FG=${thm'.fg}
-    ACCENT_BG=${thm'.dark}
-    SEL_BG=${thm'.bg}
-    SEL_FG=${thm'.fg}
+    ACCENT_BG=${thm'.cyan}
+    SEL_BG=${thm'.cyan}
+    SEL_FG=${thm'.bg}
     TXT_BG=${thm'.bg}
     TXT_FG=${thm'.fg}
     HDR_BTN_BG=${thm'.bg}
