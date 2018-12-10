@@ -1,3 +1,4 @@
+
 device: {pkgs, lib,  ...}:
 with import ./support.nix { inherit lib; };
 with import ./common.nix device pkgs;
@@ -100,8 +101,7 @@ rec {
 		config = rec {
 			assigns = {
 				"" = [{ class = "Chromium"; }];
-				"" = [{ class = "^Telegram"; } { class = "^VK"; } { class = "^trojita"; } ];	
-
+				"" = [{ class = "^Telegram"; } { class = "^VK"; } { class = "^trojita"; } ];
 			};
 			bars = [];
 			fonts = [ "RobotoMono 9" ];
@@ -152,7 +152,7 @@ rec {
 				{ command = "${pkgs.tdesktop}/bin/telegram-desktop"; }
 				{ command = "${pkgs.chromium}/bin/chromium"; }
 				{ command = "${customPackages.vk}/bin/vk"; }
-        { command = "emacs"; }
+        { command = "emacs  --daemon"; }
 				{ command = "${customPackages.mconnect}/bin/mconnect"; }
 				{ command = "${pkgs.polkit-kde-agent}/lib/libexec/polkit-kde-authentication-agent-1"; }
 				{ command = "dunst"; }
@@ -170,7 +170,7 @@ rec {
 			({
 				"${modifier}+q" = "kill";
 				"${modifier}+Return" = "exec ${term}";
-        "${modifier}+e" = "exec ${editor}";
+        "${modifier}+e" = "exec ${editor} -c -n -e '(switch-to-buffer nil)'";
 				"${modifier}+l" = "layout toggle";
 				"${modifier}+Left" = "focus left; exec ${moveMouse}";
 				"${modifier}+Right" = "focus right; exec ${moveMouse}";
@@ -374,6 +374,7 @@ rec {
 		kdenlive
 		frei0r
 		ffmpeg-full
+    ghc
 	] else [] ) ++ [
 		# Messaging
 		tdesktop
@@ -433,7 +434,7 @@ rec {
 	programs.emacs = {
 		enable = true;
 		package = pkgs.emacs;
-		extraPackages = (epkgs: with epkgs; [ use-package nix-mode haskell-mode nixos-options nord-theme wakib-keys magit exec-path-from-shell ivy counsel smex projectile which-key markdown-mode diminish frames-only-mode company rainbow-delimiters diff-hl yasnippet yasnippet-snippets mode-line-bell ]);
+		extraPackages = (epkgs: with epkgs; [ use-package nix-mode haskell-mode nixos-options nord-theme wakib-keys magit exec-path-from-shell ivy counsel smex projectile which-key markdown-mode diminish frames-only-mode company rainbow-delimiters diff-hl yasnippet yasnippet-snippets mode-line-bell powerline smart-mode-line-powerline-theme ]);
 	};
 
 	programs.git = {

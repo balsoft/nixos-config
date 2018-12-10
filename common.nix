@@ -69,5 +69,5 @@ device: pkgs: rec {
 	isSSD = devInfo.drive.type == "ssd";
 	goodMachine = devInfo.cpu.clock * devInfo.cpu.cores >= 4000 && devInfo.drive.size >= 100 && devInfo.ram >= 8; # Whether machine is powerful enough for heavy stuff
 	isHost = isSSD;
-  editor = "${pkgs.emacs}/bin/emacsclient -c -n -e '(switch-to-buffer nil)'";
+  editor = "${pkgs.emacs}/bin/emacsclient";
 }

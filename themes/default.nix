@@ -81,13 +81,9 @@ rec {
     Color0.Color = thmDec.dark;
     Color0Intense.Color = thmDec.alt;
     Color1.Color = thmDec.red;
-    Color1Intense.Color = thmDec.red;
     Color2.Color = thmDec.green;
-    Color2Intense.Color = thmDec.green;
     Color3.Color = thmDec.yellow;
-    Color3Intense.Color = thmDec.yellow;
     Color4.Color = thmDec.blue;
-    Color4Intense.Color = thmDec.blue;
     Color5.Color = thmDec.purple;
     Color6.Color = thmDec.cyan;
     Color7.Color = thmDec.fg;

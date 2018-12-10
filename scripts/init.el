@@ -276,7 +276,10 @@
   ((prog-mode . turn-on-diff-hl-mode)
    (magit-post-refresh-hook . diff-hl-magit-post-refresh)))
 
-
+(use-package powerline
+  :config
+  (powerline-default-theme)
+  )
 
 ;; TODO (change defun rewrite to advice)
 (use-package quickrun
