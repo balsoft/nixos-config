@@ -35,8 +35,8 @@ rec {
     BTN_FG=${thm'.fg}
     MENU_BG=${thm'.bg}
     MENU_FG=${thm'.fg}
-    ACCENT_BG=${thm'.cyan}
-    SEL_BG=${thm'.cyan}
+    ACCENT_BG=${thm'.blue}
+    SEL_BG=${thm'.blue}
     SEL_FG=${thm'.bg}
     TXT_BG=${thm'.bg}
     TXT_FG=${thm'.fg}
