@@ -31,7 +31,7 @@ rec {
     text = ''
     BG=${thm'.bg}
     FG=${thm'.fg}
-    BTN_BG=${thm'.dark}
+    BTN_BG=${thm'.bg}
     BTN_FG=${thm'.fg}
     MENU_BG=${thm'.bg}
     MENU_FG=${thm'.fg}
