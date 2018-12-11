@@ -4,11 +4,15 @@
 #
 # This is main nixos configuration
 # To use this configuration:
-#   1. 
+#   1. Add your own secret.nix to this folder
+#   2. Replace /etc/nixos/configuration.nix with the following:
+#      import /path/to/this/nixos-config "Vendor-Type"
+#   3. Log in to application and services where neccesary
 
-device: 
+
+device: # This is the device we're on now
 { config, pkgs, lib, ... }: 
-with import ./common.nix device pkgs;
+with import ./common.nix device pkgs; # Common stuff that is shared between home.nix and this
 {
   # ========================== HARDWARE =====================================
   imports = [
@@ -17,13 +21,13 @@ with import ./common.nix device pkgs;
     #./modules
   ];
 
-  hardware.cpu.${cpu}.updateMicrocode = true;
+  hardware.cpu.${cpu}.updateMicrocode = true; # Update microcode
   
-  hardware.enableRedistributableFirmware = true;
+  hardware.enableRedistributableFirmware = true; # For some unfree drivers
 
   hardware.opengl.enable = true;
   hardware.opengl.driSupport = true;
-  hardware.opengl.driSupport32Bit = true;
+  hardware.opengl.driSupport32Bit = true; # For steam
 
   hardware.sane.enable = true;
   # =========================================================================
@@ -42,10 +46,11 @@ with import ./common.nix device pkgs;
     } else { # UEFI config
       grub.efiSupport = true;
       grub.device = "nodev";
-      #grub.canTouchEfiVariables = false;
-      grub.efiInstallAsRemovable = true;
+      grub.efiInstallAsRemovable = true; # NVRAM is unreliable
     });
     consoleLogLevel = 3;
+    # There is a bug in newer versions of kernel that breaks wireless
+    # TODO Figure out what to do here
     kernelPackages = if device == "ASUS-Laptop" then pkgs.linuxPackages else pkgs.linuxPackages_latest;
     kernelParams = [ 
       "quiet" 
@@ -57,13 +62,13 @@ with import ./common.nix device pkgs;
       "pti=off" 
       "spectre_v2=off"
     ] ++ (if device == "Prestigio-Laptop" then [
-      "intel_idle.max_cstate=1"
+      "intel_idle.max_cstate=1" # Otherwise it hangs
     ] else []);
     kernel.sysctl = {
       "vm.swappiness" = 0;
     };
-    extraModprobeConfig = "options iwlwifi swcrypto=0 bt_coex_active=0 11n_disable=1 power_save=0 power_level=5 bt_coex_active=1";
-    blacklistedKernelModules = if device == "Prestigio-Laptop" then [ "axp288_charger" "axp288_fuel_gauge" "axp288_adc" ] else [  ];
+    extraModprobeConfig = "options iwlwifi swcrypto=0 bt_coex_active=0 11n_disable=1 power_save=0 power_level=5 bt_coex_active=1"; # Attempt to fix broken wireless
+    blacklistedKernelModules = if device == "Prestigio-Laptop" then [ "axp288_charger" "axp288_fuel_gauge" "axp288_adc" ] else [  ]; # Battery driver sometimes breaks this cheap laptop
   };
 
   hardware.bluetooth.enable = true;
@@ -72,8 +77,7 @@ with import ./common.nix device pkgs;
   
   
   # ====================== TIME & LOCALE ====================================
-  # Set your time zone.
-  time.timeZone = "Europe/Moscow";
+  time.timeZone = "Europe/Moscow"; # Mother Russia
   # =========================================================================
   
   
@@ -93,7 +97,7 @@ with import ./common.nix device pkgs;
     usePredictableInterfaceNames = false;
     hostName = device;
   };
-  systemd.services.dhcpcd.serviceConfig.Type = lib.mkForce "simple"; # TODO: Make a PR with this change; forking is not acceptable for dhcpcd.
+  systemd.services.dhcpcd.serviceConfig.Type = lib.mkForce "simple"; # TODO Make a PR with this change; forking is not acceptable for dhcpcd.
   # =========================================================================
 
   
@@ -108,10 +112,7 @@ with import ./common.nix device pkgs;
       middleEmulation = false;
       naturalScrolling = true;
     };
-    videoDrivers = if cpu == "amd" then [ "amdgpu" ] else if device == "Lenovo-Workstation" then [ "radeon" ] else [ "intel" ];
-    desktopManager.wallpaper.combineScreens = false;
-    desktopManager.wallpaper.mode = "fill";
-    displayManager.lightdm = {
+    videoDrivers = if cpu == "amd" then [ "amdgpu" ] else if device == "Lenovo-Workstation" then [ "radeon" ] else [ "intel" ];    displayManager.lightdm = {
       enable = true;
       autoLogin.enable = !isShared;
       autoLogin.user = "balsoft";
