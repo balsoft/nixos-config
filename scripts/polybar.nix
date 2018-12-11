@@ -95,6 +95,7 @@ rec {
     text = ''
     #!${pkgs.bash}/bin/bash
     ping -c 1 calendar.google.com &> /dev/null || exit 1 
+    echo -n "%{F${theme.fg}}"
     echo $(PYTHONIOENCODING=utf8 ${pkgs.gcalcli}/bin/gcalcli --nocolor agenda 'now' 'now+1s' --tsv | head -1 | awk '{$1=""; $2=""; $3=""; $4=""; print}' | tr -s ' ')
     echo "${theme.alt}"
     '';
