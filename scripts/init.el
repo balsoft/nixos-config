@@ -69,7 +69,10 @@
   (define-key isearch-mode-map (kbd "M-:") 'isearch-repeat-backward)
   (define-key isearch-mode-map (kbd "C-v") 'isearch-yank-kill))
 
- 
+(global-set-key (kbd "C-w") 'kill-buffer)
+
+(global-display-line-numbers-mode)
+
 ;; -------------------
 ;; Initial Setup
 ;; -------------------
@@ -127,6 +130,7 @@ If point was already at that position, move point to beginning of line."
 
 (global-unset-key [menu-bar options cua-mode])
 
+(fringe-mode '(0 . 0))
 
 ;; -------------------
 ;; Theme

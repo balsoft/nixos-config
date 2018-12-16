@@ -198,6 +198,8 @@ rec {
         "${modifier}+k" = "exec ${pkgs.xorg.xkill}/bin/xkill";
         "${modifier}+F5" = "restart";
         "${modifier}+Shift+F5" = "exit";
+        "${modifier}+h" = "layout splith";
+        "${modifier}+v" = "layout splitv";
       } // builtins.listToAttrs (
         builtins.genList (x: {name = "${modifier}+${toString x}"; value = "workspace ${toString x}";}) 10
       ) // builtins.listToAttrs (
@@ -364,7 +366,6 @@ rec {
     curl
     chromium
   ] ++ (if goodMachine then [
-    vscode
     geany
     kdevelop
     kate
@@ -594,21 +595,6 @@ rec {
           password = "cleartextpassword";
         };
       };
-      "Code/User/settings.json".text = builtins.toJSON { 
-        "editor.fontFamily" = "Roboto Mono"; 
-        "editor.formatOnPaste" = true; 
-        "editor.formatOnSave" = true; 
-        "editor.insertSpaces" = false; 
-        "files.autoSave" = "onFocusChange"; 
-        "git.autofetch" = true;
-        "terminal.integrated.cursorStyle" = "line"; 
-        "terminal.integrated.shell.linux" = "zsh"; 
-        "terminal.integrated.rendererType" = "dom";
-        "update.channel" = "none";
-        "window.zoomLevel" = 0; 
-        "window.menuBarVisibility" = "toggle";
-        "workbench.colorTheme" = "Nord"; 
-      };
       "mimeapps.list.home".text = genIni {
         "Default Applications" = {
           "text/html" = "chromium-browser.desktop";
@@ -623,7 +609,6 @@ rec {
           "x-scheme-handler/https" = "chromium-browser.desktop";
           "x-scheme-handler/about" = "chromium-browser.desktop";
           "x-scheme-handler/unknown" = "chromium-browser.desktop";
-          "x-scheme-handler/vscode" = "code-url-handler.desktop";
           "x-scheme-handler/mailto" = "trojita.desktop";
           "application/pdf" = "org.kde.okular.desktop";
         };
@@ -983,13 +968,6 @@ rec {
     user-places.data = "$DRY_RUN_CMD cp ~/.local/share/user-places.xbel.home ~/.local/share/user-places.xbel";
     mimeapps .data= "$DRY_RUN_CMD cp ~/.config/mimeapps.list.home ~/.config/mimeapps.list";
     # FIXME soooo ugly and imperative...
-    vscode.data =if goodMachine then builtins.concatStringsSep " || echo 'Error'\n" ((map (ext: "$DRY_RUN_CMD code --install-extension ${ext}") [
-      "AndrewFridley.Breeze-Dark-Theme"
-      "ms-vscode.cpptools"
-      "bbenoist.nix"
-      "eamodio.gitlens"
-      "vsciot-vscode.vscode-arduino"
-    ]) ++ ["$DRY_RUN_CMD ${pkgs.patchelf}/bin/patchelf --set-interpreter ${pkgs.glibc}/lib/ld-linux-x86-64.so.2 ~/.vscode/extensions/*/bin/* || echo 'error in patching'"]) else "";
   };
 
   news.display = "silent";
