@@ -86,7 +86,6 @@
 
 (advice-add 'substitute-command-keys :around #'wakib-substitute-command-keys)
 
-(global-display-line-numbers-mode)
 
 (global-set-key (kbd "M-RET") 'execute-extended-command)
 
