@@ -44,6 +44,14 @@
 
 (mode-line-bell-mode)
 
+;; backup in one place. flat, no tree structure
+(setq backup-directory-alist '(("" . "~/.emacs.d/backup")))
+
+(setq auto-save-file-name-transforms
+      `((".*" "~/.emacs.d/autosave/" t)))
+
+(setq-default indent-tabs-mode nil)
+
 ;; -------------------
 ;; Wakib
 ;; -------------------
@@ -75,6 +83,9 @@
 
 (advice-add 'substitute-command-keys :around #'wakib-substitute-command-keys)
 
+(global-display-line-numbers-mode)
+
+(global-set-key (kbd "M-RET") 'execute-extended-command)
 
 (server-start)
 
@@ -178,6 +189,7 @@ If point was already at that position, move point to beginning of line."
   (define-key wakib-keys-overriding-map (kbd "C-S-v") 'counsel-yank-pop))
 
 
+(use-package web-mode)
 
 ;; find out what ivy uses from smex
 (use-package smex)
