@@ -153,6 +153,7 @@ rec {
         { command = "${pkgs.chromium}/bin/chromium"; }
         { command = "${customPackages.vk}/bin/vk"; }
         { command = "emacs  --daemon"; }
+        { command = "${pkgs.kdeconnect}/lib/libexec/kdeconnectd"; }
         { command = "${pkgs.polkit-kde-agent}/lib/libexec/polkit-kde-authentication-agent-1"; }
         { command = "dunst"; }
         { command = ''exec ${pkgs.writeTextFile { name = "start_scripts"; text = scripts.polybar.start_scripts (polybar_left ++ polybar_right); executable = true;}}''; }
@@ -433,7 +434,7 @@ rec {
   programs.emacs = {
     enable = true;
     package = pkgs.emacs;
-    extraPackages = (epkgs: with epkgs; [ use-package nix-mode haskell-mode nixos-options nord-theme wakib-keys magit exec-path-from-shell ivy counsel smex projectile which-key markdown-mode diminish frames-only-mode company rainbow-delimiters diff-hl yasnippet yasnippet-snippets mode-line-bell powerline smart-mode-line-powerline-theme hasklig-mode ]);
+    extraPackages = (epkgs: with epkgs; [ use-package nix-mode haskell-mode nixos-options nord-theme wakib-keys magit exec-path-from-shell ivy counsel smex projectile which-key markdown-mode diminish frames-only-mode company rainbow-delimiters diff-hl yasnippet yasnippet-snippets mode-line-bell powerline smart-mode-line-powerline-theme hasklig-mode ]);    
   };
 
   programs.git = {

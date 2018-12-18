@@ -47,7 +47,7 @@ rec {
     MATERIA_STYLE_COMPACT=True
     MATERIA_COLOR_VARIANT=dark
     UNITY_DEFAULT_LAUNCHER_STYLE=False
-    NAME=nord
+    NAME=generated
     '';
   };
   gtk = pkgs.stdenv.mkDerivation rec {
