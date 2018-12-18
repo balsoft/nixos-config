@@ -78,6 +78,8 @@
 
 (advice-add 'substitute-command-keys :around #'wakib-substitute-command-keys)
 
+(use-package hasklig-mode
+  :hook (haskell-mode))
 
 (server-start)
 
@@ -129,7 +131,8 @@ If point was already at that position, move point to beginning of line."
   (add-hook 'after-make-frame-functions
         (lambda (frame)
             (with-selected-frame frame
-                (load-theme 'nord t))))
+              (load-theme 'nord t)
+	      )))
   (load-theme 'nord t))
 ;; scroll one line at a time (less "jumpy" than defaults)
 

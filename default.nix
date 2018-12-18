@@ -151,6 +151,8 @@ with import ./common.nix device pkgs; # Common stuff that is shared between home
       powerline-fonts
       noto-fonts
       noto-fonts-emoji
+      #fira-code-symbols
+      hasklig
     ];
     fontconfig = {
       enable = true;
