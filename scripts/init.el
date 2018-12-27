@@ -42,6 +42,8 @@
 (setq use-package-always-ensure nil)
 (use-package diminish)
 
+(setq-default tab-width 2)
+
 (mode-line-bell-mode)
 
 ;; backup in one place. flat, no tree structure
@@ -52,6 +54,11 @@
 
 (setq-default indent-tabs-mode nil)
 
+
+(setq-default tab-always-indent 'complete)
+
+
+(electric-indent-mode 1)
 ;; -------------------
 ;; Wakib
 ;; -------------------

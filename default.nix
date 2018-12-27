@@ -18,7 +18,7 @@ with import ./common.nix device pkgs; # Common stuff that is shared between home
   imports = [
     /etc/nixos/hardware-configuration.nix
     "${builtins.fetchGit { url="https://github.com/rycee/home-manager"; ref="master"; }}/nixos"
-    #./modules
+    ./modules
   ];
 
   hardware.cpu.${cpu}.updateMicrocode = true; # Update microcode

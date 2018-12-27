@@ -69,7 +69,7 @@ rec {
       ];
     };
     shellAliases = {
-      "p" = "_p(){nix run nixpkgs.$1 -c zsh};_p";
+      "p" = "nix-shell --run zsh -p";
       "r" = "_r(){nix run nixpkgs.$1 -c $@};_r";
       "b" = "nix-build \"<nixpkgs>\" --no-out-link -A";
     };
@@ -83,10 +83,6 @@ rec {
       package = pkgs.papirus-icon-theme;
     };
   };
-  xsession.windowManager.xmonad = {
-    #enable = true;
-  };
-
   home.language = let base = "en_GB.UTF-8"; rest = "ru_RU.UTF-8"; in {
     address = rest;
     monetary = rest;
