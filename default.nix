@@ -295,7 +295,7 @@ with import ./common.nix device pkgs; # Common stuff that is shared between home
     grub2 = (import <nixpkgs> {system = "i686-linux";}).grub2;
   } else {});
 
-  services.synergy = if device = "Lenovo-Workstation" then {
+  services.synergy = if device == "Lenovo-Workstation" then {
     server.enable = true;
     server.configFile = pkgs.writeTextFile {
       name = "synergy.conf";
