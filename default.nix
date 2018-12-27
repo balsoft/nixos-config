@@ -283,10 +283,10 @@ with import ./common.nix device pkgs; # Common stuff that is shared between home
     enable = true;  
   };
 
-    nixpkgs.config.packageOverrides = pkgs: {
-      nur = pkgs.callPackage (import (builtins.fetchGit {
-            url = "https://github.com/nix-community/NUR";
-      })) {};
+  nixpkgs.config.packageOverrides = pkgs: {
+    nur = pkgs.callPackage (import (builtins.fetchGit {
+      url = "https://github.com/nix-community/NUR";
+    })) {};
     movit = (import <nixpkgs> {}).movit.overrideAttrs (old: { # Currently, movit fails
       doCheck = false;
       GTEST_DIR = "${(import <nixpkgs> {}).gtest.src}/googletest";
@@ -294,6 +294,37 @@ with import ./common.nix device pkgs; # Common stuff that is shared between home
     } // (if device == "Prestigio-Laptop" then {
     grub2 = (import <nixpkgs> {system = "i686-linux";}).grub2;
   } else {});
+
+  services.synergy = if device = "Lenovo-Workstation" then {
+    server.enable = true;
+    server.configFile = pkgs.writeTextFile {
+      name = "synergy.conf";
+      text = ''
+section: screens
+	Lenovo-Workstation:
+	ASUS-Laptop:
+	HP-Laptop:
+end
+section: links
+	Lenovo-Workstation:
+		right = HP-Laptop
+		left    = ASUS-Laptop
+
+	ASUS-Laptop:
+		right    = Lenovo-Workstation
+	HP-Laptop:
+		left = Lenovo-Workstation
+end
+section: options
+    keystroke(super+alt+left) = switchInDirection(left)
+    keystroke(super+alt+right) = switchInDirection(right)
+end
+      '';
+    };
+  } else {
+    client.enable = true;
+    client.serverAddress = "Lenovo-Workstation";
+  };
 
   services.openssh = {
     enable = true;
@@ -312,9 +343,6 @@ with import ./common.nix device pkgs; # Common stuff that is shared between home
     drivers = [ pkgs.gutenprint ];
   };
   
-  services.dbus.packages = [
-#   pkgs.gconf
-  ];
 
   services.tor = {
     enable = true;
