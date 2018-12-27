@@ -1,8 +1,6 @@
-{ config, lib, pkgs, utils, ... }:
+{ config, lib, pkgs, ... }:
 with lib;
-with config.home-manager;
-let cfg = themes;
-in {
+{
 	options = {
 		themes = {
 			enable = mkEnableOption "theme management system";
@@ -25,4 +23,5 @@ in {
 			};
 		};
 	};
+  config = {};
 }
