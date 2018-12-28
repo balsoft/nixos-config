@@ -202,8 +202,6 @@ If point was already at that position, move point to beginning of line."
   (define-key wakib-keys-overriding-map (kbd "C-S-v") 'counsel-yank-pop))
 
 
-(use-package web-mode)
-
 ;; find out what ivy uses from smex
 (use-package smex)
 ;; -------------------
