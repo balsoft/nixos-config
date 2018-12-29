@@ -17,9 +17,7 @@ let
     purple = "#b48ead";
     cyan = "#88c0d0";
   };
-  
-
-  term = "${pkgs.kdeApplications.konsole}/bin/konsole";
+term = "${pkgs.kdeApplications.konsole}/bin/konsole";
 
   secret = import ./secret.nix;
 
@@ -425,7 +423,16 @@ rec {
   ++ 
   (with customPackages; [
     vk
-  ]);
+  ])
+  ++
+  (with pkgs.kdeApplications; [
+    ark dolphin dolphin-plugins dragon eventviews ffmpegthumbs
+    filelight kate kcachegrind kcalc kcolorchooser kdenlive
+    kleopatra kolourpaint kompare krdc krfb kruler ktnef kwalletmanager
+    marble okteta okular print-manager
+  ])
+  ++
+  (builtins.filter pkgs.stdenv.lib.isDerivation (builtins.attrValues (pkgs.plasma5)));
 
   programs.emacs = {
     enable = true;
