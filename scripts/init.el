@@ -77,6 +77,7 @@
   (define-key isearch-mode-map (kbd "C-v") 'isearch-yank-kill))
 
 (global-set-key (kbd "C-w") 'kill-buffer)
+(global-set-key (kbd "<f9>") 'compile)
 
 (global-display-line-numbers-mode)
 
@@ -223,7 +224,10 @@ If point was already at that position, move point to beginning of line."
 			:visible (projectile-project-p)))
   (define-key wakib-keys-map [menu-bar project seperator1] `(menu-item ,"--" nil))
   (define-key wakib-keys-map [menu-bar project git] `(menu-item ,"Git ..." magit-status :keys "C-e g"))
-  (global-unset-key [menu-bar tools Projectile]))
+  (global-unset-key [menu-bar tools Projectile])
+  (projectile-register-project-type 'nix-shell '("shell.nix")
+                                    :compile "nix-build shell.nix"
+                                    :run "nix-shell"))
 
 ;; -------------------
 ;; Yasnippet

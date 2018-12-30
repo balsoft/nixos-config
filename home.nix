@@ -194,6 +194,7 @@ rec {
         "${modifier}+Shift+F5" = "exit";
         "${modifier}+h" = "layout splith";
         "${modifier}+v" = "layout splitv";
+        
       } // builtins.listToAttrs (
         builtins.genList (x: {name = "${modifier}+${toString x}"; value = "workspace ${toString x}";}) 10
       ) // builtins.listToAttrs (
@@ -203,6 +204,9 @@ rec {
         "122" = "exec ${pkgs.pamixer}/bin/pamixer -d 5";
         "123" = "exec ${pkgs.pamixer}/bin/pamixer -i 5";
         "121" = "exec ${pkgs.pamixer}/bin/pamixer -t";
+        "164" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
+        "163" = "exec ${pkgs.playerctl}/bin/playerctl next";
+        "165" = "exec ${pkgs.playerctl}/bin/playerctl previous";
       };
     };
   };
