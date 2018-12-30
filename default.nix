@@ -284,7 +284,7 @@ with import ./common.nix device pkgs; # Common stuff that is shared between home
     enable = true;  
   };
 
-  nixpkgs.config.packageOverrides = pkgs: {
+  nixpkgs.config.packageOverrides = old: {
     nur = pkgs.callPackage (import (builtins.fetchGit {
       url = "https://github.com/nix-community/NUR";
     })) {};
@@ -292,6 +292,11 @@ with import ./common.nix device pkgs; # Common stuff that is shared between home
       doCheck = false;
       GTEST_DIR = "${(import <nixpkgs> {}).gtest.src}/googletest";
     });
+      tdesktop = old.tdesktop.overrideAttrs (oldAttrs: {
+        patches = [
+        (builtins.fetchurl { url = "https://raw.githubusercontent.com/msva/mva-overlay/master/net-im/telegram-desktop/files/patches/1.5.6/conditional/wide-baloons/0001_baloons-follows-text-width-on-adaptive-layout.patch"; sha256 = "95800293734d894c65059421d7947b3666e3cbe73ce0bd80d357b2c9ebf5b2e5"; })
+        ] ++ oldAttrs.patches;
+      });
     } // (if device == "Prestigio-Laptop" then {
     grub2 = (import <nixpkgs> {system = "i686-linux";}).grub2;
   } else {});
