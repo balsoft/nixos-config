@@ -17,9 +17,9 @@ rec {
                 sleep ${toString interval}
             done
         '';
-  };
+ };
 
-   weather = { color_good ? theme.green, color_rain ? theme.orange, color_cold ? theme.blue, city, city-id, owm-key ? secret.owm-key, terminal ? "${pkgs.konsole}/bin/konsole --noclose --fullscreen -e", interval ? 60 }: 
+ weather = { color_good ? theme.green, color_rain ? theme.orange, color_cold ? theme.blue, city, city-id, owm-key ? secret.owm-key, terminal ? "${pkgs.konsole}/bin/konsole --noclose --fullscreen -e", interval ? 60 }: 
     wrapScriptToLoop interval (pkgs.writeTextFile { 
       name = "weather"; 
       text = ''
@@ -199,12 +199,10 @@ rec {
     name = "battery";
     text = ''
       #!${pkgs.bash}/bin/bash
-      STATUS=`cat /sys/class/power_supply/BAT0/status`
-      CHARGE_MAH=`cat /sys/class/power_supply/BAT0/charge_now`
-      CHARGE_MAH_MAX=`cat /sys/class/power_supply/BAT0/charge_full`
-      CURRENT=`cat /sys/class/power_supply/BAT0/current_now`
-      CHARGE=$(${pkgs.bc}/bin/bc <<< $(echo 100 \* $CHARGE_MAH / $CHARGE_MAH_MAX))
-      TIME=`${pkgs.bc}/bin/bc <<< $(echo 100 \* $CHARGE_MAH / $CURRENT)`
+      BATTERY="`${pkgs.acpi}/bin/acpi -b`"
+      STATUS=`awk -F'[,:] ' '{print $2}' <<< "$BATTERY"`
+      CHARGE=`awk -F'[,%] ' '{print $2}' <<< "$BATTERY" | tr -d "%"`
+      TIME=`awk -F', ' '{print $3}' <<< "$BATTERY" | cut -d " " -f 1`
       case "$STATUS" in
         Full) ;& "Not charging") text="%{T6}%{T-} FULL"; color="${color_full}";;
         Charging) text="%{T3}%{T-} $CHARGE% ($TIME)"; color="${color_charging}";;
@@ -219,7 +217,7 @@ rec {
           fi
         ;;
       esac
-      echo "%{F${theme.fg}}$text"
+      echo "%{F${theme.fg}}%{A:${pkgs.gnome3.gnome-power-manager}/bin/gnome-power-statistics &:}$text%{A-}"
       echo $color
     '';
     executable = true;

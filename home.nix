@@ -17,7 +17,9 @@ let
     purple = "#b48ead";
     cyan = "#88c0d0";
   };
-term = "${pkgs.kdeApplications.konsole}/bin/konsole";
+  
+
+  term = "${pkgs.kdeApplications.konsole}/bin/konsole";
 
   secret = import ./secret.nix;
 
