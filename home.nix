@@ -963,8 +963,6 @@ rec {
     target = "albert/org.albert.extension.python/modules/" + name + ".py";
     text = value;
   }) scripts.albert;
-
-
   #xdg.dataFile."albert/org.albert.extension.python/modules/qalc.py".text = scripts.albert.qalc;
   #xdg.dataFile."albert/org.albert.extension.python/modules/nix.py".text = scripts.albert.nix;
   #xdg.dataFile."albert/org.albert.extension.python/modules/translate.py".text = scripts.albert.translate;
@@ -975,8 +973,7 @@ rec {
     konsole.data = "$DRY_RUN_CMD cp ~/.config/konsolerc.home ~/.config/konsolerc";
     kate.data = "$DRY_RUN_CMD cp ~/.config/katerc.home ~/.config/katerc";
     user-places.data = "$DRY_RUN_CMD cp ~/.local/share/user-places.xbel.home ~/.local/share/user-places.xbel";
-    mimeapps .data= "$DRY_RUN_CMD cp ~/.config/mimeapps.list.home ~/.config/mimeapps.list";
-    # FIXME soooo ugly and imperative...
+    mimeapps.data= "$DRY_RUN_CMD cp ~/.config/mimeapps.list.home ~/.config/mimeapps.list";
   };
 
   news.display = "silent";
