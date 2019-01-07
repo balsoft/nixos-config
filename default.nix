@@ -51,7 +51,7 @@ with import ./common.nix device pkgs; # Common stuff that is shared between home
     consoleLogLevel = 3;
     # There is a bug in newer versions of kernel that breaks wireless
     # TODO Figure out what to do here
-    kernelPackages = pkgs.linuxPackages_4_14;
+    kernelPackages = if device == "ASUS-Laptop" then pkgs.linuxPackages else pkgs.linuxPackages_latest;
     kernelParams = [ 
       "quiet" 
       "scsi_mod.use_blk_mq=1" 
@@ -109,11 +109,20 @@ with import ./common.nix device pkgs; # Common stuff that is shared between home
     libinput = {
       enable = true;
       sendEventsMode = "disabled-on-external-mouse";
-      middleEmulation = true;
+      middleEmulation = false;
       naturalScrolling = true;
-      dev = "/dev/input/event*";
     };
-    videoDrivers = if cpu == "amd" then [ "amdgpu" ] else if device == "Lenovo-Workstation" then [ "radeon" ] else [ "intel" ];    displayManager.lightdm = {
+    videoDrivers = if
+                     cpu == "amd"
+                   then
+                     [ "amdgpu" ]
+                   else if
+                     device == "Lenovo-Workstation"
+                   then
+                     [ "radeon" ]
+                   else
+                     [ "intel" ];
+    displayManager.lightdm = {
       enable = true;
       autoLogin.enable = !isShared;
       autoLogin.user = "balsoft";
@@ -247,12 +256,11 @@ with import ./common.nix device pkgs; # Common stuff that is shared between home
   
   
   # ====================== PROGRAMS & SERVICES ==============================
-  
+  environment.systemPackages = (builtins.filter pkgs.stdenv.lib.isDerivation (builtins.attrValues (pkgs.plasma5 // pkgs.plasma-workspace)));
   environment.sessionVariables = {
     EDITOR = editor;
     VISUAL = editor;
     SHELL = "zsh";
-
     QT_QPA_PLATFORMTHEME = "kde";
     QT_SCALE_FACTOR = "1";
     QT_AUTO_SCREEN_SCALE_FACTOR = "0";
@@ -263,7 +271,6 @@ with import ./common.nix device pkgs; # Common stuff that is shared between home
     DESKTOP_SESSION = "kde";
     QT_XFT = "true";
     QT_SELECT = "5";
-    
     XDG_CURRENT_DESKTOP="KDE";
     KDE_SESSION_VERSION="5";
   };
@@ -315,7 +322,7 @@ with import ./common.nix device pkgs; # Common stuff that is shared between home
     } // (if device == "Prestigio-Laptop" then {
     grub2 = (import <nixpkgs> {system = "i686-linux";}).grub2;
   } else {});
-
+  nixpkgs.config.android_sdk.accept_license = true;
   services.synergy = if device == "Lenovo-Workstation" then {
     server.enable = true;
     server.configFile = pkgs.writeTextFile {
@@ -377,7 +384,7 @@ end
 
   services.avahi.enable = true;
   programs.adb.enable = true;
-  nixpkgs.config.android_sdk.accept_license = true;
+
   systemd.services.systemd-udev-settle.enable = false;
 
   services.upower.enable = true;
