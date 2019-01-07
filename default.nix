@@ -51,7 +51,7 @@ with import ./common.nix device pkgs; # Common stuff that is shared between home
     consoleLogLevel = 3;
     # There is a bug in newer versions of kernel that breaks wireless
     # TODO Figure out what to do here
-    kernelPackages = if device == "ASUS-Laptop" then pkgs.linuxPackages else pkgs.linuxPackages_latest;
+    kernelPackages = if device == "ASUS-Laptop" then pkgs.linuxPackages else pkgs.linuxPackages;
     kernelParams = [ 
       "quiet" 
       "scsi_mod.use_blk_mq=1" 
@@ -256,7 +256,7 @@ with import ./common.nix device pkgs; # Common stuff that is shared between home
   
   
   # ====================== PROGRAMS & SERVICES ==============================
-  environment.systemPackages = (builtins.filter pkgs.stdenv.lib.isDerivation (builtins.attrValues (pkgs.plasma5 // pkgs.plasma-workspace)));
+  #environment.systemPackages = (builtins.filter pkgs.stdenv.lib.isDerivation (builtins.attrValues (pkgs.plasma5 // pkgs.plasma-workspace)));
   environment.sessionVariables = {
     EDITOR = editor;
     VISUAL = editor;
