@@ -427,16 +427,7 @@ rec {
   ++ 
   (with customPackages; [
     vk
-  ])
-  ++
-  (with pkgs.kdeApplications; [
-    ark dolphin dolphin-plugins dragon eventviews ffmpegthumbs
-    filelight gwenview kate kcachegrind kcalc kcolorchooser kdenlive
-    kleopatra kolourpaint kompare krdc krfb kruler ktnef kwalletmanager
-    marble okteta okular print-manager
-  ])
-  ++
-  (builtins.filter pkgs.stdenv.lib.isDerivation (builtins.attrValues (pkgs.plasma5)));
+  ]);
 
   programs.emacs = {
     enable = true;

@@ -77,7 +77,6 @@
   (define-key isearch-mode-map (kbd "C-v") 'isearch-yank-kill))
 
 (global-set-key (kbd "C-w") 'kill-buffer)
-(global-set-key (kbd "<f9>") 'compile)
 
 (global-display-line-numbers-mode)
 
@@ -227,7 +226,11 @@ If point was already at that position, move point to beginning of line."
   (global-unset-key [menu-bar tools Projectile])
   (projectile-register-project-type 'nix-shell '("shell.nix")
                                     :compile "nix-build shell.nix"
-                                    :run "nix-shell"))
+                                    :run "nix-shell")
+  (setq projectile-project-search-path '("~/projects/"))
+  
+  (global-set-key (kbd "<f9>") 'projectile-compile-project)
+  (global-set-key (kbd "<f5>") 'projectile-run-project))
 
 ;; -------------------
 ;; Yasnippet

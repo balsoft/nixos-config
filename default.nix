@@ -268,6 +268,21 @@ with import ./common.nix device pkgs; # Common stuff that is shared between home
     KDE_SESSION_VERSION="5";
   };
 
+  environment.systemPackages = (with pkgs.kdeApplications; [
+    ark dolphin dolphin-plugins dragon eventviews ffmpegthumbs
+    filelight gwenview kate kcachegrind kcalc kcolorchooser kdenlive
+    kleopatra kolourpaint kompare krdc krfb kruler ktnef kwalletmanager
+    marble okteta okular print-manager kio-extras
+  ])
+  ++
+  (builtins.filter pkgs.stdenv.lib.isDerivation (builtins.attrValues (pkgs.plasma5)))
+  ++ (with pkgs; [
+    kded
+    kdeFrameworks.kio
+    plasma-integration
+    kinit
+  ]);
+
   programs.ssh.askPassword = "${pkgs.ksshaskpass}/bin/ksshaskpass";
 
   environment.pathsToLink = [ "/share/zsh" ];
