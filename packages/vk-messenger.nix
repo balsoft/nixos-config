@@ -3,7 +3,7 @@ stdenv.mkDerivation rec {
   name = "vk-messenger";
   src = builtins.fetchurl {
     url = "https://desktop.userapi.com/linux64/master/vk.zip";
-    sha256 = "8e6f531e568b557657cf90fd09be39be928539d7e4d8bff0038b99fb53feb656";
+    sha256 = "0kk0ibx9hc0hfnv6vgc9pylxdwvsdllxlgp9zc2b2398dv6ddymg";
   };
   unpackPhase = "unzip $src -d $out";
   installPhase = ''
