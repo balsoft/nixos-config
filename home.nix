@@ -29,6 +29,8 @@ let
 
   customPackages = import ./packages {inherit pkgs;};
 
+  browser = "${pkgs.firefox}/bin/firefox";
+
   polybar_left = with scripts.polybar; [ 
     (weather { city-id = "513378"; city = "Ozery"; }) 
     (time {})
@@ -96,7 +98,7 @@ rec {
     package = pkgs.i3-gaps;
     config = rec {
       assigns = {
-        "" = [{ class = "Chromium"; }];
+        "" = [{ class = "Chromium"; } { class = "Firefox"; } ];
         "" = [{ class = "^Telegram"; } { class = "^VK"; } { class = "^trojita"; } ];
       };
       bars = [];
@@ -147,12 +149,13 @@ rec {
       startup = map (a: { notification = false; } // a) [
         { command = "${pkgs.albert}/bin/albert"; always = true; }
         { command = "${pkgs.tdesktop}/bin/telegram-desktop"; }
-        { command = "${pkgs.chromium}/bin/chromium"; }
+        { command = browser; }
         { command = "${customPackages.vk}/bin/vk"; }
         { command = "emacs  --daemon"; }
         { command = "${pkgs.kdeconnect}/lib/libexec/kdeconnectd"; }
         { command = "${pkgs.polkit-kde-agent}/lib/libexec/polkit-kde-authentication-agent-1"; }
         { command = "dunst"; }
+        { command = "${pkgs.keepassxc}/bin/keepassxc ${./misc/Passwords.kdbx}"; }
         {
           command = ''exec ${
             pkgs.writeTextFile {
@@ -212,7 +215,8 @@ rec {
         "${modifier}+Shift+F5" = "exit";
         "${modifier}+h" = "layout splith";
         "${modifier}+v" = "layout splitv";
-        
+        "${modifier}+-" = "move to scratchpad";
+        "${modifier}+=" = "scratchpad show";
       } // builtins.listToAttrs (
         builtins.genList (x: {name = "${modifier}+${toString x}"; value = "workspace ${toString x}";}) 10
       ) // builtins.listToAttrs (
@@ -393,6 +397,7 @@ rec {
     ffmpeg-full
     ghc
   ] else [] ) ++ [
+    firefox
     # Messaging
     tdesktop
     telepathy_haze
@@ -612,8 +617,8 @@ rec {
         };
       };
       "mimeapps.list.home".text = genIni {
-        "Default Applications" = {
-          "text/html" = "chromium-browser.desktop";
+        "Default Applications" = let browser = "firefox.desktop"; in {
+          "text/html" = browser;
           "image/*" = "org.kde.gwenview.desktop";
           "application/x-bittorrent" = "org.kde.ktorrent";
           "application/zip" = "org.kde.ark.desktop";
@@ -621,10 +626,10 @@ rec {
           "application/7z" = "org.kde.ark.desktop";
           "application/*tar" = "org.kde.ark.desktop";
           "application/x-kdenlive" = "org.kde.kdenlive.desktop";
-          "x-scheme-handler/http" = "chromium-browser.desktop";
-          "x-scheme-handler/https" = "chromium-browser.desktop";
-          "x-scheme-handler/about" = "chromium-browser.desktop";
-          "x-scheme-handler/unknown" = "chromium-browser.desktop";
+          "x-scheme-handler/http" = browser;
+          "x-scheme-handler/https" = browser;
+          "x-scheme-handler/about" = browser;
+          "x-scheme-handler/unknown" = browser;
           "x-scheme-handler/mailto" = "trojita.desktop";
           "application/pdf" = "org.kde.okular.desktop";
         };
@@ -976,11 +981,26 @@ rec {
   home.file.".icons/default".source = "${pkgs.breeze-qt5}/share/icons/breeze_cursors";
   home.file.".themes/Generated".source = "${themes.gtk}/generated";
   home.file.".emacs.d/init.el".source = ./scripts/init.el;
+  home.file.".mozilla/firefox/profiles.ini".text = genIni {
+    General.StartWithLastProfile = 1;
+    Profile0 = {
+      Name = "default";
+      IsRelative = 1;
+      Path = "profile.default";
+      Default = 1;
+    };
+  };
+  home.file.".mozilla/firefox/profile.default.home" = {
+    source = ./misc/firefox/profile.default;
+    recursive = true;
+  };
+  
   home.activation = builtins.mapAttrs (name: value: {inherit name; before = []; after = [ "linkGeneration" ];} // value) {
     konsole.data = "$DRY_RUN_CMD cp ~/.config/konsolerc.home ~/.config/konsolerc";
     kate.data = "$DRY_RUN_CMD cp ~/.config/katerc.home ~/.config/katerc";
     user-places.data = "$DRY_RUN_CMD cp ~/.local/share/user-places.xbel.home ~/.local/share/user-places.xbel";
     mimeapps.data= "$DRY_RUN_CMD cp ~/.config/mimeapps.list.home ~/.config/mimeapps.list";
+    firefox.data = "$DRY_RUN_CMD cp ~/.mozilla/firefox/profile.default.home/* ~/.mozilla/firefox/profile.default/ -r";
   };
 
   news.display = "silent";
