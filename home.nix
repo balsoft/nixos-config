@@ -992,7 +992,6 @@ rec {
   };
   home.file.".mozilla/firefox/profile.default.home" = {
     source = ./misc/firefox/profile.default;
-    recursive = true;
   };
   
   home.activation = builtins.mapAttrs (name: value: {inherit name; before = []; after = [ "linkGeneration" ];} // value) {
