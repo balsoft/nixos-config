@@ -144,7 +144,7 @@ rec {
           }
         ];
       };
-      startup = [
+      startup = map (a: { notification = false; } // a) [
         { command = "${pkgs.albert}/bin/albert"; always = true; }
         { command = "${pkgs.tdesktop}/bin/telegram-desktop"; }
         { command = "${pkgs.chromium}/bin/chromium"; }
