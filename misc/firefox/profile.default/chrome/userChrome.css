@@ -1,0 +1,8 @@
+/* hides the native tabs */
+#TabsToolbar {
+  visibility: collapse;
+}
+
+toolbar#nav-bar, nav-bar-customization-target {
+    background: #2e3440 !important;
+}
