@@ -104,10 +104,10 @@ rec {
       colors = rec{
         background = thm.bg;
         unfocused = {
-          text = thm.fg;
+          text = thm.alt;
           border = thm.bg;
-          background = thm.alt;
-          childBorder = thm.alt;
+          background = thm.bg;
+          childBorder = thm.bg;
           indicator = thm.fg;
         };
         focusedInactive = unfocused;
@@ -125,6 +125,7 @@ rec {
       gaps = {
         inner = 6;
         smartGaps = true;
+        smartBorders = "on";
       };
       focus.mouseWarping = true;
       modifier = "Mod4";
@@ -140,7 +141,7 @@ rec {
           {
             command = "border pixel 1px";
             criteria = { window_role = "popup"; };
-          } 
+          }
         ];
       };
       startup = [
@@ -152,21 +153,36 @@ rec {
         { command = "${pkgs.kdeconnect}/lib/libexec/kdeconnectd"; }
         { command = "${pkgs.polkit-kde-agent}/lib/libexec/polkit-kde-authentication-agent-1"; }
         { command = "dunst"; }
-        { command = ''exec ${pkgs.writeTextFile { name = "start_scripts"; text = scripts.polybar.start_scripts (polybar_left ++ polybar_right); executable = true;}}''; }
+        {
+          command = ''exec ${
+            pkgs.writeTextFile {
+              name = "start_scripts";
+              text = scripts.polybar.start_scripts (polybar_left ++ polybar_right);
+              executable = true;
+              }
+          }'';
+        }
         { command = "balooctl start"; }
         { command = "${pkgs.autorandr}/bin/autorandr --force horizontal"; always = true; }
-        #{ command = "google-drive-ocamlfuse '/home/balsoft/Google Drive/'"; }
-        #{ command = "pkill compton; allow_rgb10_configs = false ${pkgs.compton}/bin/compton --backend glx --vsync opengl-swc"; always = true;}
-        { command = "trojita"; } 
+        { command = "${pkgs.trojita}/bin/trojita"; } 
         { command = term; workspace = "0"; }
         { command = "google-drive-ocamlfuse -headless -f '/home/balsoft/Google Drive'"; }
         { command = "${pkgs.hsetroot}/bin/hsetroot -solid '${thm.bg}'"; always = true; }
+        { command = ''${pkgs.i3}/bin/i3-msg 'workspace ""; layout tabbed;' ''; always = true; }
       ];
-      keybindings = let moveMouse = ''"sh -c 'eval `${pkgs.xdotool}/bin/xdotool getactivewindow getwindowgeometry --shell`; ${pkgs.xdotool}/bin/xdotool mousemove $((X+WIDTH/2)) $((Y+HEIGHT/2))'"''; in
+      keybindings = let moveMouse = ''"sh -c 'eval `${
+        pkgs.xdotool
+      }/bin/xdotool \
+      getactivewindow \
+      getwindowgeometry --shell`; ${
+        pkgs.xdotool
+      }/bin/xdotool \
+      mousemove \
+      $((X+WIDTH/2)) $((Y+HEIGHT/2))'"''; in
       ({
         "${modifier}+q" = "kill";
         "${modifier}+Return" = "exec ${term}";
-        "${modifier}+e" = "exec ${editor} -c -n -e '(switch-to-buffer nil)'";
+        "${modifier}+e" = "exec ${editor} -c -n";
         "${modifier}+l" = "layout toggle";
         "${modifier}+Left" = "focus left; exec ${moveMouse}";
         "${modifier}+Right" = "focus right; exec ${moveMouse}";
