@@ -107,9 +107,9 @@ rec {
         background = thm.bg;
         unfocused = {
           text = thm.alt;
-          border = thm.bg;
+          border = thm.dark;
           background = thm.bg;
-          childBorder = thm.bg;
+          childBorder = thm.dark;
           indicator = thm.fg;
         };
         focusedInactive = unfocused;
@@ -120,7 +120,8 @@ rec {
         };
         focused = unfocused // {
           childBorder = thm.blue;
-          background = thm.bg;
+          border = thm.blue;
+          background = thm.dark;
           text = thm.fg;
         };
       };
@@ -155,7 +156,7 @@ rec {
         { command = "${pkgs.kdeconnect}/lib/libexec/kdeconnectd"; }
         { command = "${pkgs.polkit-kde-agent}/lib/libexec/polkit-kde-authentication-agent-1"; }
         { command = "dunst"; }
-        { command = "${pkgs.keepassxc}/bin/keepassxc ${./misc/Passwords.kdbx}"; }
+        { command = "${pkgs.keepassxc}/bin/keepassxc /home/balsoft/projects/nixos-config/misc/Passwords.kdbx"; }
         {
           command = ''exec ${
             pkgs.writeTextFile {
@@ -187,10 +188,14 @@ rec {
         "${modifier}+Return" = "exec ${term}";
         "${modifier}+e" = "exec ${editor} -c -n";
         "${modifier}+l" = "layout toggle";
-        "${modifier}+Left" = "focus left; exec ${moveMouse}";
-        "${modifier}+Right" = "focus right; exec ${moveMouse}";
-        "${modifier}+Up" = "focus up; exec ${moveMouse}";
-        "${modifier}+Down" = "focus down; exec ${moveMouse}";
+        "${modifier}+Left" = "focus child; focus left; exec ${moveMouse}";
+        "${modifier}+Right" = "focus child; focus right; exec ${moveMouse}";
+        "${modifier}+Up" = "focus child; focus up; exec ${moveMouse}";
+        "${modifier}+Down" = "focus child; focus down; exec ${moveMouse}";
+        "${modifier}+Control+Left" = "focus parent; focus left; exec ${moveMouse}";
+        "${modifier}+Control+Right" = "focus parent; focus right; exec ${moveMouse}";
+        "${modifier}+Control+Up" = "focus parent; focus up; exec ${moveMouse}";
+        "${modifier}+Control+Down" = "focus parent; focus down; exec ${moveMouse}";
         "${modifier}+Shift+Up" = "move up";
         "${modifier}+Shift+Down" = "move down";
         "${modifier}+Shift+Right" = "move right";
