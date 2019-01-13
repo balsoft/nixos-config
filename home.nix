@@ -995,16 +995,38 @@ rec {
       Default = 1;
     };
   };
-  home.file.".mozilla/firefox/profile.default.home" = {
-    source = ./misc/firefox/profile.default;
+  home.file.".mozilla/firefox/profile.default/user.js".text = ''
+  pref("browser.uidensity", 1);
+  pref("browser.search.openintab", true);
+  '';
+  home.file.".mozilla/firefox/profile.default/chrome/userChrome.css".text = ''
+  #TabsToolbar {
+    visibility: collapse;
+  }
+  toolbar#nav-bar, nav-bar-customization-target {
+    background: #2e3440 !important;
+  }
+  '';
+  home.file.".mozilla/firefox/profile.default/extensions/uBlock0@raymondhill.net.xpi".source =
+  builtins.fetchurl {
+    url = "https://github.com/gorhill/uBlock/releases/download/1.17.7b3/uBlock0_1.17.7b3.firefox.signed.xpi";
+    sha256 = "483a9921f93a77a0ef47ea57a212556ad86b1b3117ff5b6134ae993362e4f804";
   };
-  
+  home.file.".mozilla/firefox/profile.default/extensions/{c9f848fb-3fb6-4390-9fc1-e4dd4d1c5122}.xpi".source =
+  builtins.fetchurl {
+    url = "https://addons.mozilla.org/firefox/downloads/file/883289/no_tabs-1.1-an+fx-linux.xpi";
+    sha256 = "48e846a60b217c13ee693ac8bfe23a8bdef2ec073f5f713cce0e08814f280354";
+  };
+  home.file.".mozilla/firefox/profile.default/extensions/keepassxc-browser@keepassxc.org.xpi".source =
+  builtins.fetchurl {
+    url = "https://addons.mozilla.org/firefox/downloads/file/1205950/keepassxc_browser-1.3.2-fx.xpi";
+    sha256 = "8a9c13f36b6ea8c5287ea6f99a8a9dc8c28b615c529e44d630221c03aee26790";
+  };
   home.activation = builtins.mapAttrs (name: value: {inherit name; before = []; after = [ "linkGeneration" ];} // value) {
     konsole.data = "$DRY_RUN_CMD cp ~/.config/konsolerc.home ~/.config/konsolerc";
     kate.data = "$DRY_RUN_CMD cp ~/.config/katerc.home ~/.config/katerc";
     user-places.data = "$DRY_RUN_CMD cp ~/.local/share/user-places.xbel.home ~/.local/share/user-places.xbel";
     mimeapps.data= "$DRY_RUN_CMD cp ~/.config/mimeapps.list.home ~/.config/mimeapps.list";
-    firefox.data = "$DRY_RUN_CMD cp ~/.mozilla/firefox/profile.default.home/* ~/.mozilla/firefox/profile.default/ -r";
   };
 
   news.display = "silent";
