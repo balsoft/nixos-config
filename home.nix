@@ -1012,8 +1012,8 @@ rec {
   '';
   home.file.".mozilla/firefox/profile.default/extensions/uBlock0@raymondhill.net.xpi".source =
   builtins.fetchurl {
-    url = "https://github.com/gorhill/uBlock/releases/download/1.17.7b3/uBlock0_1.17.7b3.firefox.signed.xpi";
-    sha256 = "483a9921f93a77a0ef47ea57a212556ad86b1b3117ff5b6134ae993362e4f804";
+    url = "https://addons.mozilla.org/firefox/downloads/file/1166954/ublock_origin-1.17.4-an+fx.xpi";
+    sha256 = "54c9a1380900eb1eba85df3a82393cef321e9c845fda227690d9377ef30e913e";
   };
   home.file.".mozilla/firefox/profile.default/extensions/{c9f848fb-3fb6-4390-9fc1-e4dd4d1c5122}.xpi".source =
   builtins.fetchurl {
