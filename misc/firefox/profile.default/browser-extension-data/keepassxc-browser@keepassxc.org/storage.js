@@ -1,1 +1,0 @@
-{"settings":{"checkUpdateKeePassXC":3,"autoCompleteUsernames":true,"autoFillAndSend":false,"usePasswordGenerator":true,"autoFillSingleEntry":false,"autoRetrieveCredentials":true,"showNotifications":true,"showLoginNotifications":true,"saveDomainOnly":true},"latestKeePassXC":{"version":"2.3.4","lastChecked":1547241861296}}

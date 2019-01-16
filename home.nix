@@ -996,6 +996,9 @@ rec {
     };
   };
   home.file.".mozilla/firefox/profile.default/user.js".text = ''
+  pref("extensions.autoDisableScopes", 0);
+  pref("browser.search.defaultenginename", "Google");
+  pref("browser.search.selectedEngine", "Google");
   pref("browser.uidensity", 1);
   pref("browser.search.openintab", true);
   '';
