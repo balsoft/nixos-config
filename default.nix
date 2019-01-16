@@ -67,7 +67,7 @@ with import ./common.nix device pkgs; # Common stuff that is shared between home
     kernel.sysctl = {
       "vm.swappiness" = 0;
     };
-    extraModprobeConfig = "options iwlwifi swcrypto=0 bt_coex_active=0 11n_disable=1 power_save=0 power_level=5 bt_coex_active=1"; # Attempt to fix broken wireless
+    extraModprobeConfig = "options iwlwifi swcrypto=1 power_save=0 power_level=5 11n_disable=8 bt_coex_active=1"; # Attempt to fix broken wireless
     blacklistedKernelModules = if device == "Prestigio-Laptop" then [ "axp288_charger" "axp288_fuel_gauge" "axp288_adc" ] else [  ]; # Battery driver sometimes breaks this cheap laptop
   };
 
@@ -132,10 +132,6 @@ with import ./common.nix device pkgs; # Common stuff that is shared between home
         iconTheme = {
           package = pkgs.papirus-icon-theme;
           name = "Papirus-Dark";
-        };
-        theme = {
-          package = pkgs.breeze-gtk;
-          name = "Breeze-Dark";
         };
       };
     };
@@ -290,7 +286,7 @@ with import ./common.nix device pkgs; # Common stuff that is shared between home
     kinit
   ]);
 
-  programs.ssh.askPassword = "${pkgs.ksshaskpass}/bin/ksshaskpass";
+  programs.ssh.askPassword = "${pkgs.plasma5.ksshaskpass}/bin/ksshaskpass";
 
   environment.pathsToLink = [ "/share/zsh" ];
 
@@ -310,17 +306,20 @@ with import ./common.nix device pkgs; # Common stuff that is shared between home
     nur = pkgs.callPackage (import (builtins.fetchGit {
       url = "https://github.com/nix-community/NUR";
     })) {};
-    movit = (import <nixpkgs> {}).movit.overrideAttrs (old: { # Currently, movit fails
+    movit = old.movit.overrideAttrs (oldAttrs: { # Currently, movit fails
       doCheck = false;
-      GTEST_DIR = "${(import <nixpkgs> {}).gtest.src}/googletest";
+      GTEST_DIR = "${old.gtest.src}/googletest";
+    });
+    plasma5 = old.plasma5 // {xdg-desktop-portal-kde = old.plasma5.xdg-desktop-portal-kde.overrideAttrs (oldAttrs: {
+      buildInputs = oldAttrs.buildInputs ++  [ old.cups ];
     });
       tdesktop = old.tdesktop.overrideAttrs (oldAttrs: {
         patches = [
         (builtins.fetchurl { url = "https://raw.githubusercontent.com/msva/mva-overlay/master/net-im/telegram-desktop/files/patches/1.5.6/conditional/wide-baloons/0001_baloons-follows-text-width-on-adaptive-layout.patch"; sha256 = "95800293734d894c65059421d7947b3666e3cbe73ce0bd80d357b2c9ebf5b2e5"; })
         ] ++ oldAttrs.patches;
-      });
+        });};
     } // (if device == "Prestigio-Laptop" then {
-    grub2 = (import <nixpkgs> {system = "i686-linux";}).grub2;
+    grub2 = old.pkgsi686Linux.grub2;
   } else {});
   nixpkgs.config.android_sdk.accept_license = true;
   services.synergy = if device == "Lenovo-Workstation" then {
