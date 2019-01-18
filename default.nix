@@ -284,6 +284,7 @@ with import ./common.nix device pkgs; # Common stuff that is shared between home
     kdeFrameworks.kio
     plasma-integration
     kinit
+    plasma5.xdg-desktop-portal-kde
   ]);
 
   programs.ssh.askPassword = "${pkgs.plasma5.ksshaskpass}/bin/ksshaskpass";

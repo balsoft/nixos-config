@@ -170,7 +170,7 @@ rec {
         { command = "${pkgs.autorandr}/bin/autorandr --force horizontal"; always = true; }
         { command = "${pkgs.trojita}/bin/trojita"; } 
         { command = term; workspace = "0"; }
-        { command = "google-drive-ocamlfuse -headless -f '/home/balsoft/Google Drive'"; }
+        { command = "${pkgs.rclone}/bin/rclone mount google:/ '/home/balsoft/Google Drive' --verbose --daemon"; }
         { command = "${pkgs.hsetroot}/bin/hsetroot -solid '${thm.bg}'"; always = true; }
         { command = ''${pkgs.i3}/bin/i3-msg 'workspace ""; layout tabbed;' ''; always = true; }
       ];
@@ -1001,6 +1001,7 @@ rec {
   pref("browser.search.selectedEngine", "Google");
   pref("browser.uidensity", 1);
   pref("browser.search.openintab", true);
+  pref("accessibility.browsewithcaret", true);
   '';
   home.file.".mozilla/firefox/profile.default/chrome/userChrome.css".text = ''
   #TabsToolbar {
