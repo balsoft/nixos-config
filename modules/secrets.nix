@@ -24,5 +24,8 @@ with lib;
       description = "SSH RSA private key";
     };
   };
-  config = {};
+  config =
+  {
+    secrets = import ../secret.nix;       
+  };
 }

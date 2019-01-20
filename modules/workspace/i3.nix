@@ -4,7 +4,7 @@ let thm = config.themes.colors;
     customPackages = pkgs.callPackage ../../packages {};
 in
 {
-  home-manager.users.balsoft.  xsession.windowManager.i3 = {
+  home-manager.users.balsoft.xsession.windowManager.i3 = {
     enable = true;
     package = pkgs.i3-gaps;
     config = rec {
@@ -14,6 +14,7 @@ in
       };
       bars = [];
       fonts = [ "RobotoMono 9" ];
+      
       colors = rec{
         background = thm.bg;
         unfocused = {
@@ -66,7 +67,6 @@ in
         { command = "emacs  --daemon"; }
         { command = "${pkgs.kdeconnect}/lib/libexec/kdeconnectd"; }
         { command = "${pkgs.polkit-kde-agent}/lib/libexec/polkit-kde-authentication-agent-1"; }
-        { command = "dunst"; }
         { command = "${pkgs.keepassxc}/bin/keepassxc /home/balsoft/projects/nixos-config/misc/Passwords.kdbx"; }
         { command = "balooctl start"; }
         { command = "${pkgs.autorandr}/bin/autorandr --force horizontal"; always = true; }
@@ -117,7 +117,7 @@ in
         "${modifier}+Shift+c" = "move container to workspace ";
         "${modifier}+t" = "workspace ";
         "${modifier}+Shift+t" = "move container to workspace ";
-        "${modifier}+k" = "exec ${pkgs.xorg.xkill}/bin/xkill";
+        "${modifier}+k" = "exec '${pkgs.xorg.xkill}/bin/xkill'";
         "${modifier}+F5" = "restart";
         "${modifier}+Shift+F5" = "exit";
         "${modifier}+h" = "layout splith";

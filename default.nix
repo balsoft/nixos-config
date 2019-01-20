@@ -20,7 +20,7 @@ with import ./common.nix device pkgs; # Common stuff that is shared between home
     "${builtins.fetchGit { url="https://github.com/rycee/home-manager"; ref="master"; }}/nixos"
     ./modules
   ];
-
+  inherit device;
   hardware.cpu.${cpu}.updateMicrocode = true; # Update microcode
   
   hardware.enableRedistributableFirmware = true; # For some unfree drivers
@@ -260,7 +260,7 @@ with import ./common.nix device pkgs; # Common stuff that is shared between home
     QT_QPA_PLATFORMTHEME = "kde";
     QT_SCALE_FACTOR = "1";
     QT_AUTO_SCREEN_SCALE_FACTOR = "0";
-    GTK_THEME = "Generated";
+    #GTK_THEME = "Generated";
     LESS = "-asrRix8";
     DE = "kde";
     #XDG_CURRENT_DESKTOP = "kde";
@@ -313,15 +313,17 @@ with import ./common.nix device pkgs; # Common stuff that is shared between home
     });
     plasma5 = old.plasma5 // {xdg-desktop-portal-kde = old.plasma5.xdg-desktop-portal-kde.overrideAttrs (oldAttrs: {
       buildInputs = oldAttrs.buildInputs ++  [ old.cups ];
-    });
+      });};
       tdesktop = old.tdesktop.overrideAttrs (oldAttrs: {
         patches = [
         (builtins.fetchurl { url = "https://raw.githubusercontent.com/msva/mva-overlay/master/net-im/telegram-desktop/files/patches/1.5.6/conditional/wide-baloons/0001_baloons-follows-text-width-on-adaptive-layout.patch"; sha256 = "95800293734d894c65059421d7947b3666e3cbe73ce0bd80d357b2c9ebf5b2e5"; })
         ] ++ oldAttrs.patches;
-        });};
+        });
     } // (if device == "Prestigio-Laptop" then {
     grub2 = old.pkgsi686Linux.grub2;
-  } else {});
+  } else {})
+  #// (old.callPackage ./packages {})
+  ;
   nixpkgs.config.android_sdk.accept_license = true;
   services.synergy = if device == "Lenovo-Workstation" then {
     server.enable = true;
