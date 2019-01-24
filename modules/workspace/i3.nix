@@ -75,6 +75,7 @@ in
         { command = "${pkgs.rclone}/bin/rclone mount google:/ '/home/balsoft/Google Drive' --verbose --daemon"; }
         { command = "${pkgs.hsetroot}/bin/hsetroot -solid '${thm.bg}'"; always = true; }
         { command = ''${pkgs.i3}/bin/i3-msg 'workspace ""; layout tabbed;' ''; always = true; }
+        { command = "${pkgs.termNote}/bin/noted"; }
       ];
       keybindings = let moveMouse = ''"sh -c 'eval `${
         pkgs.xdotool

@@ -285,6 +285,9 @@ with import ./common.nix device pkgs; # Common stuff that is shared between home
     plasma-integration
     kinit
     plasma5.xdg-desktop-portal-kde
+    termNote
+    stdman
+    stdmanpages
   ]);
 
   programs.ssh.askPassword = "${pkgs.plasma5.ksshaskpass}/bin/ksshaskpass";
@@ -307,6 +310,7 @@ with import ./common.nix device pkgs; # Common stuff that is shared between home
     nur = pkgs.callPackage (import (builtins.fetchGit {
       url = "https://github.com/nix-community/NUR";
     })) {};
+    termNote = (import (builtins.fetchGit {url = "https://github.com/Terodom/termNote"; ref = "master";}));
     movit = old.movit.overrideAttrs (oldAttrs: { # Currently, movit fails
       doCheck = false;
       GTEST_DIR = "${old.gtest.src}/googletest";
