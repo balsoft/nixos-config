@@ -1,5 +1,5 @@
-{ pkgs }:
+{ callPackage }:
 {
-  mconnect = pkgs.callPackage ./mconnect.nix {};
-  vk = pkgs.callPackage ./vk-messenger.nix {};
+  mconnect = callPackage ./mconnect.nix {};
+  vk = callPackage ./vk-messenger.nix {};
 }

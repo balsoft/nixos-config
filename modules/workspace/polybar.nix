@@ -1,8 +1,11 @@
 {pkgs, config, lib, ...}:
 with lib;
-let cfg = config.services.my-polybar-generator;
+with config.deviceSpecific;
+let 
     thm = config.themes.colors;
+    theme = thm;
     secret = config.secrets;
+    device = config.device;
     text_and_color_for_powerline = (arr: ''
       ${builtins.concatStringsSep "\n" (builtins.genList (i: ''
       readarray -t arr${builtins.toString i} < "/tmp/bar/${(builtins.elemAt arr i).name}"
@@ -348,7 +351,7 @@ let cfg = config.services.my-polybar-generator;
     '';
     executable = true;
   };
-  polybar_left = with scripts.polybar; [ 
+  polybar_left = [ 
     (weather { city-id = "513378"; city = "Ozery"; }) 
     (time {})
     (now {})
@@ -356,7 +359,7 @@ let cfg = config.services.my-polybar-generator;
     (email { user = secret.gmail.user; password = secret.gmail.password; }) 
   ];
 
-  polybar_right = with scripts.polybar; [
+  polybar_right = [
     (status {})
   ] ++ (lib.optionals isLaptop [
     (brightness { inherit device; })
@@ -370,7 +373,7 @@ let cfg = config.services.my-polybar-generator;
 
 in
 {
-  config = {
+  home-manager.users.balsoft = rec {
     xsession.windowManager.i3.config.startup = [
       {
         command = ''exec ${
@@ -429,5 +432,16 @@ in
     };
     script = "";
   };
+  programs.autorandr.enable = true;
+  programs.autorandr.hooks =
+  {
+    predetect = {
+      polybar = "kill -9 $(pgrep polybar); sleep 0.5";
+    };
+    postswitch = {
+      polybar = "for i in $(polybar -m | cut -d ':' -f 1); do MONITOR=$i polybar top & sleep 0.5; done";
+    };
   };
+    
+};
 }

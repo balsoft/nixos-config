@@ -1,6 +1,6 @@
 { pkgs, config, ...}:
 {
-   config.programs.zsh = {
+   home-manager.users.balsoft.programs.zsh = {
     enable = true;
     enableAutosuggestions = true;
     enableCompletion = true;
@@ -16,6 +16,8 @@
       "p" = "nix-shell --run zsh -p";
       "r" = "_r(){nix run nixpkgs.$1 -c $@};_r";
       "b" = "nix-build \"<nixpkgs>\" --no-out-link -A";
+      "post" = ''curl -F "f:1=<-" ix.io'';
+      "clip" = "${pkgs.xclip}/bin/xclip -selection clipboard";
     };
     initExtra = ''
   cmdignore=(htop tmux top vim)

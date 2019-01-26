@@ -27,362 +27,18 @@ let
 
   themes = import ./themes {inherit thm; inherit pkgs; inherit genIni;};
 
-  customPackages = import ./packages {inherit pkgs;};
+  customPackages = pkgs.callPackages ./packages {};
 
   browser = "${pkgs.firefox}/bin/firefox";
 
-  polybar_left = with scripts.polybar; [ 
-    (weather { city-id = "513378"; city = "Ozery"; }) 
-    (time {})
-    (now {})
-    (next {}) 
-    (email { user = secret.gmail.user; password = secret.gmail.password; }) 
-  ];
-
-  polybar_right = with scripts.polybar; [
-    (status {})
-  ] ++ (lib.optionals isLaptop [
-    (brightness { inherit device; })
-  ]) ++ (lib.optionals (device != "Prestigio-Laptop") [
-    (sound {})
-  ]) ++ (if (isLaptop && device != "Prestigio-Laptop") then [
-    (battery {})
-  ] else []) ++ [
-    (network {})
-  ];
 
 in
 rec {
-  programs.home-manager = {
-    enable = true;
-    path = https://github.com/rycee/home-manager/archive/master.tar.gz;
-  };
   
-  programs.zsh = {
-    enable = true;
-    enableAutosuggestions = true;
-    enableCompletion = programs.zsh.enableAutosuggestions;
-    oh-my-zsh = {
-      enable = true;
-      theme = "agnoster";
-      plugins = [
-        "git"
-        "dirhistory"
-      ];
-    };
-    shellAliases = {
-      "p" = "nix-shell --run zsh -p";
-      "r" = "_r(){nix run nixpkgs.$1 -c $@};_r";
-      "b" = "nix-build \"<nixpkgs>\" --no-out-link -A";
-    };
-    initExtra = scripts.zshrc;
-  };
 
-  gtk = {
-    enable = true;
-    iconTheme = {
-      name = "Papirus-Dark";
-      package = pkgs.papirus-icon-theme;
-    };
-  };
-  home.language = let base = "en_GB.UTF-8"; rest = "ru_RU.UTF-8"; in {
-    address = rest;
-    monetary = rest;
-    paper = rest;
-    time = rest;
-    base = base;
-  };
+  
 
-  xsession.windowManager.i3 = {
-    enable = true;
-    package = pkgs.i3-gaps;
-    config = rec {
-      assigns = {
-        "" = [{ class = "Chromium"; } { class = "Firefox"; } ];
-        "" = [{ class = "^Telegram"; } { class = "^VK"; } { class = "^trojita"; } ];
-      };
-      bars = [];
-      fonts = [ "RobotoMono 9" ];
-      colors = rec{
-        background = thm.bg;
-        unfocused = {
-          text = thm.alt;
-          border = thm.dark;
-          background = thm.bg;
-          childBorder = thm.dark;
-          indicator = thm.fg;
-        };
-        focusedInactive = unfocused;
-        urgent = unfocused // {
-          text = thm.fg;
-          border = thm.orange;
-          childBorder = thm.orange;
-        };
-        focused = unfocused // {
-          childBorder = thm.blue;
-          border = thm.blue;
-          background = thm.dark;
-          text = thm.fg;
-        };
-      };
-      gaps = {
-        inner = 6;
-        smartGaps = true;
-        smartBorders = "on";
-      };
-      focus.mouseWarping = true;
-      modifier = "Mod4";
-      window = {
-        border = 1;
-        titlebar = false;
-        hideEdgeBorders = "smart";
-        commands = [ 
-          {
-            command = "focus";
-            criteria = { urgent = "latest"; };
-          } 
-          {
-            command = "border pixel 1px";
-            criteria = { window_role = "popup"; };
-          }
-        ];
-      };
-      startup = map (a: { notification = false; } // a) [
-        { command = "${pkgs.albert}/bin/albert"; always = true; }
-        { command = "${pkgs.tdesktop}/bin/telegram-desktop"; }
-        { command = browser; }
-        { command = "${customPackages.vk}/bin/vk"; }
-        { command = "emacs  --daemon"; }
-        { command = "${pkgs.kdeconnect}/lib/libexec/kdeconnectd"; }
-        { command = "${pkgs.polkit-kde-agent}/lib/libexec/polkit-kde-authentication-agent-1"; }
-        { command = "dunst"; }
-        { command = "${pkgs.keepassxc}/bin/keepassxc /home/balsoft/projects/nixos-config/misc/Passwords.kdbx"; }
-        {
-          command = ''exec ${
-            pkgs.writeTextFile {
-              name = "start_scripts";
-              text = scripts.polybar.start_scripts (polybar_left ++ polybar_right);
-              executable = true;
-              }
-          }'';
-        }
-        { command = "balooctl start"; }
-        { command = "${pkgs.autorandr}/bin/autorandr --force horizontal"; always = true; }
-        { command = "${pkgs.trojita}/bin/trojita"; } 
-        { command = term; workspace = "0"; }
-        { command = "google-drive-ocamlfuse -headless -f '/home/balsoft/Google Drive'"; }
-        { command = "${pkgs.hsetroot}/bin/hsetroot -solid '${thm.bg}'"; always = true; }
-        { command = ''${pkgs.i3}/bin/i3-msg 'workspace ""; layout tabbed;' ''; always = true; }
-      ];
-      keybindings = let moveMouse = ''"sh -c 'eval `${
-        pkgs.xdotool
-      }/bin/xdotool \
-      getactivewindow \
-      getwindowgeometry --shell`; ${
-        pkgs.xdotool
-      }/bin/xdotool \
-      mousemove \
-      $((X+WIDTH/2)) $((Y+HEIGHT/2))'"''; in
-      ({
-        "${modifier}+q" = "kill";
-        "${modifier}+Return" = "exec ${term}";
-        "${modifier}+e" = "exec ${editor} -c -n";
-        "${modifier}+l" = "layout toggle";
-        "${modifier}+Left" = "focus child; focus left; exec ${moveMouse}";
-        "${modifier}+Right" = "focus child; focus right; exec ${moveMouse}";
-        "${modifier}+Up" = "focus child; focus up; exec ${moveMouse}";
-        "${modifier}+Down" = "focus child; focus down; exec ${moveMouse}";
-        "${modifier}+Control+Left" = "focus parent; focus left; exec ${moveMouse}";
-        "${modifier}+Control+Right" = "focus parent; focus right; exec ${moveMouse}";
-        "${modifier}+Control+Up" = "focus parent; focus up; exec ${moveMouse}";
-        "${modifier}+Control+Down" = "focus parent; focus down; exec ${moveMouse}";
-        "${modifier}+Shift+Up" = "move up";
-        "${modifier}+Shift+Down" = "move down";
-        "${modifier}+Shift+Right" = "move right";
-        "${modifier}+Shift+Left" = "move left";
-        "${modifier}+f" = "fullscreen toggle";
-        "${modifier}+r" = "mode resize";
-        "${modifier}+Shift+f" = "floating toggle";
-        "${modifier}+d" = "exec ${pkgs.dolphin}/bin/dolphin";
-        "${modifier}+Escape" = "exec ${pkgs.ksysguard}/bin/ksysguard";
-        "${modifier}+Print" = "exec scrot -e 'mv $f ~/Pictures && notify-send \"Screenshot saved as ~/Pictures/$f\"'";
-        "${modifier}+Control+Print" = "exec scrot -e 'xclip -selection clipboard -t image/png -i $f && notify-send \"Screenshot copied to clipboard\" && rm $f'";
-        "--release ${modifier}+Shift+Print" = "exec scrot -s -e 'mv $f ~/Pictures && notify-send \"Screenshot saved as ~/Pictures/$f\"'";
-        "--release ${modifier}+Control+Shift+Print" = "exec scrot -s -e 'xclip -selection clipboard -t image/png -i $f && notify-send \"Screenshot copied to clipboard\" && rm $f'";
-        "${modifier}+x" = "move workspace to output right"; 
-        "${modifier}+z" = "exec ${pkgs.i3-easyfocus}/bin/i3-easyfocus";
-        "${modifier}+c" = "workspace ";
-        "${modifier}+Shift+c" = "move container to workspace ";
-        "${modifier}+t" = "workspace ";
-        "${modifier}+Shift+t" = "move container to workspace ";
-        "${modifier}+k" = "exec ${pkgs.xorg.xkill}/bin/xkill";
-        "${modifier}+F5" = "restart";
-        "${modifier}+Shift+F5" = "exit";
-        "${modifier}+h" = "layout splith";
-        "${modifier}+v" = "layout splitv";
-        "${modifier}+-" = "move to scratchpad";
-        "${modifier}+=" = "scratchpad show";
-      } // builtins.listToAttrs (
-        builtins.genList (x: {name = "${modifier}+${toString x}"; value = "workspace ${toString x}";}) 10
-      ) // builtins.listToAttrs (
-        builtins.genList (x: {name = "${modifier}+Shift+${toString x}"; value = "move container to workspace ${toString x}";}) 10
-      ));
-      keycodebindings = {
-        "122" = "exec ${pkgs.pamixer}/bin/pamixer -d 5";
-        "123" = "exec ${pkgs.pamixer}/bin/pamixer -i 5";
-        "121" = "exec ${pkgs.pamixer}/bin/pamixer -t";
-        "164" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
-        "163" = "exec ${pkgs.playerctl}/bin/playerctl next";
-        "165" = "exec ${pkgs.playerctl}/bin/playerctl previous";
-      };
-    };
-  };
-
-
-  services.polybar = {
-    enable = true;
-    package = pkgs.polybar.override {
-      i3Support = true;
-      alsaSupport = false;
-      nlSupport = false;
-    };
-    config = {
-      "bar/top" = {
-        font-0 = "Roboto Mono for Powerline:size=" + (if smallScreen then "8;1" else "11;2");
-        font-3 = "Roboto Mono for Powerline:size=" + (if smallScreen then "18;4" else "24;5");
-        font-1 = "Noto Sans Symbols2:size=15;4";
-        font-2 = "Noto Emoji:size=" + (if smallScreen then "8;1" else "11;2");
-        font-4 = "Unifont:size=" + (if smallScreen then "8;1" else "11;2");
-        font-5 = "Material Icons:size=" + (if smallScreen then "10;2" else "16;4");
-        width = "100%";
-        height = if smallScreen then "19px" else "25px";
-        radius = 0;
-        background = thm.bg;
-        foreground = thm.fg;
-        modules-left = "left_side";
-        modules-center = "i3";
-        modules-right = "right_side";
-        tray-position = "none";
-        monitor = "\${env:MONITOR:}";
-      };
-      "module/i3" = {
-        type = "internal/i3";
-        label-focused-foreground = thm.blue;
-        label-urgent-foreground = thm.orange;
-        pin-workspaces = true;
-      };
-
-      "module/left_side" = {
-        type = "custom/script";
-        exec = toString (scripts.polybar.left_side (polybar_left));
-        tail = true;
-      };
-
-      "module/right_side" = {
-        type = "custom/script";
-        exec = toString (scripts.polybar.right_side (polybar_right));
-        tail = true;
-      };
-    };
-    script = "";
-  };
-
-  services.dunst = {
-    enable = true;
-    iconTheme = {
-      name = "Papirus-Dark";
-      package = pkgs.papirus-icon-theme;
-    };
-    settings = {
-      global = {
-        geometry = "500x5-30+50";
-        transparency = 10;
-        frame_color = thm.blue;
-        font = "Roboto Mono 13";
-        padding = 15;
-        horizontal_padding = 17;
-        word_wrap = true;
-      };
-      
-      urgency_low = {
-        background = thm.bg;
-        foreground = thm.fg;
-        timeout = 5;
-      };
-      
-      urgency_normal = {
-        background = thm.alt;
-        foreground = thm.fg;
-        timeout = 10;
-      };
-      
-      urgency_critical = {
-        background = thm.fg;
-        foreground = thm.bg;
-        timeout = 15;
-      };
-    };
-  };
-  programs.autorandr = {
-    enable = true;
-    hooks = {
-      predetect = {
-        compton = "pkill compton";
-        polybar = "kill -9 $(pgrep polybar); sleep 0.5";
-      };
-      postswitch = {
-        compton = "allow_rgb10_configs=false ${pkgs.compton}/bin/compton --backend glx -i 0 --vsync opengl-swc -C --shadow-exclude '!focused' --shadow-exclude-reg 'x${builtins.elemAt (builtins.split "px" services.polybar.config."bar/top".height) 0}+0+0' &"; 
-        polybar = "for i in $(polybar -m | cut -d ':' -f 1); do MONITOR=$i polybar top & sleep 0.5; done";
-      };
-    };
-    profiles = if device == "HP-Laptop" then {
-      "dacha" = {
-        fingerprint = {
-          eDP = "00ffffffffffff0030e4f60400000000001a01049522137803a1c59459578f27205054000000010101010101010101010101010101012e3680a070381f403020350058c210000019222480a070381f403020350058c210000019000000fd00283c43430e010a20202020202000000002000c47ff0a3c6e1c151f6e0000000052";
-          HDMI-A-0 = "00ffffffffffff0006b3cc24010101011a1a010380351e78ea0565a756529c270f5054afcf80714f8180818fb30081409500a9408bc0023a801871382d40582c45000f282100001e000000fd00304b1e5311000a202020202020000000fc00565a3234390a20202020202020000000ff0047364c4d52533034383636390a018902031df14a900403011412051f1013230907078301000065030c001000023a801871382d40582c45000f282100001e011d8018711c1620582c25000f282100009e011d007251d01e206e2855000f282100001e8c0ad08a20e02d10103e96000f282100001800000000000000000000000000000000000000000000000000004a";
-        };
-        config = {
-          eDP = {
-                        enable = true;
-                        primary = true;
-                        position = "0x0";
-                        mode = "1920x1080";
-                        rate = "60.00";
-          };
-          HDMI-A-0 = {
-            enable = true;
-            position = "1920x0";
-            mode = "1920x1080";
-            rate = "60.00";
-          };
-        };
-      };
-    } else if device == "ASUS-Laptop" then {
-      "dacha" = {
-        fingerprint = {
-          HDMI2 = "00ffffffffffff0006b3cc24010101011a1a010380351e78ea0565a756529c270f5054afcf80714f8180818000fc00565a3234390a20202020202020000000ff0047364c4d52533034383636390a018902031df14a9004030114000f282100009e011d007251d01e206e2855000f282100001e8c0ad08a20e02d10103e96000f28210000180000000";
-          eDP1 = "00ffffffffffff000dae61130000000007180104a51d117802ce85a3574e9d2612505400000001010101010100fe00434d4e0a202020202020202020000000fe004e3133334853452d4541330a2000a1";
-        };
-        config = {
-          eDP1 = {
-                        enable = true;
-                        primary = true;
-                        position = "0x0";
-                        mode = "1920x1080";
-                        rate = "60.00";
-          };
-          HDMI2 = {
-            enable = true;
-            position = "1920x0";
-            mode = "1920x1080";
-            rate = "60.00";
-          };
-        };
-      };
-    } else {};
-  };
-
-  services.udiskie.enable = true;
+  
   
   home.packages = 
   (with pkgs; [
@@ -457,78 +113,13 @@ rec {
     vk
   ]);
 
-  programs.emacs = {
-    enable = true;
-    package = pkgs.emacs;
-    extraPackages = (epkgs: with epkgs; [ use-package nix-mode haskell-mode nixos-options nord-theme wakib-keys magit exec-path-from-shell ivy counsel smex projectile which-key markdown-mode diminish frames-only-mode company rainbow-delimiters diff-hl yasnippet yasnippet-snippets mode-line-bell powerline smart-mode-line-powerline-theme hasklig-mode ]);    
-  };
+  
 
-  programs.git = {
-    enable = true;
-    userEmail = "balsoft@yandex.ru";
-    userName = "Александр Бантьев";
-  };
-
-  home.keyboard = {
-    options = ["grp:caps_toggle,grp_led:caps"];
-    layout = "us,ru";
-  };
+  
   
   xdg = {
     enable = true;
     configFile = { 
-      "libinput-gestures.conf".text = ''
-        gesture swipe down 4 xdotool key "Alt+quoteleft"
-        gesture swipe up 4 xdotool key "Alt+asciitilde"
-        gesture pinch in 2 xdotool key "Ctrl+F8"
-        gesture pinch out 2 xdotool key "Ctrl+F8"
-        gesture swipe right 3 xdotool key "Ctrl+Tab"
-        gesture swipe left 3 xdotool key "Ctrl+Shift+Tab"
-        gesture swipe up 3 xdotool key "Pause"
-        gesture swipe down 3 xdotool key "Pause"
-      '';
-      "albert/albert.conf".text = genIni {
-        General = {
-          frontendId = "org.albert.frontend.qmlboxmodel";
-          hotkey = "Meta+Space";
-          showTray = false;
-          telemetry = true;
-          terminal = "${pkgs.konsole}/bin/konsole -e";
-          incrementalSort = true;
-        };
-        "org.albert.extension.applications".enabled = true;
-        "org.albert.extension.files" = {
-          enabled = true;
-          filters = "application/*, image/*, directory/*, text/*";  
-        };
-        "org.albert.extension.chromebookmarks".enabled = true;
-        "org.albert.extension.mpris".enabled = true;
-        "org.albert.extension.python" = {
-          enabled = true;
-          enabled_modules = "Python, Wikipedia, Kill, qalc, nix, translate";
-        };
-        "org.albert.extension.ssh".enabled = true;
-        "org.albert.extension.system" = {
-            enabled = true;
-            logout = "i3-msg exit";
-            lock = "${pkgs.i3lock-fancy}/bin/i3lock-fancy";
-            reboot = "reboot";
-            shutdown = "shutdown now";    
-        };
-        "org.albert.extension.terminal".enabled = true;
-        "org.albert.extension.websearch".enabled = true;
-        "org.albert.frontend.qmlboxmodel" = {
-          enabled = true;
-          alwaysOnTop = true;
-          clearOnHide = false;
-          hideOnClose = false;
-          hideOnFocusLoss = true;
-          showCentered = true;
-          stylePath="${pkgs.albert}/share/albert/org.albert.frontend.qmlboxmodel/styles/BoxModel/MainComponent.qml";
-          windowPosition="@Point(299 13)";
-        };
-      };
-      "albert/org.albert.frontend.qmlboxmodel/style_properties.ini".text = themes.albert;
       "kdeglobals".text = themes.kde;
       "konsolerc.home".text = genIni {
         "Desktop Entry".DefaultProfile = "Default.profile";
@@ -556,21 +147,6 @@ rec {
 
       "kateschemarc".text = themes.kate;
 
-      "mconnect/mconnect.conf".text = genIni {
-        "main" = {
-          devices = "lge;huawei";
-        };
-        lge = {
-          name = "lge";
-          type = "phone";
-          allowed = 1;
-        };
-        huawei = {
-          name = "huawei";
-          type = "phone";
-          allowed = 1;
-        };
-      };
       "flaska.net/trojita.conf".text = genIni {
         General = {
           "app.updates.checkEnabled" = false;
@@ -976,17 +552,12 @@ rec {
 </info>
 </bookmark>
 </xbel>'';
-  } // builtins.mapAttrs (name: value: {
-    target = "albert/org.albert.extension.python/modules/" + name + ".py";
-    text = value;
-  }) scripts.albert;
+  };
   #xdg.dataFile."albert/org.albert.extension.python/modules/qalc.py".text = scripts.albert.qalc;
   #xdg.dataFile."albert/org.albert.extension.python/modules/nix.py".text = scripts.albert.nix;
   #xdg.dataFile."albert/org.albert.extension.python/modules/translate.py".text = scripts.albert.translate;
   home.file.".icons/default".source = "${pkgs.breeze-qt5}/share/icons/breeze_cursors";
-  home.file.".themes/Generated".source = "${themes.gtk}/generated";
-  home.file.".emacs.d/init.el".source = ./scripts/init.el;
-  home.file.".mozilla/firefox/profiles.ini".text = genIni {
+ home.file.".mozilla/firefox/profiles.ini".text = genIni {
     General.StartWithLastProfile = 1;
     Profile0 = {
       Name = "default";
@@ -1001,19 +572,23 @@ rec {
   pref("browser.search.selectedEngine", "Google");
   pref("browser.uidensity", 1);
   pref("browser.search.openintab", true);
+  pref("accessibility.browsewithcaret", true);
   '';
   home.file.".mozilla/firefox/profile.default/chrome/userChrome.css".text = ''
   #TabsToolbar {
     visibility: collapse;
   }
   toolbar#nav-bar, nav-bar-customization-target {
-    background: #2e3440 !important;
+  background: ${thm.bg} !important;
+  }
+  @-moz-document url("about:newtab") {
+  body { background-color: ${thm.bg}  !important;}
   }
   '';
   home.file.".mozilla/firefox/profile.default/extensions/uBlock0@raymondhill.net.xpi".source =
   builtins.fetchurl {
-    url = "https://github.com/gorhill/uBlock/releases/download/1.17.7b3/uBlock0_1.17.7b3.firefox.signed.xpi";
-    sha256 = "483a9921f93a77a0ef47ea57a212556ad86b1b3117ff5b6134ae993362e4f804";
+    url = "https://addons.mozilla.org/firefox/downloads/file/1166954/ublock_origin-1.17.4-an+fx.xpi";
+    sha256 = "54c9a1380900eb1eba85df3a82393cef321e9c845fda227690d9377ef30e913e";
   };
   home.file.".mozilla/firefox/profile.default/extensions/{c9f848fb-3fb6-4390-9fc1-e4dd4d1c5122}.xpi".source =
   builtins.fetchurl {
@@ -1032,19 +607,6 @@ rec {
     mimeapps.data= "$DRY_RUN_CMD cp ~/.config/mimeapps.list.home ~/.config/mimeapps.list";
   };
 
-  news.display = "silent";
-  programs.command-not-found.enable = true;
-  programs.ssh = {
-    enable = true;
-    matchBlocks = {
-      "*" = {
-        identityFile = toString (pkgs.writeTextFile {
-          name = "id_rsa";
-          text = secret.id_rsa;
-        });
-        extraOptions.Ciphers = "aes128-gcm@openssh.com";
-        compression = false;
-      };
-    };
-  };
+  
+    
 }
