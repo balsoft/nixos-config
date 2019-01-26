@@ -70,7 +70,6 @@
     micro
     python3
     qalculate-gtk
-    libqalculate
     breeze-qt5
     gnome3.adwaita-icon-theme
     papirus-icon-theme
@@ -89,8 +88,6 @@
     papirus-icon-theme
     kde-cli-tools
     vk
-    wmctrl
-    translate-shell
   ]) ;
 
 

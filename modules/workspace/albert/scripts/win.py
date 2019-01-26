@@ -31,10 +31,12 @@ def handleQuery(query):
             if win.desktop != "-1"  and stripped in win.wm_name.lower():
                 results.append(Item(id="%s%s" % (__prettyname__, win.wm_class),
                                     icon=iconLookup(win.wm_class.split('.')[0]),
-                                    text="Switch to %s @ %s" % (win.wm_class.split('.')[-1].replace('-',' '), win.desktop),
+                                    text="Window %s @ %s" % (win.wm_class.split('.')[-1].replace('-',' '), win.desktop),
                                     subtext=win.wm_name,
                                     actions=[ProcAction("Switch Window",
                                                         ["wmctrl", '-i', '-a', win.wid] ),
                                              ProcAction("Move window to this desktop",
-                                                        ["wmctrl", '-i', '-R', win.wid] )]))
+                                                        ["wmctrl", '-i', '-R', win.wid] ),
+                                             ProcAction("Close window",
+                                                        ["wmctrl", "-i", "-c", win.wid] ) ]))
         return results

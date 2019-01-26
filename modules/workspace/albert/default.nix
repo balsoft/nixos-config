@@ -6,6 +6,14 @@ in
 {
   home-manager.users.balsoft =
   {
+    home.packages = with pkgs;
+    [
+      albert
+      wmctrl
+      translate-shell
+      libqalculate
+      termNote
+    ];
     xdg.configFile."albert/albert.conf".text = genIni
     {
       General = {
