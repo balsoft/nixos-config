@@ -3,6 +3,7 @@ with import ../../support.nix {inherit lib;};
 let thm = config.themes.colors;
 in
 {
+  environment.sessionVariables.MOZ_USE_XINPUT2 = "1";
   home-manager.users.balsoft =
   {
   home.file.".mozilla/firefox/profiles.ini".text = genIni {
@@ -21,6 +22,14 @@ in
   pref("browser.uidensity", 1);
   pref("browser.search.openintab", true);
   pref("accessibility.browsewithcaret", true);
+  pref("extensions.pocket.enabled", false);  
+  pref("datareporting.healthreport.uploadEnabled", false);
+  pref("browser.ping-centre.telemetry", false);
+  pref("browser.safebrowsing.blockedURIs.enabled", false);
+  pref("browser.safebrowsing.downloads.enabled", false);
+  pref("browser.safebrowsing.malware.enabled", false);
+  pref("browser.safebrowsing.phishing.enabled", false);
+  pref("network.tcp.tcp_fastopen_enable", true);
   '';
   home.file.".mozilla/firefox/profile.default/chrome/userChrome.css".text = ''
   #TabsToolbar {
