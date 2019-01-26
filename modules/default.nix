@@ -6,15 +6,31 @@
     ./applications.nix
     ./secrets.nix
     ./devices.nix
+    ./packages.nix
+    ./users.nix
+    ./hardware.nix
+    ./services.nix
+    ./power.nix
+    ./xserver.nix
+    ./applications/packages.nix
+    ./applications/kate.nix
+    ./applications/emacs
+    ./applications/konsole.nix
+    ./applications/trojita.nix
+    ./applications/firefox.nix
     ./workspace/polybar.nix
     ./workspace/i3.nix
     ./workspace/zsh.nix
     ./workspace/gtk.nix
-    ./workspace/compton.nix
-    ./workspace/emacs
+    ./workspace/compton.nix   
     ./workspace/misc.nix
     ./workspace/dunst.nix
     ./workspace/albert
     ./workspace/kde.nix
+    ./workspace/synergy.nix
+    ./workspace/ssh.nix
+    ./workspace/locale.nix
+    ./workspace/fonts.nix
+    ./workspace/light.nix
   ];
 }

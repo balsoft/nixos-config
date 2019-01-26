@@ -21,11 +21,11 @@ in
         enabled = true;
         filters = "application/*, image/*, directory/*, text/*";  
       };
-      "org.albert.extension.chromebookmarks".enabled = true;
+      "org.albert.extension.firefoxbookmarks".enabled = true;
       "org.albert.extension.mpris".enabled = true;
       "org.albert.extension.python" = {
         enabled = true;
-        enabled_modules = "Python, Wikipedia, Kill, qalc, nix, translate";
+        enabled_modules = "Python, Wikipedia, WindowSwitcher, Kill, qalc, nix, translate";
       };
       "org.albert.extension.ssh".enabled = true;
       "org.albert.extension.system" = {
@@ -41,8 +41,8 @@ in
         enabled = true;
         alwaysOnTop = true;
         clearOnHide = false;
-        hideOnClose = false;
-        hideOnFocusLoss = true;
+        hideOnClose = true;
+        hideOnFocusLoss = false;
         showCentered = true;
         stylePath="${pkgs.albert}/share/albert/org.albert.frontend.qmlboxmodel/styles/BoxModel/MainComponent.qml";
         windowPosition="@Point(299 13)";
@@ -54,7 +54,8 @@ in
       {
         animation_duration = 0;
         background_color = thm.bg;
-        border_color = thm.blue;
+        border_color = thm.dark;
+        shadow_color = "#70000000";
         border_size = 1;
         icon_size = 46;
         input_fontsize = 28;
@@ -62,10 +63,10 @@ in
         item_title_fontsize = 24;
         max_items = 10;
         padding = 6;
-        radius = 2;
+        radius = 8;
         settingsbutton_size = 10;
-        spacing = 5;
-        window_width = 1200;
+        spacing = 6;
+        window_width = 1000;
       };
     };
     xdg.dataFile = builtins.mapAttrs

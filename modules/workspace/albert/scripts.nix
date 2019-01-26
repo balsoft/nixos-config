@@ -42,7 +42,7 @@
                 Item(
                     id = "nix",
                     icon = iconPath,
-                    text = subprocess.getoutput("nix repl <<< '%s'" % query.string),
+                    text = subprocess.getoutput("nix repl <<< 'let pkgs=import <nixpkgs> {}; in %s' | sed 's/\[36m//; s/\[33m//; s/\[0m//; s/[[:cntrl:]]//' | tail -3" % query.string),
                     completion = query.rawString
                 )
             ]
@@ -52,6 +52,7 @@
     """Translate text using translate-shell"""
     import subprocess
     from albertv0 import *
+
     __iid__ = "PythonInterface/v0.1"
     __prettyname__ = "custom translate-shell interface"
     __version__ = "1.0"
@@ -65,7 +66,7 @@
         if query.isTriggered:
             if query.string == "":
                 return []
-            result = subprocess.getoutput("echo "" | ${pkgs.translate-shell}/bin/trans -b %s" % query.string)
+            result = subprocess.getoutput("echo "" | trans -b %s" % query.string)
             return [
                 Item(
                     id = "translate",
