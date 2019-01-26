@@ -1,6 +1,6 @@
 {pkgs, lib, config, ...}:
 with import ../../../support.nix {inherit lib;};
-let scripts = import ./scripts.nix {inherit pkgs;};
+let scripts = import ./scripts;
     thm = config.themes.colors;
 in
 {
@@ -25,7 +25,7 @@ in
       "org.albert.extension.mpris".enabled = true;
       "org.albert.extension.python" = {
         enabled = true;
-        enabled_modules = "Python, Wikipedia, WindowSwitcher, Kill, qalc, nix, translate";
+        enabled_modules = "Python, Wikipedia, win, Kill, qalc, nix, translate";
       };
       "org.albert.extension.ssh".enabled = true;
       "org.albert.extension.system" = {
@@ -72,7 +72,7 @@ in
     (name: value:
     {
       target = "albert/org.albert.extension.python/modules/${name}.py";
-      text = value;
+      source = value;
     }
     )
     scripts;
