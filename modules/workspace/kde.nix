@@ -27,6 +27,9 @@ let
   colorHex2Dec = color: builtins.concatStringsSep "," (map (x: toString (doubleDigitHexToDec x)) (splitHex color));
 in
 {
+  services.flatpak.enable = true;
+  services.flatpak.extraPortals = [pkgs.plasma5.xdg-desktop-portal-kde];
+  services.dbus.packages = [pkgs.plasma5.xdg-desktop-portal-kde pkgs.flatpak pkgs.firefox];
   environment.sessionVariables =
   {
     DESKTOP_SESSION = "kde";
@@ -37,7 +40,7 @@ in
     QT_QPA_PLATFORMTHEME = "kde";
     QT_SCALE_FACTOR = "1";
     QT_AUTO_SCREEN_SCALE_FACTOR = "0";
-    
+    GTK_USE_PORTAL = "1";
     DE = "kde";
   };
   home-manager.users.balsoft.xdg.configFile."kdeglobals".text = genIni {

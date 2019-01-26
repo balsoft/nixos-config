@@ -13,7 +13,7 @@ from albertv0 import *
 __iid__ = "PythonInterface/v0.1"
 __prettyname__ = "termNote support"
 __version__ = "1.0"
-__trigger__ = "termNote"
+__trigger__ = "note"
 __author__ = "Alexander Bantyev"
 __dependencies__ = ["termNote"]
 
@@ -22,7 +22,22 @@ if which("termNote") is None:
 
 def handleQuery(query):
     if query.isTriggered:
-       results = []
+       results = [
+           Item(
+               id = "termNoteAdd",
+               text = "Add a note",
+               actions = [ProcAction("Add a note", ["termNote", "-a", query.string])]
+               )
+       ]
+       i = 0
        for line in subprocess.check_output(['termNote'] + query.string.split()).splitlines():
-           
+           i += 1
+           results.append(Item(
+               id = "termNoteLine%s" % i,
+               text = line,
+               actions = [
+                   ClipAction("Copy to clipboard", subprocess.check_output(["termNote", "-s", str(i)]).splitlines()[0]),
+                   ProcAction("Delete note", ["sh", "-c", "echo yes | termNote -d %s" % i])
+               ]
+           ))
        return results

@@ -1,6 +1,7 @@
 {config, pkgs, lib, ...}:
 {
-security.apparmor.enable = true;
+  security.apparmor.enable = true;
+  programs.firejail.enable = true;
   users.mutableUsers = false;
   users.users.balsoft = {
     isNormalUser = true;

@@ -10,13 +10,13 @@ __dependencies__ = []
 iconPath = iconLookup("nix-snoflake")
 def handleQuery(query):
     if query.isTriggered:
-        nixout = subprocess.getoutput("nix repl <<< 'let pkgs=import <nixpkgs> {}; in %s' | sed 's/\[36m//; s/\[33m//; s/\[0m//; s/[[:cntrl:]]//' | tail -3" % query.string)
+        out = subprocess.getoutput("nix repl <<< 'let pkgs=import <nixpkgs> {}; in %s' | sed 's/\[36m//; s/\[33m//; s/\[0m//; s/[[:cntrl:]]//' | tail -3" % query.string)
         return [
             Item(
                 id = "nix",
                 icon = iconPath,
-                text = nixout,
+                text = out,
                 completion = query.rawString,
-                actions=[ClipAction('Copy to clipboard', nixout)]
+                actions=[ClipAction('Copy to clipboard', out)]
             )
         ]
