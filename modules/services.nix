@@ -14,7 +14,7 @@
     enable = config.device == "Lenovo-Workstation";
     drivers = [ pkgs.gutenprint ];
   };
-  
+  programs.dconf.enable = true;  
 
   services.tor = {
     enable = true;

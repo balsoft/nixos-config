@@ -12,6 +12,7 @@
     ./services.nix
     ./power.nix
     ./xserver.nix
+    ./network.nix
     ./applications/packages.nix
     ./applications/kate.nix
     ./applications/emacs

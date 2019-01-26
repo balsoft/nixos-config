@@ -42,10 +42,9 @@ in
         alwaysOnTop = true;
         clearOnHide = false;
         hideOnClose = true;
-        hideOnFocusLoss = false;
+        hideOnFocusLoss = true;
         showCentered = true;
         stylePath="${pkgs.albert}/share/albert/org.albert.frontend.qmlboxmodel/styles/BoxModel/MainComponent.qml";
-        windowPosition="@Point(299 13)";
       };
     };
     xdg.configFile."albert/org.albert.frontend.qmlboxmodel/style_properties.ini".text = genIni 
