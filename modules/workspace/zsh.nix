@@ -1,5 +1,8 @@
 { pkgs, config, ...}:
 {
+
+  environment.pathsToLink = [ "/share/zsh" ];
+  environment.sessionVariables.SHELL = "zsh";
    home-manager.users.balsoft.programs.zsh = {
     enable = true;
     enableAutosuggestions = true;

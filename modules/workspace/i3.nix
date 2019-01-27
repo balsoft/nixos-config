@@ -43,6 +43,7 @@ in
         smartBorders = "on";
       };
       focus.mouseWarping = true;
+      focus.followMouse = false;
       modifier = "Mod4";
       window = {
         border = 1;
@@ -106,8 +107,8 @@ in
         "${modifier}+f" = "fullscreen toggle";
         "${modifier}+r" = "mode resize";
         "${modifier}+Shift+f" = "floating toggle";
-        "${modifier}+d" = "exec ${pkgs.dolphin}/bin/dolphin";
-        "${modifier}+Escape" = "exec ${pkgs.ksysguard}/bin/ksysguard";
+        "${modifier}+d" = "exec ${apps.fm.cmd}";
+        "${modifier}+Escape" = "exec ${apps.monitor.cmd}";
         "${modifier}+Print" = "exec scrot -e 'mv $f ~/Pictures && notify-send \"Screenshot saved as ~/Pictures/$f\"'";
         "${modifier}+Control+Print" = "exec scrot -e 'xclip -selection clipboard -t image/png -i $f && notify-send \"Screenshot copied to clipboard\" && rm $f'";
         "--release ${modifier}+Shift+Print" = "exec scrot -s -e 'mv $f ~/Pictures && notify-send \"Screenshot saved as ~/Pictures/$f\"'";
@@ -125,6 +126,9 @@ in
         "${modifier}+v" = "layout splitv";
         "${modifier}+Minus" = "move to scratchpad";
         "${modifier}+Equals" = "scratchpad show";
+        "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
+        "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
+        "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
       } // builtins.listToAttrs (
         builtins.genList (x: {name = "${modifier}+${toString x}"; value = "workspace ${toString x}";}) 10
       ) // builtins.listToAttrs (
@@ -134,9 +138,6 @@ in
         "122" = "exec ${pkgs.pamixer}/bin/pamixer -d 5";
         "123" = "exec ${pkgs.pamixer}/bin/pamixer -i 5";
         "121" = "exec ${pkgs.pamixer}/bin/pamixer -t";
-        "164" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
-        "163" = "exec ${pkgs.playerctl}/bin/playerctl next";
-        "165" = "exec ${pkgs.playerctl}/bin/playerctl previous";
       };
     };
   };

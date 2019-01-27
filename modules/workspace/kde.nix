@@ -1,6 +1,6 @@
 {pkgs, lib, config, ...}:
 with import ../../support.nix {inherit lib;};
-let
+let 
   thm = config.themes.colors;
   splitHex = hexStr: map (x: builtins.elemAt x 0) (builtins.filter (a: a != "" && a != []) (builtins.split "(.{2})" (builtins.substring 1 6 hexStr)));
   hex2decDigits = {
@@ -27,6 +27,22 @@ let
   colorHex2Dec = color: builtins.concatStringsSep "," (map (x: toString (doubleDigitHexToDec x)) (splitHex color));
 in
 {
+  services.flatpak.enable = true;
+  services.flatpak.extraPortals = [pkgs.plasma5.xdg-desktop-portal-kde];
+  services.dbus.packages = [pkgs.plasma5.xdg-desktop-portal-kde pkgs.flatpak pkgs.firefox];
+  environment.sessionVariables =
+  {
+    DESKTOP_SESSION = "kde";
+    QT_XFT = "true";
+    QT_SELECT = "5";
+    XDG_CURRENT_DESKTOP="KDE";
+    KDE_SESSION_VERSION="5";
+    QT_QPA_PLATFORMTHEME = "kde";
+    QT_SCALE_FACTOR = "1";
+    QT_AUTO_SCREEN_SCALE_FACTOR = "0";
+    GTK_USE_PORTAL = "1";
+    DE = "kde";
+  };
   home-manager.users.balsoft.xdg.configFile."kdeglobals".text = genIni {
     "Colors:Button" = {
        BackgroundAlternate = thmDec.dark;
@@ -135,5 +151,11 @@ in
     Icons = {
         Theme="Papirus-Dark";
     };
+  };
+  home-manager.users.balsoft.home.activation."user-places.xbel" =
+  {
+    data = "$DRY_RUN_CMD cp ${./user-places.xbel} ~/.local/share/user-places.xbel";
+    before = [];
+    after = ["linkGeneration"];
   };
 }
