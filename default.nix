@@ -12,7 +12,6 @@
 
 device: # This is the device we're on now
 { config, pkgs, lib, ... }: 
-with import ./common.nix device pkgs;
 {
   # ========================== HARDWARE =====================================
   imports = [
