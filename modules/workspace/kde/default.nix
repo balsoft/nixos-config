@@ -4,6 +4,7 @@ with import ../../../support.nix {inherit lib config;};
   services.flatpak.enable = true;
   services.flatpak.extraPortals = [pkgs.plasma5.xdg-desktop-portal-kde];
   services.dbus.packages = [pkgs.plasma5.xdg-desktop-portal-kde pkgs.flatpak pkgs.firefox];
+  nixpkgs.config.firefox.enablePlasmaBrowserIntegration = true;
   environment.sessionVariables =
   {
     DESKTOP_SESSION = "kde";

@@ -4,6 +4,7 @@ let thm = config.themes.colors;
 in
 {
   environment.sessionVariables.MOZ_USE_XINPUT2 = "1";
+
   home-manager.users.balsoft =
   {
   home.file.".mozilla/firefox/profiles.ini".text = genIni {
