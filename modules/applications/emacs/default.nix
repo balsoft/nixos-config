@@ -2,6 +2,7 @@
 {
   home-manager.users.balsoft =
   {
+    home.packages = with pkgs; [irony-server clang];
     programs.emacs =
     {
       enable = true;
@@ -33,6 +34,7 @@
         powerline
         smart-mode-line-powerline-theme
         hasklig-mode
+        irony
       ];    
     };
     home.file.".emacs.d/init.el".source = ./init.el;

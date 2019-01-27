@@ -173,7 +173,12 @@ If point was already at that position, move point to beginning of line."
   :bind
   (("C-x g" . magit-status )))
 
-
+(use-package irony-mode
+  :config
+  (add-hook 'c++-mode-hook 'irony-mode)
+  (add-hook 'c-mode-hook 'irony-mode)
+  (add-hook 'objc-mode-hook 'irony-mode)
+  (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options))
 
 (use-package exec-path-from-shell
   :disabled
