@@ -30,6 +30,7 @@ in
   pref("browser.safebrowsing.malware.enabled", false);
   pref("browser.safebrowsing.phishing.enabled", false);
   pref("network.tcp.tcp_fastopen_enable", true);
+  pref("xpinstall.signatures.required", false);
   '';
   home.file.".mozilla/firefox/profile.default/chrome/userChrome.css".text = ''
   #TabsToolbar {

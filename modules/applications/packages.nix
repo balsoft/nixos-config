@@ -43,11 +43,8 @@
     ghc
     chromium
     arduino
-    cmake
-    gnumake
-    gcc
-    gdb
     kile
+    clang
   ] ++ [
     firefox
     # Messaging

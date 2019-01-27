@@ -19,6 +19,7 @@ home-manager.users.balsoft =
         padding = 15;
         horizontal_padding = 17;
         word_wrap = true;
+        follow = "keyboard";
       };
       
       urgency_low = {
