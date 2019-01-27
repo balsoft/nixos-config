@@ -1,5 +1,5 @@
 {config, pkgs, lib, ...}:
-with import ../../support.nix {inherit lib;};
+with import ../../support.nix {inherit lib config;};
 let thm = config.themes.colors;
 in
 {
