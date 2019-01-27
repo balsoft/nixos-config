@@ -1,5 +1,5 @@
 {pkgs, config, lib, ...}:
-with import ../support.nix {inherit lib;};
+with import ../support.nix {inherit lib config;};
 {
   options.defaultApplications = lib.mkOption
   {

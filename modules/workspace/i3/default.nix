@@ -1,7 +1,7 @@
 {pkgs, config, ...}:
 let thm = config.themes.colors;
     apps = config.defaultApplications;
-    customPackages = pkgs.callPackage ../../packages {};
+    customPackages = pkgs.callPackage ../../../packages {};
 in
 {
   home-manager.users.balsoft.xsession.windowManager.i3 = {
@@ -75,7 +75,7 @@ in
         { command = apps.term.cmd; workspace = "0"; }
         { command = "${pkgs.rclone}/bin/rclone mount google:/ '/home/balsoft/Google Drive' --verbose --daemon"; }
         { command = "${pkgs.hsetroot}/bin/hsetroot -solid '${thm.bg}'"; always = true; }
-        { command = ''${pkgs.i3}/bin/i3-msg 'workspace ""; layout tabbed;' ''; always = true; }
+        { command = "${./workspace-layouts.pl}"; always = true; }
         { command = "${pkgs.termNote}/bin/noted"; }
       ];
       keybindings = let moveMouse = ''"sh -c 'eval `${

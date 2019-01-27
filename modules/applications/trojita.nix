@@ -1,5 +1,5 @@
 {pkgs, config, lib, ...}:
-with import ../../support.nix {inherit lib;};
+with import ../../support.nix {inherit lib config;};
 {
   home-manager.users.balsoft.xdg.configFile."flaska.net/trojita.conf".text = genIni {
         General = {

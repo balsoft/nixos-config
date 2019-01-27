@@ -20,14 +20,14 @@
     ./applications/trojita.nix
     ./applications/firefox.nix
     ./workspace/polybar.nix
-    ./workspace/i3.nix
+    ./workspace/i3
     ./workspace/zsh.nix
     ./workspace/gtk.nix
     ./workspace/compton.nix   
     ./workspace/misc.nix
     ./workspace/dunst.nix
     ./workspace/albert
-    ./workspace/kde.nix
+    ./workspace/kde
     ./workspace/synergy.nix
     ./workspace/ssh.nix
     ./workspace/locale.nix

@@ -1,5 +1,5 @@
 {pkgs, lib, config, ...}:
-with import ../../../support.nix {inherit lib;};
+with import ../../../support.nix {inherit lib config;};
 let scripts = import ./scripts;
     thm = config.themes.colors;
 in
