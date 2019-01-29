@@ -75,7 +75,7 @@ in
         { command = apps.term.cmd; workspace = "0"; }
         { command = "${pkgs.rclone}/bin/rclone mount google:/ '/home/balsoft/Google Drive' --verbose --daemon"; }
         { command = "${pkgs.hsetroot}/bin/hsetroot -solid '${thm.bg}'"; always = true; }
-        { command = "exec ${./workspace-layouts.pl} &"; always = true; }
+        #{ command = "exec ${./workspace-layouts.pl} &"; always = true; }
         { command = "${pkgs.termNote}/bin/noted"; }
       ];
       keybindings = let moveMouse = ''"sh -c 'eval `${

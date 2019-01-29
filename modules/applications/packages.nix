@@ -45,6 +45,7 @@
     arduino
     kile
     clang
+    appimage-run
   ] ++ [
     firefox
     # Messaging
