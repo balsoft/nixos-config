@@ -33,7 +33,7 @@ in
       "org.albert.extension.mpris".enabled = true;
       "org.albert.extension.python" = {
         enabled = true;
-        enabled_modules = "Python, Wikipedia, win, Kill, qalc, nix, translate";
+        enabled_modules = "Python, Wikipedia, win, Kill, qalc, nix, translate, termNote";
       };
       "org.albert.extension.ssh".enabled = true;
       "org.albert.extension.system" = {

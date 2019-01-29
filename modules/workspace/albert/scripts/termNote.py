@@ -5,6 +5,7 @@ termNote note manager support
 """
 
 import subprocess
+import re
 from collections import namedtuple
 from shutil import which
 
@@ -29,15 +30,14 @@ def handleQuery(query):
                actions = [ProcAction("Add a note", ["termNote", "-a", query.string])]
                )
        ]
-       i = 0
        for line in subprocess.check_output(['termNote'] + query.string.split()).splitlines():
-           i += 1
+           i = int(re.search("\[([0-9]+)\]", str(line)).group(1))
            results.append(Item(
                id = "termNoteLine%s" % i,
                text = line,
                actions = [
                    ClipAction("Copy to clipboard", subprocess.check_output(["termNote", "-s", str(i)]).splitlines()[0]),
-                   ProcAction("Delete note", ["sh", "-c", "echo yes | termNote -d %s" % i])
+                   ProcAction("Complete note", ["termNote", "-c", str(i)])
                ]
            ))
        return results

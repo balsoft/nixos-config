@@ -4,7 +4,7 @@
     nur = pkgs.callPackage (import (builtins.fetchGit {
       url = "https://github.com/nix-community/NUR";
     })) {};
-    termNote = (import (builtins.fetchGit {url = "https://github.com/Terodom/termNote"; ref = "master";}));
+    termNote = (import (builtins.fetchGit {url = "https://github.com/Terodom/termNote"; ref = "master";}) {});
 
     movit = old.movit.overrideAttrs (oldAttrs: { # Currently, movit fails
       doCheck = false;
