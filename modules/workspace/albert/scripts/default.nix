@@ -4,4 +4,5 @@
     translate = ./translate.py;
     win = ./win.py;
     termNote = ./termNote.py;
+    emacs = ./emacs.py;
 }

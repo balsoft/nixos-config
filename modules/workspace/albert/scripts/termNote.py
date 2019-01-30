@@ -22,8 +22,6 @@ __dependencies__ = ["termNote"]
 if which("termNote") is None:
     raise Exception("'termNote' is not in $PATH.")
 
-sys.env()
-
 def handleQuery(query):
     if query.isTriggered:
        results = [
