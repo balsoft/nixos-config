@@ -36,6 +36,7 @@
         hasklig-mode
         irony
         flycheck
+        flycheck-pkg-config
       ];    
     };
     home.file.".emacs.d/init.el".source = ./init.el;
