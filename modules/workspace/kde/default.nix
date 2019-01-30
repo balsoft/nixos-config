@@ -124,7 +124,8 @@ with import ../../../support.nix {inherit lib config;};
       widgetStyle = "Breeze";
     };
     Icons = {
-        Theme="Papirus-Dark";
+        #Theme="Papirus-Dark";
+        Theme = "Breeze-Dark";
     };
   };
   home-manager.users.balsoft.home.activation."user-places.xbel" =

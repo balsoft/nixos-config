@@ -1,14 +1,11 @@
 {pkgs, config, lib, ...}:
 {
-  
-  programs.wireshark.enable = true;
-  
   programs.adb.enable = true;
   
   environment.systemPackages = (with pkgs.kdeApplications; [
     ark dolphin dolphin-plugins dragon eventviews ffmpegthumbs
     filelight gwenview kcachegrind kcalc kcolorchooser kdenlive
-    kleopatra kolourpaint kompare krdc krfb kruler ktnef kwalletmanager
+    kolourpaint kompare krdc krfb kruler ktnef
     marble okteta okular print-manager kio-extras
   ])
   ++
@@ -31,8 +28,6 @@
     wget
     curl
   ] ++ lib.optionals config.deviceSpecific.goodMachine [
-    geany
-    kdevelop
     kate
     texlive.combined.scheme-full
     steam
@@ -41,7 +36,6 @@
     frei0r
     ffmpeg-full
     ghc
-    chromium
     arduino
     kile
     clang
@@ -61,8 +55,6 @@
     zip
     unrar
     wine
-    kolourpaint
-    ktorrent
     wireshark
     #wpsoffice
     micro
@@ -84,6 +76,7 @@
     nix-zsh-completions
     material-icons
     papirus-icon-theme
+    breeze-icons
     kde-cli-tools
     vk
   ]) ;

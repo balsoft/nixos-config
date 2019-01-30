@@ -6,6 +6,7 @@ termNote note manager support
 
 import subprocess
 import re
+import sys
 from collections import namedtuple
 from shutil import which
 
@@ -20,6 +21,8 @@ __dependencies__ = ["termNote"]
 
 if which("termNote") is None:
     raise Exception("'termNote' is not in $PATH.")
+
+sys.env()
 
 def handleQuery(query):
     if query.isTriggered:

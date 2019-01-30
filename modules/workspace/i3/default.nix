@@ -122,8 +122,10 @@ in
         "${modifier}+k" = "exec '${pkgs.xorg.xkill}/bin/xkill'";
         "${modifier}+F5" = "restart";
         "${modifier}+Shift+F5" = "exit";
-        "${modifier}+h" = "layout splith";
-        "${modifier}+v" = "layout splitv";
+        "${modifier}+Shift+h" = "layout splith";
+        "${modifier}+Shift+v" = "layout splitv";
+        "${modifier}+h" = "split h";
+        "${modifier}+v" = "split v";
         "${modifier}+Minus" = "move to scratchpad";
         "${modifier}+Equals" = "scratchpad show";
         "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";

@@ -35,6 +35,7 @@
         smart-mode-line-powerline-theme
         hasklig-mode
         irony
+        flycheck
       ];    
     };
     home.file.".emacs.d/init.el".source = ./init.el;

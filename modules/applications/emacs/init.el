@@ -58,6 +58,7 @@
 (setq-default tab-always-indent 'complete)
 
 
+(setq compilation-scroll-output 'first-error)
 (electric-indent-mode 1)
 ;; -------------------
 ;; Wakib
@@ -80,12 +81,17 @@
 
 (global-display-line-numbers-mode)
 
+
+(use-package flycheck
+  :config
+  (global-flycheck-mode))
+
 ;; -------------------
 ;; Initial Setup
 ;; -------------------
-(menu-bar-mode -1) 
+(menu-bar-mode -1)
 (scroll-bar-mode -1)
-
+(tool-bar-mode -1)
 (cua-selection-mode 1)
 ;;(define-key cua--rectangle-keymap (kbd "ESC") nil)
 ;;(define-key cua-global-keymap (kbd "<C-return>") nil)
@@ -98,7 +104,7 @@
 
 (global-set-key (kbd "M-RET") 'execute-extended-command)
 
-(server-start)
+;; (server-start)
 
 
 (defun smart-beginning-of-line ()
@@ -174,11 +180,9 @@ If point was already at that position, move point to beginning of line."
   (("C-x g" . magit-status )))
 
 (use-package irony-mode
-  :config
-  (add-hook 'c++-mode-hook 'irony-mode)
-  (add-hook 'c-mode-hook 'irony-mode)
-  (add-hook 'objc-mode-hook 'irony-mode)
-  (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options))
+  :hook
+  (c-mode . irony-mode)
+  (c++-mode . irony-mode))
 
 (use-package exec-path-from-shell
   :disabled
