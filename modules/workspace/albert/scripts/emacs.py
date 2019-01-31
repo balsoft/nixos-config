@@ -24,24 +24,16 @@ def handleQuery(query):
        results = []
        path = os.environ["HOME"] + "/projects/"
        subDirList = list(filter(lambda x: os.path.isdir(x), map(lambda x: path + x, os.listdir(path))))
-       for dirName, fileList in [(x, os.listdir(x)) for x in subDirList]:
+       for dirName in subDirList:
            if dirName.find(query.string) == -1:
                continue
+           item = Item(
+               id = "emacs%s" % dirName,
+               text = "Open emacs in %s" % dirName,
+           )
+           fileList = os.listdir(dirName)
            if "default.nix" in fileList or "shell.nix" in fileList:
-               results.append(
-                   Item(
-                       id = "emacs%s" % dirName,
-                       text = "Open emacs in %s" % dirName,
-                       subtext = "(in nix-shell)",
-                       actions = [ ProcAction("Open emacs in nix-shell", ["sh", "-c", "cd '%s' && nix-shell --run 'emacs .'" % dirName]) ]
-                       )
-               )
-           else:
-               results.append(
-                   Item(
-                       id = "emacs%s" % dirName,
-                       text = "Open emacs in %s" % dirName,
-                       actions = [ ProcAction("Open emacs", ["sh", "-c", "cd '%s' && emacs ." % dirName]) ]
-                       )
-               )
+               item.addAction(ProcAction("Open emacs in nix-shell", ["sh", "-c", "cd '%s' && nix-shell --run 'emacs .'" % dirName]))
+           item.addAction(ProcAction("Open emacs", ["sh", "-c", "cd '%s' && emacs ." % dirName]))
+           results.append(item)
        return results

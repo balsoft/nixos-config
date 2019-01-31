@@ -99,6 +99,13 @@
 
 (advice-add 'substitute-command-keys :around #'wakib-substitute-command-keys)
 
+
+
+(when (not window-system)
+  (xterm-mouse-mode 1))
+
+
+
 (use-package hasklig-mode
   :hook (haskell-mode))
 
