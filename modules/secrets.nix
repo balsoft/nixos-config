@@ -8,6 +8,11 @@ with lib;
       type = types.string;
       description = "OpenWeatherMap key";
     };
+    irc.password = mkOption
+    {
+      type = types.string;
+      description = "IRC Freenode password";
+    };
     gmail.user = mkOption
     {
       type = types.string;

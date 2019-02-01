@@ -19,6 +19,7 @@
     ./applications/konsole.nix
     ./applications/trojita.nix
     ./applications/firefox.nix
+    ./applications/konversation.nix
     ./workspace/polybar.nix
     ./workspace/i3
     ./workspace/zsh.nix
