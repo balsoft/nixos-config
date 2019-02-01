@@ -64,13 +64,12 @@ in
         { command = "${pkgs.albert}/bin/albert"; always = true; }
         { command = "${pkgs.tdesktop}/bin/telegram-desktop"; }
         { command = apps.browser.cmd; }
-        { command = "${customPackages.vk}/bin/vk"; }
-        { command = "emacs  --daemon"; }
+        { command = "${pkgs.vk}/bin/vk"; }
+        { command = "emacs --daemon"; }
         { command = "${pkgs.kdeconnect}/lib/libexec/kdeconnectd"; }
         { command = "${pkgs.polkit-kde-agent}/lib/libexec/polkit-kde-authentication-agent-1"; }
         { command = "${pkgs.keepassxc}/bin/keepassxc /home/balsoft/projects/nixos-config/misc/Passwords.kdbx"; }
         { command = "balooctl start"; }
-        { command = "${pkgs.autorandr}/bin/autorandr --force horizontal"; always = true; }
         { command = "${pkgs.trojita}/bin/trojita"; } 
         { command = apps.term.cmd; workspace = "0"; }
         { command = "${pkgs.rclone}/bin/rclone mount google:/ '/home/balsoft/Google Drive' --verbose --daemon"; }
