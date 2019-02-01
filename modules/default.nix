@@ -33,5 +33,6 @@
     ./workspace/locale.nix
     ./workspace/fonts.nix
     ./workspace/light.nix
+    ./workspace/autorandr.nix
   ];
 }
