@@ -134,7 +134,7 @@ let
                 fi
                 if [[ $2 =~ ^(09|10|11).* ]]
                 then
-                  color=${color_rain}
+                  color=${color_rain} ,
                 fi
                 echo $color
             }
@@ -238,7 +238,7 @@ let
     name = "battery";
     text = ''
       #!${pkgs.bash}/bin/bash
-      BATTERY="`${pkgs.acpi}/bin/acpi -b`"
+      BATTERY="`${pkgs.acpi}/bin/acpi -b | grep --invert-match unavailable | head -1`"
       STATUS=`awk -F'[,:] ' '{print $2}' <<< "$BATTERY"`
       CHARGE=`awk -F'[,%] ' '{print $2}' <<< "$BATTERY" | tr -d "%"`
       TIME=`awk -F', ' '{print $3}' <<< "$BATTERY" | cut -d " " -f 1`

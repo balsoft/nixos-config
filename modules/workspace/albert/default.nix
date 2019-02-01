@@ -51,7 +51,7 @@ in
         clearOnHide = false;
         hideOnClose = true;
         hideOnFocusLoss = true;
-        showCentered = true;
+        showCentered = false;
         stylePath="${pkgs.albert}/share/albert/org.albert.frontend.qmlboxmodel/styles/BoxModel/MainComponent.qml";
       };
     };
