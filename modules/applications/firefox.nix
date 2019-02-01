@@ -60,5 +60,10 @@ in
     url = "https://addons.mozilla.org/firefox/downloads/file/1205950/keepassxc_browser-1.3.2-fx.xpi";
     sha256 = "8a9c13f36b6ea8c5287ea6f99a8a9dc8c28b615c529e44d630221c03aee26790";
   };
+  home.file.".mozilla/firefox/profile.default/extensions/addon@darkreader.org".source = pkgs.fetchurl
+  {
+    url = "https://addons.mozilla.org/firefox/downloads/file/1203413/dark_reader-4.7.5-an+fx.xpi";
+    sha256 = "ca3cb345a4d424878cc9767387f1002787885919bf6b95160fe7d453afb8f0f9";
+  };
   };
 }

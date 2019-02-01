@@ -59,6 +59,11 @@
 
 
 (setq compilation-scroll-output 'first-error)
+
+(add-to-list 'load-path "~/.emacs.d/elisp/")
+
+(require 'gud-lldb)
+
 (electric-indent-mode 1)
 ;; -------------------
 ;; Wakib
@@ -158,12 +163,11 @@ If point was already at that position, move point to beginning of line."
 ;; -------------------
 (use-package nord-theme
   :config
+  (load-theme 'nord t)
   (add-hook 'after-make-frame-functions
-        (lambda (frame)
-            (with-selected-frame frame
-              (load-theme 'nord t)
-	      )))
-  (load-theme 'nord t))
+            (lambda (frame)
+              (with-selected-frame frame
+                (load-theme 'nord t)))))
 ;; scroll one line at a time (less "jumpy" than defaults)
 
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
@@ -337,7 +341,7 @@ If point was already at that position, move point to beginning of line."
 
 (use-package powerline
   :config
-  (powerline-default-theme)
+  (powerline-center-theme)
   )
 
 ;; TODO (change defun rewrite to advice)

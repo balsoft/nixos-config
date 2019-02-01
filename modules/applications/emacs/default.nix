@@ -40,6 +40,7 @@
       ];    
     };
     home.file.".emacs.d/init.el".source = ./init.el;
+    home.file.".emacs.d/elisp/gud-lldb.el".source = ./gud-lldb.el;
     home.activation.emacs =
     {
       before = [];

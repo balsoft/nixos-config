@@ -39,6 +39,9 @@
     arduino
     kile
     clang
+    lldb
+    #gcc
+    #gdb
     appimage-run
   ] ++ [
     firefox

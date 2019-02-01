@@ -5,6 +5,7 @@ with import ../../../support.nix {inherit lib config;};
   services.flatpak.extraPortals = [pkgs.plasma5.xdg-desktop-portal-kde];
   services.dbus.packages = [pkgs.plasma5.xdg-desktop-portal-kde pkgs.flatpak pkgs.firefox];
   nixpkgs.config.firefox.enablePlasmaBrowserIntegration = true;
+  home-manager.users.balsoft.home.packages = [ pkgs.qt5ct ];
   environment.sessionVariables =
   {
     DESKTOP_SESSION = "kde";
@@ -12,11 +13,38 @@ with import ../../../support.nix {inherit lib config;};
     QT_SELECT = "5";
     XDG_CURRENT_DESKTOP="KDE";
     KDE_SESSION_VERSION="5";
-    QT_QPA_PLATFORMTHEME = "kde";
     QT_SCALE_FACTOR = "1";
     QT_AUTO_SCREEN_SCALE_FACTOR = "0";
     GTK_USE_PORTAL = "1";
     DE = "kde";
+    QT_QPA_PLATFORMTHEME="qt5ct";
+  };
+  home-manager.users.balsoft.xdg.configFile."qt5ct/qt5ct.conf".text = genIni
+  {
+    Appearance =
+    {
+      custom_palette = false;
+      icon_theme = "Papirus-Dark";
+      standart_dialogs = "kde";
+      style = "Breeze";
+    };
+    Fonts =
+    {
+      fixed = ''@Variant(\0\0\0@\0\0\0\x16\0R\0o\0\x62\0o\0t\0o\0 \0M\0o\0n\0o@&\0\0\0\0\0\0\xff\xff\xff\xff\x5\x1\0\x32\x10)'';
+      general = ''@Variant(\0\0\0@\0\0\0\f\0R\0o\0\x62\0o\0t\0o@&\0\0\0\0\0\0\xff\xff\xff\xff\x5\x1\0\x32\x10)'';
+    };
+    Interface =
+    {
+      activate_item_on_single_click = "0";
+      buttonbox_layout = "0";
+      cursor_flash_time = "1000";
+      dialog_buttons_have_icons = "1";
+      double_click_interval = "400";
+      menus_have_icons = true;
+      toolbutton_style = "4";
+      underline_shortcut = "1";
+      wheel_scroll_lines = 1;
+    };
   };
   home-manager.users.balsoft.xdg.configFile."kdeglobals".text = genIni {
     "Colors:Button" = {
@@ -124,8 +152,7 @@ with import ../../../support.nix {inherit lib config;};
       widgetStyle = "Breeze";
     };
     Icons = {
-        #Theme="Papirus-Dark";
-        Theme = "Breeze-Dark";
+      Theme="Papirus-Dark";
     };
   };
   home-manager.users.balsoft.home.activation."user-places.xbel" =
