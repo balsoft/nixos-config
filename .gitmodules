@@ -1,0 +1,6 @@
+[submodule "imports/nixpkgs"]
+	path = imports/nixpkgs
+	url = https://github.com/nixos/nixpkgs-channels
+[submodule "imports/home-manager"]
+	path = imports/home-manager
+	url = https://github.com/rycee/home-manager
