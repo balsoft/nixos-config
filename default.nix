@@ -23,9 +23,9 @@ device: # This is the device we're on now
   inherit device;
   nix.nixPath = let PWD = builtins.getEnv "PWD"; in
   [
-    "nixpkgs=${PWD}/imports/nixpkgs"
-    "home-manager=${PWD}/imports/home-manager"
-    "nixos-config=/etc/nixos/configuration.nix"
+  "nixpkgs=${./imports/nixpkgs}"
+  "home-manager=${./imports/home-manager}"
+  "nixos-config=/etc/nixos/configuration.nix"
   ];
   system.stateVersion = "18.03";
 }
