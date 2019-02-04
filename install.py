@@ -1,10 +1,12 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -p python3 p7zip -i python3
+#!nix-shell -p python3 p7zip git -i python3
 
 import subprocess
 import os
 
 print("Balsoft's config is going to be installed.")
+
+subprocess.check_output(["git", "submodule", "update", "--init", "--recursive"])
 
 ask_for_password = input("Do you know the password? [Y/n]: ") != "n"
 

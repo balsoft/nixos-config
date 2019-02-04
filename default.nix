@@ -25,6 +25,7 @@ device: # This is the device we're on now
   [
     "nixpkgs=${PWD}/imports/nixpkgs"
     "home-manager=${PWD}/imports/home-manager"
+    "nixos-config=/etc/nixos/configuration.nix"
   ];
   system.stateVersion = "18.03";
 }
