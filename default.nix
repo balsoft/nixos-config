@@ -20,8 +20,13 @@ device: # This is the device we're on now
     ./imports/home-manager/nixos
     ./modules
   ];
+  nixpkgs.pkgs = import ./imports/nixpkgs
+  {
+    config.allowUnfree = true;
+    config.android_sdk.accept_license = true;
+  };
   inherit device;
-  nix.nixPath = let PWD = builtins.getEnv "PWD"; in
+  nix.nixPath = 
   [
   "nixpkgs=${./imports/nixpkgs}"
   "home-manager=${./imports/home-manager}"
