@@ -13,7 +13,6 @@ if ask_for_password:
     output = subprocess.check_output(["7z", "e", "secret.nix.zip", "-y", '-p%s' % password])
     print("secret.nix extracted!")
 
-
 install = input("Is this a new installation? [y/N]: ") == 'y'    
 config = "/mnt/etc/nixos/configuration.nix"
 if install:

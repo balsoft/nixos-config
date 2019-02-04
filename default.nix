@@ -14,12 +14,17 @@ device: # This is the device we're on now
 { config, pkgs, lib, ... }: 
 {
   # ========================== HARDWARE =====================================
-  imports = [
+  imports =
+  [
     /etc/nixos/hardware-configuration.nix
-    "${builtins.fetchGit { url="https://github.com/rycee/home-manager"; ref="master"; }}/nixos"
+    ./imports/home-manager/nixos
     ./modules
   ];
   inherit device;
- 
+  nix.nixPath = let PWD = builtins.getEnv "PWD"; in
+  [
+    "nixpkgs=${PWD}/imports/nixpkgs"
+    "home-manager=${PWD}/imports/home-manager"
+  ];
   system.stateVersion = "18.03";
 }
