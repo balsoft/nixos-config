@@ -435,8 +435,9 @@ in
   programs.autorandr.enable = true;
   programs.autorandr.hooks =
   {
+    preswitch.polybar = "kill -9 $(pgrep polybar)";
     postswitch = {
-      polybar = "kill -9 $(pgrep polybar); sleep 0.5; for i in $(polybar -m | cut -d ':' -f 1); do MONITOR=$i polybar top & sleep 0.5; done";
+      polybar = "for i in $(polybar -m | cut -d ':' -f 1); do MONITOR=$i polybar top & sleep 0.5; done";
     };
   };
     
