@@ -26,7 +26,7 @@ device: # This is the device we're on now
     config.android_sdk.accept_license = true;
   } // config.nixpkgs.config;
   inherit device;
-  nix.nixPath = 
+  nix.nixPath = lib.mkForce
   [
   "nixpkgs=${./imports/nixpkgs}"
   "home-manager=${./imports/home-manager}"

@@ -1,5 +1,5 @@
 {pkgs, lib, config, ...}:
-let cpu = config.devices.${config.device}.cpu;
+let cpu = config.deviceSpecific.cpu;
     device = config.device;
     isShared = config.deviceSpecific.isShared;
 in
