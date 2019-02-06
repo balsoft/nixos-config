@@ -140,6 +140,7 @@ in
         "123" = "exec ${pkgs.pamixer}/bin/pamixer -i 5";
         "121" = "exec ${pkgs.pamixer}/bin/pamixer -t";
       };
+      workspaceLayout = "tabbed";
     };
   };
 }
