@@ -14,12 +14,23 @@ device: # This is the device we're on now
 { config, pkgs, lib, ... }: 
 {
   # ========================== HARDWARE =====================================
-  imports = [
+  imports =
+  [
     /etc/nixos/hardware-configuration.nix
-    "${builtins.fetchGit { url="https://github.com/rycee/home-manager"; ref="master"; }}/nixos"
+    ./imports/home-manager/nixos
     ./modules
   ];
+  nixpkgs.pkgs = import ./imports/nixpkgs
+  {
+    config.allowUnfree = true;
+    config.android_sdk.accept_license = true;
+  } // config.nixpkgs.config;
   inherit device;
- 
+  nix.nixPath = lib.mkForce
+  [
+  "nixpkgs=${./imports/nixpkgs}"
+  "home-manager=${./imports/home-manager}"
+  "nixos-config=/etc/nixos/configuration.nix"
+  ];
   system.stateVersion = "18.03";
 }

@@ -374,7 +374,9 @@ let
 in
 {
   home-manager.users.balsoft = rec {
-    xsession.windowManager.i3.config.startup = [
+    xsession.windowManager.i3.config.startup = lib.mkBefore
+    [
+      { command = "kill -9 $(pgrep polybar)"; always = true; }
       {
         command = ''exec ${
           pkgs.writeTextFile {
@@ -435,9 +437,7 @@ in
   programs.autorandr.enable = true;
   programs.autorandr.hooks =
   {
-    predetect = {
-      polybar = "kill -9 $(pgrep polybar); sleep 0.5";
-    };
+    preswitch.polybar = "kill -9 $(pgrep polybar)";
     postswitch = {
       polybar = "for i in $(polybar -m | cut -d ':' -f 1); do MONITOR=$i polybar top & sleep 0.5; done";
     };

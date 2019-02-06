@@ -1,6 +1,6 @@
 {pkgs, config, lib, ...}:
 {
-  nixpkgs.config.packageOverrides = old: {
+nixpkgs.overlays = [ (self: old: {
     nur = pkgs.callPackage (import (builtins.fetchGit {
       url = "https://github.com/nix-community/NUR";
     })) {};
@@ -22,9 +22,9 @@
     } // (if config.device == "Prestigio-Laptop" then {
     grub2 = old.pkgsi686Linux.grub2;
   } else {}) //
-  ((import ../packages {callPackage = old.callPackage;}))
+  ((import ../packages {callPackage = old.callPackage;})))]
   ;
-  nixpkgs.config.android_sdk.accept_license = true;
   
-  nixpkgs.config.allowUnfree = true;
+  
+  
 }

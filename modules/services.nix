@@ -24,7 +24,7 @@
   };
   #services.teamviewer.enable = true;
 
-
+  services.accounts-daemon.enable = true;
   services.avahi.enable = true;
 
   systemd.services.systemd-udev-settle.enable = false;
