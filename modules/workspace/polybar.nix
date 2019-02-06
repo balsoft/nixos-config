@@ -374,7 +374,9 @@ let
 in
 {
   home-manager.users.balsoft = rec {
-    xsession.windowManager.i3.config.startup = [
+    xsession.windowManager.i3.config.startup = lib.mkBefore
+    [
+      { command = "kill -9 $(pgrep polybar)"; always = true; }
       {
         command = ''exec ${
           pkgs.writeTextFile {
