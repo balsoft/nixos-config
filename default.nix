@@ -20,17 +20,7 @@ device: # This is the device we're on now
     ./imports/home-manager/nixos
     ./modules
   ];
-  nixpkgs.pkgs = import ./imports/nixpkgs
-  {
-    config.allowUnfree = true;
-    config.android_sdk.accept_license = true;
-  } // config.nixpkgs.config;
-  inherit device;
-  nix.nixPath = lib.mkForce
-  [
-  "nixpkgs=${./imports/nixpkgs}"
-  "home-manager=${./imports/home-manager}"
-  "nixos-config=/etc/nixos/configuration.nix"
-  ];
+
+  inherit device;  
   system.stateVersion = "18.03";
 }

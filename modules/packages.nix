@@ -24,7 +24,17 @@ nixpkgs.overlays = [ (self: old: {
   } else {}) //
   ((import ../packages {callPackage = old.callPackage;})))]
   ;
-  
+  nixpkgs.pkgs = import ../imports/nixpkgs
+  {
+    config.allowUnfree = true;
+    config.android_sdk.accept_license = true;
+  } // config.nixpkgs.config;
+  nix.nixPath = lib.mkForce
+  [
+  "nixpkgs=${../imports/nixpkgs}"
+  "home-manager=${../imports/home-manager}"
+  "nixos-config=/etc/nixos/configuration.nix"
+  ];  
   
   
 }
