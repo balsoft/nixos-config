@@ -24,7 +24,7 @@
           {
             enable = true;
             position = "0x1024";
-            mode = "1920x1080";
+            mode = "1368x768";
           };
           HDMI1 =
           {
@@ -35,7 +35,7 @@
           HDMI2 =
           {
             enable = true;
-            position = "1920x1024";
+            position = "1368x1024";
             mode = "1920x1080";
             primary = true;
           };
