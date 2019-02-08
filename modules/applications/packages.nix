@@ -19,6 +19,7 @@
     termNote
     stdman
     stdmanpages
+    qt5.qtsvg
   ]);
 
   

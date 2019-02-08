@@ -33,7 +33,7 @@ with import ../../support.nix {inherit lib config;};
           saveToImapEnabled = false;
         };
         gui = {
-          "mainWindow.layout" = "one-at-time";
+          "mainWindow.layout" = "compact";
           preferPlaintextRendering = true;
           showSystray = false;
           startMinimized = false;
