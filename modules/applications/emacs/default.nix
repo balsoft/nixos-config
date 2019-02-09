@@ -39,19 +39,18 @@
         flycheck-pkg-config
       ];
     };
-    xdg.dataFile."applications/emacsclient.desktop".text =
+    xdg.dataFile."applications/emacsclient.desktop".source =
     pkgs.makeDesktopItem
     {
-      Terminal = false;
-      Type = "Application";
-      Name = "Emacs client";
-      GenericName = "Text editor";
-      MimeType = "text/plain";
-      Exec = "emacsclient -c %u";
-      Categories = "Development;TextEditor;";
-      StartupWMClass = "Emacs";
-      Keywords = "Text;Editor;";
-      Icon = "emacs";
+      terminal = "False";
+      type = "Application";
+      name = "emacsclient";
+      genericName = "Text editor";
+      desktopName = "Emacs client";
+      mimeType = "text/plain";
+      exec = "emacsclient -c %u";
+      categories = "Development;TextEditor;";
+      icon = "emacs";
     };
     home.file.".emacs.d/init.el".source = ./init.el;
     home.file.".emacs.d/elisp/gud-lldb.el".source = ./gud-lldb.el;
