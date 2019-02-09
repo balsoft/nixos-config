@@ -20,6 +20,7 @@
     ./applications/trojita.nix
     ./applications/firefox.nix
     ./applications/konversation.nix
+    ./applications/okular.nix
     ./workspace/polybar.nix
     ./workspace/i3
     ./workspace/zsh.nix

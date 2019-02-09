@@ -29,7 +29,6 @@
     wget
     curl
   ] ++ lib.optionals config.deviceSpecific.goodMachine [
-    kate
     texlive.combined.scheme-full
     steam
     krita

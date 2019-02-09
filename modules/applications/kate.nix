@@ -26,7 +26,7 @@ with (import ../../support.nix {inherit lib config;});
         "Breeze Dark"."Color Background" = thmDec.bg;
       };
     };
-    home.packages = [ pkgs.kate ];
+#    home.packages = [ pkgs.kate ];
     home.activation.konsole =
     {
       data = "$DRY_RUN_CMD cp -f ~/.config/katerc.home ~/.config/katerc";

@@ -37,7 +37,21 @@
         irony
         flycheck
         flycheck-pkg-config
-      ];    
+      ];
+    };
+    xdg.dataFile."applications/emacsclient.desktop".text =
+    pkgs.makeDesktopItem
+    {
+      Terminal = false;
+      Type = "Application";
+      Name = "Emacs client";
+      GenericName = "Text editor";
+      MimeType = "text/plain";
+      Exec = "emacsclient -c %u";
+      Categories = "Development;TextEditor;";
+      StartupWMClass = "Emacs";
+      Keywords = "Text;Editor;";
+      Icon = "emacs";
     };
     home.file.".emacs.d/init.el".source = ./init.el;
     home.file.".emacs.d/elisp/gud-lldb.el".source = ./gud-lldb.el;
