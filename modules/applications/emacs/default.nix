@@ -2,7 +2,6 @@
 {
   home-manager.users.balsoft =
   {
-    home.packages = with pkgs; [irony-server clang];
     programs.emacs =
     {
       enable = true;
@@ -39,19 +38,23 @@
         flycheck-pkg-config
       ];
     };
-    xdg.dataFile."applications/emacsclient.desktop".source =
-    pkgs.makeDesktopItem
-    {
+    home.packages =
+    [
+    (pkgs.makeDesktopItem {
       terminal = "False";
       type = "Application";
       name = "emacsclient";
       genericName = "Text editor";
       desktopName = "Emacs client";
       mimeType = "text/plain";
-      exec = "emacsclient -c %u";
+      exec = "emacsclient -c %F";
       categories = "Development;TextEditor;";
       icon = "emacs";
-    };
+    })
+    pkgs.irony-server
+    pkgs.clang
+    ];
+    xsession.windowManager.i3.config.startup = [ {command = "emacs --daemon";} ];
     home.file.".emacs.d/init.el".source = ./init.el;
     home.file.".emacs.d/elisp/gud-lldb.el".source = ./gud-lldb.el;
     home.activation.emacs =
