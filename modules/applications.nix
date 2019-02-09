@@ -18,7 +18,7 @@ with import ../support.nix {inherit lib config;};
       editor =
       {
         cmd = "${pkgs.emacs}/bin/emacsclient -c -n";
-        desktop = "emacs";
+        desktop = "emacsclient";
       };
       browser =
       {
