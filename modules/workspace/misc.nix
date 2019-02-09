@@ -26,6 +26,6 @@
       layout = "us,ru";
     };
     home.file.".icons/default".source = "${pkgs.breeze-qt5}/share/icons/breeze_cursors";
-    
+    systemd.user.startServices = true;
   };
 }
