@@ -54,23 +54,7 @@
     pkgs.irony-server
     pkgs.clang
     ];
-    #xsession.windowManager.i3.config.startup = [ {command = "emacs --daemon";} ];
-    systemd.user.services.emacs =
-    {
-      Unit =
-      {
-        Description = "Emacs, the GNU text editor";
-      };
-      Install =
-      {
-        WantedBy = [ "graphical-session.target" ];
-      };
-      Service =
-      {
-        ExecStart = "/home/balsoft/.nix-profile/bin/emacs --daemon";
-        Type = "forking";
-      };
-    };
+    xsession.windowManager.i3.config.startup = [ {command = "emacs --daemon";} ];
     
     home.file.".emacs.d/init.el".source = ./init.el;
     home.file.".emacs.d/elisp/gud-lldb.el".source = ./gud-lldb.el;
