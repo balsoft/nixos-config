@@ -51,11 +51,7 @@ in
         hideEdgeBorders = "smart";
         commands = [ 
           {
-            command = "focus";
-            criteria = { urgent = "latest"; };
-          } 
-          {
-            command = "border pixel 1px";
+            command = "border pixel 2px";
             criteria = { window_role = "popup"; };
           }
         ];

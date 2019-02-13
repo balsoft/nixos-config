@@ -393,4 +393,20 @@ If point was already at that position, move point to beginning of line."
 (setq custom-file (expand-file-name "custom" user-emacs-directory))
 (load custom-file t t)
 
-(require 'init-local nil t)
+(defun compile-on-save-start ()
+  "Recompile when compilation is not going."
+  (let ((buffer (compilation-find-buffer)))
+    (unless (get-buffer-process buffer) 
+      (recompile))))
+
+(define-minor-mode compile-on-save-mode
+  "Minor mode to automatically call `recompile' whenever the
+current buffer is saved. When there is ongoing compilation,
+nothing happens."
+  :lighter " CoS"
+    (if compile-on-save-mode
+    (progn  (make-local-variable 'after-save-hook)
+        (add-hook 'after-save-hook 'compile-on-save-start nil t))
+    (kill-local-variable 'after-save-hook)))
+
+;;; init.el ends here
