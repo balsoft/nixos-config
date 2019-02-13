@@ -81,7 +81,7 @@
     papirus-icon-theme
     breeze-icons
     kde-cli-tools
-    vk
+    vk-messenger
   ]) ;
 
 
