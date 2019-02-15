@@ -28,11 +28,23 @@ in
       autoLogin.enable = !isShared;
       autoLogin.user = "balsoft";
       greeter.enable = isShared;
-      greeters.gtk = {
+      background = config.themes.colors.bg;
+      greeters.enso = {
         enable = isShared;
-        iconTheme = {
+        cursorTheme =
+        {
+          package = pkgs.breeze-qt5;
+          name = "Breeze";
+        };
+        iconTheme =
+        {
           package = pkgs.papirus-icon-theme;
           name = "Papirus-Dark";
+        };
+        theme =
+        {
+          package = pkgs.generated-gtk-theme;
+          name = "Generated";
         };
       };
     };
