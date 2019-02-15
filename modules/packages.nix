@@ -21,9 +21,7 @@ nixpkgs.overlays = [ (self: old: {
      
     } // (if config.device == "Prestigio-Laptop" then {
     grub2 = old.pkgsi686Linux.grub2;
-  } else {}) //
-  ((import ../packages {callPackage = old.callPackage;})))]
-  ;
+    } else {}))];
   nixpkgs.pkgs = import ../imports/nixpkgs
   {
     config.allowUnfree = true;

@@ -60,7 +60,7 @@ in
         { command = "${pkgs.albert}/bin/albert"; always = true; }
         { command = "${pkgs.tdesktop}/bin/telegram-desktop"; }
         { command = apps.browser.cmd; }
-        { command = "${pkgs.vk}/bin/vk"; }
+        { command = "${pkgs.vk-messenger}/bin/vk"; }
         { command = "${pkgs.kdeconnect}/lib/libexec/kdeconnectd"; }
         { command = "${pkgs.polkit-kde-agent}/lib/libexec/polkit-kde-authentication-agent-1"; }
         { command = "${pkgs.keepassxc}/bin/keepassxc /home/balsoft/projects/nixos-config/misc/Passwords.kdbx"; }
