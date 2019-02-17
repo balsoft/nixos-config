@@ -26,7 +26,13 @@ let thm = config.themes.colors;
       NAME=generated
       '';
     };
-    gtkTheme = pkgs.stdenv.mkDerivation rec
+in
+{
+  nixpkgs.overlays =
+  [
+  (self: super: {
+    generated-gtk-theme =
+    self.stdenv.mkDerivation rec
     {
       name = "generated-gtk-theme";
       src = builtins.fetchGit
@@ -34,23 +40,22 @@ let thm = config.themes.colors;
         url = "https://github.com/nana-4/materia-theme";
         rev = "5e11d2aa6cc26f4f7fd8c229214c4e74b802d6b8";
       };
-      buildInputs = with pkgs; [ sassc bc which inkscape optipng ];
+      buildInputs = with self; [ sassc bc which inkscape optipng ];
       installPhase = ''
-      cp -r $src $out
-      cd $out
       chmod 777 -R .
       patchShebangs .
-      substituteInPlace change_color.sh --replace "\$HOME/.themes" "$out"
+      mkdir -p $out/share/themes
+      substituteInPlace change_color.sh --replace "\$HOME/.themes" "$out/share/themes"
       echo "Changing colours:"
-      ./change_color.sh -o generated ${materia_colors}
+      ./change_color.sh -o Generated ${materia_colors}
       chmod 555 -R .
       '';
     };
-in
-{
+  })
+  ];
   home-manager.users.balsoft =
   {
-    home.file.".themes/Generated".source = "${gtkTheme}/generated";
+    home.packages = [ pkgs.generated-gtk-theme ];
     gtk =
     {
       enable = true;
@@ -58,6 +63,11 @@ in
       {
         name = "Papirus-Dark";
         package = pkgs.papirus-icon-theme;
+      };
+      theme =
+      {
+        name = "Genarated";
+        package = pkgs.generated-gtk-theme;
       };
     };
   };

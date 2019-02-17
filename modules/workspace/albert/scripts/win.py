@@ -15,7 +15,7 @@ Window = namedtuple("Window", ["wid", "desktop", "wm_class", "host", "wm_name"])
 __iid__ = "PythonInterface/v0.1"
 __prettyname__ = "Window Switcher"
 __version__ = "1.3"
-__trigger__ = None
+__trigger__ = "win"
 __author__ = "Ed Perez, Manuel Schneider, Alexander Bantyev"
 __dependencies__ = ["wmctrl"]
 
@@ -23,6 +23,8 @@ if which("wmctrl") is None:
     raise Exception("'wmctrl' is not in $PATH.")
 
 def handleQuery(query):
+    if not query.isTriggered:
+        return []
     stripped = query.string.strip().lower()
     if stripped:
         results = []

@@ -19,7 +19,8 @@ with deviceSpecific;
   hardware.bluetooth.enable = true;
   hardware.sane.enable = true;
  
-  boot = {
+  boot =
+  {
     loader = {
       grub.enable = true;
       grub.version = 2;
