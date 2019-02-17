@@ -28,7 +28,7 @@ in
       autoLogin.enable = !isShared;
       autoLogin.user = "balsoft";
       greeter.enable = isShared;
-      background = config.themes.colors.bg;
+      background = "222222";
       greeters.enso = {
         enable = isShared;
         cursorTheme =

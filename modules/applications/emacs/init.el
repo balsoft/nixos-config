@@ -66,6 +66,11 @@
 
 (require 'gud-lldb)
 
+(use-package auto-indent-mode
+  :config
+  (auto-indent-global-mode))
+
+(global-auto-revert-mode)
 
 (electric-indent-mode 1)
 ;; -------------------

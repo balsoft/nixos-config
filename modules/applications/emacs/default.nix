@@ -36,6 +36,7 @@
         irony
         flycheck
         flycheck-pkg-config
+        auto-indent-mode
       ];
     };
     home.packages =
