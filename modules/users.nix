@@ -45,4 +45,5 @@ balsoft ALL = (root) NOPASSWD: /run/current-system/sw/bin/nixos-rebuild switch
   } else {
 
   };
+  home-manager.useUserPackages = true;
 }
