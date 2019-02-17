@@ -17,7 +17,12 @@ with import ../support.nix {inherit lib config;};
       };
       editor =
       {
-        cmd = "${pkgs.emacs}/bin/emacsclient -c -n";
+        cmd = toString (pkgs.writeTextFile
+        {
+          name = "emacsclient";
+          text = "${pkgs.emacs}/bin/emacsclient";
+          executable = true;
+        });
         desktop = "emacsclient";
       };
       browser =
