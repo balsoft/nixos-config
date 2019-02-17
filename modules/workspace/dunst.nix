@@ -15,11 +15,13 @@ home-manager.users.balsoft =
         geometry = "500x5-30+50";
         transparency = 10;
         frame_color = thm.blue;
-        font = "Roboto Mono 13";
+        font = "Roboto 13";
         padding = 15;
         horizontal_padding = 17;
         word_wrap = true;
         follow = "keyboard";
+        format = "%s %p %I \n%b";
+        markup = "full";
       };
       
       urgency_low = {
