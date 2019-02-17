@@ -2,7 +2,7 @@
 {
   home-manager.users.balsoft.xsession.windowManager.i3.config.startup =
   [
-    { command = "${pkgs.autorandr}/bin/autorandr -c --default horizontal"; always = true; }
+    { command = "${pkgs.autorandr}/bin/autorandr -c --force --default horizontal"; always = true; }
   ];
   home-manager.users.balsoft.xsession.windowManager.i3.config.keybindings."${config.home-manager.users.balsoft.xsession.windowManager.i3.config.modifier}+p" = "exec ${pkgs.autorandr}/bin/autorandr -c --default horizontal";
   home-manager.users.balsoft.programs.autorandr =

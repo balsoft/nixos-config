@@ -20,7 +20,7 @@ with import ../support.nix {inherit lib config;};
         cmd = toString (pkgs.writeTextFile
         {
           name = "emacsclient";
-          text = "${pkgs.emacs}/bin/emacsclient";
+          text = "#!${pkgs.bash}/bin/bash\n${pkgs.emacs}/bin/emacsclient -c -n $@";
           executable = true;
         });
         desktop = "emacsclient";
