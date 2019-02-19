@@ -52,7 +52,7 @@
     libnotify
     # Audio/Video
     vlc
-    google-play-music-desktop-player
+    cantata
     lxqt.pavucontrol-qt
     # Tools
     zip
