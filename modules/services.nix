@@ -17,7 +17,6 @@
     username = ${config.secrets.gpmusic.user}
     password = ${config.secrets.gpmusic.password}
     deviceid = ${config.secrets.gpmusic.deviceid}
-    bitrate = 320
     '';
     
   };
