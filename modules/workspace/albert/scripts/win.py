@@ -15,7 +15,7 @@ Window = namedtuple("Window", ["wid", "desktop", "wm_class", "host", "wm_name"])
 __iid__ = "PythonInterface/v0.1"
 __prettyname__ = "Window Switcher"
 __version__ = "1.3"
-__trigger__ = "win"
+__trigger__ = "w"
 __author__ = "Ed Perez, Manuel Schneider, Alexander Bantyev"
 __dependencies__ = ["wmctrl"]
 
@@ -30,7 +30,7 @@ def handleQuery(query):
         results = []
         for line in subprocess.check_output(['wmctrl', '-l', '-x']).splitlines():
             win = Window(*[token.decode() for token in line.split(None,4)])
-            if win.desktop != "-1"  and stripped in win.wm_name.lower():
+            if stripped == '' or stripped in win.wm_name.lower() or stripped in win.wm_class.lower():
                 results.append(Item(id="%s%s" % (__prettyname__, win.wm_class),
                                     icon=iconLookup(win.wm_class.split('.')[0]),
                                     text="Window %s @ %s" % (win.wm_class.split('.')[-1].replace('-',' '), win.desktop),
