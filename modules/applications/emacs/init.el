@@ -95,6 +95,8 @@
 (global-display-line-numbers-mode)
 
 
+(use-package ix)
+
 (use-package flycheck
   :config
   (global-flycheck-mode))

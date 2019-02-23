@@ -37,6 +37,7 @@
         flycheck
         flycheck-pkg-config
         auto-indent-mode
+        ix
       ];
     };
     home.packages =
