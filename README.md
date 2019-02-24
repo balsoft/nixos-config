@@ -9,7 +9,7 @@ git clone https://github.com/balsoft/nixos-config --recursive && cd nixos-config
 I recommend you inspect vm.sh before running it. Press Ctrl-C if something seems wrong (after all, Microsoft owns Github now; you never know if it’s Windows 10 installation script)
 
 ## Creating your own secret.nix for better experience
-You can check out the structure of ‘./secret.nix‘ in ‘./modules/secrets.nix’
+You can check out the structure of `./secret.nix` in `./modules/secrets.nix`
 
 ## Installing it on your machine
-Run ‘./install.py’
+Run `./install.py`
