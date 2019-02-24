@@ -13,7 +13,6 @@
 device: # This is the device we're on now
 { config, pkgs, lib, ... }: 
 {
-  # ========================== HARDWARE =====================================
   imports =
   [
     /etc/nixos/hardware-configuration.nix
@@ -21,6 +20,9 @@ device: # This is the device we're on now
     ./modules
   ];
 
+  environment.etc.current-configuration.source = ./.;
+
   inherit device;  
+
   system.stateVersion = "18.03";
 }
