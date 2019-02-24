@@ -1,51 +1,58 @@
 {pkgs, config, lib, ...}:
 with lib;
+with types;
+let mkCredOption = service: extra: mkOption 
+    {
+      description = "Credentials for ${service}";
+      type = 
+      nullOr 
+      (submodule
+      {
+        options = 
+        {
+          user = mkOption 
+          {
+            type = string;
+            description = "Username for ${service}";
+          };
+          password = mkOption 
+          {
+            type = string;
+            description = "Password for ${service}";
+          };
+        } // extra;
+      });
+    };
+in 
+rec
 {
-  options.secrets =
-  {
+  options.secrets = {
     owm-key = mkOption
     {
-      type = types.string;
+      type = nullOr string;
       description = "OpenWeatherMap key";
     };
-    irc.password = mkOption
+    irc = mkCredOption "IRC (konversation)" {}; 
+    gmail = mkCredOption "gmail (trojita)" {};
+    gpmusic = mkCredOption "Google Play Music (mopidy)"
+    ({deviceid = mkOption
     {
-      type = types.string;
-      description = "IRC Freenode password";
-    };
-    gmail.user = mkOption
-    {
-      type = types.string;
-      description = "Gmail user name";
-    };
-    gmail.password = mkOption
-    {
-      type = types.string;
-      description = "Gmail application password";
-    };
-    gpmusic.user = mkOption
-    {
-      type = types.string;
-      description = "Google Play Music user name";
-    };
-    gpmusic.password = mkOption
-    {
-      type = types.string;
-      description = "Google play music application password";
-    };
-    gpmusic.deviceid = mkOption
-    {
-      type = types.string;
+      type = string;
       description = "Android device ID";
-    };
+    };});
     id_rsa = mkOption
     {
-      type = types.string;
+      type = nullOr string;
       description = "SSH RSA private key";
     };
   };
   config =
+  let secretnix = import ../secret.nix;
+      secrets = if isNull secretnix then 
+            mapAttrs (n: v: null) options.secrets
+      else secretnix;
+  in
   {
-    secrets = import ../secret.nix;       
+    inherit secrets;       
   };
 }

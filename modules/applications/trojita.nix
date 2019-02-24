@@ -1,7 +1,7 @@
 {pkgs, config, lib, ...}:
 with import ../../support.nix {inherit lib config;};
 {
-  home-manager.users.balsoft.xdg.configFile."flaska.net/trojita.conf".text = genIni {
+  home-manager.users.balsoft.xdg.configFile."flaska.net/trojita.conf".text = if ! isNull config.secrets.gmail then  genIni {
         General = {
           "app.updates.checkEnabled" = false;
           "imap.auth.user" = config.secrets.gmail.user;
@@ -50,5 +50,5 @@ with import ../../support.nix {inherit lib config;};
           addressbook = "abookaddressbook";
           password = "cleartextpassword";
         };
-      };
+      } else "";
 }

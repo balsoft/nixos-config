@@ -5,3 +5,4 @@ auto-save-list
 tramp
 .\#*
 result
+*\.qcow2

@@ -351,13 +351,14 @@ let
     '';
     executable = true;
   };
-  polybar_left = [ 
-    (weather { city-id = "513378"; city = "Ozery"; }) 
+  polybar_left =  
+  lib.optional (! isNull secret && ! isNull secret.owm-key) (weather { city-id = "513378"; city = "Ozery"; }) ++
+  [
     (time {})
     (now {})
-    (next {}) 
-    (email { user = secret.gmail.user; password = secret.gmail.password; }) 
-  ];
+    (next {})
+  ] ++
+  lib.optional (! isNull secret && ! isNull secret.gmail) (email { user = secret.gmail.user; password = secret.gmail.password; }) ;
 
   polybar_right = [
     (status {})

@@ -90,6 +90,22 @@ with types;
 			  };
 			  ram = 2;
 		  };
+      NixOS-VM = 
+      {
+        cpu = 
+        {
+          vendor = "intel";
+          clock = 1000;
+          cores = 1;
+        };
+        drive =
+        {
+          type = "ssd";
+          speed = 50;
+          size = 1;
+        };
+        ram = 4;
+      };
 	  };
   };
 }

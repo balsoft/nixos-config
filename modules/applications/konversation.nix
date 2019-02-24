@@ -1,8 +1,8 @@
 { pkgs, config, lib, ...}:
 with import ../../support.nix {inherit lib config;};
 {
-home-manager.users.balsoft.xsession.windowManager.i3.config.startup = [ {command = "${pkgs.konversation}/bin/konversation";} ];
-  home-manager.users.balsoft.xdg.configFile."konversationrc".text = genIni
+  home-manager.users.balsoft.xsession.windowManager.i3.config.startup = [ {command = "${pkgs.konversation}/bin/konversation";} ];
+  home-manager.users.balsoft.xdg.configFile."konversationrc".text = if ! isNull config.secrets.irc then genIni
   {
     Appearance =
     {
@@ -31,18 +31,18 @@ home-manager.users.balsoft.xsession.windowManager.i3.config.startup = [ {command
       AwayReason = "Gone away for now";
       Bot = "nickserv";
       Codec = "UTF-8";
-      Ident = "balsoft";
+      Ident = config.secrets.irc.user;
       InsertRememberLineOnAway = false;
       KickReason = "User terminated!";
       Name = "Default Identity";
-      Nicknames = "balsoft";
+      Nicknames = config.secrets.irc.user;
       NickservCommand = "identify";
       PartReason = "Konversation terminated!";
       Password = config.secrets.irc.password;
       PemClientCertFile = "";
       PreShellCommand = "";
       QuitReason = "Konversation terminated!";
-      Realname = "Alexander Bantyev";
+      Realname = config.secrets.irc.user;
       ReturnMessage = "";
       SaslAccount = "";
       ShowAwayMessage = false;
@@ -75,5 +75,5 @@ home-manager.users.balsoft.xsession.windowManager.i3.config.startup = [ {command
       Name = "freenode";
       ServerList = "Server 0";
     };
-  };
+  } else "";
 }
