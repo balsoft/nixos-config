@@ -69,6 +69,12 @@ in
         name = "Genarated";
         package = pkgs.generated-gtk-theme;
       };
+      font = 
+      {
+        package = pkgs.roboto;
+        name = "Roboto 11";
+      };
+      gtk3.extraConfig.gtk-cursor-theme-name = "breeze";
     };
   };
   environment.sessionVariables.GTK_THEME = "Generated";

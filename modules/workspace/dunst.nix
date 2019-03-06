@@ -20,7 +20,7 @@ home-manager.users.balsoft =
         horizontal_padding = 17;
         word_wrap = true;
         follow = "keyboard";
-        format = "%s %p %I \n%b";
+        format = "%s %p %I \\n%b";
         markup = "full";
       };
       

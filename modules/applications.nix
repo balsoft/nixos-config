@@ -27,7 +27,7 @@ with import ../support.nix {inherit lib config;};
       };
       browser =
       {
-        cmd = "${pkgs.firefox}/bin/firefox";
+        cmd = "${pkgs.firefox-wayland}/bin/firefox";
         desktop = "firefox";
       };
       fm =

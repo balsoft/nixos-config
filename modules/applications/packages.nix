@@ -68,8 +68,9 @@
     papirus-icon-theme
     breeze-icons
     ksysguard
-    scrot
-    xclip
+    wl-clipboard
+    grim
+    slurp
     abiword
     gnumeric
     gcalcli

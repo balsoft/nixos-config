@@ -17,9 +17,9 @@ with import ../../../support.nix {inherit lib config;};
     QT_AUTO_SCREEN_SCALE_FACTOR = "0";
     GTK_USE_PORTAL = "1";
     DE = "kde";
-    QT_QPA_PLATFORMTHEME="qt5ct";
+    QT_QPA_PLATFORMTHEME="kde";
   };
-  home-manager.users.balsoft.xdg.configFile."qt5ct/qt5ct.conf".source = ./qt5ct.conf;
+  #home-manager.users.balsoft.xdg.configFile."qt5ct/qt5ct.conf".source = ./qt5ct.conf;
   home-manager.users.balsoft.xdg.configFile."kdeglobals".text = genIni {
     "Colors:Button" = {
        BackgroundAlternate = thmDec.dark;

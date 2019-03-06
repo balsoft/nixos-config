@@ -10,11 +10,11 @@
     ./applications/firefox.nix
     ./applications/konversation.nix
     ./applications/okular.nix
-    ./workspace/polybar/default.nix
+    #./workspace/polybar/default.nix
     ./workspace/i3
     ./workspace/zsh.nix
     ./workspace/gtk.nix
-    ./workspace/compton.nix   
+    #./workspace/compton.nix   
     ./workspace/misc.nix
     ./workspace/dunst.nix
     ./workspace/albert

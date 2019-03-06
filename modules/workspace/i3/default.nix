@@ -9,8 +9,8 @@ in
     package = pkgs.i3-gaps;
     config = rec {
       assigns = {
-        "" = [{ class = "Chromium"; } { class = "Firefox"; } ];
-        "" = [{ class = "^Telegram"; } { class = "^VK"; } { class = "^trojita"; } { class = "^konversation"; } ];
+        "" = [{ class = "Chromium"; } { app_id = "firefox"; } { app_id = "keepassxc"; } ];
+        "" = [{ class = "telegram"; } { class = "^VK"; } { app_id = "net.flaska.trojita"; } { app_id = "org.kde.konversation"; } ];
       };
       bars = [];
       fonts = [ "RobotoMono 9" ];
@@ -57,8 +57,8 @@ in
         ];
       };
       startup = map (a: { notification = false; } // a) [
-        { command = "${pkgs.albert}/bin/albert"; always = true; }
-        { command = "${pkgs.tdesktop}/bin/telegram-desktop"; }
+        { command = "QT_QPA_PLATFORM=xcb ${pkgs.albert}/bin/albert"; always = true; }
+        { command = "${pkgs.tdesktop}/bin/telegram-desktop"; workspace = ""; }
         { command = apps.browser.cmd; }
         { command = "${pkgs.vk-messenger}/bin/vk"; }
         { command = "${pkgs.kdeconnect}/lib/libexec/kdeconnectd"; }
@@ -66,7 +66,6 @@ in
         { command = "${pkgs.keepassxc}/bin/keepassxc /home/balsoft/projects/nixos-config/misc/Passwords.kdbx"; }
         { command = "balooctl start"; }
         { command = "${pkgs.trojita}/bin/trojita"; } 
-        { command = apps.term.cmd; workspace = "0"; }
         { command = "${pkgs.rclone}/bin/rclone mount google:/ '/home/balsoft/Google Drive' --verbose --daemon"; }
         { command = "${pkgs.hsetroot}/bin/hsetroot -solid '${thm.bg}'"; always = true; }
         #{ command = "exec ${./workspace-layouts.pl} &"; always = true; }
@@ -103,10 +102,10 @@ in
         "${modifier}+Shift+f" = "floating toggle";
         "${modifier}+d" = "exec ${apps.fm.cmd}";
         "${modifier}+Escape" = "exec ${apps.monitor.cmd}";
-        "${modifier}+Print" = "exec scrot -e 'mv $f ~/Pictures && notify-send \"Screenshot saved as ~/Pictures/$f\"'";
-        "${modifier}+Control+Print" = "exec scrot -e 'xclip -selection clipboard -t image/png -i $f && notify-send \"Screenshot copied to clipboard\" && rm $f'";
-        "--release ${modifier}+Shift+Print" = "exec scrot -s -e 'mv $f ~/Pictures && notify-send \"Screenshot saved as ~/Pictures/$f\"'";
-        "--release ${modifier}+Control+Shift+Print" = "exec scrot -s -e 'xclip -selection clipboard -t image/png -i $f && notify-send \"Screenshot copied to clipboard\" && rm $f'";
+        "${modifier}+Print" = "exec ${pkgs.grim}/bin/grim $(${pkgs.xdg-user-dirs}/bin/xdg-user-dir PICTURES)/$(date +'%Y-%m-%d-%H%M%S_grim.png')";
+        "${modifier}+Control+Print" = "exec ${pkgs.grim}/bin/grim - | ${pkgs.wl-clipboard}/bin/wl-copy";
+        "--release ${modifier}+Shift+Print" = "exec ${pkgs.grim}/bin/grim -g '$(${pkgs.slurp}/bin/slurp)' $(${pkgs.xdg-user-dirs}/bin/xdg-user-dir PICTURES)/$(date +'%Y-%m-%d-%H%M%S_grim.png')";
+        "--release ${modifier}+Control+Shift+Print" = "exec ${pkgs.grim}/bin/grim -g '$(${pkgs.slurp}/bin/slurp)' - | ${pkgs.wl-clipboard}/bin/wl-copy";
         "${modifier}+x" = "move workspace to output right"; 
         "${modifier}+z" = "exec ${pkgs.i3-easyfocus}/bin/i3-easyfocus";
         "${modifier}+c" = "workspace ";
@@ -120,6 +119,7 @@ in
         "${modifier}+Shift+v" = "layout splitv";
         "${modifier}+h" = "split h";
         "${modifier}+v" = "split v";
+        "${modifier}+Space" = "exec ${pkgs.albert}/bin/albert toggle";
         "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
         "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
         "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
@@ -128,7 +128,6 @@ in
       ) // builtins.listToAttrs (
         builtins.genList (x: {name = "${modifier}+Shift+${toString x}"; value = "move container to workspace ${toString x}";}) 10
       ));
-      extraConfig = "output * bg ${thm.bg} solid_color";
       keycodebindings = {
         "122" = "exec ${pkgs.pamixer}/bin/pamixer -d 5";
         "123" = "exec ${pkgs.pamixer}/bin/pamixer -i 5";
@@ -136,5 +135,13 @@ in
       };
       workspaceLayout = "tabbed";
     };
+    extraConfig = 
+    ''
+    output * bg ${thm.bg} solid_color
+    input 2:7:SynPS/2_Synaptics_TouchPad {
+          tap enabled
+          natural_scroll enabled
+    }
+    '';
   };
 }
