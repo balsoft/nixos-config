@@ -120,8 +120,6 @@ in
         "${modifier}+Shift+v" = "layout splitv";
         "${modifier}+h" = "split h";
         "${modifier}+v" = "split v";
-        "${modifier}+Minus" = "move to scratchpad";
-        "${modifier}+Equals" = "scratchpad show";
         "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
         "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
         "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";

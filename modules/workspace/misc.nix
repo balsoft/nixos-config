@@ -1,5 +1,7 @@
 {pkgs, lib, config, ...}:
 {
+  programs.sway-beta.enable = true;
+  users.users.balsoft.extraGroups = [ "sway" ];
 
   programs.ssh.askPassword = "${pkgs.plasma5.ksshaskpass}/bin/ksshaskpass";
   environment.sessionVariables = {
@@ -11,7 +13,7 @@
   {
     xdg.enable = true;
     
-    services.udiskie.enable = true;
+    #services.udiskie.enable = true;
     programs.git =
     {
       enable = true;
