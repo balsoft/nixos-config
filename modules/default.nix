@@ -34,7 +34,7 @@
     ./hardware.nix
     ./services.nix
     ./power.nix
-    ./xserver.nix
+    #./xserver.nix
     ./network.nix
   ];
 }
