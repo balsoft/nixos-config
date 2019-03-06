@@ -44,7 +44,7 @@
     #gdb
     appimage-run
   ] ++ [
-    firefox
+    firefox-wayland
     # Messaging
     tdesktop
     telepathy_haze
