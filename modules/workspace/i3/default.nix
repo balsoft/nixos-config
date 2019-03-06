@@ -128,6 +128,7 @@ in
       ) // builtins.listToAttrs (
         builtins.genList (x: {name = "${modifier}+Shift+${toString x}"; value = "move container to workspace ${toString x}";}) 10
       ));
+      extraConfig = "output * bg ${thm.bg} solid_color";
       keycodebindings = {
         "122" = "exec ${pkgs.pamixer}/bin/pamixer -d 5";
         "123" = "exec ${pkgs.pamixer}/bin/pamixer -i 5";
