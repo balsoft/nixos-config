@@ -11,6 +11,7 @@
     XDG_SESSION_TYPE = "wayland";
     XKB_DEFAULT_LAYOUT = "us,ru";
     XKB_DEFAULT_OPTIONS = "grp:caps_toggle,grp_led:caps";
+    QT_QPA_PLATFORM = "wayland";
   };
   home-manager.users.balsoft =
   {

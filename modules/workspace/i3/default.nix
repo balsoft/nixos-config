@@ -12,7 +12,35 @@ in
         "" = [{ class = "Chromium"; } { app_id = "firefox"; } { app_id = "keepassxc"; } ];
         "" = [{ class = "telegram"; } { class = "^VK"; } { app_id = "net.flaska.trojita"; } { app_id = "org.kde.konversation"; } ];
       };
-      bars = [];
+      bars = 
+      [ 
+      { 
+        colors =
+        rec {
+          activeWorkspace = 
+          {
+            text = thm.blue;
+            border = thm.bg;
+            background = thm.bg;
+          };
+          background = thm.bg;
+          bindingMode =
+          {
+            background = thm.bg;
+            text = thm.yellow;
+            border = thm.bg;
+          };
+          focusedWorkspace = activeWorkspace;
+          inactiveWorkspace = activeWorkspace // {text = thm.fg;};
+          separator = thm.alt;
+          urgentWorkspace = activeWorkspace // {text = thm.orange;};
+        };
+        fonts = ["Roboto Mono 11"];
+        id = "top";
+        position = "top";
+        statusCommand = "${pkgs.i3status}/bin/i3status";
+      }
+      ];
       fonts = [ "RobotoMono 9" ];
       
       colors = rec{
@@ -104,8 +132,8 @@ in
         "${modifier}+Escape" = "exec ${apps.monitor.cmd}";
         "${modifier}+Print" = "exec ${pkgs.grim}/bin/grim $(${pkgs.xdg-user-dirs}/bin/xdg-user-dir PICTURES)/$(date +'%Y-%m-%d-%H%M%S_grim.png')";
         "${modifier}+Control+Print" = "exec ${pkgs.grim}/bin/grim - | ${pkgs.wl-clipboard}/bin/wl-copy";
-        "--release ${modifier}+Shift+Print" = "exec ${pkgs.grim}/bin/grim -g '$(${pkgs.slurp}/bin/slurp)' $(${pkgs.xdg-user-dirs}/bin/xdg-user-dir PICTURES)/$(date +'%Y-%m-%d-%H%M%S_grim.png')";
-        "--release ${modifier}+Control+Shift+Print" = "exec ${pkgs.grim}/bin/grim -g '$(${pkgs.slurp}/bin/slurp)' - | ${pkgs.wl-clipboard}/bin/wl-copy";
+        "${modifier}+Shift+Print" = ''exec ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" $(${pkgs.xdg-user-dirs}/bin/xdg-user-dir PICTURES)/$(date +'%Y-%m-%d-%H%M%S_grim.png')'';
+        "${modifier}+Control+Shift+Print" = ''exec ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.wl-clipboard}/bin/wl-copy'';
         "${modifier}+x" = "move workspace to output right"; 
         "${modifier}+z" = "exec ${pkgs.i3-easyfocus}/bin/i3-easyfocus";
         "${modifier}+c" = "workspace ";
