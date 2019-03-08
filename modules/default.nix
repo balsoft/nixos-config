@@ -24,7 +24,7 @@
     ./workspace/locale.nix
     ./workspace/fonts.nix
     ./workspace/light.nix
-    ./workspace/autorandr.nix
+    #./workspace/autorandr.nix
     ./themes.nix
     ./applications.nix
     ./secrets.nix
