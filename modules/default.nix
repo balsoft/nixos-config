@@ -12,6 +12,7 @@
     ./applications/okular.nix
     #./workspace/polybar/default.nix
     ./workspace/i3
+    ./workspace/i3blocks
     ./workspace/zsh.nix
     ./workspace/gtk.nix
     #./workspace/compton.nix   
