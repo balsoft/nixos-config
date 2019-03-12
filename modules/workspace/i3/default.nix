@@ -35,10 +35,10 @@ in
           separator = thm.alt;
           urgentWorkspace = activeWorkspace // {text = thm.orange;};
         };
-        fonts = ["Roboto Mono 11"];
+        fonts = ["Material Icons 11" "Roboto Mono 11"];
         id = "top";
         position = "top";
-        statusCommand = "${pkgs.i3status}/bin/i3status";
+        statusCommand = "${pkgs.i3blocks}/bin/i3blocks";
       }
       ];
       fonts = [ "RobotoMono 9" ];

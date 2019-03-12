@@ -1,11 +1,7 @@
 {pkgs, config, lib, ...}:
 {
-nixpkgs.overlays = [ (self: old: {
-    nur = pkgs.callPackage (import (builtins.fetchGit {
-      url = "https://github.com/nix-community/NUR";
-    })) {};
-    termNote = (import (builtins.fetchGit {url = "https://github.com/Terodom/termNote"; ref = "master";}) {});
-
+  nixpkgs.overlays = [ (self: old: {
+    termNote = (import (builtins.fetchGit {url = "https://github.com/Terodom/termNote"; rev = "a4045a75dca67891ef239a43f364ce3149a91b6a";}) {});
     movit = old.movit.overrideAttrs (oldAttrs: { # Currently, movit fails
       doCheck = false;
       GTEST_DIR = "${old.gtest.src}/googletest";

@@ -9,7 +9,7 @@
     extensionPackages =
     with pkgs; 
     [
-      mopidy-gmusic
+      #mopidy-gmusic
     ];
     configuration = if (! isNull config.secrets.gpmusic) then
     ''
