@@ -38,6 +38,8 @@
         flycheck-pkg-config
         auto-indent-mode
         ix
+        clipmon
+        org-gcal
       ];
     };
     home.packages =

@@ -97,6 +97,14 @@
 
 (use-package ix)
 
+(use-package clipmon
+  :config
+  (clipmon-mode))
+
+(electric-pair-mode)
+
+(electric-indent-mode)
+
 (use-package flycheck
   :config
   (global-flycheck-mode))

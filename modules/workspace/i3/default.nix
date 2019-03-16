@@ -170,6 +170,10 @@ in
           tap enabled
           natural_scroll enabled
     }
+    input 2:18:FocalTechPS/2_FocalTech_Touchpad {
+          tap enabled
+          natural_scroll enabled
+    }
     '';
   };
 }
