@@ -40,6 +40,7 @@
         ix
         clipmon
         org-gcal
+        rust-mode
       ];
     };
     home.packages =
@@ -62,6 +63,19 @@
     
     home.file.".emacs.d/init.el".source = ./init.el;
     home.file.".emacs.d/elisp/gud-lldb.el".source = ./gud-lldb.el;
+    home.file.".emacs.d/elisp/org-gcal-config.el".text =
+    ''
+    ;;; org-gcal-config --- My org-gcal configuration
+    ;;; Commentary:
+    ;;; This is my configuration for org-gcal.
+    ;;; Code:
+    (setq org-gcal-client-id "${config.secrets.gcal.client-id}"
+          org-gcal-client-secret "${config.secrets.gcal.client-secret}"
+          org-gcal-file-alist '(("${config.secrets.gcal.email}" .  "~/Documents/agenda.org")))
+
+    (provide 'org-gcal-config)
+    ;;; org-gcal-config.el ends here
+    '';
     home.activation.emacs =
     {
       before = [];

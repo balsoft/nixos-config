@@ -1,6 +1,8 @@
 {pkgs, config, lib, ...}:
 {
-  nixpkgs.overlays = [ (self: old: {
+  nixpkgs.overlays = [ (self: old: 
+  {
+    kanshi = pkgs.callPackage ../packages/kanshi.nix {};
     termNote = (import (builtins.fetchGit {url = "https://github.com/Terodom/termNote"; rev = "a4045a75dca67891ef239a43f364ce3149a91b6a";}) {});
     movit = old.movit.overrideAttrs (oldAttrs: { # Currently, movit fails
       doCheck = false;
@@ -11,7 +13,8 @@
       });};
     tdesktop = old.tdesktop.overrideAttrs (oldAttrs: {
         patches = [
-        (builtins.fetchurl "https://raw.githubusercontent.com/msva/mva-overlay/master/net-im/telegram-desktop/files/patches/9999/conditional/wide-baloons/0001_baloons-follows-text-width-on-adaptive-layout.patch")
+        (builtins.fetchurl 
+        {url = "https://raw.githubusercontent.com/msva/mva-overlay/master/net-im/telegram-desktop/files/patches/9999/conditional/wide-baloons/0001_baloons-follows-text-width-on-adaptive-layout.patch"; sha256 = "423e9ead98358a92ed1970713b39be83c17159a1609074648164e31ba56b1b47";})
         ] ++ oldAttrs.patches;
         });
      

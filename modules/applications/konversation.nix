@@ -51,7 +51,7 @@ with import ../../support.nix {inherit lib config;};
     "Message Text Colors" =
     {
       ActionMessage = thmDec.orange;
-      ChannelMessage = thmDec.purple;
+      ChannelMessage = thmDec.fg;
       CommandMessage = thmDec.yellow;
       Hyperlink = thmDec.blue;
       QueryMessage = thmDec.fg;

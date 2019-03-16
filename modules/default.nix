@@ -26,6 +26,7 @@
     ./workspace/fonts.nix
     ./workspace/light.nix
     #./workspace/autorandr.nix
+    ./workspace/kanshi.nix
     ./themes.nix
     ./applications.nix
     ./secrets.nix

@@ -292,10 +292,15 @@ If point was already at that position, move point to beginning of line."
   :bind ("C-y" . ivy-yasnippet))
 
 
+
+(use-package org-gcal
+  :config
+  (require 'org-gcal-config))
+
 ;; -------------------
 ;; expand-region
 ;; -------------------
-(use-package company               
+(use-package company
   :diminish company-mode
   :config
   (global-company-mode 1)
