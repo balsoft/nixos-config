@@ -75,7 +75,7 @@ in
       modifier = "Mod4";
       window = {
         border = 1;
-        titlebar = false;
+        titlebar = true;
         hideEdgeBorders = "smart";
         commands = [ 
           {
@@ -95,36 +95,29 @@ in
         { command = "balooctl start"; }
         { command = "${pkgs.trojita}/bin/trojita"; } 
         { command = "${pkgs.rclone}/bin/rclone mount google:/ '/home/balsoft/Google Drive' --verbose --daemon"; }
-        { command = "${pkgs.hsetroot}/bin/hsetroot -solid '${thm.bg}'"; always = true; }
-        #{ command = "exec ${./workspace-layouts.pl} &"; always = true; }
         { command = "${pkgs.termNote}/bin/noted"; }
       ];
-      keybindings = let moveMouse = ''"sh -c 'eval `${
-        pkgs.xdotool
-      }/bin/xdotool \
-      getactivewindow \
-      getwindowgeometry --shell`; ${
-        pkgs.xdotool
-      }/bin/xdotool \
-      mousemove \
-      $((X+WIDTH/2)) $((Y+HEIGHT/2))'"''; in
-      ({
+      keybindings = 
+      let
+        forAllArrows = mods: 
+                       template:
+                        builtins.mapAttrs (name: template) 
+                        {
+                          "${mods}+Up" = "up";
+                          "${mods}+Down" = "down";
+                          "${mods}+Left" = "left";
+                          "${mods}+Right" = "right";
+                        };
+      in
+      forAllArrows "${modifier}" (name: "focus child; focus ${name}")
+      // forAllArrows "${modifier}+Control" (name: "focus parent; focus ${name}")
+      // forAllArrows "${modifier}+Shift" (name: "move ${name}")
+      // forAllArrows "${modifier}+Control+Shift" (name: "move workspace to output ${name}")
+      // ({
         "${modifier}+q" = "kill";
         "${modifier}+Return" = "exec ${apps.term.cmd}";
         "${modifier}+e" = "exec ${apps.editor.cmd} -c -n";
         "${modifier}+l" = "layout toggle";
-        "${modifier}+Left" = "focus child; focus left; exec ${moveMouse}";
-        "${modifier}+Right" = "focus child; focus right; exec ${moveMouse}";
-        "${modifier}+Up" = "focus child; focus up; exec ${moveMouse}";
-        "${modifier}+Down" = "focus child; focus down; exec ${moveMouse}";
-        "${modifier}+Control+Left" = "focus parent; focus left; exec ${moveMouse}";
-        "${modifier}+Control+Right" = "focus parent; focus right; exec ${moveMouse}";
-        "${modifier}+Control+Up" = "focus parent; focus up; exec ${moveMouse}";
-        "${modifier}+Control+Down" = "focus parent; focus down; exec ${moveMouse}";
-        "${modifier}+Shift+Up" = "move up";
-        "${modifier}+Shift+Down" = "move down";
-        "${modifier}+Shift+Right" = "move right";
-        "${modifier}+Shift+Left" = "move left";
         "${modifier}+f" = "fullscreen toggle";
         "${modifier}+r" = "mode resize";
         "${modifier}+Shift+f" = "floating toggle";
@@ -134,14 +127,12 @@ in
         "${modifier}+Control+Print" = "exec ${pkgs.grim}/bin/grim - | ${pkgs.wl-clipboard}/bin/wl-copy";
         "${modifier}+Shift+Print" = ''exec ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" $(${pkgs.xdg-user-dirs}/bin/xdg-user-dir PICTURES)/$(date +'%Y-%m-%d-%H%M%S_grim.png')'';
         "${modifier}+Control+Shift+Print" = ''exec ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.wl-clipboard}/bin/wl-copy'';
-        "${modifier}+x" = "move workspace to output right"; 
-        "${modifier}+z" = "exec ${pkgs.i3-easyfocus}/bin/i3-easyfocus";
         "${modifier}+c" = "workspace ";
         "${modifier}+Shift+c" = "move container to workspace ";
         "${modifier}+t" = "workspace ";
         "${modifier}+Shift+t" = "move container to workspace ";
         "${modifier}+k" = "exec '${pkgs.xorg.xkill}/bin/xkill'";
-        "${modifier}+F5" = "restart";
+        "${modifier}+F5" = "reload";
         "${modifier}+Shift+F5" = "exit";
         "${modifier}+Shift+h" = "layout splith";
         "${modifier}+Shift+v" = "layout splitv";
