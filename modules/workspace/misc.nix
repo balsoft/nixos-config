@@ -20,6 +20,7 @@
   {
     xdg.enable = true;
     
+    home.sessionVariables.SSH_ASKPASS = "${pkgs.plasma5.ksshaskpass}/bin/ksshaskpass";
     #services.udiskie.enable = true;
     programs.git =
     {
