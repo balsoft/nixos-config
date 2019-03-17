@@ -70,7 +70,7 @@ in
         smartGaps = true;
         smartBorders = "on";
       };
-      focus.mouseWarping = true;
+      #focus.mouseWarping = true;
       focus.followMouse = false;
       modifier = "Mod4";
       window = {
@@ -117,8 +117,7 @@ in
         "${modifier}+q" = "kill";
         "${modifier}+Return" = "exec ${apps.term.cmd}";
         "${modifier}+e" = "exec ${apps.editor.cmd} -c -n";
-        "${modifier}+l" = "layout toggle";
-        "${modifier}+Shift+l" = "layout tabbed";
+        "${modifier}+l" = "layout toggle splitv splith tabbed";
         "${modifier}+f" = "fullscreen toggle";
         "${modifier}+r" = "mode resize";
         "${modifier}+Shift+f" = "floating toggle";
@@ -167,6 +166,8 @@ in
           natural_scroll enabled
     }
     default_border pixel 1
+    mouse_warping container
+    tiling_drag disable
     '';
   };
 }
