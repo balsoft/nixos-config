@@ -166,6 +166,7 @@ in
           tap enabled
           natural_scroll enabled
     }
+    default_border pixel 1
     '';
   };
 }
