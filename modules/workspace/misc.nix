@@ -1,6 +1,6 @@
 {pkgs, lib, config, ...}:
 {
-  programs.sway-beta.enable = true;
+  programs.sway.enable = true;
   users.users.balsoft.extraGroups = [ "sway" ];
 
   programs.ssh.askPassword = "${pkgs.plasma5.ksshaskpass}/bin/ksshaskpass";
@@ -12,6 +12,9 @@
     XKB_DEFAULT_LAYOUT = "us,ru";
     XKB_DEFAULT_OPTIONS = "grp:caps_toggle,grp_led:caps";
     QT_QPA_PLATFORM = "wayland";
+    SDL_VIDEODRIVER = "wayland";
+    _JAVA_AWT_WM_NONREPARENTING = "1";
+    QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
   };
   home-manager.users.balsoft =
   {

@@ -118,6 +118,7 @@ in
         "${modifier}+Return" = "exec ${apps.term.cmd}";
         "${modifier}+e" = "exec ${apps.editor.cmd} -c -n";
         "${modifier}+l" = "layout toggle";
+        "${modifier}+Shift+l" = "layout tabbed";
         "${modifier}+f" = "fullscreen toggle";
         "${modifier}+r" = "mode resize";
         "${modifier}+Shift+f" = "floating toggle";

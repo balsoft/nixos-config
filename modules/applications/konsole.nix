@@ -32,11 +32,11 @@ with (import ../../support.nix {inherit lib config;});
       Color6.Color = thmDec.cyan;
       Color7.Color = thmDec.fg;
     };
-    
+
   };
   home-manager.users.balsoft.xdg.configFile."konsolerc.home".text = genIni {
     "Desktop Entry".DefaultProfile = "Default.profile";
-     KonsoleWindow.ShowMenuBarByDefault = false;
+    KonsoleWindow.ShowMenuBarByDefault = false;
   };
   home-manager.users.balsoft.home.activation.konsole = {
     data = "$DRY_RUN_CMD cp -f ~/.config/konsolerc.home ~/.config/konsolerc";

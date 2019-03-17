@@ -95,6 +95,7 @@
 (global-display-line-numbers-mode)
 
 
+
 (use-package ix)
 
 (use-package clipmon
@@ -132,6 +133,11 @@
 (use-package hasklig-mode
   :hook (haskell-mode))
 
+(use-package company-ghci
+  :config
+  (push 'company-ghci company-backends)
+  :hook (haskell-mode . 'haskell-process-load-or-reload))
+
 (global-set-key (kbd "M-RET") 'execute-extended-command)
 
 ;; (server-start)
@@ -153,7 +159,7 @@ If point was already at that position, move point to beginning of line."
 ;; Menu Bars
 ;; TODO - Change bind-key to define-key
 (bind-key [menu-bar file new-file]
-	  `(menu-item "New File..." wakib-new-empty-buffer :enable (menu-bar-non-minibuffer-window-p)
+	        `(menu-item "New File..." wakib-new-empty-buffer :enable (menu-bar-non-minibuffer-window-p)
 		      :help "Create a new blank buffer"
 		      :key-sequence ,(kbd "C-n")))
 
