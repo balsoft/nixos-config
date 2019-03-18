@@ -4,6 +4,7 @@ from albertv0 import *
 __iid__ = "PythonInterface/v0.1"
 __prettyname__ = "Qalculate! module"
 __version__ = "0.1"
+__trigger__ = "q "
 __author__ = "Alexander Bantyev"
 __dependencies__ = []
 iconPath = iconLookup('accessories-calculator')

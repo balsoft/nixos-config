@@ -39,7 +39,7 @@ in
       "org.albert.extension.system" = {
           enabled = true;
           logout = "i3-msg exit";
-          lock = "${pkgs.i3lock-fancy}/bin/i3lock-fancy";
+          lock = "${pkgs.swaylock}/bin/swaylock";
           reboot = "reboot";
           shutdown = "shutdown now";    
       };

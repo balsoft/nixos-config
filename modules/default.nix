@@ -17,7 +17,7 @@
     ./workspace/gtk.nix
     #./workspace/compton.nix   
     ./workspace/misc.nix
-    ./workspace/dunst.nix
+    #./workspace/dunst.nix
     ./workspace/albert
     ./workspace/kde
     ./workspace/synergy.nix

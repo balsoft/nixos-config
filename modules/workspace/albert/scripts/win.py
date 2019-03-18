@@ -30,14 +30,13 @@ class Window:
         return "'%s' %s/%s on %s" % (self.window["name"], self.window["id"], self.window["app_id"], self.workspace["name"])
 
 
-def find_windows(root, name):
+def get_windows(root):
     for output in root["nodes"]:
         for workspace in output["nodes"]:
             if "nodes" not in workspace.keys(): continue
             for window in workspace["nodes"]:
                 if "name" not in window.keys(): continue
-                if window["name"].lower().count(name.lower()) > 0:
-                    yield Window(output, workspace, window)
+                yield Window(output, workspace, window)
 
 
 
@@ -45,18 +44,17 @@ def find_windows(root, name):
 __iid__ = "PythonInterface/v0.1"
 __prettyname__ = "Window Switcher"
 __version__ = "1.3"
-__trigger__ = "w"
+__trigger__ = "w "
 __author__ = "Ed Perez, Manuel Schneider, Alexander Bantyev"
 
 
 def handleQuery(query):
-    if not query.isTriggered:
-        return []
-    windows = find_windows(json.loads(subprocess.check_output(["swaymsg", "-t", "get_tree"])), query.string or "")
+    windows = filter(lambda x: (x.window["name"] or "").lower().count((query.string or "").lower()), 
+                     get_windows(json.loads(subprocess.check_output(["swaymsg", "-t", "get_tree"]))))
     items = []
     for window in windows:
         items.append(Item(id="sway"+str(window.window["id"]),
-                          text=window.window["name"],
+                          text=(window.window["name"] or ""),
                           subtext=window.workspace["name"] + "/" + window.output["name"],
                           actions = [FuncAction("Focus the window", window.focus), FuncAction("Close the window", window.kill)]
         ))

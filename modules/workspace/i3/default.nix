@@ -96,6 +96,7 @@ in
         { command = "${pkgs.trojita}/bin/trojita"; } 
         { command = "${pkgs.rclone}/bin/rclone mount google:/ '/home/balsoft/Google Drive' --verbose --daemon"; }
         { command = "${pkgs.termNote}/bin/noted"; }
+        { command = "${pkgs.mako}/bin/mako --layer overlay --font 'Roboto 13' --width 200 --background-color '${thm.bg}' --text-color '${thm.fg}' --border-color '${thm.blue}'"; }
       ];
       keybindings = 
       let

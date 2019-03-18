@@ -13,6 +13,8 @@
   ++ (with pkgs; [
     kded
     kdeFrameworks.kio
+    kdeFrameworks.knotifications
+    kdeFrameworks.knotifyconfig
     plasma-integration
     kinit
     plasma5.xdg-desktop-portal-kde
