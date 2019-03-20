@@ -1,5 +1,10 @@
 { pamixer, iconfont, ... }:
 ''
+case $BLOCK_BUTTON in
+     1) ${pamixer}/bin/pamixer -t;;
+     4) ${pamixer}/bin/pamixer -i 5;;
+     5) ${pamixer}/bin/pamixer -d 5;;
+esac
 code=0
 if [[ `${pamixer}/bin/pamixer --get-mute` = "true" ]]
 then

@@ -29,35 +29,44 @@ let scripts = import ./scripts pkgs config; in
       interval = 1;
     };
     e_battery =
+    pkgs.stdenv.lib.optionalAttrs config.deviceSpecific.isLaptop 
     {
       command = scripts.battery;
     };
-    f_wireless = 
+    f_brightness =
+    pkgs.stdenv.lib.optionalAttrs config.deviceSpecific.isLaptop 
+    {
+      command = scripts.brightness;
+      interval = 1;
+    };
+    g_wireless = 
     {
       command = scripts.wireless;
     };
-    g_cpuload =
+    h_cpuload =
     {
       command = ''top -b -n2 -p 1 | fgrep "Cpu(s)" | tail -1 | awk -F'id,' -v prefix="$prefix" '{ split($1, vs, ","); v=vs[length(vs)]; sub("%", "", v); printf "%s%.1f%%\n", prefix, 100 - v }' '';
     };
-    h_cpufreq =
+    i_cpufreq =
+    pkgs.stdenv.lib.optionalAttrs config.deviceSpecific.isLaptop 
     {
       command = ''echo $(${pkgs.bc}/bin/bc -l <<< "scale=2; `cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_cur_freq|sort|head -1`/1000000") GHz'';
     };
-    i_temperature =
+    j_temperature =
+    pkgs.stdenv.lib.optionalAttrs config.deviceSpecific.isLaptop 
     {
       command = scripts.temperature;
     };
-    j_free = 
+    k_free = 
     {
       command = scripts.free;
     };
-    k_date =
+    l_date =
     {
       command = "${pkgs.coreutils}/bin/date +'<span font=\"Material Icons 11\"></span> %a %y-%m-%d'";
       interval = 10;
     };
-    l_time =
+    m_time =
     {
       command = "${pkgs.coreutils}/bin/date +'<span font=\"Material Icons 11\"></span> %T'";
       interval = 1;

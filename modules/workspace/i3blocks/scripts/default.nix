@@ -37,6 +37,7 @@ builtins.mapAttrs
   ) 
   {
     battery = ./battery.nix;
+    brightness = ./brightness.nix;
     calendar = ./calendar.nix;
     email = ./email.nix;
     wireless = ./wireless.nix;
