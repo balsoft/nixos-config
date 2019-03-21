@@ -17,27 +17,16 @@
       }
       {
         keys = [560];
-        command = (toString (pkgs.writeTextFile {
+        command = toString (
+        pkgs.stdenv.mkDerivation
+        {
           name = "als-script";
-          text = ''
-            if [[ `cat /sys/devices/platform/asus-nb-wmi/als_enable` -eq 1 ]]
-            then
-              echo "0" > /sys/devices/platform/asus-nb-wmi/als_enable
-              ${pkgs.light}/bin/light -O
-            else
-              echo "1" > /sys/devices/platform/asus-nb-wmi/als_enable
-              ${pkgs.light}/bin/light -I
-              while true
-              do
-                [[ `cat /sys/devices/platform/asus-nb-wmi/als_enable` -eq 0 ]] && exit 1;
-                brightness=$(((brightness+`cat '/sys/devices/LNXSYSTM:00/LNXSYBUS:00/ACPI0008:00/iio:device0/in_illuminance_input'`)/2))
-                ${pkgs.light}/bin/light -S $((2 + $brightness * 2))
-                echo $(((100 - $brightness)/80)) > '/sys/class/leds/asus::kbd_backlight/brightness'
-                sleep 1
-              done &
-            fi'';
-          executable = true;
-        }));
+          src = ./als-script.hs;
+          buildInputs = [ pkgs.ghc ];
+          buildPhase = "ghc $src -o $out";
+          unpackPhase = "true";
+          installPhase = "true";
+        });
       }
     ] else []) ++ [
       {
