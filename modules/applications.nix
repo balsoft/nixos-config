@@ -1,75 +1,61 @@
 {pkgs, config, lib, ...}:
 with import ../support.nix {inherit lib config;};
 {
-  options.defaultApplications = lib.mkOption
-  {
+  options.defaultApplications = lib.mkOption {
     type = lib.types.attrs;
     description = "Preferred applications";
   };
-  config = rec
-  {
-    defaultApplications =
-    {
-      term =
-      {
+  config = rec {
+    defaultApplications = {
+      term = {
         cmd = "${pkgs.kdeApplications.konsole}/bin/konsole";
         desktop = "konsole";
       };
-      editor =
-      {
-        cmd = toString (pkgs.writeTextFile
-        {
+      editor = {
+        cmd = toString (pkgs.writeTextFile {
           name = "emacsclient";
           text = "#!${pkgs.bash}/bin/bash\n${pkgs.emacs}/bin/emacsclient -c -n $@";
           executable = true;
         });
         desktop = "emacsclient";
       };
-      browser =
-      {
+      browser ={
         cmd = "${pkgs.firefox-wayland}/bin/firefox";
         desktop = "firefox";
       };
-      fm =
-      {
+      fm = {
         cmd = "${pkgs.dolphin}/bin/dolphin";
         desktop = "dolphin";
       };
-      monitor =
-      {
+      monitor = {
         cmd = "${pkgs.ksysguard}/bin/ksysguard";
         desktop = "ksysguard";
       };
-      torrent =
-      {
+      torrent = {
         cmd = "${pkgs.ktorrent}/bin/ktorrent";
         desktop = "ktorrent";
       };
-      archive =
-      {
+      archive = {
         cmd = "${pkgs.ark}/bin/ark";
         desktop = "org.kde.ark";
       };
-      mail =
-      {
+      mail = {
         cmd = "${pkgs.trojita}/bin/trojita";
         desktop = "trojita";
       };
-      text_processor =
-      {
+      text_processor = {
         cmd = "${pkgs.abiword}/bin/abiword";
         desktop = "abiword";
       };
-      spreadsheet =
-      {
+      spreadsheet = {
         cmd = "${pkgs.gnumeric}/bin/gnumeric";
         desktop = "gnumeric";
       };       
     };
     home-manager.users.balsoft.xdg.configFile."mimeapps.list.home".text =
-    with defaultApplications;
-    let
-    apps = builtins.mapAttrs (name: value: "${value.desktop}.desktop;") {
+      with defaultApplications;
+      let
+        apps = builtins.mapAttrs (name: value: "${value.desktop}.desktop;") {
           "text/html" = browser;
           "image/*" = {desktop = "org.kde.gwenview";};
           "application/x-bittorrent" = torrent;
@@ -97,21 +83,20 @@ with import ../support.nix {inherit lib config;};
         "Default Applications" = apps;
         "Added Associations" = apps;
       };
-      home-manager.users.balsoft.xdg.configFile."filetypesrc".text =
+    home-manager.users.balsoft.xdg.configFile."filetypesrc".text =
       genIni
       {
         EmbedSettings =
-        {
-          "embed-application/*" = false;
-          "embed-text/*" = false;
-          "embed-text/plain" = false;
-        };
+          {
+            "embed-application/*" = false;
+            "embed-text/*" = false;
+            "embed-text/plain" = false;
+          };
       };
-       home-manager.users.balsoft.home.activation.mimeapps =
-       {
-       before = [];
-       after = ["linkGeneration"];
-       data = "$DRY_RUN_CMD cp ~/.config/mimeapps.list.home ~/.config/mimeapps.list";
-     };
+    home-manager.users.balsoft.home.activation.mimeapps = {
+      before = [];
+      after = ["linkGeneration"];
+      data = "$DRY_RUN_CMD cp ~/.config/mimeapps.list.home ~/.config/mimeapps.list";
+    };
   };
 }

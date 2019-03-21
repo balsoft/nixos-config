@@ -17,6 +17,7 @@
           username = ${config.secrets.gpmusic.user}
           password = ${config.secrets.gpmusic.password}
           deviceid = ${config.secrets.gpmusic.deviceid}
+          bitrate = 128
         '' else "";
 
     };
@@ -29,7 +30,9 @@
 
   services.printing = {
     enable = config.device == "Lenovo-Workstation";
-    drivers = [ pkgs.gutenprint ];
+    drivers = [ 
+      pkgs.gutenprint 
+    ];
   };
   programs.dconf.enable = true;  
 

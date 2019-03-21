@@ -1,7 +1,6 @@
 {...}:
 {
-  imports =
-  [
+  imports = [
     ./applications/packages.nix
     ./applications/kate.nix
     ./applications/emacs
