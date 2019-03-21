@@ -2,15 +2,8 @@
 {
   nixpkgs.overlays = [ (self: old: 
     {
-      kanshi = pkgs.callPackage ../packages/kanshi.nix {};
       termNote = (import (builtins.fetchGit {url = "https://github.com/Terodom/termNote"; rev = "a4045a75dca67891ef239a43f364ce3149a91b6a";}) {});
-      movit = old.movit.overrideAttrs (oldAttrs: { # Currently, movit fails
-        doCheck = false;
-        GTEST_DIR = "${old.gtest.src}/googletest";
-      });
-      plasma5 = old.plasma5 // {xdg-desktop-portal-kde = old.plasma5.xdg-desktop-portal-kde.overrideAttrs (oldAttrs: {
-        buildInputs = oldAttrs.buildInputs ++  [ old.cups ];
-      });};
+      
       tdesktop = old.tdesktop.overrideAttrs (oldAttrs: {
         patches = [
           (builtins.fetchurl 
