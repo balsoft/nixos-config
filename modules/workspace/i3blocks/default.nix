@@ -28,45 +28,51 @@ let scripts = import ./scripts pkgs config; in
       command = scripts.sound;
       interval = 1;
     };
-    e_battery =
+    e_music = 
+    {
+      command = scripts.music;
+      interval = 1;
+    };
+    f_battery =
     pkgs.stdenv.lib.optionalAttrs config.deviceSpecific.isLaptop 
     {
       command = scripts.battery;
     };
-    f_brightness =
+    g_brightness =
     pkgs.stdenv.lib.optionalAttrs config.deviceSpecific.isLaptop 
     {
       command = scripts.brightness;
       interval = 1;
     };
-    g_wireless = 
+    h_wireless = 
     {
       command = scripts.wireless;
     };
-    h_cpuload =
+    i_cpuload =
     {
-      command = ''top -b -n2 -p 1 | fgrep "Cpu(s)" | tail -1 | awk -F'id,' -v prefix="$prefix" '{ split($1, vs, ","); v=vs[length(vs)]; sub("%", "", v); printf "%s%.1f%%\n", prefix, 100 - v }' '';
+      command = ''top -b -n1 -p 1 | fgrep "Cpu(s)" | tail -1 | awk -F'id,' -v prefix="$prefix" '{ split($1, vs, ","); v=vs[length(vs)]; sub("%", "", v); printf "%s%.1f%%\n", prefix, 100 - v }' '';
+      interval = 3;
     };
-    i_cpufreq =
+    j_cpufreq =
     pkgs.stdenv.lib.optionalAttrs config.deviceSpecific.isLaptop 
     {
       command = ''echo $(${pkgs.bc}/bin/bc -l <<< "scale=2; `cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_cur_freq|sort|head -1`/1000000") GHz'';
     };
-    j_temperature =
+    k_temperature =
     pkgs.stdenv.lib.optionalAttrs config.deviceSpecific.isLaptop 
     {
       command = scripts.temperature;
     };
-    k_free = 
+    l_free = 
     {
       command = scripts.free;
     };
-    l_date =
+    m_date =
     {
       command = "${pkgs.coreutils}/bin/date +'<span font=\"Material Icons 11\"></span> %a %y-%m-%d'";
       interval = 10;
     };
-    m_time =
+    n_time =
     {
       command = "${pkgs.coreutils}/bin/date +'<span font=\"Material Icons 11\"></span> %T'";
       interval = 1;

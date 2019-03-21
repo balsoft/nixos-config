@@ -42,6 +42,7 @@ builtins.mapAttrs
     email = ./email.nix;
     wireless = ./wireless.nix;
     sound = ./sound.nix;
+    music = ./music.nix;
     #temperature = ./temperature.nix;
     #free = ./free.nix;
   }
