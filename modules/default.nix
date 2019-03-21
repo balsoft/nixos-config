@@ -9,14 +9,11 @@
     ./applications/firefox.nix
     ./applications/konversation.nix
     ./applications/okular.nix
-    #./workspace/polybar/default.nix
     ./workspace/i3
     ./workspace/i3blocks
     ./workspace/zsh.nix
     ./workspace/gtk.nix
-    #./workspace/compton.nix   
     ./workspace/misc.nix
-    #./workspace/dunst.nix
     ./workspace/albert
     ./workspace/kde
     ./workspace/synergy.nix
@@ -24,8 +21,9 @@
     ./workspace/locale.nix
     ./workspace/fonts.nix
     ./workspace/light.nix
-    #./workspace/autorandr.nix
+    ./workspace/mopidy.nix
     ./workspace/kanshi.nix
+    ./workspace/mako.nix
     ./themes.nix
     ./applications.nix
     ./secrets.nix
@@ -35,7 +33,6 @@
     ./hardware.nix
     ./services.nix
     ./power.nix
-    #./xserver.nix
     ./network.nix
   ];
 }

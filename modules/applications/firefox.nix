@@ -76,7 +76,7 @@ in
         url = "https://addons.mozilla.org/firefox/downloads/file/589832/close_other_windows-0.1-an+fx-linux.xpi";
         sha256 = "6c189fb4d396f835bf8f0f09c9f1e9ae5dc7cde471b776d8c7d12592a373d3d3";
       };
-    home.file.".mozilla/firefox/profile.default/extensions/{34fab4dc-77cc-4631-be8b-7a85a1e9fc09}".source = 
+    home.file.".mozilla/firefox/profile.default/extensions/{34fab4dc-77cc-4631-be8b-7a85a1e9fc09}.xpi".source = 
       pkgs.fetchurl {
         url = "https://addons.mozilla.org/firefox/downloads/file/1020346/torswitch-1.0-an+fx.xpi";
         sha256 = "3c50bd5c8890628a7260a742099293b6e752e7826e0643e3f515105ec3d9b85e";

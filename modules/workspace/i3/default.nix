@@ -1,7 +1,7 @@
 {pkgs, config, ...}:
 let thm = config.themes.colors;
-    apps = config.defaultApplications;
-    customPackages = pkgs.callPackage ../../../packages {};
+  apps = config.defaultApplications;
+  customPackages = pkgs.callPackage ../../../packages {};
 in
 {
   home-manager.users.balsoft.xsession.windowManager.i3 = {
@@ -12,38 +12,37 @@ in
         "" = [{ class = "Chromium"; } { app_id = "firefox"; } { app_id = "keepassxc"; } ];
         "" = [{ class = "telegram"; } { class = "^VK"; } { app_id = "net.flaska.trojita"; } { app_id = "org.kde.konversation"; } ];
       };
-      bars = 
-      [ 
-      { 
-        colors =
-        rec {
-          activeWorkspace = 
-          {
-            text = thm.blue;
-            border = thm.bg;
-            background = thm.bg;
-          };
-          background = thm.bg;
-          bindingMode =
-          {
-            background = thm.bg;
-            text = thm.yellow;
-            border = thm.bg;
-          };
-          focusedWorkspace = activeWorkspace;
-          inactiveWorkspace = activeWorkspace // {text = thm.fg;};
-          separator = thm.alt;
-          urgentWorkspace = activeWorkspace // {text = thm.orange;};
-        };
-        fonts = ["Material Icons 11" "Roboto Mono 11"];
-        id = "top";
-        position = "top";
-        statusCommand = "${pkgs.i3blocks}/bin/i3blocks";
-      }
+      bars = [ 
+        { 
+          colors =
+            rec {
+              activeWorkspace = 
+                {
+                  text = thm.blue;
+                  border = thm.bg;
+                  background = thm.bg;
+                };
+              background = thm.bg;
+              bindingMode =
+                {
+                  background = thm.bg;
+                  text = thm.yellow;
+                  border = thm.bg;
+                };
+              focusedWorkspace = activeWorkspace;
+              inactiveWorkspace = activeWorkspace // {text = thm.fg;};
+              separator = thm.alt;
+              urgentWorkspace = activeWorkspace // {text = thm.orange;};
+            };
+          fonts = ["Material Icons 11" "Roboto Mono 11"];
+          id = "top";
+          position = "top";
+          statusCommand = "${pkgs.i3blocks}/bin/i3blocks";
+        }
       ];
       fonts = [ "RobotoMono 9" ];
-      
-      colors = rec{
+
+      colors = rec {
         background = thm.bg;
         unfocused = {
           text = thm.alt;
@@ -96,58 +95,57 @@ in
         { command = "${pkgs.trojita}/bin/trojita"; } 
         { command = "${pkgs.rclone}/bin/rclone mount google:/ '/home/balsoft/Google Drive' --verbose --daemon"; }
         { command = "${pkgs.termNote}/bin/noted"; }
-        { command = "${pkgs.mako}/bin/mako --layer overlay --font 'Roboto 13' --width 500 --height 80 --background-color '${thm.bg}' --text-color '${thm.fg}' --border-color '${thm.blue}'"; }
       ];
       keybindings = 
-      let
-        forAllArrows = mods: 
-                       template:
-                        builtins.mapAttrs (name: template) 
-                        {
-                          "${mods}+Up" = "up";
-                          "${mods}+Down" = "down";
-                          "${mods}+Left" = "left";
-                          "${mods}+Right" = "right";
-                        };
-      in
-      forAllArrows "${modifier}" (name: "focus child; focus ${name}")
-      // forAllArrows "${modifier}+Control" (name: "focus parent; focus ${name}")
-      // forAllArrows "${modifier}+Shift" (name: "move ${name}")
-      // forAllArrows "${modifier}+Control+Shift" (name: "move workspace to output ${name}")
-      // ({
-        "${modifier}+q" = "kill";
-        "${modifier}+Return" = "exec ${apps.term.cmd}";
-        "${modifier}+e" = "exec ${apps.editor.cmd} -c -n";
-        "${modifier}+l" = "layout toggle splitv splith tabbed";
-        "${modifier}+f" = "fullscreen toggle";
-        "${modifier}+r" = "mode resize";
-        "${modifier}+Shift+f" = "floating toggle";
-        "${modifier}+d" = "exec ${apps.fm.cmd}";
-        "${modifier}+Escape" = "exec ${apps.monitor.cmd}";
-        "${modifier}+Print" = "exec ${pkgs.grim}/bin/grim $(${pkgs.xdg-user-dirs}/bin/xdg-user-dir PICTURES)/$(date +'%Y-%m-%d-%H%M%S_grim.png')";
-        "${modifier}+Control+Print" = "exec ${pkgs.grim}/bin/grim - | ${pkgs.wl-clipboard}/bin/wl-copy";
-        "${modifier}+Shift+Print" = ''exec ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" $(${pkgs.xdg-user-dirs}/bin/xdg-user-dir PICTURES)/$(date +'%Y-%m-%d-%H%M%S_grim.png')'';
-        "${modifier}+Control+Shift+Print" = ''exec ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.wl-clipboard}/bin/wl-copy'';
-        "${modifier}+c" = "workspace ";
-        "${modifier}+Shift+c" = "move container to workspace ";
-        "${modifier}+t" = "workspace ";
-        "${modifier}+Shift+t" = "move container to workspace ";
-        "${modifier}+k" = "exec '${pkgs.xorg.xkill}/bin/xkill'";
-        "${modifier}+F5" = "reload";
-        "${modifier}+Shift+F5" = "exit";
-        "${modifier}+Shift+h" = "layout splith";
-        "${modifier}+Shift+v" = "layout splitv";
-        "${modifier}+h" = "split h";
-        "${modifier}+v" = "split v";
-        "${modifier}+Space" = "exec ${pkgs.albert}/bin/albert toggle";
-        "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
-        "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
-        "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
-      } // builtins.listToAttrs (
-        builtins.genList (x: {name = "${modifier}+${toString x}"; value = "workspace ${toString x}";}) 10
-      ) // builtins.listToAttrs (
-        builtins.genList (x: {name = "${modifier}+Shift+${toString x}"; value = "move container to workspace ${toString x}";}) 10
-      ));
+        let
+          forAllArrows = mods: 
+            template:
+            builtins.mapAttrs (name: template) 
+            {
+              "${mods}+Up" = "up";
+              "${mods}+Down" = "down";
+              "${mods}+Left" = "left";
+              "${mods}+Right" = "right";
+            };
+        in
+        forAllArrows "${modifier}" (name: "focus child; focus ${name}")
+        // forAllArrows "${modifier}+Control" (name: "focus parent; focus ${name}")
+        // forAllArrows "${modifier}+Shift" (name: "move ${name}")
+        // forAllArrows "${modifier}+Control+Shift" (name: "move workspace to output ${name}")
+        // ({
+          "${modifier}+q" = "kill";
+          "${modifier}+Return" = "exec ${apps.term.cmd}";
+          "${modifier}+e" = "exec ${apps.editor.cmd} -c -n";
+          "${modifier}+l" = "layout toggle splitv splith tabbed";
+          "${modifier}+f" = "fullscreen toggle";
+          "${modifier}+r" = "mode resize";
+          "${modifier}+Shift+f" = "floating toggle";
+          "${modifier}+d" = "exec ${apps.fm.cmd}";
+          "${modifier}+Escape" = "exec ${apps.monitor.cmd}";
+          "${modifier}+Print" = "exec ${pkgs.grim}/bin/grim $(${pkgs.xdg-user-dirs}/bin/xdg-user-dir PICTURES)/$(date +'%Y-%m-%d-%H%M%S_grim.png')";
+          "${modifier}+Control+Print" = "exec ${pkgs.grim}/bin/grim - | ${pkgs.wl-clipboard}/bin/wl-copy";
+          "${modifier}+Shift+Print" = ''exec ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" $(${pkgs.xdg-user-dirs}/bin/xdg-user-dir PICTURES)/$(date +'%Y-%m-%d-%H%M%S_grim.png')'';
+          "${modifier}+Control+Shift+Print" = ''exec ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.wl-clipboard}/bin/wl-copy'';
+          "${modifier}+c" = "workspace ";
+          "${modifier}+Shift+c" = "move container to workspace ";
+          "${modifier}+t" = "workspace ";
+          "${modifier}+Shift+t" = "move container to workspace ";
+          "${modifier}+k" = "exec '${pkgs.xorg.xkill}/bin/xkill'";
+          "${modifier}+F5" = "reload";
+          "${modifier}+Shift+F5" = "exit";
+          "${modifier}+Shift+h" = "layout splith";
+          "${modifier}+Shift+v" = "layout splitv";
+          "${modifier}+h" = "split h";
+          "${modifier}+v" = "split v";
+          "${modifier}+Space" = "exec ${pkgs.albert}/bin/albert toggle";
+          "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
+          "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
+          "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
+        } // builtins.listToAttrs (
+          builtins.genList (x: {name = "${modifier}+${toString x}"; value = "workspace ${toString x}";}) 10
+        ) // builtins.listToAttrs (
+          builtins.genList (x: {name = "${modifier}+Shift+${toString x}"; value = "move container to workspace ${toString x}";}) 10
+        ));
       keycodebindings = {
         "122" = "exec ${pkgs.pamixer}/bin/pamixer -d 5";
         "123" = "exec ${pkgs.pamixer}/bin/pamixer -i 5";
@@ -156,19 +154,19 @@ in
       workspaceLayout = "tabbed";
     };
     extraConfig = 
-    ''
-    output * bg ${thm.bg} solid_color
-    input 2:7:SynPS/2_Synaptics_TouchPad {
-          tap enabled
-          natural_scroll enabled
-    }
-    input 2:18:FocalTechPS/2_FocalTech_Touchpad {
-          tap enabled
-          natural_scroll enabled
-    }
-    default_border pixel 1
-    mouse_warping container
-    tiling_drag disable
-    '';
+      ''
+        output * bg ${thm.bg} solid_color
+        input 2:7:SynPS/2_Synaptics_TouchPad {
+        tap enabled
+        natural_scroll enabled
+        }
+        input 2:18:FocalTechPS/2_FocalTech_Touchpad {
+        tap enabled
+        natural_scroll enabled
+        }
+        default_border pixel 1
+        mouse_warping container
+        tiling_drag disable
+      '';
   };
 }

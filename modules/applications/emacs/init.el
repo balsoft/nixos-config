@@ -282,7 +282,7 @@ If point was already at that position, move point to beginning of line."
 
 (use-package nix-mode
   :hook
-  ((nix-mode . (lambda () (add-hook 'before-save-hook 'nix-mode-format nil 'local))))
+  ((nix-mode . (lambda () (local-set-key (kbd "<f7>") 'nix-mode-format))))
   ((nix-mode . (lambda () (local-set-key (kbd "TAB") 'nix-indent-line)))))
 
 
