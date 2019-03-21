@@ -20,7 +20,17 @@
             })
         ] ++ oldAttrs.patches;
       });
-
+      pythonPackages = old.pythonPackages.override 
+        {
+          overrides = 
+            (self: super:
+              {
+                backports_functools_lru_cache = super.backports_functools_lru_cache.overrideAttrs (oldAttrs:
+                  oldAttrs // {
+                    meta.priority = 1000;
+                  });
+              });
+        };
     } // (if config.device == "Prestigio-Laptop" then {
       grub2 = old.pkgsi686Linux.grub2;
     } else {}))];
