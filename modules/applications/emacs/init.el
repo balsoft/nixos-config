@@ -280,6 +280,12 @@ If point was already at that position, move point to beginning of line."
 ;; Yasnippet
 ;; -------------------
 
+(use-package nix-mode
+  :hook
+  ((nix-mode . (lambda () (add-hook 'before-save-hook 'nix-mode-format nil 'local))))
+  ((nix-mode . (lambda () (local-set-key (kbd "TAB") 'nix-indent-line)))))
+
+
 (use-package yasnippet-snippets
   :defer t)
 
