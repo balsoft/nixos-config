@@ -10,7 +10,7 @@ esac
 case $STATUS in
      Paused)  icon=""; text=`${playerctl}/bin/playerctl metadata title | head -c 20 | sed s/' \\w*$'//`;;
      Playing) icon=""; text=`${playerctl}/bin/playerctl metadata title | head -c 30 | sed s/' \\w*$'//`;;
-     *) icon="";;
+     *) icon="";;
 esac
 echo "<span font='${iconfont}'>$icon</span> $text"
 ''

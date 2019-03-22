@@ -16,6 +16,7 @@ builtins.mapAttrs
 {
   free = ./free.hs;
   temperature = ./temperature.hs;
+  network = ./network.hs;
 } 
   //
   builtins.mapAttrs 
