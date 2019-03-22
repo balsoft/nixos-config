@@ -12,4 +12,4 @@ I recommend you inspect vm.sh before running it. Press Ctrl-C if something seems
 You can check out the structure of `./secret.nix` in `./modules/secrets.nix`
 
 ## Installing it on your machine
-Run `./install.py`
+Run `./install.sh`
