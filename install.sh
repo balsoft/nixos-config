@@ -16,7 +16,7 @@ export NIX_PATH=nixpkgs=./imports/nixpkgs:nixos-config=/etc/nixos/configuration.
 
 nix build -f ./imports/nixpkgs/nixos system &&
 {
-    git tag "Build`date +%F`"
+    git tag "Build`date +%F-%H-%M-%S`"
     sudo nixos-rebuild switch
 }
 
