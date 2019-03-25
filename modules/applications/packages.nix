@@ -36,6 +36,8 @@
     frei0r
     ffmpeg-full
     ghc
+    haskellPackages.hoogle
+    haskellPackages.hindent
     arduino
     kile
     clang
@@ -82,6 +84,7 @@
     breeze-icons
     kde-cli-tools
     vk-messenger
+    xdg_utils
   ]) ;
 
 
