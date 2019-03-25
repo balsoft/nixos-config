@@ -57,7 +57,7 @@ in
         ];
       };
       startup = map (a: { notification = false; } // a) [
-        { command = "${pkgs.albert}/bin/albert"; always = true; }
+        #{ command = "${pkgs.albert}/bin/albert"; always = true; }
         { command = "${pkgs.tdesktop}/bin/telegram-desktop"; }
         { command = apps.browser.cmd; }
         { command = "${pkgs.vk-messenger}/bin/vk"; }
@@ -66,7 +66,7 @@ in
         { command = "${pkgs.keepassxc}/bin/keepassxc /home/balsoft/projects/nixos-config/misc/Passwords.kdbx"; }
         { command = "balooctl start"; }
         { command = "${pkgs.trojita}/bin/trojita"; } 
-        { command = apps.term.cmd; workspace = "0"; }
+        #{ command = apps.term.cmd; workspace = "0"; }
         { command = "${pkgs.rclone}/bin/rclone mount google:/ '/home/balsoft/Google Drive' --verbose --daemon"; }
         { command = "${pkgs.hsetroot}/bin/hsetroot -solid '${thm.bg}'"; always = true; }
         #{ command = "exec ${./workspace-layouts.pl} &"; always = true; }
@@ -122,6 +122,7 @@ in
         "${modifier}+v" = "split v";
         "${modifier}+Minus" = "move to scratchpad";
         "${modifier}+Equals" = "scratchpad show";
+        "${modifier}+Space" = "${pkgs.lambda-launcher}/bin/lambda-launcher";
         "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
         "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
         "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
