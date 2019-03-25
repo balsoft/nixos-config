@@ -108,7 +108,6 @@ in
         "--release ${modifier}+Shift+Print" = "exec scrot -s -e 'mv $f ~/Pictures && notify-send \"Screenshot saved as ~/Pictures/$f\"'";
         "--release ${modifier}+Control+Shift+Print" = "exec scrot -s -e 'xclip -selection clipboard -t image/png -i $f && notify-send \"Screenshot copied to clipboard\" && rm $f'";
         "${modifier}+x" = "move workspace to output right"; 
-        "${modifier}+z" = "exec ${pkgs.i3-easyfocus}/bin/i3-easyfocus";
         "${modifier}+c" = "workspace ";
         "${modifier}+Shift+c" = "move container to workspace ";
         "${modifier}+t" = "workspace ";
@@ -122,7 +121,7 @@ in
         "${modifier}+v" = "split v";
         "${modifier}+Minus" = "move to scratchpad";
         "${modifier}+Equals" = "scratchpad show";
-        "${modifier}+Space" = "${pkgs.lambda-launcher}/bin/lambda-launcher";
+        "${modifier}+z" = "${pkgs.lambda-launcher}/bin/lambda-launcher";
         "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
         "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
         "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
