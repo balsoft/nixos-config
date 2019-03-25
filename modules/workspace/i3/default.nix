@@ -121,7 +121,7 @@ in
         "${modifier}+v" = "split v";
         "${modifier}+Minus" = "move to scratchpad";
         "${modifier}+Equals" = "scratchpad show";
-        "${modifier}+z" = "${pkgs.lambda-launcher}/bin/lambda-launcher";
+        "${modifier}+z" = "exec ${pkgs.lambda-launcher}/bin/lambda-launcher";
         "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
         "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
         "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
