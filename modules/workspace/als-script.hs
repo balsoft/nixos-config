@@ -1,7 +1,7 @@
 import Data.Sequence
 import Control.Concurrent (threadDelay)
 import System.Exit (exitWith, ExitCode( ExitSuccess ))
-
+import Data.Bool (bool)
 
 als_file :: String
 als_file = "/sys/devices/platform/asus-nb-wmi/als_enable"
@@ -29,38 +29,29 @@ max_keyboard = 3
 isAlsEnabled :: IO Bool
 isAlsEnabled = (==1) <$> read <$> readFile als_file
 
-getBrightness :: IO Float
-getBrightness = (/max_brightness) <$> read <$> readFile brightness_file
-
 setBrightness :: Float -> IO ()
 setBrightness = writeFile brightness_file . show . round . (*max_brightness) . min 1
 
 getLuminosity :: IO Float
 getLuminosity = (/max_luminosity) <$> read <$> readFile luminosity_file
 
+setKeyboardBrightness :: Float -> IO ()
 setKeyboardBrightness = writeFile keyboard_file . show . round . (*max_keyboard)
 
 
 updateBrightness :: Seq Float -> IO ()
 updateBrightness Empty = do
-  brightness <- getLuminosity
-  updateBrightness $ Data.Sequence.replicate 50 brightness
+  updateBrightness =<< Data.Sequence.replicate 50 <$> getLuminosity
 updateBrightness xss@(xs :|> _) = do
   let average = (sum xss / (fromIntegral $ Data.Sequence.length xss) + 0.0001) ** 0.2
   setBrightness average
   setKeyboardBrightness $ (1 - average) ** 4
-  luminosity <- getLuminosity
   threadDelay 50000
-  als_enabled <- isAlsEnabled
-  if als_enabled
-    then 
-    updateBrightness $ luminosity <| xs
-    else
-    exitWith ExitSuccess
-  
+  bool (updateBrightness . (<| xs) =<< getLuminosity) (exitWith ExitSuccess) =<< isAlsEnabled
+
 startAls :: IO ()
 startAls = do
-  writeFile als_file $show 1
+  writeFile als_file $ show 1
   updateBrightness Empty
 
 stopAls :: IO ()
