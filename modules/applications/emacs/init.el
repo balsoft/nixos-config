@@ -95,7 +95,16 @@
 (global-display-line-numbers-mode)
 
 
+
 (use-package ix)
+
+(use-package clipmon
+  :config
+  (clipmon-mode))
+
+(electric-pair-mode)
+
+(electric-indent-mode)
 
 (use-package flycheck
   :config
@@ -124,6 +133,12 @@
 (use-package hasklig-mode
   :hook (haskell-mode))
 
+
+
+(use-package company-ghci
+  :config
+  (push 'company-ghci company-backends))
+
 (global-set-key (kbd "M-RET") 'execute-extended-command)
 
 ;; (server-start)
@@ -145,7 +160,7 @@ If point was already at that position, move point to beginning of line."
 ;; Menu Bars
 ;; TODO - Change bind-key to define-key
 (bind-key [menu-bar file new-file]
-	  `(menu-item "New File..." wakib-new-empty-buffer :enable (menu-bar-non-minibuffer-window-p)
+	        `(menu-item "New File..." wakib-new-empty-buffer :enable (menu-bar-non-minibuffer-window-p)
 		      :help "Create a new blank buffer"
 		      :key-sequence ,(kbd "C-n")))
 
@@ -266,6 +281,12 @@ If point was already at that position, move point to beginning of line."
 ;; Yasnippet
 ;; -------------------
 
+(use-package nix-mode
+  :hook
+  ((nix-mode . (lambda () (local-set-key (kbd "<f7>") 'nix-mode-format))))
+  ((nix-mode . (lambda () (local-set-key (kbd "TAB") 'nix-indent-line)))))
+
+
 (use-package yasnippet-snippets
   :defer t)
 
@@ -284,10 +305,15 @@ If point was already at that position, move point to beginning of line."
   :bind ("C-y" . ivy-yasnippet))
 
 
+
+(use-package org-gcal
+  :config
+  (require 'org-gcal-config))
+
 ;; -------------------
 ;; expand-region
 ;; -------------------
-(use-package company               
+(use-package company
   :diminish company-mode
   :config
   (global-company-mode 1)
@@ -417,3 +443,4 @@ nothing happens."
     (kill-local-variable 'after-save-hook)))
 
 ;;; init.el ends here
+(auto-fill-mode)
