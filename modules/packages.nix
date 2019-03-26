@@ -34,10 +34,21 @@
       config.android_sdk.accept_license = true;
     } // config.nixpkgs.config;
 
-  nix.nixPath = lib.mkForce
+
+  nix = {
+    binaryCaches = [
+      "https://static-haskell-nix.cachix.org"
+      "https://cache.nixos.org"
+    ];
+    binaryCachePublicKeys = [
+      "static-haskell-nix.cachix.org-1:Q17HawmAwaM1/BfIxaEDKAxwTOyRVhPG5Ji9K3+FvUU="
+    ];
+    nixPath = lib.mkForce
     [
       "nixpkgs=${../imports/nixpkgs}"
       "home-manager=${../imports/home-manager}"
       "nixos-config=/etc/nixos/configuration.nix"
     ];
+    
+  };
 }
