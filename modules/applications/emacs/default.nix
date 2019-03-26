@@ -41,7 +41,10 @@
               clipmon
               org-gcal
               rust-mode
-              company-ghci
+              #company-ghci
+              company-lsp
+              lsp-mode
+              lsp-haskell
             ];
         };
       home.packages =
