@@ -3,7 +3,7 @@
   nixpkgs.overlays = [ (self: old: {
     termNote = (import (builtins.fetchGit {url = "https://github.com/Terodom/termNote"; rev = "a4045a75dca67891ef239a43f364ce3149a91b6a";}) {});
 
-    lambda-launcher = (import (builtins.fetchGit { url = "https://github.com/balsoft/lambda-launcher"; rev = "acdf578c18a9ee1788fc731028a8bda29b7d9a23";}) {});
+    lambda-launcher = (import (builtins.fetchGit { url = "https://github.com/balsoft/lambda-launcher"; rev = "c7cc830e055fae38e32a8da8a6268a4a155a1d5d";}) {});
 
     tdesktop = old.tdesktop.overrideAttrs (oldAttrs: {
       patches = [
