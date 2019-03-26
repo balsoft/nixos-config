@@ -1,7 +1,6 @@
 {pkgs, config, lib, ...}:
 
-with rec
-{
+with rec {
   inherit (config) device devices deviceSpecific;
 };
 with deviceSpecific;
@@ -9,7 +8,7 @@ with deviceSpecific;
 
   hardware.sensor.iio.enable = (device == "HP-Laptop");
   hardware.cpu.${devices.${device}.cpu.vendor}.updateMicrocode = true; # Update microcode
-  
+
   hardware.enableRedistributableFirmware = true; # For some unfree drivers
 
   hardware.opengl.enable = true;
@@ -18,9 +17,8 @@ with deviceSpecific;
 
   hardware.bluetooth.enable = true;
   hardware.sane.enable = true;
- 
-  boot =
-  {
+
+  boot = {
     loader = {
       grub.enable = true;
       grub.version = 2;
@@ -46,11 +44,11 @@ with deviceSpecific;
       "rd.udev.log_priority=3" 
       "pti=off" 
       "spectre_v2=off"
-      ] ++ lib.optionals (device == "Prestigio-Laptop")  [
+    ] ++ lib.optionals (device == "Prestigio-Laptop")  [
       "intel_idle.max_cstate=1" # Otherwise it hangs
     ];
   };
-  
+
   services.logind.extraConfig = "HandlePowerKey=suspend";
   sound.enable = true;
   hardware.pulseaudio = {

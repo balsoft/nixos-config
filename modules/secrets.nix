@@ -32,7 +32,13 @@ rec
       type = nullOr string;
       description = "OpenWeatherMap key";
     };
-    irc = mkCredOption "IRC (konversation)" {}; 
+    irc = mkCredOption "IRC (konversation)" {};
+    gcal = 
+    {
+      email = mkOption { type = lib.types.string; };
+      client-id = mkOption { type = lib.types.string; };
+      client-secret = mkOption { type = lib.types.string; };
+    }; 
     gmail = mkCredOption "gmail (trojita)" {};
     gpmusic = mkCredOption "Google Play Music (mopidy)"
     ({deviceid = mkOption
