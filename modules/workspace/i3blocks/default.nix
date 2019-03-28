@@ -25,6 +25,7 @@ let scripts = import ./scripts pkgs config; in
       id = "top";
       position = "top";
       statusCommand = "${pkgs.i3blocks}/bin/i3blocks";
+      trayOutput = "none";
     }
   ];
   home-manager.users.balsoft.xdg.configFile."i3blocks/config".text = 
