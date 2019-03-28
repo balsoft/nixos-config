@@ -10,7 +10,8 @@
     ./applications/firefox.nix
     ./applications/konversation.nix
     ./applications/okular.nix
-    ./workspace/polybar/default.nix
+    #./workspace/polybar
+    ./workspace/i3blocks
     ./workspace/i3
     ./workspace/zsh.nix
     ./workspace/gtk.nix
