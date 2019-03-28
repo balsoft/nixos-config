@@ -2,6 +2,31 @@
 with import ../../../support.nix {inherit pkgs config lib;};
 let scripts = import ./scripts pkgs config; in
 {
+  home-manager.users.balsoft.xsession.windowManager.i3.config.bars = [ 
+    { 
+      colors = rec {
+        activeWorkspace = {
+          text = thm.blue;
+          border = thm.bg;
+          background = thm.bg;
+        };
+        background = thm.bg;
+        bindingMode = {
+          background = thm.bg;
+          text = thm.yellow;
+          border = thm.bg;
+            };
+        focusedWorkspace = activeWorkspace;
+        inactiveWorkspace = activeWorkspace // {text = thm.fg;};
+        separator = thm.alt;
+        urgentWorkspace = activeWorkspace // {text = thm.orange;};
+      };
+      fonts = ["Material Icons 11" "Roboto Mono 11"];
+      id = "top";
+      position = "top";
+      statusCommand = "${pkgs.i3blocks}/bin/i3blocks";
+    }
+  ];
   home-manager.users.balsoft.xdg.configFile."i3blocks/config".text = 
     ''
       interval=60
