@@ -38,6 +38,7 @@
     client.enable = true;
     client.privoxy.enable = true;
     torsocks.enable = true;
+    client.socksListenAddressFaster = "0.0.0.0:9063";
   };
   #services.teamviewer.enable = true;
 
