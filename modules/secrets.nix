@@ -38,6 +38,7 @@ rec
       email = mkOption { type = lib.types.string; };
       client-id = mkOption { type = lib.types.string; };
       client-secret = mkOption { type = lib.types.string; };
+      refresh-token = mkOption { type = lib.types.string; };
     }; 
     gmail = mkCredOption "gmail (trojita)" {};
     gpmusic = mkCredOption "Google Play Music (mopidy)"
