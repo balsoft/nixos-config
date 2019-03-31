@@ -25,6 +25,6 @@
         _class = "OAuth2Credentials"; 
         _module = "oauth2client.client";
       });
-    home.activation = [ {after = ["linkGeneration"]; before = []; command = "cp .gcalcli_oauth.home .gcalcli_oauth.home";} ];
+    home.activation.gcalcli =  {after = ["linkGeneration"]; before = []; data = "cp .gcalcli_oauth.home .gcalcli_oauth.home";};
   };
 }
