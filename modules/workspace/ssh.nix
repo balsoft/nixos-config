@@ -18,7 +18,7 @@
             name = "id_rsa";
             text = config.secrets.id_rsa;
           });
-          extraOptions.Ciphers = "aes128-gcm@openssh.com";
+          extraOptions.Ciphers = "aes128-gcm@openssh.com;aes256-cbc";
           compression = false;
         };
       };
