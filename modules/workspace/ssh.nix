@@ -19,7 +19,7 @@
             text = config.secrets.id_rsa;
           });
           compression = false;
-          extraOptions.Ciphers = "aes128-gcm@openssh.org,aes256-cbc";
+          extraOptions.Ciphers = "aes128-gcm@openssh.org aes256-cbc";
         };
       };
     } else {};
