@@ -13,16 +13,17 @@ in
       middleEmulation = false;
       naturalScrolling = true;
     };
-    videoDrivers = if
-                     cpu == "amd"
-                   then
-                     [ "amdgpu" ]
-                   else if
-                     device == "Lenovo-Workstation"
-                   then
-                     [ "radeon" ]
-                   else
-                     [ "intel" ];
+    videoDrivers = 
+      if
+      cpu == "amd"
+      then
+      [ "amdgpu" ]
+      else if
+      device == "Lenovo-Workstation"
+      then
+      [ "radeon" ]
+      else
+      [ "intel" ];
     displayManager.lightdm = {
       enable = true;
       autoLogin.enable = !isShared;
