@@ -15,7 +15,7 @@ with types;
       rec {
         isLaptop = (!isNull(builtins.match ".*Laptop" device));
         smallScreen = (device == "Prestigio-Laptop");
-        isShared = (device == "Prestigio-Laptop" || device == "ASUS-Laptop");
+        isShared = device == "ASUS-Laptop";
         cpu = devInfo.cpu.vendor;
 	      isSSD = devInfo.drive.type == "ssd";
 	      goodMachine = devInfo.cpu.clock * devInfo.cpu.cores >= 4000 && devInfo.drive.size >= 100 && devInfo.ram >= 8; # Whether machine is powerful enough for heavy stuff
