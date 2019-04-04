@@ -215,10 +215,6 @@ If point was already at that position, move point to beginning of line."
   :bind
   (("C-x g" . magit-status )))
 
-(use-package irony-mode
-  :hook
-  (c-mode . irony-mode)
-  (c++-mode . irony-mode))
 
 (use-package exec-path-from-shell
   :disabled

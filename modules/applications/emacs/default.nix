@@ -33,7 +33,6 @@
               powerline
               smart-mode-line-powerline-theme
               hasklig-mode
-              irony
               flycheck
               flycheck-pkg-config
               auto-indent-mode
@@ -41,8 +40,6 @@
               clipmon
               org-gcal
               rust-mode
-              company-irony
-              flycheck-irony
               company-lsp
               lsp-mode
               lsp-haskell
