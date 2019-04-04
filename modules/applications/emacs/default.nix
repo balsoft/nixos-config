@@ -41,7 +41,8 @@
               clipmon
               org-gcal
               rust-mode
-              #company-ghci
+              company-irony
+              flycheck-irony
               company-lsp
               lsp-mode
               lsp-haskell

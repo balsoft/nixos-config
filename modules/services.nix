@@ -38,9 +38,12 @@
     client.enable = true;
     client.privoxy.enable = true;
     torsocks.enable = true;
-    client.socksListenAddressFaster = "0.0.0.0:9063";
+    client.
+socksListenAddressFaster = "0.0.0.0:9063";
   };
   #services.teamviewer.enable = true;
+  
+  systemd.units."dbus.service".text = lib.mkForce "blah";
 
   services.accounts-daemon.enable = true;
   services.avahi.enable = true;
