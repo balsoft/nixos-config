@@ -7,10 +7,6 @@
       before = [];
       data = "cp ./.config/rclone/rclone.conf.home ./.config/rclone/rclone.conf; chmod 700 ./.config/rclone/rclone.conf";
     };
-    home.activation."rclone-directories" = {
-      after = []; before = [];
-      data = "mkdir -p ~/Google\ Drive ~/Yandex\ Disk ~/Dropbox";
-    };
     xsession.windowManager.i3.config.startup = [
       { command = "${pkgs.rclone}/bin/rclone mount google:/ '/home/balsoft/Google Drive' --daemon"; }
       { command = "${pkgs.rclone}/bin/rclone mount Yandex:/ '/home/balsoft/Yandex Disk' --daemon"; }
