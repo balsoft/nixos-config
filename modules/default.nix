@@ -27,6 +27,7 @@
     ./workspace/light.nix
     ./workspace/autorandr.nix
     ./workspace/gcalcli.nix
+    ./workspace/rclone.nix
     ./themes.nix
     ./applications.nix
     ./secrets.nix
