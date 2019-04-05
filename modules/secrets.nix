@@ -47,6 +47,10 @@ rec
       type = string;
       description = "Android device ID";
     };});
+    rclone = mkOption {
+      type = nullOr string;
+      description = "Rclone config";
+    };
     id_rsa = mkOption
     {
       type = nullOr string;
