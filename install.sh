@@ -19,6 +19,6 @@ nixos-rebuild build &&
         git add .
         git commit -m "Automatic commit. This builds at `date`"
         git tag latestBuild --force
-        pkexec ./result/bin/switch-to-configuration switch
+        pkexec  $(dirname $0)/result/bin/switch-to-configuration switch
     }
 
