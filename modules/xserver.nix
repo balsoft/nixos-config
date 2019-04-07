@@ -26,28 +26,9 @@ in
       [ "intel" ];
     displayManager.lightdm = {
       enable = true;
-      autoLogin.enable = !isShared;
+      autoLogin.enable = true;
       autoLogin.user = "balsoft";
-      greeter.enable = isShared;
-      background = "222222";
-      greeters.enso = {
-        enable = isShared;
-        cursorTheme =
-        {
-          package = pkgs.breeze-qt5;
-          name = "Breeze";
-        };
-        iconTheme =
-        {
-          package = pkgs.papirus-icon-theme;
-          name = "Papirus-Dark";
-        };
-        theme =
-        {
-          package = pkgs.generated-gtk-theme;
-          name = "Generated";
-        };
-      };
+      greeter.enable = false;
     };
 #   desktopManager.plasma5.enable = true;
     desktopManager.default = "none";
