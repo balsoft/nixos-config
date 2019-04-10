@@ -1,6 +1,8 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -p p7zip git -i bash
 
+unset IN_NIX_SHELL
+
 if [[ ! -e ~/.local/share/password ]]
 then
     echo -n "Password [echoed]: "
