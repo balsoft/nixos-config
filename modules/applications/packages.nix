@@ -41,6 +41,7 @@
     arduino
     kile
     clang
+    clang-tools
     lldb
     #gcc
     #gdb
