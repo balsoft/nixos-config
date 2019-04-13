@@ -16,7 +16,7 @@ git submodule update --init --recursive
 
 export NIX_PATH=nixpkgs=./imports/nixpkgs:nixos-config=/etc/nixos/configuration.nix 
 
-nixos-rebuild build &&
+nix build -f ./imports/nixpkgs/nixos system &&
     {
         git add .
         git commit -m "Automatic commit. This builds at `date`"
