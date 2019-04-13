@@ -3,7 +3,7 @@
   nixpkgs.overlays = [ (self: old: {
     termNote = (import (builtins.fetchGit {url = "https://github.com/Terodom/termNote"; rev = "a4045a75dca67891ef239a43f364ce3149a91b6a";}) {});
 
-    lambda-launcher = (import (builtins.fetchGit { url = "https://github.com/balsoft/lambda-launcher/"; rev = "275e95a26b4b4e65ac53e58c6408ca2c1675c457"; ref = "master"; }) {});
+    lambda-launcher = (import (builtins.fetchGit { url = "https://github.com/balsoft/lambda-launcher/"; rev = "275e95a26b4b4e65ac53e58c6408ca2c1675c457";}) {});
 
     tdesktop = old.tdesktop.overrideAttrs (oldAttrs: {
       patches = [
@@ -36,13 +36,6 @@
 
 
   nix = {
-    binaryCaches = [
-      "https://static-haskell-nix.cachix.org"
-      "https://cache.nixos.org"
-    ];
-    binaryCachePublicKeys = [
-      "static-haskell-nix.cachix.org-1:Q17HawmAwaM1/BfIxaEDKAxwTOyRVhPG5Ji9K3+FvUU="
-    ];
     nixPath = lib.mkForce
     [
       "nixpkgs=${../imports/nixpkgs}"
