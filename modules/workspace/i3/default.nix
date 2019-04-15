@@ -70,7 +70,7 @@ in
         { command = "${pkgs.hsetroot}/bin/hsetroot -solid '${thm.bg}'"; always = true; }
         #{ command = "exec ${./workspace-layouts.pl} &"; always = true; }
         { command = "${pkgs.termNote}/bin/noted"; }
-        { command = "${pkgs.quaternion}/bin/quaternion"; }
+        { command = "QT_QPA_PLATFORMTHEME=kde ${pkgs.quaternion}/bin/quaternion"; }
       ];
       keybindings = let moveMouse = ''"sh -c 'eval `${
         pkgs.xdotool
