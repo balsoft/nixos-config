@@ -10,7 +10,7 @@ in
     config = rec {
       assigns = {
         "" = [{ class = "Chromium"; } { class = "Firefox"; } ];
-        "" = [{ class = "^Telegram"; } { class = "^VK"; } { class = "^trojita"; } { class = "^konversation"; } ];
+        "" = [{ class = "^Telegram"; } { class = "^VK"; } { class = "^trojita"; } { class = "^konversation"; } {class = "^Quaternion";} ];
       };
       bars = [];
       fonts = [ "RobotoMono 9" ];
@@ -70,6 +70,7 @@ in
         { command = "${pkgs.hsetroot}/bin/hsetroot -solid '${thm.bg}'"; always = true; }
         #{ command = "exec ${./workspace-layouts.pl} &"; always = true; }
         { command = "${pkgs.termNote}/bin/noted"; }
+        { command = "${pkgs.quaternion}/bin/quaternion"; }
       ];
       keybindings = let moveMouse = ''"sh -c 'eval `${
         pkgs.xdotool
