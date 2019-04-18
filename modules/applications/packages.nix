@@ -30,7 +30,7 @@
     curl
   ] ++ lib.optionals config.deviceSpecific.goodMachine [
     texlive.combined.scheme-full
-    steam
+    #steam
     krita
     kdenlive
     frei0r
