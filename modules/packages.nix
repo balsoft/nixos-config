@@ -5,6 +5,8 @@
 
     lambda-launcher = (import (builtins.fetchGit { url = "https://github.com/balsoft/lambda-launcher/"; rev = "275e95a26b4b4e65ac53e58c6408ca2c1675c457";}) {});
 
+    hnix-lsp = (import (builtins.fetchGit {url = https://github.com/domenkozar/hnix-lsp; rev = "d678f56639067f54144ae08cdf3657889348723c"; }));
+
     tdesktop = old.tdesktop.overrideAttrs (oldAttrs: {
       patches = [
         (builtins.fetchurl 
