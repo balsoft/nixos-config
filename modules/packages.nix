@@ -1,15 +1,10 @@
 {pkgs, config, lib, ...}:
-let 
-  oldPackages = import (fetchTarball { url = https://github.com/nixos/nixpkgs-channels/archive/2aa505b77c04bfd8bb702cbf261f1141a3fe55c2.tar.gz; sha256 = "sha256:14lp7lcwfy6zs2xlhmc71dbq767inz6rp9v2wcma3lf3jf46acvl"; }) {} ;
-in
 {
   nixpkgs.overlays = [ (self: old: {
     termNote = (import (builtins.fetchGit {url = "https://github.com/Terodom/termNote"; rev = "a4045a75dca67891ef239a43f364ce3149a91b6a";}) {});
 
     lambda-launcher = (import (builtins.fetchGit { url = "https://github.com/balsoft/lambda-launcher/"; rev = "275e95a26b4b4e65ac53e58c6408ca2c1675c457";}) {});    
-    haskellPackages = old.haskellPackages // {
-      metahorn = oldPackages.haskellPackages.metahorn;
-    };
+    oldPackages = import (fetchTarball { url = https://github.com/nixos/nixpkgs-channels/archive/2aa505b77c04bfd8bb702cbf261f1141a3fe55c2.tar.gz; sha256 = "sha256:14lp7lcwfy6zs2xlhmc71dbq767inz6rp9v2wcma3lf3jf46acvl"; }) {} ;
 
     tdesktop = old.tdesktop.overrideAttrs (oldAttrs: {
       patches = [
