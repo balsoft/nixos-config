@@ -23,7 +23,7 @@ nix build -f ./imports/nixpkgs/nixos system &&
         git commit -m "Automatic commit. This builds at $d"
         git tag latestBuild --force
         dir=$(pwd)
-        SHELL=/bin/sh pkexec /bin/sh -c "ln -s $(readlink $dir/result) /nix/var/nix/profiles/system-$d-link &&\
+        SHELL=/bin/sh pkexec bash -c "ln -s $(readlink $dir/result) /nix/var/nix/profiles/system-$d-link &&\
         $dir/result/bin/switch-to-configuration switch"
     }
 
