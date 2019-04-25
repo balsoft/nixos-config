@@ -19,10 +19,11 @@ export NIX_PATH=nixpkgs=./imports/nixpkgs:nixos-config=/etc/nixos/configuration.
 nix build -f ./imports/nixpkgs/nixos system &&
     {
         git add .
-        git commit -m "Automatic commit. This builds at `date`"
+        d=$(date +%s)
+        git commit -m "Automatic commit. This builds at $d"
         git tag latestBuild --force
         dir=$(pwd)
-        SHELL=/bin/sh pkexec ln -s $(readlink $dir/result) /nix/var/nix/profiles/system-$(git rev-parse HEAD)-link
+        SHELL=/bin/sh pkexec ln -s $(readlink $dir/result) /nix/var/nix/profiles/system-$d-link
         SHELL=/bin/sh pkexec $dir/result/bin/switch-to-configuration switch
     }
 
