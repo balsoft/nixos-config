@@ -21,7 +21,6 @@ nix build -f ./imports/nixpkgs/nixos system &&
         git add .
         git commit -m "Automatic commit. This builds at `date`"
         git tag latestBuild --force
-        SHELL=/bin/sh pkexec ln -s $(readlink $(pwd)/result) /nix/var/nix/profiles/system-$(date +%s)-link
-        SHELL=/bin/sh pkexec $(pwd)/result/bin/switch-to-configuration switch
+        SHELL=/bin/sh pkexec $(pwd)/activate.sh
     }
 
