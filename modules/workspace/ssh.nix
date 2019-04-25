@@ -19,7 +19,6 @@
             text = config.secrets.id_rsa;
           });
           compression = false;
-          extraOptions.Ciphers = "aes256-cbc";
         };
       };
     } else {};
