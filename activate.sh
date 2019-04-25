@@ -1,3 +1,4 @@
 #!/bin/sh
-ln -s $(readlink $(pwd)/result) /nix/var/nix/profiles/system-$(date +%s)-link
-$(pwd)/result/bin/switch-to-configuration switch
+cd $(dirname $0)
+ln -s $(readlink result) /nix/var/nix/profiles/system-$(git rev-parse HEAD)-link
+./result/bin/switch-to-configuration switch
