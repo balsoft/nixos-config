@@ -33,6 +33,7 @@
     {
       config.allowUnfree = true;
       config.android_sdk.accept_license = true;
+      config.firefox.enablePlasmaBrowserIntegration = true;
     } // config.nixpkgs.config;
 
 

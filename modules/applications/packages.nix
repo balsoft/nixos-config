@@ -20,6 +20,8 @@
     stdman
     stdmanpages
     qt5.qtsvg
+    firefox
+    plasma-browser-integration
   ]);
 
   
