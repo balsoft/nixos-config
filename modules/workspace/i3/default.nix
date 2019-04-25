@@ -71,8 +71,6 @@ in
         #{ command = "exec ${./workspace-layouts.pl} &"; always = true; }
         { command = "${pkgs.termNote}/bin/noted"; }
         { command = "QT_QPA_PLATFORMTHEME=kde ${pkgs.quaternion}/bin/quaternion"; }
-        #{ command = "${pkgs.oldPackages.haskellPackages.matterhorn}/bin/matterhorn"; }
-        {command = "${pkgs.hello}/bin/hello";}
       ];
       keybindings = let moveMouse = ''"sh -c 'eval `${
         pkgs.xdotool
