@@ -15,10 +15,12 @@
         N = "channel-search-previous"; 
         g = "channel-top"; 
         i = "mode-insert"; 
+        "ш" = "mode-insert";
         j = "channel-down"; 
         k = "channel-up"; 
         n = "channel-search-next"; 
         q = "quit"; 
+        "й" = "quit";
       }; 
       notify = "mention"; 
       slack_token = config.secrets.slack-term; 
