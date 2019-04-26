@@ -3,11 +3,22 @@
   home-manager.users.balsoft = {
     home.file.".slack-term".text = builtins.toJSON { 
       emoji = true; 
-      key_map = { 
-        "<up>" = "chat-up";
-        "<down>" = "chat-down";
-        "<previous>" = "channel-up";
-        "<next>" = "channel-down";
+      key_map.command = {
+        "/" = "mode-search"; 
+        "<f1>" = "help"; 
+        "<next>" = "channel-down"; 
+        "<previous>" = "channel-up"; 
+        "<up>" = "chat-up"; 
+        "<down>" = "chat-down"; 
+        C-f = "mode-search"; 
+        G = "channel-bottom"; 
+        N = "channel-search-previous"; 
+        g = "channel-top"; 
+        i = "mode-insert"; 
+        j = "channel-down"; 
+        k = "channel-up"; 
+        n = "channel-search-next"; 
+        q = "quit"; 
       }; 
       notify = "mention"; 
       slack_token = config.secrets.slack-term; 
