@@ -45,7 +45,7 @@ in
       pref("browser.display.use_document_fonts", 0);
       pref("browser.display.use_system_colors", true);
 
-      pref("pdfjs.disabled", true)
+      pref("pdfjs.disabled", true);
     '';
     home.file.".mozilla/firefox/profile.default/chrome/userChrome.css".text = ''
       #TabsToolbar {
