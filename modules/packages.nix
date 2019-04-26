@@ -44,6 +44,12 @@
       "home-manager=${../imports/home-manager}"
       "nixos-config=/etc/nixos/configuration.nix"
     ];
-    
+    binaryCaches = [
+      https://cache.nixos.org http://hydra.typeable.io:5000
+    ];
+    binaryCachePublicKeys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" 
+      "hydra.example.org-1:3cfw8jj8xtoKkQ2mAQxMFcEv2/fQATA/mjoUUIFxSgo="
+    ];
   };
 }
