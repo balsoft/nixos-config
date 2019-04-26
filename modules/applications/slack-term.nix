@@ -27,9 +27,9 @@
         message = { name = "colorize,fg-bold"; text = "fg-white"; time = "fg-green,fg-bold"; time_format = "Mon 15:04"; };
       }; 
     };
-    xsession.windowManager.i3.startup = [
+    xsession.windowManager.i3.config.startup = [
       {
-        command = "${config.defaultApplications.term} -- ${pkgs.slack-term}";
+        command = "${config.defaultApplications.term.cmd} -- ${pkgs.slack-term}";
         workspace = "";
       }
     ];
