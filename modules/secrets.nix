@@ -33,6 +33,7 @@ rec
       description = "OpenWeatherMap key";
     };
     irc = mkCredOption "IRC (konversation)" {};
+    slack-term = mkOption { type = string; };
     gcal = 
     {
       email = mkOption { type = lib.types.string; };
