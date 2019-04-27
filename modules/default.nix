@@ -11,7 +11,6 @@
     ./applications/konversation.nix
     ./applications/okular.nix
     ./applications/slack-term.nix
-    #./workspace/polybar
     ./workspace/i3blocks
     ./workspace/i3
     ./workspace/zsh.nix
@@ -19,7 +18,6 @@
     ./workspace/compton.nix   
     ./workspace/misc.nix
     ./workspace/dunst.nix
-    ./workspace/albert
     ./workspace/kde
     ./workspace/synergy.nix
     ./workspace/ssh.nix
