@@ -7,10 +7,9 @@
       roboto
       roboto-mono
       roboto-slab
-      powerline-fonts
+      nerdfonts
       noto-fonts
       noto-fonts-emoji
-      #fira-code-symbols
       hasklig
     ];
     fontconfig = {
