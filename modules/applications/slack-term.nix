@@ -31,7 +31,7 @@
     };
     xsession.windowManager.i3.config.startup = [
       {
-        command = "${config.defaultApplications.term.cmd} -e ${pkgs.slack-term}";
+        command = "${config.defaultApplications.term.cmd} -e ${pkgs.slack-term}/bin/slack-term";
         workspace = "";
       }
     ];
