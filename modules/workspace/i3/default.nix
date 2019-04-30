@@ -110,8 +110,8 @@ in
         "${modifier}+x" = "move workspace to output right"; 
         "${modifier}+c" = "workspace ";
         "${modifier}+Shift+c" = "move container to workspace ";
-        "${modifier}+t" = "workspace ";
-        "${modifier}+Shift+t" = "move container to workspace ";
+        "${modifier}+t" = "workspace ";
+        "${modifier}+Shift+t" = "move container to workspace ";
         "${modifier}+k" = "exec '${pkgs.xorg.xkill}/bin/xkill'";
         "${modifier}+F5" = "restart";
         "${modifier}+Shift+F5" = "exit";
