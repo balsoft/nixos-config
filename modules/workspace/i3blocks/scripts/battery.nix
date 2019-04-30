@@ -12,10 +12,10 @@ case "$STATUS" in
     text="$CHARGE% ($TIME)"
     status=0
     case $CHARGE in
-      2?|3?) icon=;;
-      4?|5?) icon=;;
-      6?|7?) icon=;;
-      8?|9?|100) icon=;
+      [2-3]*) icon=;;
+      [4-5]*) icon=;;
+      [6-7]*) icon=;;
+      [8-9]*|100) icon=;;
       *) icon=;;
     esac
   ;;
