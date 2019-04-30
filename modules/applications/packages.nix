@@ -49,6 +49,7 @@
     #gdb
     appimage-run
   ] ++ [
+    libqalculate
     firefox
     # Messaging
     tdesktop
