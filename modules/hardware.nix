@@ -35,6 +35,7 @@ with deviceSpecific;
     blacklistedKernelModules = lib.optionals (device == "Prestigio-Laptop") [ "axp288_charger" "axp288_fuel_gauge" "axp288_adc" ]; # Disable battery driver as it hangs this piece of shit
     extraModprobeConfig = if (device == "ASUS-Laptop") then "options iwlwifi swcrypto=1 power_save=0 power_level=5 11n_disable=8 bt_coex_active=1" else ""; # Attempt to fix broken wireless
     kernel.sysctl."vm.swappiness" = 0;
+    kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [ 
       "quiet" 
       "scsi_mod.use_blk_mq=1" 
@@ -44,7 +45,7 @@ with deviceSpecific;
       "rd.udev.log_priority=3" 
       "pti=off" 
       "spectre_v2=off"
-    ] ++ lib.optionals (device == "Prestigio-Laptop")  [
+    ] ++ lib.optionals (device == "Prestigio-Laptop") [
       "intel_idle.max_cstate=1" # Otherwise it hangs
     ];
   };
