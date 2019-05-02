@@ -10,7 +10,7 @@ in
     config = rec {
       assigns = {
         "" = [{ class = "Chromium"; } { class = "Firefox"; } ];
-        "" = [{ class = "^Telegram"; } { class = "^VK"; } { class = "^trojita"; } { class = "^konversation"; } {class = "Quaternion";} ];
+        "" = [{ class = "^Telegram"; } { class = "^VK"; } { class = "^trojita"; } { class = "^konversation"; } {class = "Quaternion";} ];
       };
       bars = [];
       fonts = [ "RobotoMono 9" ];

@@ -10,7 +10,8 @@
     ./applications/firefox.nix
     ./applications/konversation.nix
     ./applications/okular.nix
-    ./applications/slack-term.nix
+    #./applications/slack-term.nix
+    ./applications/weechat.nix
     ./workspace/i3blocks
     ./workspace/i3
     ./workspace/zsh.nix
