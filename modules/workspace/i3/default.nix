@@ -4,6 +4,7 @@ let thm = config.themes.colors;
     customPackages = pkgs.callPackage ../../../packages {};
 in
 {
+  environment.sessionVariables._JAVA_AWT_WM_NONREPARENTING = "1";
   home-manager.users.balsoft.xsession.windowManager.i3 = {
     enable = true;
     package = pkgs.i3-gaps;
