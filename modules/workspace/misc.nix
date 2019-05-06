@@ -16,7 +16,7 @@
     {
       enable = true;
       userEmail = "balsoft@yandex.ru";
-      userName = "Александр Бантьев";
+      userName = "Alexander Bantyev";
     };
     news.display = "silent";
     programs.command-not-found.enable = true;
