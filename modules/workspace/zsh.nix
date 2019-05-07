@@ -63,6 +63,19 @@
   # make sure this plays nicely with any existing preexec
   preexec_functions+=( notifyosd-preexec )
   XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
+
+  source ${pkgs.fetchFromGitHub {
+    owner = "chisui";
+    repo = "zsh-nix-shell";
+    rev = "b2609ca787803f523a18bb9f53277d0121e30389";
+    sha256 = "01w59zzdj12p4ag9yla9ycxx58pg3rah2hnnf3sw4yk95w3hlzi6";
+  }}/nix-shell.plugin.zsh
+  source ${builtins.fetchurl { 
+    url = https://gist.githubusercontent.com/chisui/0d12bd51a5fd8e6bb52e6e6a43d31d5e/raw/ea75cad507e2899b9b6d6ce423330641911110d8/agnoster-nix.zsh-theme;
+    sha256 = "0fq1jnzdf0956ia0as61p43wmqak6zljhyax1gqnjgb8jimr5kzm";
+  }}
+  
+
   PS1="$PS1
  $ "
     '';
