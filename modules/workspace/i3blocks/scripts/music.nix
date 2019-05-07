@@ -8,8 +8,8 @@ case $BLOCK_BUTTON in
      3) ${playerctl}/bin/playerctl next;;
 esac
 case $STATUS in
-     Paused)  icon=""; text=`${playerctl}/bin/playerctl metadata title | head -c 20 | sed s/' \\w*$'//`;;
-     Playing) icon=""; text=`${playerctl}/bin/playerctl metadata title | head -c 30 | sed s/' \\w*$'//`;;
+     Paused)  icon=""; text=`${playerctl}/bin/playerctl metadata title | head -c 20`;;
+     Playing) icon=""; text=`${playerctl}/bin/playerctl metadata title | head -c 30`;;
      *) icon="";;
 esac
 echo "<span font='${iconfont}'>$icon</span> $text"
