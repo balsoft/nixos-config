@@ -22,6 +22,7 @@
     qt5.qtsvg
     firefox
     plasma-browser-integration
+    wmctrl
   ]);
 
   
