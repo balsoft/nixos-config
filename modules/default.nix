@@ -1,7 +1,5 @@
-{...}:
-{
-  imports =
-  [
+{ ... }: {
+  imports = [
     ./applications/packages.nix
     ./applications/kate.nix
     ./applications/emacs
@@ -16,7 +14,7 @@
     ./workspace/i3
     ./workspace/zsh.nix
     ./workspace/gtk.nix
-    ./workspace/compton.nix   
+    ./workspace/compton.nix
     ./workspace/misc.nix
     ./workspace/dunst.nix
     ./workspace/kde

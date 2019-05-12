@@ -1,13 +1,14 @@
 { pkgs, config, ... }:
 let
-  wee_slack = "${pkgs.fetchFromGitHub {
-    owner = "wee-slack";
-    repo = "wee-slack";
-    rev = "e89ab6822327f6b20c86fca9a7b97e9d56a7d4d0";
-    sha256 = "0kaz073x5d1bbbwk98gk7yjp76hc78v058jfrmn3vprxi37kgaib";
-  }}/wee_slack.py";
-in
-{
+  wee_slack = "${
+    pkgs.fetchFromGitHub {
+      owner = "wee-slack";
+      repo = "wee-slack";
+      rev = "e89ab6822327f6b20c86fca9a7b97e9d56a7d4d0";
+      sha256 = "0kaz073x5d1bbbwk98gk7yjp76hc78v058jfrmn3vprxi37kgaib";
+    }
+  }/wee_slack.py";
+in {
   home-manager.users.balsoft = {
     home.file.".weechat/python/wee_slack.py".source = wee_slack;
     home.file.".weechat/python/autoload/wee_slack.py".source = wee_slack;
@@ -85,6 +86,9 @@ in
       python.slack.unfurl_ignore_alt_text = "When displaying ("unfurling") links to channels/users/etc, ignore the "alt text" present in the message and instead use the canonical name of the thing being linked to."
       python.slack.unhide_buffers_with_activity = "When activity occurs on a buffer, unhide it even if it was previously hidden (whether by the user or by the distracting_channels setting)."
     '';
-    xsession.windowManager.i3.config.startup = [{command = "nix-shell -p weechat 'python2.withPackages (ps: [ps.websocket_client])' --run 'konsole -e weechat'";}];
+    xsession.windowManager.i3.config.startup = [{
+      command =
+        "nix-shell -p weechat 'python2.withPackages (ps: [ps.websocket_client])' --run 'konsole -e weechat'";
+    }];
   };
 }

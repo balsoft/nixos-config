@@ -1,24 +1,18 @@
-{config, lib, pkgs, ...}:
-{
+{ config, lib, pkgs, ... }: {
 
   services.acpid.enable = true;
 
-  services.mopidy =
-  {
+  services.mopidy = {
     enable = true;
-    extensionPackages =
-    with pkgs; 
-    [
-      mopidy-gmusic
-    ];
-    configuration = if (! isNull config.secrets.gpmusic) then
-    ''
-    [gmusic]
-    username = ${config.secrets.gpmusic.user}
-    password = ${config.secrets.gpmusic.password}
-    deviceid = ${config.secrets.gpmusic.deviceid}
-    '' else "";
-    
+    extensionPackages = with pkgs; [mopidy-gmusic];
+    configuration = if (!isNull config.secrets.gpmusic) then ''
+      [gmusic]
+      username = ${config.secrets.gpmusic.user}
+      password = ${config.secrets.gpmusic.password}
+      deviceid = ${config.secrets.gpmusic.deviceid}
+    '' else
+      "";
+
   };
 
   services.earlyoom = {
@@ -29,7 +23,7 @@
 
   services.printing = {
     enable = config.device == "Lenovo-Workstation";
-    drivers = [ pkgs.gutenprint ];
+    drivers = [pkgs.gutenprint];
   };
   programs.dconf.enable = true;
 
@@ -41,7 +35,7 @@
     client.socksListenAddressFaster = "0.0.0.0:9063";
   };
   #services.teamviewer.enable = true;
-  
+
   systemd.units."dbus.service".text = lib.mkForce "blah";
 
   services.accounts-daemon.enable = true;

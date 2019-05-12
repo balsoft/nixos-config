@@ -1,8 +1,7 @@
-{config, pkgs, lib, ...}:
-with import ../../support.nix {inherit lib config;};
+{ config, pkgs, lib, ... }:
+with import ../../support.nix { inherit lib config; };
 let thm = config.themes.colors;
-in
-{
+in {
   environment.sessionVariables.MOZ_USE_XINPUT2 = "1";
 
   home-manager.users.balsoft = {
@@ -59,29 +58,39 @@ in
       }
     '';
     home.file.".mozilla/firefox/profile.default/extensions/uBlock0@raymondhill.net.xpi".source =
-      pkgs.fetchurl {
-        url = "https://addons.mozilla.org/firefox/downloads/file/1166954/ublock_origin-1.17.4-an+fx.xpi";
-        sha256 = "54c9a1380900eb1eba85df3a82393cef321e9c845fda227690d9377ef30e913e";
-      };
+    pkgs.fetchurl {
+      url =
+        https://addons.mozilla.org/firefox/downloads/file/1166954/ublock_origin-1.17.4-an+fx.xpi;
+      sha256 =
+        "54c9a1380900eb1eba85df3a82393cef321e9c845fda227690d9377ef30e913e";
+    };
     home.file.".mozilla/firefox/profile.default/extensions/{c9f848fb-3fb6-4390-9fc1-e4dd4d1c5122}.xpi".source =
-      pkgs.fetchurl {
-        url = "https://addons.mozilla.org/firefox/downloads/file/883289/no_tabs-1.1-an+fx-linux.xpi";
-        sha256 = "48e846a60b217c13ee693ac8bfe23a8bdef2ec073f5f713cce0e08814f280354";
-      };
+    pkgs.fetchurl {
+      url =
+        https://addons.mozilla.org/firefox/downloads/file/883289/no_tabs-1.1-an+fx-linux.xpi;
+      sha256 =
+        "48e846a60b217c13ee693ac8bfe23a8bdef2ec073f5f713cce0e08814f280354";
+    };
     home.file.".mozilla/firefox/profile.default/extensions/keepassxc-browser@keepassxc.org.xpi".source =
-      pkgs.fetchurl {
-        url = "https://addons.mozilla.org/firefox/downloads/file/1205950/keepassxc_browser-1.3.2-fx.xpi";
-        sha256 = "8a9c13f36b6ea8c5287ea6f99a8a9dc8c28b615c529e44d630221c03aee26790";
-      };
+    pkgs.fetchurl {
+      url =
+        https://addons.mozilla.org/firefox/downloads/file/1205950/keepassxc_browser-1.3.2-fx.xpi;
+      sha256 =
+        "8a9c13f36b6ea8c5287ea6f99a8a9dc8c28b615c529e44d630221c03aee26790";
+    };
     home.file.".mozilla/firefox/profile.default/extensions/{fab4ea0f-e0d3-4bb4-9515-aea14d709f69}.xpi".source =
-      pkgs.fetchurl {
-        url = "https://addons.mozilla.org/firefox/downloads/file/589832/close_other_windows-0.1-an+fx-linux.xpi";
-        sha256 = "6c189fb4d396f835bf8f0f09c9f1e9ae5dc7cde471b776d8c7d12592a373d3d3";
-      };
-    home.file.".mozilla/firefox/profile.default/extensions/{34fab4dc-77cc-4631-be8b-7a85a1e9fc09}.xpi".source = 
-      pkgs.fetchurl {
-        url = "https://addons.mozilla.org/firefox/downloads/file/1020346/torswitch-1.0-an+fx.xpi";
-        sha256 = "3c50bd5c8890628a7260a742099293b6e752e7826e0643e3f515105ec3d9b85e";
-      };
+    pkgs.fetchurl {
+      url =
+        https://addons.mozilla.org/firefox/downloads/file/589832/close_other_windows-0.1-an+fx-linux.xpi;
+      sha256 =
+        "6c189fb4d396f835bf8f0f09c9f1e9ae5dc7cde471b776d8c7d12592a373d3d3";
+    };
+    home.file.".mozilla/firefox/profile.default/extensions/{34fab4dc-77cc-4631-be8b-7a85a1e9fc09}.xpi".source =
+    pkgs.fetchurl {
+      url =
+        https://addons.mozilla.org/firefox/downloads/file/1020346/torswitch-1.0-an+fx.xpi;
+      sha256 =
+        "3c50bd5c8890628a7260a742099293b6e752e7826e0643e3f515105ec3d9b85e";
+    };
   };
 }

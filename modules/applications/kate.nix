@@ -1,6 +1,5 @@
-{pkgs, config, lib, ...}:
-with (import ../../support.nix {inherit lib config;});
-{
+{ pkgs, config, lib, ... }:
+with (import ../../support.nix { inherit lib config; }); {
   home-manager.users.balsoft = {
     xdg.configFile = {
       "katerc.home".text = genIni {
@@ -17,18 +16,14 @@ with (import ../../support.nix {inherit lib config;});
           "Show Whole Bracket Expression" = false;
           "Word Wrap Marker" = true;
         };
-        UiSettings = {
-          ColorScheme = "Nord";
-        };
+        UiSettings = { ColorScheme = "Nord"; };
       };
 
-      "kateschemarc".text = genIni {
-        "Breeze Dark"."Color Background" = thmDec.bg;
-      };
+      "kateschemarc".text =
+      genIni { "Breeze Dark"."Color Background" = thmDec.bg; };
     };
-#    home.packages = [ pkgs.kate ];
-    home.activation.konsole =
-    {
+    #    home.packages = [ pkgs.kate ];
+    home.activation.konsole = {
       data = "$DRY_RUN_CMD cp -f ~/.config/katerc.home ~/.config/katerc";
       before = [];
       after = ["linkGeneration"];

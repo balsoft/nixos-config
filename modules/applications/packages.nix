@@ -1,16 +1,32 @@
-{pkgs, config, lib, ...}:
-{
+{ pkgs, config, lib, ... }: {
   programs.adb.enable = true;
-  
+
   environment.systemPackages = (with pkgs.kdeApplications; [
-    ark dolphin dolphin-plugins dragon eventviews ffmpegthumbs
-    filelight gwenview kcachegrind kcalc kcolorchooser kdenlive
-    kolourpaint kompare krdc krfb kruler ktnef
-    marble okteta okular print-manager kio-extras
-  ])
-  ++
-  (builtins.filter pkgs.stdenv.lib.isDerivation (builtins.attrValues (pkgs.plasma5)))
-  ++ (with pkgs; [
+    ark
+    dolphin
+    dolphin-plugins
+    dragon
+    eventviews
+    ffmpegthumbs
+    filelight
+    gwenview
+    kcachegrind
+    kcalc
+    kcolorchooser
+    kdenlive
+    kolourpaint
+    kompare
+    krdc
+    krfb
+    kruler
+    ktnef
+    marble
+    okteta
+    okular
+    print-manager
+    kio-extras
+  ]) ++ (builtins.filter pkgs.stdenv.lib.isDerivation
+  (builtins.attrValues (pkgs.plasma5))) ++ (with pkgs; [
     kded
     kdeFrameworks.kio
     plasma-integration
@@ -25,9 +41,8 @@
     wmctrl
   ]);
 
-  
-  home-manager.users.balsoft.home.packages = 
-  (with pkgs; [
+  home-manager.users.balsoft.home.packages = (with pkgs;
+  [
     # Internet
     wget
     curl
@@ -90,7 +105,6 @@
     kde-cli-tools
     vk-messenger
     xdg_utils
-  ]) ;
-
+  ]);
 
 }
