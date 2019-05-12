@@ -16,7 +16,10 @@ with deviceSpecific;
   hardware.opengl.driSupport32Bit = true; # For steam
 
   hardware.bluetooth.enable = true;
-  hardware.sane.enable = true;
+  hardware.sane = {
+    enable = true;
+    extraBackends = [pkgs.epkowa];
+  };
 
   boot = {
     loader = {
