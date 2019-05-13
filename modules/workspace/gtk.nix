@@ -55,7 +55,7 @@ in {
         package = pkgs.papirus-icon-theme;
       };
       theme = {
-        name = "Genarated";
+        name = "Generated";
         package = pkgs.generated-gtk-theme;
       };
     };
