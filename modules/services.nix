@@ -22,7 +22,7 @@
   };
 
   services.printing = {
-    enable = config.device == "Lenovo-Workstation";
+    enable = true;
     drivers = [pkgs.gutenprint];
   };
   programs.dconf.enable = true;
