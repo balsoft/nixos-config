@@ -9,6 +9,7 @@
       "wheel"
       "networkmanager"
       "disk"
+      "docker"
       "sound"
       "pulse"
       "adbusers"
