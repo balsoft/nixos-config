@@ -44,6 +44,7 @@
   systemd.services.systemd-udev-settle.enable = false;
 
   services.upower.enable = true;
+  virtualisation.docker.enable = config.deviceSpecific.isHost;
   virtualisation.virtualbox.host = {
     enable = config.deviceSpecific.isHost;
     enableHardening = false;
