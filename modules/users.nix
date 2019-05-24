@@ -38,7 +38,7 @@
     enable = true;
     extraConfig = ''
       balsoft ALL = (root) NOPASSWD: /run/current-system/sw/bin/nixos-rebuild switch
-          '';
+    '';
   };
   nix.requireSignedBinaryCaches = false;
 
