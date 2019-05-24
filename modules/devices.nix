@@ -62,6 +62,19 @@ with types; {
         };
         ram = 8;
       };
+      AMD-Workstation = {
+        cpu = {
+          vendor = "amd";
+          clock = 4200;
+          cores = 8;
+        };
+        drive = {
+          type = "ssd";
+          speed = 6000;
+          size = 250;
+        };
+        ram = 16;
+      };
       Prestigio-Laptop = {
         cpu = {
           vendor = "intel";
