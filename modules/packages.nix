@@ -10,19 +10,14 @@
       url = https://github.com/balsoft/lambda-launcher/;
       rev = "a64e2d79802353b1241570944808800828c376f0";
     }) { });
-    oldPackages = import (fetchTarball {
-      url =
-        https://github.com/nixos/nixpkgs-channels/archive/2aa505b77c04bfd8bb702cbf261f1141a3fe55c2.tar.gz;
-      sha256 = "sha256:14lp7lcwfy6zs2xlhmc71dbq767inz6rp9v2wcma3lf3jf46acvl";
-    }) { };
 
     tdesktop = old.tdesktop.overrideAttrs (oldAttrs: {
-      patches = [(builtins.fetchurl {
+      patches = ["${builtins.fetchGit {
         url =
-          https://raw.githubusercontent.com/msva/mva-overlay/master/net-im/telegram-desktop/files/patches/9999/conditional/wide-baloons/0001_baloons-follows-text-width-on-adaptive-layout.patch;
-        sha256 =
-          "46a008dcd235356427dbd717f39d41d44bceffb27be15624344f22e638802b8a";
-      })] ++ oldAttrs.patches;
+          https://github.com/msva/mva-overlay;
+        rev =
+          "e5121619c9814b36284146dbe3dae92cf41a7c25";
+      }}/net-im/telegram-desktop/files/patches/9999x/conditional/wide-baloons/0001_baloons-follows-text-width-on-adaptive-layout.patch;"] ++ oldAttrs.patches;
     });
     pythonPackages = old.pythonPackages.override {
       overrides = (self: super: {
