@@ -17,7 +17,7 @@
           https://github.com/msva/mva-overlay;
         rev =
           "e5121619c9814b36284146dbe3dae92cf41a7c25";
-      }}/net-im/telegram-desktop/files/patches/9999x/conditional/wide-baloons/0001_baloons-follows-text-width-on-adaptive-layout.patch;"] ++ oldAttrs.patches;
+      }}/net-im/telegram-desktop/files/patches/9999/conditional/wide-baloons/0001_baloons-follows-text-width-on-adaptive-layout.patch"] ++ oldAttrs.patches;
     });
     pythonPackages = old.pythonPackages.override {
       overrides = (self: super: {
