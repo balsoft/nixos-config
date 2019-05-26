@@ -6,8 +6,7 @@ with rec {
 with deviceSpecific; {
 
   hardware.sensor.iio.enable = (device == "HP-Laptop");
-  hardware.cpu.${devices.${device}.cpu.vendor}.updateMicrocode =
-  true; # Update microcode
+  hardware.cpu.${devices.${device}.cpu.vendor}.updateMicrocode = true; # Update microcode
 
   hardware.enableRedistributableFirmware = true; # For some unfree drivers
 
