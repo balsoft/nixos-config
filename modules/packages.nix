@@ -11,14 +11,15 @@
       rev = "a64e2d79802353b1241570944808800828c376f0";
     }) { nixpkgs = self; });
 
-    /*tdesktop = old.tdesktop.overrideAttrs (oldAttrs: {
-      patches = ["${builtins.fetchGit {
+    tdesktop = old.tdesktop.overrideAttrs (oldAttrs: {
+      patches = [(builtins.fetchurl {
         url =
-          https://github.com/msva/mva-overlay;
-        rev =
-          "e5121619c9814b36284146dbe3dae92cf41a7c25";
-      }}/net-im/telegram-desktop/files/patches/9999/conditional/wide-baloons/0001_baloons-follows-text-width-on-adaptive-layout.patch"] ++ oldAttrs.patches;
-    });*/
+          https://raw.githubusercontent.com/msva/mva-overlay/master/net-im/telegram-desktop/files/patches/9999/conditional/wide-baloons/0001_baloons-follows-text-width-on-adaptive-layout.patch;
+        sha256 =
+          "46a008dcd235356427dbd717f39d41d44bceffb27be15624344f22e638802b8a";
+      })] ++ oldAttrs.patches;
+    });
+
     pythonPackages = old.pythonPackages.override {
       overrides = (self: super: {
         backports_functools_lru_cache =
