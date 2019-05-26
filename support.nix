@@ -12,7 +12,7 @@ rec {
   };
   thm = config.themes.colors;
   splitHex = hexStr: map (x: builtins.elemAt x 0) (builtins.filter (a: a != "" && a != []) (builtins.split "(.{2})" (builtins.substring 1 6 hexStr)));
-  hex2decDigits = {
+  hex2decDigits = rec {
     "0" = 0;  
     "1" = 1;
     "2" = 2;
@@ -29,6 +29,12 @@ rec {
     "d" = 13;
     "e" = 14;
     "f" = 15;
+    A = a;
+    B = b;
+    C = c;
+    D = d;
+    E = e;
+    F = f;
   };
 
   doubleDigitHexToDec = hex: 16 * hex2decDigits."${builtins.substring 0 1 hex}" + hex2decDigits."${builtins.substring 1 2 hex}";

@@ -35,18 +35,18 @@ in {
   };
   config = {
     themes.colors = {
-      bg = "#2e3440";
-      fg = "#d8dee9";
-      gray = "#7f8c8d";
-      alt = "#4c566a";
-      dark = "#3b4252";
+      bg = "#272822";
+      fg = "#F8F8F0";
+      gray = "#75715E";
+      alt = "#3B3A32";
+      dark = "#222222";
       blue = "#5e81ac";
-      green = "#a3be8c";
-      red = "#bf616a";
-      orange = "#d08770";
-      yellow = "#ebcb8b";
-      purple = "#b48ead";
-      cyan = "#88c0d0";
+      green = "#A6E22E";
+      red = "#F92672";
+      orange = "#FD971F";
+      yellow = "#E6DB74";
+      purple = "#AE81FF";
+      cyan = "#66D9EF";
     };
   };
 }
