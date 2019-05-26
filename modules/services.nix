@@ -14,7 +14,7 @@
       "";
   };
   
-  systemd.services.mopidy.serviceConfig.USER = "balsoft";
+  systemd.services.mopidy.serviceConfig.User = lib.mkForce "balsoft";
 
   services.earlyoom = {
     enable = true;
