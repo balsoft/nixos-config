@@ -8,7 +8,6 @@
     ./applications/firefox.nix
     ./applications/konversation.nix
     ./applications/okular.nix
-    #./applications/slack-term.nix
     ./applications/weechat.nix
     ./workspace/i3blocks
     ./workspace/i3
@@ -26,6 +25,7 @@
     ./workspace/autorandr.nix
     ./workspace/gcalcli.nix
     ./workspace/rclone.nix
+    ./workspace/xresources.nix
     ./themes.nix
     ./applications.nix
     ./secrets.nix
