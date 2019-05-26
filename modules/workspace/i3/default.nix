@@ -69,6 +69,9 @@ in {
         commands = [{
           command = "border pixel 2px";
           criteria = { window_role = "popup"; };
+        } {
+          command = "floating disable";
+          criteria = { class = "pavucontrol-qt"; };
         }];
       };
       startup = map (a: { notification = false; } // a) [
