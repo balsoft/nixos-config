@@ -14,7 +14,7 @@
       "*color7" = gray;
       "*color8" = alt;
       "*color9" = green;
-      "*color10" = fg;
+      "*color10" = green;
       "*color11" = yellow;
       "*color12" = green;
       "*color13" = purple;
