@@ -80,9 +80,6 @@ in {
           command = apps.browser.cmd;
         }
         {
-          command = "${pkgs.vk-messenger}/bin/vk";
-        }
-        {
           command = "${pkgs.kdeconnect}/lib/libexec/kdeconnectd";
         }
         {

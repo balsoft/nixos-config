@@ -1,6 +1,7 @@
-{ pamixer, iconfont, ... }: ''
+{ pamixer, lxqt, iconfont, ... }: ''
   case $BLOCK_BUTTON in
        1) ${pamixer}/bin/pamixer -t;;
+       2) ${lxqt.pavucontrol-qt}/bin/pavucontrol-qt &;;
        4) ${pamixer}/bin/pamixer -i 5;;
        5) ${pamixer}/bin/pamixer -d 5;;
   esac
