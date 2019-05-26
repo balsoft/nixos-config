@@ -5,20 +5,17 @@
     ark
     dolphin
     dolphin-plugins
-    dragon
     eventviews
     ffmpegthumbs
     filelight
     gwenview
     kcachegrind
-    kcalc
     kcolorchooser
     kdenlive
     kolourpaint
     kompare
     krdc
     krfb
-    kruler
     ktnef
     marble
     okteta
@@ -47,9 +44,9 @@
     wget
     curl
   ] ++ lib.optionals config.deviceSpecific.goodMachine [
-    texlive.combined.scheme-full
+    #texlive.combined.scheme-basic
     #steam
-    krita
+    #krita
     kdenlive
     frei0r
     ffmpeg-full

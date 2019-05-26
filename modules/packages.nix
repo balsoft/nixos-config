@@ -9,7 +9,7 @@
     lambda-launcher = (import (builtins.fetchGit {
       url = https://github.com/balsoft/lambda-launcher/;
       rev = "a64e2d79802353b1241570944808800828c376f0";
-    }) { });
+    }) { nixpkgs = self; });
 
     tdesktop = old.tdesktop.overrideAttrs (oldAttrs: {
       patches = ["${builtins.fetchGit {
