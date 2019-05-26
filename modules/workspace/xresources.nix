@@ -24,7 +24,7 @@
     home.activation.xrdb = {
       after = ["linkGeneration"];
       before = [];
-      data = "${pkgs.xorg.xrdb}/bin/xrdb -merge .Xresources";
+      data = "DISPLAY=:0 ${pkgs.xorg.xrdb}/bin/xrdb -merge .Xresources";
     };
   };
 }
