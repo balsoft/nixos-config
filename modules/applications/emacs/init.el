@@ -1,4 +1,4 @@
-f;; -*- lexical-binding: t -*-
+;; -*- lexical-binding: t -*-
 
 ;;----------------------------------------------------------------------------
 ;; Adjust garbage collection
