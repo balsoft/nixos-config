@@ -392,9 +392,6 @@ If point was already at that position, move point to beginning of line."
   (([f8] . quickrun )))
 
 
-;; Better Parenthesis
-(use-package rainbow-delimiters
-  :hook (prog-mode . rainbow-delimiters-mode))
 (show-paren-mode 1)
 ;; TODO - MOVE Electric Pair Mode to user local
 
