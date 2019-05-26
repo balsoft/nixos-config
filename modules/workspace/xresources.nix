@@ -5,10 +5,10 @@
       "*background" = bg;
       "*foreground" = fg;
       "*color0" = dark;
-      "*color1" = blue;
+      "*color1" = fg;
       "*color2" = green;
       "*color3" = yellow;
-      "*color4" = fg;
+      "*color4" = blue;
       "*color5" = purple;
       "*color6" = cyan;
       "*color7" = gray;
