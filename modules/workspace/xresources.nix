@@ -5,7 +5,7 @@
       "*background" = bg;
       "*foreground" = fg;
       "*color0" = dark;
-      "*color1" = green;
+      "*color1" = red;
       "*color2" = green;
       "*color3" = yellow;
       "*color4" = fg;
