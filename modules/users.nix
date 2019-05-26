@@ -9,6 +9,7 @@
       "wheel"
       "networkmanager"
       "disk"
+      "audio"
       "docker"
       "sound"
       "pulse"
