@@ -1,4 +1,4 @@
-;; -*- lexical-binding: t -*-
+f;; -*- lexical-binding: t -*-
 
 ;;----------------------------------------------------------------------------
 ;; Adjust garbage collection
@@ -186,13 +186,13 @@ If point was already at that position, move point to beginning of line."
 ;; -------------------
 ;; Theme
 ;; -------------------
-(use-package nord-theme
+(use-package xresources-theme
   :config
-  (load-theme 'nord t)
+  (load-theme 'xresources t)
   (add-hook 'after-make-frame-functions
             (lambda (frame)
               (with-selected-frame frame
-                (load-theme 'nord t)))))
+                (load-theme 'xresources t)))))
 ;; scroll one line at a time (less "jumpy" than defaults)
 
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time

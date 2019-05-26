@@ -40,6 +40,7 @@
         company-lsp
         lsp-mode
         lsp-haskell
+        xresources-theme
       ];
     };
     home.packages = [
