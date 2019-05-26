@@ -36,6 +36,7 @@
     firefox
     plasma-browser-integration
     wmctrl
+    ntfs3g
   ]);
 
   home-manager.users.balsoft.home.packages = (with pkgs;

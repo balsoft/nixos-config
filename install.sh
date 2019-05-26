@@ -16,7 +16,7 @@ git submodule update --init --recursive
 
 export NIX_PATH=nixpkgs=./imports/nixpkgs:nixos-config=/etc/nixos/configuration.nix 
 
-nix build -f ./imports/nixpkgs/nixos system &&
+nix build -f ./imports/nixpkgs/nixos system $@ &&
     {
         git add .
         d=$(date +%s)
