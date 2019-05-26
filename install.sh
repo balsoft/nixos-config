@@ -24,7 +24,7 @@ nix build -f ./imports/nixpkgs/nixos system $@ &&
         git tag latestBuild --force
         dir=$(pwd)
         export SHELL=/bin/sh 
-        pkexec ln -s $(readlink $dir/result) /nix/var/nix/profiles/system-$d-link
+        pkexec nix-env --profile /nix/var/nix/profiles/system --set $(readlink $dir/result)
         pkexec $dir/result/bin/switch-to-configuration switch
     }
 
