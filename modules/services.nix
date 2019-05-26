@@ -12,8 +12,9 @@
       deviceid = ${config.secrets.gpmusic.deviceid}
     '' else
       "";
-
   };
+  
+  systemd.services.mopidy.serviceConfig.USER = "balsoft";
 
   services.earlyoom = {
     enable = true;
