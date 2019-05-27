@@ -45,7 +45,8 @@
     curl
   ] ++ lib.optionals config.deviceSpecific.goodMachine [
     #texlive.combined.scheme-basic
-    #steam
+    steamcmd
+    steam
     #krita
     kdenlive
     frei0r
