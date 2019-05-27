@@ -38,7 +38,7 @@ in {
       bg = "#272822";
       fg = "#F8F8F0";
       gray = "#75715E";
-      alt = "#3B3A32";
+      alt = "#4f4d43";
       dark = "#222222";
       blue = "#5e81ac";
       green = "#A6E22E";
