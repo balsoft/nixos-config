@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -p p7zip git -i bash
+#!nix-shell -p gnupg git -i bash
 
 firsttime=false
 
@@ -13,14 +13,7 @@ fi
 
 unset IN_NIX_SHELL
 
-if [[ ! -e ~/.local/share/password ]]
-then
-    echo -n "Password [echoed]: "
-    read password
-    echo $password > ~/.local/share/password
-fi
-
-7z e secret.nix.zip -y -p`cat ~/.local/share/password`
+gpg -dq secret.nix.gpg > secret.nix
 
 git submodule update --init --recursive
 
