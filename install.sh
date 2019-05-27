@@ -7,7 +7,7 @@ if [[ $1 == "--first-time" ]]
 then
     firsttime=true
     shift
-    hostname=$2
+    hostname=$1
     shift
 fi
 
@@ -28,11 +28,13 @@ export NIX_PATH=nixpkgs=./imports/nixpkgs:nixos-config=/etc/nixos/configuration.
 
 if $firsttime
 then
+    umount /home
     nixos-generate-config --root /mnt
-    echo 'import /home/balsoft/projects/nixos-config "$hostname"' > /mnt/etc/nixos/configuration.nix
+    echo "import /home/balsoft/projects/nixos-config \"$hostname\"" > /mnt/etc/nixos/configuration.nix
     mount --rbind /mnt/home /home/
     cp /mnt/etc/nixos/* /etc/nixos
-    nixos-install $@
+    nix build -f ./imports/nixpkgs/nixos system $@ &&
+    nixos-install --system ./result
 else
     nix build -f ./imports/nixpkgs/nixos system $@ &&
         {

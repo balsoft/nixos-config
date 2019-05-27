@@ -9,10 +9,10 @@
     lambda-launcher = (import (builtins.fetchGit {
       url = https://github.com/balsoft/lambda-launcher/;
       rev = "a64e2d79802353b1241570944808800828c376f0";
-    }) { nixpkgs = self; });
+    }) { nixpkgs = old; });
 
     tdesktop = old.tdesktop.overrideAttrs (oldAttrs: {
-      patches = [(builtins.fetchurl {
+      patches = [(old.fetchurl {
         url =
           https://raw.githubusercontent.com/msva/mva-overlay/master/net-im/telegram-desktop/files/patches/9999/conditional/wide-baloons/0001_baloons-follows-text-width-on-adaptive-layout.patch;
         sha256 =

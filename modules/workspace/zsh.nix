@@ -73,7 +73,7 @@
         }
       }/nix-shell.plugin.zsh
        source ${
-        builtins.fetchurl {
+        pkgs.fetchurl {
           url =
             https://gist.githubusercontent.com/chisui/0d12bd51a5fd8e6bb52e6e6a43d31d5e/raw/ea75cad507e2899b9b6d6ce423330641911110d8/agnoster-nix.zsh-theme;
           sha256 = "0fq1jnzdf0956ia0as61p43wmqak6zljhyax1gqnjgb8jimr5kzm";
