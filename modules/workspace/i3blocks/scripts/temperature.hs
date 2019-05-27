@@ -7,7 +7,7 @@ import System.Exit
 
 
 -- | Traverse from 'top' directory and return all the files by
--- filtering out the 'exclude' predicate.
+-- filtering with 'include' predicate.
 traverseDir :: FilePath -> (FilePath -> Bool) -> IO [FilePath]
 traverseDir top include = do
   ds <- getDirectoryContents top
