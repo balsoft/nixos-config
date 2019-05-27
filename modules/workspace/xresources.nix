@@ -8,7 +8,7 @@
       "*color1" = red;
       "*color2" = green;
       "*color3" = yellow;
-      "*color4" = fg;
+      "*color4" = gray;
       "*color5" = purple;
       "*color6" = cyan;
       "*color7" = gray;
