@@ -3,8 +3,8 @@
   home-manager.users.balsoft = {
     home.file.".weechat/plugins.conf".text = ''
       [var]
-      python.slack.auto_open_threads = "false"
-      python.slack.background_load_all_history = "false"
+      python.slack.auto_open_threads = "true"
+      python.slack.background_load_all_history = "true"
       python.slack.channel_name_typing_indicator = "true"
       python.slack.color_buflist_muted_channels = "darkgray"
       python.slack.color_edited_suffix = "095"
@@ -15,7 +15,7 @@
       python.slack.debug_mode = "false"
       python.slack.distracting_channels = ""
       python.slack.external_user_suffix = "*"
-      python.slack.files_download_location = ""
+      python.slack.files_download_location = "/home/balsoft/Downloads/slack"
       python.slack.group_name_prefix = "&"
       python.slack.map_underline_to = "_"
       python.slack.migrated = "true"
@@ -30,7 +30,7 @@
       python.slack.shared_name_prefix = "%"
       python.slack.short_buffer_names = "false"
       python.slack.show_buflist_presence = "true"
-      python.slack.show_reaction_nicks = "false"
+      python.slack.show_reaction_nicks = "true"
       python.slack.slack_api_token = "${config.secrets.slack-term}"
       python.slack.slack_timeout = "20000"
       python.slack.switch_buffer_on_join = "true"
