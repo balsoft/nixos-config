@@ -69,8 +69,7 @@ in {
           pkgs.bc
         }/bin/bc -l <<< "scale=2; `cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_cur_freq|sort|tail -1`/1000000") GHz'';
     };
-    l_temperature = pkgs.stdenv.lib.optionalAttrs
-    config.deviceSpecific.isLaptop { command = scripts.temperature; };
+    l_temperature = { command = scripts.temperature; };
     m_free = { command = scripts.free; };
     n_df = {
       command =
