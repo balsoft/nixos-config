@@ -91,9 +91,12 @@ in {
         weechat = super.weechat.override {
           configure = {availablePlugins, ...}: 
           {
+            /*
             plugins = with availablePlugins; [
               (python.withPackages (ps: with ps; [ websocket_client websocket]))
             ];
+            */
+            scripts = with self.weechatScripts; [wee-slack];
           };
         };
       })
