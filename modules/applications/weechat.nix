@@ -10,6 +10,8 @@ let
   }/wee_slack.py";
 in {
   home-manager.users.balsoft = {
+    home.file.".weechat/python/wee_slack.py".source = wee_slack;
+    home.file.".weechat/python/autoload/wee_slack.py".source = wee_slack;
     home.file.".weechat/plugins.conf".text = ''
       [var]
       python.slack.auto_open_threads = "false"
@@ -89,6 +91,9 @@ in {
         weechat = super.weechat.override {
           configure = {availablePlugins, ...}: 
           {
+            plugins = with availablePlugins; [
+              (python.withPackages (ps: with ps; [ websocket_client  ]))
+            ];
             scripts = [super.weechatScripts.wee-slack];
           };
         };
