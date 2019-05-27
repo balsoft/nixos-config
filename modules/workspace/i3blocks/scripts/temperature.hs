@@ -1,20 +1,45 @@
 import System.Directory
-import Control.Monad (filterM)
+import System.FilePath
+import Control.Monad (filterM, forM)
+import System.Posix.Files
+import Data.List (isPrefixOf, isInfixOf)
 import System.Exit
 
-temp :: String -> String
-temp name = "/sys/class/thermal/" ++ name ++ "/temp"
 
+-- | Traverse from 'top' directory and return all the files by
+-- filtering out the 'exclude' predicate.
+traverseDir :: FilePath -> (FilePath -> Bool) -> IO [FilePath]
+traverseDir top include = do
+  ds <- getDirectoryContents top
+  paths <- forM (filter include ds) $ \d -> do
+    let path = top </> d
+    s <- getFileStatus path
+    if isDirectory s
+      then traverseDir path include
+      else return [path]
+  return $ concat paths
+
+
+-- | Get temperatures from hardware sensors in /sys/class/hwmon
+getTemps :: IO [Int]
+getTemps = do
+  hwmons <- traverseDir "/sys/class/hwmon"
+    (
+      \name
+      -> ("hwmon" `isPrefixOf` name)
+      || ("temp" `isInfixOf` name) && ("input" `isInfixOf` name)
+    )
+  fmap (round .(/1000) . read) <$> traverse (readFile) hwmons
+  
+-- | Get a symbol corresponding to the temperature
 getSymbol :: Integral n => n -> String
 getSymbol t
-  | t < 50 = "\57868"
-  | t < 80 = "\57866"
-  | otherwise = "\57867"
+  | t < 50    = "\57868" -- 
+  | t < 80    = "\57866" -- 
+  | otherwise = "\57867" -- 
 
 main :: IO ()
 main = do
-  thermalZones <- listDirectory "/sys/class/thermal"
-  temps <- filterM (doesFileExist . temp) thermalZones
-  maxTemp <- maximum <$> map (round . (/1000) . read) <$> sequence (map (readFile . temp) temps)
+  maxTemp <- maximum <$> getTemps
   putStrLn $ (getSymbol <> show) maxTemp <> "°"
   exitWith $ if maxTemp < 80 then ExitSuccess else ExitFailure 33
