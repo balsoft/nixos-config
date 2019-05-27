@@ -25,7 +25,15 @@ in {
             class = "^konversation";
           }
           {
-            class = "Quaternion";
+            title = "Quaternion";
+          }
+          {
+            title = ": weechat \? Konsole";
+          }
+        ];
+        "ﱘ" = [
+          {
+            class = "cantata";
           }
         ];
       };
@@ -157,6 +165,8 @@ in {
         "${modifier}+Shift+c" = "move container to workspace ";
         "${modifier}+t" = "workspace ";
         "${modifier}+Shift+t" = "move container to workspace ";
+        "${modifier}+m" = "workspace ﱘ";
+        "${modifier}+Shift+m" = "move container to workspace ﱘ";
         "${modifier}+k" = "exec '${pkgs.xorg.xkill}/bin/xkill'";
         "${modifier}+F5" = "restart";
         "${modifier}+Shift+F5" = "exit";
