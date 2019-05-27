@@ -86,9 +86,9 @@ in {
       python.slack.unfurl_ignore_alt_text = "When displaying ("unfurling") links to channels/users/etc, ignore the "alt text" present in the message and instead use the canonical name of the thing being linked to."
       python.slack.unhide_buffers_with_activity = "When activity occurs on a buffer, unhide it even if it was previously hidden (whether by the user or by the distracting_channels setting)."
     '';
-    nixpkgs.overlays = [
-      (self: super: {
-        weechat = super.weechat.override {
+    xsession.windowManager.i3.config.startup = [{
+      command =
+        "konsole -e ${pkgs.weechat.override {
           configure = {availablePlugins, ...}: 
           {
             /*
@@ -96,14 +96,9 @@ in {
               (python.withPackages (ps: with ps; [ websocket_client websocket]))
             ];
             */
-            scripts = with self.weechatScripts; [wee-slack];
+            scripts = with pkgs.weechatScripts; [wee-slack];
           };
-        };
-      })
-    ];
-    xsession.windowManager.i3.config.startup = [{
-      command =
-        "konsole -e ${pkgs.weechat}/bin/weechat";
+        }}/bin/weechat";
     }];
   };
 }
