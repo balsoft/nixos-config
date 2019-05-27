@@ -92,9 +92,8 @@ in {
           configure = {availablePlugins, ...}: 
           {
             plugins = with availablePlugins; [
-              (python.withPackages (ps: with ps; [ websocket_client  ]))
+              (python.withPackages (ps: with ps; [ websocket_client websocket]))
             ];
-            scripts = [super.weechatScripts.wee-slack];
           };
         };
       })
