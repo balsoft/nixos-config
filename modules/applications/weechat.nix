@@ -1,17 +1,6 @@
 { pkgs, config, ... }:
-let
-  wee_slack = "${
-    pkgs.fetchFromGitHub {
-      owner = "wee-slack";
-      repo = "wee-slack";
-      rev = "e89ab6822327f6b20c86fca9a7b97e9d56a7d4d0";
-      sha256 = "0kaz073x5d1bbbwk98gk7yjp76hc78v058jfrmn3vprxi37kgaib";
-    }
-  }/wee_slack.py";
-in {
+{
   home-manager.users.balsoft = {
-    home.file.".weechat/python/wee_slack.py".source = wee_slack;
-    home.file.".weechat/python/autoload/wee_slack.py".source = wee_slack;
     home.file.".weechat/plugins.conf".text = ''
       [var]
       python.slack.auto_open_threads = "false"
