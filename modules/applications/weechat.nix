@@ -88,7 +88,7 @@ in {
     '';
     xsession.windowManager.i3.config.startup = [{
       command =
-        "nix-shell -p weechat 'python2.withPackages (ps: [ps.websocket_client])' --run 'konsole -e weechat'";
+        "konsole -e ${pkgs.weechat}/bin/weechat";
     }];
   };
 }
