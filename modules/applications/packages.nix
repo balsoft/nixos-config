@@ -35,7 +35,6 @@
     qt5.qtsvg
     firefox
     plasma-browser-integration
-    wmctrl
     ntfs3g
   ]);
 
@@ -62,6 +61,7 @@
     #gcc
     #gdb
     appimage-run
+    nixfmt
   ] ++ [
     libqalculate
     firefox
