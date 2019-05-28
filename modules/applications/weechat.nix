@@ -1,4 +1,17 @@
 { pkgs, config, ... }:
+let 
+weechat = pkgs.weechat.override {
+  configure = {availablePlugins, ...}: 
+  {
+    /*
+    plugins = with availablePlugins; [
+    (python.withPackages (ps: with ps; [ websocket_client websocket]))
+    ];
+    */
+    scripts = with pkgs.weechatScripts; [wee-slack];
+  };
+};
+in
 {
   home-manager.users.balsoft = {
     home.file.".weechat/plugins.conf".text = ''
@@ -75,19 +88,10 @@
       python.slack.unfurl_ignore_alt_text = "When displaying ("unfurling") links to channels/users/etc, ignore the "alt text" present in the message and instead use the canonical name of the thing being linked to."
       python.slack.unhide_buffers_with_activity = "When activity occurs on a buffer, unhide it even if it was previously hidden (whether by the user or by the distracting_channels setting)."
     '';
+    home.packages = [weechat];
     xsession.windowManager.i3.config.startup = [{
       command =
-        "konsole -e ${pkgs.weechat.override {
-          configure = {availablePlugins, ...}: 
-          {
-            /*
-            plugins = with availablePlugins; [
-              (python.withPackages (ps: with ps; [ websocket_client websocket]))
-            ];
-            */
-            scripts = with pkgs.weechatScripts; [wee-slack];
-          };
-        }}/bin/weechat";
+        "konsole -e ${weechat}/bin/weechat";
     }];
   };
 }

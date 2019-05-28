@@ -1,9 +1,10 @@
 import System.Directory
 import System.FilePath
-import Control.Monad (filterM, forM)
+import Control.Monad (forM)
 import System.Posix.Files
 import Data.List (isPrefixOf, isInfixOf)
 import System.Exit
+
 
 
 -- | Traverse from 'top' directory and return all the files by
@@ -20,7 +21,8 @@ traverseDir top include = do
   return $ concat paths
 
 
--- | Get temperatures from hardware sensors in /sys/class/hwmon
+
+-- | Get temperatures from hardware sensors in </sys/class/hwmon>
 getTemps :: IO [Int]
 getTemps = do
   hwmons <- traverseDir "/sys/class/hwmon"
