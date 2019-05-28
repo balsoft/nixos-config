@@ -37,6 +37,8 @@
   };
   #services.teamviewer.enable = true;
 
+  programs.mosh.enable = true;
+
   systemd.units."dbus.service".text = lib.mkForce "blah";
 
   services.accounts-daemon.enable = true;
