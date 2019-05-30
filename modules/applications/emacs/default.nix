@@ -9,7 +9,6 @@
         nix-mode
         haskell-mode
         nixos-options
-        nord-theme
         wakib-keys
         magit
         exec-path-from-shell
@@ -27,8 +26,6 @@
         yasnippet
         yasnippet-snippets
         mode-line-bell
-        powerline
-        smart-mode-line-powerline-theme
         hasklig-mode
         flycheck
         flycheck-pkg-config

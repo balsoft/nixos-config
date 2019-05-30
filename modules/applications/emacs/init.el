@@ -371,10 +371,6 @@ If point was already at that position, move point to beginning of line."
   ((prog-mode . turn-on-diff-hl-mode)
    (magit-post-refresh-hook . diff-hl-magit-post-refresh)))
 
-(use-package powerline
-  :config
-  (powerline-center-theme)
-  )
 
 ;; TODO (change defun rewrite to advice)
 (use-package quickrun
