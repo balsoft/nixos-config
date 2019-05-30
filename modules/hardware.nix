@@ -67,4 +67,22 @@ with deviceSpecific; {
     support32Bit = true;
     systemWide = true;
   };
-}
+  
+  environment.etc.fancontrol.text = lib.optionalAttrs (device == "AMD-Workstation") ''
+    INTERVAL=3
+    DEVPATH=hwmon1=devices/pci0000:00/0000:00:03.1/0000:26:00.0
+    DEVNAME=hwmon1=amdgpu
+    FCTEMPS=hwmon1/pwm1=hwmon1/temp1_input
+    FCFANS= hwmon1/pwm1=
+    MINTEMP=hwmon1/pwm1=30
+    MAXTEMP=hwmon1/pwm1=60
+    MINSTART=hwmon1/pwm1=255
+    MINSTOP=hwmon1/pwm1=0
+  '';
+  systemd.services.fancontrol = {
+    enable = device == "AMD-Workstation";
+    description = "Control the speed of fans";
+    script = "${pkgs.lm_sensors}/bin/fancontrol";
+    serviceConfig.User = "root";
+  };
+} 
