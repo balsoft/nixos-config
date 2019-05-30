@@ -29,7 +29,12 @@ then
     nix build -f ./imports/nixpkgs/nixos system $@ &&
     nixos-install --system ./result
 else
-    nix build -f ./imports/nixpkgs/nixos system $@ &&
+    if [[ -n $INSIDE_EMACS ]]
+    then
+        nix-build ./imports/nixpkgs/nixos -A system $@
+    else 
+        nix build -f ./imports/nixpkgs/nixos system $@
+    fi &&
         {
             git add .
             d=$(date +%s)
