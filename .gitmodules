@@ -8,3 +8,18 @@
 	shallow = true
 [submodule "home-manager"]
 	shallow = true
+[submodule "imports/github/balsoft/lambda-launcher"]
+	path = imports/github/balsoft/lambda-launcher
+	url = https://github.com/balsoft/lambda-launcher
+[submodule "imports/github/msva/mva-overlay"]
+	path = imports/github/msva/mva-overlay
+	url = https://github.com/msva/mva-overlay
+[submodule "imports/github/rycee/home-manager"]
+	path = imports/github/rycee/home-manager
+	url = https://github.com/rycee/home-manager
+[submodule "imports/github/serokell/nixfmt"]
+	path = imports/github/serokell/nixfmt
+	url = https://github.com/serokell/nixfmt
+[submodule "imports/github/terodom/termNote"]
+	path = imports/github/terodom/termNote
+	url = https://github.com/terodom/termNote
