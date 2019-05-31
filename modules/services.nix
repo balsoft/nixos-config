@@ -46,6 +46,8 @@
 
   systemd.services.systemd-udev-settle.enable = false;
 
+  services.nix-serve.enable = true;
+
   services.upower.enable = true;
   virtualisation.docker.enable = config.deviceSpecific.isHost;
   virtualisation.virtualbox.host = {

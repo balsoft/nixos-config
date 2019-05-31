@@ -26,3 +26,6 @@
 [submodule "imports/github/dawikur/base16-gruvbox-scheme"]
 	path = imports/github/dawikur/base16-gruvbox-scheme
 	url = https://github.com/dawikur/base16-gruvbox-scheme
+[submodule "imports/github/ryanoasis/nerd-fonts"]
+	path = imports/github/ryanoasis/nerd-fonts
+	url = https://github.com/ryanoasis/nerd-fonts

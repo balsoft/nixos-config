@@ -1,35 +1,39 @@
 { pkgs, config, lib, ... }: {
-  nixpkgs.overlays = [(self: old:
-  {
-    termNote = self.callPackage ../imports/github/terodom/termNote/termNote.nix { };
+  nixpkgs.overlays = [
+    (self: old:
+    {
+      termNote =
+      self.callPackage ../imports/github/terodom/termNote/termNote.nix { };
 
-    nixfmt = self.callPackage ../imports/github/serokell/nixfmt { };
+      nixfmt = self.callPackage ../imports/github/serokell/nixfmt { };
 
-    lambda-launcher = (import ../imports/github/balsoft/lambda-launcher { pkgs = old; }).lambda-launcher;
+      lambda-launcher = (import ../imports/github/balsoft/lambda-launcher {
+        pkgs = old;
+      }).lambda-launcher;
 
-    tdesktop = old.tdesktop.overrideAttrs (oldAttrs: {
-      patches = [
-        ../imports/github/msva/mva-overlay/net-im/telegram-desktop/files/patches/9999/conditional/wide-baloons/0001_baloons-follows-text-width-on-adaptive-layout.patch
-      ] ++ oldAttrs.patches;
-    });
-    
-
-    pythonPackages = old.pythonPackages.override {
-      overrides = (self: super: {
-        backports_functools_lru_cache =
-        super.backports_functools_lru_cache.overrideAttrs
-        (oldAttrs: oldAttrs // { meta.priority = 1000; });
+      tdesktop = old.tdesktop.overrideAttrs (oldAttrs: {
+        patches = [
+          ../imports/github/msva/mva-overlay/net-im/telegram-desktop/files/patches/9999/conditional/wide-baloons/0001_baloons-follows-text-width-on-adaptive-layout.patch
+        ] ++ oldAttrs.patches;
       });
-    };
-  } // (if config.device == "Prestigio-Laptop" then {
-    grub2 = old.pkgsi686Linux.grub2;
-  } else
-    { }))];
+
+      pythonPackages = old.pythonPackages.override {
+        overrides = (self: super: {
+          backports_functools_lru_cache =
+          super.backports_functools_lru_cache.overrideAttrs
+          (oldAttrs: oldAttrs // { meta.priority = 1000; });
+        });
+      };
+    } // (if config.device == "Prestigio-Laptop" then {
+      grub2 = old.pkgsi686Linux.grub2;
+    } else
+      { }))
+  ];
   nixpkgs.pkgs = import ../imports/nixpkgs {
     config.allowUnfree = true;
     config.android_sdk.accept_license = true;
     config.firefox.enablePlasmaBrowserIntegration = true;
-  } // config.nixpkgs.config;  
+  } // config.nixpkgs.config;
 
   nix = {
     nixPath = lib.mkForce [
@@ -37,8 +41,23 @@
       "home-manager=${../imports/github/rycee/home-manager}"
       "nixos-config=/etc/nixos/configuration.nix"
     ];
-    binaryCaches =
-    [ "https://cache.nixos.org" "http://hydra.typeable.io:5000" ];
+    binaryCaches = [ "https://cache.nixos.org" "http://hydra.typeable.io:5000" ]
+    ++ (map (n: "http://${n}:5000") (builtins.attrNames config.devices));
+
+    distributedBuilds = true;
+
+    buildMachines = builtins.attrValues (builtins.mapAttrs (n: v: {
+      hostName = n;
+      sshUser = "balsoft";
+      sshKey = pkgs.writeTextFile {
+        name = "id_rsa";
+        text = config.secrets.id_rsa;
+      };
+      system = "x86_64-linux";
+      speedFactor = v.drive.speed * v.cpu.cores * v.cpu.clock / 10000000;
+      maxJobs = v.cpu.cores;
+    }) config.devices);
+
     binaryCachePublicKeys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "hydra.example.org-1:3cfw8jj8xtoKkQ2mAQxMFcEv2/fQATA/mjoUUIFxSgo="
