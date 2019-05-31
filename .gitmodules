@@ -23,3 +23,6 @@
 [submodule "imports/github/terodom/termNote"]
 	path = imports/github/terodom/termNote
 	url = https://github.com/terodom/termNote
+[submodule "imports/github/dawikur/base16-gruvbox-scheme"]
+	path = imports/github/dawikur/base16-gruvbox-scheme
+	url = https://github.com/dawikur/base16-gruvbox-scheme
