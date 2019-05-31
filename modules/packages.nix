@@ -42,7 +42,7 @@
           libXrandr
           libXinerama
         ]);
-        PREFIX = "$out";
+        makeFlags = ["PREFIX=$out"];
       };
 
       nerdfonts = old.stdenv.mkDerivation rec {
