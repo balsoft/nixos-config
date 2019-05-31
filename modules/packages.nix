@@ -17,34 +17,6 @@
         ] ++ oldAttrs.patches;
       });
 
-      compton = with old;
-      stdenv.mkDerivation {
-        name = "compton";
-        src = ../imports/github/BlackCapCoder/compton;
-        buildInputs = [
-          xlibsWrapper
-          gnumake
-          pkgconfig
-          dbus
-          libconfig
-          libGL
-          libdrm
-          pcre
-          asciidoc
-          libxml2
-          docbook_xml_dtd_45
-          libxslt
-          docbook_xsl
-        ] ++ (with xorg; [
-          libXcomposite
-          libXdamage
-          libXrender
-          libXrandr
-          libXinerama
-        ]);
-        buildPhase = "make PREFIX=$out";
-        installPhase = "make install PREFIX=$out";
-      };
 
       nerdfonts = old.stdenv.mkDerivation rec {
         name = "RobotoMonoNerd";
