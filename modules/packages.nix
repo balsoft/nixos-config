@@ -51,8 +51,7 @@
       "home-manager=${../imports/github/rycee/home-manager}"
       "nixos-config=/etc/nixos/configuration.nix"
     ];
-    binaryCaches = [ "https://cache.nixos.org" "http://hydra.typeable.io:5000" ]
-    ++ (map (n: "http://${n}:5000") (builtins.attrNames config.devices));
+    binaryCaches = [ "https://cache.nixos.org" "http://hydra.typeable.io:5000" ];
 
     distributedBuilds = true;
 

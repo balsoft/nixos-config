@@ -13,7 +13,7 @@ let
     bg = base00;
     fg = base07;
     gray = base03;
-    alt = base05;
+    alt = base04;
     dark = base02;
 
     red = base08;
@@ -63,6 +63,6 @@ in {
   };
   config = {
     themes.colors = fromBase16 (fromYAML (builtins.readFile
-    ../imports/github/dawikur/base16-gruvbox-scheme/gruvbox-dark-medium.yaml));
+    ../imports/github/dawikur/base16-gruvbox-scheme/gruvbox-dark-hard.yaml));
   };
 }
