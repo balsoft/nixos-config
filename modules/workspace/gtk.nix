@@ -30,10 +30,7 @@ in {
   nixpkgs.overlays = [(self: super: {
     generated-gtk-theme = self.stdenv.mkDerivation rec {
       name = "generated-gtk-theme";
-      src = builtins.fetchGit {
-        url = https://github.com/nana-4/materia-theme;
-        rev = "5e11d2aa6cc26f4f7fd8c229214c4e74b802d6b8";
-      };
+      src = ../../imports/github/nana-4/materia-theme;
       buildInputs = with self; [ sassc bc which inkscape optipng ];
       installPhase = ''
         chmod 777 -R .
