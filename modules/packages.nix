@@ -42,7 +42,8 @@
           libXrandr
           libXinerama
         ]);
-        makeFlags = ["PREFIX=$out"];
+        buildPhase = "make PREFIX=$out";
+        installPhase = "make install PREFIX=$out";
       };
 
       nerdfonts = old.stdenv.mkDerivation rec {
