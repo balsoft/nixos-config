@@ -3,6 +3,6 @@
     programs.autorandr.hooks.preswitch.compton = "pkill compton";
     programs.autorandr.hooks.postswitch.compton = "allow_rgb10_configs=false ${
       pkgs.compton
-    }/bin/compton --backend xr-glx-hybrid -i 0 --vsync opengl-swc -cC --shadow-exclude '!(I3_FLOATING_WINDOW@:c = 1)' --shadow-exclude-reg 1920x24+0+0 &";
+    }/bin/compton --backend xr-glx-hybrid -i 0 --vsync opengl-swc -c -C --shadow-exclude '!(I3_FLOATING_WINDOW@:c = 1)' --shadow-exclude-reg 1920x24+0+0 &";
   };
 }
