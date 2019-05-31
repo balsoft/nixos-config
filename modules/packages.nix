@@ -17,11 +17,41 @@
         ] ++ oldAttrs.patches;
       });
 
+      compton = with old;
+      stdenv.mkDerivation {
+        name = "compton";
+        src = ../imports/github/BlackCapCoder/compton;
+        buildInputs = [
+          xlibsWrapper
+          gnumake
+          pkgconfig
+          dbus
+          libconfig
+          libGL
+          libdrm
+          pcre
+          asciidoc
+          libxml2
+          docbook_xml_dtd_45
+          libxslt
+          docbook_xsl
+        ] ++ (with xorg; [
+          libXcomposite
+          libXdamage
+          libXrender
+          libXrandr
+          libXinerama
+        ]);
+        PREFIX = "$out";
+      };
+
       nerdfonts = old.stdenv.mkDerivation rec {
         name = "RobotoMonoNerd";
         src = old.fetchzip {
-          url = https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/RobotoMono.zip;
-          sha256 = "sha256:1i78fn62x0337p2974dn1nga1pbdi7mqg203h81yi9b79pyxv9bh";
+          url =
+          "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/RobotoMono.zip";
+          sha256 =
+          "sha256:1i78fn62x0337p2974dn1nga1pbdi7mqg203h81yi9b79pyxv9bh";
           stripRoot = false;
         };
         installPhase = "mkdir -p $out/share/fonts; cp $src/* $out/share/fonts";
@@ -51,7 +81,8 @@
       "home-manager=${../imports/github/rycee/home-manager}"
       "nixos-config=/etc/nixos/configuration.nix"
     ];
-    binaryCaches = [ "https://cache.nixos.org" "http://hydra.typeable.io:5000" ];
+    binaryCaches =
+    [ "https://cache.nixos.org" "http://hydra.typeable.io:5000" ];
 
     distributedBuilds = true;
 
