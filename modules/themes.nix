@@ -12,9 +12,10 @@ let
   builtins.mapAttrs (_: v: "#" + v) {
     bg = base00;
     fg = base07;
+
     gray = base03;
-    alt = base04;
-    dark = base02;
+    alt = base02;
+    dark = base01;
 
     red = base08;
     orange = base09;
