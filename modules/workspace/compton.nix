@@ -5,8 +5,6 @@
     services.compton = {
       enable = true;
       backend = "glx";
-      inactiveOpacity = toString 0.9;
-      menuOpacity = toString 0.85;
       noDNDShadow = false;
       shadow = true;
       shadowExclude = [ "!(I3_FLOATING_WINDOW@:c = 1)" ];
