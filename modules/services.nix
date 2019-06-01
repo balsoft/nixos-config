@@ -53,6 +53,7 @@
   virtualisation.virtualbox.host = {
     enable = config.deviceSpecific.isHost;
     enableHardening = false;
+    enableExtensionPack = true;
   };
 
 }
