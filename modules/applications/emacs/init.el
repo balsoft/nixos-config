@@ -183,15 +183,11 @@ If point was already at that position, move point to beginning of line."
 
 (fringe-mode '(0 . 0))
 
-
-(load-theme 'xresources t)
-
 ;; -------------------
 ;; Theme
 ;; -------------------
 (use-package xresources-theme
   :config
-  (load-theme 'xresources t)
   (add-hook 'after-make-frame-functions
             (lambda (frame)
               (with-selected-frame frame
