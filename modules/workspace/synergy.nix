@@ -1,23 +1,19 @@
 { pkgs, config, lib, ... }: {
-  services.synergy = if config.device == "Lenovo-Workstation" then {
+  services.synergy = if config.device == "AMD-Workstation" then {
     server.enable = true;
     server.configFile = pkgs.writeTextFile {
       name = "synergy.conf";
       text = ''
         section: screens
-        	Lenovo-Workstation:
+          AMD-Workstation
         	ASUS-Laptop:
         	HP-Laptop:
         end
         section: links
-        	Lenovo-Workstation:
-        		right = HP-Laptop
-        		left    = ASUS-Laptop
-
         	ASUS-Laptop:
-        		right    = Lenovo-Workstation
+        		right = AMD-Workstation
         	HP-Laptop:
-        		left = Lenovo-Workstation
+        		left = AMD-Workstation
         end
         section: options
             keystroke(super+alt+left) = switchInDirection(left)
@@ -27,6 +23,6 @@
     };
   } else {
     client.enable = true;
-    client.serverAddress = "Lenovo-Workstation";
+    client.serverAddress = "AMD-Workstation";
   };
 }
