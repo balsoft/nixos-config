@@ -187,6 +187,7 @@ If point was already at that position, move point to beginning of line."
 ;; Theme
 ;; -------------------
 (use-package xresources-theme
+  :defer t
   :config
   (add-hook 'after-make-frame-functions
             (lambda (frame)

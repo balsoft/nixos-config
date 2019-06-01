@@ -37,6 +37,7 @@
         company-lsp
         lsp-mode
         lsp-haskell
+        company-ghci
         xresources-theme
       ];
     };
