@@ -6,7 +6,8 @@ with rec {
 with deviceSpecific; {
 
   hardware.sensor.iio.enable = (device == "HP-Laptop");
-  hardware.cpu.${devices.${device}.cpu.vendor}.updateMicrocode = true; # Update microcode
+  hardware.cpu.${devices.${device}.cpu.vendor}.updateMicrocode =
+  true; # Update microcode
 
   hardware.enableRedistributableFirmware = true; # For some unfree drivers
 
@@ -17,7 +18,7 @@ with deviceSpecific; {
   hardware.bluetooth.enable = true;
   hardware.sane = {
     enable = true;
-    extraBackends = [pkgs.epkowa];
+    extraBackends = [ pkgs.epkowa ];
   };
 
   boot = {
@@ -54,9 +55,12 @@ with deviceSpecific; {
       "rd.udev.log_priority=3"
       "pti=off"
       "spectre_v2=off"
-    ] ++ lib.optionals (device == "Prestigio-Laptop")
-    ["intel_idle.max_cstate=1" # Otherwise it hangs
+    ] ++ lib.optionals (device == "Prestigio-Laptop") [
+      "intel_idle.max_cstate=1" # Otherwise it hangs
     ];
+
+    binfmt.emulatedSystems =
+    [ "aarch64-linux" "i686-linux" "mips-linux" "x86_64-windows" ];
   };
 
   services.logind.extraConfig = "HandlePowerKey=suspend";
@@ -67,8 +71,9 @@ with deviceSpecific; {
     support32Bit = true;
     systemWide = true;
   };
-  
-  environment.etc.fancontrol.text = lib.optionalAttrs (device == "AMD-Workstation") ''
+
+  environment.etc.fancontrol.text =
+  lib.optionalAttrs (device == "AMD-Workstation") ''
     INTERVAL=3
     DEVPATH=hwmon1=devices/pci0000:00/0000:00:03.1/0000:26:00.0
     DEVNAME=hwmon1=amdgpu
@@ -85,4 +90,4 @@ with deviceSpecific; {
     script = "${pkgs.lm_sensors}/bin/fancontrol";
     serviceConfig.User = "root";
   };
-} 
+}
