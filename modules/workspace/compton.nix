@@ -4,7 +4,7 @@
     programs.autorandr.hooks.postswitch.compton = "systemctl --user start compton";
     services.compton = {
       enable = true;
-      backend = "glx";
+      backend = "xrender";
       blur = true;
       inactiveOpacity = toString 0.9;
       menuOpacity = toString 0.85;
