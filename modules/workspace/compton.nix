@@ -5,7 +5,7 @@
     services.compton = {
       enable = true;
       backend = "glx";
-      #blur = true;
+      blur = true;
       inactiveOpacity = toString 0.9;
       menuOpacity = toString 0.85;
       noDNDShadow = false;
