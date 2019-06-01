@@ -7,87 +7,88 @@ with deviceSpecific; {
 
   hardware.sensor.iio.enable = (device == "HP-Laptop");
   hardware.cpu.${devices.${device}.cpu.vendor}.updateMicrocode =
-  true; # Update microcode
+    true; # Update microcode
 
-  hardware.enableRedistributableFirmware = true; # For some unfree drivers
+    hardware.enableRedistributableFirmware = true; # For some unfree drivers
 
-  hardware.opengl.enable = true;
-  hardware.opengl.driSupport = true;
-  hardware.opengl.driSupport32Bit = true; # For steam
+    hardware.opengl.enable = true;
+    hardware.opengl.driSupport = true;
+    hardware.opengl.driSupport32Bit = true; # For steam
 
-  hardware.bluetooth.enable = true;
-  hardware.sane = {
-    enable = true;
-    extraBackends = [ pkgs.epkowa ];
-  };
+    hardware.bluetooth.enable = true;
+    hardware.sane = {
+      enable = true;
+      extraBackends = [ pkgs.epkowa ];
+    };
 
-  boot = {
-    loader = {
-      grub.enable = true;
-      grub.version = 2;
-      grub.useOSProber = true;
-      timeout = 1;
-    } // (if device == "Lenovo-Workstation" then { # Non-UEFI config
+    boot = {
+      loader = {
+        grub.enable = true;
+        grub.version = 2;
+        grub.useOSProber = true;
+        timeout = 1;
+      } // (if device == "Lenovo-Workstation" then { # Non-UEFI config
       grub.device = "/dev/sda";
-    } else { # UEFI config
+      } else { # UEFI config
       grub.efiSupport = true;
       grub.device = "nodev";
       grub.efiInstallAsRemovable = true; # NVRAM is unreliable
-    });
-    consoleLogLevel = 3;
-    blacklistedKernelModules = lib.optionals (device == "Prestigio-Laptop") [
-      "axp288_charger"
-      "axp288_fuel_gauge"
-      "axp288_adc"
-    ]; # Disable battery driver as it hangs this piece of shit
-    extraModprobeConfig = if (device == "ASUS-Laptop") then
+      });
+      consoleLogLevel = 3;
+      blacklistedKernelModules = lib.optionals (device == "Prestigio-Laptop") [
+        "axp288_charger"
+        "axp288_fuel_gauge"
+        "axp288_adc"
+      ]; # Disable battery driver as it hangs this piece of shit
+      extraModprobeConfig = if (device == "ASUS-Laptop") then
       "options iwlwifi swcrypto=1 power_save=0 power_level=5 11n_disable=8 bt_coex_active=1"
-    else
+      else
       ""; # Attempt to fix broken wireless
-    kernel.sysctl."vm.swappiness" = 0;
-    kernelPackages = pkgs.linuxPackages_latest;
-    kernelParams = [
-      "quiet"
-      "scsi_mod.use_blk_mq=1"
-      "modeset"
-      "nofb"
-      "rd.systemd.show_status=auto"
-      "rd.udev.log_priority=3"
-      "pti=off"
-      "spectre_v2=off"
-    ] ++ lib.optionals (device == "Prestigio-Laptop") [
-      "intel_idle.max_cstate=1" # Otherwise it hangs
-    ];
+      kernel.sysctl."vm.swappiness" = 0;
+      kernelPackages = pkgs.linuxPackages_latest;
+      kernelParams = [
+        "quiet"
+        "scsi_mod.use_blk_mq=1"
+        "modeset"
+        "nofb"
+        "rd.systemd.show_status=auto"
+        "rd.udev.log_priority=3"
+        "pti=off"
+        "spectre_v2=off"
+      ] ++ lib.optionals (device == "Prestigio-Laptop") [
+        "intel_idle.max_cstate=1" # Otherwise it hangs
+      ];
 
-    binfmt.emulatedSystems =
-    [ "aarch64-linux" "i686-linux" "mips-linux" "x86_64-windows" ];
-  };
+      binfmt.emulatedSystems =
+        [ "aarch64-linux" "i686-linux" "mips-linux" "x86_64-windows" ];
+    };
 
-  services.logind.extraConfig = "HandlePowerKey=suspend";
-  sound.enable = true;
-  hardware.pulseaudio = {
-    enable = true;
-    package = pkgs.pulseaudioFull;
-    support32Bit = true;
-    systemWide = true;
-  };
+    services.logind.extraConfig = "HandlePowerKey=suspend";
+    sound.enable = true;
+    hardware.pulseaudio = {
+      enable = true;
+      package = pkgs.pulseaudioFull;
+      support32Bit = true;
+      systemWide = true;
+    };
 
-  environment.etc.fancontrol.text =
-  lib.optionalAttrs (device == "AMD-Workstation") ''
-    INTERVAL=3
-    DEVPATH=hwmon1=devices/pci0000:00/0000:00:03.1/0000:26:00.0
-    DEVNAME=hwmon1=amdgpu
-    FCTEMPS=hwmon1/pwm1=hwmon1/temp1_input
-    FCFANS= hwmon1/pwm1=
-    MINTEMP=hwmon1/pwm1=30
-    MAXTEMP=hwmon1/pwm1=60
-    MINSTART=hwmon1/pwm1=255
-    MINSTOP=hwmon1/pwm1=0
-  '';
-  systemd.services.fancontrol = {
-    enable = device == "AMD-Workstation";
-    description = "Control the speed of fans";
-    script = "${pkgs.lm_sensors}/bin/fancontrol";
-    serviceConfig.User = "root";
-  };
+    environment.etc.fancontrol ={
+      enable = device == "AMD-Workstation";
+      text = ''
+        INTERVAL=3
+        DEVPATH=hwmon1=devices/pci0000:00/0000:00:03.1/0000:26:00.0
+        DEVNAME=hwmon1=amdgpu
+        FCTEMPS=hwmon1/pwm1=hwmon1/temp1_input
+        FCFANS= hwmon1/pwm1=
+        MINTEMP=hwmon1/pwm1=30
+        MAXTEMP=hwmon1/pwm1=60
+        MINSTART=hwmon1/pwm1=255
+        MINSTOP=hwmon1/pwm1=0
+      ''};
+      systemd.services.fancontrol = {
+        enable = device == "AMD-Workstation";
+        description = "Control the speed of fans";
+        script = "${pkgs.lm_sensors}/bin/fancontrol";
+        serviceConfig.User = "root";
+      };
 }
