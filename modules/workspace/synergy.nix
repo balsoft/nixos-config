@@ -19,7 +19,7 @@
             keystroke(super+alt+left) = switchInDirection(left)
             keystroke(super+alt+right) = switchInDirection(right)
         end
-              '';
+      '';
     };
   } else {
     client.enable = true;
