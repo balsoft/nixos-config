@@ -1,12 +1,11 @@
 { pkgs, lib, config, ... }: {
   home-manager.users.balsoft = {
-    programs.autorandr.hooks.preswitch.compton = "pkill compton";
-    programs.autorandr.hooks.postswitch.compton =
-    "allow_rgb10_configs=false ${pkgs.compton}/bin/compton";
+    programs.autorandr.hooks.preswitch.compton = "systemctl --user stop compton";
+    programs.autorandr.hooks.postswitch.compton = "systemctl --user start compton";
     services.compton = {
       enable = true;
-      backend = "xr-glx-hybrid";
-      blur = true;
+      backend = "glx";
+      #blur = true;
       inactiveOpacity = toString 0.9;
       menuOpacity = toString 0.85;
       noDNDShadow = false;
