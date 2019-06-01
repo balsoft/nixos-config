@@ -166,7 +166,7 @@ If point was already at that position, move point to beginning of line."
 
 (bind-key [menu-bar file open-file]
 	  `(menu-item "Open File..." find-file :enable (menu-bar-non-minibuffer-window-p)
-		      :help "Read an existing or new file from disk"
+                :help "Read an existing or new file from disk"
 		      :key-sequence ,(kbd "C-o")))
 
 (bind-key [menu-bar file dired]
@@ -190,8 +190,9 @@ If point was already at that position, move point to beginning of line."
   :config
   (add-hook 'after-make-frame-functions
             (lambda (frame)
-              (with-selected-frame frame
-                (load-theme 'xresources t)))))
+              (when window-system
+                (with-selected-frame frame
+                  (load-theme 'xresources t))))))
 ;; scroll one line at a time (less "jumpy" than defaults)
 
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
@@ -399,8 +400,8 @@ If point was already at that position, move point to beginning of line."
 
 ;; Setup Splash Screen
 (setq inhibit-startup-screen t)
-(setq-default major-mode 'org-mode)
-(setq-default initial-scratch-message ";; Emacs lisp scratch buffer. Happy hacking.\n\n")
+(setq-default major-mode 'fundamental-mode)
+(setq-default initial-scratch-message "")
 
 ;; Initial buffer choice causes split window when opening file from command line or
 ;; DE. While running wakib empty buffer causes profiling init file to fail
