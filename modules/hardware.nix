@@ -84,11 +84,12 @@ with deviceSpecific; {
         MAXTEMP=hwmon1/pwm1=60
         MINSTART=hwmon1/pwm1=255
         MINSTOP=hwmon1/pwm1=0
-      ''};
-      systemd.services.fancontrol = {
-        enable = device == "AMD-Workstation";
-        description = "Control the speed of fans";
-        script = "${pkgs.lm_sensors}/bin/fancontrol";
-        serviceConfig.User = "root";
-      };
+      '';
+    };
+    systemd.services.fancontrol = {
+      enable = device == "AMD-Workstation";
+      description = "Control the speed of fans";
+      script = "${pkgs.lm_sensors}/bin/fancontrol";
+      serviceConfig.User = "root";
+    };
 }
