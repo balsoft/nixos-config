@@ -4,6 +4,15 @@ let
   apps = config.defaultApplications;
   customPackages = pkgs.callPackage ../../../packages { };
 in {
+  systemd.services.changeNice = {
+    description = "Update niceness levels of important processes";
+    serviceConfig.User = "root";
+    script = ''
+      sleep 5
+      ${pkgs.utillinux}/bin/renice -n -10 -p $(${pkgs.procps}/bin/pidof i3)
+      ${pkgs.utillinux}/bin/renice -n -10 -p $(${pkgs.procps}/bin/pidof X)
+    '';
+  };
   environment.sessionVariables._JAVA_AWT_WM_NONREPARENTING = "1";
   home-manager.users.balsoft.xsession.windowManager.i3 = {
     enable = true;
