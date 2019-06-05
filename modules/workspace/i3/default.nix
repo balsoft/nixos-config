@@ -7,6 +7,7 @@ in {
   systemd.services.changeNice = {
     description = "Update niceness levels of important processes";
     serviceConfig.User = "root";
+    wantedBy = [ "graphical.target" ];
     script = ''
       sleep 5
       ${pkgs.utillinux}/bin/renice -n -10 -p $(${pkgs.procps}/bin/pidof i3)
