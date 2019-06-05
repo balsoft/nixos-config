@@ -80,8 +80,8 @@ with deviceSpecific; {
       DEVNAME=hwmon1=amdgpu
       FCTEMPS=hwmon1/pwm1=hwmon1/temp1_input
       FCFANS= hwmon1/pwm1=
-      MINTEMP=hwmon1/pwm1=30
-      MAXTEMP=hwmon1/pwm1=60
+      MINTEMP=hwmon1/pwm1=20
+      MAXTEMP=hwmon1/pwm1=70
       MINSTART=hwmon1/pwm1=255
       MINSTOP=hwmon1/pwm1=0
     '';
