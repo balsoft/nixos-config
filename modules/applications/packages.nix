@@ -59,8 +59,6 @@
     clang
     clang-tools
     lldb
-    #gcc
-    #gdb
     appimage-run
     nixfmt
   ] ++ [
@@ -78,9 +76,7 @@
     # Tools
     zip
     unrar
-    #wine
     wireshark
-    #wpsoffice
     micro
     python3
     qalculate-gtk
