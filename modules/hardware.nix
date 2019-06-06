@@ -58,9 +58,6 @@ with deviceSpecific; {
     ] ++ lib.optionals (device == "Prestigio-Laptop") [
       "intel_idle.max_cstate=1" # Otherwise it hangs
     ];
-
-    binfmt.emulatedSystems =
-    [ "aarch64-linux" "i686-linux" "mips-linux" "x86_64-windows" ];
   };
 
   services.logind.extraConfig = "HandlePowerKey=suspend";

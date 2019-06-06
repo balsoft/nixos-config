@@ -78,7 +78,7 @@
     # Tools
     zip
     unrar
-    wine
+    #wine
     wireshark
     #wpsoffice
     micro
