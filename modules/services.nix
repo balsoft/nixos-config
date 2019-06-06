@@ -17,7 +17,7 @@
   systemd.services.mopidy.serviceConfig.User = lib.mkForce "balsoft";
 
   services.earlyoom = {
-    enable = true;
+    enable = config.devices.${config.device}.ram < 16;
     freeMemThreshold = 5;
     freeSwapThreshold = 100;
   };
@@ -32,10 +32,12 @@
     enable = true;
     client.enable = true;
     client.privoxy.enable = true;
+    hiddenServices.sshThroughNAT.map = [
+      { port = 22; }
+    ];
     torsocks.enable = true;
     client.socksListenAddressFaster = "0.0.0.0:9063";
   };
-  #services.teamviewer.enable = true;
 
   programs.mosh.enable = true;
 
