@@ -36,6 +36,7 @@
     firefox
     plasma-browser-integration
     ntfs3g
+    ktorrent
   ]);
 
   home-manager.users.balsoft.home.packages = (with pkgs;
