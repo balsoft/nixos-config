@@ -13,7 +13,7 @@
 
       tdesktop = old.tdesktop.overrideAttrs (oldAttrs: {
         patches = [
-          ../imports/github/msva/mva-overlay/net-im/telegram-desktop/files/patches/9999/conditional/wide-baloons/0001_baloons-follows-text-width-on-adaptive-layout.patch
+          ../imports/github/msva/mva-overlay/net-im/telegram-desktop/files/patches/0/conditional/wide-baloons/0001_baloons-follows-text-width-on-adaptive-layout.patch
         ] ++ oldAttrs.patches;
       });
 

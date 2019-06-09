@@ -36,6 +36,7 @@
     firefox
     plasma-browser-integration
     ntfs3g
+    ktorrent
   ]);
 
   home-manager.users.balsoft.home.packages = (with pkgs;
@@ -59,8 +60,6 @@
     clang
     clang-tools
     lldb
-    #gcc
-    #gdb
     appimage-run
     nixfmt
   ] ++ [
@@ -78,9 +77,7 @@
     # Tools
     zip
     unrar
-    wine
     wireshark
-    #wpsoffice
     micro
     python3
     qalculate-gtk
