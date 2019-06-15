@@ -23,16 +23,27 @@ with deviceSpecific; {
 
   boot = {
     loader = {
-      grub.enable = true;
-      grub.version = 2;
-      grub.useOSProber = true;
       timeout = 1;
     } // (if device == "Lenovo-Workstation" then { # Non-UEFI config
-      grub.device = "/dev/sda";
-    } else { # UEFI config
-      grub.efiSupport = true;
-      grub.device = "nodev";
-      grub.efiInstallAsRemovable = true; # NVRAM is unreliable
+      grub = {
+        device = "/dev/sda";
+        enable = true;
+        version = 2;
+        useOSProber = true;
+      };
+    } else if device == "Prestigio-Laptop" then { # UEFI config
+      grub = {
+        device = "nodev";
+        enable = true;
+        version = 2;
+        efiSupport = true;
+        efiInstallAsRemovable = true; # NVRAM is unreliable
+      };
+    } else {
+      systemd-boot = {
+        enable = true;
+        consoleMode = "auto";
+      };
     });
     consoleLogLevel = 3;
     blacklistedKernelModules = lib.optionals (device == "Prestigio-Laptop") [
