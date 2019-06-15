@@ -191,7 +191,7 @@ in {
         "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
         "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
         "--release button2" = "kill";
-        "--release ${modifier}+button2" = "${pkgs.xorg.xkill}/bin/xkill";
+        "--whole-window ${modifier}+button2" = "kill";
       } // builtins.listToAttrs (builtins.genList (x: {
         name = "${modifier}+${toString x}";
         value = "workspace ${toString x}";
