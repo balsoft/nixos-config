@@ -7,4 +7,9 @@
       });
     })
   ];
+  home-manager.users.balsoft = {
+    xsession.windowManager.i3.config.startup =
+    [{ command = "${pkgs.spectral}/bin/spectral"; }];
+    home.packages = [ pkgs.spectral ];
+  };
 }

@@ -122,9 +122,6 @@ in {
         {
           command = "${pkgs.termNote}/bin/noted";
         }
-        {
-          command = "${pkgs.spectral}/bin/spectral";
-        }
       ];
       keybindings = let
         moveMouse = ''
