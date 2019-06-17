@@ -35,9 +35,6 @@ in {
             class = "^konversation";
           }
           {
-            title = "Quaternion";
-          }
-          {
             title = ": weechat \? Konsole";
           }
         ];
@@ -126,8 +123,7 @@ in {
           command = "${pkgs.termNote}/bin/noted";
         }
         {
-          command =
-          "QT_QPA_PLATFORMTHEME=kde ${pkgs.quaternion}/bin/quaternion";
+          command = "${pkgs.spectral}/bin/spectral";
         }
       ];
       keybindings = let

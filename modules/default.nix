@@ -9,6 +9,7 @@
     ./applications/konversation.nix
     ./applications/okular.nix
     ./applications/weechat.nix
+    ./applications/spectral.nix
     ./workspace/i3blocks
     ./workspace/i3
     ./workspace/zsh.nix
