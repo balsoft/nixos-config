@@ -37,6 +37,9 @@ in {
           {
             title = ": weechat \? Konsole";
           }
+          {
+            class = "Spectral";
+          }
         ];
         "ﱘ" = [
           {

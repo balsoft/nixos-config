@@ -5,22 +5,9 @@ with import ../../support.nix { inherit lib config; }; {
       spectral = super.spectral.overrideAttrs (oldAttrs: {
         prePatch = ''
           substituteInPlace qml/main.qml --replace "#303030" "${config.themes.colors.bg}"
-          cp ${
-            pkgs.writeTextFile {
-              name = "qtquickcontrols2.conf";
-              text = genIni {
-                Controls.Style = "Material";
-                Material = {
-                  Theme = "Dark";
-                  Variant = "Dense";
-                  Primary = config.themes.colors.alt;
-                  Accent = config.themes.colors.gray;
-                  Background = config.themes.colors.bg;
-                  Foreground = config.themes.colors.fg;
-                };
-              };
-            }
-          } .
+          substituteInPlace ./imports/Spectral/Component/Timeline/MessageDelegate.qml \
+          --replace "#009DC2" "${config.themes.colors.alt}" \
+          --replace "#673AB7" "${config.themes.colors.dark}" \
         '';
       });
     })
