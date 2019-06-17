@@ -8,7 +8,7 @@ weechat = pkgs.weechat.override {
     (python.withPackages (ps: with ps; [ websocket_client websocket]))
     ];
     */
-    scripts = with pkgs.weechatScripts; [ wee-slack weechat-matrix-bridge ];
+    scripts = with pkgs.weechatScripts; [wee-slack];
   };
 };
 in
