@@ -48,7 +48,7 @@
     config.firefox.enablePlasmaBrowserIntegration = true;
   } // config.nixpkgs.config;
 
-  nix = {
+  nix = rec {
     nixPath = lib.mkForce [
       "nixpkgs=${../imports/nixpkgs}"
       "home-manager=${../imports/github/rycee/home-manager}"
@@ -56,6 +56,10 @@
     ];
     binaryCaches =
     [ "https://cache.nixos.org" "http://hydra.typeable.io:5000" ];
+    
+    trustedBinaryCaches = (builtins.map (x: "http://${x}:5000") (builtins.attrNames config.devices)) ++ binaryCaches;
+
+    trustedUsers = [ "root" "balsoft" "@wheel" ];
 
     distributedBuilds = true;
 
