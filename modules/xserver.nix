@@ -19,19 +19,15 @@ in {
       ["radeon"]
     else
       ["intel"];
-    displayManager.lightdm = {
+    displayManager.auto = {
       enable = true;
-      autoLogin.enable = true;
-      autoLogin.user = "balsoft";
-      greeter.enable = false;
+      user = "balsoft";
     };
-    #   desktopManager.plasma5.enable = true;
     desktopManager.default = "none";
     windowManager.i3 = {
       enable = true;
       package = pkgs.i3-gaps;
     };
-    #windowManager.xmonad.enable = true;
     windowManager.default = "i3";
     layout = "us,ru";
     xkbOptions = "grp:caps_toggle,grp_led:caps";

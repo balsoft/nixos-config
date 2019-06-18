@@ -94,9 +94,6 @@ in {
       };
       startup = map (a: { notification = false; } // a) [
         {
-          command = "${pkgs.tdesktop}/bin/telegram-desktop";
-        }
-        {
           command = apps.browser.cmd;
         }
         {
