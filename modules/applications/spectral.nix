@@ -8,6 +8,7 @@ with import ../../support.nix { inherit lib config; }; {
           substituteInPlace ./imports/Spectral/Component/Timeline/MessageDelegate.qml \
           --replace "#009DC2" "${config.themes.colors.alt}" \
           --replace "#673AB7" "${config.themes.colors.dark}" \
+          --replace "#4285F4" "${config.themes.colors.gray}"
         '';
       });
     })
