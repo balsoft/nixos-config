@@ -32,10 +32,7 @@ in {
             class = "^trojita";
           }
           {
-            class = "^konversation";
-          }
-          {
-            title = ": weechat \? Konsole";
+            title = "weechat";
           }
           {
             class = "Spectral";
