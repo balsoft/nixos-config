@@ -19,9 +19,11 @@ in {
       ["radeon"]
     else
       ["intel"];
-    displayManager.auto = {
+    displayManager.lightdm = {
       enable = true;
-      user = "balsoft";
+      greeter.enable = false;
+      autoLogin.enable = true;
+      autoLogin.user = "balsoft";
     };
     desktopManager.default = "none";
     windowManager.i3 = {
