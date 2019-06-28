@@ -6,7 +6,6 @@
     ./applications/konsole.nix
     ./applications/trojita.nix
     ./applications/firefox.nix
-    ./applications/konversation.nix
     ./applications/okular.nix
     ./applications/weechat.nix
     ./applications/spectral.nix

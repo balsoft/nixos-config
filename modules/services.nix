@@ -57,12 +57,6 @@
 
   services.nix-serve.enable = true;
 
-  services.matrix-synapse = {
-    enable = true;
-    enable_registration = true;
-    web_client = true;
-  };
-
   services.upower.enable = true;
   virtualisation.docker.enable = config.deviceSpecific.isHost;
   virtualisation.virtualbox.host = {
