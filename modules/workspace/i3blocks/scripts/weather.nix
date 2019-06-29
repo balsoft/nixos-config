@@ -3,6 +3,6 @@
   ${curl}/bin/curl wttr.in/\?format=3 | awk -F": " '{print $2}'
   if [[ $BLOCK_BUTTON == 1 ]]
   then
-    ${config.defaultApplications.term.cmd} -e "${curl}/bin/curl wttr.in; read"
+    ${config.defaultApplications.term.cmd} --hold -e "${curl}/bin/curl wttr.in"
   fi
 ''
