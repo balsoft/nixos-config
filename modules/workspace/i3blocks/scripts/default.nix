@@ -28,6 +28,7 @@ writeTextFile {
   calendar = ./calendar.nix;
   email = ./email.nix;
   wireless = ./wireless.nix;
+  weather = ./weather.nix;
   sound = ./sound.nix;
   music = ./music.nix;
   #temperature = ./temperature.nix;

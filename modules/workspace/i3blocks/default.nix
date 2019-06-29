@@ -35,14 +35,7 @@ in {
     } else
       { };
     b_weather = {
-      command =
-        ''
-          curl wttr.in/\?format=3 | awk -F\": \" '{print $2}'
-          if [[ $BLOCK_BUTTON == 1 ]]
-          then
-            ${config.defaultApplications.term.cmd} -e "curl wttr.in"
-          fi
-        '';
+      command = scripts.weather;
       interval = 600;
     };
     c_calendar = { command = scripts.calendar; };
