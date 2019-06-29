@@ -36,8 +36,8 @@ in {
       { };
     b_weather = {
       command =
-        "curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo";
-      interval = 3600;
+        "curl wttr.in/\?format=3 | awk -F\": \" '{print $2}'";
+      interval = 600;
     };
     c_calendar = { command = scripts.calendar; };
     d_sound = {
