@@ -22,7 +22,7 @@ do
 done
 
 cd $imports/nixpkgs
-git checkout nixos-unstable
+git checkout nixos-19.03
 git pull
 
 cd $imports/..
