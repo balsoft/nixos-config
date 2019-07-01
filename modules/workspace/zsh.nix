@@ -14,7 +14,8 @@
     shellAliases = {
       "p" = "nix-shell --run zsh -p";
       "b" = ''nix-build "<nixpkgs>" --no-out-link -A'';
-      "post" = ''curl -F "f:1=<-" ix.io'';
+      "o" = "xdg-open";
+      "ix" = ''curl -F "f:1=<-" ix.io'';
       "clip" = "${pkgs.xclip}/bin/xclip -selection clipboard";
     };
     initExtra = ''
