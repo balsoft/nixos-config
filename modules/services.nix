@@ -82,8 +82,7 @@
     path = with pkgs; [ ppp pptp procps ];
     wantedBy = [ "multi-user.target" ];
     script = ''
-      pkill -9 pppd pptp
-
+      #!/bin/sh
       /run/wrappers/bin/ping 172.17.1.1 -c 1 > /dev/null
       if [ "$?" = 0 ]
         then
@@ -91,6 +90,7 @@
       fi
 
       poff birevia
+      pkill -9 pppd
       pppd call birevia updetach
       route add -net 172.17.1.0 netmask 255.255.255.0 gw ${config.secrets.birevia.ip}
     '';
