@@ -78,7 +78,7 @@
 
   systemd.services.birevia = {
     enable = config.device == "AMD-Workstation";
-    path = with pkgs; [ ppp pptp ];
+    path = with pkgs; [ ppp pptp nettools ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       User = "root";
