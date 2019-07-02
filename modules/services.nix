@@ -84,6 +84,7 @@
       User = "root";
       Restart = "always";
       RestartSec = "60";
+      Type = "forking";
       
       ExecStart = pkgs.writeTextFile {
         name = "birevia";
