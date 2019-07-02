@@ -70,7 +70,7 @@
       maxfail 0
       mtu 1450
       mru 1450
-      pty "pptp 185.195.24.31 --nolaunchpppd"
+      pty "pptp ${config.secrets.birevia.ip} --nolaunchpppd"
       name ${config.secrets.birevia.user}
       password ${config.secrets.birevia.password}
       linkname birevia
@@ -95,9 +95,9 @@
         then
         exit 0
       fi
-      poff birevia
+      
       pppd call birevia updetach
-      route add -net 172.17.1.0 netmask 255.255.255.0 gw 185.195.25.201
+      route add -net 172.17.1.0 netmask 255.255.255.0 gw ${config.secrets.birevia.ip}
     '';
     serviceConfig = {
       User = "root";

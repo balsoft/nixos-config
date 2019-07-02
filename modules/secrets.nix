@@ -39,7 +39,12 @@ in rec {
         description = "Android device ID";
       };
     };
-    birevia = mkCredOption "Biveria ppp forwarding" { };
+    birevia = mkCredOption "Biveria ppp forwarding" {
+      ip = mkOption {
+        type = nullOr string;
+        description = "ip";
+      };
+    };
     rclone = mkOption {
       type = nullOr string;
       description = "Rclone config";
