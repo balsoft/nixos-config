@@ -90,7 +90,7 @@
     path = with pkgs; [ ppp pptp ];
     wantedBy = [ "multi-user.target" ];
     script = ''
-      ping 172.17.1.1 -c 1 > /dev/null
+      /run/wrappers/bin/ping 172.17.1.1 -c 1 > /dev/null
       if [ "$?" = 0 ]
         then
         exit 0

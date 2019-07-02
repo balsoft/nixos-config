@@ -2,7 +2,9 @@
   services.openssh = {
     enable = true;
     passwordAuthentication = false;
+    permitRootLogin = "no";
     forwardX11 = true;
+    ports = [ 22 17522 ];
   };
 
   users.users.balsoft.openssh.authorizedKeys.keys =
