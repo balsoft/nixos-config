@@ -57,6 +57,55 @@
 
   services.nix-serve.enable = true;
 
+  environment.etc."ppp/peers/birevia" = {
+    enable = config.device == "AMD-Workstation";
+    text = ''
+      remotename PPTP
+      require-mschap-v2
+      require-mppe
+      persist
+      nodefaultroute
+      lcp-echo-failure 4
+      lcp-echo-interval 30
+      maxfail 0
+      mtu 1450
+      mru 1450
+      pty "pptp 185.195.25.201 --nolaunchpppd"
+      name ${config.secrets.birevia.user}
+      password ${config.secrets.birevia.password}
+      linkname birevia
+      lock
+      noauth
+      refuse-pap
+      refuse-eap
+      refuse-chap
+      refuse-mschap
+      nobsdcomp
+      nodeflate
+    '';
+  };
+
+  systemd.services.birevia = {
+    enable = config.device == "AMD-Workstation";
+    path = with pkgs; [ ppp pptp ];
+    wantedBy = [ "multi-user.target" ];
+    script = ''
+      ping 172.17.1.1 -c 1 > /dev/null
+      if [ "$?" = 0 ]
+        then
+        exit 0
+      fi
+      poff birevia
+      pppd call birevia updetach
+      route add -net 172.17.1.0 netmask 255.255.255.0 gw 185.195.25.201
+    '';
+    serviceConfig = {
+      User = "root";
+      Restart = "always";
+      RestartSec = "300";
+    };
+  };
+
   services.upower.enable = true;
   virtualisation.docker.enable = config.deviceSpecific.isHost;
   virtualisation.virtualbox.host = {

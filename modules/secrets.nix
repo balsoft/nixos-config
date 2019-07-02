@@ -33,12 +33,13 @@ in rec {
       refresh-token = mkOption { type = lib.types.string; };
     };
     gmail = mkCredOption "gmail (trojita)" { };
-    gpmusic = mkCredOption "Google Play Music (mopidy)" ({
+    gpmusic = mkCredOption "Google Play Music (mopidy)" {
       deviceid = mkOption {
         type = string;
         description = "Android device ID";
       };
-    });
+    };
+    birevia = mkCredOption "Biveria ppp forwarding" { };
     rclone = mkOption {
       type = nullOr string;
       description = "Rclone config";
