@@ -90,13 +90,14 @@
         executable = true;
         text = ''
           #!${pkgs.bash}/bin/bash
-          whoami | systemd-cat
+          echo -n "Checking if we are already connected... "
           /run/wrappers/bin/ping 172.17.1.1 -c 1 > /dev/null
           if [ "$?" = 0 ]
-            then
+          then
+            echo "We are, exiting"
             exit 0
           fi
-
+          echo "We are not, connecting..."
           poff birevia
           pppd call birevia updetach
           route add -net 172.17.1.0 netmask 255.255.255.0 gw ${config.secrets.birevia.ip}
