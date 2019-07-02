@@ -70,7 +70,7 @@
       maxfail 0
       mtu 1450
       mru 1450
-      pty "pptp 185.195.25.201 --nolaunchpppd"
+      pty "pptp 185.195.24.31 --nolaunchpppd"
       name ${config.secrets.birevia.user}
       password ${config.secrets.birevia.password}
       linkname birevia
