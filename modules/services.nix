@@ -100,7 +100,7 @@
           fi
           echo "We are not, connecting..."
           poff birevia
-          pppd call birevia updetach persist
+          pppd call birevia updetach
           route add -net 172.17.1.0 netmask 255.255.255.0 gw ${config.secrets.birevia.ip}
         '';
       };
