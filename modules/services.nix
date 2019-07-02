@@ -79,22 +79,25 @@
 
   systemd.services.birevia = {
     enable = config.device == "AMD-Workstation";
-    path = with pkgs; [ ppp pptp ];
+    path = with pkgs; [ ppp pptp procps ];
     wantedBy = [ "multi-user.target" ];
     script = ''
+      pkill -9 pppd pptp
+
       /run/wrappers/bin/ping 172.17.1.1 -c 1 > /dev/null
       if [ "$?" = 0 ]
         then
         exit 0
       fi
 
+      poff birevia
       pppd call birevia updetach
       route add -net 172.17.1.0 netmask 255.255.255.0 gw ${config.secrets.birevia.ip}
     '';
     serviceConfig = {
       User = "root";
       Restart = "always";
-      RestartSec = "300";
+      RestartSec = "60";
     };
   };
 
