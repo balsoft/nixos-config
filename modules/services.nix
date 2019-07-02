@@ -6,21 +6,13 @@
     enable = true;
 
     extensionPackages = with pkgs; [ mopidy-gmusic ];
-    configuration = (if (!isNull config.secrets.gpmusic) then ''
+    configuration = if (!isNull config.secrets.gpmusic) then ''
       [gmusic]
       username = ${config.secrets.gpmusic.user}
       password = ${config.secrets.gpmusic.password}
       deviceid = ${config.secrets.gpmusic.deviceid}
     '' else
-      "") + ''
-      [mpd]
-      enabled = true
-      hostname = ::
-      port = 6600
-      password =
-      zeroconf = Mopidy MPD server on ${config.device}
-      command_blacklist = listall,listallinfo
-    '';
+      "";
   };
 
   systemd.services.mopidy.serviceConfig.User = lib.mkForce "balsoft";
@@ -95,7 +87,7 @@
         then
         exit 0
       fi
-      
+
       pppd call birevia updetach
       route add -net 172.17.1.0 netmask 255.255.255.0 gw ${config.secrets.birevia.ip}
     '';
