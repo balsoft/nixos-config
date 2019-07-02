@@ -86,7 +86,7 @@ with deviceSpecific; {
   systemd.services.fancontrol = {
     enable = device == "AMD-Workstation";
     description = "Control the speed of fans";
-    script = "${pkgs.lm_sensors}/bin/fancontrol";
+    script = "sleep 10; ${pkgs.lm_sensors}/bin/fancontrol";
     serviceConfig.User = "root";
     wantedBy = [ "multi-user.target" ];
   };

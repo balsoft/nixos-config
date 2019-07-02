@@ -33,7 +33,6 @@
     enable = true;
     client.enable = true;
     client.privoxy.enable = true;
-    hiddenServices.sshThroughNAT.map = [{ port = 22; }];
     torsocks.enable = true;
     client.socksListenAddressFaster = "0.0.0.0:9063";
   };
@@ -81,23 +80,27 @@
     enable = config.device == "AMD-Workstation";
     path = with pkgs; [ ppp pptp procps ];
     wantedBy = [ "multi-user.target" ];
-    script = ''
-      #!/bin/sh
-      /run/wrappers/bin/ping 172.17.1.1 -c 1 > /dev/null
-      if [ "$?" = 0 ]
-        then
-        exit 0
-      fi
-
-      poff birevia
-      pkill -9 pppd
-      pppd call birevia updetach
-      route add -net 172.17.1.0 netmask 255.255.255.0 gw ${config.secrets.birevia.ip}
-    '';
     serviceConfig = {
       User = "root";
       Restart = "always";
       RestartSec = "60";
+      ExecStart = pkgs.writeTextFile {
+        name = "birevia";
+        executable = true;
+        text = ''
+          #!${pkgs.bash}/bin/bash
+          /run/wrappers/bin/ping 172.17.1.1 -c 1 > /dev/null
+          if [ "$?" = 0 ]
+            then
+            exit 0
+          fi
+
+          poff birevia
+          pkill -9 pppd
+          pppd call birevia updetach
+          route add -net 172.17.1.0 netmask 255.255.255.0 gw ${config.secrets.birevia.ip}
+        '';
+      };
     };
   };
 
