@@ -4,7 +4,7 @@
     passwordAuthentication = false;
     permitRootLogin = "no";
     forwardX11 = true;
-    ports = [ 22 17522 ];
+    ports = [ 22 13722 ];
   };
 
   users.users.balsoft.openssh.authorizedKeys.keys =
