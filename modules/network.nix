@@ -2,7 +2,7 @@
   networking = {
     networkmanager.enable = false;
     wireless = {
-      enable = true;
+      enable = config.device != "AMD-Workstation";
       driver = "wext";
       networks.Keenetic.pskRaw =
         "4d03ac6e3d2a2b891d83dcceca6f531abd0fec421ad4460878f5f3bc4c76562e";
