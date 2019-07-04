@@ -12,15 +12,14 @@
       plugins = [ "git" "dirhistory" ];
     };
     shellAliases = {
-      "p" = "nix-shell --run zsh -p";
       "b" = ''nix-build "<nixpkgs>" --no-out-link -A'';
       "o" = "xdg-open";
       "ix" = ''curl -F "f:1=<-" ix.io'';
       "clip" = "${pkgs.xclip}/bin/xclip -selection clipboard";
     };
     initExtra = ''
-      r(){nix run nixpkgs.$1 -c $@}
-
+      r(){nix run nixpkgs.$1 -c $@ }
+      p(){nix run nixpkgs.$1 -c zsh}
       cmdignore=(htop tmux top vim)
       function active_window_id () {
         if [[ -n $DISPLAY ]] ; then
