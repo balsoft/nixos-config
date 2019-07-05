@@ -14,7 +14,7 @@
    </metadata>
   </info>
  </bookmark>
- <bookmark href="file:///home/balsoft/Google Drive">
+ <bookmark href="file:///home/balsoft/cloud/Google Drive">
   <title>Google Drive</title>
   <info>
    <metadata owner="http://freedesktop.org">
@@ -27,7 +27,7 @@
    </metadata>
   </info>
  </bookmark>
- <bookmark href="file:///home/balsoft/Yandex Disk/">
+ <bookmark href="file:///home/balsoft/cloud/Yandex Disk/">
   <title>Yandex Disk</title>
   <info>
    <metadata owner="http://freedesktop.org">
@@ -321,6 +321,19 @@
     <IsHidden>false</IsHidden>
    </metadata>
   </info>
+ </bookmark>
+ <bookmark href="fish://amd-workstation">
+   <title>AMD</title>
+   <info>
+     <metadata owner="http://freedesktop.org">
+       <bookmark:icon name="computer"/>
+     </metadata>
+     <metadata owner="http://www.kde.org">
+       <ID>1540585120/3</ID>
+       <isSystemItem>false</isSystemItem>
+       <IsHidden>false</IsHidden>
+     </metadata>
+   </info>
  </bookmark>
  <bookmark href="fish://192.168.1.1">
   <title>Router</title>
