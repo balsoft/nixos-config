@@ -32,3 +32,6 @@
 [submodule "imports/github/nana-4/materia-theme"]
 	path = imports/github/nana-4/materia-theme
 	url = https://github.com/nana-4/materia-theme
+[submodule "imports/github/nixos/nixpkgs-channels"]
+	path = imports/github/nixos/nixpkgs-channels
+	url = https://github.com/nixos/nixpkgs-channels

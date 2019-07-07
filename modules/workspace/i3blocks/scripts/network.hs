@@ -1,10 +1,6 @@
-{-# LANGUAGE BangPatterns #-}
 import Control.Concurrent (threadDelay)
 import Control.Monad (mapM)
 import System.Directory (listDirectory)
-
-interface :: String
-interface = "/sys/class/net/wlan0/statistics/"
 
 path = "/sys/class/net/"
 

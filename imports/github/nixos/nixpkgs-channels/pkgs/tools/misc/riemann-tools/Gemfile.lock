@@ -1,0 +1,24 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    beefcake (1.0.0)
+    json (1.8.6)
+    mtrc (0.0.4)
+    riemann-client (0.2.6)
+      beefcake (>= 0.3.5, <= 1.0.0)
+      mtrc (>= 0.0.4)
+      trollop (>= 1.16.2)
+    riemann-tools (0.2.13)
+      json (~> 1.8)
+      riemann-client (>= 0.2.6)
+      trollop (>= 1.16.2)
+    trollop (2.1.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  riemann-tools (= 0.2.13)
+
+BUNDLED WITH
+   1.14.6
