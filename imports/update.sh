@@ -28,7 +28,6 @@ cd $imports/nixpkgs
 git checkout nixos-19.03
 git pull
 
-cd $imports/..
 
 git add .
 git commit -m "Update versions of imports"
