@@ -22,10 +22,10 @@ do
 done
 
 rm $imports/nixpkgs
-ln -s $imports/github/nixos/nixpkgs-channels $imports/nixpkgs
+ln -s $imports/github/nixos/nixpkgs $imports/nixpkgs
 
 cd $imports/nixpkgs
-git checkout nixos-19.03
+git checkout release-19.03
 git pull
 
 
