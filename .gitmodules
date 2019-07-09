@@ -25,3 +25,6 @@
 [submodule "imports/github/nixos/nixpkgs-channels"]
 	path = imports/github/nixos/nixpkgs-channels
 	url = https://github.com/nixos/nixpkgs-channels
+[submodule "imports/github/nixos/nixpkgs"]
+	path = imports/github/nixos/nixpkgs
+	url = https://github.com/nixos/nixpkgs
