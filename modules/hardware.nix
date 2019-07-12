@@ -18,7 +18,6 @@ with deviceSpecific; {
   hardware.bluetooth.enable = true;
   hardware.sane = {
     enable = true;
-    extraBackends = [ pkgs.epkowa ];
   };
 
   boot = {
