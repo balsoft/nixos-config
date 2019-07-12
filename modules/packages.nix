@@ -66,9 +66,15 @@
     buildMachines = builtins.attrValues (builtins.mapAttrs (n: v: {
       hostName = n;
       sshUser = "balsoft";
-      sshKey = pkgs.writeTextFile {
+      sshKey = pkgs.stdenv.mkDerivation {
         name = "id_rsa";
-        text = config.secrets.id_rsa;
+        phases = ["installPhase"];
+        installPhase = ''
+          cat << EOF > $out
+          ${config.secrets.id_rsa}
+          EOF
+          chmod 100 $out
+        '';
       };
       system = "x86_64-linux";
       speedFactor = v.drive.speed * v.cpu.cores * v.cpu.clock / 10000000;
