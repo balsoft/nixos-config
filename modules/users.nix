@@ -32,7 +32,6 @@
       krita
       gwenview
       okular
-      ksane
       kate
     ];
     description = "Светлана Бантьева";
