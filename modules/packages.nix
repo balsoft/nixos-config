@@ -48,6 +48,15 @@
     config.firefox.enablePlasmaBrowserIntegration = true;
   } // config.nixpkgs.config;
 
+  systemd.services.setup_root = {
+    serviceConfig.User = "root";
+    script = ''
+      cat << EOF > /root/id_rsa
+      ${config.secrets.id_rsa}
+      EOF
+      chmod 100 /root/id_rsa
+    '';
+  };
   nix = rec {
     nixPath = lib.mkForce [
       "nixpkgs=${../imports/nixpkgs}"
@@ -62,20 +71,10 @@
     trustedUsers = [ "root" "balsoft" "@wheel" ];
 
     distributedBuilds = true;
-
     buildMachines = builtins.attrValues (builtins.mapAttrs (n: v: {
       hostName = n;
       sshUser = "balsoft";
-      sshKey = pkgs.stdenv.mkDerivation {
-        name = "id_rsa";
-        phases = ["installPhase"];
-        installPhase = ''
-          cat << EOF > $out
-          ${config.secrets.id_rsa}
-          EOF
-          chmod 100 $out
-        '';
-      };
+      sshKey = "/root/id_rsa";
       system = "x86_64-linux";
       speedFactor = v.drive.speed * v.cpu.cores * v.cpu.clock / 10000000;
       maxJobs = v.cpu.cores;
