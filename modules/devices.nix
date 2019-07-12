@@ -13,7 +13,7 @@ with types; {
     in rec {
       isLaptop = (!isNull (builtins.match ".*Laptop" device));
       smallScreen = (device == "Prestigio-Laptop");
-      isShared = device == "ASUS-Laptop";
+      isShared = device == "Lenovo-Workstation";
       cpu = devInfo.cpu.vendor;
       isSSD = devInfo.drive.type == "ssd";
       goodMachine = devInfo.cpu.clock * devInfo.cpu.cores >= 4000

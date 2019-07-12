@@ -21,10 +21,11 @@ in {
       ["intel"];
     displayManager.lightdm = {
       enable = true;
-      greeter.enable = false;
-      autoLogin.enable = true;
+      greeter.enable = isShared;
+      autoLogin.enable = !isShared;
       autoLogin.user = "balsoft";
     };
+    desktopManager.plasma5.enable = true;
     desktopManager.default = "none";
     windowManager.i3 = {
       enable = true;

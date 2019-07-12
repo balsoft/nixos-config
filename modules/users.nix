@@ -23,13 +23,22 @@
     uid = 1000;
     password = "";
   };
-  users.users.svetlana-banteva = {
+  users.users.svetlana-banteva = lib.mkIf config.deviceSpecific.isShared {
     isNormalUser = true;
-    extraGroups = [ "pulse" "input" ];
+    extraGroups = [ "pulse" "input" "sound" "audio" "video" "networkmanager" "disk" ];
+    packages = with pkgs; [
+      kdeconnect
+      libreoffice
+      krita
+      gwenview
+      okular
+      ksane
+      kate
+    ];
     description = "Светлана Бантьева";
     password = "";
   };
-  users.users.bigsoft = {
+  users.users.bigsoft = lib.mkIf config.deviceSpecific.isShared {
     isNormalUser = true;
     extraGroups = [ "pulse" "input" "vboxusers" "networkmanager" ];
     description = "Игорь Бантьев";
