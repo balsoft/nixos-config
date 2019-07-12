@@ -21,7 +21,6 @@
     ];
     description = "Александр Бантьев";
     uid = 1000;
-    shell = "${pkgs.zsh}/bin/zsh";
     password = "";
   };
   users.users.svetlana-banteva = {
