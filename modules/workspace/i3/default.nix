@@ -153,13 +153,13 @@ in {
         "${modifier}+d" = "exec ${apps.fm.cmd}";
         "${modifier}+Escape" = "exec ${apps.monitor.cmd}";
         "${modifier}+Print" =
-          "exec scrot -e 'mv $f ~/Pictures && notify-send \"Screenshot saved as ~/Pictures/$f\"'";
+          "${pkgs.spectacle}/bin/spectacle -b";
         "${modifier}+Control+Print" =
-          "exec scrot -e 'xclip -selection clipboard -t image/png -i $f && notify-send \"Screenshot copied to clipboard\" && rm $f'";
+          "${pkgs.spectacle}/bin/spectacle";
         "--release ${modifier}+Shift+Print" =
-          "exec scrot -s -e 'mv $f ~/Pictures && notify-send \"Screenshot saved as ~/Pictures/$f\"'";
+          "${pkgs.spectacle}/bin/spectacle -b -r";
         "--release ${modifier}+Control+Shift+Print" =
-          "exec scrot -s -e 'xclip -selection clipboard -t image/png -i $f && notify-send \"Screenshot copied to clipboard\" && rm $f'";
+          "${pkgs.spectacle}/bin/spectacle -r";
         "${modifier}+x" = "move workspace to output right";
         "${modifier}+c" = "workspace ";
         "${modifier}+Shift+c" = "move container to workspace ";
