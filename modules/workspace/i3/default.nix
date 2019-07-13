@@ -190,8 +190,8 @@ in {
         value = "move container to workspace ${toString x}";
       }) 10));
       keycodebindings = {
-        "122" = "exec ${pkgs.pamixer}/bin/pamixer -d $(($(pamixer --get-volume)/10+1))";
-        "123" = "exec ${pkgs.pamixer}/bin/pamixer -i $(($(pamixer --get-volume)/10+1))";
+        "122" = "exec ${pkgs.pamixer}/bin/pamixer -d 1";
+        "123" = "exec ${pkgs.pamixer}/bin/pamixer -i 1";
         "121" = "exec ${pkgs.pamixer}/bin/pamixer -t";
       };
       workspaceLayout = "tabbed";
