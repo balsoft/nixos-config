@@ -59,7 +59,7 @@
   };
   nix = rec {
     nixPath = lib.mkForce [
-      "nixpkgs=${../imports/nixpkgs}"
+      "nixpkgs=${../imports/github/nixos/nixpkgs}"
       "home-manager=${../imports/github/rycee/home-manager}"
       "nixos-config=/etc/nixos/configuration.nix"
     ];
