@@ -153,13 +153,13 @@ in {
         "${modifier}+d" = "exec ${apps.fm.cmd}";
         "${modifier}+Escape" = "exec ${apps.monitor.cmd}";
         "${modifier}+Print" =
-          "${pkgs.spectacle}/bin/spectacle -b";
+          "exec ${pkgs.spectacle}/bin/spectacle -b";
         "${modifier}+Control+Print" =
-          "${pkgs.spectacle}/bin/spectacle";
+          "exec ${pkgs.spectacle}/bin/spectacle";
         "--release ${modifier}+Shift+Print" =
-          "${pkgs.spectacle}/bin/spectacle -b -r";
+          "exec ${pkgs.spectacle}/bin/spectacle -b -r";
         "--release ${modifier}+Control+Shift+Print" =
-          "${pkgs.spectacle}/bin/spectacle -r";
+          "exec ${pkgs.spectacle}/bin/spectacle -r";
         "${modifier}+x" = "move workspace to output right";
         "${modifier}+c" = "workspace ";
         "${modifier}+Shift+c" = "move container to workspace ";
