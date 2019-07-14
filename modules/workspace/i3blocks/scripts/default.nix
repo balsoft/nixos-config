@@ -31,6 +31,7 @@ writeTextFile {
   weather = ./weather.nix;
   sound = ./sound.nix;
   music = ./music.nix;
+  hydra-status = ./hydra-status.nix;
   #temperature = ./temperature.nix;
   #free = ./free.nix;
 }

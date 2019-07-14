@@ -30,6 +30,10 @@ in {
     interval=60
     markup=pango
   '' + genIni {
+    A_hydra = {
+      command = scripts.hydra-status;
+      interval = 10;
+    };
     a_email = if !isNull config.secrets.gmail or null then {
       command = scripts.email;
     } else
