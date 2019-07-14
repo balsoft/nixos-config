@@ -2,7 +2,7 @@
 ''
   #!${bash}/bin/bash
   STATUS=$(${curl}/bin/curl -sw "%{http_code}" http://hydra.typeable.io/ping)
-  if [ STATUS -eq 200 ]
+  if [ $STATUS -eq 200 ]
   then
     echo 🐍
     exit 0
@@ -11,6 +11,6 @@
     echo $msg
     ${libnotify}/bin/notify-send -u critical "$msg"
     ${sox}/bin/play -n synth 1 square 440 vol 1
-    exit 31
+    exit 33
   fi
 ''

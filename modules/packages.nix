@@ -42,7 +42,7 @@
     } else
       { }))
   ];
-  nixpkgs.pkgs = import ../imports/nixpkgs {
+  nixpkgs.pkgs = import ../imports/github/nixos/nixpkgs {
     config.allowUnfree = true;
     config.android_sdk.accept_license = true;
     config.firefox.enablePlasmaBrowserIntegration = true;
