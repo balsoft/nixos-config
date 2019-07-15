@@ -51,7 +51,7 @@
   };
   nix.requireSignedBinaryCaches = false;
 
-  home-manager.users.bigsoft = if config.device == "ASUS-Laptop" then {
+  home-manager.users.bigsoft = lib.mkIf (config.device == "ASUS-Laptop") {
     xsession = {
       enable = true;
       windowManager.command = ''
@@ -63,9 +63,6 @@
         done
       '';
     };
-  } else
-    {
-
-    };
+  };
   home-manager.useUserPackages = true;
 }

@@ -13,13 +13,13 @@
     };
     shellAliases = {
       "b" = ''nix-build "<nixpkgs>" --no-out-link -A'';
+      "p" = "nix-shell --run zsh -p";
       "o" = "xdg-open";
       "ix" = ''curl -F "f:1=<-" ix.io'';
       "clip" = "${pkgs.xclip}/bin/xclip -selection clipboard";
     };
     initExtra = ''
       r(){nix run nixpkgs.$1 -c $@ }
-      p(){nix run nixpkgs.$1 -c zsh}
       cmdignore=(htop tmux top vim)
       function active_window_id () {
         if [[ -n $DISPLAY ]] ; then
@@ -69,15 +69,7 @@
          sha256 = "01w59zzdj12p4ag9yla9ycxx58pg3rah2hnnf3sw4yk95w3hlzi6";
        }
      }/nix-shell.plugin.zsh
-      source ${
-       pkgs.fetchurl {
-         url =
-         "https://gist.githubusercontent.com/chisui/0d12bd51a5fd8e6bb52e6e6a43d31d5e/raw/ea75cad507e2899b9b6d6ce423330641911110d8/agnoster-nix.zsh-theme";
-         sha256 = "0fq1jnzdf0956ia0as61p43wmqak6zljhyax1gqnjgb8jimr5kzm";
-       }
-     }
        
-
       PS1="$PS1
      $ "
    '';
