@@ -25,15 +25,9 @@
   };
   users.users.svetlana-banteva = lib.mkIf config.deviceSpecific.isShared {
     isNormalUser = true;
-    extraGroups = [ "pulse" "input" "sound" "audio" "video" "networkmanager" "disk" ];
-    packages = with pkgs; [
-      kdeconnect
-      libreoffice
-      krita
-      gwenview
-      okular
-      kate
-    ];
+    extraGroups =
+    [ "pulse" "input" "sound" "audio" "video" "networkmanager" "disk" ];
+    packages = with pkgs; [ kdeconnect libreoffice krita gwenview okular kate ];
     description = "Светлана Бантьева";
     password = "";
   };
