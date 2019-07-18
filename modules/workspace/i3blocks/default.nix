@@ -32,7 +32,7 @@ in {
   '' + genIni {
     A_hydra = {
       command = scripts.hydra-status;
-      interval = 10;
+      interval = 900;
     };
     a_email = if !isNull config.secrets.gmail or null then {
       command = scripts.email;
