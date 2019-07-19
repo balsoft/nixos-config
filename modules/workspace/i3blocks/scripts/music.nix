@@ -8,12 +8,12 @@
     if BLOCK_BUTTON == 1: call(["${playerctl}/bin/playerctl", "play-pause"])
     if BLOCK_BUTTON == 2: call(["${playerctl}/bin/playerctl", "stop"])
     if BLOCK_BUTTON == 3: call(["${playerctl}/bin/playerctl", "next"])
-  text = getoutput("${playerctl}/bin/playerctl metadata title")[:20:]
   if status == "Paused": 
     icon=""
   elif status == "Playing": 
     icon=""
   else: 
     icon = ""
+  text = getoutput("${playerctl}/bin/playerctl metadata title")[:20:]
   print("<span font='${iconfont}'>%s</span> %s" % (icon, text))
 ''
