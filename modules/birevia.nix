@@ -36,7 +36,7 @@
       User = "root";
       Restart = "always";
       RestartSec = "60";
-      Type = "simple";
+      Type = "oneshot";
       
       ExecStart = pkgs.writeTextFile {
         name = "birevia";
