@@ -33,12 +33,9 @@
         ix
         clipmon
         org-gcal
-        rust-mode
-        company-lsp
-        lsp-mode
-        lsp-haskell
         company-ghci
         xresources-theme
+        company-tabnine
       ];
     };
     home.packages = [
