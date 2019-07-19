@@ -1,5 +1,4 @@
-{ pkgs, config, ... }:
-{
+{ pkgs, config, ... }: {
   environment.etc."ppp/peers/birevia" = {
     enable = config.device == "AMD-Workstation";
     text = ''
@@ -34,15 +33,34 @@
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       User = "root";
-      Restart = "always";
-      RestartSec = "60";
-      Type = "oneshot";
-      
+      Type = "forking";
+
       ExecStart = pkgs.writeTextFile {
         name = "birevia";
         executable = true;
         text = ''
           #!${pkgs.bash}/bin/bash
+          pppd call birevia updetach
+          route add -net 172.17.1.0 netmask 255.255.255.0 gw ${config.secrets.birevia.ip}
+        '';
+      };
+    };
+
+  };
+  systemd.services.birevia-check = {
+    enable = config.device == "AMD-Workstation";
+    path = with pkgs; [ ppp systemd ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      User = "root";
+      Restart = "always";
+      RestartSec = "60";
+      ExecStart = pkgs.writeTextFile {
+        name = "birevia";
+        executable = true;
+        text = ''
+          #!${pkgs.bash}/bin/bash
+
           echo -n "Checking if we are already connected... "
           /run/wrappers/bin/ping 172.17.1.1 -c 1 > /dev/null
           if [ "$?" = 0 ]
@@ -54,8 +72,7 @@
           poff birevia
           pkill -9 pppd
           pkill -9 pptp
-          pppd call birevia updetach
-          route add -net 172.17.1.0 netmask 255.255.255.0 gw ${config.secrets.birevia.ip}
+          systemctl restart birevia.service
         '';
       };
     };
