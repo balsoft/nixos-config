@@ -17,6 +17,7 @@
         ] ++ oldAttrs.patches;
       });
 
+      all-hies = import ../imports/github/Infinisil/all-hies { };
 
       nerdfonts = old.stdenv.mkDerivation rec {
         name = "RobotoMonoNerd";
@@ -64,7 +65,7 @@
       "nixos-config=/etc/nixos/configuration.nix"
     ];
     binaryCaches =
-    [ "https://cache.nixos.org" "http://hydra.typeable.io:5000" https://nixcache.reflex-frp.org];
+    [ "https://cache.nixos.org" "http://hydra.typeable.io:5000" https://nixcache.reflex-frp.org https://all-hies.cachix.org ];
     
     trustedBinaryCaches = (builtins.map (x: "http://${x}:5000") (builtins.attrNames config.devices)) ++ binaryCaches;
 
@@ -84,6 +85,7 @@
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "hydra.example.org-1:3cfw8jj8xtoKkQ2mAQxMFcEv2/fQATA/mjoUUIFxSgo="
       "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI="
+      "all-hies.cachix.org-1:JjrzAOEUsD9ZMt8fdFbzo3jNAyEWlPAwdVuHw4RD43k="
     ];
   };
 }

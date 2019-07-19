@@ -53,6 +53,7 @@
     frei0r
     ffmpeg-full
     ghc
+    (all-hies.selection { selector = p: { inherit (p) ghc864; }; })
     haskellPackages.hoogle
     haskellPackages.hindent
     arduino
