@@ -42,7 +42,6 @@
 (eval-when-compile
   (require 'use-package))
 (setq use-package-always-ensure nil)
-(use-package diminish)
 
 (setq-default tab-width 2)
 
@@ -77,7 +76,6 @@
 ;; Wakib
 ;; -------------------
 (use-package wakib-keys
-  :diminish wakib-keys
   :config
   (wakib-keys 1)
   (add-hook 'after-change-major-mode-hook 'wakib-update-major-mode-map)
@@ -212,7 +210,6 @@ If point was already at that position, move point to beginning of line."
 
 
 (use-package counsel
-  :diminish counsel-mode
   :config
   (counsel-mode 1)
   (define-key wakib-keys-overriding-map (kbd "C-S-v") 'counsel-yank-pop))
@@ -223,7 +220,6 @@ If point was already at that position, move point to beginning of line."
 ;; No deferred loading as bind-keymap
 ;; doesn't handle wakib C-d keymaps
 (use-package projectile
-  :diminish projectile-mode
   :config
   (setq projectile-completion-system 'ivy)
   (define-key projectile-mode-map (kbd "C-c p") nil)
@@ -262,7 +258,6 @@ If point was already at that position, move point to beginning of line."
 ;; expand-region
 ;; -------------------
 (use-package company
-  :diminish company-mode
   :config
   (global-company-mode 1)
   ;; Trigger completion immediately.
@@ -283,7 +278,7 @@ If point was already at that position, move point to beginning of line."
 
   (let ((bg (face-attribute 'default :background)))
     (custom-set-faces
-     `(company-tooltip ((t (:inherit default :background ,(color-lighten-name bg 4)))))
+     `(company-tooltip ((t (:inherit default :background ,(color-lighten-name bg 2)))))
      `(company-scrollbar-bg ((t (:background ,(color-lighten-name bg 10)))))
      `(company-scrollbar-fg ((t (:background ,(color-lighten-name bg 5)))))
      `(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
@@ -301,7 +296,6 @@ If point was already at that position, move point to beginning of line."
 ;; Ivy
 ;; -------------------
 (use-package ivy
-  :diminish ivy-mode
   :config
   (ivy-mode 1)
   (setq ivy-use-virtual-buffers t)
