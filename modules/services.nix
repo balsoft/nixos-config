@@ -18,9 +18,6 @@
         hostname = 0.0.0.0
       '';
   };
-
-  systemd.services.mopidy.serviceConfig.User = lib.mkForce "balsoft";
-
   services.earlyoom = {
     enable = config.devices.${config.device}.ram < 16;
     freeMemThreshold = 5;
