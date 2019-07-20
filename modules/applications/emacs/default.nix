@@ -4,40 +4,34 @@
       enable = true;
       package = pkgs.emacs;
       extraPackages = epkgs:
-      with epkgs; [
-        use-package
-        nix-mode
-        haskell-mode
-        nixos-options
-        wakib-keys
-        magit
-        exec-path-from-shell
-        ivy
-        counsel
-        smex
-        projectile
-        which-key
-        markdown-mode
-        diminish
-        frames-only-mode
-        company
-        rainbow-delimiters
-        diff-hl
-        yasnippet
-        yasnippet-snippets
-        mode-line-bell
-        hasklig-mode
-        flycheck
-        flycheck-pkg-config
-        auto-indent-mode
-        ix
-        clipmon
-        org-gcal
-        company-ghci
-        xresources-theme
-        company-tabnine
-        company-box
-      ];
+        with epkgs; [
+          use-package
+          nix-mode
+          haskell-mode
+          wakib-keys
+          exec-path-from-shell
+          counsel
+          projectile
+          which-key
+          markdown-mode
+          frames-only-mode
+          company
+          rainbow-delimiters
+          diff-hl
+          mode-line-bell
+          hasklig-mode
+          flycheck
+          flycheck-pkg-config
+          auto-indent-mode
+          ix
+          clipmon
+          org-gcal
+          company-ghci
+          xresources-theme
+          company-tabnine
+          expand-region
+          quickrun
+        ];
     };
 
     home.packages = [
@@ -56,7 +50,7 @@
       pkgs.clang
     ];
     xsession.windowManager.i3.config.startup =
-    [{ command = "emacs --daemon"; }];
+      [{ command = "emacs --daemon"; }];
 
     home.file.".emacs.d/init.el".source = ./init.el;
     home.file.".emacs.d/elisp/gud-lldb.el".source = ./gud-lldb.el;
@@ -67,16 +61,14 @@
       ;;; Code:
       (setq org-gcal-client-id "${config.secrets.gcal.client-id}"
       org-gcal-client-secret "${config.secrets.gcal.client-secret}"
-      org-gcal-file-alist '(("${
-        config.secrets.gcal.email
-      }" .  "~/Documents/agenda.org")))
+      org-gcal-file-alist '(("${config.secrets.gcal.email}" .  "~/Documents/agenda.org")))
 
       (provide 'org-gcal-config)
       ;;; org-gcal-config.el ends here
     '';
     home.activation.emacs = {
-      before = [];
-      after = [];
+      before = [ ];
+      after = [ ];
       data = "$DRY_RUN_CMD mkdir -p ~/.emacs.d/autosave";
     };
   };

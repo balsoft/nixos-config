@@ -90,7 +90,8 @@
   (define-key isearch-mode-map (kbd "M-:") 'isearch-repeat-backward)
   (define-key isearch-mode-map (kbd "C-v") 'isearch-yank-kill))
 
-(global-set-key (kbd "C-w") 'kill-buffer)
+(global-set-key (kbd "C-w") 'kill-word)
+(global-set-key (kbd "C-W") 'kill-buffer)
 
 (global-display-line-numbers-mode)
 
@@ -208,33 +209,7 @@ If point was already at that position, move point to beginning of line."
 (set 'pop-up-frames 'graphic-only)
 (set 'gdb-use-separate-io-buffer nil)
 (set 'gdb-many-windows nil)
-;; -------------------
-;; Magit
-;; -------------------
-(use-package magit
-  :bind
-  (("C-x g" . magit-status )))
 
-
-(use-package exec-path-from-shell
-  :disabled
-  :config
-  (exec-path-from-shell-copy-env "SSH_AGENT_PID")
-  (exec-path-from-shell-copy-env "SSH_AUTH_SOCK"))
-    
-
-;; -------------------
-;; Ivy
-;; -------------------
-(use-package ivy
-  :diminish ivy-mode
-  :config
-  (ivy-mode 1)
-  (setq ivy-use-virtual-buffers t)
-  (define-key ivy-minibuffer-map [remap keyboard-quit] 'minibuffer-keyboard-quit)
-;;  (setq enable-recursive-minibuffers t)
-  (setq ivy-count-format "")
-  (setq ivy-initial-inputs-alist nil))
 
 (use-package counsel
   :diminish counsel-mode
@@ -242,9 +217,6 @@ If point was already at that position, move point to beginning of line."
   (counsel-mode 1)
   (define-key wakib-keys-overriding-map (kbd "C-S-v") 'counsel-yank-pop))
 
-
-;; find out what ivy uses from smex
-(use-package smex)
 ;; -------------------
 ;; Projectile
 ;; -------------------
@@ -280,30 +252,7 @@ If point was already at that position, move point to beginning of line."
 (use-package nix-mode
   :hook
   ((nix-mode . (lambda () (local-set-key (kbd "<f7>") 'nix-format-buffer))))
-  ((nix-mode . (lambda () (local-set-key (kbd "TAB") 'nix-indent-line)))))
-
-
-
-
-
-(use-package yasnippet-snippets
-  :defer t)
-
-(use-package yasnippet
-  :hook
-  ((prog-mode . yas-minor-mode))
-  :diminish yas-minor-mode
-  :config
-  (require 'yasnippet-snippets)
-  (yas-reload-all)
-  (define-key yas-keymap [remap wakib-next] 'yas-next-field)
-  (define-key yas-keymap [remap wakib-previous] 'yas-prev-field))
-
-
-(use-package ivy-yasnippet
-  :bind ("C-y" . ivy-yasnippet))
-
-
+  ((nix-mode . (lambda () (setq indent-line-function 'nix-indent-line)))))
 
 (use-package org-gcal
   :config
@@ -334,7 +283,7 @@ If point was already at that position, move point to beginning of line."
 
   (let ((bg (face-attribute 'default :background)))
     (custom-set-faces
-     `(company-tooltip ((t (:inherit default :background ,(color-lighten-name bg 2)))))
+     `(company-tooltip ((t (:inherit default :background ,(color-lighten-name bg 4)))))
      `(company-scrollbar-bg ((t (:background ,(color-lighten-name bg 10)))))
      `(company-scrollbar-fg ((t (:background ,(color-lighten-name bg 5)))))
      `(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
@@ -342,10 +291,6 @@ If point was already at that position, move point to beginning of line."
 
   (define-key company-active-map [remap wakib-next] 'company-select-next)
   (define-key company-active-map [remap wakib-previous] 'company-select-previous))
-
-(use-package company-box
-  :hook (company-mode . company-box-mode))
-
 
 (use-package company-tabnine
   :config
@@ -358,60 +303,11 @@ If point was already at that position, move point to beginning of line."
 (use-package expand-region
   :bind ("M-A" . er/expand-region))
 
-;; -------------------
-;; avy
-;; -------------------
-(use-package avy
-  :bind ("M-m" . avy-goto-char-2))
-
-;; -------------------
-;; switch-window
-;; -------------------
-(use-package switch-window
-  :bind ("M-H" . switch-window)
-  :config
-  (setq switch-window-shortcut-style 'qwerty)
-  (setq switch-window-threshold 1))
-
-;; -------------------
-;; which-key
-;; -------------------
-(use-package which-key
-  :diminish which-key-mode
-  :config
-  (which-key-mode))
-
-;; -------------------
-;; multiple-cursors
-;; -------------------
-;; TODO - Advice CUA-keyboard-quit to quit mc and rrm
-(use-package multiple-cursors
-  :init
-  (custom-set-variables `(mc/always-run-for-all ,t))
-  :config
-  (define-key mc/keymap [remap keyboard-quit] 'mc/keyboard-quit)
-  (define-key rectangular-region-mode-map [remap keyboard-quit] 'rrm/keyboard-quit)
-  ;;(custom-set-variables `(mc/always-run-for-all ,t))
-  :bind
-  (("M-S-s" . set-rectangular-region-anchor)
-   :map wakib-keys-overriding-map
-	("C-." . mc/mark-next-like-this)
-	("C-," . mc/mark-previous-like-this)
-	("<C-down-mouse-1>" . mc/add-cursor-on-click)))
-
-;; -------------------
-;; diff-hl
-;; -------------------
-(use-package diff-hl
-  :hook
-  ((prog-mode . turn-on-diff-hl-mode)
-   (magit-post-refresh-hook . diff-hl-magit-post-refresh)))
-
 
 ;; TODO (change defun rewrite to advice)
 (use-package quickrun
   :init
-  (global-set-key [menu-bar tools quickrun] `(menu-item ,"Run Buffer" quickrun))  
+  (global-set-key [menu-bar tools quickrun] `(menu-item ,"Run Buffer" quickrun))
   :config
   (setq quickrun-focus-p nil)
   ;; Move cursor out of the way when displaying output
@@ -467,5 +363,5 @@ nothing happens."
         (add-hook 'after-save-hook 'compile-on-save-start nil t))
     (kill-local-variable 'after-save-hook)))
 
-;;; init.el ends here
 (auto-fill-mode)
+;;; init.el ends her
