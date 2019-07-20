@@ -282,17 +282,8 @@ If point was already at that position, move point to beginning of line."
   ((nix-mode . (lambda () (local-set-key (kbd "<f7>") 'nix-format-buffer)))))
 
 
-(use-package company-tabnine)
 
-(require 'color)
 
-(let ((bg (face-attribute 'default :background)))
-  (custom-set-faces
-   `(company-tooltip ((t (:inherit default :background ,(color-lighten-name bg 2)))))
-   `(company-scrollbar-bg ((t (:background ,(color-lighten-name bg 10)))))
-   `(company-scrollbar-fg ((t (:background ,(color-lighten-name bg 5)))))
-   `(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
-   `(company-tooltip-common ((t (:inherit font-lock-constant-face))))))
 
 (use-package yasnippet-snippets
   :defer t)
@@ -324,8 +315,37 @@ If point was already at that position, move point to beginning of line."
   :diminish company-mode
   :config
   (global-company-mode 1)
+  ;; Trigger completion immediately.
+  (setq company-idle-delay 0)
+
+  ;; Number the candidates (use M-1, M-2 etc to select completions).
+  (setq company-show-numbers t)
+
+  ;; Use the tab-and-go frontend.
+  ;; Allows TAB to select and complete at the same time.
+  (company-tng-configure-default)
+  (setq company-frontends
+        '(company-tng-frontend
+          company-pseudo-tooltip-frontend
+          company-echo-metadata-frontend))
+
+  (require 'color)
+
+  (let ((bg (face-attribute 'default :background)))
+    (custom-set-faces
+     `(company-tooltip ((t (:inherit default :background ,(color-lighten-name bg 2)))))
+     `(company-scrollbar-bg ((t (:background ,(color-lighten-name bg 10)))))
+     `(company-scrollbar-fg ((t (:background ,(color-lighten-name bg 5)))))
+     `(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
+     `(company-tooltip-common ((t (:inherit font-lock-constant-face))))))
+
   (define-key company-active-map [remap wakib-next] 'company-select-next)
   (define-key company-active-map [remap wakib-previous] 'company-select-previous))
+
+
+(use-package company-tabnine
+  (add-to-list 'company-backends #'company-tabnine))
+
 
 ;; -------------------
 ;; expand-region

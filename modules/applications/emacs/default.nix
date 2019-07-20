@@ -38,6 +38,7 @@
         company-tabnine
       ];
     };
+
     home.packages = [
       (pkgs.makeDesktopItem {
         terminal = "False";
