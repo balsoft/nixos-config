@@ -45,8 +45,8 @@
         '';
       };
     };
-
   };
+
   systemd.services.birevia-check = {
     enable = config.device == "AMD-Workstation";
     path = with pkgs; [ ppp systemd ];
@@ -65,8 +65,8 @@
           /run/wrappers/bin/ping 172.17.1.1 -c 1 > /dev/null
           if [ "$?" = 0 ]
           then
-            echo "We are, exiting"
-            exit 0
+          echo "We are, exiting"
+          exit 0
           fi
           echo "We are not, connecting..."
           poff birevia

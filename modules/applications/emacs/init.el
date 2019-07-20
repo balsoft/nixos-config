@@ -279,7 +279,8 @@ If point was already at that position, move point to beginning of line."
 
 (use-package nix-mode
   :hook
-  ((nix-mode . (lambda () (local-set-key (kbd "<f7>") 'nix-format-buffer)))))
+  ((nix-mode . (lambda () (local-set-key (kbd "<f7>") 'nix-format-buffer))))
+  ((nix-mode . (lambda () (local-set-key (kbd "TAB") 'nix-indent-line)))))
 
 
 
@@ -341,6 +342,9 @@ If point was already at that position, move point to beginning of line."
 
   (define-key company-active-map [remap wakib-next] 'company-select-next)
   (define-key company-active-map [remap wakib-previous] 'company-select-previous))
+
+(use-package company-box
+  :hook (company-mode . company-box-mode))
 
 
 (use-package company-tabnine

@@ -36,6 +36,7 @@
         company-ghci
         xresources-theme
         company-tabnine
+        company-box
       ];
     };
 
