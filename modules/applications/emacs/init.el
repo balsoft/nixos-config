@@ -344,6 +344,7 @@ If point was already at that position, move point to beginning of line."
 
 
 (use-package company-tabnine
+  :config
   (add-to-list 'company-backends #'company-tabnine))
 
 
