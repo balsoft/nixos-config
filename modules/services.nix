@@ -15,7 +15,7 @@
     '' else
       "") + ''
         [mpd]
-        hostname = amd-workstation
+        hostname = 0.0.0.0
       '';
   };
 
