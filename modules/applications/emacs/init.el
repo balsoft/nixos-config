@@ -298,11 +298,19 @@ If point was already at that position, move point to beginning of line."
 
 
 ;; -------------------
-;; expand-region
+;; Ivy
 ;; -------------------
-(use-package expand-region
-  :bind ("M-A" . er/expand-region))
+(use-package ivy
+  :diminish ivy-mode
+  :config
+  (ivy-mode 1)
+  (setq ivy-use-virtual-buffers t)
+  (define-key ivy-minibuffer-map [remap keyboard-quit] 'minibuffer-keyboard-quit)
+;;  (setq enable-recursive-minibuffers t)
+  (setq ivy-count-format "")
+  (setq ivy-initial-inputs-alist nil))
 
+(use-package smex)
 
 ;; TODO (change defun rewrite to advice)
 (use-package quickrun

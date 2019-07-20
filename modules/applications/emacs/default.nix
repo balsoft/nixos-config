@@ -30,6 +30,8 @@
           xresources-theme
           company-tabnine
           expand-region
+          ivy
+          smex
           quickrun
         ];
     };
