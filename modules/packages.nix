@@ -71,15 +71,6 @@
 
     trustedUsers = [ "root" "balsoft" "@wheel" ];
 
-    distributedBuilds = true;
-    buildMachines = builtins.attrValues (builtins.mapAttrs (n: v: {
-      hostName = n;
-      sshUser = "balsoft";
-      sshKey = "/root/id_rsa";
-      system = "x86_64-linux";
-      speedFactor = v.drive.speed * v.cpu.cores * v.cpu.clock / 10000000;
-      maxJobs = v.cpu.cores;
-    }) config.devices);
 
     binaryCachePublicKeys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
