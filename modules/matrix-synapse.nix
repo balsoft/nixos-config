@@ -3,7 +3,7 @@
     enable = true;
     allow_guest_access = true;
     listeners = [{
-      bind_address = "balsoft.online";
+      bind_address = "0.0.0.0";
       port = 13748;
       resources = [
         {
