@@ -19,6 +19,8 @@
       type = "http";
       x_forwarded = false;
     }];
+    registration_shared_secret =
+    config.secrets.matrix.shared_secret;
     public_baseurl = "http://balsoft.online/13748";
   };
 }
