@@ -29,6 +29,7 @@
     ./themes.nix
     ./applications.nix
     ./birevia.nix
+    ./matrix-synapse.nix
     ./secrets.nix
     ./devices.nix
     ./packages.nix
