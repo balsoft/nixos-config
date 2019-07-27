@@ -19,7 +19,7 @@
       "*color12" = blue;
       "*color13" = purple;
       "*color14" = cyan;
-      "*color15" = alt;
+      "*color15" = fg;
       
       "emacs.color0" = dark;
       "emacs.color1" = red;
