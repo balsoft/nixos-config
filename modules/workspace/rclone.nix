@@ -8,7 +8,9 @@
         cp ./.config/rclone/rclone.conf.home ./.config/rclone/rclone.conf
         chmod 700 ./.config/rclone/rclone.conf
         mkdir -p cloud; cd cloud
-        mkdir -p 'Google Drive' 'Yandex Disk' 'Dropbox'
+        mkdir -p 'Google Drive' || true
+        mkdir -p 'Yandex Disk' || true
+        mkdir -p 'Dropbox' || true
       '';
     };
     xsession.windowManager.i3.config.startup = [
