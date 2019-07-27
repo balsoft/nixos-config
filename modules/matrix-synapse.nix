@@ -16,7 +16,7 @@
         }
       ];
       tls = true;
-      type = "https";
+      type = "http";
       x_forwarded = false;
     }];
     registration_shared_secret = config.secrets.matrix.shared_secret;
