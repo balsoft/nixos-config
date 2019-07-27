@@ -15,12 +15,20 @@
           names = [ "federation" ];
         }
       ];
-      tls = false;
-      type = "http";
+      tls = true;
+      type = "https";
       x_forwarded = false;
     }];
-    registration_shared_secret =
-    config.secrets.matrix.shared_secret;
-    public_baseurl = "http://balsoft.online/13748";
+    registration_shared_secret = config.secrets.matrix.shared_secret;
+    public_baseurl = "https://balsoft.ru:13748/";
+    server_name = "balsoft.ru:13748";
+    tls_certificate_path = toString (pkgs.writeTextFile {
+      name = "matrix.crt";
+      text = config.secrets.matrix.cert;
+    });
+    tls_private_key_path = toString (pkgs.writeTextFile {
+      name = "matrix_rsa";
+      text = config.secrets.matrix.priv;
+    });
   };
 }
