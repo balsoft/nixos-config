@@ -9,8 +9,6 @@
   else
     msg="ПИЗДЕЦ ГИДРЕ"
     echo $msg
-    ${libnotify}/bin/notify-send -u critical "$msg"
-    ${sox}/bin/play -n synth 1 square 440 vol 1
     exit 33
   fi
 ''
