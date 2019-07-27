@@ -7,7 +7,7 @@ with import ../support.nix { inherit lib config; }; {
   config = rec {
     defaultApplications = {
       term = {
-        cmd = "${pkgs.xst}/bin/xst";
+        cmd = "${pkgs.xst}/bin/st";
         desktop = "xst";
       };
       editor = {
