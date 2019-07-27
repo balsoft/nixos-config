@@ -21,7 +21,7 @@
     }];
     registration_shared_secret = config.secrets.matrix.shared_secret;
     public_baseurl = "https://balsoft.ru:13748/";
-    server_name = "balsoft.ru:13748";
+    server_name = "balsoft.ru";
     tls_certificate_path = toString (pkgs.writeTextFile {
       name = "matrix.crt";
       text = config.secrets.matrix.cert;
