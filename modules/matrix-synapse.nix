@@ -8,14 +8,14 @@
       resources = [
         {
           compress = true;
-          names = [ "client" "webclient" ];
+          names = [ "client" ];
         }
         {
           compress = false;
           names = [ "federation" ];
         }
       ];
-      tls = true;
+      tls = false;
       type = "http";
       x_forwarded = false;
     }];
