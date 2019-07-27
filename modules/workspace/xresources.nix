@@ -29,6 +29,15 @@
       "*.color5" = purple;
       "*.color6" = cyan;
       "*.color7" = gray;
+      "*.color8" = dark;
+      "*.color9" = red;
+      "*.color10" = green;
+      "*.color11" = yellow;
+      "*.color12" = blue;
+      "*.color13" = purple;
+      "*.color14" = cyan;
+      "*.color15" = gray;
+      
     };
     home.activation.xrdb = {
       after = ["linkGeneration"];
