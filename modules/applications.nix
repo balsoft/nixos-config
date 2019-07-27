@@ -7,8 +7,8 @@ with import ../support.nix { inherit lib config; }; {
   config = rec {
     defaultApplications = {
       term = {
-        cmd = "${pkgs.kdeApplications.konsole}/bin/konsole";
-        desktop = "konsole";
+        cmd = "${pkgs.xst}/bin/xst";
+        desktop = "xst";
       };
       editor = {
         cmd = toString (pkgs.writeTextFile {
@@ -54,7 +54,7 @@ with import ../support.nix { inherit lib config; }; {
       };
     };
     home-manager.users.balsoft.xdg.configFile."mimeapps.list.home".text =
-    with defaultApplications;
+    with config.defaultApplications;
     let
       apps = builtins.mapAttrs (name: value: "${value.desktop}.desktop;") {
         "text/html" = browser;

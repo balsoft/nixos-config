@@ -3,7 +3,7 @@
     ./applications/packages.nix
     ./applications/kate.nix
     ./applications/emacs
-    ./applications/konsole.nix
+    ./applications/xst.nix
     ./applications/trojita.nix
     ./applications/firefox.nix
     ./applications/okular.nix

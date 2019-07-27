@@ -20,6 +20,10 @@
       "*color13" = purple;
       "*color14" = cyan;
       "*color15" = fg;
+      "st.shell" = "${pkgs.zsh}/bin/zsh";
+      "st.xfps" = "1000";
+      "st.actionfps" = "1000";
+      "st.mouseScrollLines" = "1";
     };
     home.activation.xrdb = {
       after = ["linkGeneration"];
