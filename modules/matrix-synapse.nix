@@ -1,5 +1,5 @@
-{ pkgs, config, ... }: {
-  services.matrix-synapse = {
+{ pkgs, config, lib, ... }: {
+  services.matrix-synapse = lib.mkIf (config.device == "AMD-Workstation") {
     enable = true;
     allow_guest_access = true;
     listeners = [{
@@ -30,5 +30,8 @@
       name = "matrix_rsa";
       text = config.secrets.matrix.priv;
     });
+    app_service_config_files = [
+      ../../registration.yaml
+    ];
   };
 }
