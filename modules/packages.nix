@@ -58,10 +58,10 @@
       chmod 100 /root/id_rsa
     '';
   };
+  environment.etc.nixpkgs.source = ../imports/github/nixos/nixpkgs;
   nix = rec {
     nixPath = lib.mkForce [
-      "nixpkgs=${../imports/github/nixos/nixpkgs}"
-      "home-manager=${../imports/github/rycee/home-manager}"
+      "nixpkgs=/etc/nixpkgs"
       "nixos-config=/etc/nixos/configuration.nix"
     ];
     binaryCaches =
