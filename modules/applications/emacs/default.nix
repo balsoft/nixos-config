@@ -33,6 +33,7 @@
           ivy
           smex
           quickrun
+          org-jira
         ];
     };
 
