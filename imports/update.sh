@@ -32,7 +32,7 @@ git pull
 
 cd $imports
 
-curl -L https://nixos.org/channels/nixos-$RELEASE/nixexprs.tar.xz | tar -Jx --wildcards "*/programs.sqlite" > programs.sqlite
+curl -L https://nixos.org/channels/nixos-$RELEASE/nixexprs.tar.xz | tar -OJx --wildcards "*/programs.sqlite" > programs.sqlite
 
 git add .
 git commit -m "Update versions of imports"
