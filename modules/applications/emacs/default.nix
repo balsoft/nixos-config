@@ -33,7 +33,7 @@
           ivy
           smex
           quickrun
-          org-jira
+          ranger
         ];
     };
 
