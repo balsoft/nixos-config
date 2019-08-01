@@ -33,6 +33,7 @@
           ivy
           smex
           quickrun
+          ranger
           dired-ranger
         ];
     };

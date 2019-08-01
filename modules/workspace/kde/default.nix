@@ -128,8 +128,10 @@ with import ../../../support.nix { inherit lib config; }; {
     Icons = { Theme = "Papirus-Dark"; };
   };
   home-manager.users.balsoft.home.activation."user-places.xbel" = {
-    data =
-    "$DRY_RUN_CMD cp ${./user-places.xbel} ~/.local/share/user-places.xbel";
+    data = ''
+      $DRY_RUN_CMD rm -f ~/.local/share/user-places.xbel
+      $DRY_RUN_CMD cp ${./user-places.xbel} ~/.local/share/user-places.xbel
+    '';
     before = [];
     after = ["linkGeneration"];
   };
