@@ -9,6 +9,7 @@
       "wheel"
       "networkmanager"
       "disk"
+      "dbus"
       "audio"
       "docker"
       "sound"
