@@ -1,6 +1,8 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -p git -i bash
 
+RELEASE=19.03
+
 IN_NIX_SHELL=
 
 imports=$(pwd)
@@ -25,9 +27,12 @@ rm $imports/nixpkgs
 ln -s $imports/github/nixos/nixpkgs $imports/nixpkgs
 
 cd $imports/nixpkgs
-git checkout release-19.03
+git checkout release-$RELEASE
 git pull
 
+cd $imports
+
+curl -L https://nixos.org/channels/nixos-$RELEASE/nixexprs.tar.xz | tar -Jx --wildcards "*/programs.sqlite" > programs.sqlite
 
 git add .
 git commit -m "Update versions of imports"

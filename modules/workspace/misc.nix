@@ -16,9 +16,12 @@
       userName = "Alexander Bantyev";
     };
     news.display = "silent";
-    programs.command-not-found.enable = true;
+    programs.command-not-found = { 
+      enable = true; 
+      dbPath = ../../imports/programs.sqlite;
+    };
     home.keyboard = {
-      options = ["grp:caps_toggle,grp_led:caps"];
+      options = [ "grp:caps_toggle,grp_led:caps" ];
       layout = "us,ru";
     };
     home.file.".icons/default".source =

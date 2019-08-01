@@ -3,7 +3,7 @@ with import ../../../support.nix { inherit lib config; }; {
   services.flatpak.enable = true;
   services.flatpak.extraPortals = [pkgs.plasma5.xdg-desktop-portal-kde];
   services.dbus.packages =
-  [ pkgs.plasma5.xdg-desktop-portal-kde pkgs.flatpak pkgs.firefox ];
+  [ pkgs.plasma5.xdg-desktop-portal-kde pkgs.flatpak pkgs.firefox pkgs.systemd ];
   nixpkgs.config.firefox.enablePlasmaBrowserIntegration = true;
   home-manager.users.balsoft.home.packages = [pkgs.qt5ct];
   environment.sessionVariables = {
