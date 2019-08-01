@@ -5,6 +5,7 @@
     EDITOR = config.defaultApplications.editor.cmd;
     VISUAL = config.defaultApplications.editor.cmd;
     LESS = "-asrRix8";
+    NIX_AUTO_RUN = "1";
   };
   home-manager.users.balsoft = {
     xdg.enable = true;
