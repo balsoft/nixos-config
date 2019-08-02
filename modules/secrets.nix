@@ -53,6 +53,20 @@ in rec {
       type = nullOr string;
       description = "SSH RSA private key";
     };
+    matrix = {
+      shared_secret = mkOption {
+        type = nullOr string;
+        description = "A shared secret for matrix instance";
+      };
+      cert = mkOption {
+        type = nullOr string;
+        description = "SSL certificate";
+      };
+      priv = mkOption {
+        type = nullOr string;
+        description = "SSL RSA private key";
+      };
+    };
   };
   config = let
     secretnix = import ../secret.nix;

@@ -91,7 +91,7 @@ in
     home.packages = [weechat];
     xsession.windowManager.i3.config.startup = [{
       command =
-        "konsole -e ${weechat}/bin/weechat";
+        "${config.defaultApplications.term.cmd} -e ${weechat}/bin/weechat";
     }];
   };
 }
