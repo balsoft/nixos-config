@@ -9,6 +9,7 @@
       "wheel"
       "networkmanager"
       "disk"
+      "dbus"
       "audio"
       "docker"
       "sound"
@@ -45,7 +46,7 @@
   };
   nix.requireSignedBinaryCaches = false;
 
-  home-manager.users.bigsoft = lib.mkIf (config.device == "ASUS-Laptop") {
+  home-manager.users.bigsoft = lib.mkIf config.deviceSpecific.isShared {
     xsession = {
       enable = true;
       windowManager.command = ''

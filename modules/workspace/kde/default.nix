@@ -3,7 +3,7 @@ with import ../../../support.nix { inherit lib config; }; {
   services.flatpak.enable = true;
   services.flatpak.extraPortals = [pkgs.plasma5.xdg-desktop-portal-kde];
   services.dbus.packages =
-  [ pkgs.plasma5.xdg-desktop-portal-kde pkgs.flatpak pkgs.firefox ];
+  [ pkgs.plasma5.xdg-desktop-portal-kde pkgs.flatpak pkgs.firefox pkgs.systemd ];
   nixpkgs.config.firefox.enablePlasmaBrowserIntegration = true;
   home-manager.users.balsoft.home.packages = [pkgs.qt5ct];
   environment.sessionVariables = {
@@ -128,8 +128,10 @@ with import ../../../support.nix { inherit lib config; }; {
     Icons = { Theme = "Papirus-Dark"; };
   };
   home-manager.users.balsoft.home.activation."user-places.xbel" = {
-    data =
-    "$DRY_RUN_CMD cp ${./user-places.xbel} ~/.local/share/user-places.xbel";
+    data = ''
+      $DRY_RUN_CMD rm -f ~/.local/share/user-places.xbel
+      $DRY_RUN_CMD cp ${./user-places.xbel} ~/.local/share/user-places.xbel
+    '';
     before = [];
     after = ["linkGeneration"];
   };

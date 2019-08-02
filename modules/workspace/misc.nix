@@ -5,6 +5,7 @@
     EDITOR = config.defaultApplications.editor.cmd;
     VISUAL = config.defaultApplications.editor.cmd;
     LESS = "-asrRix8";
+    NIX_AUTO_RUN = "1";
   };
   home-manager.users.balsoft = {
     xdg.enable = true;
@@ -16,9 +17,12 @@
       userName = "Alexander Bantyev";
     };
     news.display = "silent";
-    programs.command-not-found.enable = true;
+    programs.command-not-found = { 
+      enable = true; 
+      dbPath = ../../imports/programs.sqlite;
+    };
     home.keyboard = {
-      options = ["grp:caps_toggle,grp_led:caps"];
+      options = [ "grp:caps_toggle,grp_led:caps" ];
       layout = "us,ru";
     };
     home.file.".icons/default".source =
