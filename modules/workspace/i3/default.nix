@@ -174,9 +174,9 @@ in {
         "${modifier}+Shift+v" = "layout splitv";
         "${modifier}+h" = "split h";
         "${modifier}+v" = "split v";
-        "${modifier}+Minus" = "move to scratchpad";
-        "${modifier}+Equals" = "scratchpad show";
-        "${modifier}+i" = "sh -c 'xclip -out | curl -F \"f:1=<-\" ix.io | xlip -selection clipboard -in'";
+        "${modifier}+-" = "move to scratchpad";
+        "${modifier}+=" = "scratchpad show";
+        "${modifier}+i" = "exec sh -c 'xclip -out | curl -F \"f:1=<-\" ix.io | xlip -selection clipboard -in'";
         "${modifier}+z" = "exec ${pkgs.lambda-launcher}/bin/lambda-launcher";
         "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
         "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
