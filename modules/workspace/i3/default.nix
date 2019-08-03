@@ -176,7 +176,7 @@ in {
         "${modifier}+v" = "split v";
         "${modifier}+Minus" = "move to scratchpad";
         "${modifier}+Equals" = "scratchpad show";
-        "${modifier}+i" = "sh -c 'xclip -out | curl -F \"f:1=<-\" ix.io'";
+        "${modifier}+i" = "sh -c 'xclip -out | curl -F \"f:1=<-\" ix.io | xlip -selection clipboard -in'";
         "${modifier}+z" = "exec ${pkgs.lambda-launcher}/bin/lambda-launcher";
         "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
         "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
