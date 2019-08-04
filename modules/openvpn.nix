@@ -72,7 +72,7 @@
           ip route delete 128.0.0.0/1
 
           ip route add table 42 default via 93.190.51.91
-          ip route rule add from 93.190.51.91 table 42
+          ip rule add from 93.190.51.91 table 42
 
         '';
         authUserPass.username = config.secrets.openvpn.user;
