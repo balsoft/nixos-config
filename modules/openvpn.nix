@@ -1,6 +1,6 @@
 { pkgs, config, lib, ... }:
 {
-  services.openvpn = {
+  services.openvpn = lib.mkIf (config.device == "AMD-Workstation") {
     servers = {
       client = {
         config = ''
