@@ -37,11 +37,6 @@
           #dhcp-option DNS 8.8.8.8
           #dhcp-option DNS 8.8.4.4
 
-          route delete 0.0.0.0/1
-          route delete 128.0.0.0/1
-
-          route add table 42 default via 93.190.51.91
-          route rule add from 93.190.51.91 table 42
           
           <ca>
           -----BEGIN CERTIFICATE-----
@@ -73,6 +68,14 @@
           DtHIEdmbuqGBHTJvKERSSdPiqfwUP11hfXyCfoty5g==
           -----END CERTIFICATE-----
           </ca>
+
+        '';
+        up = ''
+          ip route delete 0.0.0.0/1
+          ip route delete 128.0.0.0/1
+
+          ip route add table 42 default via 93.190.51.91
+          ip route rule add from 93.190.51.91 table 42
 
         '';
         authUserPass.username = config.secrets.openvpn.user;
