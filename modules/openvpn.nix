@@ -10,9 +10,6 @@
           remote cz2.getstaticip.com 443 # non-stadard port for OpenVPN
           dev tun
 
-          ignore-unknown-option ip-win32 dynamic 0
-          ip-win32 dynamic 0
-
           nobind
           persist-key
 
