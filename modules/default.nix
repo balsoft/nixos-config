@@ -28,7 +28,7 @@
     ./workspace/xresources.nix
     ./themes.nix
     ./applications.nix
-    ./birevia.nix
+    ./openvpn.nix
     ./matrix-synapse.nix
     ./secrets.nix
     ./devices.nix
