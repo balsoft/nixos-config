@@ -30,7 +30,7 @@
           #if connection is terminated, it will attempt to connect without promting username and pass
           auth-retry nointeract
 
-          redirect-gateway def1
+          # redirect-gateway def1
           #dhcp-option DNS 8.8.8.8
           #dhcp-option DNS 8.8.4.4
 
@@ -73,7 +73,6 @@
 
           ip route add table 42 default via 93.190.51.91
           ip rule add from 93.190.51.91 table 42
-
         '';
         authUserPass.username = config.secrets.openvpn.user;
         authUserPass.password = config.secrets.openvpn.password;
