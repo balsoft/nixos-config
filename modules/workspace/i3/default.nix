@@ -26,7 +26,7 @@ in {
           { class = "^VK"; }
           { class = "^trojita"; }
           { title = "weechat"; }
-          { class = "Spectral"; }
+          { class = "nheko"; }
         ];
         "ﱘ" = [{ class = "cantata"; }];
       };
@@ -96,6 +96,7 @@ in {
           always = true;
         }
         { command = "${pkgs.termNote}/bin/noted"; }
+        { command = "${pkgs.nheko}/bin/nheko"; }
       ];
       keybindings = let
         moveMouse = ''
