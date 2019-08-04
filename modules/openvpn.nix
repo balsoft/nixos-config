@@ -4,10 +4,9 @@
     servers = {
       client = {
         config = ''
-          client
           proto tcp-client
 
-          remote cz1.getstaticip.com 443 # non-stadard port for OpenVPN
+          remote cz2.getstaticip.com 443 # non-stadard port for OpenVPN
           dev tun
 
           ignore-unknown-option ip-win32 dynamic 0
@@ -19,8 +18,8 @@
           tls-client
           remote-cert-tls server
           #uncomment following line and comment verify-x509-name line if older OpenVPN version is installed on your device
-          #tls-remote eu.finevpn.com
-          verify-x509-name eu.finevpn.com name
+          #tls-remote eu3.finevpn.com
+          verify-x509-name eu3.finevpn.com name
 
           verb 3
 
@@ -34,6 +33,8 @@
           auth-retry nointeract
 
           redirect-gateway def1
+          #dhcp-option DNS 8.8.8.8
+          #dhcp-option DNS 8.8.4.4
 
           <ca>
           -----BEGIN CERTIFICATE-----
@@ -65,6 +66,7 @@
           DtHIEdmbuqGBHTJvKERSSdPiqfwUP11hfXyCfoty5g==
           -----END CERTIFICATE-----
           </ca>
+
         '';
         authUserPass.username = config.secrets.openvpn.user;
         authUserPass.password = config.secrets.openvpn.password;
