@@ -100,8 +100,8 @@
     papirus-icon-theme
     breeze-icons
     kde-cli-tools
-    vk-messenger
     xdg_utils
+    nheko
   ]);
 
 }
