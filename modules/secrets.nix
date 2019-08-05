@@ -48,7 +48,7 @@ in rec {
       type = nullOr string;
       description = "SSH RSA private key";
     };
-    matrix = {
+    matrix = rec {
       shared_secret = mkOption {
         type = nullOr string;
         description = "A shared secret for matrix instance";
@@ -61,6 +61,15 @@ in rec {
         type = nullOr string;
         description = "SSL RSA private key";
       };
+      mautrix-whatsapp = {
+        config = mkOption {
+          type = attrs;
+        };
+        registration = mkOption {
+          type = attrs;
+        };
+      };
+      mautrix-telegram = mautrix-whatsapp;
     };
   };
   config = let

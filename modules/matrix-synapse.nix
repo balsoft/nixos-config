@@ -31,8 +31,8 @@
       text = config.secrets.matrix.priv;
     });
     app_service_config_files = [
-      ../../mautrix-whatsapp/registration.yaml
-      ../../mautrix-telegram/registration.yaml
+      (builtins.toFile "registration_tg.yaml" (builtins.toJSON config.secrets.matrix.mautrix-telegram.registration))
+      (builtins.toFile "registration_wa.yaml" (builtins.toJSON config.secrets.matrix.mautrix-whatsapp.registration))
     ];
   };
 }
