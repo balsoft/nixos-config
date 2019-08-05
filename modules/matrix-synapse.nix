@@ -37,7 +37,7 @@
   };
   systemd.services.mautrix-whatsapp = {
     description = "A bridge between whatsapp and matrix";
-    path = with pkgs; [ mautrix-whatsapp ];
+    path = with pkgs; [ coreutils mautrix-whatsapp ];
     serviceConfig = {
       ExecStart = ''
         mkdir -p /var/lib/mautrix-whatsapp
@@ -48,7 +48,7 @@
   };
   systemd.services.mautrix-telegram = {
     description = "A bridge between telegram and matrix";
-    path = with pkgs; [ mautrix-telegram ];
+    path = with pkgs; [ coreutils mautrix-telegram ];
     serviceConfig = {
       ExecStart = ''
         mkdir -p /var/lib/mautrix-telegram
