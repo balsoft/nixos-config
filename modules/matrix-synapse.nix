@@ -58,7 +58,7 @@
       mkdir -p /var/lib/mautrix-telegram
       cp -r ${pkgs.mautrix-telegram}/* /var/lib/mautrix-telegram
       cd /var/lib/mautrix-telegram
-      alembic upgrade head
+      alembic upgrade head || echo "update failed"
       mautrix-telegram -c ${
         builtins.toFile "config_tg.yaml"
         (builtins.toJSON config.secrets.matrix.mautrix-telegram.config)
