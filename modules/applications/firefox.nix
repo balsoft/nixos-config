@@ -36,6 +36,7 @@ in {
       pref("font.name.sans-serif.x-western", "Roboto");
       pref("font.name.serif.x-western", "Roboto Slab");
 
+      pref("browser.tabs.remote.autostart", false);
       pref("browser.display.background_color", "${thm.bg}");
       pref("browser.display.document_color_use", 2);
       pref("browser.display.foreground_color", "${thm.fg}");
