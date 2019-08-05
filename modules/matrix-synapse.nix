@@ -35,4 +35,28 @@
       (builtins.toFile "registration_wa.yaml" (builtins.toJSON config.secrets.matrix.mautrix-whatsapp.registration))
     ];
   };
+  systemd.services.mautrix-whatsapp = {
+    description = "A bridge between whatsapp and matrix";
+    path = with pkgs; [ mautrix-whatsapp ];
+    serviceConfig = {
+      ExecStart = ''
+        mkdir -p /var/lib/mautrix-whatsapp
+        cd /var/lib/mautrix-whatsapp
+        mautrix-whatsapp -c ${builtins.toFile "config_wa.yaml" (builtins.toJSON config.secrets.matrix.mautrix-whatsapp.config)}
+      '';
+    };
+  };
+  systemd.services.mautrix-telegram = {
+    description = "A bridge between telegram and matrix";
+    path = with pkgs; [ mautrix-telegram ];
+    serviceConfig = {
+      ExecStart = ''
+        mkdir -p /var/lib/mautrix-telegram
+        cp -r ${pkgs.mautrix-telegram}/* /var/lib/mautrix-telegram
+        cd /var/lib/mautrix-telegram
+        alembic upgrade head
+        mautrix-telegram -c ${builtins.toFile "config_tg.yaml" (builtins.toJSON config.secrets.matrix.mautrix-telegram.config)}
+      '';
+    };
+  };
 }
