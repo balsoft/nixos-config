@@ -62,7 +62,7 @@
       cp ${
         builtins.toFile "config.yaml"
         (builtins.toJSON config.secrets.matrix.mautrix-telegram.config)
-      } .
+      } ./config.yaml
       mautrix-telegram
     '';
   };
