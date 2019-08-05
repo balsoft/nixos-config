@@ -7,6 +7,7 @@
     LESS = "-asrRix8";
     NIX_AUTO_RUN = "1";
   };
+  services.atd.enable = true;
   home-manager.users.balsoft = {
     xdg.enable = true;
 
