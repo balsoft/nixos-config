@@ -40,6 +40,7 @@
   systemd.services.mautrix-whatsapp = {
     description = "A bridge between whatsapp and matrix";
     path = with pkgs; [ coreutils mautrix-whatsapp ];
+    wantedBy = [ "network-online.target" ];
     script = ''
       mkdir -p /var/lib/mautrix-whatsapp
       cd /var/lib/mautrix-whatsapp
@@ -52,6 +53,7 @@
   systemd.services.mautrix-telegram = {
     description = "A bridge between telegram and matrix";
     path = with pkgs; [ coreutils mautrix-telegram (python3.pkgs.alembic.overrideAttrs (old: {propagatedBuildInputs = old.propagatedBuildInputs ++ [mautrix-telegram];})) ];
+    wantedBy = [ "network-online.target" ];
     script = ''
       mkdir -p /var/lib/mautrix-telegram
       cp -r ${pkgs.mautrix-telegram}/* /var/lib/mautrix-telegram
