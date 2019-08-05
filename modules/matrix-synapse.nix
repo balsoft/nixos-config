@@ -51,7 +51,7 @@
   };
   systemd.services.mautrix-telegram = {
     description = "A bridge between telegram and matrix";
-    path = with pkgs; [ coreutils mautrix-telegram ];
+    path = with pkgs; [ coreutils mautrix-telegram (python3.pkgs.alembic.overrideAttrs (old: {propagatedBuildInputs = old.propagatedBuildInputs ++ [mautrix-telegram];})) ];
     script = ''
       mkdir -p /var/lib/mautrix-telegram
       cp -r ${pkgs.mautrix-telegram}/* /var/lib/mautrix-telegram
