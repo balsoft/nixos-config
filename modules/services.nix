@@ -6,7 +6,7 @@
     enable = true;
 
     extensionPackages = with pkgs; [ mopidy-gmusic ];
-    configuration =( if (!isNull config.secrets.gpmusic) then ''
+    configuration = (if (!isNull config.secrets.gpmusic) then ''
       [gmusic]
       username = ${config.secrets.gpmusic.user}
       password = ${config.secrets.gpmusic.password}
@@ -35,7 +35,7 @@
     client.enable = true;
     client.privoxy.enable = true;
     torsocks.enable = true;
-    client.socksListenAddressFaster = "0.0.0.0:9063";
+    client.socksListenAddressFaster = "127.0.0.1:9063";
   };
 
   programs.mosh.enable = true;
@@ -46,7 +46,20 @@
   systemd.services.systemd-udev-settle.enable = false;
 
   services.nix-serve.enable = true;
-
+  
+  services.nginx = lib.mkIf (config.device == "AMD-Workstation") {
+    enable = true;
+    virtualHosts =  {
+      "balsoft.ru" = {
+        listen = [ { addr = "0.0.0.0"; port = 5443; ssl = true; } ];
+        sslCertificate = config.secrets.matrix.cert;
+        sslCertificateKey = config.secrets.matrix.priv;
+        locations."/" = {
+          proxyPass = "http://localhost:5000";
+        };
+      };
+    };
+  };
 
   services.upower.enable = true;
   virtualisation.docker.enable = config.deviceSpecific.isHost;

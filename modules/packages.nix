@@ -82,6 +82,7 @@
       "http://hydra.typeable.io:5000"
       "https://nixcache.reflex-frp.org"
       "https://all-hies.cachix.org"
+      "https://balsoft.ru:5000"
     ];
 
     trustedBinaryCaches =
