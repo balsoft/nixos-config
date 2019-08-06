@@ -52,8 +52,8 @@
     virtualHosts =  {
       "balsoft.ru" = {
         listen = [ { addr = "0.0.0.0"; port = 5443; ssl = true; } ];
-        sslCertificate = config.secrets.matrix.cert;
-        sslCertificateKey = config.secrets.matrix.priv;
+        sslCertificate = builtins.toPath "balsoft.cert" config.secrets.matrix.cert;
+        sslCertificateKey = builtins.toPath "balsoft.priv" config.secrets.matrix.priv;
         locations."/" = {
           proxyPass = "http://localhost:5000";
         };
