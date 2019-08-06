@@ -31,3 +31,9 @@
 [submodule "imports/github/Infinisil/all-hies"]
 	path = imports/github/Infinisil/all-hies
 	url = https://github.com/Infinisil/all-hies
+[submodule "imports/github/nheko-reborn/mtxclient"]
+	path = imports/github/nheko-reborn/mtxclient
+	url = https://github.com/nheko-reborn/mtxclient
+[submodule "imports/github/nheko-reborn/nheko"]
+	path = imports/github/nheko-reborn/nheko
+	url = https://github.com/nheko-reborn/nheko
