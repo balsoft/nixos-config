@@ -51,6 +51,7 @@
     enable = true;
     virtualHosts =  {
       "balsoft.ru" = {
+        forceSSL = true;
         listen = [ { addr = "0.0.0.0"; port = 5443; ssl = true; } ];
         sslCertificate = builtins.toFile "balsoft.cert" config.secrets.matrix.cert;
         sslCertificateKey = builtins.toFile "balsoft.priv" config.secrets.matrix.priv;
