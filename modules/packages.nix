@@ -19,10 +19,18 @@
 
       all-hies = import ../imports/github/Infinisil/all-hies { };
 
-      mtxclient = old.mtxclient.overrideAttrs
-        (_: { src = ../imports/github/nheko-reborn/mtxclient; });
-      nheko = old.nheko.overrideAttrs
-        (_: { src = ../imports/github/nheko-reborn/nheko; });
+      mtxclient = old.mtxclient.overrideAttrs (_: rec {
+        name = "${pname}-${version}";
+        pname = "mtxclient";
+        version = "0.3.0";
+        src = ../imports/github/nheko-reborn/mtxclient;
+      });
+      nheko = old.nheko.overrideAttrs (_: rec {
+        name = "${pname}-${version}";
+        pname = "nheko";
+        version = "0.7.0";
+        src = ../imports/github/nheko-reborn/nheko;
+      });
 
       nerdfonts = old.stdenv.mkDerivation rec {
         name = "RobotoMonoNerd";
