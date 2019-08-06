@@ -3,7 +3,7 @@
     (self: old:
     {
       termNote =
-      self.callPackage ../imports/github/terodom/termNote/termNote.nix { };
+        self.callPackage ../imports/github/terodom/termNote/termNote.nix { };
 
       nixfmt = self.callPackage ../imports/github/serokell/nixfmt { };
 
@@ -19,13 +19,18 @@
 
       all-hies = import ../imports/github/Infinisil/all-hies { };
 
+      mtxclient = old.mtxclient.overrideAttrs
+        (_: { src = ../imports/github/nheko-reborn/mtxclient; });
+      nheko = old.nheko.overrideAttrs
+        (_: { src = ../imports/github/nheko-reborn/nheko; });
+
       nerdfonts = old.stdenv.mkDerivation rec {
         name = "RobotoMonoNerd";
         src = old.fetchzip {
           url =
-          "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/RobotoMono.zip";
+            "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/RobotoMono.zip";
           sha256 =
-          "sha256:1i78fn62x0337p2974dn1nga1pbdi7mqg203h81yi9b79pyxv9bh";
+            "sha256:1i78fn62x0337p2974dn1nga1pbdi7mqg203h81yi9b79pyxv9bh";
           stripRoot = false;
         };
         installPhase = "mkdir -p $out/share/fonts; cp $src/* $out/share/fonts";
@@ -34,8 +39,8 @@
       pythonPackages = old.pythonPackages.override {
         overrides = (self: super: {
           backports_functools_lru_cache =
-          super.backports_functools_lru_cache.overrideAttrs
-          (oldAttrs: oldAttrs // { meta.priority = 1000; });
+            super.backports_functools_lru_cache.overrideAttrs
+            (oldAttrs: oldAttrs // { meta.priority = 1000; });
         });
       };
     } // (if config.device == "Prestigio-Laptop" then {
@@ -64,10 +69,16 @@
       "nixpkgs=/etc/nixpkgs"
       "nixos-config=/etc/nixos/configuration.nix"
     ];
-    binaryCaches =
-    [ "https://cache.nixos.org" "http://hydra.typeable.io:5000" https://nixcache.reflex-frp.org https://all-hies.cachix.org ];
-    
-    trustedBinaryCaches = (builtins.map (x: "http://${x}:5000") (builtins.attrNames config.devices)) ++ binaryCaches;
+    binaryCaches = [
+      "https://cache.nixos.org"
+      "http://hydra.typeable.io:5000"
+      "https://nixcache.reflex-frp.org"
+      "https://all-hies.cachix.org"
+    ];
+
+    trustedBinaryCaches =
+      (builtins.map (x: "http://${x}:5000") (builtins.attrNames config.devices))
+      ++ binaryCaches;
 
     trustedUsers = [ "root" "balsoft" "@wheel" ];
 
