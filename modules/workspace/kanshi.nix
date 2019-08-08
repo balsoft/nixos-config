@@ -2,8 +2,8 @@
 {
   home-manager.users.balsoft = 
   {
-    xsession.windowManager.i3.config.startup = 
-    [ {command = "${pkgs.kanshi}/bin/kanshi"; notification = false; always = true;} ];                           
+    # xsession.windowManager.i3.config.startup = 
+    # [ {command = "${pkgs.kanshi}/bin/kanshi"; notification = false; always = true;} ];                           
     xdg.configFile."kanshi/config".text = 
     ''
     {

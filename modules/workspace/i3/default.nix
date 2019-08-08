@@ -10,37 +10,6 @@ in {
     package = pkgs.i3-gaps;
     config = rec {
       assigns = {
-        "" = [{ class = "Chromium"; } { app_id = "firefox"; } { app_id = "keepassxc"; } ];
-        "" = [{ class = "telegram"; } { class = "^VK"; } { app_id = "net.flaska.trojita"; } { app_id = "org.kde.konversation"; } ];
-      };
-      bars = [ 
-        { 
-          colors =
-            rec {
-              activeWorkspace = 
-                {
-                  text = thm.blue;
-                  border = thm.bg;
-                  background = thm.bg;
-                };
-              background = thm.bg;
-              bindingMode =
-                {
-                  background = thm.bg;
-                  text = thm.yellow;
-                  border = thm.bg;
-                };
-              focusedWorkspace = activeWorkspace;
-              inactiveWorkspace = activeWorkspace // {text = thm.fg;};
-              separator = thm.alt;
-              urgentWorkspace = activeWorkspace // {text = thm.orange;};
-            };
-          fonts = ["Material Icons 11" "Roboto Mono 11"];
-          id = "top";
-          position = "top";
-          statusCommand = "${pkgs.i3blocks}/bin/i3blocks";
-        }
-      ];
         "" = [ { class = "Chromium"; } { class = "Firefox"; } ];
         "" = [
           { class = "^Telegram"; }
@@ -51,6 +20,29 @@ in {
         ];
         "ﱘ" = [{ class = "cantata"; }];
       };
+      bars = [{
+        colors = rec {
+          activeWorkspace = {
+            text = thm.blue;
+            border = thm.bg;
+            background = thm.bg;
+          };
+          background = thm.bg;
+          bindingMode = {
+            background = thm.bg;
+            text = thm.yellow;
+            border = thm.bg;
+          };
+          focusedWorkspace = activeWorkspace;
+          inactiveWorkspace = activeWorkspace // { text = thm.fg; };
+          separator = thm.alt;
+          urgentWorkspace = activeWorkspace // { text = thm.orange; };
+        };
+        fonts = [ "Material Icons 11" "Roboto Mono 11" ];
+        id = "top";
+        position = "top";
+        statusCommand = "${pkgs.i3blocks}/bin/i3blocks";
+      }];
       fonts = [ "RobotoMono 9" ];
 
       colors = rec {
@@ -193,20 +185,20 @@ in {
       };
       workspaceLayout = "tabbed";
     };
-    extraConfig = 
-      ''
-        output * bg ${thm.bg} solid_color
-        input 2:7:SynPS/2_Synaptics_TouchPad {
-        tap enabled
-        natural_scroll enabled
-        }
-        input 2:18:FocalTechPS/2_FocalTech_Touchpad {
-        tap enabled
-        natural_scroll enabled
-        }
-        default_border pixel 1
-        mouse_warping container
-        tiling_drag disable
-      '';
+    extraConfig = ''
+      output * bg ${thm.bg} solid_color
+      input 2:7:SynPS/2_Synaptics_TouchPad {
+      tap enabled
+      natural_scroll enabled
+      }
+      input 2:18:FocalTechPS/2_FocalTech_Touchpad {
+      tap enabled
+      natural_scroll enabled
+      }
+      default_border pixel 1
+      mouse_warping container
+      tiling_drag disable
+    '';
   };
 }
+

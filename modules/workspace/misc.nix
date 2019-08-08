@@ -12,7 +12,6 @@
     XKB_DEFAULT_OPTIONS = "grp:caps_toggle,grp_led:caps";
     QT_QPA_PLATFORM = "wayland";
     SDL_VIDEODRIVER = "wayland";
-    _JAVA_AWT_WM_NONREPARENTING = "1";
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
     NIX_AUTO_RUN = "1";
   };
