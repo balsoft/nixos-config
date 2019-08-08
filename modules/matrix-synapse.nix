@@ -42,7 +42,7 @@
       description = "A bridge between whatsapp and matrix";
       path = with pkgs; [ coreutils mautrix-whatsapp ];
       wantedBy = [ "network-online.target" ];
-      requires = [ "matrix-synapse.service" ];
+      requires = [ "matrix-synapse.service" "whatsapp.service" ];
       script = ''
         mkdir -p /var/lib/mautrix-whatsapp
         cd /var/lib/mautrix-whatsapp
