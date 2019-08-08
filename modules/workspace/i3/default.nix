@@ -10,19 +10,23 @@ in {
     package = pkgs.i3-gaps;
     config = rec {
       assigns = {
-        "" = [ { class = "Chromium"; } { class = "Firefox"; } ];
+        "" = [
+          { class = "Chromium"; }
+          { app_id = "firefox"; }
+          { app_id = "keepassxc"; }
+        ];
         "" = [
-          { class = "^Telegram"; }
+          { class = "telegram"; }
           { class = "^VK"; }
-          { class = "^trojita"; }
+          { app_id = "net.flaska.trojita"; }
           { title = "weechat"; }
-          { class = "nheko"; }
+          { title = "nheko"; }
         ];
         "ﱘ" = [{ class = "cantata"; }];
       };
       fonts = [ "RobotoMono 9" ];
-    
-      bars = [];
+
+      bars = [ ];
 
       colors = rec {
         background = thm.bg;
