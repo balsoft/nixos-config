@@ -21,7 +21,8 @@ in {
         "ﱘ" = [{ class = "cantata"; }];
       };
       fonts = [ "RobotoMono 9" ];
-      
+    
+      bars = [];
 
       colors = rec {
         background = thm.bg;
@@ -83,6 +84,7 @@ in {
         { command = "${pkgs.trojita}/bin/trojita"; }
         { command = "${pkgs.termNote}/bin/noted"; }
         { command = "${pkgs.nheko}/bin/nheko"; }
+        { command = "${pkgs.xorg.xrdb}/bin/xrdb -merge ~/.Xresources"; }
       ];
 
       keybindings = let

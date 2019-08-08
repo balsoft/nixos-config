@@ -12,7 +12,6 @@
     ./workspace/zsh.nix
     ./workspace/gtk.nix
     ./workspace/misc.nix
-    ./workspace/dunst.nix
     ./workspace/kde
     ./workspace/synergy.nix
     ./workspace/ssh.nix
