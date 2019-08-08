@@ -51,44 +51,40 @@ in {
       command = scripts.music;
       interval = 1;
     };
-    f_battery = pkgs.stdenv.lib.optionalAttrs
-    config.deviceSpecific.isLaptop { command = scripts.battery; };
-    g_brightness = pkgs.stdenv.lib.optionalAttrs
-    config.deviceSpecific.isLaptop {
-      command = scripts.brightness;
-      interval = 1;
+    f_battery = pkgs.stdenv.lib.optionalAttrs config.deviceSpecific.isLaptop {
+      command = scripts.battery;
     };
-    h_wireless = { command = scripts.wireless; };
+    g_brightness =
+      pkgs.stdenv.lib.optionalAttrs config.deviceSpecific.isLaptop {
+        command = scripts.brightness;
+        interval = 1;
+      };
+    h_wireless =
+      pkgs.stdenv.lib.optionalAttrs config.deviceSpecific.isLaptop { command = scripts.wireless; };
     i_network = { command = scripts.network; };
     j_cpuload = {
-      command =
-        ''
-          top -b -n1 -p 1 | fgrep "Cpu(s)" | tail -1 | awk -F'id,' -v prefix="$prefix" '{ split($1, vs, ","); v=vs[length(vs)]; sub("%", "", v); printf "%s%.1f%%\n", prefix, 100 - v }' '';
+      command = ''
+        top -b -n1 -p 1 | fgrep "Cpu(s)" | tail -1 | awk -F'id,' -v prefix="$prefix" '{ split($1, vs, ","); v=vs[length(vs)]; sub("%", "", v); printf "%s%.1f%%\n", prefix, 100 - v }' '';
       interval = 3;
     };
     k_cpufreq = {
       command = ''
-        echo $(${
-          pkgs.bc
-        }/bin/bc -l <<< "scale=2; `cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_cur_freq|sort|tail -1`/1000000") GHz'';
+        echo $(${pkgs.bc}/bin/bc -l <<< "scale=2; `cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_cur_freq|sort|tail -1`/1000000") GHz'';
     };
     l_temperature = { command = scripts.temperature; };
     m_free = { command = scripts.free; };
     n_df = {
-      command =
-        ''
-          echo '<span font="Material Icons 11"></span>' `df / | tail -1 | grep -o '..%'`'';
+      command = ''
+        echo '<span font="Material Icons 11"></span>' `df / | tail -1 | grep -o '..%'`'';
     };
     o_date = {
-      command = "${
-        pkgs.coreutils
-      }/bin/date +'<span font=\"Material Icons 11\"></span> %a %y-%m-%d'";
+      command =
+        "${pkgs.coreutils}/bin/date +'<span font=\"Material Icons 11\"></span> %a %y-%m-%d'";
       interval = 10;
     };
     p_time = {
-      command = "${
-        pkgs.coreutils
-      }/bin/date +'<span font=\"Material Icons 11\"></span> %T'";
+      command =
+        "${pkgs.coreutils}/bin/date +'<span font=\"Material Icons 11\"></span> %T'";
       interval = 1;
     };
   };
