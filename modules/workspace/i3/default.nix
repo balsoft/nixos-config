@@ -97,6 +97,34 @@ in {
         }
         { command = "${pkgs.termNote}/bin/noted"; }
         { command = "${pkgs.nheko}/bin/nheko"; }
+
+        {
+          command = ''
+            NIX_ANDROID_EMULATOR_FLAGS="-no-audio -no-window" ${
+              with import <nixpkgs> {
+                config.android_sdk.accept_license = true;
+              };
+              androidenv.emulateApp {
+                name = "WhatsApp";
+                app = fetchurl {
+                  url =
+                    "https://www.cdn.whatsapp.net/android/2.19.214/WhatsApp.apk";
+                  sha256 =
+                    "1yc8zhlx86gb2ixizxgm2mp6dz8c47xa7w7jjaisb2v4ywmlmdmh";
+                };
+                platformVersion = "18";
+                useGoogleAPIs = true;
+                enableGPU = true;
+                abiVersion = "x86";
+
+                package = "com.whatsapp";
+                activity = ".HomeActivity";
+
+                avdHomeDir = "$HOME/.whatsapp";
+              }
+            }/bin/run-test-emulator
+          '';
+        }
       ];
       keybindings = let
         moveMouse = ''
