@@ -1,16 +1,29 @@
-{pkgs, config, lib, ...}:
-{
+{ pkgs, config, lib, ... }: {
   programs.adb.enable = true;
-  
+
   environment.systemPackages = (with pkgs.kdeApplications; [
-    ark dolphin dolphin-plugins dragon eventviews ffmpegthumbs
-    filelight gwenview kcachegrind kcalc kcolorchooser kdenlive
-    kolourpaint kompare krdc krfb kruler ktnef
-    marble okteta okular print-manager kio-extras
-  ])
-  ++
-  (builtins.filter pkgs.stdenv.lib.isDerivation (builtins.attrValues (pkgs.plasma5)))
-  ++ (with pkgs; [
+    ark
+    dolphin
+    dolphin-plugins
+    eventviews
+    ffmpegthumbs
+    filelight
+    gwenview
+    kcachegrind
+    kcolorchooser
+    kdenlive
+    kolourpaint
+    kompare
+    krdc
+    krfb
+    ktnef
+    marble
+    okteta
+    okular
+    print-manager
+    kio-extras
+  ]) ++ (builtins.filter pkgs.stdenv.lib.isDerivation
+  (builtins.attrValues (pkgs.plasma5))) ++ (with pkgs; [
     kded
     kdeFrameworks.kio
     kdeFrameworks.knotifications
@@ -22,31 +35,39 @@
     stdman
     stdmanpages
     qt5.qtsvg
+    firefox
+    plasma-browser-integration
+    ntfs3g
+    ktorrent
   ]);
 
-  
-  home-manager.users.balsoft.home.packages = 
-  (with pkgs; [
+  home-manager.users.balsoft.home.packages = (with pkgs;
+  [
     # Internet
     wget
     curl
   ] ++ lib.optionals config.deviceSpecific.goodMachine [
-    texlive.combined.scheme-full
+    #texlive.combined.scheme-basic
+    steamcmd
     steam
-    krita
+    #krita
     kdenlive
     frei0r
     ffmpeg-full
     ghc
+    (all-hies.selection { selector = p: { inherit (p) ghc864; }; })
+    haskellPackages.hoogle
+    haskellPackages.hindent
     arduino
     kile
     clang
+    clang-tools
     lldb
-    #gcc
-    #gdb
     appimage-run
+    nixfmt
   ] ++ [
     firefox-wayland
+    libqalculate
     # Messaging
     tdesktop
     telepathy_haze
@@ -59,9 +80,7 @@
     # Tools
     zip
     unrar
-    wine
     wireshark
-    #wpsoffice
     micro
     python3
     qalculate-gtk
@@ -84,8 +103,8 @@
     papirus-icon-theme
     breeze-icons
     kde-cli-tools
-    vk-messenger
-  ]) ;
-
+    xdg_utils
+    nheko
+  ]);
 
 }

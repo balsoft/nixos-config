@@ -1,31 +1,37 @@
-{...}:
-{
+{ ... }: {
   imports = [
     ./applications/packages.nix
     ./applications/kate.nix
     ./applications/emacs
-    ./applications/konsole.nix
+    ./applications/xst.nix
     ./applications/trojita.nix
     ./applications/firefox.nix
-    ./applications/konversation.nix
-    ./applications/okular.nix
+    ./applications/weechat.nix
+    ./applications/spectral.nix
+    ./workspace/i3blocks
     ./workspace/i3
     ./workspace/i3blocks
     ./workspace/zsh.nix
     ./workspace/gtk.nix
+    ./workspace/compton.nix
     ./workspace/misc.nix
-    ./workspace/albert
+    ./workspace/dunst.nix
     ./workspace/kde
     ./workspace/synergy.nix
     ./workspace/ssh.nix
     ./workspace/locale.nix
     ./workspace/fonts.nix
     ./workspace/light.nix
-    ./workspace/mopidy.nix
     ./workspace/kanshi.nix
     ./workspace/mako.nix
+    ./workspace/autorandr.nix
+    ./workspace/gcalcli.nix
+    ./workspace/rclone.nix
+    ./workspace/xresources.nix
     ./themes.nix
     ./applications.nix
+    ./openvpn.nix
+    ./matrix-synapse.nix
     ./secrets.nix
     ./devices.nix
     ./packages.nix

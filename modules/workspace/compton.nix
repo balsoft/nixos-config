@@ -1,8 +1,14 @@
-{pkgs, lib, config, ...}:
-{
-  home-manager.users.balsoft =
-  {
-    programs.autorandr.hooks.preswitch.compton = "pkill compton";
-    programs.autorandr.hooks.postswitch.compton =  "allow_rgb10_configs=false ${pkgs.compton}/bin/compton --backend xr-glx-hybrid -i 0 --vsync opengl-swc -C --shadow-exclude '!focused' --shadow-exclude-reg 'x${builtins.elemAt (builtins.split "px" config.home-manager.users.balsoft.services.polybar.config."bar/top".height) 0}+0+0' &";
+{ pkgs, lib, config, ... }: {
+  home-manager.users.balsoft = {
+    programs.autorandr.hooks.preswitch.compton = "systemctl --user stop compton";
+    programs.autorandr.hooks.postswitch.compton = "systemctl --user start compton";
+    services.compton = {
+      enable = true;
+      backend = "glx";
+      noDNDShadow = false;
+      shadow = true;
+      shadowExclude = [ "!(I3_FLOATING_WINDOW@:c = 1)" ];
+      vSync = "opengl-swc";
+    };
   };
 }

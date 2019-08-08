@@ -1,39 +1,73 @@
-{config, lib, pkgs, ...}:
-{
+{ config, lib, pkgs, ... }: {
 
   services.acpid.enable = true;
 
-  services.earlyoom = {
+  services.mopidy = {
     enable = true;
+
+    extensionPackages = with pkgs; [ mopidy-gmusic ];
+    configuration = (if (!isNull config.secrets.gpmusic) then ''
+      [gmusic]
+      username = ${config.secrets.gpmusic.user}
+      password = ${config.secrets.gpmusic.password}
+      deviceid = ${config.secrets.gpmusic.deviceid}
+      bitrate = 128
+    '' else
+      "") + ''
+        [mpd]
+        hostname = 0.0.0.0
+      '';
+  };
+  services.earlyoom = {
+    enable = config.devices.${config.device}.ram < 16;
     freeMemThreshold = 5;
     freeSwapThreshold = 100;
   };
 
   services.printing = {
-    enable = config.device == "Lenovo-Workstation";
-    drivers = [ 
-      pkgs.gutenprint 
-    ];
+    enable = true;
+    drivers = [ pkgs.gutenprint ];
   };
-  programs.dconf.enable = true;  
+  programs.dconf.enable = true;
 
   services.tor = {
     enable = true;
     client.enable = true;
     client.privoxy.enable = true;
     torsocks.enable = true;
+    client.socksListenAddressFaster = "127.0.0.1:9063";
   };
-  #services.teamviewer.enable = true;
+
+  programs.mosh.enable = true;
 
   services.accounts-daemon.enable = true;
   services.avahi.enable = true;
 
   systemd.services.systemd-udev-settle.enable = false;
 
+  services.nix-serve.enable = true;
+  
+  services.nginx = lib.mkIf (config.device == "AMD-Workstation") {
+    enable = true;
+    virtualHosts =  {
+      "balsoft.ru" = {
+        forceSSL = true;
+        listen = [ { addr = "0.0.0.0"; port = 5443; ssl = true; } ];
+        sslCertificate = builtins.toFile "balsoft.cert" config.secrets.matrix.cert;
+        sslCertificateKey = builtins.toFile "balsoft.priv" config.secrets.matrix.priv;
+        locations."/" = {
+          proxyPass = "http://localhost:5000";
+        };
+      };
+    };
+  };
+
   services.upower.enable = true;
+  virtualisation.docker.enable = config.deviceSpecific.isHost;
   virtualisation.virtualbox.host = {
     enable = config.deviceSpecific.isHost;
     enableHardening = false;
+    enableExtensionPack = true;
   };
 
 }

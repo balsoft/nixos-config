@@ -1,10 +1,10 @@
-{pkgs, config, lib, ...}:
-let thm = config.themes.colors;
-    thm' = builtins.mapAttrs (name: value: builtins.substring 1 7 value) thm;
-    materia_colors = pkgs.writeTextFile
-    {
-      name = "gtk-generated-colors";
-      text = ''
+{ pkgs, config, lib, ... }:
+let
+  thm = config.themes.colors;
+  thm' = builtins.mapAttrs (name: value: builtins.substring 1 7 value) thm;
+  materia_colors = pkgs.writeTextFile {
+    name = "gtk-generated-colors";
+    text = ''
       BG=${thm'.bg}
       FG=${thm'.fg}
       BTN_BG=${thm'.bg}
@@ -24,49 +24,35 @@ let thm = config.themes.colors;
       MATERIA_COLOR_VARIANT=dark
       UNITY_DEFAULT_LAUNCHER_STYLE=False
       NAME=generated
-      '';
-    };
-in
-{
-  nixpkgs.overlays =
-  [
-  (self: super: {
-    generated-gtk-theme =
-    self.stdenv.mkDerivation rec
-    {
+    '';
+  };
+in {
+  nixpkgs.overlays = [(self: super: {
+    generated-gtk-theme = self.stdenv.mkDerivation rec {
       name = "generated-gtk-theme";
-      src = builtins.fetchGit
-      {
-        url = "https://github.com/nana-4/materia-theme";
-        rev = "5e11d2aa6cc26f4f7fd8c229214c4e74b802d6b8";
-      };
+      src = ../../imports/github/nana-4/materia-theme;
       buildInputs = with self; [ sassc bc which inkscape optipng ];
       installPhase = ''
-      chmod 777 -R .
-      patchShebangs .
-      mkdir -p $out/share/themes
-      substituteInPlace change_color.sh --replace "\$HOME/.themes" "$out/share/themes"
-      echo "Changing colours:"
-      ./change_color.sh -o Generated ${materia_colors}
-      chmod 555 -R .
+        chmod 777 -R .
+        patchShebangs .
+        mkdir -p $out/share/themes
+        substituteInPlace change_color.sh --replace "\$HOME/.themes" "$out/share/themes"
+        echo "Changing colours:"
+        ./change_color.sh -o Generated ${materia_colors}
+        chmod 555 -R .
       '';
     };
-  })
-  ];
-  home-manager.users.balsoft =
-  {
-    home.packages = [ pkgs.generated-gtk-theme ];
-    gtk =
-    {
+  })];
+  home-manager.users.balsoft = {
+    home.packages = [pkgs.generated-gtk-theme];
+    gtk = {
       enable = true;
-      iconTheme =
-      {
+      iconTheme = {
         name = "Papirus-Dark";
         package = pkgs.papirus-icon-theme;
       };
-      theme =
-      {
-        name = "Genarated";
+      theme = {
+        name = "Generated";
         package = pkgs.generated-gtk-theme;
       };
       font = 

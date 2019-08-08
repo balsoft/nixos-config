@@ -1,22 +1,48 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -p p7zip git -i bash
+#!nix-shell -p gnupg git -i bash
 
-if [[ ! -e ~/.local/share/password ]]
+firsttime=false
+
+if [[ $1 == "--first-time" ]]
 then
-    echo -n "Password [echoed]: "
-    read password
-    echo $password > ~/.local/share/password
+    firsttime=true
+    shift
+    hostname=$1
+    shift
 fi
 
-7z e secret.nix.zip -y -p`cat ~/.local/share/password`
+unset IN_NIX_SHELL
+
+gpg -dq secret.nix.gpg > secret.nix
 
 git submodule update --init --recursive
 
-export NIX_PATH=nixpkgs=./imports/nixpkgs:nixos-config=/etc/nixos/configuration.nix 
+export NIX_PATH=nixpkgs=./imports/nixpkgs:nixos-config=/etc/nixos/configuration.nix
 
-nix build -f ./imports/nixpkgs/nixos system &&
-{
-    git tag "Build`date +%F-%H-%M-%S`"
-    sudo nixos-rebuild switch
-}
-
+if $firsttime
+then
+    umount /home
+    nixos-generate-config --root /mnt
+    echo "import /home/balsoft/projects/nixos-config \"$hostname\"" > /mnt/etc/nixos/configuration.nix
+    mount --rbind /mnt/home /home/
+    cp /mnt/etc/nixos/* /etc/nixos
+    nix build -f ./imports/nixpkgs/nixos system $@ &&
+    nixos-install --system ./result
+else
+    if [[ -n $INSIDE_EMACS ]]
+    then
+        nix-build ./imports/nixpkgs/nixos -A system $@
+    else 
+        nix build -f ./imports/nixpkgs/nixos system $@
+    fi &&
+        {
+            git add .
+            d=$(date +%s)
+            git commit -m "Automatic commit. This builds at $d"
+            git tag latestBuild --force
+            dir=$(pwd)
+            export SHELL=/bin/sh 
+            pkexec nix-env --profile /nix/var/nix/profiles/system --set $(readlink $dir/result)
+            pkexec $dir/result/bin/switch-to-configuration switch
+        }
+fi

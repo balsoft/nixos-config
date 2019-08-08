@@ -14,11 +14,11 @@ device: # This is the device we're on now
 { config, pkgs, lib, ... }: 
 {
   imports =
-    [
-      /etc/nixos/hardware-configuration.nix
-      ./imports/home-manager/nixos
-      ./modules
-    ];
+  [
+    /etc/nixos/hardware-configuration.nix
+    ./imports/github/rycee/home-manager/nixos
+    ./modules
+  ];
 
   inherit device;  
 

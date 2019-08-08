@@ -30,10 +30,10 @@ isAlsEnabled :: IO Bool
 isAlsEnabled = (==1) <$> read <$> readFile als_file
 
 getBrightness :: IO Float
-getBrightness = (/max_brightness) <$> (read <$> readFile brightness_file)
+getBrightness = (/max_brightness) <$> read <$> readFile brightness_file
 
 setBrightness :: Float -> IO ()
-setBrightness = writeFile brightness_file . show . round . (*max_brightness) . (\x -> if x > 1 then 1 else x)
+setBrightness = writeFile brightness_file . show . round . (*max_brightness) . min 1
 
 getLuminosity :: IO Float
 getLuminosity = (/max_luminosity) <$> read <$> readFile luminosity_file
@@ -60,11 +60,11 @@ updateBrightness xss@(xs :|> _) = do
   
 startAls :: IO ()
 startAls = do
-  writeFile als_file (show 1)
+  writeFile als_file $ show 1
   updateBrightness Empty
 
 stopAls :: IO ()
-stopAls = writeFile als_file (show 0)
+stopAls = writeFile als_file $ show 0
   
 main :: IO ()
 main = do

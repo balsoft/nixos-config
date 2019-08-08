@@ -1,10 +1,39 @@
-[submodule "imports/nixpkgs"]
-	path = imports/nixpkgs
-	url = https://github.com/nixos/nixpkgs-channels
-[submodule "imports/home-manager"]
-	path = imports/home-manager
+[submodule "imports/github/balsoft/lambda-launcher"]
+	path = imports/github/balsoft/lambda-launcher
+	url = https://github.com/balsoft/lambda-launcher
+[submodule "imports/github/msva/mva-overlay"]
+	path = imports/github/msva/mva-overlay
+	url = https://github.com/msva/mva-overlay
+[submodule "imports/github/rycee/home-manager"]
+	path = imports/github/rycee/home-manager
 	url = https://github.com/rycee/home-manager
-[submodule "nixpkgs"]
-	shallow = true
-[submodule "home-manager"]
-	shallow = true
+[submodule "imports/github/serokell/nixfmt"]
+	path = imports/github/serokell/nixfmt
+	url = https://github.com/serokell/nixfmt
+[submodule "imports/github/terodom/termNote"]
+	path = imports/github/terodom/termNote
+	url = https://github.com/terodom/termNote
+[submodule "imports/github/dawikur/base16-gruvbox-scheme"]
+	path = imports/github/dawikur/base16-gruvbox-scheme
+	url = https://github.com/dawikur/base16-gruvbox-scheme
+[submodule "imports/github/ryanoasis/nerd-fonts"]
+	path = imports/github/ryanoasis/nerd-fonts
+	url = https://github.com/ryanoasis/nerd-fonts
+[submodule "imports/github/nana-4/materia-theme"]
+	path = imports/github/nana-4/materia-theme
+	url = https://github.com/nana-4/materia-theme
+[submodule "imports/github/nixos/nixpkgs-channels"]
+	path = imports/github/nixos/nixpkgs-channels
+	url = https://github.com/nixos/nixpkgs-channels
+[submodule "imports/github/nixos/nixpkgs"]
+	path = imports/github/nixos/nixpkgs
+	url = https://github.com/nixos/nixpkgs
+[submodule "imports/github/Infinisil/all-hies"]
+	path = imports/github/Infinisil/all-hies
+	url = https://github.com/Infinisil/all-hies
+[submodule "imports/github/nheko-reborn/mtxclient"]
+	path = imports/github/nheko-reborn/mtxclient
+	url = https://github.com/nheko-reborn/mtxclient
+[submodule "imports/github/nheko-reborn/nheko"]
+	path = imports/github/nheko-reborn/nheko
+	url = https://github.com/nheko-reborn/nheko

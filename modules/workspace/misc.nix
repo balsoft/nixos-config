@@ -1,5 +1,4 @@
-{pkgs, lib, config, ...}:
-{
+{ pkgs, lib, config, ... }: {
   programs.sway.enable = true;
   users.users.balsoft.extraGroups = [ "sway" ];
 
@@ -15,28 +14,29 @@
     SDL_VIDEODRIVER = "wayland";
     _JAVA_AWT_WM_NONREPARENTING = "1";
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+    NIX_AUTO_RUN = "1";
   };
-  home-manager.users.balsoft =
-  {
+  services.atd.enable = true;
+  home-manager.users.balsoft = {
     xdg.enable = true;
-    
-    home.sessionVariables.SSH_ASKPASS = "${pkgs.plasma5.ksshaskpass}/bin/ksshaskpass";
-    #services.udiskie.enable = true;
-    programs.git =
-    {
+
+    services.udiskie.enable = true;
+    programs.git = {
       enable = true;
       userEmail = "balsoft@yandex.ru";
-      userName = "Александр Бантьев";
+      userName = "Alexander Bantyev";
     };
     news.display = "silent";
-    programs.command-not-found.enable = true;
-    home.keyboard =
-    {
-      options = ["grp:caps_toggle,grp_led:caps"];
+    programs.command-not-found = {
+      enable = true;
+      dbPath = ../../imports/programs.sqlite;
+    };
+    home.keyboard = {
+      options = [ "grp:caps_toggle,grp_led:caps" ];
       layout = "us,ru";
     };
-    
-    home.file.".icons/default".source = "${pkgs.breeze-qt5}/share/icons/breeze_cursors";
+    home.file.".icons/default".source =
+      "${pkgs.breeze-qt5}/share/icons/breeze_cursors";
     systemd.user.startServices = true;
   };
 }

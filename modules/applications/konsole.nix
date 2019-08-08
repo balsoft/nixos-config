@@ -1,6 +1,5 @@
-{pkgs, lib, config, ...}:
-with (import ../../support.nix {inherit lib config;});
-{
+{ pkgs, lib, config, ... }:
+with (import ../../support.nix { inherit lib config; }); {
   home-manager.users.balsoft.xdg.dataFile = {
     "konsole/Default.profile".text = genIni {
       Appearance.ColorScheme = "generated";
@@ -10,7 +9,10 @@ with (import ../../support.nix {inherit lib config;});
         Name = "Default";
         Parent = "FALLBACK/";
       };
-      Scrolling.HistoryMode = 2;
+      Scrolling = {
+        HistoryMode = 2;
+        ScrollBarPosition = 2;
+      };
       "Terminal Features".BlinkingCursorEnabled = true;
     };
     "konsole/generated.colorscheme".text = genIni {
@@ -36,11 +38,15 @@ with (import ../../support.nix {inherit lib config;});
   };
   home-manager.users.balsoft.xdg.configFile."konsolerc.home".text = genIni {
     "Desktop Entry".DefaultProfile = "Default.profile";
-    KonsoleWindow.ShowMenuBarByDefault = false;
+    KonsoleWindow = {
+      SaveGeometryOnExit = false;
+      ShowMenuBarByDefault = false;
+      UseSingleInstance = true;
+    };
   };
   home-manager.users.balsoft.home.activation.konsole = {
     data = "$DRY_RUN_CMD cp -f ~/.config/konsolerc.home ~/.config/konsolerc";
-    before = [];
+    before = [ ];
     after = [ "linkGeneration" ];
   };
 }

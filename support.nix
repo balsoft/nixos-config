@@ -1,19 +1,21 @@
-{ lib, config, ... }:
-rec {
+{ lib, config, ... }: rec {
   genIni = lib.generators.toINI {
-  mkKeyValue = key: value:
+    mkKeyValue = key: value:
     let
-      mvalue =
-        if builtins.isBool value then (if value then "true" else "false")
-        else if (builtins.isString value && key != "include-file") then value
-        else builtins.toString value;
-    in
-    "${key}=${mvalue}";
+      mvalue = if builtins.isBool value then
+        (if value then "true" else "false")
+      else if (builtins.isString value && key != "include-file") then
+        value
+      else
+        builtins.toString value;
+    in "${key}=${mvalue}";
   };
   thm = config.themes.colors;
-  splitHex = hexStr: map (x: builtins.elemAt x 0) (builtins.filter (a: a != "" && a != []) (builtins.split "(.{2})" (builtins.substring 1 6 hexStr)));
-  hex2decDigits = {
-    "0" = 0;  
+  splitHex = hexStr:
+  map (x: builtins.elemAt x 0) (builtins.filter (a: a != "" && a != [ ])
+  (builtins.split "(.{2})" (builtins.substring 1 6 hexStr)));
+  hex2decDigits = rec {
+    "0" = 0;
     "1" = 1;
     "2" = 2;
     "3" = 3;
@@ -29,9 +31,20 @@ rec {
     "d" = 13;
     "e" = 14;
     "f" = 15;
+    A = a;
+    B = b;
+    C = c;
+    D = d;
+    E = e;
+    F = f;
   };
 
-  doubleDigitHexToDec = hex: 16 * hex2decDigits."${builtins.substring 0 1 hex}" + hex2decDigits."${builtins.substring 1 2 hex}";
+  doubleDigitHexToDec = hex:
+  16 * hex2decDigits."${builtins.substring 0 1 hex}"
+  + hex2decDigits."${builtins.substring 1 2 hex}";
   thmDec = builtins.mapAttrs (name: color: colorHex2Dec color) thm;
-  colorHex2Dec = color: builtins.concatStringsSep "," (map (x: toString (doubleDigitHexToDec x)) (splitHex color));
+  colorHex2Dec = color:
+  builtins.concatStringsSep ","
+  (map (x: toString (doubleDigitHexToDec x)) (splitHex color));
+
 }

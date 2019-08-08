@@ -1,16 +1,19 @@
-{ bash, playerctl, iconfont, ... }:
-''
-#!${bash}/bin/bash
-STATUS=`${playerctl}/bin/playerctl status`
-case $BLOCK_BUTTON in
-     1) ${playerctl}/bin/playerctl play-pause;;
-     2) ${playerctl}/bin/playerctl stop;;
-     3) ${playerctl}/bin/playerctl next;;
-esac
-case $STATUS in
-     Paused)  icon=""; text=`${playerctl}/bin/playerctl metadata title | head -c 20 | sed s/' \\w*$'//`;;
-     Playing) icon=""; text=`${playerctl}/bin/playerctl metadata title | head -c 30 | sed s/' \\w*$'//`;;
-     *) icon="";;
-esac
-echo "<span font='${iconfont}'>$icon</span> $text"
+{ python3, playerctl, iconfont, ...}: ''
+  #!${python3}/bin/python
+  from subprocess import getoutput, call
+  from os import environ
+  status = getoutput("${playerctl}/bin/playerctl status")
+  if "BLOCK_BUTTON" in environ:
+    BLOCK_BUTTON = environ["BLOCK_BUTTON"]
+    if BLOCK_BUTTON == "1": call(["${playerctl}/bin/playerctl", "play-pause"])
+    if BLOCK_BUTTON == "2": call(["${playerctl}/bin/playerctl", "stop"])
+    if BLOCK_BUTTON == "3": call(["${playerctl}/bin/playerctl", "next"])
+  if status == "Paused": 
+    icon=""
+  elif status == "Playing": 
+    icon=""
+  else: 
+    icon = ""
+  text = getoutput("${playerctl}/bin/playerctl metadata title")[:20:]
+  print("<span font='${iconfont}'>%s</span> %s" % (icon, text))
 ''

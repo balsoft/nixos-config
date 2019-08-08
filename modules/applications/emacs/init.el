@@ -42,7 +42,6 @@
 (eval-when-compile
   (require 'use-package))
 (setq use-package-always-ensure nil)
-(use-package diminish)
 
 (setq-default tab-width 2)
 
@@ -77,7 +76,6 @@
 ;; Wakib
 ;; -------------------
 (use-package wakib-keys
-  :diminish wakib-keys
   :config
   (wakib-keys 1)
   (add-hook 'after-change-major-mode-hook 'wakib-update-major-mode-map)
@@ -90,7 +88,8 @@
   (define-key isearch-mode-map (kbd "M-:") 'isearch-repeat-backward)
   (define-key isearch-mode-map (kbd "C-v") 'isearch-yank-kill))
 
-(global-set-key (kbd "C-w") 'kill-buffer)
+(global-set-key (kbd "C-w") 'kill-word)
+(global-set-key (kbd "C-W") 'kill-buffer)
 
 (global-display-line-numbers-mode)
 
@@ -133,10 +132,11 @@
 (use-package hasklig-mode
   :hook (haskell-mode))
 
+
+
 (use-package company-ghci
   :config
-  (push 'company-ghci company-backends)
-  :hook (haskell-mode . 'haskell-process-load-or-reload))
+  (push 'company-ghci company-backends))
 
 (global-set-key (kbd "M-RET") 'execute-extended-command)
 
@@ -165,7 +165,7 @@ If point was already at that position, move point to beginning of line."
 
 (bind-key [menu-bar file open-file]
 	  `(menu-item "Open File..." find-file :enable (menu-bar-non-minibuffer-window-p)
-		      :help "Read an existing or new file from disk"
+                :help "Read an existing or new file from disk"
 		      :key-sequence ,(kbd "C-o")))
 
 (bind-key [menu-bar file dired]
@@ -185,13 +185,13 @@ If point was already at that position, move point to beginning of line."
 ;; -------------------
 ;; Theme
 ;; -------------------
-(use-package nord-theme
+(use-package xresources-theme
   :config
-  (load-theme 'nord t)
   (add-hook 'after-make-frame-functions
             (lambda (frame)
-              (with-selected-frame frame
-                (load-theme 'nord t)))))
+              (when window-system
+                (with-selected-frame frame
+                  (load-theme 'xresources t))))))
 ;; scroll one line at a time (less "jumpy" than defaults)
 
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
@@ -207,54 +207,19 @@ If point was already at that position, move point to beginning of line."
 (set 'pop-up-frames 'graphic-only)
 (set 'gdb-use-separate-io-buffer nil)
 (set 'gdb-many-windows nil)
-;; -------------------
-;; Magit
-;; -------------------
-(use-package magit
-  :bind
-  (("C-x g" . magit-status )))
 
-(use-package irony-mode
-  :hook
-  (c-mode . irony-mode)
-  (c++-mode . irony-mode))
-
-(use-package exec-path-from-shell
-  :disabled
-  :config
-  (exec-path-from-shell-copy-env "SSH_AGENT_PID")
-  (exec-path-from-shell-copy-env "SSH_AUTH_SOCK"))
-    
-
-;; -------------------
-;; Ivy
-;; -------------------
-(use-package ivy
-  :diminish ivy-mode
-  :config
-  (ivy-mode 1)
-  (setq ivy-use-virtual-buffers t)
-  (define-key ivy-minibuffer-map [remap keyboard-quit] 'minibuffer-keyboard-quit)
-;;  (setq enable-recursive-minibuffers t)
-  (setq ivy-count-format "")
-  (setq ivy-initial-inputs-alist nil))
 
 (use-package counsel
-  :diminish counsel-mode
   :config
   (counsel-mode 1)
   (define-key wakib-keys-overriding-map (kbd "C-S-v") 'counsel-yank-pop))
 
-
-;; find out what ivy uses from smex
-(use-package smex)
 ;; -------------------
 ;; Projectile
 ;; -------------------
 ;; No deferred loading as bind-keymap
 ;; doesn't handle wakib C-d keymaps
 (use-package projectile
-  :diminish projectile-mode
   :config
   (setq projectile-completion-system 'ivy)
   (define-key projectile-mode-map (kbd "C-c p") nil)
@@ -282,27 +247,12 @@ If point was already at that position, move point to beginning of line."
 
 (use-package nix-mode
   :hook
-  ((nix-mode . (lambda () (local-set-key (kbd "<f7>") 'nix-mode-format))))
-  ((nix-mode . (lambda () (local-set-key (kbd "TAB") 'nix-indent-line)))))
+  ((nix-mode . (lambda () (local-set-key (kbd "<f7>") 'nix-format-buffer))))
+  ((nix-mode . (lambda () (setq indent-line-function 'nix-indent-line)))))
 
-
-(use-package yasnippet-snippets
-  :defer t)
-
-(use-package yasnippet
-  :hook
-  ((prog-mode . yas-minor-mode))
-  :diminish yas-minor-mode
+(use-package org-gcal
   :config
-  (require 'yasnippet-snippets)
-  (yas-reload-all)
-  (define-key yas-keymap [remap wakib-next] 'yas-next-field)
-  (define-key yas-keymap [remap wakib-previous] 'yas-prev-field))
-
-
-(use-package ivy-yasnippet
-  :bind ("C-y" . ivy-yasnippet))
-
+  (require 'org-gcal-config))
 
 
 (use-package org-gcal
@@ -313,76 +263,58 @@ If point was already at that position, move point to beginning of line."
 ;; expand-region
 ;; -------------------
 (use-package company
-  :diminish company-mode
   :config
   (global-company-mode 1)
+  ;; Trigger completion immediately.
+  (setq company-idle-delay 0)
+
+  ;; Number the candidates (use M-1, M-2 etc to select completions).
+  (setq company-show-numbers t)
+
+  ;; Use the tab-and-go frontend.
+  ;; Allows TAB to select and complete at the same time.
+  (company-tng-configure-default)
+  (setq company-frontends
+        '(company-tng-frontend
+          company-pseudo-tooltip-frontend
+          company-echo-metadata-frontend))
+
+  (require 'color)
+
+  (let ((bg (face-attribute 'default :background)))
+    (custom-set-faces
+     `(company-tooltip ((t (:inherit default :background ,(color-lighten-name bg 2)))))
+     `(company-scrollbar-bg ((t (:background ,(color-lighten-name bg 10)))))
+     `(company-scrollbar-fg ((t (:background ,(color-lighten-name bg 5)))))
+     `(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
+     `(company-tooltip-common ((t (:inherit font-lock-constant-face))))))
+
   (define-key company-active-map [remap wakib-next] 'company-select-next)
   (define-key company-active-map [remap wakib-previous] 'company-select-previous))
 
-;; -------------------
-;; expand-region
-;; -------------------
-(use-package expand-region
-  :bind ("M-A" . er/expand-region))
-
-;; -------------------
-;; avy
-;; -------------------
-(use-package avy
-  :bind ("M-m" . avy-goto-char-2))
-
-;; -------------------
-;; switch-window
-;; -------------------
-(use-package switch-window
-  :bind ("M-H" . switch-window)
+(use-package company-tabnine
   :config
-  (setq switch-window-shortcut-style 'qwerty)
-  (setq switch-window-threshold 1))
+  (add-to-list 'company-backends #'company-tabnine))
+
 
 ;; -------------------
-;; which-key
+;; Ivy
 ;; -------------------
-(use-package which-key
-  :diminish which-key-mode
+(use-package ivy
   :config
-  (which-key-mode))
+  (ivy-mode 1)
+  (setq ivy-use-virtual-buffers t)
+  (define-key ivy-minibuffer-map [remap keyboard-quit] 'minibuffer-keyboard-quit)
+;;  (setq enable-recursive-minibuffers t)
+  (setq ivy-count-format "")
+  (setq ivy-initial-inputs-alist nil))
 
-;; -------------------
-;; multiple-cursors
-;; -------------------
-;; TODO - Advice CUA-keyboard-quit to quit mc and rrm
-(use-package multiple-cursors
-  :init
-  (custom-set-variables `(mc/always-run-for-all ,t))
-  :config
-  (define-key mc/keymap [remap keyboard-quit] 'mc/keyboard-quit)
-  (define-key rectangular-region-mode-map [remap keyboard-quit] 'rrm/keyboard-quit)
-  ;;(custom-set-variables `(mc/always-run-for-all ,t))
-  :bind
-  (("M-S-s" . set-rectangular-region-anchor)
-   :map wakib-keys-overriding-map
-	("C-." . mc/mark-next-like-this)
-	("C-," . mc/mark-previous-like-this)
-	("<C-down-mouse-1>" . mc/add-cursor-on-click)))
-
-;; -------------------
-;; diff-hl
-;; -------------------
-(use-package diff-hl
-  :hook
-  ((prog-mode . turn-on-diff-hl-mode)
-   (magit-post-refresh-hook . diff-hl-magit-post-refresh)))
-
-(use-package powerline
-  :config
-  (powerline-center-theme)
-  )
+(use-package smex)
 
 ;; TODO (change defun rewrite to advice)
 (use-package quickrun
   :init
-  (global-set-key [menu-bar tools quickrun] `(menu-item ,"Run Buffer" quickrun))  
+  (global-set-key [menu-bar tools quickrun] `(menu-item ,"Run Buffer" quickrun))
   :config
   (setq quickrun-focus-p nil)
   ;; Move cursor out of the way when displaying output
@@ -395,9 +327,6 @@ If point was already at that position, move point to beginning of line."
   (([f8] . quickrun )))
 
 
-;; Better Parenthesis
-(use-package rainbow-delimiters
-  :hook (prog-mode . rainbow-delimiters-mode))
 (show-paren-mode 1)
 ;; TODO - MOVE Electric Pair Mode to user local
 
@@ -410,8 +339,8 @@ If point was already at that position, move point to beginning of line."
 
 ;; Setup Splash Screen
 (setq inhibit-startup-screen t)
-(setq-default major-mode 'org-mode)
-(setq-default initial-scratch-message ";; Emacs lisp scratch buffer. Happy hacking.\n\n")
+(setq-default major-mode 'fundamental-mode)
+(setq-default initial-scratch-message "")
 
 ;; Initial buffer choice causes split window when opening file from command line or
 ;; DE. While running wakib empty buffer causes profiling init file to fail
@@ -441,4 +370,5 @@ nothing happens."
         (add-hook 'after-save-hook 'compile-on-save-start nil t))
     (kill-local-variable 'after-save-hook)))
 
-;;; init.el ends here
+(auto-fill-mode)
+;;; init.el ends her

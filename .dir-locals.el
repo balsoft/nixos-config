@@ -1,1 +1,1 @@
-((nil .  ((projectile-project-compilation-cmd . "nixos-rebuild build"))))
+((nil .  ((projectile-project-compilation-cmd . "./install.sh"))))
