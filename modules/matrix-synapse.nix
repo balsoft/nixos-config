@@ -53,6 +53,30 @@
         }
       '';
     };
+  systemd.services.whatsapp = let
+    wa = with import <nixpkgs> { config.android_sdk.accept_license = true; };
+      androidenv.emulateApp {
+        name = "WhatsApp";
+        app = fetchurl {
+          url = "https://www.cdn.whatsapp.net/android/2.19.214/WhatsApp.apk";
+          sha256 = "1yc8zhlx86gb2ixizxgm2mp6dz8c47xa7w7jjaisb2v4ywmlmdmh";
+        };
+        platformVersion = "18";
+        useGoogleAPIs = true;
+        enableGPU = true;
+        abiVersion = "x86";
+
+        package = "com.whatsapp";
+        activity = ".HomeActivity";
+
+        avdHomeDir = "/var/lib/whatsapp/.whatsapp";
+      };
+    in lib.mkIf (config.device == "AMD-Workstation") {
+      description = "WhatsApp in a VM";
+      script = ''
+        NIX_ANDROID_EMULATOR_FLAGS="-no-audio -no-window" ${wa}/bin/run-test-emulator
+      '';
+    };
   systemd.services.mautrix-telegram =
     lib.mkIf (config.device == "AMD-Workstation") {
       description = "A bridge between telegram and matrix";
