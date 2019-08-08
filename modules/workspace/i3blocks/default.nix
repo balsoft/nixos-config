@@ -2,30 +2,30 @@
 with import ../../../support.nix { inherit pkgs config lib; };
 let scripts = import ./scripts pkgs config;
 in {
-  home-manager.users.balsoft.xsession.windowManager.i3.config.bars = [{
-    colors = rec {
-      activeWorkspace = {
-        text = thm.blue;
-        border = thm.bg;
-        background = thm.bg;
-      };
-      background = thm.bg;
-      bindingMode = {
-        background = thm.bg;
-        text = thm.yellow;
-        border = thm.bg;
-      };
-      focusedWorkspace = activeWorkspace;
-      inactiveWorkspace = activeWorkspace // { text = thm.fg; };
-      separator = thm.alt;
-      urgentWorkspace = activeWorkspace // { text = thm.orange; };
-    };
-    fonts = [ "Material Icons 11" "Roboto Mono 11" ];
-    id = "top";
-    position = "top";
-    statusCommand = "${pkgs.i3blocks}/bin/i3blocks";
-    trayOutput = "none";
-  }];
+  home-manager.users.balsoft.xsession.windowManager.i3.extraConfig = ''
+    bar {
+      id top
+      font pango:Material Icons 11, Roboto Mono 11
+      mode dock
+      hidden_state hide
+      position top
+      status_command /nix/store/nkpm114z5zfjzv57c7x3jcbivvp535wg-i3blocks-1.4/bin/i3blocks
+      workspace_buttons yes
+      strip_workspace_numbers no
+      tray_output none
+      colors {
+        background ${config.themes.colors.bg}
+        statusline ${config.themes.colors.fg}
+        separator ${config.themes.colors.alt}
+        focused_workspace ${config.themes.colors.bg} ${config.themes.colors.bg} ${config.themes.colors.blue} 
+        active_workspace ${config.themes.colors.bg} ${config.themes.colors.bg} ${config.themes.colors.green} 
+        inactive_workspace ${config.themes.colors.bg} ${config.themes.colors.bg} ${config.themes.colors.fg} 
+        urgent_workspace ${config.themes.colors.bg} ${config.themes.colors.bg} ${config.themes.colors.orange} 
+        binding_mode ${config.themes.colors.bg} ${config.themes.colors.bg} ${config.themes.colors.yellow} 
+      }
+    }
+  '';
+
   home-manager.users.balsoft.xdg.configFile."i3blocks/config".text = ''
     interval=60
     markup=pango

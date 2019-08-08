@@ -21,6 +21,7 @@ in {
         "ﱘ" = [{ class = "cantata"; }];
       };
       fonts = [ "RobotoMono 9" ];
+      
 
       colors = rec {
         background = thm.bg;
