@@ -20,29 +20,6 @@ in {
         ];
         "ﱘ" = [{ class = "cantata"; }];
       };
-      bars = [{
-        colors = rec {
-          activeWorkspace = {
-            text = thm.blue;
-            border = thm.bg;
-            background = thm.bg;
-          };
-          background = thm.bg;
-          bindingMode = {
-            background = thm.bg;
-            text = thm.yellow;
-            border = thm.bg;
-          };
-          focusedWorkspace = activeWorkspace;
-          inactiveWorkspace = activeWorkspace // { text = thm.fg; };
-          separator = thm.alt;
-          urgentWorkspace = activeWorkspace // { text = thm.orange; };
-        };
-        fonts = [ "Material Icons 11" "Roboto Mono 11" ];
-        id = "top";
-        position = "top";
-        statusCommand = "${pkgs.i3blocks}/bin/i3blocks";
-      }];
       fonts = [ "RobotoMono 9" ];
 
       colors = rec {
