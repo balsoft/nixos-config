@@ -73,7 +73,7 @@
       };
     in lib.mkIf (config.device == "AMD-Workstation") {
       description = "WhatsApp in a VM";
-      serviceConfig.type = "forking";
+      serviceConfig.Type = "forking";
       script = ''
         NIX_ANDROID_EMULATOR_FLAGS="-no-audio -no-window" ${wa}/bin/run-test-emulator
       '';
