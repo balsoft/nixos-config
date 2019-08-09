@@ -177,7 +177,7 @@ in {
           "${modifier}+F2" = "scratchpad show";
           "${modifier}+i" =
             "exec sh -c 'xclip -selection clipboard -out | curl -F \"f:1=<-\" ix.io | xclip -selection clipboard -in'";
-          "${modifier}+z" = "exec ${pkgs.lambda-launcher}/bin/lambda-launcher";
+          "${modifier}+z" = "exec sh -c 'GDK_BACKEND=x11 ${pkgs.lambda-launcher}/bin/lambda-launcher'";
           "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
           "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
           "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
