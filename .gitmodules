@@ -40,3 +40,6 @@
 [submodule "imports/github/swaywm/sway"]
 	path = imports/github/swaywm/sway
 	url = https://github.com/swaywm/sway
+[submodule "imports/github/swaywm/wlroots"]
+	path = imports/github/swaywm/wlroots
+	url = https://github.com/swaywm/wlroots
