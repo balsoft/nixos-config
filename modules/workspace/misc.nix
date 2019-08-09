@@ -1,7 +1,7 @@
 { pkgs, lib, config, ... }: {
   programs.sway.enable = true;
   users.users.balsoft.extraGroups = [ "sway" ];
-
+  systemd.coredump.enable = true;
   programs.ssh.askPassword = "${pkgs.plasma5.ksshaskpass}/bin/ksshaskpass";
   environment.sessionVariables = {
     EDITOR = config.defaultApplications.editor.cmd;
