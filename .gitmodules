@@ -37,3 +37,6 @@
 [submodule "imports/github/nheko-reborn/nheko"]
 	path = imports/github/nheko-reborn/nheko
 	url = https://github.com/nheko-reborn/nheko
+[submodule "imports/github/swaywm/sway"]
+	path = imports/github/swaywm/sway
+	url = https://github.com/swaywm/sway
