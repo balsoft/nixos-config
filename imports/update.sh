@@ -1,7 +1,7 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -p git -i bash
 
-RELEASE=unstable
+RELEASE=19.03
 
 IN_NIX_SHELL=
 
@@ -19,16 +19,20 @@ do
         git remote add origin "https://github.com/$author/$repo"
         git fetch
         git checkout master
+        git fetch
         git pull
     done
 done
 
 rm $imports/nixpkgs
-ln -s $imports/github/nixos/nixpkgs-channels $imports/nixpkgs
 
-cd $imports/nixpkgs
-git checkout nixos-$RELEASE
-git pull
+rm $imports/nixpkgs -rf
+rm $imports/nixpkgs-unstable -rf
+
+cd $imports/github/nixos/nixpkgs-channels
+
+git worktree add --track -b nixos-$RELEASE ../../../nixpkgs origin/nixos-$RELEASE
+git worktree add --track -b nixos-unstable ../../../nixpkgs-unstable origin/nixos-unstable
 
 cd $imports
 
