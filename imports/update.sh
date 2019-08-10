@@ -1,7 +1,7 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -p git -i bash
 
-RELEASE=19.03
+RELEASE=unstable
 
 IN_NIX_SHELL=
 
@@ -24,10 +24,10 @@ do
 done
 
 rm $imports/nixpkgs
-ln -s $imports/github/nixos/nixpkgs $imports/nixpkgs
+ln -s $imports/github/nixos/nixpkgs-channels $imports/nixpkgs
 
 cd $imports/nixpkgs
-git checkout release-$RELEASE
+git checkout nixos-$RELEASE
 git pull
 
 cd $imports
