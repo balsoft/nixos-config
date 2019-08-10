@@ -31,8 +31,8 @@ rm $imports/nixpkgs-unstable -rf
 
 cd $imports/github/nixos/nixpkgs-channels
 
-git worktree add --track -b nixos-$RELEASE ../../../nixpkgs origin/nixos-$RELEASE
-git worktree add  ../../../nixpkgs-unstable origin/nixos-unstable
+git worktree add ../../../nixpkgs origin/nixos-$RELEASE
+git worktree add ../../../nixpkgs-unstable origin/nixos-unstable
 
 cd $imports
 
