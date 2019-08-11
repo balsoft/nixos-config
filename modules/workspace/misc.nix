@@ -20,9 +20,9 @@
 
     home.activation."mimeapps" = {
       before = [ "linkGeneration" ];
-      after = [];
-      data = "rm -f .config/mimeapps.list";
-    }; 
+      after = [ ];
+      data = "rm -f /home/balsoft/.config/mimeapps.list";
+    };
 
     services.udiskie.enable = true;
     programs.git = {
