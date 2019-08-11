@@ -1,8 +1,11 @@
-
+let new = import ../imports/nixpkgs-unstable { };
+in
 { pkgs, config, lib, ... }: {
   nixpkgs.overlays = [
     (self: old:
     {
+      inherit new;
+
       termNote =
         self.callPackage ../imports/github/terodom/termNote/termNote.nix { };
 
@@ -20,18 +23,22 @@
 
       all-hies = import ../imports/github/Infinisil/all-hies { };
 
-      mtxclient = old.mtxclient.overrideAttrs (_: rec {
+      mtxclient = new.mtxclient.overrideAttrs (_: rec {
         name = "${pname}-${version}";
         pname = "mtxclient";
         version = "0.3.0";
         src = ../imports/github/nheko-reborn/mtxclient;
       });
-      nheko = old.nheko.overrideAttrs (_: rec {
+      nheko = new.nheko.overrideAttrs (_: rec {
         name = "${pname}-${version}";
         pname = "nheko";
         version = "0.7.0";
         src = ../imports/github/nheko-reborn/nheko;
       });
+      
+      sway = new.sway;
+      
+      kanshi = new.kanshi;
 
       nerdfonts = old.stdenv.mkDerivation rec {
         name = "RobotoMonoNerd";
@@ -57,7 +64,7 @@
     } else
       { }))
   ];
-  nixpkgs.pkgs = import ../imports/github/nixos/nixpkgs {
+  nixpkgs.pkgs = import ../imports/nixpkgs {
     config.allowUnfree = true;
     config.android_sdk.accept_license = true;
     config.firefox.enablePlasmaBrowserIntegration = true;
@@ -72,7 +79,7 @@
       chmod 100 /root/id_rsa
     '';
   };
-  environment.etc.nixpkgs.source = ../imports/github/nixos/nixpkgs;
+  environment.etc.nixpkgs.source = ../imports/nixpkgs;
   nix = rec {
     nixPath = lib.mkForce [
       "nixpkgs=/etc/nixpkgs"
