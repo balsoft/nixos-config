@@ -21,7 +21,7 @@
     home.activation."mimeapps" = {
       before = [];
       after = [];
-      data = "rm -f .config/mimeapps.list || true";
+      data = "rm -f .config/mimeapps.list";
     }; 
 
     services.udiskie.enable = true;
