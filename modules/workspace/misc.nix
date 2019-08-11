@@ -18,6 +18,12 @@
   home-manager.users.balsoft = {
     xdg.enable = true;
 
+    home.activation."mimeapps" = {
+      before = [ "linkGeneration" ];
+      after = [];
+      data = "$DRY_RUN_CMD rm -f .config/mimeapps.list || true";
+    }; 
+
     services.udiskie.enable = true;
     programs.git = {
       enable = true;
