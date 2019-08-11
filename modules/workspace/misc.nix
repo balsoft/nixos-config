@@ -21,7 +21,7 @@
     home.activation."mimeapps" = {
       before = [ "linkGeneration" ];
       after = [];
-      data = "$DRY_RUN_CMD rm -f .config/mimeapps.list || true";
+      data = "rm -f .config/mimeapps.list || true";
     }; 
 
     services.udiskie.enable = true;
