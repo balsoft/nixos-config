@@ -59,7 +59,7 @@ in {
       focus.followMouse = false;
       modifier = "Mod4";
       window = {
-        border = 1;
+        # border = 1;
         titlebar = true;
         hideEdgeBorders = "smart";
         commands = [
