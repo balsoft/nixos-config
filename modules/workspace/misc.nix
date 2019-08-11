@@ -19,7 +19,7 @@
     xdg.enable = true;
 
     home.activation."mimeapps" = {
-      before = [];
+      before = [ "linkGeneration" ];
       after = [];
       data = "rm -f .config/mimeapps.list";
     }; 
