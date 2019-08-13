@@ -1,4 +1,4 @@
 #!/bin/sh
 
-nix-env --profile /nix/var/nix/profiles/system --set $(readlink ./result)
-./result/bin/switch-to-configuration switch
+/usr/bin/env nix-env --profile /nix/var/nix/profiles/system --set $(/usr/bin/env readlink ./result)
+$1/result/bin/switch-to-configuration switch

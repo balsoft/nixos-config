@@ -37,3 +37,9 @@
 [submodule "imports/github/swaywm/wlroots"]
 	path = imports/github/swaywm/wlroots
 	url = https://github.com/swaywm/wlroots
+[submodule "imports/nixpkgs"]
+	path = imports/nixpkgs
+	url = /home/balsoft/projects/nixos-config/imports/github/nixos/nixpkgs-channels
+[submodule "imports/nixpkgs-unstable"]
+	path = imports/nixpkgs-unstable
+	url = /home/balsoft/projects/nixos-config/imports/github/nixos/nixpkgs-channels

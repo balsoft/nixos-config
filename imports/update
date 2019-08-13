@@ -18,21 +18,15 @@ do
         cd "$repo"
         git remote add origin "https://github.com/$author/$repo"
         git fetch
-        git checkout master
-        git fetch
-        git pull
+        git checkout origin/master
     done
 done
 
-rm $imports/nixpkgs
+cd $imports/nixpkgs
+git checkout origin/nixos-$RELEASE
 
-rm $imports/nixpkgs -rf
-rm $imports/nixpkgs-unstable -rf
-
-cd $imports/github/nixos/nixpkgs-channels
-
-git worktree add ../../../nixpkgs origin/nixos-$RELEASE
-git worktree add ../../../nixpkgs-unstable origin/nixos-unstable
+cd $imports/nixpkgs-unstable
+git checkout origin/nixos-unstable
 
 cd $imports
 
