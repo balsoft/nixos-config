@@ -1,9 +1,6 @@
 [submodule "imports/github/balsoft/lambda-launcher"]
 	path = imports/github/balsoft/lambda-launcher
 	url = https://github.com/balsoft/lambda-launcher
-[submodule "imports/github/msva/mva-overlay"]
-	path = imports/github/msva/mva-overlay
-	url = https://github.com/msva/mva-overlay
 [submodule "imports/github/rycee/home-manager"]
 	path = imports/github/rycee/home-manager
 	url = https://github.com/rycee/home-manager

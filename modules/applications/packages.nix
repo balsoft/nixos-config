@@ -69,7 +69,6 @@
     firefox-wayland
     libqalculate
     # Messaging
-    tdesktop
     telepathy_haze
     telepathy_idle
     libnotify
