@@ -18,15 +18,15 @@ do
         cd "$repo"
         git remote add origin "https://github.com/$author/$repo"
         git fetch
-        git checkout origin/master
+        git -c advice.detachedHead=false checkout origin/master
     done
 done
 
 cd $imports/nixpkgs
-git checkout origin/nixos-$RELEASE
+git -c advice.detachedHead=false checkout origin/nixos-$RELEASE
 
 cd $imports/nixpkgs-unstable
-git checkout origin/nixos-unstable
+git -c advice.detachedHead=false checkout origin/nixos-unstable
 
 cd $imports
 
