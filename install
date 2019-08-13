@@ -50,6 +50,7 @@ else
             git tag latestBuild --force
             dir=$(pwd)
             export SHELL=/bin/sh 
-            pkexec ./switch
+            pkexec nix-env --profile /nix/var/nix/profiles/system --set $(readlink $dir/result)
+            pkexec $dir/result/bin/switch-to-configuration switch
         }
 fi

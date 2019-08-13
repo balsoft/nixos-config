@@ -1,0 +1,4 @@
+#!/bin/sh
+
+nix-env --profile /nix/var/nix/profiles/system --set $(readlink ./result)
+./result/bin/switch-to-configuration switch
