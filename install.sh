@@ -17,6 +17,14 @@ gpg -dq secret.nix.gpg > secret.nix
 
 git submodule update --init --recursive
 
+cd imports/nixpkgs
+git checkout nixos-19.03
+
+cd ../nixpkgs-unstable
+git checkout nixos-unstable
+
+cd ../..
+
 export NIX_PATH=nixpkgs=./imports/nixpkgs:nixos-config=/etc/nixos/configuration.nix
 
 if $firsttime
