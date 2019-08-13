@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, lib, config, ... }:
 let
   thm = config.themes.colors;
   apps = config.defaultApplications;
@@ -90,7 +90,7 @@ in {
         { command = "${pkgs.nheko}/bin/nheko"; }
         { command = "${pkgs.xorg.xrdb}/bin/xrdb -merge ~/.Xresources"; }
 
-        {
+        (lib.optionalAttrs (config.device == "AMD-Workstation") {
           command = ''
             NIX_ANDROID_EMULATOR_FLAGS="-no-audio -no-window" ${
               with import <nixpkgs> {
@@ -116,7 +116,7 @@ in {
               }
             }/bin/run-test-emulator
           '';
-        }
+        })
       ];
 
       keybindings = let
