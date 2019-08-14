@@ -209,7 +209,7 @@ in {
       }
       default_border pixel 1
       mouse_warping container
-      tiling_drag disable
+      swaynag_command -
     '';
   };
 }
