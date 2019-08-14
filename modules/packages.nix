@@ -19,15 +19,17 @@ in
 
       all-hies = import (filterGit ../imports/github/Infinisil/all-hies) { };
 
-      mtxclient = old.mtxclient.overrideAttrs (_: rec {
+      mtxclient = old.mtxclient.overrideAttrs (oa: rec {
         name = "${pname}-${version}";
+        buildInputs = oa.buildInputs ++ [ old.nlohmann_json ];
         pname = "mtxclient";
         version = "0.3.0";
         src = filterGit ../imports/github/nheko-reborn/mtxclient;
       });
 
-      nheko = old.nheko.overrideAttrs (_: rec {
+      nheko = old.nheko.overrideAttrs (oa: rec {
         name = "${pname}-${version}";
+        buildInputs = oa.buildInputs ++ [ old.nlohmann_json ];
         pname = "nheko";
         version = "0.7.0";
         src = filterGit ../imports/github/nheko-reborn/nheko;
