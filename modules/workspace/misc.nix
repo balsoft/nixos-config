@@ -19,7 +19,7 @@
     xdg.enable = true;
 
     home.activation."mimeapps-remove" = {
-      before = [ ];
+      before = [ "linkGeneration" ];
       after = [ ];
       data = "rm -f /home/balsoft/.config/mimeapps.list";
     };
