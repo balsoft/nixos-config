@@ -1,4 +1,6 @@
-let new = import ../imports/nixpkgs-unstable { };
+let 
+  new = import ../imports/nixpkgs-unstable { };
+  filterGit = builtins.filterSource (type: name: name != ".git" || type != "directory");
 in
 { pkgs, config, lib, ... }: {
   nixpkgs.overlays = [
@@ -7,27 +9,27 @@ in
       inherit new;
 
       termNote =
-        self.callPackage ../imports/github/terodom/termNote/termNote.nix { };
+        self.callPackage "${filterGit ../imports/github/terodom/termNote}/termNote.nix" { };
 
-      nixfmt = self.callPackage ../imports/github/serokell/nixfmt { };
+      nixfmt = self.callPackage (filterGit ../imports/github/serokell/nixfmt) { };
 
-      lambda-launcher = (import ../imports/github/balsoft/lambda-launcher {
+      lambda-launcher = (import (filterGit ../imports/github/balsoft/lambda-launcher) {
         pkgs = old;
       }).lambda-launcher;
 
-      all-hies = import ../imports/github/Infinisil/all-hies { };
+      all-hies = import (filterGit ../imports/github/Infinisil/all-hies) { };
 
       mtxclient = new.mtxclient.overrideAttrs (_: rec {
         name = "${pname}-${version}";
         pname = "mtxclient";
         version = "0.3.0";
-        src = ../imports/github/nheko-reborn/mtxclient;
+        src = filterGit ../imports/github/nheko-reborn/mtxclient;
       });
       nheko = new.nheko.overrideAttrs (_: rec {
         name = "${pname}-${version}";
         pname = "nheko";
         version = "0.7.0";
-        src = ../imports/github/nheko-reborn/nheko;
+        src = filterGit ../imports/github/nheko-reborn/nheko;
       });
       
       sway = new.sway;
