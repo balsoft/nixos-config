@@ -18,7 +18,7 @@
   home-manager.users.balsoft = {
     xdg.enable = true;
 
-    home.activation."mimeapps" = {
+    home.activation."mimeapps-remove" = {
       before = [ ];
       after = [ ];
       data = "rm -f /home/balsoft/.config/mimeapps.list";
