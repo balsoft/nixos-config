@@ -35,7 +35,6 @@
     stdman
     stdmanpages
     qt5.qtsvg
-    firefox
     plasma-browser-integration
     ntfs3g
     ktorrent
