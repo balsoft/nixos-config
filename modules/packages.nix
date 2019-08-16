@@ -5,9 +5,7 @@ in
 { pkgs, config, lib, ... }: {
   nixpkgs.overlays = [
     (self: old:
-    {
-      inherit new;
-
+    rec {
       termNote =
         self.callPackage "${filterGit ../imports/github/terodom/termNote}/termNote.nix" { };
 
@@ -35,7 +33,19 @@ in
         src = filterGit ../imports/github/nheko-reborn/nheko;
       });
       
-      sway = new.sway;
+      sway = old.sway.overrideAttrs (oa: rec {
+        name = "${pname}-${version}";
+        pname = "sway";
+        version = "master";
+        src = filterGit ../imports/github/swaywm/sway;
+      });
+
+      wlroots = new.wlroots.overrideAttrs (oa: rec {
+        name = "${pname}-${version}";
+        pname = "wlroots";
+        version = "master";
+        src = filterGit ../imports/github/swaywm/wlroots;
+      });        
       
       kanshi = new.kanshi;
 

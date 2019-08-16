@@ -3,9 +3,7 @@ let
   thm = config.themes.colors;
   apps = config.defaultApplications;
 in {
-  environment.sessionVariables._JAVA_AWT_WM_NONREPARENTING = "1";
-  
-  home-manager.users.balsoft.xdg.configFile."i3/config".text = lib.mkBefore "swaynag_command -";
+  environment.sessionVariables._JAVA_AWT_WM_NONREPARENTING = "1";  
 
   home-manager.users.balsoft.xsession.windowManager.i3 = {
     enable = true;
@@ -57,11 +55,10 @@ in {
         smartGaps = true;
         smartBorders = "on";
       };
-      #focus.mouseWarping = true;
       focus.followMouse = false;
       modifier = "Mod4";
       window = {
-        # border = 1;
+        border = 1;
         titlebar = true;
         commands = [
           {
