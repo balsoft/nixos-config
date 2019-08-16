@@ -3,7 +3,8 @@
     ./applications/packages.nix
     ./applications/kate.nix
     ./applications/emacs
-    ./applications/xst.nix
+    # ./applications/xst.nix
+    ./applications/konsole.nix
     ./applications/trojita.nix
     ./applications/firefox.nix
     ./applications/weechat.nix

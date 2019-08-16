@@ -7,8 +7,8 @@ with import ../support.nix { inherit lib config; }; {
   config = rec {
     defaultApplications = {
       term = {
-        cmd = "${pkgs.xst}/bin/st";
-        desktop = "xst";
+        cmd = "${pkgs.konsole}/bin/konsole";
+        desktop = "konsole";
       };
       editor = {
         cmd = toString (pkgs.writeTextFile {
