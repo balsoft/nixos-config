@@ -182,10 +182,10 @@ in {
         "${modifier}+v" = "split v";
         "${modifier}+F1" = "move to scratchpad";
         "${modifier}+F2" = "scratchpad show";
-        "${modifier}+i" = script ''
+        "${modifier}+i" = script "ix" ''
           xclip -selection clipboard -out | curl -F "f:1=<-" ix.io | xclip -selection clipboard -in'';
         "${modifier}+z" =
-          script "GDK_BACKEND=x11 ${pkgs.lambda-launcher}/bin/lambda-launcher";
+          script "lambda-launcher" "GDK_BACKEND=x11 ${pkgs.lambda-launcher}/bin/lambda-launcher";
         "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
         "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
         "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
