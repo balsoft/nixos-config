@@ -120,6 +120,7 @@ in {
       ];
 
       keybindings = let
+        script = name: content: "exec ${pkgs.writeScript name content}";
         moveMouse = ''
           "sh -c 'eval `${pkgs.xdotool}/bin/xdotool \
                 getactivewindow \
@@ -152,12 +153,19 @@ in {
         "${modifier}+d" = "exec ${apps.fm.cmd}";
         "${modifier}+Escape" = "exec ${apps.monitor.cmd}";
 
-        "${modifier}+Print" = "exec ${pkgs.spectacle}/bin/spectacle -b";
-        "${modifier}+Control+Print" = "exec ${pkgs.spectacle}/bin/spectacle";
-        "--release ${modifier}+Shift+Print" =
-          "exec ${pkgs.spectacle}/bin/spectacle -b -r";
+        "${modifier}+Print" = script "screenshot"
+          "${pkgs.grim}/bin/grim Pictures/$(date +'%Y-%m-%d+%H:%M:%S')";
+
+        "${modifier}+Control+Print" = script "screenshot-copy"
+          "${pkgs.grim}/bin/grim - | ${pkgs.wl-clipboard}/bin/wl-copy";
+
+        "--release ${modifier}+Shift+Print" = script "screenshot-area"
+          "${pkgs.grim}/bin/grim -g '$(${pkgs.slurp}/bin/slurp)' Pictures/$(date +'%Y-%m-%d+%H:%M:%S')";
+
         "--release ${modifier}+Control+Shift+Print" =
-          "exec ${pkgs.spectacle}/bin/spectacle -r";
+          script "screenshot-area-copy"
+          "${pkgs.grim}/bin/grim -g '$(${pkgs.slurp}/bin/slurp)' - | ${pkgs.wl-clipboard}/bin/wl-copy";
+
         "${modifier}+x" = "move workspace to output right";
         "${modifier}+c" = "workspace ";
         "${modifier}+Shift+c" = "move container to workspace ";
@@ -174,10 +182,10 @@ in {
         "${modifier}+v" = "split v";
         "${modifier}+F1" = "move to scratchpad";
         "${modifier}+F2" = "scratchpad show";
-        "${modifier}+i" =
-          "exec sh -c 'xclip -selection clipboard -out | curl -F \"f:1=<-\" ix.io | xclip -selection clipboard -in'";
+        "${modifier}+i" = script ''
+          xclip -selection clipboard -out | curl -F "f:1=<-" ix.io | xclip -selection clipboard -in'';
         "${modifier}+z" =
-          "exec sh -c 'GDK_BACKEND=x11 ${pkgs.lambda-launcher}/bin/lambda-launcher'";
+          script "GDK_BACKEND=x11 ${pkgs.lambda-launcher}/bin/lambda-launcher";
         "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
         "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
         "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
