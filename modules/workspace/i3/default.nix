@@ -61,7 +61,6 @@ in {
       window = {
         # border = 1;
         titlebar = true;
-        hideEdgeBorders = "smart";
         commands = [
           {
             command = "border pixel 2px";
@@ -217,6 +216,7 @@ in {
       default_border pixel 1
       mouse_warping container
       swaynag_command -
+      hide_edge_borders --i3 smart
     '';
   };
 }
