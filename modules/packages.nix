@@ -1,77 +1,85 @@
-let 
+let
   new = import ../imports/nixpkgs-unstable { };
-  filterGit = builtins.filterSource (type: name: name != ".git" || type != "directory");
-in
-{ pkgs, config, lib, ... }: {
+  filterGit =
+    builtins.filterSource (type: name: name != ".git" || type != "directory");
+in { pkgs, config, lib, ... }: {
   nixpkgs.overlays = [
     (self: old:
-    rec {
-      termNote =
-        self.callPackage "${filterGit ../imports/github/terodom/termNote}/termNote.nix" { };
+      rec {
+        termNote = self.callPackage
+          "${filterGit ../imports/github/terodom/termNote}/termNote.nix" { };
 
-      nixfmt = self.callPackage (filterGit ../imports/github/serokell/nixfmt) { };
+        nixfmt =
+          self.callPackage (filterGit ../imports/github/serokell/nixfmt) { };
 
-      lambda-launcher = (import (filterGit ../imports/github/balsoft/lambda-launcher) {
-        pkgs = old;
-      }).lambda-launcher;
+        lambda-launcher =
+          (import (filterGit ../imports/github/balsoft/lambda-launcher) {
+            pkgs = old;
+          }).lambda-launcher;
 
-      all-hies = import (filterGit ../imports/github/Infinisil/all-hies) { };
+        all-hies = import (filterGit ../imports/github/Infinisil/all-hies) { };
 
-      mtxclient = old.mtxclient.overrideAttrs (oa: rec {
-        name = "${pname}-${version}";
-        buildInputs = oa.buildInputs ++ [ old.nlohmann_json ];
-        pname = "mtxclient";
-        version = "0.3.0";
-        src = filterGit ../imports/github/nheko-reborn/mtxclient;
-      });
-
-      nheko = old.nheko.overrideAttrs (oa: rec {
-        name = "${pname}-${version}";
-        buildInputs = oa.buildInputs ++ [ old.nlohmann_json ];
-        pname = "nheko";
-        version = "0.7.0";
-        src = filterGit ../imports/github/nheko-reborn/nheko;
-      });
-      
-      sway = old.sway.overrideAttrs (oa: rec {
-        name = "${pname}-${version}";
-        pname = "sway";
-        version = "master";
-        src = filterGit ../imports/github/swaywm/sway;
-      });
-
-      wlroots = new.wlroots.overrideAttrs (oa: rec {
-        name = "${pname}-${version}";
-        pname = "wlroots";
-        version = "master";
-        src = filterGit ../imports/github/swaywm/wlroots;
-      });        
-      
-      kanshi = new.kanshi;
-
-      nerdfonts = old.stdenv.mkDerivation rec {
-        name = "RobotoMonoNerd";
-        src = old.fetchzip {
-          url =
-            "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/RobotoMono.zip";
-          sha256 =
-            "sha256:1i78fn62x0337p2974dn1nga1pbdi7mqg203h81yi9b79pyxv9bh";
-          stripRoot = false;
-        };
-        installPhase = "mkdir -p $out/share/fonts; cp $src/* $out/share/fonts";
-      };
-
-      pythonPackages = old.pythonPackages.override {
-        overrides = (self: super: {
-          backports_functools_lru_cache =
-            super.backports_functools_lru_cache.overrideAttrs
-            (oldAttrs: oldAttrs // { meta.priority = 1000; });
+        mtxclient = old.mtxclient.overrideAttrs (oa: rec {
+          name = "${pname}-${version}";
+          buildInputs = oa.buildInputs ++ [ old.nlohmann_json ];
+          pname = "mtxclient";
+          version = "0.3.0";
+          src = filterGit ../imports/github/nheko-reborn/mtxclient;
         });
-      };
-    } // (if config.device == "Prestigio-Laptop" then {
-      grub2 = old.pkgsi686Linux.grub2;
-    } else
-      { }))
+
+        nheko = old.nheko.overrideAttrs (oa: rec {
+          name = "${pname}-${version}";
+          buildInputs = oa.buildInputs ++ [ old.nlohmann_json ];
+          pname = "nheko";
+          version = "0.7.0";
+          src = filterGit ../imports/github/nheko-reborn/nheko;
+        });
+
+        sway = (new.sway.override { wlroots = wlroots'; }).overrideAttrs
+          (oa: rec {
+            name = "${pname}-${version}";
+            pname = "sway";
+            version = "1.2-rc1";
+            patches = [ ];
+            src = filterGit ../imports/github/swaywm/sway;
+          });
+
+        wlroots' = new.wlroots.overrideAttrs (oa: rec {
+          name = "${pname}-${version}";
+          outputs = [ "out" ];
+          postFixup = "true";
+          postInstall = "true";
+          pname = "wlroots";
+          version = "0.6.0";
+          src = filterGit ../imports/github/swaywm/wlroots;
+        });
+
+        kanshi = new.kanshi;
+
+        nerdfonts = old.stdenv.mkDerivation rec {
+          name = "RobotoMonoNerd";
+          src = old.fetchzip {
+            url =
+              "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/RobotoMono.zip";
+            sha256 =
+              "sha256:1i78fn62x0337p2974dn1nga1pbdi7mqg203h81yi9b79pyxv9bh";
+            stripRoot = false;
+          };
+          installPhase =
+            "mkdir -p $out/share/fonts; cp $src/* $out/share/fonts";
+        };
+
+        pythonPackages = old.pythonPackages.override {
+          overrides = (self: super: {
+            backports_functools_lru_cache =
+              super.backports_functools_lru_cache.overrideAttrs
+              (oldAttrs: oldAttrs // { meta.priority = 1000; });
+          });
+        };
+      } // (if config.device == "Prestigio-Laptop" then {
+        grub2 = old.pkgsi686Linux.grub2;
+      } else
+        { }))
   ];
   nixpkgs.pkgs = import ../imports/nixpkgs {
     config.allowUnfree = true;
