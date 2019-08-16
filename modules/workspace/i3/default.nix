@@ -154,17 +154,17 @@ in {
         "${modifier}+Escape" = "exec ${apps.monitor.cmd}";
 
         "${modifier}+Print" = script "screenshot"
-          "${pkgs.grim}/bin/grim Pictures/$(date +'%Y-%m-%d+%H:%M:%S')";
+          "${pkgs.grim}/bin/grim Pictures/$(date +'%Y-%m-%d+%H:%M:%S').png";
 
         "${modifier}+Control+Print" = script "screenshot-copy"
           "${pkgs.grim}/bin/grim - | ${pkgs.wl-clipboard}/bin/wl-copy";
 
         "--release ${modifier}+Shift+Print" = script "screenshot-area"
-          "${pkgs.grim}/bin/grim -g '$(${pkgs.slurp}/bin/slurp)' Pictures/$(date +'%Y-%m-%d+%H:%M:%S')";
+          "${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp)\" Pictures/$(date +'%Y-%m-%d+%H:%M:%S').png";
 
         "--release ${modifier}+Control+Shift+Print" =
           script "screenshot-area-copy"
-          "${pkgs.grim}/bin/grim -g '$(${pkgs.slurp}/bin/slurp)' - | ${pkgs.wl-clipboard}/bin/wl-copy";
+          "${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp)\" - | ${pkgs.wl-clipboard}/bin/wl-copy";
 
         "${modifier}+x" = "move workspace to output right";
         "${modifier}+c" = "workspace ";
@@ -182,8 +182,7 @@ in {
         "${modifier}+v" = "split v";
         "${modifier}+F1" = "move to scratchpad";
         "${modifier}+F2" = "scratchpad show";
-        "${modifier}+i" = script "ix" ''
-          xclip -selection clipboard -out | curl -F "f:1=<-" ix.io | xclip -selection clipboard -in'';
+        "${modifier}+i" = script "ix" ''wl-paste | curl -F "f:1=<-" ix.io | wl-copy'';
         "${modifier}+z" =
           script "lambda-launcher" "GDK_BACKEND=x11 ${pkgs.lambda-launcher}/bin/lambda-launcher";
         "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
