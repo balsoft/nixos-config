@@ -20,7 +20,6 @@
     ./workspace/light.nix
     ./workspace/kanshi.nix
     ./workspace/mako.nix
-    ./workspace/autorandr.nix
     ./workspace/gcalcli.nix
     ./workspace/rclone.nix
     ./workspace/xresources.nix
