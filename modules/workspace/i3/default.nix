@@ -2,9 +2,11 @@
 let
   thm = config.themes.colors;
   apps = config.defaultApplications;
-  customPackages = pkgs.callPackage ../../../packages { };
 in {
   environment.sessionVariables._JAVA_AWT_WM_NONREPARENTING = "1";
+  
+  home-manager.users.balsoft.xdg.configFile."i3/config".text = lib.mkBefore "swaynag_command -";
+
   home-manager.users.balsoft.xsession.windowManager.i3 = {
     enable = true;
     package = pkgs.i3-gaps;
@@ -130,7 +132,7 @@ in {
         "${modifier}+q" = "kill";
         "${modifier}+Return" = "exec ${apps.term.cmd}";
         "${modifier}+e" = "exec ${apps.editor.cmd} -c -n";
-        "${modifier}+l" = "layout toggle";
+        "${modifier}+l" = "layout toggle all";
         "${modifier}+Left" = "focus child; focus left; exec ${moveMouse}";
         "${modifier}+Right" = "focus child; focus right; exec ${moveMouse}";
         "${modifier}+Up" = "focus child; focus up; exec ${moveMouse}";
