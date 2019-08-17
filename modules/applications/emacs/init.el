@@ -12,7 +12,7 @@
 
 (nconc load-path
        (list (expand-file-name "local" user-emacs-directory)
-	     (expand-file-name "wakib" user-emacs-directory)))
+	           (expand-file-name "wakib" user-emacs-directory)))
 
 
 ;; -----------------------
@@ -75,18 +75,22 @@
 ;; -------------------
 ;; Wakib
 ;; -------------------
-(use-package wakib-keys
+;; (use-package wakib-keys
+;;   :config
+;;   (wakib-keys 1)
+;;   (add-hook 'after-change-major-mode-hook 'wakib-update-major-mode-map)
+;;   (add-hook 'menu-bar-update-hook 'wakib-update-minor-mode-maps)
+;;   ;; Modifying other modules
+;;   ;; When remap is used for wakib-next and wakib-previous it no longer works
+;;   (define-key isearch-mode-map (kbd "C-f") 'isearch-repeat-forward)
+;;   (define-key isearch-mode-map (kbd "C-S-f") 'isearch-repeat-backward)
+;;   (define-key isearch-mode-map (kbd "M-;") 'isearch-repeat-forward)
+;;   (define-key isearch-mode-map (kbd "M-:") 'isearch-repeat-backward)
+;;   (define-key isearch-mode-map (kbd "C-v") 'isearch-yank-kill))
+
+(use-package ergoemacs-mode
   :config
-  (wakib-keys 1)
-  (add-hook 'after-change-major-mode-hook 'wakib-update-major-mode-map)
-  (add-hook 'menu-bar-update-hook 'wakib-update-minor-mode-maps)
-  ;; Modifying other modules
-  ;; When remap is used for wakib-next and wakib-previous it no longer works
-  (define-key isearch-mode-map (kbd "C-f") 'isearch-repeat-forward)
-  (define-key isearch-mode-map (kbd "C-S-f") 'isearch-repeat-backward)
-  (define-key isearch-mode-map (kbd "M-;") 'isearch-repeat-forward)
-  (define-key isearch-mode-map (kbd "M-:") 'isearch-repeat-backward)
-  (define-key isearch-mode-map (kbd "C-v") 'isearch-yank-kill))
+  (ergoemacs-mode 1))
 
 (global-set-key (kbd "C-w") 'kill-word)
 (global-set-key (kbd "C-W") 'kill-buffer)
@@ -156,28 +160,6 @@ If point was already at that position, move point to beginning of line."
 
 (global-set-key [home] 'smart-beginning-of-line)
 
-;; Menu Bars
-;; TODO - Change bind-key to define-key
-(bind-key [menu-bar file new-file]
-	        `(menu-item "New File..." wakib-new-empty-buffer :enable (menu-bar-non-minibuffer-window-p)
-		      :help "Create a new blank buffer"
-		      :key-sequence ,(kbd "C-n")))
-
-(bind-key [menu-bar file open-file]
-	  `(menu-item "Open File..." find-file :enable (menu-bar-non-minibuffer-window-p)
-                :help "Read an existing or new file from disk"
-		      :key-sequence ,(kbd "C-o")))
-
-(bind-key [menu-bar file dired]
-	  `(menu-item "Open Directory..." dired :enable (menu-bar-non-minibuffer-window-p)
-		      :help "Browse a directory, to operate on its files"
-		      :keys "C-e d"))
-
-(bind-key [menu-bar file insert-file]
-	  `(menu-item "Insert File..." insert-file :enable (menu-bar-non-minibuffer-window-p)
-		      :help "Insert another file into current buffer"
-		      :keys "C-e i"))
-
 (global-unset-key [menu-bar options cua-mode])
 
 (fringe-mode '(0 . 0))
@@ -225,13 +207,6 @@ If point was already at that position, move point to beginning of line."
   (define-key projectile-mode-map (kbd "C-c p") nil)
   (define-key projectile-mode-map (kbd "C-x p") 'projectile-command-map)
   (projectile-mode 1)
-  (wakib-update-menu-map (global-key-binding [menu-bar tools Projectile])
-			 projectile-command-map "C-e p")
-  (define-key wakib-keys-map [menu-bar project]
-	    `(menu-item ,"Project" ,(global-key-binding [menu-bar tools Projectile])
-			:visible (projectile-project-p)))
-  (define-key wakib-keys-map [menu-bar project seperator1] `(menu-item ,"--" nil))
-  (define-key wakib-keys-map [menu-bar project git] `(menu-item ,"Git ..." magit-status :keys "C-e g"))
   (global-unset-key [menu-bar tools Projectile])
   (projectile-register-project-type 'nix-shell '("shell.nix")
                                     :compile "nix-build shell.nix"
@@ -287,10 +262,7 @@ If point was already at that position, move point to beginning of line."
      `(company-scrollbar-bg ((t (:background ,(color-lighten-name bg 10)))))
      `(company-scrollbar-fg ((t (:background ,(color-lighten-name bg 5)))))
      `(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
-     `(company-tooltip-common ((t (:inherit font-lock-constant-face))))))
-
-  (define-key company-active-map [remap wakib-next] 'company-select-next)
-  (define-key company-active-map [remap wakib-previous] 'company-select-previous))
+     `(company-tooltip-common ((t (:inherit font-lock-constant-face)))))))
 
 (use-package company-tabnine
   :config

@@ -35,6 +35,7 @@
           quickrun
           ranger
           dired-ranger
+          ergoemacs-mode
         ];
     };
 
