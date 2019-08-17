@@ -124,7 +124,6 @@
 ;;(define-key cua-global-keymap (kbd "<C-return>") nil)
 ;;(define-key cua-global-keymap (kbd "C-x SPC") 'cua-rectangle-mark-mode)
 
-(advice-add 'substitute-command-keys :around #'wakib-substitute-command-keys)
 
 
 
@@ -193,8 +192,7 @@ If point was already at that position, move point to beginning of line."
 
 (use-package counsel
   :config
-  (counsel-mode 1)
-  (define-key wakib-keys-overriding-map (kbd "C-S-v") 'counsel-yank-pop))
+  (counsel-mode 1))
 
 ;; -------------------
 ;; Projectile
@@ -313,15 +311,6 @@ If point was already at that position, move point to beginning of line."
 (setq inhibit-startup-screen t)
 (setq-default major-mode 'fundamental-mode)
 (setq-default initial-scratch-message "")
-
-;; Initial buffer choice causes split window when opening file from command line or
-;; DE. While running wakib empty buffer causes profiling init file to fail
-;;
-;; (setq initial-buffer-choice (lambda (&optional _)
-;; 			      (let ((buf (generate-new-buffer "untitled")))
-;; 				(set-buffer-major-mode buf)
-;; 				buf)))
-(wakib-new-empty-buffer)
 
 (setq custom-file (expand-file-name "custom" user-emacs-directory))
 (load custom-file t t)
