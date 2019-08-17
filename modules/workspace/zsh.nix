@@ -45,7 +45,7 @@
       "b" = ''nix-build "<nixpkgs>" --no-out-link -A'';
       "p" = "nix-shell --run zsh -p";
       "o" = "xdg-open";
-      "post" = ''curl -F"file=@-" 0x0.st'';
+      "post" = ''curl -F"file=@-" https://0x0.st'';
       "clip" = "${pkgs.xclip}/bin/xclip -selection clipboard";
     };
     initExtra = ''

@@ -155,14 +155,14 @@ in {
           "${pkgs.grim}/bin/grim Pictures/$(date +'%Y-%m-%d+%H:%M:%S').png";
 
         "${modifier}+Control+Print" = script "screenshot-copy"
-          ''${pkgs.grim}/bin/grim - | curl -F"file=@-" 0x0.st | ${pkgs.wl-clipboard}/bin/wl-copy'';
+          ''${pkgs.grim}/bin/grim - | curl -F"file=@-" https://0x0.st | ${pkgs.wl-clipboard}/bin/wl-copy'';
 
         "--release ${modifier}+Shift+Print" = script "screenshot-area"
           ''${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" Pictures/$(date +'%Y-%m-%d+%H:%M:%S').png'';
 
         "--release ${modifier}+Control+Shift+Print" =
           script "screenshot-area-copy"
-          ''${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | curl -F"file=@-" 0x0.st | ${pkgs.wl-clipboard}/bin/wl-copy'';
+          ''${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | curl -F"file=@-" https://0x0.st | ${pkgs.wl-clipboard}/bin/wl-copy'';
 
         "${modifier}+x" = "move workspace to output right";
         "${modifier}+c" = "workspace ";

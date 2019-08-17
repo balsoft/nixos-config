@@ -92,6 +92,8 @@
   :config
   (ergoemacs-mode 1))
 
+
+(global-set-key (kbd "C-b") 'switch-to-buffer)
 (global-set-key (kbd "C-w") 'kill-word)
 (global-set-key (kbd "C-W") 'kill-buffer)
 
