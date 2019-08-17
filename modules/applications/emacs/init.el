@@ -163,16 +163,6 @@ If point was already at that position, move point to beginning of line."
 
 (fringe-mode '(0 . 0))
 
-;; -------------------
-;; Theme
-;; -------------------
-(use-package xresources-theme
-  :config
-  (add-hook 'after-make-frame-functions
-            (lambda (frame)
-              (when window-system
-                (with-selected-frame frame
-                  (load-theme 'xresources t))))))
 ;; scroll one line at a time (less "jumpy" than defaults)
 
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
@@ -332,4 +322,17 @@ nothing happens."
     (kill-local-variable 'after-save-hook)))
 
 (auto-fill-mode)
+
+
+;; -------------------
+;; Theme
+;; -------------------
+(use-package xresources-theme
+  :config
+  (add-hook 'after-make-frame-functions
+            (lambda (frame)
+              (when window-system
+                (with-selected-frame frame
+                  (load-theme 'xresources t))))))
+
 ;;; init.el ends her
