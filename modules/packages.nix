@@ -54,7 +54,8 @@ in { pkgs, config, lib, ... }: {
           src = filterGit ../imports/github/swaywm/wlroots;
         });
 
-        kanshi = new.kanshi;
+
+        inherit (new) kanshi wl-clipboard;
 
         nerdfonts = old.stdenv.mkDerivation rec {
           name = "RobotoMonoNerd";
