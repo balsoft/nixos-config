@@ -43,3 +43,6 @@
 [submodule "imports/nixpkgs-unstable"]
 	path = imports/nixpkgs-unstable
 	url = /home/balsoft/projects/nixos-config/imports/github/nixos/nixpkgs-channels
+[submodule "imports/github/s3rvac/weechat-notify-send"]
+	path = imports/github/s3rvac/weechat-notify-send
+	url = https://github.com/s3rvac/weechat-notify-send
