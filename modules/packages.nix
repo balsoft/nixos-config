@@ -115,7 +115,7 @@ in { pkgs, config, lib, ... }: {
       (builtins.map (x: "http://${x}:5000") (builtins.attrNames config.devices))
       ++ binaryCaches;
 
-    trustedUsers = [ "root" "balsoft" "@wheel" ];
+    trustedUsers = [ "root" "balsoft" "antorika" "@wheel" ];
 
     optimise.automatic = true;
 

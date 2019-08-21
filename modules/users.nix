@@ -48,6 +48,14 @@
   };
   nix.requireSignedBinaryCaches = false;
 
+  users.users.antorika = lib.mkIf (config.device == "AMD-Workstation") {
+    isNormalUser = false;
+    description = "Hydra builder";
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB4IrtzPTrOmWjvS4WoHT0nuHk30pWY5uZQic6vXlH9o"
+    ];
+  };
+
   home-manager.users.bigsoft = lib.mkIf config.deviceSpecific.isShared {
     xsession = {
       enable = true;
