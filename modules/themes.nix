@@ -63,7 +63,23 @@ in {
     };
   };
   config = {
-    themes.colors = fromBase16 (fromYAML (builtins.readFile
-    ../imports/github/dawikur/base16-gruvbox-scheme/gruvbox-dark-hard.yaml));
+    # themes.colors = fromBase16 (fromYAML (builtins.readFile
+    # ../imports/github/dawikur/base16-gruvbox-scheme/gruvbox-dark-hard.yaml));
+    themes.colors = {
+      bg = "#114c00";
+      fg = "#b6b905";
+
+      gray = "#9bb953";
+      alt = "#27a6a2";
+      dark = "#169300";
+
+      red = "#610006";
+      orange = "#cf7a02";
+      yellow = "#d0c900";
+      green = "#ccd0c6";
+      cyan = "#09d0a5";
+      blue = "#a5d048";
+      purple = "#d083be";
+    };
   };
 }
