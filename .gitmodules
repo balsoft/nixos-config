@@ -46,3 +46,6 @@
 [submodule "imports/github/s3rvac/weechat-notify-send"]
 	path = imports/github/s3rvac/weechat-notify-send
 	url = https://github.com/s3rvac/weechat-notify-send
+[submodule "imports/github/bugaevc/wl-clipboard"]
+	path = imports/github/bugaevc/wl-clipboard
+	url = https://github.com/bugaevc/wl-clipboard
