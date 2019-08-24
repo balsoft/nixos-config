@@ -2,8 +2,8 @@
   imports = [
     ./applications/packages.nix
     ./applications/kate.nix
+    ./applications/okular.nix
     ./applications/emacs
-    # ./applications/xst.nix
     ./applications/konsole.nix
     ./applications/trojita.nix
     ./applications/firefox.nix
