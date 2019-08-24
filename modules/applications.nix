@@ -11,14 +11,8 @@ with import ../support.nix { inherit lib config; }; {
         desktop = "konsole";
       };
       editor = {
-        cmd = toString (pkgs.writeTextFile {
-          name = "emacsclient";
-          text = ''
-            #!${pkgs.bash}/bin/bash
-            ${pkgs.emacs}/bin/emacsclient -c $@'';
-          executable = true;
-        });
-        desktop = "emacsclient";
+        cmd = "${pkgs.emacs}/bin/emacs";
+        desktop = "emacs";
       };
       browser ={
         cmd = "${pkgs.firefox-wayland}/bin/firefox";
