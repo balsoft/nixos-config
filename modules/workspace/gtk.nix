@@ -33,6 +33,7 @@ in {
       src = ../../imports/github/nana-4/materia-theme;
       buildInputs = with self; [ sassc bc which inkscape optipng ];
       installPhase = ''
+        HOME=/build
         chmod 777 -R .
         patchShebangs .
         mkdir -p $out/share/themes
