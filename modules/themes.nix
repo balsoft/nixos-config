@@ -66,7 +66,8 @@ in {
     # themes.colors = fromBase16 (fromYAML (builtins.readFile
     # ../imports/github/dawikur/base16-gruvbox-scheme/gruvbox-dark-hard.yaml));
     themes.colors = {
-      bg = "#114c00";
+      # bg = "#114c00";
+      bg = "#063400";
       fg = "#b6b905";
 
       gray = "#9bb953";
