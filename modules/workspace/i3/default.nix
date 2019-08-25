@@ -182,6 +182,8 @@ in {
         "${modifier}+v" = "split v";
         "${modifier}+F1" = "move to scratchpad";
         "${modifier}+F2" = "scratchpad show";
+        "${modifier}+F11" = "output * dpms off";
+        "${modifier}+F12" = "output * dpms on";
         "${modifier}+i" = script "ix" ''wl-paste | curl -F "f:1=<-" ix.io | wl-copy'';
         "${modifier}+z" =
           script "lambda-launcher" "GDK_BACKEND=x11 ${pkgs.lambda-launcher}/bin/lambda-launcher";
