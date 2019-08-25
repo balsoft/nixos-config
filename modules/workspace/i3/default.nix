@@ -21,6 +21,7 @@ in {
           { app_id = "net.flaska.trojita"; }
           { title = "weechat"; }
           { title = "nheko"; }
+          { title = "Tootle"; }
         ];
         "ﱘ" = [{ class = "cantata"; }];
       };
@@ -86,6 +87,7 @@ in {
         { command = "${pkgs.trojita}/bin/trojita"; }
         { command = "${pkgs.termNote}/bin/noted"; }
         { command = "${pkgs.nheko}/bin/nheko"; }
+        { command = "GDK_BACKEND=x11 ${pkgs.tootle}/bin/com.github.bleakgrey.tootle"; }
         { command = "${pkgs.xorg.xrdb}/bin/xrdb -merge ~/.Xresources"; }
 
         (lib.mkIf (config.device == "AMD-Workstation") {
