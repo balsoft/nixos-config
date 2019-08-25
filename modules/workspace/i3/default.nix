@@ -169,7 +169,7 @@ in {
 
         "${modifier}+x" = "move workspace to output right";
         "${modifier}+k" = "exec '${pkgs.xorg.xkill}/bin/xkill'";
-        "${modifier}+F5" = "restart";
+        "${modifier}+F5" = "reload";
         "${modifier}+Shift+F5" = "exit";
         "${modifier}+Shift+h" = "layout splith";
         "${modifier}+Shift+v" = "layout splitv";
