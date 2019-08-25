@@ -3,7 +3,7 @@ let
   thm = config.themes.colors;
   apps = config.defaultApplications;
 in {
-  environment.sessionVariables._JAVA_AWT_WM_NONREPARENTING = "1";  
+  environment.sessionVariables._JAVA_AWT_WM_NONREPARENTING = "1";
 
   home-manager.users.balsoft.xsession.windowManager.i3 = {
     enable = true;
@@ -87,7 +87,10 @@ in {
         { command = "${pkgs.trojita}/bin/trojita"; }
         { command = "${pkgs.termNote}/bin/noted"; }
         { command = "${pkgs.nheko}/bin/nheko"; }
-        { command = "GDK_BACKEND=x11 ${pkgs.tootle}/bin/com.github.bleakgrey.tootle"; }
+        {
+          command =
+            "GDK_BACKEND=x11 ${pkgs.tootle}/bin/com.github.bleakgrey.tootle";
+        }
         { command = "${pkgs.xorg.xrdb}/bin/xrdb -merge ~/.Xresources"; }
 
         (lib.mkIf (config.device == "AMD-Workstation") {
@@ -121,8 +124,9 @@ in {
 
       keybindings = let
         script = name: content: "exec ${pkgs.writeScript name content}";
+        workspaces = (builtins.genList (x: toString x) 10) ++ [ "" "" "ﱘ" ];
         moveMouse = ''
-          "sh -c 'eval `${pkgs.xdotool}/bin/xdotool \
+          exec "sh -c 'eval `${pkgs.xdotool}/bin/xdotool \
                 getactivewindow \
                 getwindowgeometry --shell`; ${pkgs.xdotool}/bin/xdotool \
                 mousemove \
@@ -130,19 +134,16 @@ in {
       in ({
         "${modifier}+q" = "kill";
         "${modifier}+Return" = "exec ${apps.term.cmd}";
-        "${modifier}+e" = "exec ${apps.editor.cmd} -c -n";
+        "${modifier}+e" = "exec ${apps.editor.cmd}";
         "${modifier}+l" = "layout toggle all";
-        "${modifier}+Left" = "focus child; focus left; exec ${moveMouse}";
-        "${modifier}+Right" = "focus child; focus right; exec ${moveMouse}";
-        "${modifier}+Up" = "focus child; focus up; exec ${moveMouse}";
-        "${modifier}+Down" = "focus child; focus down; exec ${moveMouse}";
-        "${modifier}+Control+Left" =
-          "focus parent; focus left; exec ${moveMouse}";
-        "${modifier}+Control+Right" =
-          "focus parent; focus right; exec ${moveMouse}";
-        "${modifier}+Control+Up" = "focus parent; focus up; exec ${moveMouse}";
-        "${modifier}+Control+Down" =
-          "focus parent; focus down; exec ${moveMouse}";
+        "${modifier}+Left" = "focus child; focus left; ${moveMouse}";
+        "${modifier}+Right" = "focus child; focus right; ${moveMouse}";
+        "${modifier}+Up" = "focus child; focus up; ${moveMouse}";
+        "${modifier}+Down" = "focus child; focus down; ${moveMouse}";
+        "${modifier}+Control+Left" = "focus parent; focus left; ${moveMouse}";
+        "${modifier}+Control+Right" = "focus parent; focus right; ${moveMouse}";
+        "${modifier}+Control+Up" = "focus parent; focus up; ${moveMouse}";
+        "${modifier}+Control+Down" = "focus parent; focus down; ${moveMouse}";
         "${modifier}+Shift+Up" = "move up";
         "${modifier}+Shift+Down" = "move down";
         "${modifier}+Shift+Right" = "move right";
@@ -157,22 +158,16 @@ in {
           "${pkgs.grim}/bin/grim Pictures/$(date +'%Y-%m-%d+%H:%M:%S').png";
 
         "${modifier}+Control+Print" = script "screenshot-copy"
-          ''${pkgs.grim}/bin/grim - | ${pkgs.wl-clipboard}/bin/wl-copy'';
+          "${pkgs.grim}/bin/grim - | ${pkgs.wl-clipboard}/bin/wl-copy";
 
-        "--release ${modifier}+Shift+Print" = script "screenshot-area"
-          ''${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" Pictures/$(date +'%Y-%m-%d+%H:%M:%S').png'';
+        "--release ${modifier}+Shift+Print" = script "screenshot-area" ''
+          ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" Pictures/$(date +'%Y-%m-%d+%H:%M:%S').png'';
 
         "--release ${modifier}+Control+Shift+Print" =
-          script "screenshot-area-copy"
-          ''${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.wl-clipboard}/bin/wl-copy'';
+          script "screenshot-area-copy" ''
+            ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.wl-clipboard}/bin/wl-copy'';
 
         "${modifier}+x" = "move workspace to output right";
-        "${modifier}+c" = "workspace ";
-        "${modifier}+Shift+c" = "move container to workspace ";
-        "${modifier}+t" = "workspace ";
-        "${modifier}+Shift+t" = "move container to workspace ";
-        "${modifier}+m" = "workspace ﱘ";
-        "${modifier}+Shift+m" = "move container to workspace ﱘ";
         "${modifier}+k" = "exec '${pkgs.xorg.xkill}/bin/xkill'";
         "${modifier}+F5" = "restart";
         "${modifier}+Shift+F5" = "exit";
@@ -184,24 +179,25 @@ in {
         "${modifier}+F2" = "scratchpad show";
         "${modifier}+F11" = "output * dpms off";
         "${modifier}+F12" = "output * dpms on";
-        "${modifier}+i" = script "ix" ''wl-paste | curl -F "f:1=<-" ix.io | wl-copy'';
-        "${modifier}+z" =
-          script "lambda-launcher" "GDK_BACKEND=x11 ${pkgs.lambda-launcher}/bin/lambda-launcher";
+        "${modifier}+i" =
+          script "ix" ''wl-paste | curl -F "f:1=<-" ix.io | wl-copy'';
+        "${modifier}+z" = script "lambda-launcher"
+          "GDK_BACKEND=x11 ${pkgs.lambda-launcher}/bin/lambda-launcher";
         "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
         "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
         "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
         "button2" = "kill";
         "--whole-window ${modifier}+button2" = "kill";
-      } // builtins.listToAttrs (builtins.genList (x: {
-        name = "${modifier}+${toString x}";
-        value = "workspace ${toString x}";
-      }) 10) // builtins.listToAttrs (builtins.genList (x: {
-        name = "${modifier}+Shift+${toString x}";
-        value = "move container to workspace ${toString x}";
-      }) 10));
+      } // builtins.listToAttrs (builtins.map (x: {
+        name = "${modifier}+${x}";
+        value = "workspace ${x}";
+      }) workspaces) // builtins.listToAttrs (builtins.map (x: {
+        name = "${modifier}+Shift+${x}";
+        value = "move container to workspace ${x}";
+      }) workspaces));
       keycodebindings = {
-        "122" = "exec ${pkgs.pamixer}/bin/pamixer -d 1";
-        "123" = "exec ${pkgs.pamixer}/bin/pamixer -i 1";
+        "122" = "exec ${pkgs.pamixer}/bin/pamixer -d 2";
+        "123" = "exec ${pkgs.pamixer}/bin/pamixer -i 2";
         "121" = "exec ${pkgs.pamixer}/bin/pamixer -t";
       };
       workspaceLayout = "tabbed";
