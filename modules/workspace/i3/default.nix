@@ -92,7 +92,7 @@ in {
             "GDK_BACKEND=x11 ${pkgs.tootle}/bin/com.github.bleakgrey.tootle";
         }
         { command = "${pkgs.xorg.xrdb}/bin/xrdb -merge ~/.Xresources"; }
-        { command = "${pkgs.procps}/bin/pkill swaynag"; }
+        { command = "sleep 2; ${pkgs.procps}/bin/pkill swaynag"; }
 
         (lib.mkIf (config.device == "AMD-Workstation") {
           command = ''
