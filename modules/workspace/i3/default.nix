@@ -92,6 +92,7 @@ in {
             "GDK_BACKEND=x11 ${pkgs.tootle}/bin/com.github.bleakgrey.tootle";
         }
         { command = "${pkgs.xorg.xrdb}/bin/xrdb -merge ~/.Xresources"; }
+        { command = "${pkgs.procps}/bin/pkill swaynag"; }
 
         (lib.mkIf (config.device == "AMD-Workstation") {
           command = ''
@@ -214,7 +215,6 @@ in {
       }
       default_border pixel 1
       mouse_warping container
-      swaynag_command -
       hide_edge_borders --i3 smart
     '';
   };
