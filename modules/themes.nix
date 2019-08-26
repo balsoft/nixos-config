@@ -74,7 +74,7 @@ in {
       alt = "#27a6a2";
       dark = "#169300";
 
-      red = "#610006";
+      red = "#d12d17";
       orange = "#cf7a02";
       yellow = "#d0c900";
       green = "#ccd0c6";
