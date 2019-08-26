@@ -130,6 +130,7 @@ with import ../../../support.nix { inherit lib config; }; {
     data = ''
       $DRY_RUN_CMD rm -f ~/.local/share/user-places.xbel
       $DRY_RUN_CMD cp ${./user-places.xbel} ~/.local/share/user-places.xbel
+      $DRY_RUN_CMD chmod 777 ~/.local/share/user-places.xbel
     '';
     before = [];
     after = ["linkGeneration"];
