@@ -89,7 +89,7 @@ in {
         { command = "${pkgs.nheko}/bin/nheko"; }
         {
           command =
-            "GDK_BACKEND=x11 ${pkgs.tootle}/bin/com.github.bleakgrey.tootle";
+            "${pkgs.tootle}/bin/com.github.bleakgrey.tootle";
         }
         { command = "${pkgs.xorg.xrdb}/bin/xrdb -merge ~/.Xresources"; }
         { command = "sleep 2; ${pkgs.procps}/bin/pkill swaynag"; }
@@ -184,7 +184,7 @@ in {
         "${modifier}+i" =
           script "ix" ''wl-paste | curl -F "f:1=<-" ix.io | wl-copy'';
         "${modifier}+z" = script "lambda-launcher"
-          "GDK_BACKEND=x11 ${pkgs.lambda-launcher}/bin/lambda-launcher";
+          "${pkgs.lambda-launcher}/bin/lambda-launcher";
         "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
         "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
         "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
