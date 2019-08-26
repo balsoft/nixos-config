@@ -125,7 +125,8 @@ in {
 
       keybindings = let
         script = name: content: "exec ${pkgs.writeScript name content}";
-        workspaces = (builtins.genList (x: toString x) 10) ++ [ "" "" "ﱘ" ];
+        workspaces = (builtins.genList (x: [ (toString x) (toString x) ]) 10)
+          ++ [ [ "c" "" ] [ "t" "" ] [ "m" "ﱘ" ] ];
         moveMouse = ''
           exec "sh -c 'eval `${pkgs.xdotool}/bin/xdotool \
                 getactivewindow \
@@ -190,11 +191,11 @@ in {
         "button2" = "kill";
         "--whole-window ${modifier}+button2" = "kill";
       } // builtins.listToAttrs (builtins.map (x: {
-        name = "${modifier}+${x}";
-        value = "workspace ${x}";
+        name = "${modifier}+${builtins.elemAt x 0}";
+        value = "workspace ${builtins.elemAt x 1}";
       }) workspaces) // builtins.listToAttrs (builtins.map (x: {
-        name = "${modifier}+Shift+${x}";
-        value = "move container to workspace ${x}";
+        name = "${modifier}+Shift+${builtins.elemAt x 0}";
+        value = "move container to workspace ${builtins.elemAt x 1}";
       }) workspaces));
       keycodebindings = {
         "122" = "exec ${pkgs.pamixer}/bin/pamixer -d 2";
