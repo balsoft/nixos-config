@@ -182,7 +182,7 @@ in {
         "${modifier}+F11" = "output * dpms off";
         "${modifier}+F12" = "output * dpms on";
         "${modifier}+i" =
-          script "ix" ''wl-paste | curl -F "f:1=<-" ix.io | wl-copy'';
+          script "0x0" ''wl-paste | curl -F"file=@-" https://0x0.st | wl-copy'';
         "${modifier}+z" = script "lambda-launcher"
           "${pkgs.lambda-launcher}/bin/lambda-launcher";
         "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
