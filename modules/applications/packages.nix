@@ -59,6 +59,7 @@
     lldb
     appimage-run
     nixfmt
+    niv
   ] ++ [
     firefox-wayland
     libqalculate

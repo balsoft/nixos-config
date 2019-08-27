@@ -13,7 +13,7 @@ in { pkgs, config, lib, ... }: {
         nixfmt =
           self.callPackage imports.nixfmt { };
 
-        niv = import imports.niv;
+        inherit (import imports.niv {}) niv;
 
         lambda-launcher =
           (import imports.lambda-launcher {
