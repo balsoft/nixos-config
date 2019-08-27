@@ -16,7 +16,7 @@ device: # This is the device we're on now
   imports =
   [
     /etc/nixos/hardware-configuration.nix
-    ./imports/github/rycee/home-manager/nixos
+    "${(import ./nix/sources.nix).home-manager}/nixos"
     ./modules
   ];
 

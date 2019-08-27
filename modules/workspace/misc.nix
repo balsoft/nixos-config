@@ -33,7 +33,7 @@
     news.display = "silent";
     programs.command-not-found = {
       enable = true;
-      dbPath = ../../imports/programs.sqlite;
+      dbPath = ../../misc/programs.sqlite;
     };
     home.keyboard = {
       options = [ "grp:caps_toggle,grp_led:caps" ];

@@ -9,7 +9,7 @@ weechat = pkgs.weechat.override {
 in
 {
   home-manager.users.balsoft = {
-    home.file.".weechat/python/autoload/notify_send.py".source = ../../imports/github/s3rvac/weechat-notify-send/notify_send.py;
+    home.file.".weechat/python/autoload/notify_send.py".source = "${(import ../../nix/sources.nix).weechat-notify-send}/notify_send.py";
 
     home.file.".weechat/plugins.conf".text = ''
       [var]

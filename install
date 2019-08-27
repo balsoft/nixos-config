@@ -15,9 +15,13 @@ unset IN_NIX_SHELL
 
 gpg -dq secret.nix.gpg > secret.nix
 
-git submodule update --init --recursive
+# git submodule update --init --recursive
 
-export NIX_PATH=nixpkgs=./imports/nixpkgs:nixos-config=/etc/nixos/configuration.nix
+nixpkgs=$(nix-build ./nix/sources.nix -A nixpkgs --no-out-link)
+
+export NIX_PATH=nixpkgs=$nixpkgs:nixos-config=/etc/nixos/configuration.nix
+
+
 
 if $firsttime
 then
@@ -26,14 +30,14 @@ then
     echo "import /home/balsoft/projects/nixos-config \"$hostname\"" > /mnt/etc/nixos/configuration.nix
     mount --rbind /mnt/home /home/
     cp /mnt/etc/nixos/* /etc/nixos
-    nix build -f ./imports/nixpkgs/nixos system $@ &&
+    nix build -f $nixpkgs/nixos system $@ &&
     nixos-install --system ./result
 else
     if [[ -n $INSIDE_EMACS ]]
     then
-        nix-build ./imports/nixpkgs/nixos -A system $@
+        nix-build $nixpkgs/nixos -A system $@
     else 
-        nix build -f ./imports/nixpkgs/nixos system $@
+        nix build -f $nixpkgs/nixos system $@
     fi &&
         {
             git add .

@@ -1,5 +1,6 @@
 let
-  new = import ../imports/nixpkgs-unstable { };
+  imports = import ../nix/sources.nix;
+  new = import imports.nixpkgs-unstable { };
   filterGit =
     builtins.filterSource (type: name: name != ".git" || type != "directory");
 in { pkgs, config, lib, ... }: {
@@ -7,24 +8,24 @@ in { pkgs, config, lib, ... }: {
     (self: old:
       rec {
         termNote = self.callPackage
-          "${filterGit ../imports/github/terodom/termNote}/termNote.nix" { };
+          "${imports.termNote}/termNote.nix" { };
 
         nixfmt =
-          self.callPackage (filterGit ../imports/github/serokell/nixfmt) { };
+          self.callPackage imports.nixfmt { };
 
         lambda-launcher =
-          (import (filterGit ../imports/github/balsoft/lambda-launcher) {
+          (import imports.lambda-launcher {
             pkgs = old;
           }).lambda-launcher;
 
-        all-hies = import (filterGit ../imports/github/Infinisil/all-hies) { };
+        all-hies = import imports.all-hies { };
 
         mtxclient = old.mtxclient.overrideAttrs (oa: rec {
           name = "${pname}-${version}";
           buildInputs = oa.buildInputs ++ [ old.nlohmann_json ];
           pname = "mtxclient";
           version = "0.3.0";
-          src = filterGit ../imports/github/nheko-reborn/mtxclient;
+          src = imports.mtxclient;
         });
 
         nheko = old.nheko.overrideAttrs (oa: rec {
@@ -32,16 +33,16 @@ in { pkgs, config, lib, ... }: {
           buildInputs = oa.buildInputs ++ [ old.nlohmann_json ];
           pname = "nheko";
           version = "0.7.0";
-          src = filterGit ../imports/github/nheko-reborn/nheko;
+          src =  imports.nheko;
         });
 
         sway = (new.sway.override { wlroots = wlroots'; }).overrideAttrs
           (oa: rec {
             name = "${pname}-${version}";
             pname = "sway";
-            version = "1.2-rc1";
+            version = "1.2";
             patches = [ ];
-            src = filterGit ../imports/github/swaywm/sway;
+            src = imports.sway;
           });
 
         wlroots' = new.wlroots.overrideAttrs (oa: rec {
@@ -51,11 +52,17 @@ in { pkgs, config, lib, ... }: {
           postInstall = "true";
           pname = "wlroots";
           version = "0.6.0";
-          src = filterGit ../imports/github/swaywm/wlroots;
+          src = imports.wlroots;
         });
 
+        wl-clipboard = new.wl-clipboard.overrideAttrs (oa: rec {
+          name = "${pname}-${version}";
+          pname = "wl-clipboard";
+          version = "1.0";
+          src = imports.wl-clipboard;
+        });
 
-        inherit (new) kanshi wl-clipboard;
+        inherit (new) kanshi;
 
         nerdfonts = old.stdenv.mkDerivation rec {
           name = "RobotoMonoNerd";
@@ -82,7 +89,7 @@ in { pkgs, config, lib, ... }: {
       } else
         { }))
   ];
-  nixpkgs.pkgs = import ../imports/nixpkgs {
+  nixpkgs.pkgs = import imports.nixpkgs {
     config.allowUnfree = true;
     config.android_sdk.accept_license = true;
     config.firefox.enablePlasmaBrowserIntegration = true;
@@ -97,7 +104,7 @@ in { pkgs, config, lib, ... }: {
       chmod 100 /root/id_rsa
     '';
   };
-  environment.etc.nixpkgs.source = ../imports/nixpkgs;
+  environment.etc.nixpkgs.source = imports.nixpkgs;
   nix = rec {
     nixPath = lib.mkForce [
       "nixpkgs=/etc/nixpkgs"

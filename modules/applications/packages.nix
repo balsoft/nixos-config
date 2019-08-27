@@ -21,13 +21,8 @@
     okteta
     okular
     print-manager
-    kio-extras
-  ]) ++ (builtins.filter pkgs.stdenv.lib.isDerivation
-  (builtins.attrValues (pkgs.plasma5))) ++ (with pkgs; [
+  ]) ++ (with pkgs; [
     kded
-    kdeFrameworks.kio
-    kdeFrameworks.knotifications
-    kdeFrameworks.knotifyconfig
     plasma-integration
     kinit
     plasma5.xdg-desktop-portal-kde
