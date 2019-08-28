@@ -30,7 +30,7 @@ in {
   nixpkgs.overlays = [(self: super: {
     generated-gtk-theme = self.stdenv.mkDerivation rec {
       name = "generated-gtk-theme";
-      src = (import ../../nix/sources.nix).materia-theme;
+      src = pkgs.imports.materia-theme;
       buildInputs = with self; [ sassc bc which inkscape optipng ];
       installPhase = ''
         HOME=/build

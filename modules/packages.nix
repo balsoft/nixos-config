@@ -7,18 +7,18 @@ in { pkgs, config, lib, ... }: {
   nixpkgs.overlays = [
     (self: old:
       rec {
-        termNote = self.callPackage
-          "${imports.termNote}/termNote.nix" { };
+        inherit imports;
 
-        nixfmt =
-          self.callPackage imports.nixfmt { };
+        nur = import imports.nur { };
 
-        inherit (import imports.niv {}) niv;
+        termNote = self.callPackage "${imports.termNote}/termNote.nix" { };
+
+        nixfmt = self.callPackage imports.nixfmt { };
+
+        inherit (import imports.niv { }) niv;
 
         lambda-launcher =
-          (import imports.lambda-launcher {
-            pkgs = old;
-          }).lambda-launcher;
+          (import imports.lambda-launcher { pkgs = old; }).lambda-launcher;
 
         all-hies = import imports.all-hies { };
 
@@ -35,7 +35,7 @@ in { pkgs, config, lib, ... }: {
           buildInputs = oa.buildInputs ++ [ old.nlohmann_json ];
           pname = "nheko";
           version = "0.7.0";
-          src =  imports.nheko;
+          src = imports.nheko;
         });
 
         sway = (new.sway.override { wlroots = wlroots'; }).overrideAttrs

@@ -1,4 +1,16 @@
 {
+    "NUR": {
+        "branch": "master",
+        "description": "Nix User Repository: User contributed nix packages [maintainer=@Mic92]",
+        "homepage": "",
+        "owner": "nix-community",
+        "repo": "NUR",
+        "rev": "1cc82aececec41a4388dfe1275daafcc314775c4",
+        "sha256": "0m64fg8hhyn97l6jmfjrq586slfcqngldrj07586705gz1fqk7lw",
+        "type": "tarball",
+        "url": "https://github.com/nix-community/NUR/archive/1cc82aececec41a4388dfe1275daafcc314775c4.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "all-hies": {
         "branch": "master",
         "description": "Cached Haskell IDE Engine Nix builds for all GHC versions",
