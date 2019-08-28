@@ -17,7 +17,7 @@ gpg -dq secret.nix.gpg > secret.nix
 
 # git submodule update --init --recursive
 
-nixpkgs=$(nix-build ./nix/sources.nix -A nixpkgs --no-out-link)
+nixpkgs=$(nix-build ./nix/sources.nix -A nixpkgs --no-out-link $@)
 
 export NIX_PATH=nixpkgs=$nixpkgs:nixos-config=/etc/nixos/configuration.nix
 
