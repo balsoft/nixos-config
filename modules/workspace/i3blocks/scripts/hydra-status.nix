@@ -7,7 +7,7 @@
     echo 🐍
     exit 0
   else
-    msg="ПИЗДЕЦ ГИДРЕ"
+    msg="HYDRA DOWN"
     echo $msg
     exit 33
   fi
