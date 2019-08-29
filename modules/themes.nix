@@ -67,8 +67,8 @@ in {
     # ../imports/github/dawikur/base16-gruvbox-scheme/gruvbox-dark-hard.yaml));
     themes.colors = {
       # bg = "#114c00";
-      bg = "#051a00";
-      fg = "#b6b905";
+      bg = "#000000";
+      fg = "#ffffff";
 
       gray = "#9bb953";
       alt = "#27a6a2";
