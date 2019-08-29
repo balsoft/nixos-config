@@ -7,18 +7,15 @@ in { pkgs, config, lib, ... }: {
   nixpkgs.overlays = [
     (self: old:
       rec {
-        termNote = self.callPackage
-          "${imports.termNote}/termNote.nix" { };
+        inherit imports;
 
-        nixfmt =
-          self.callPackage imports.nixfmt { };
+        nur = (import imports.NUR { inherit pkgs; }).repos;
 
-        inherit (import imports.niv {}) niv;
+        inherit (nur.balsoft.pkgs) termNote lambda-launcher;
 
-        lambda-launcher =
-          (import imports.lambda-launcher {
-            pkgs = old;
-          }).lambda-launcher;
+        nixfmt = self.callPackage imports.nixfmt { };
+
+        inherit (import imports.niv { }) niv;
 
         all-hies = import imports.all-hies { };
 
@@ -35,7 +32,7 @@ in { pkgs, config, lib, ... }: {
           buildInputs = oa.buildInputs ++ [ old.nlohmann_json ];
           pname = "nheko";
           version = "0.7.0";
-          src =  imports.nheko;
+          src = imports.nheko;
         });
 
         sway = (new.sway.override { wlroots = wlroots'; }).overrideAttrs
@@ -66,18 +63,7 @@ in { pkgs, config, lib, ... }: {
 
         inherit (new) kanshi;
 
-        nerdfonts = old.stdenv.mkDerivation rec {
-          name = "RobotoMonoNerd";
-          src = old.fetchzip {
-            url =
-              "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.0.0/RobotoMono.zip";
-            sha256 =
-              "sha256:1i78fn62x0337p2974dn1nga1pbdi7mqg203h81yi9b79pyxv9bh";
-            stripRoot = false;
-          };
-          installPhase =
-            "mkdir -p $out/share/fonts; cp $src/* $out/share/fonts";
-        };
+        nerdfonts = nur.balsoft.pkgs.roboto-mono-nerd;
 
         pythonPackages = old.pythonPackages.override {
           overrides = (self: super: {
@@ -86,6 +72,7 @@ in { pkgs, config, lib, ... }: {
               (oldAttrs: oldAttrs // { meta.priority = 1000; });
           });
         };
+
       } // (if config.device == "Prestigio-Laptop" then {
         grub2 = old.pkgsi686Linux.grub2;
       } else

@@ -2,6 +2,7 @@
 #!nix-shell -p gnupg git -i bash
 
 firsttime=false
+SECRET=true
 
 if [[ $1 == "--first-time" ]]
 then
@@ -9,11 +10,19 @@ then
     shift
     hostname=$1
     shift
+else 
+    if [[ $1 == "-no-secret" ]] || [[ $1 == "-s" ]]
+       then
+           SECRET=false
+           shift
+    fi
 fi
 
 unset IN_NIX_SHELL
 
-gpg -dq secret.nix.gpg > secret.nix
+$SECRET && {
+    gpg -dq secret.nix.gpg > secret.nix
+}
 
 # git submodule update --init --recursive
 
