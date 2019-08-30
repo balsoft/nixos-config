@@ -51,7 +51,6 @@
         categories = "Development;TextEditor;";
         icon = "emacs";
       })
-      pkgs.irony-server
       pkgs.clang
     ];
     xsession.windowManager.i3.config.startup =

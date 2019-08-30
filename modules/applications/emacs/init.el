@@ -1,4 +1,12 @@
+;;; init.el --- balsoft's config
+
+;;; Commentary:
+
+;;; None
+
 ;; -*- lexical-binding: t -*-
+
+;;; Code:
 
 ;;----------------------------------------------------------------------------
 ;; Adjust garbage collection
@@ -149,7 +157,7 @@
 
 
 (defun smart-beginning-of-line ()
-  "Move point to first non-whitespace character or beginning-of-line.
+  "Move point to first non-whitespace character or beginning of line.
 
 Move point to the first non-whitespace character on this line.
 If point was already at that position, move point to beginning of line."
@@ -310,7 +318,7 @@ If point was already at that position, move point to beginning of line."
 (defun compile-on-save-start ()
   "Recompile when compilation is not going."
   (let ((buffer (compilation-find-buffer)))
-    (unless (get-buffer-process buffer) 
+    (unless (get-buffer-process buffer)
       (recompile))))
 
 (define-minor-mode compile-on-save-mode
@@ -337,4 +345,4 @@ nothing happens."
                 (with-selected-frame frame
                   (load-theme 'xresources t))))))
 
-;;; init.el ends her
+;;; init.el ends here
