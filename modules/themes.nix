@@ -76,7 +76,7 @@ in {
 
       red = "#d12d17";
       orange = "#cf7a02";
-      yellow = "#d0c900";
+      yellow = "#386c34";
       green = "#386c34";
       cyan = "#09d0a5";
       blue = "#a5d048";
