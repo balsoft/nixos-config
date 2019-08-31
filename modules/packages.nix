@@ -61,7 +61,7 @@ in { pkgs, config, lib, ... }: {
           src = imports.wl-clipboard;
         });
 
-        inherit (new) kanshi;
+        inherit (new) kanshi mautrix-whatsapp;
 
         nerdfonts = nur.balsoft.pkgs.roboto-mono-nerd;
 
