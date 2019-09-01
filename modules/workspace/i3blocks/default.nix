@@ -59,8 +59,7 @@ in {
         command = scripts.brightness;
         interval = 1;
       };
-    h_wireless =
-      pkgs.stdenv.lib.optionalAttrs config.deviceSpecific.isLaptop { command = scripts.wireless; };
+    h_wireless ={ command = scripts.wireless; };
     i_network = { command = scripts.network; };
     j_cpuload = {
       command = ''
