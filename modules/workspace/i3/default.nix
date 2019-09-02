@@ -138,6 +138,7 @@ in {
         "${modifier}+Return" = "exec ${apps.term.cmd}";
         "${modifier}+e" = "exec ${apps.editor.cmd}";
         "${modifier}+l" = "layout toggle all";
+
         "${modifier}+Left" = "focus child; focus left; ${moveMouse}";
         "${modifier}+Right" = "focus child; focus right; ${moveMouse}";
         "${modifier}+Up" = "focus child; focus up; ${moveMouse}";
@@ -150,10 +151,23 @@ in {
         "${modifier}+Shift+Down" = "move down";
         "${modifier}+Shift+Right" = "move right";
         "${modifier}+Shift+Left" = "move left";
+
+        "${modifier}+a" = "focus child; focus left; ${moveMouse}";
+        "${modifier}+d" = "focus child; focus right; ${moveMouse}";
+        "${modifier}+w" = "focus child; focus up; ${moveMouse}";
+        "${modifier}+s" = "focus child; focus down; ${moveMouse}";
+        "${modifier}+Control+a" = "focus parent; focus left; ${moveMouse}";
+        "${modifier}+Control+d" = "focus parent; focus right; ${moveMouse}";
+        "${modifier}+Control+w" = "focus parent; focus up; ${moveMouse}";
+        "${modifier}+Control+s" = "focus parent; focus down; ${moveMouse}";
+        "${modifier}+Shift+w" = "move up";
+        "${modifier}+Shift+s" = "move down";
+        "${modifier}+Shift+d" = "move right";
+        "${modifier}+Shift+a" = "move left";
+
         "${modifier}+f" = "fullscreen toggle";
         "${modifier}+r" = "mode resize";
         "${modifier}+Shift+f" = "floating toggle";
-        "${modifier}+d" = "exec ${apps.fm.cmd}";
         "${modifier}+Escape" = "exec ${apps.monitor.cmd}";
 
         "${modifier}+Print" = script "screenshot"
