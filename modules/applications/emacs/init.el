@@ -321,6 +321,6 @@ nothing happens."
                 (with-selected-frame frame
                   (load-theme 'xresources t)))))
 
-(inhibit-startup-screen t)
+(setq inhibit-startup-screen t)
 
 ;;; init.el ends here
