@@ -32,9 +32,9 @@
     });
     app_service_config_files = [
       (builtins.toFile "registration_tg.yaml"
-      (builtins.toJSON config.secrets.matrix.mautrix-telegram.registration))
+        (builtins.toJSON config.secrets.matrix.mautrix-telegram.registration))
       (builtins.toFile "registration_wa.yaml"
-      (builtins.toJSON config.secrets.matrix.mautrix-whatsapp.registration))
+        (builtins.toJSON config.secrets.matrix.mautrix-whatsapp.registration))
     ];
   };
   systemd.services.mautrix-whatsapp =
@@ -79,4 +79,12 @@
         mautrix-telegram
       '';
     };
+  systemd.services.MatrixVkBot = lib.mkIf (config.device == "AMD-Workstation") {
+    description = "A bridge between vkontakte and matrix";
+    requires = [ "matrix-synapse.service" "network-online.target" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig.User = "balsoft";
+    script =
+      "cd /home/balsoft/projects/MatrixVkBot && nix run -f requirements.nix -c bot.py";
+  };
 }
