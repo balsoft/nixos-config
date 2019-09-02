@@ -1,3 +1,4 @@
+.PHONY: install result
 install: result; SHELL=/bin/sh pkexec $$PWD/switch $$PWD
 
 secret.nix: secret.nix.gpg; gpg -dq $< > $@
