@@ -1,0 +1,31 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -p git -i bash
+
+firsttime=false
+
+if [[ $1 == "--first-time" ]]
+then
+    firsttime=true
+    shift
+    hostname=$1
+    shift
+fi
+
+unset IN_NIX_SHELL
+
+nixpkgs=$(nix-build ./nix/sources.nix -A nixpkgs --no-out-link $@)
+
+export NIX_PATH=nixpkgs=$nixpkgs:nixos-config=/etc/nixos/configuration.nix
+
+if [[ -n $INSIDE_EMACS ]]
+then
+    nix-build $nixpkgs/nixos -A system $@
+else 
+    nix build -f $nixpkgs/nixos system $@
+fi &&
+    {
+        git add .
+        d=$(date +%s)
+        git commit -m "Automatic commit. This builds at $d"
+        git tag latestBuild --force
+    }
