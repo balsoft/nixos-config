@@ -34,7 +34,7 @@
     ./users.nix
     ./hardware.nix
     ./services.nix
-    ./dovecot.nix
+    ./mailserver.nix
     ./power.nix
     ./network.nix
   ];
