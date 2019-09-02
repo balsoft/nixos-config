@@ -1,4 +1,4 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -p make gpg -i bash
+#!nix-shell -p gnumake gnupg -i bash
 
 make
