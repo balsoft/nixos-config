@@ -322,5 +322,8 @@ nothing happens."
                   (load-theme 'xresources t)))))
 
 (setq inhibit-startup-screen t)
+(setq initial-major-mode 'fundamental-mode)
+(setq initial-scratch-message "")
+
 
 ;;; init.el ends here
