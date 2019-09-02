@@ -1,6 +1,6 @@
 let
   imports = import ../nix/sources.nix;
-  new = import imports.nixpkgs-unstable { };
+  new = import imports.nixpkgs-unstable { config.allowUnfree = true; };
   filterGit =
     builtins.filterSource (type: name: name != ".git" || type != "directory");
 in { pkgs, config, lib, ... }: {
@@ -8,6 +8,8 @@ in { pkgs, config, lib, ... }: {
     (self: old:
       rec {
         inherit imports;
+
+        unstable = new;
 
         nur = (import imports.NUR { inherit pkgs; }).repos;
 
