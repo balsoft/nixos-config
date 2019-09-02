@@ -62,8 +62,7 @@ in {
     h_wireless ={ command = scripts.wireless; };
     i_network = { command = scripts.network; };
     j_cpuload = {
-      command = ''
-        top -b -n1 -p 1 | fgrep "Cpu(s)" | tail -1 | awk -F'id,' -v prefix="$prefix" '{ split($1, vs, ","); v=vs[length(vs)]; sub("%", "", v); printf "%s%.1f%%\n", prefix, 100 - v }' '';
+      command = ''top -b -n1 -p 1 | fgrep "Cpu(s)" | tail -1 | awk -F'id,' -v prefix="$prefix" '{ split($1, vs, ","); v=vs[length(vs)]; sub("%", "", v); printf "%s%.1f%%\n", prefix, 100 - v }' '';
       interval = 3;
     };
     k_cpufreq = {
