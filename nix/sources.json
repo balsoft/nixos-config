@@ -65,10 +65,10 @@
         "homepage": "",
         "owner": "nheko-reborn",
         "repo": "mtxclient",
-        "rev": "6eee767cc25a9db9f125843e584656cde1ebb6c5",
-        "sha256": "0yd8ib120fjgi3hnfj323b785lmm2q2ny27jjy1i0ixr7mvx1gv0",
+        "rev": "5cc8bcedd4475210d0fb88e8799102db2130f6e3",
+        "sha256": "11nwn38s6mj3k2dr9g6w2fplban4jmmgwa05j5f1y1c0kqa6y2g1",
         "type": "tarball",
-        "url": "https://github.com/nheko-reborn/mtxclient/archive/6eee767cc25a9db9f125843e584656cde1ebb6c5.tar.gz",
+        "url": "https://github.com/nheko-reborn/mtxclient/archive/5cc8bcedd4475210d0fb88e8799102db2130f6e3.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nheko": {
@@ -77,10 +77,10 @@
         "homepage": "",
         "owner": "nheko-reborn",
         "repo": "nheko",
-        "rev": "89015b9f187a36b71eed49d03b44545c1976efed",
-        "sha256": "0rcfz9g1kih3b8lfk3sl7f81n40729646pvpl0b77va706v2xrp9",
+        "rev": "5be967fb1df73fa495f9336f60fd409a011ff4ec",
+        "sha256": "0m7gh2i7v96qhgvy38l5d441jiyw467nldw0cpm3dww3s9kqy3m8",
         "type": "tarball",
-        "url": "https://github.com/nheko-reborn/nheko/archive/89015b9f187a36b71eed49d03b44545c1976efed.tar.gz",
+        "url": "https://github.com/nheko-reborn/nheko/archive/5be967fb1df73fa495f9336f60fd409a011ff4ec.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "niv": {
