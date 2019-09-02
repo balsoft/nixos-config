@@ -318,8 +318,7 @@ nothing happens."
   :config
   (add-hook 'after-make-frame-functions
             (lambda (frame)
-              (when window-system
                 (with-selected-frame frame
-                  (load-theme 'xresources t))))))
+                  (load-theme 'xresources t)))))
 
 ;;; init.el ends here
