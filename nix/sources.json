@@ -131,6 +131,12 @@
         "url": "https://github.com/nixos/nixpkgs-channels/archive/3f4144c30a6351dd79b177328ec4dea03e2ce45f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "simple-nixos-mailserver": {
+        "sha256": "08wcwc54b1k9gnx5z97yv4gm28lx50vnnsvk93l98zq209rpf7rq",
+        "type": "tarball",
+        "url": "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/0bf2bb0b54736df944c657a15069d19e01ab78a8/nixos-mailserver-0bf2bb0b54736df944c657a15069d19e01ab78a8.tar.gz",
+        "url_template": "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/archive/0bf2bb0b54736df944c657a15069d19e01ab78a8/nixos-mailserver-0bf2bb0b54736df944c657a15069d19e01ab78a8.tar.gz"
+    },
     "sway": {
         "branch": "master",
         "description": "i3-compatible Wayland compositor",
