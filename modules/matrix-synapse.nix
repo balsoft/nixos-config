@@ -85,6 +85,6 @@
     wantedBy = [ "multi-user.target" ];
     serviceConfig.User = "balsoft";
     script =
-      "cd /home/balsoft/projects/MatrixVkBot && nix run -f requirements.nix -c bot.py";
+      "cd /home/balsoft/projects/MatrixVkBot && ${(import ../../MatrixVkBot/requirements.nix {}).interpreter}/bin/python3.6 bot.py";
   };
 }
