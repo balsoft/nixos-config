@@ -1,6 +1,6 @@
 { pkgs, config, lib, ...}:
 {
-  mailserver = {
+  mailserver = lib.mkIf (config.device == "AMD-Workstation") {
     enable = true;
     fqdn = "balsoft.ru";
     domains = [ "balsoft.ru" ];
