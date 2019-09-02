@@ -22,6 +22,7 @@ in {
           { title = "weechat"; }
           { title = "nheko"; }
           { title = "Tootle"; }
+          { title = "Slack"; }
         ];
         "ﱘ" = [{ class = "cantata"; }];
       };
@@ -93,6 +94,7 @@ in {
         }
         { command = "${pkgs.xorg.xrdb}/bin/xrdb -merge ~/.Xresources"; }
         { command = "sleep 2; ${pkgs.procps}/bin/pkill swaynag"; }
+        { command = "${pkgs.slack}/bin/slack"; }
 
         (lib.mkIf (config.device == "AMD-Workstation") {
           command = ''
