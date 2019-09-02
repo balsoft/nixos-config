@@ -67,7 +67,7 @@
 (setq-default tab-always-indent 'complete)
 
 
-(setq compilation-scroll-output 'first-error)
+(setq-default compilation-scroll-output 'first-error)
 
 (add-to-list 'load-path "~/.emacs.d/elisp/")
 
@@ -104,6 +104,7 @@
 (global-set-key (kbd "C-b") 'switch-to-buffer)
 (global-set-key (kbd "C-w") 'kill-word)
 (global-set-key (kbd "C-W") 'kill-buffer)
+(global-set-key (kbd "C-TAB") 'org-cycle-level)
 
 (global-display-line-numbers-mode)
 
@@ -152,9 +153,6 @@
   (push 'company-ghci company-backends))
 
 (global-set-key (kbd "M-RET") 'execute-extended-command)
-
-;; (server-start)
-
 
 (defun smart-beginning-of-line ()
   "Move point to first non-whitespace character or beginning of line.
