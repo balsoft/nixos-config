@@ -80,21 +80,6 @@
 (global-auto-revert-mode)
 
 (electric-indent-mode 1)
-;; -------------------
-;; Wakib
-;; -------------------
-;; (use-package wakib-keys
-;;   :config
-;;   (wakib-keys 1)
-;;   (add-hook 'after-change-major-mode-hook 'wakib-update-major-mode-map)
-;;   (add-hook 'menu-bar-update-hook 'wakib-update-minor-mode-maps)
-;;   ;; Modifying other modules
-;;   ;; When remap is used for wakib-next and wakib-previous it no longer works
-;;   (define-key isearch-mode-map (kbd "C-f") 'isearch-repeat-forward)
-;;   (define-key isearch-mode-map (kbd "C-S-f") 'isearch-repeat-backward)
-;;   (define-key isearch-mode-map (kbd "M-;") 'isearch-repeat-forward)
-;;   (define-key isearch-mode-map (kbd "M-:") 'isearch-repeat-backward)
-;;   (define-key isearch-mode-map (kbd "C-v") 'isearch-yank-kill))
 
 (use-package ergoemacs-mode
   :config
@@ -109,10 +94,6 @@
 
 
 (use-package ix)
-
-(use-package clipmon
-  :config
-  (clipmon-mode))
 
 (electric-pair-mode)
 
@@ -304,9 +285,9 @@ If point was already at that position, move point to beginning of line."
 
 
 ;; Setup Splash Screen
-(setq inhibit-startup-screen t)
-(setq-default major-mode 'fundamental-mode)
-(setq-default initial-scratch-message "")
+;; (setq inhibit-startup-screen t)
+;; (setq-default major-mode 'fundamental-mode)
+;; (setq-default initial-scratch-message "")
 
 (setq custom-file (expand-file-name "custom" user-emacs-directory))
 (load custom-file t t)
