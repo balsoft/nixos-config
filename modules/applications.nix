@@ -11,10 +11,16 @@ with import ../support.nix { inherit lib config; }; {
         desktop = "konsole";
       };
       editor = {
-        cmd = "emacs";
-        desktop = "emacs";
+        cmd = toString (pkgs.writeTextFile {
+          name = "emacsclient";
+          text = ''
+            #!${pkgs.bash}/bin/bash
+             ${pkgs.emacs}/bin/emacsclient -c $@'';
+          executable = true;
+        });
+        desktop = "emacsclient";
       };
-      browser ={
+      browser = {
         cmd = "${pkgs.firefox-wayland}/bin/firefox";
         desktop = "firefox";
       };
@@ -49,36 +55,36 @@ with import ../support.nix { inherit lib config; }; {
     };
     home-manager.users.balsoft.xdg.configFile."mimeapps.list.home".text =
 
-    with config.defaultApplications;
-    let
-      apps = builtins.mapAttrs (name: value: "${value.desktop}.desktop;") {
-        "text/html" = browser;
-        "image/*" = { desktop = "org.kde.gwenview"; };
-        "application/x-bittorrent" = torrent;
-        "application/zip" = archive;
-        "application/rar" = archive;
-        "application/7z" = archive;
-        "application/*tar" = archive;
-        "application/x-kdenlive" = archive;
-        "x-scheme-handler/http" = browser;
-        "x-scheme-handler/https" = browser;
-        "x-scheme-handler/about" = browser;
-        "x-scheme-handler/unknown" = browser;
-        "x-scheme-handler/mailto" = mail;
-        "application/pdf" = { desktop = "org.kde.okular"; };
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document" =
-        text_processor;
-        "application/msword" = text_processor;
-        "application/vnd.oasis.opendocument.text" = text_processor;
-        "text/csv" = spreadsheet;
-        "application/vnd.oasis.opendocument.spreadsheet" = spreadsheet;
-        "text/plain" =
-        editor; # This actually makes Emacs an editor for everything... XDG is wierd
+      with config.defaultApplications;
+      let
+        apps = builtins.mapAttrs (name: value: "${value.desktop}.desktop;") {
+          "text/html" = browser;
+          "image/*" = { desktop = "org.kde.gwenview"; };
+          "application/x-bittorrent" = torrent;
+          "application/zip" = archive;
+          "application/rar" = archive;
+          "application/7z" = archive;
+          "application/*tar" = archive;
+          "application/x-kdenlive" = archive;
+          "x-scheme-handler/http" = browser;
+          "x-scheme-handler/https" = browser;
+          "x-scheme-handler/about" = browser;
+          "x-scheme-handler/unknown" = browser;
+          "x-scheme-handler/mailto" = mail;
+          "application/pdf" = { desktop = "org.kde.okular"; };
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document" =
+            text_processor;
+          "application/msword" = text_processor;
+          "application/vnd.oasis.opendocument.text" = text_processor;
+          "text/csv" = spreadsheet;
+          "application/vnd.oasis.opendocument.spreadsheet" = spreadsheet;
+          "text/plain" =
+            editor; # This actually makes Emacs an editor for everything... XDG is wierd
+        };
+      in genIni {
+        "Default Applications" = apps;
+        "Added Associations" = apps;
       };
-    in genIni {
-      "Default Applications" = apps;
-      "Added Associations" = apps;
-    };
     home-manager.users.balsoft.xdg.configFile."filetypesrc".text = genIni {
       EmbedSettings = {
         "embed-application/*" = false;
@@ -87,8 +93,8 @@ with import ../support.nix { inherit lib config; }; {
       };
     };
     home-manager.users.balsoft.home.activation.mimeapps = {
-      before = [];
-      after = ["linkGeneration"];
+      before = [ ];
+      after = [ "linkGeneration" ];
       data =
         "$DRY_RUN_CMD cp ~/.config/mimeapps.list.home ~/.config/mimeapps.list";
     };

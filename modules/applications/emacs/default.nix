@@ -54,7 +54,7 @@
       pkgs.clang
     ];
     xsession.windowManager.i3.config.startup =
-      [{ command = "emacs --eval '(server-start)'"; workspace = "0"; }];
+      [{ command = "emacs --daemon"; }];
 
     home.file.".emacs.d/init.el".source = ./init.el;
     home.file.".emacs.d/elisp/gud-lldb.el".source = ./gud-lldb.el;
