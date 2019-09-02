@@ -24,11 +24,11 @@
     server_name = "balsoft.ru";
     tls_certificate_path = toString (pkgs.writeTextFile {
       name = "matrix.crt";
-      text = config.secrets.matrix.cert;
+      text = config.secrets.ssl.cert;
     });
     tls_private_key_path = toString (pkgs.writeTextFile {
       name = "matrix_rsa";
-      text = config.secrets.matrix.priv;
+      text = config.secrets.ssl.priv;
     });
     app_service_config_files = [
       (builtins.toFile "registration_tg.yaml"

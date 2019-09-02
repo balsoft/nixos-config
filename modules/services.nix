@@ -53,8 +53,8 @@
       "balsoft.ru" = {
         forceSSL = true;
         listen = [ { addr = "0.0.0.0"; port = 5443; ssl = true; } ];
-        sslCertificate = builtins.toFile "balsoft.cert" config.secrets.matrix.cert;
-        sslCertificateKey = builtins.toFile "balsoft.priv" config.secrets.matrix.priv;
+        sslCertificate = builtins.toFile "balsoft.cert" config.secrets.ssl.cert;
+        sslCertificateKey = builtins.toFile "balsoft.priv" config.secrets.ssl.priv;
         locations."/" = {
           proxyPass = "http://localhost:5000";
         };
