@@ -102,8 +102,6 @@
 
 
 (global-set-key (kbd "C-b") 'switch-to-buffer)
-(global-set-key (kbd "C-w") 'kill-word)
-(global-set-key (kbd "C-W") 'kill-buffer)
 (global-set-key (kbd "C-TAB") 'org-cycle-level)
 
 (global-display-line-numbers-mode)
