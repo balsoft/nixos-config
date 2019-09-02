@@ -316,6 +316,8 @@ nothing happens."
 ;; -------------------
 (use-package xresources-theme
   :config
+  (load-theme 'xresorces t)
+  (setq after-init-hook (load-theme 'xresources t))
   (add-hook 'after-make-frame-functions
             (lambda (frame)
                 (with-selected-frame frame
