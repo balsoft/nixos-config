@@ -84,7 +84,8 @@
     requires = [ "matrix-synapse.service" "network-online.target" ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig.User = "balsoft";
-    script =
-      "cd /home/balsoft/projects/MatrixVkBot && ${(import ../../MatrixVkBot/requirements.nix {}).interpreter}/bin/python3.6 bot.py";
+    script = "cd /home/balsoft/projects/MatrixVkBot && ${
+        (import ../../MatrixVkBot/requirements.nix { }).interpreter
+      }/bin/python3.6 bot.py";
   };
 }
