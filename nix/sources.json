@@ -5,10 +5,10 @@
         "homepage": "",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "3dcf0342f5a3d08597c68dfe12b89e773f0deee9",
-        "sha256": "1zqpk4qnymi9xgripwhr5kylbxfar79bjk8mh8f0l9b5cyk7b8jy",
+        "rev": "c5f11b8b9ce869444e101243be110c2ff9be311e",
+        "sha256": "0h37islnhgr4199izhcx2scv9hjmz79a9hms3v8nvxdl1rvlb57s",
         "type": "tarball",
-        "url": "https://github.com/nix-community/NUR/archive/3dcf0342f5a3d08597c68dfe12b89e773f0deee9.tar.gz",
+        "url": "https://github.com/nix-community/NUR/archive/c5f11b8b9ce869444e101243be110c2ff9be311e.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "all-hies": {
@@ -29,10 +29,10 @@
         "homepage": "",
         "owner": "rycee",
         "repo": "home-manager",
-        "rev": "1923ac3358cbd2d75352c2db2178314eb4623818",
-        "sha256": "1xdsz62sjh8j3p8jfz449gv9vl01adk3qdyjvbpgi7y5c09ymwg7",
+        "rev": "05d91c5f50ba37f7ee31ce533d533ee84aafe676",
+        "sha256": "1q1s68plmqzlc630f09cc3frn84k8zgsyi9hg631dm0i49slgqa2",
         "type": "tarball",
-        "url": "https://github.com/rycee/home-manager/archive/1923ac3358cbd2d75352c2db2178314eb4623818.tar.gz",
+        "url": "https://github.com/rycee/home-manager/archive/05d91c5f50ba37f7ee31ce533d533ee84aafe676.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "lambda-launcher": {
@@ -113,10 +113,10 @@
         "homepage": "https://github.com/nixos/nixpkgs",
         "owner": "nixos",
         "repo": "nixpkgs-channels",
-        "rev": "541d9cce8af7a490fb9085305939569567cb58e6",
-        "sha256": "0jgz72hhzkd5vyq5v69vpljjlnf0lqaz7fh327bvb3cvmwbfxrja",
+        "rev": "609fe21661d3998a6d6aff5a2e51609d4fb19d05",
+        "sha256": "1llaiy5mkypysvfk0vv9jqyyld5z631ca3yg8mlp13xjw4q0w4gm",
         "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs-channels/archive/541d9cce8af7a490fb9085305939569567cb58e6.tar.gz",
+        "url": "https://github.com/nixos/nixpkgs-channels/archive/609fe21661d3998a6d6aff5a2e51609d4fb19d05.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs-unstable": {
@@ -125,10 +125,10 @@
         "homepage": "https://github.com/nixos/nixpkgs",
         "owner": "nixos",
         "repo": "nixpkgs-channels",
-        "rev": "7d5375ebf4cd417465327d7ab453687fd19663c9",
-        "sha256": "18myjqws6mm4xsx4nx348yix793wyk76dyklls6dgyp9rg0gfcma",
+        "rev": "4e60699fa727e4a0f9a3e78948012f86da32cfef",
+        "sha256": "0bi8gnhdnjici7vafn3igc8vzk09nwamvcc22k7inmixb8pr0cqv",
         "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs-channels/archive/7d5375ebf4cd417465327d7ab453687fd19663c9.tar.gz",
+        "url": "https://github.com/nixos/nixpkgs-channels/archive/4e60699fa727e4a0f9a3e78948012f86da32cfef.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "simple-nixos-mailserver": {
@@ -143,10 +143,10 @@
         "homepage": "https://swaywm.org/",
         "owner": "swaywm",
         "repo": "sway",
-        "rev": "0ad5e355bd8c5035f9219aa068418c38a6bbd4b8",
-        "sha256": "0findxspwpl68q4whz7pgi6a1wjnsd5la1s8lr81zgkdydh7w2p6",
+        "rev": "aa8ea2fa82d3870fd26907d245b906e3aabc6025",
+        "sha256": "1drggy7k5d9cgc7q414h16wxicvzxypck9iw5yhxq43idb61y0yd",
         "type": "tarball",
-        "url": "https://github.com/swaywm/sway/archive/0ad5e355bd8c5035f9219aa068418c38a6bbd4b8.tar.gz",
+        "url": "https://github.com/swaywm/sway/archive/aa8ea2fa82d3870fd26907d245b906e3aabc6025.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "termNote": {
@@ -191,10 +191,10 @@
         "homepage": "https://swaywm.org",
         "owner": "swaywm",
         "repo": "wlroots",
-        "rev": "734c64a6cc005f2c20df48af8079538a8c4cbd39",
-        "sha256": "0wz132xc6vyp7d5xpmg0ggydd7bp1d42yz9nz238wngcrpzxmisq",
+        "rev": "bf90474b74064503be0957ae713db833ddec5529",
+        "sha256": "13cpvvasmpsps1i9gy6p4j3l69lblcicwk3f3041n4l88zrrjx39",
         "type": "tarball",
-        "url": "https://github.com/swaywm/wlroots/archive/734c64a6cc005f2c20df48af8079538a8c4cbd39.tar.gz",
+        "url": "https://github.com/swaywm/wlroots/archive/bf90474b74064503be0957ae713db833ddec5529.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }

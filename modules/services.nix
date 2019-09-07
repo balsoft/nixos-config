@@ -46,21 +46,8 @@
   systemd.services.systemd-udev-settle.enable = false;
 
   services.nix-serve.enable = true;
+
   
-  services.nginx = lib.mkIf (config.device == "AMD-Workstation") {
-    enable = true;
-    virtualHosts =  {
-      "balsoft.ru" = {
-        forceSSL = true;
-        listen = [ { addr = "0.0.0.0"; port = 5443; ssl = true; } ];
-        sslCertificate = builtins.toFile "balsoft.cert" config.secrets.ssl.cert;
-        sslCertificateKey = builtins.toFile "balsoft.priv" config.secrets.ssl.priv;
-        locations."/" = {
-          proxyPass = "http://localhost:5000";
-        };
-      };
-    };
-  };
 
   services.upower.enable = true;
   virtualisation.docker.enable = config.deviceSpecific.isHost;
