@@ -1,5 +1,6 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -p "python3.withPackages (ps: with ps; [beautifulsoup4 flask ruamel_yaml])" -i python3
+#!nix-shell -p "python3.withPackages (ps: with ps; [beautifulsoup4 html5lib flask ruamel_yaml])" -i python3
+
 from bs4 import BeautifulSoup
 from flask import Flask, jsonify
 import sys
@@ -35,14 +36,14 @@ def get_schedule(group):
   html = mybytes.decode("utf8")
   fp.close()
 
-  parsed_html = BeautifulSoup(html, features="html.parser")
+  parsed_html = BeautifulSoup(html, "html5lib")
   days_html = parsed_html.find_all("div", "sc-table-day")
 
   schedule = {}
 
   for day in days_html:
     date = day.find("div", "sc-day-header").text[:5:]
-    lectures_html = day.find_all("div", "sc-table-row")
+    lectures_html = day.find("div", "sc-table-detail-container").find_all("div", "sc-table-row")
     lectures = []
     for lecture in lectures_html:
       l = {}
@@ -61,7 +62,7 @@ def get_schedule(group):
       except:
         pass
       lectures.append(l)
-      schedule.update({date: lectures})
+    schedule.update({date: lectures})
   return schedule
 
 @app.route('/json/<group>')
