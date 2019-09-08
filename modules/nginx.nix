@@ -21,7 +21,7 @@
   systemd.services.mai = lib.mkIf (config.device == "AMD-Workstation") {
     script = "${
         pkgs.python3.withPackages
-        (ps: with ps; [ beautifulsoup4 flask ruamel_yaml ])
+        (ps: with ps; [ beautifulsoup4 flask ruamel_yaml html5lib ])
       }/bin/python3 ${./maiparser.py}";
     wantedBy = [ "multi-user.target" ];
   };
