@@ -28,6 +28,7 @@
     ./applications.nix
     ./openvpn.nix
     ./matrix-synapse.nix
+    ./nginx.nix
     ./secrets.nix
     ./devices.nix
     ./packages.nix

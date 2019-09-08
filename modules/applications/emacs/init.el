@@ -200,15 +200,6 @@ If point was already at that position, move point to beginning of line."
   ((nix-mode . (lambda () (local-set-key (kbd "<f7>") 'nix-format-buffer))))
   ((nix-mode . (lambda () (setq indent-line-function 'nix-indent-line)))))
 
-(use-package org-gcal
-  :config
-  (require 'org-gcal-config))
-
-
-(use-package org-gcal
-  :config
-  (require 'org-gcal-config))
-
 ;; -------------------
 ;; expand-region
 ;; -------------------
