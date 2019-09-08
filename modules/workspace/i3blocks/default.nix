@@ -34,7 +34,7 @@ in {
       command = scripts.hydra-status;
       interval = 30;
     };
-    a_email = if !isNull config.secrets.gmail or null then {
+    a_email = if config.secrets ? gmail then {
       command = scripts.email;
     } else
       { };

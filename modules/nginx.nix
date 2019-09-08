@@ -25,4 +25,11 @@
       }/bin/python3 ${./maiparser.py}";
     wantedBy = [ "multi-user.target" ];
   };
+  systemd.services.mai2google = lib.mkIf (config.device == "AMD-Workstation") {
+    path = [pkgs.gcalcli pkgs.python3];
+    script = "python3 ${./mai2google.py}";
+  };
+  systemd.timers.mai2google = lib.mkIf (config.device == "AMD-Workstation") {
+    timerConfig.OnCalendar = "00:00:00";
+  };
 }
