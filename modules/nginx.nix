@@ -34,6 +34,6 @@
       }";
   };
   systemd.timers.mai2google = lib.mkIf (config.device == "AMD-Workstation") {
-    timerConfig.OnCalendar = "00:00:00";
+    timerConfig.OnCalendar = "hourly";
   };
 }
