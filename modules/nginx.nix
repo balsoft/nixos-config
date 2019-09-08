@@ -27,6 +27,7 @@
   };
   systemd.services.mai2google = lib.mkIf (config.device == "AMD-Workstation") {
     path = with pkgs; [ bash gcalcli python3 curl ];
+    serviceConfig.User = "balsoft";
     script =
       "curl http://mai.balsoft.ru/json/%D0%9C8%D0%9E-106%D0%91-19 | python3 ${
         ./mai2google.py
