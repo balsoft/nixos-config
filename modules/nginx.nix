@@ -4,9 +4,7 @@
     virtualHosts = let
       default = {
         addSSL = true;
-        sslCertificate = builtins.toFile "balsoft.cert" config.secrets.ssl.cert;
-        sslCertificateKey =
-          builtins.toFile "balsoft.priv" config.secrets.ssl.priv;
+        enableACME = true;
       };
     in {
       "cache.balsoft.ru" = {
