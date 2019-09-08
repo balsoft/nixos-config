@@ -199,7 +199,7 @@ in {
         "${modifier}+F12" = "output * dpms on";
         "${modifier}+i" =
           script "0x0" ''wl-paste | curl -F"file=@-" https://0x0.st | wl-copy'';
-        "--release ${modifier}" = script "lambda-launcher"
+        "${modifier}+z" = script "lambda-launcher"
           "${pkgs.lambda-launcher}/bin/lambda-launcher";
         "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
         "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
