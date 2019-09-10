@@ -18,7 +18,7 @@ def index():
 @app.route('/post', methods = ['POST'])
 def post():
   open(f, "w").write(request.form.get('content'))
-  subprocess.run(["pandoc", "/var/lib/important/index.md", "-o", "/var/lib/important/index.html"])
+  subprocess.run(["pandoc", "--css", "/var/lib/important/pandoc.css", "/var/lib/important/index.md", "-o", "/var/lib/important/index.html"])
   return ("", 303, {'Location': '/'})
 
 if __name__ == "__main__":
