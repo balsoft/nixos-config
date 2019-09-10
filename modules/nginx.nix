@@ -16,6 +16,9 @@
       "mai.balsoft.ru" = {
         locations."/" = { proxyPass = "http://localhost:1337"; };
       } // default;
+      "important.mai.balsoft.ru" = {
+        locations."/" = { root = "/var/lib/important"; };
+      } // default;
     };
   };
   systemd.services.mai = lib.mkIf (config.device == "AMD-Workstation") {
