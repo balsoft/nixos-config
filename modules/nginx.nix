@@ -1,7 +1,7 @@
 { pkgs, config, lib, ... }: {
   services.nginx = lib.mkIf (config.device == "AMD-Workstation") {
     enable = true;
-    appendHttpConfig = "charset utf-8";
+    appendHttpConfig = "charset utf-8;";
     virtualHosts = let
       default = {
         addSSL = true;
