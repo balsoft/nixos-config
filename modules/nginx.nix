@@ -15,10 +15,15 @@
         locations."/" = { proxyPass = "https://localhost:13748"; };
       } // default;
       "mai.balsoft.ru" = {
-        locations."/" = { proxyPass = "http://localhost:1337"; };
-      } // default;
-      "important.mai.balsoft.ru" = {
         locations."/" = { root = "/var/lib/important"; };
+        locations."/api" = { proxyPass = "http://localhost:1337"; };
+      } // default;
+      "admin.mai.balsoft.ru" = {
+        basicAuth = {
+          oleg = "password123";
+          max = "1q2w3e4r";
+        };
+        locations."/" = { proxyPass = "http://localhost:1338"; };
       } // default;
     };
   };
@@ -29,11 +34,18 @@
       }/bin/python3 ${./maiparser.py}";
     wantedBy = [ "multi-user.target" ];
   };
+  systemd.services.maiadmin = lib.mkIf (config.device == "AMD-Workstation") {
+    script = "${
+      pkgs.python3.withPackages
+      (ps: with ps; [ flask ])
+    }/bin/python3 ${./maiadmin.py}";
+    wantedBy = [ "multi-user.target" ];
+  };
   systemd.services.mai2google = lib.mkIf (config.device == "AMD-Workstation") {
     path = with pkgs; [ bash gcalcli python3 curl ];
     serviceConfig.User = "balsoft";
     script =
-      "curl http://mai.balsoft.ru/json/%D0%9C8%D0%9E-106%D0%91-19 | python3 ${
+      "curl http://mai.balsoft.ru/api/json/%D0%9C8%D0%9E-106%D0%91-19 | python3 ${
         ./mai2google.py
       }";
   };
