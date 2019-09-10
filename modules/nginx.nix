@@ -15,10 +15,7 @@
         locations."/" = { proxyPass = "https://localhost:13748"; };
       } // default;
       "mai.balsoft.ru" = {
-        locations."/" = { proxyPass = "http://localhost:1337"; };
-      } // default;
-      "important.mai.balsoft.ru" = {
-        locations."/" = { root = "/var/lib/important"; };
+        locations."/" = { proxyPass = "http://localhost:1337"; root = "/var/lib/important"; };
       } // default;
     };
   };
