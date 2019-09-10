@@ -34,6 +34,6 @@
       }";
   };
   systemd.timers.mai2google = lib.mkIf (config.device == "AMD-Workstation") {
-    timerConfig.OnCalendar = "hourly";
+    timerConfig.RestartSec = "3600";
   };
 }
