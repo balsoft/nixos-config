@@ -38,6 +38,7 @@
     wantedBy = [ "multi-user.target" ];
   };
   systemd.services.maiadmin = lib.mkIf (config.device == "AMD-Workstation") {
+    path = [pkgs.pandoc];
     script = "${
       pkgs.python3.withPackages
       (ps: with ps; [ flask ])

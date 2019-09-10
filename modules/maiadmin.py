@@ -1,8 +1,9 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -p "python3.withPackages (ps: with ps; [flask])" -i python3
+#!nix-shell -p "python3.withPackages (ps: with ps; [flask])" -p pandoc -i python3
 
 from flask import Flask, request
 import sys
+import subprocess
 import json
 
 app = Flask(__name__)
@@ -17,6 +18,7 @@ def index():
 @app.route('/post', methods = ['POST'])
 def post():
   open(f, "w").write(request.form.get('content'))
+  subprocess.run(["pandoc", "/var/lib/important/index.md", "-o", "/var/lib/important/index.html"])
   return ("", 303, {'Location': '/'})
 
 if __name__ == "__main__":
