@@ -7,7 +7,7 @@ import subprocess
 
 schedule = json.loads(sys.stdin.read())
 
-subprocess.run(['sh', '-c', "yes y | gcalcli --calendar=MAI delete '*'"])
+subprocess.run(['sh', '-c', "yes y | gcalcli --calendar=MAI delete '*' now"])
 
 for date, lectures in schedule.items():
   for lecture in lectures:
