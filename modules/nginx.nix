@@ -4,7 +4,7 @@
     appendHttpConfig = "charset utf-8;";
     virtualHosts = let
       default = {
-        addSSL = true;
+        forceSSL = true;
         enableACME = true;
       };
     in {
