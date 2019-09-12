@@ -32,7 +32,7 @@ in {
       pref("xpinstall.signatures.required", false);
       pref("extensions.update.enabled", false);
 
-      pref("network.trr.mode", 3);
+      pref("network.trr.mode", 5);
       pref("network.trr.uri", "https://mozilla.cloudflare-dns.com/dns-query");
       pref("network.trr.bootstrapAddress", "1.1.1.1");
 
