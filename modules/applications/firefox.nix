@@ -32,6 +32,10 @@ in {
       pref("xpinstall.signatures.required", false);
       pref("extensions.update.enabled", false);
 
+      pref("network.trr.mode", 3);
+      pref("network.trr.uri", "https://mozilla.cloudflare-dns.com/dns-query");
+      pref("network.trr.bootstrapAddress", "1.1.1.1")
+
       pref("font.name.monospace.x-western", "Roboto Mono");
       pref("font.name.sans-serif.x-western", "Roboto");
       pref("font.name.serif.x-western", "Roboto Slab");
