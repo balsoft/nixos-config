@@ -34,7 +34,7 @@ in {
 
       pref("network.trr.mode", 3);
       pref("network.trr.uri", "https://mozilla.cloudflare-dns.com/dns-query");
-      pref("network.trr.bootstrapAddress", "1.1.1.1")
+      pref("network.trr.bootstrapAddress", "1.1.1.1");
 
       pref("font.name.monospace.x-western", "Roboto Mono");
       pref("font.name.sans-serif.x-western", "Roboto");
