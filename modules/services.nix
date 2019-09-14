@@ -4,8 +4,8 @@
   programs.ssh.startAgent = true;
   services.mopidy = {
     enable = true;
-
     extensionPackages = with pkgs; [ mopidy-gmusic ];
+    dataDir = "/home/balsoft/.cache/mopidy";
     configuration = (if (!isNull config.secrets.gpmusic) then ''
       [gmusic]
       username = ${config.secrets.gpmusic.user}
@@ -18,6 +18,9 @@
         hostname = 0.0.0.0
       '';
   };
+
+  systemd.services.mopidy.serviceConfig.User = lib.mkForce "balsoft";
+
   services.earlyoom = {
     enable = config.devices.${config.device}.ram < 16;
     freeMemThreshold = 5;
