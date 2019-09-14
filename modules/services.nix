@@ -22,6 +22,13 @@
       '';
   };
 
+  systemd.services."user@1000" = {
+    serviceConfig = {
+      Restart = "always";
+      RestartSec = 1;
+    };
+  };
+
   services.earlyoom = {
     enable = config.devices.${config.device}.ram < 16;
     freeMemThreshold = 5;
