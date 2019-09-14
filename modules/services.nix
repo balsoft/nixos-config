@@ -22,8 +22,11 @@
       '';
   };
 
+  systemd.services.mopidy = {
+    requires = [ "network-online.target" ];
+  };
+
   systemd.services."user@" = {
-#    wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       Restart = "always";
     };
