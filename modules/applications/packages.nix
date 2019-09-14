@@ -28,11 +28,11 @@
     plasma5.xdg-desktop-portal-kde
     termNote
     stdman
-    stdmanpages
     qt5.qtsvg
     plasma-browser-integration
     ntfs3g
     ktorrent
+    blueman
   ]);
 
   home-manager.users.balsoft.home.packages = (with pkgs;

@@ -82,6 +82,11 @@ with deviceSpecific; {
       MINSTOP=hwmon1/pwm1=0
     '';
   };
+  
+  services.dbus.packages =
+    [ pkgs.blueman ];
+
+
   systemd.services.fancontrol = {
     enable = device == "AMD-Workstation";
     description = "Control the speed of fans";
