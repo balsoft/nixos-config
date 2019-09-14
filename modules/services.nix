@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }: {
 
   services.acpid.enable = true;
-
+  programs.ssh.startAgent = true;
   services.mopidy = {
     enable = true;
 
