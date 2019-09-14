@@ -26,11 +26,6 @@
     requires = [ "network-online.target" ];
   };
 
-  systemd.services."user@" = {
-    serviceConfig = {
-      Restart = "always";
-    };
-  };
 
   services.earlyoom = {
     enable = config.devices.${config.device}.ram < 16;

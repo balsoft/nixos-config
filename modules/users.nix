@@ -24,6 +24,16 @@
     uid = 1000;
     password = "";
   };
+  
+  
+  systemd.services."user@" = {
+    serviceConfig = {
+      Restart = "always";
+    };
+  };
+
+  home-manager.users.balsoft.home.sessionVariables.XDG_RUNTIME_DIR = "/run/user/1000";
+
   users.users.svetlana-banteva = lib.mkIf config.deviceSpecific.isShared {
     isNormalUser = true;
     extraGroups =
