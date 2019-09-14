@@ -73,7 +73,7 @@ in {
     m_free = { command = scripts.free; };
     n_df = {
       command = ''
-        echo '<span font="Material Icons 11"></span>' `df / | tail -1 | grep -o '..%'`'';
+        echo '<span font="Material Icons 11"></span>' `df / | tail -1 | grep -o '..%'`'';
     };
     o_date = {
       command =
