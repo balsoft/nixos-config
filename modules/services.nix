@@ -19,8 +19,7 @@
       '';
   };
 
-  systemd.services.mopidy.serviceConfig.User = lib.mkForce "balsoft";
-  systemd.services.mopidy.serviceConfig.ExecStartPre = lib.mkForce "${pkgs.coreutils}/bin/true";
+  systemd.services.mopidy.enable = lib.mkForce false;
 
   services.earlyoom = {
     enable = config.devices.${config.device}.ram < 16;
