@@ -22,10 +22,10 @@
       '';
   };
 
-  systemd.services."user@1000" = {
+  systemd.services."user@" = {
+#    wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       Restart = "always";
-      RestartSec = 1;
     };
   };
 
