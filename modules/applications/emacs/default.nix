@@ -56,6 +56,8 @@
 
     services.emacs.enable = true;
 
+    systemd.user.services.emacs.Service.Environment = "PATH=/run/current-system/sw/bin:/etc/profiles/per-user/balsoft/bin";
+
     home.file.".emacs.d/init.el".source = ./init.el;
     home.file.".emacs.d/elisp/gud-lldb.el".source = ./gud-lldb.el;
     home.activation.emacs = {
