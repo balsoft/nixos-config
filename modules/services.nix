@@ -16,10 +16,11 @@
       "") + ''
         [mpd]
         hostname = 0.0.0.0
+        
+        [audio]
+        output = pulsesink server=127.0.0.1
       '';
   };
-
-  systemd.services.mopidy.enable = lib.mkForce false;
 
   services.earlyoom = {
     enable = config.devices.${config.device}.ram < 16;

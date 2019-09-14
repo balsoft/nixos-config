@@ -65,6 +65,9 @@ with deviceSpecific; {
     package = pkgs.pulseaudioFull;
     support32Bit = true;
     # systemWide = true;
+    extraConfig = ''
+      load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1
+    '';
     extraModules = [ pkgs.pulseaudio-modules-bt ];
   };
 

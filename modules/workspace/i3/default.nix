@@ -95,7 +95,6 @@ in {
         { command = "${pkgs.xorg.xrdb}/bin/xrdb -merge ~/.Xresources"; }
         { command = "sleep 2; ${pkgs.procps}/bin/pkill swaynag"; }
         { command = "${pkgs.unstable.slack-dark}/bin/slack"; }
-        { command = config.systemd.services.mopidy.serviceConfig.ExecStart; }
 
         (lib.mkIf (config.device == "AMD-Workstation") {
           command = ''
