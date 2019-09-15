@@ -23,7 +23,6 @@
           flycheck
           flycheck-pkg-config
           auto-indent-mode
-          ix
           clipmon
           org-gcal
           company-ghci
@@ -33,9 +32,9 @@
           ivy
           smex
           quickrun
-          ranger
-          dired-ranger
           ergoemacs-mode
+          counsel-tramp
+          pkgs.unstable.emacsPackagesNg."0x0"
         ];
     };
 
