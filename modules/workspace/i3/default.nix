@@ -80,6 +80,7 @@ in {
           command =
             "${pkgs.polkit-kde-agent}/lib/libexec/polkit-kde-authentication-agent-1";
         }
+        { command = "${pkgs.blueman}/bin/blueman-applet"; }
         {
           command =
             "${pkgs.keepassxc}/bin/keepassxc /home/balsoft/projects/nixos-config/misc/Passwords.kdbx";
@@ -88,10 +89,7 @@ in {
         { command = "${pkgs.trojita}/bin/trojita"; }
         { command = "${pkgs.termNote}/bin/noted"; }
         { command = "${pkgs.nheko}/bin/nheko"; }
-        {
-          command =
-            "${pkgs.tootle}/bin/com.github.bleakgrey.tootle";
-        }
+        { command = "${pkgs.tootle}/bin/com.github.bleakgrey.tootle"; }
         { command = "${pkgs.xorg.xrdb}/bin/xrdb -merge ~/.Xresources"; }
         { command = "sleep 2; ${pkgs.procps}/bin/pkill swaynag"; }
         { command = "${pkgs.unstable.slack-dark}/bin/slack"; }
