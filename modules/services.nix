@@ -1,11 +1,11 @@
 { config, lib, pkgs, ... }: {
 
   services.acpid.enable = true;
-
+  programs.ssh.startAgent = true;
   services.mopidy = {
     enable = true;
-
     extensionPackages = with pkgs; [ mopidy-gmusic ];
+    dataDir = "/home/balsoft/.cache/mopidy";
     configuration = (if (!isNull config.secrets.gpmusic) then ''
       [gmusic]
       username = ${config.secrets.gpmusic.user}
@@ -16,8 +16,17 @@
       "") + ''
         [mpd]
         hostname = 0.0.0.0
+        
+        [audio]
+        output = pulsesink server=127.0.0.1
       '';
   };
+
+  systemd.services.mopidy = {
+    requires = [ "network-online.target" ];
+  };
+
+
   services.earlyoom = {
     enable = config.devices.${config.device}.ram < 16;
     freeMemThreshold = 5;

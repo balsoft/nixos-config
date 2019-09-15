@@ -1,13 +1,11 @@
 { pkgs, config, lib, ... }:
 
-with rec {
-  inherit (config) device devices deviceSpecific;
-};
+with rec { inherit (config) device devices deviceSpecific; };
 with deviceSpecific; {
 
   hardware.sensor.iio.enable = (device == "HP-Laptop");
   hardware.cpu.${devices.${device}.cpu.vendor}.updateMicrocode =
-  true; # Update microcode
+    true; # Update microcode
 
   hardware.enableRedistributableFirmware = true; # For some unfree drivers
 
@@ -16,6 +14,8 @@ with deviceSpecific; {
   hardware.opengl.driSupport32Bit = true; # For steam
 
   hardware.bluetooth.enable = true;
+  hardware.bluetooth.package = pkgs.bluezFull;
+
   hardware.sane.enable = true;
 
   boot = {
@@ -53,7 +53,7 @@ with deviceSpecific; {
       "rd.udev.log_priority=3"
       "pti=off"
       "spectre_v2=off"
-   ] ++ lib.optionals (device == "Prestigio-Laptop") [
+    ] ++ lib.optionals (device == "Prestigio-Laptop") [
       "intel_idle.max_cstate=1" # Otherwise it hangs
     ];
   };
@@ -64,7 +64,11 @@ with deviceSpecific; {
     enable = true;
     package = pkgs.pulseaudioFull;
     support32Bit = true;
-    systemWide = true;
+    # systemWide = true;
+    extraConfig = ''
+      load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1
+    '';
+    extraModules = [ pkgs.pulseaudio-modules-bt ];
   };
 
   environment.etc.fancontrol = {
@@ -81,6 +85,11 @@ with deviceSpecific; {
       MINSTOP=hwmon1/pwm1=0
     '';
   };
+  
+  services.dbus.packages =
+    [ pkgs.blueman ];
+
+
   systemd.services.fancontrol = {
     enable = device == "AMD-Workstation";
     description = "Control the speed of fans";

@@ -23,7 +23,6 @@
           flycheck
           flycheck-pkg-config
           auto-indent-mode
-          ix
           clipmon
           org-gcal
           company-ghci
@@ -33,9 +32,9 @@
           ivy
           smex
           quickrun
-          ranger
-          dired-ranger
           ergoemacs-mode
+          counsel-tramp
+          pkgs.unstable.emacsPackagesNg."0x0"
         ];
     };
 
@@ -53,8 +52,10 @@
       })
       pkgs.clang
     ];
-    xsession.windowManager.i3.config.startup =
-      [{ command = "emacs --daemon"; }];
+
+    services.emacs.enable = true;
+
+    systemd.user.services.emacs.Service.Environment = "PATH=/run/current-system/sw/bin:/etc/profiles/per-user/balsoft/bin";
 
     home.file.".emacs.d/init.el".source = ./init.el;
     home.file.".emacs.d/elisp/gud-lldb.el".source = ./gud-lldb.el;
