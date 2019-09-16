@@ -61,8 +61,8 @@ in {
             criteria = { window_role = "popup"; };
           }
           {
-            command = "floating disable";
-            criteria = { class = "pavucontrol-qt"; };
+            command = "floating enable";
+            criteria = { app_id = "org.kde.polkit-kde-authentication-1"; };
           }
         ];
       };
@@ -164,6 +164,8 @@ in {
         "${modifier}+f" = "fullscreen toggle";
         "${modifier}+r" = "mode resize";
         "${modifier}+Shift+f" = "floating toggle";
+
+        "${modifier}+/" = "focus mode_toggle";
         "${modifier}+Escape" = "exec ${apps.monitor.cmd}";
 
         "${modifier}+Print" = script "screenshot"
