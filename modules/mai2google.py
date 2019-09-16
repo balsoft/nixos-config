@@ -23,7 +23,7 @@ for date, lectures in schedule.items():
             '--when', date + ' ' + lecture['start'],
             '--duration', "90",
             '--description', (lecture.get('type') or "Неизвестный тип") + ", " + (lecture.get('lecturer') or "Неизвестный преподаватель"),
-            '--reminder', '5m'
+            '--reminder', '15m'
     ]
     print(args)
     subprocess.run(args)
