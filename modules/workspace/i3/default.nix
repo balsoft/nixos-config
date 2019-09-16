@@ -88,6 +88,8 @@ in {
         { command = "sleep 2; ${pkgs.procps}/bin/pkill swaynag"; }
         { command = "${pkgs.unstable.slack-dark}/bin/slack"; }
 
+        { command = "${pkgs.cantata}/bin/cantata"; }
+
         (lib.mkIf (config.device == "AMD-Workstation") {
           command = ''
             NIX_ANDROID_EMULATOR_FLAGS="-no-audio -no-window" ${
