@@ -18,7 +18,6 @@ in {
           { title = "Slack"; }
         ];
         "ﱘ" = [{ app_id = "cantata"; }];
-        "scratchpad" = [{ app_id = "keepassxc"; }];
       };
       fonts = [ "RobotoMono 9" ];
 
@@ -78,6 +77,7 @@ in {
         {
           command =
             "${pkgs.keepassxc}/bin/keepassxc /home/balsoft/projects/nixos-config/misc/Passwords.kdbx";
+          workspace = "scratchpad";
         }
         { command = "balooctl start"; }
         { command = "${pkgs.trojita}/bin/trojita"; }

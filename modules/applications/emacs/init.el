@@ -89,9 +89,7 @@
 (global-set-key (kbd "C-b") 'switch-to-buffer)
 (global-set-key (kbd "C-TAB") 'org-cycle-level)
 
-(use-package 0x0
-  :config
-  (global-set-key (kbd "C-i") '0x0-upload))
+(use-package 0x0)
 
 (global-display-line-numbers-mode)
 
