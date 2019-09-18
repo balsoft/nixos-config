@@ -15,7 +15,7 @@ def index():
   return ("Redirecting to index.md", 303, {"Location": "/index.md"})
 
 @app.route('/<name>', methods = ["GET"])
-def index(name):
+def edit(name):
   content = open(f + name).read()
   return "<title>Редактирование index.md</title><body><form action='/" + name + "' method=POST><textarea cols=150 rows=60 name='content'>" + content + "</textarea><br><input type=submit /></form></body>"
 
