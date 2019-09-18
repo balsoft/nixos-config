@@ -125,10 +125,10 @@
         "homepage": "https://github.com/nixos/nixpkgs",
         "owner": "nixos",
         "repo": "nixpkgs-channels",
-        "rev": "4e60699fa727e4a0f9a3e78948012f86da32cfef",
-        "sha256": "0bi8gnhdnjici7vafn3igc8vzk09nwamvcc22k7inmixb8pr0cqv",
+        "rev": "e19054ab3cd5b7cc9a01d0efc71c8fe310541065",
+        "sha256": "0b92yhkj3pq58svyrx7jp0njhaykwr29079izqn6qs638v8zvhl2",
         "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs-channels/archive/4e60699fa727e4a0f9a3e78948012f86da32cfef.tar.gz",
+        "url": "https://github.com/nixos/nixpkgs-channels/archive/e19054ab3cd5b7cc9a01d0efc71c8fe310541065.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "simple-nixos-mailserver": {
