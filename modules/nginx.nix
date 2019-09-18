@@ -39,6 +39,8 @@
   };
   systemd.services.maiadmin = lib.mkIf (config.device == "AMD-Workstation") {
     path = [ pkgs.pandoc ];
+    serviceConfig.User = "nobody";
+    serviceConfig.Group = "nogroup";
     script =
       "${pkgs.python3.withPackages (ps: with ps; [ flask ])}/bin/python3 ${
         ./maiadmin.py
