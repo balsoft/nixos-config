@@ -67,6 +67,9 @@ in { pkgs, config, lib, ... }: {
 
         nerdfonts = nur.balsoft.pkgs.roboto-mono-nerd;
 
+        mopidy-gmusic = old.mopidy-gmusic.overridePythonAttrs (oa: {
+          src = imports.mopidy-gmusic;
+        } // oa);
         pythonPackages = old.pythonPackages.override {
           overrides = (self: super: {
             backports_functools_lru_cache =

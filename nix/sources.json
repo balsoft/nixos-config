@@ -59,6 +59,18 @@
         "url": "https://github.com/nana-4/materia-theme/archive/a7d4b8e513a06846aa6f320e181d5b9dc53dc07a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "mopidy-gmusic": {
+        "branch": "master",
+        "description": "Mopidy extension for playing music from Google Play Music",
+        "homepage": "https://www.mopidy.com",
+        "owner": "mopidy",
+        "repo": "mopidy-gmusic",
+        "rev": "3562ad4b07bf6c0801338db72cd0c6f0633a07af",
+        "sha256": "1hq54x26w4xp49dc4m9qw7zpk2bxdsn9d2cii34fj6mgqxwi0zwz",
+        "type": "tarball",
+        "url": "https://github.com/mopidy/mopidy-gmusic/archive/3562ad4b07bf6c0801338db72cd0c6f0633a07af.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "mtxclient": {
         "branch": "0.3.0-dev",
         "description": "Client API library for Matrix, built on top of Boost.Asio",
