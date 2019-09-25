@@ -70,6 +70,7 @@ in { pkgs, config, lib, ... }: {
         mopidy-gmusic = old.mopidy-gmusic.overridePythonAttrs (oa: {
           src = imports.mopidy-gmusic;
         } // oa);
+
         pythonPackages = old.pythonPackages.override {
           overrides = (self: super: {
             backports_functools_lru_cache =
