@@ -49,7 +49,7 @@
     password = "";
   };
 
-  users.users.yuriksov = lib.mkIf (config.device == "AMD-Workstation") {
+  users.users.yuroksov = lib.mkIf (config.device == "AMD-Workstation") {
     isNormalUser = true;
     description = "Юрий Шараковский";
     openssh.authorizedKeys.keys = [
