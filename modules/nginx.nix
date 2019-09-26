@@ -54,10 +54,6 @@
       curl https://api.mai.balsoft.ru/json/%D0%9C8%D0%9E-106%D0%91-19 | python3 ${
         ./mai2google.py
       } MAI
-
-      curl https://api.mai.balsoft.ru/json/%D0%9C8%D0%9E-111%D0%91-19 | python3 ${
-        ./mai2google.py
-      } MAI111
     '';
   };
   systemd.timers.mai2google = lib.mkIf (config.device == "AMD-Workstation") {
