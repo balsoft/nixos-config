@@ -26,6 +26,6 @@ fi &&
     {
         git add .
         d=$(date +%s)
-        GIT_EDITOR=emacs git commit -t <(echo "Update:"; git diff --name-only)
+        GIT_EDITOR=emacs git commit -t <(echo "Update:"; git diff HEAD --name-only)
         git tag latestBuild --force
     }
