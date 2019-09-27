@@ -26,6 +26,6 @@ fi &&
     {
         git add .
         d=$(date +%s)
-        git commit -m "Automatic commit. This builds at $d"
+        GIT_EDITOR=emacs git commit -t <(echo "Update:"; git diff --name-only)
         git tag latestBuild --force
     }

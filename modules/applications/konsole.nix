@@ -34,7 +34,6 @@ with (import ../../support.nix { inherit lib config; }); {
       Color6.Color = thmDec.cyan;
       Color7.Color = thmDec.fg;
     };
-
   };
   home-manager.users.balsoft.xdg.configFile."konsolerc.home".text = genIni {
     "Desktop Entry".DefaultProfile = "Default.profile";

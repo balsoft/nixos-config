@@ -77,9 +77,7 @@ in {
         {
           command =
             "${pkgs.keepassxc}/bin/keepassxc /home/balsoft/projects/nixos-config/misc/Passwords.kdbx";
-          workspace = "scratchpad";
         }
-        { command = "balooctl start"; }
         { command = "${pkgs.trojita}/bin/trojita"; }
         { command = "${pkgs.termNote}/bin/noted"; }
         { command = "${pkgs.nheko}/bin/nheko"; }
