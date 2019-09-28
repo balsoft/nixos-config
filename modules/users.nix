@@ -48,6 +48,15 @@
     description = "Игорь Бантьев";
     password = "";
   };
+
+  users.users.yuroksov = lib.mkIf (config.device == "AMD-Workstation") {
+    isNormalUser = true;
+    description = "Юрий Шараковский";
+    openssh.authorizedKeys.keys = [
+      "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC2DG3/icUe7LqtEFj1F3OaNFFEHJzxQU7zCjayZtcMejp+aDq7j+puNksbAPjtMcUHccygTni7oNibGWUZ7FFG/HrP1ETYmd99Cg13nWOabYHtkIvNrSAjReJcpyJY8CqqMIJ1p43VYa/yUahwiQ9SjVZYAfbBwrEVk5HLxsbtvDycpoGTCqygXueD7S+mVVheCZVSYKnih26XpMd0nM5kCkGv+Rqec3NBrot06JZIV3YO3/bmuxyhW4PVTh8Kfvp7ov2bhpbtbS0IZ3MtxCM5rXxE/+C0h8LyB1AsiSARDMruNjPL2vFgnrqe6PHSk5gEQwtoRulVXzyq79EUxOBG1BntsPBTUKHIaNclTXki8uJiEoH6WOhwRZrZN4dGFiq5S+9uG8hVPt+rLsyaVvBt96Wmw++YcLmVw3o8RmDggqcOgWh/6C9ONpeDDSNCYFwhD5Oj8at3JO6cwOKTCQZCelOuzrEe8ufRWjE6XNPIbBPGZee4nFUgSsMI5pwmcA8= yuroksov@Warrior"
+    ];
+  };
+
   security.sudo = {
     enable = true;
     extraConfig = ''
