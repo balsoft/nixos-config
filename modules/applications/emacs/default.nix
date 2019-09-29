@@ -34,7 +34,6 @@
           quickrun
           ergoemacs-mode
           counsel-tramp
-          pkgs.unstable.emacsPackagesNg."0x0"
         ];
     };
 
