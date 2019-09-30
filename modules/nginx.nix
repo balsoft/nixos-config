@@ -58,7 +58,7 @@
   };
   systemd.timers.mai2google = lib.mkIf (config.device == "AMD-Workstation") {
     timerConfig.OnBootSec = "100";
-    timerConfig.OnActiveSec = "3600";
+    timerConfig.OnUnitActiveSec = "600";
     timerConfig.Unit = "mai2google.service";
   };
 }
