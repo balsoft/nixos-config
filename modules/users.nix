@@ -57,6 +57,14 @@
     ];
   };
 
+  users.users.alexey-pleshkov = lib.mkIf (config.device == "AMD-Workstation") {
+    isNormalUser = true;
+    description = "Алексей Плешков";
+    openssh.authorizedKeys.keys = [ ];
+    password = "password123";
+  };
+
+
   security.sudo = {
     enable = true;
     extraConfig = ''

@@ -3,8 +3,12 @@
 import json
 import sys
 import subprocess
+import datetime
+
 
 cname = sys.argv[1]
+
+year = datetime.datetime.now().year
 
 schedule = json.loads(sys.stdin.read())
 
@@ -20,11 +24,10 @@ for date, lectures in schedule.items():
             'add', 
             '--title', lecture['name'], 
             '--where',  place,
-            '--when', date + ' ' + lecture['start'],
+            '--when', date+"."+str(year) + ' ' + lecture['start'],
             '--duration', "90",
             '--description', (lecture.get('type') or "Неизвестный тип") + ", " + (lecture.get('lecturer') or "Неизвестный преподаватель"),
             '--reminder', '15m'
     ]
     print(args)
     subprocess.run(args)
-
