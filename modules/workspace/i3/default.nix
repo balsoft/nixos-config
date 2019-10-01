@@ -81,7 +81,6 @@ in {
         { command = "${pkgs.trojita}/bin/trojita"; }
         { command = "${pkgs.termNote}/bin/noted"; }
         { command = "${pkgs.nheko}/bin/nheko"; }
-        { command = "${pkgs.tootle}/bin/com.github.bleakgrey.tootle"; }
         { command = "${pkgs.xorg.xrdb}/bin/xrdb -merge ~/.Xresources"; }
         { command = "sleep 2; ${pkgs.procps}/bin/pkill swaynag"; }
         { command = "${pkgs.unstable.slack-dark}/bin/slack"; }

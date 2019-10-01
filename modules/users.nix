@@ -61,7 +61,6 @@
     isNormalUser = true;
     description = "Алексей Плешков";
     openssh.authorizedKeys.keys = [ ];
-    password = "password123";
   };
 
 

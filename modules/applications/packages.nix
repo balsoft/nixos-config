@@ -99,6 +99,7 @@
     kde-cli-tools
     xdg_utils
     nheko
+    gitAndTools.hub
   ]);
 
 }
