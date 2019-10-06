@@ -63,6 +63,12 @@
     openssh.authorizedKeys.keys = [ ];
   };
 
+  users.users.viktory = lib.mkIf (config.device == "AMD-Workstation") {
+    isNormalUser = true;
+    description = "Виктория Дёмина";
+    openssh.authorizedKeys.keys = [ "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDVbFuOumlc5Vg43w0j2VKm0QejuY6Zv/ylo8sMYMcQRGA12QiHSCmoSn1PvcSNxk6FseBPN5ck8/rnEq9bgOAeW8uHpyixxCL3Qch0NemW3pTq2AMvoUTmYWTABByj0duIDuR1P2+VLrovlvue0eIio/Rmh3+KG4pcHksR1jWG97Z2nEoUTjO2+/bzzUPvRllGSh0C2EuGBP6jy1kqLLwThUiEzM4F6AYIsb235uS942GKG9l6wK/wFFUw6cwkazNkj9/TmSRRdab+0oGIX97HbzgE82eVbYLFquhwzS0LME2DGMjj7X0dXCBLxsJp2603gSxYQVmJNLlJTOltAGJZ viktory@DESKTOP-TU88M9R" ];
+  };
+
 
   security.sudo = {
     enable = true;
