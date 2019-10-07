@@ -29,10 +29,10 @@
         "homepage": "",
         "owner": "rycee",
         "repo": "home-manager",
-        "rev": "761b3d0c124856433ae69c77b9c44e9b5e40e6ac",
-        "sha256": "08bdmhm8zh915y88phvgz49drnf4n5a3cmwapksmkdxn6agizj26",
+        "rev": "8bddc1adab0f7a51476f819fa2197353e8e1d136",
+        "sha256": "0dskw1vm21vz86wwdw573wmn210pn21k9fscm978cj7ps0l4bsfk",
         "type": "tarball",
-        "url": "https://github.com/rycee/home-manager/archive/761b3d0c124856433ae69c77b9c44e9b5e40e6ac.tar.gz",
+        "url": "https://github.com/rycee/home-manager/archive/8bddc1adab0f7a51476f819fa2197353e8e1d136.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "lambda-launcher": {
@@ -89,10 +89,10 @@
         "homepage": "",
         "owner": "nheko-reborn",
         "repo": "nheko",
-        "rev": "15c1cd5d66f6c4b21e7cd96c7573183705731956",
-        "sha256": "0l75vd05jk0x5y25sh1q8x05skfys49ipyvm81wgah3gnwpwkf2f",
+        "rev": "e34622d5ffa87809c39922e426b965f8a1a85b6c",
+        "sha256": "1z10n50yi9ia1lqp95l6qvb9ww19150axklid2dv8dlsm3cjrn4g",
         "type": "tarball",
-        "url": "https://github.com/nheko-reborn/nheko/archive/15c1cd5d66f6c4b21e7cd96c7573183705731956.tar.gz",
+        "url": "https://github.com/nheko-reborn/nheko/archive/e34622d5ffa87809c39922e426b965f8a1a85b6c.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "niv": {
@@ -155,10 +155,10 @@
         "homepage": "https://swaywm.org/",
         "owner": "swaywm",
         "repo": "sway",
-        "rev": "00c4c7e8cc437c6f905c6fbe94cf8eaf508f8644",
-        "sha256": "1v363ii3mw64l6ix5lgxdpsg6f9pgn9f3j3bsba017sx23a2cj6f",
+        "rev": "352a3e1f7965e6cb03e9de5d952408eb91f0599b",
+        "sha256": "18ka7k1mqcfpx6ny09sgs1k1az9ma2blyc7igbc387pqbvqyara9",
         "type": "tarball",
-        "url": "https://github.com/swaywm/sway/archive/00c4c7e8cc437c6f905c6fbe94cf8eaf508f8644.tar.gz",
+        "url": "https://github.com/swaywm/sway/archive/352a3e1f7965e6cb03e9de5d952408eb91f0599b.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "termNote": {
@@ -191,10 +191,10 @@
         "homepage": "",
         "owner": "bugaevc",
         "repo": "wl-clipboard",
-        "rev": "cef29eac68d00e2c5e3d35c4f23804de24e15642",
-        "sha256": "0ayw14j7fq4y48mfgd57z2vsxqc4zgvpfc3ancs1yp3bvl6m6f9g",
+        "rev": "f3a45f69f7d14e7f7050bca4cbf6fea6697d1455",
+        "sha256": "0c4w87ipsw09aii34szj9p0xfy0m00wyjpll0gb0aqmwa60p0c5d",
         "type": "tarball",
-        "url": "https://github.com/bugaevc/wl-clipboard/archive/cef29eac68d00e2c5e3d35c4f23804de24e15642.tar.gz",
+        "url": "https://github.com/bugaevc/wl-clipboard/archive/f3a45f69f7d14e7f7050bca4cbf6fea6697d1455.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "wlroots": {
