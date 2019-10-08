@@ -27,4 +27,4 @@ def post(name):
   return ("", 303, {'Location': '/'+name})
 
 if __name__ == "__main__":
-  app.run('0.0.0.0', 1338)
+  app.run('127.0.0.1', 1338)
