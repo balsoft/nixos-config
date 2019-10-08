@@ -50,15 +50,12 @@
   systemd.services.mai2google = lib.mkIf (config.device == "AMD-Workstation") {
     path = with pkgs; [ bash gcalcli python3 curl ];
     serviceConfig.User = "balsoft";
+    serviceConfig.Restart = "always";
+    serviceConfig.RestartSec = "1800";
     script = ''
       curl https://api.mai.balsoft.ru/json/%D0%9C8%D0%9E-106%D0%91-19 | python3 ${
         ./mai2google.py
       } MAI
     '';
-  };
-  systemd.timers.mai2google = lib.mkIf (config.device == "AMD-Workstation") {
-    timerConfig.OnBootSec = "100";
-    timerConfig.OnUnitActiveSec = "600";
-    timerConfig.Unit = "mai2google.service";
   };
 }
