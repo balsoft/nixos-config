@@ -34,6 +34,7 @@
           quickrun
           ergoemacs-mode
           counsel-tramp
+          ix
         ];
     };
 
