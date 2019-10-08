@@ -24,7 +24,7 @@ for date, lectures in schedule.items():
             'add', 
             '--title', lecture['name'], 
             '--where',  place,
-            '--when', date+"."+str(year) + ' ' + lecture['start'],
+            '--when', str(year)+"-"+('-'.join(date.split('.')[::-1])) + ' ' + lecture['start'],
             '--duration', "90",
             '--description', (lecture.get('type') or "Неизвестный тип") + ", " + (lecture.get('lecturer') or "Неизвестный преподаватель"),
             '--reminder', '15m'
