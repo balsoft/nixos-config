@@ -12,7 +12,7 @@ year = datetime.datetime.now().year
 
 schedule = json.loads(sys.stdin.read())
 
-subprocess.run(['sh', '-c', "yes y | gcalcli --calendar="+cname+" delete '*' now"])
+subprocess.run(['sh', '-c', "yes y | gcalcli --calendar="+cname+" delete '*' 00:00"])
 
 for date, lectures in schedule.items():
   for lecture in lectures:
