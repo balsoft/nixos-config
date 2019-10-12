@@ -190,6 +190,7 @@ in {
         "${modifier}+F2" = "scratchpad show";
         "${modifier}+F11" = "output * dpms off";
         "${modifier}+F12" = "output * dpms on";
+        "${modifier}+p" = "sticky toggle";
         "${modifier}+i" =
           script "0x0" ''wl-paste | curl -F"file=@-" https://0x0.st | wl-copy'';
         "${modifier}+z" = script "lambda-launcher"
