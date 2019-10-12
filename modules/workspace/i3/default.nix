@@ -64,6 +64,10 @@ in {
             command = "floating enable";
             criteria = { app_id = "org.kde.polkit-kde-authentication-1"; };
           }
+          {
+            command = "sticky enable";
+            criteria = {floating = "";};
+          }
         ];
       };
       startup = map (a: { notification = false; } // a) [
