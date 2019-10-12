@@ -71,6 +71,7 @@ in {
         ];
       };
       startup = map (a: { notification = false; } // a) [
+        { command = "sh -c 'pkill swaybar; swaybar -b top'"; always = true; }
         { command = apps.browser.cmd; }
         { command = "${pkgs.kdeconnect}/lib/libexec/kdeconnectd"; }
         {
@@ -231,6 +232,8 @@ in {
       default_border pixel 1
       mouse_warping container
       hide_edge_borders --i3 smart
+      title_format "%title (%app_id)"
+      exec pkill swaynag
     '';
   };
 }
