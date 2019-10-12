@@ -71,7 +71,6 @@ in {
         ];
       };
       startup = map (a: { notification = false; } // a) [
-        { command = "sh -c 'pkill swaybar; swaybar -b top'"; always = true; }
         { command = apps.browser.cmd; }
         { command = "${pkgs.kdeconnect}/lib/libexec/kdeconnectd"; }
         {
