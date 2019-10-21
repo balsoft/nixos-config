@@ -64,6 +64,10 @@ in {
             command = "floating enable";
             criteria = { app_id = "org.kde.polkit-kde-authentication-1"; };
           }
+          {
+            command = "sticky enable";
+            criteria = {floating = "";};
+          }
         ];
       };
       startup = map (a: { notification = false; } // a) [
@@ -190,6 +194,7 @@ in {
         "${modifier}+F2" = "scratchpad show";
         "${modifier}+F11" = "output * dpms off";
         "${modifier}+F12" = "output * dpms on";
+        "${modifier}+p" = "sticky toggle";
         "${modifier}+i" =
           script "0x0" ''wl-paste | curl -F"file=@-" https://0x0.st | wl-copy'';
         "${modifier}+z" = script "lambda-launcher"
@@ -226,6 +231,8 @@ in {
       default_border pixel 1
       mouse_warping container
       hide_edge_borders --i3 smart
+      title_format "%title (%app_id)"
+      exec pkill swaynag
     '';
   };
 }

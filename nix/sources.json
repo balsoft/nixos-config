@@ -11,6 +11,18 @@
         "url": "https://github.com/nix-community/NUR/archive/e3ef1ead3a2b341f29f9b31dfa7215879f0ee5d2.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "UserChrome-Tweaks": {
+        "branch": "master",
+        "description": "A community maintained repository of userChrome.css tweaks for Firefox",
+        "homepage": null,
+        "owner": "Timvde",
+        "repo": "UserChrome-Tweaks",
+        "rev": "c7feb8796783ab4acd1b01cbb8edd114b77154c8",
+        "sha256": "18vbxkqmnp3jcci7r2x72jybqhn67whbiy2rmfkfp04v9gwqr6ic",
+        "type": "tarball",
+        "url": "https://github.com/Timvde/UserChrome-Tweaks/archive/c7feb8796783ab4acd1b01cbb8edd114b77154c8.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "all-hies": {
         "branch": "master",
         "description": "Cached Haskell IDE Engine Nix builds for all GHC versions",

@@ -12,6 +12,8 @@
         "c21f926c600c2848fa1a65c2b4741d3f1c5f80783e805aa5c24dfdab856a3644";
       networks.zzznet.pskRaw =
         "67285ec534ce99e9db95a84751fb70234377aa8b346f7f2b2252a9cde68e108d";
+      networks.POLIGRAFSV.pskRaw =
+        "2c2850bea217a78e3e338fc4ed358e2dd3c1f1e48a7bf40bdd2e211db0973b4d";
       interfaces = [ "wlan0" ];
       userControlled.enable = true;
     };

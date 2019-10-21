@@ -35,6 +35,7 @@
           ergoemacs-mode
           counsel-tramp
           ix
+          magit
         ];
     };
 
