@@ -155,6 +155,13 @@
         "url": "https://github.com/nixos/nixpkgs-channels/archive/07d4df5962625285bcc09b057b40001bfa32340d.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "rycee-nur-expressions": {
+        "sha256": "1g52mmd32fi0s1zzq5pi0ap1v0lgfrnzy7nijk7qzw3p2fiqmazi",
+        "type": "tarball",
+        "url": "https://gitlab.com/rycee/nur-expressions/-/archive/cabb76fc0f78dc6c2a7041b34a3695ba488bafb6/nur-expressions-master.tar.gz",
+        "url_template": "https://gitlab.com/rycee/nur-expressions/-/archive/<version>/nur-expressions-master.tar.gz",
+        "version": "cabb76fc0f78dc6c2a7041b34a3695ba488bafb6"
+    },
     "simple-nixos-mailserver": {
         "sha256": "08wcwc54b1k9gnx5z97yv4gm28lx50vnnsvk93l98zq209rpf7rq",
         "type": "tarball",
