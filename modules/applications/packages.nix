@@ -100,6 +100,7 @@
     xdg_utils
     nheko
     gitAndTools.hub
+    gnupg
   ]);
 
 }
