@@ -56,13 +56,13 @@ in {
           "browser.display.use_document_fonts" = true;
           "pdfjs.disabled" = true;
         };
-        extensions = with pkgs.nur.rycee.firefox-addons; [
-          torswitch
-          close-other-windows
-          no-tabs
-          ublock-origin
-        ];
       };
+      extensions = with pkgs.nur.rycee.firefox-addons; [
+        torswitch
+        close-other-windows
+        no-tabs
+        ublock-origin
+      ];      
     };
   };
 }
