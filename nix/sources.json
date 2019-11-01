@@ -5,10 +5,10 @@
         "homepage": "",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "e3ef1ead3a2b341f29f9b31dfa7215879f0ee5d2",
-        "sha256": "116mnzzvj1qkk2z8p4g8qwfv272qqbrcanwa1387v32icz2zxh5h",
+        "rev": "2d9db7bdea51af0eb2861cfbd60f9e5ce06a73e2",
+        "sha256": "1xx4wy73chvay1wi2p3j64xrqz7mfps58yky2p6bpfac6a98b8vr",
         "type": "tarball",
-        "url": "https://github.com/nix-community/NUR/archive/e3ef1ead3a2b341f29f9b31dfa7215879f0ee5d2.tar.gz",
+        "url": "https://github.com/nix-community/NUR/archive/2d9db7bdea51af0eb2861cfbd60f9e5ce06a73e2.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "UserChrome-Tweaks": {
@@ -154,13 +154,6 @@
         "type": "tarball",
         "url": "https://github.com/nixos/nixpkgs-channels/archive/07d4df5962625285bcc09b057b40001bfa32340d.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "rycee-nur-expressions": {
-        "sha256": "1g52mmd32fi0s1zzq5pi0ap1v0lgfrnzy7nijk7qzw3p2fiqmazi",
-        "type": "tarball",
-        "url": "https://gitlab.com/rycee/nur-expressions/-/archive/cabb76fc0f78dc6c2a7041b34a3695ba488bafb6/nur-expressions-master.tar.gz",
-        "url_template": "https://gitlab.com/rycee/nur-expressions/-/archive/<version>/nur-expressions-master.tar.gz",
-        "version": "cabb76fc0f78dc6c2a7041b34a3695ba488bafb6"
     },
     "simple-nixos-mailserver": {
         "sha256": "08wcwc54b1k9gnx5z97yv4gm28lx50vnnsvk93l98zq209rpf7rq",
