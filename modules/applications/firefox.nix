@@ -21,9 +21,14 @@ in {
           }
         '';
         settings = {
+          "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+
           "extensions.autoDisableScopes" = 0;
+
           "browser.search.defaultenginename" = "Google";
           "browser.search.selectedEnging" = "Google";
+          "browser.urlbar.placeholderName" = "Google";
+
           "browser.uidensity" = 1;
           "browser.search.openintab" = true;
           "accessibility.browsewithcaret" = true;
@@ -37,6 +42,7 @@ in {
           "network.tcp.tcp_fastopen_enable" = true;
           "xpinstall.signatures.required" = false;
           "extensions.update.enabled" = false;
+
 
           "network.trr.mode" = 5;
           "network.trr.ui" = "https://mozilla.cloudflare-dns.com/dns-query";
