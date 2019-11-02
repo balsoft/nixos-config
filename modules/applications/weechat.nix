@@ -14,7 +14,7 @@ in
 
     home.file.".weechat/plugins.conf".text = ''
       [var]
-      lua.matrix.autojoin_on_invite = "off"
+      lua.matrix.autojoin_on_invite = "on"
       lua.matrix.backlog_lines = "120"
       lua.matrix.debug = "off"
       lua.matrix.encrypted_message_color = "lightgreen"
