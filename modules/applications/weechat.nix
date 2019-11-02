@@ -14,18 +14,18 @@ in
 
     home.file.".weechat/plugins.conf".text = ''
       [var]
-      lua.matrix.autojoin_on_invite = "on"
+      lua.matrix.autojoin_on_invite = "off"
       lua.matrix.backlog_lines = "120"
       lua.matrix.debug = "off"
       lua.matrix.encrypted_message_color = "lightgreen"
       lua.matrix.homeserver_url = "https://matrix.balsoft.ru/"
-      lua.matrix.local_echo = "off"
+      lua.matrix.local_echo = "on"
       lua.matrix.nick_style = "nick"
       lua.matrix.password = "${config.secrets.matrix.password}"
-      lua.matrix.presence_filter = "off"
-      lua.matrix.read_receipts = "off"
+      lua.matrix.presence_filter = "on"
+      lua.matrix.read_receipts = "on"
       lua.matrix.timeout = "20"
-      lua.matrix.typing_notices = "off"
+      lua.matrix.typing_notices = "on"
       lua.matrix.user = "${config.secrets.matrix.user}"
       python.slack.auto_open_threads = "true"
       python.slack.background_load_all_history = "true"
