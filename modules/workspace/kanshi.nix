@@ -10,6 +10,10 @@
         output HDMI-A-1 resolution 1920x1080 position 0,853 scale 1.0
         output DVI-D-1 vendor DEL serial MC0435BH2ATP resolution 1280x1024 position 1063,0 scale 1.2
       }
+      {
+        output eDP-1 position 0,500 scale 1.2
+        output HDMI-A-2 serial G6LMRS048669 position 1600,0 scale 1.0
+      }
     '';
   };
 }
