@@ -60,7 +60,7 @@ in {
       extensions = with pkgs.nur.rycee.firefox-addons; [
         torswitch
         close-other-windows
-        no-tabs
+        adsum-notabs
         ublock-origin
       ];      
     };
