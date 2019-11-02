@@ -68,7 +68,8 @@ in {
         close-other-windows
         adsum-notabs
         ublock-origin
-      ];      
+        plasma-integration
+      ];
     };
   };
 }
