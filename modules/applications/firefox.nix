@@ -17,7 +17,7 @@ in {
             background: ${thm.bg} !important;
           }
           @-moz-document url("about:newtab") {
-            * { background-color: ${thm.bg}  !important;}
+            * { background-color: ${thm.bg}  !important; }
           }
         '';
         settings = {
@@ -29,7 +29,7 @@ in {
           "browser.search.selectedEnging" = "Google";
           "browser.urlbar.placeholderName" = "Google";
           "browser.search.region" = "US";
-
+          
           "browser.uidensity" = 1;
           "browser.search.openintab" = true;
           "accessibility.browsewithcaret" = true;

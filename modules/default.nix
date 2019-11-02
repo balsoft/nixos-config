@@ -7,7 +7,7 @@
     ./applications/konsole.nix
     ./applications/trojita.nix
     ./applications/firefox.nix
-    # ./applications/weechat.nix
+    ./applications/weechat.nix
     ./workspace/i3
     ./workspace/i3blocks
     ./workspace/zsh.nix
