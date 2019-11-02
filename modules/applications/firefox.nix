@@ -42,7 +42,7 @@ in {
           "network.tcp.tcp_fastopen_enable" = true;
           "xpinstall.signatures.required" = false;
           "extensions.update.enabled" = false;
-
+          "extensions.webextensions.uuids" = "{\"google@search.mozilla.org\":\"9272484f-4363-441e-970d-c9f37d3738f9\"}";
 
           "network.trr.mode" = 5;
           "network.trr.ui" = "https://mozilla.cloudflare-dns.com/dns-query";
