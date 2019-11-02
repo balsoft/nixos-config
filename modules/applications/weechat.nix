@@ -3,13 +3,14 @@ let
 weechat = pkgs.weechat.override {
   configure = {availablePlugins, ...}: 
   {
-    scripts = with pkgs.weechatScripts; [wee-slack];
+    scripts = with pkgs.weechatScripts; [ wee-slack weechat-matrix-bridge ];
   };
 };
 in
 {
   home-manager.users.balsoft = {
-    home.file.".weechat/python/autoload/notify_send.py".source = "${(import ../../nix/sources.nix).weechat-notify-send}/notify_send.py";
+    home.file.".weechat/python/autoload/notify_send.py".source = 
+      "${(import ../../nix/sources.nix).weechat-notify-send}/notify_send.py";
 
     home.file.".weechat/plugins.conf".text = ''
       [var]
