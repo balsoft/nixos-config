@@ -28,6 +28,7 @@ in {
           "browser.search.defaultenginename" = "Google";
           "browser.search.selectedEnging" = "Google";
           "browser.urlbar.placeholderName" = "Google";
+          "browser.search.region" = "US";
 
           "browser.uidensity" = 1;
           "browser.search.openintab" = true;
