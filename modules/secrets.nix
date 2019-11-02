@@ -58,7 +58,7 @@ in rec {
         description = "SSL RSA private key";
       };
     };
-    matrix = rec {
+    matrix = mkCredOption "matrix" rec {
       shared_secret = mkOption {
         type = nullOr string;
         description = "A shared secret for matrix instance";
