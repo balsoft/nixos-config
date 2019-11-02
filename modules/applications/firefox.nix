@@ -17,7 +17,7 @@ in {
             background: ${thm.bg} !important;
           }
           @-moz-document url("about:newtab") {
-            html, body { background-color: ${thm.bg}  !important;}
+            * { background-color: ${thm.bg}  !important;}
           }
         '';
         settings = {
