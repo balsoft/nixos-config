@@ -19,7 +19,7 @@ in {
           @-moz-document url("about:newtab") {
             * { background-color: ${thm.bg}  !important; }
           }
-        '';
+        '' + builtins.readFile ("${pkgs.imports.UserChrome-Tweaks}/toolbars/auto-hide.css");
         settings = {
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
 
