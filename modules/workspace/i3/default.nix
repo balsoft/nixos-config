@@ -106,8 +106,6 @@ in {
                     "1yc8zhlx86gb2ixizxgm2mp6dz8c47xa7w7jjaisb2v4ywmlmdmh";
                 };
                 platformVersion = "18";
-                useGoogleAPIs = true;
-                enableGPU = true;
                 abiVersion = "x86";
 
                 package = "com.whatsapp";
