@@ -11,7 +11,7 @@ in { pkgs, config, lib, ... }: {
 
         unstable = new;
 
-        nur = (import imports.NUR { inherit pkgs; }).repos;
+        nur = (import imports.NUR { pkgs = import imports.nixpkgs-old {}; }).repos;
 
         inherit (nur.balsoft.pkgs) termNote lambda-launcher;
 

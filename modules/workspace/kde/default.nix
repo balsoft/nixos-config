@@ -1,7 +1,8 @@
 { pkgs, lib, config, ... }:
 with import ../../../support.nix { inherit lib config; }; {
-  services.flatpak.enable = true;
-  services.flatpak.extraPortals = [pkgs.plasma5.xdg-desktop-portal-kde];
+  xdg.portal.enable = true;
+  # services.flatpak.enable = true;
+  xdg.portal.extraPortals = [pkgs.plasma5.xdg-desktop-portal-kde];
   services.dbus.packages =
   [ pkgs.plasma5.xdg-desktop-portal-kde pkgs.flatpak pkgs.firefox pkgs.systemd ];
   nixpkgs.config.firefox.enablePlasmaBrowserIntegration = true;

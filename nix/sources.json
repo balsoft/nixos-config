@@ -132,15 +132,27 @@
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs": {
-        "branch": "nixos-19.03",
+        "branch": "nixos-19.09",
         "description": "The nix packages collection stable",
         "homepage": "https://github.com/nixos/nixpkgs",
         "owner": "nixos",
         "repo": "nixpkgs-channels",
-        "rev": "df7e351af91e6cbf4434e281d35fec39348a5d91",
-        "sha256": "19fpg1pya2iziwk10wja69ma65r985zdcd9blkplyg0l1lnn8haq",
+        "rev": "c5aabb0d603e2c1ea05f5a93b3be82437f5ebf31",
+        "sha256": "15fwszhn6078sbrb8qk83g8afvh4qnmvff0qbkbvq3cm1fxni2w1",
         "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs-channels/archive/df7e351af91e6cbf4434e281d35fec39348a5d91.tar.gz",
+        "url": "https://github.com/nixos/nixpkgs-channels/archive/c5aabb0d603e2c1ea05f5a93b3be82437f5ebf31.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nixpkgs-old": {
+        "branch": "nixos-19.03",
+        "description": "Nix Packages collection",
+        "homepage": null,
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "775fb69ed73e7cf6b7d3dd9853a60f40e8efc340",
+        "sha256": "1w068b0ydw4c26mcjiwlzdfqcdk3rrwmfx4hxzgfhfwcz2nmh3if",
+        "type": "tarball",
+        "url": "https://github.com/nixos/nixpkgs/archive/775fb69ed73e7cf6b7d3dd9853a60f40e8efc340.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs-unstable": {
