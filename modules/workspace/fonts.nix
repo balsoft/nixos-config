@@ -10,6 +10,7 @@
       noto-fonts
       noto-fonts-emoji
       hasklig
+      material-design-icons
     ];
     fontconfig = {
       enable = true;
