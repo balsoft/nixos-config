@@ -2,7 +2,7 @@ p: c:
 with p;
 builtins.mapAttrs (name: value:
 stdenv.mkDerivation {
-  name = "free";
+  inherit name;
   src = value;
   unpackPhase = "true";
   buildInputs = [ghc];
@@ -16,7 +16,7 @@ stdenv.mkDerivation {
 writeTextFile {
   inherit name;
   text = callPackage value {
-    iconfont = "Material Icons 11";
+    iconfont = "pango:Material Icons 11";
     config = c;
   };
   executable = true;

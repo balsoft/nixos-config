@@ -75,7 +75,7 @@ in {
         { command = "${pkgs.kdeconnect}/lib/libexec/kdeconnectd"; }
         {
           command =
-            "${pkgs.polkit-kde-agent}/lib/libexec/polkit-kde-authentication-agent-1";
+            "${pkgs.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1";
         }
         { command = "${pkgs.blueman}/bin/blueman-applet"; }
         {
