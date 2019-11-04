@@ -16,7 +16,7 @@ stdenv.mkDerivation {
 writeTextFile {
   inherit name;
   text = callPackage value {
-    iconfont = "pango:Material Icons 11";
+    iconfont = "pango:Material Design Icons 11";
     config = c;
   };
   executable = true;
