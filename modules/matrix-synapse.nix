@@ -43,11 +43,15 @@
       path = with pkgs; [ coreutils mautrix-whatsapp ];
       wantedBy = [ "network-online.target" ];
       requires = [ "matrix-synapse.service" ];
+      serviceConfig = {
+        Restart = "always";
+        RestartSec = 1;
+      };
       script = ''
         mkdir -p /var/lib/mautrix-whatsapp
         cd /var/lib/mautrix-whatsapp
         sleep 5
-        mautrix-whatsapp -c ${
+        timeout 900 mautrix-whatsapp -c ${
           builtins.toFile "config_wa.yaml"
           (builtins.toJSON config.secrets.matrix.mautrix-whatsapp.config)
         }
@@ -65,6 +69,10 @@
             ++ [ mautrix-telegram ];
         }))
       ];
+      serviceConfig = {
+        Restart = "always";
+        RestartSec = 1;
+      };
       wantedBy = [ "network-online.target" ];
       script = ''
         mkdir -p /var/lib/mautrix-telegram
@@ -76,15 +84,20 @@
           builtins.toFile "config.yaml"
           (builtins.toJSON config.secrets.matrix.mautrix-telegram.config)
         } ./config.yaml
-        mautrix-telegram
+        timeout 900 mautrix-telegram 
       '';
     };
   systemd.services.MatrixVkBot = lib.mkIf (config.device == "AMD-Workstation") {
     description = "A bridge between vkontakte and matrix";
     requires = [ "matrix-synapse.service" "network-online.target" ];
     wantedBy = [ "multi-user.target" ];
-    serviceConfig.User = "balsoft";
-    script = "cd /home/balsoft/projects/MatrixVkBot && ${
+    path = [ pkgs.coreutils ];
+    serviceConfig = {
+      User = "balsoft";
+      Restart = "always";
+      RestartSec = 1;
+    };
+    script = "cd /home/balsoft/projects/MatrixVkBot && timeout 600 ${
         (import ../../MatrixVkBot/requirements.nix { }).interpreter
       }/bin/python3.6 bot.py";
   };
