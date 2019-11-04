@@ -27,6 +27,6 @@
       fi
     fi
   fi
-  echo "<span font='${iconfont}'>$icon</span> $volume$end"
+  echo "<span font='Roboto Mono 11'>$icon</span> $volume$end"
   exit $code
 ''
