@@ -10,7 +10,7 @@
   then
     volume=""
     end=""
-    icon=""
+    icon=""
   else
     volume=`${pamixer}/bin/pamixer --get-volume`
     end="%"
@@ -20,9 +20,9 @@
     else
       if [[ $volume -lt 66 ]]
       then
-        icon=""
+        icon=""
       else
-        icon=""
+        icon=""
         code=33
       fi
     fi
