@@ -29,6 +29,10 @@
       enable = true;
       userEmail = "balsoft@yandex.ru";
       userName = "Alexander Bantyev";
+      signing = {
+        signByDefault = true;
+        key = "687558B21E04FE92B255BED0E081FF12ADCB4AD5";
+      };
     };
     news.display = "silent";
     programs.command-not-found = {
