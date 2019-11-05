@@ -21,6 +21,8 @@ in { pkgs, config, lib, ... }: {
 
         all-hies = import imports.all-hies { };
 
+        yt-utilities = import (builtins.fetchGit config.secrets.yt-utilities.source) {};
+
         mtxclient = old.mtxclient.overrideAttrs (oa: rec {
           name = "${pname}-${version}";
           buildInputs = oa.buildInputs ++ [ old.nlohmann_json ];

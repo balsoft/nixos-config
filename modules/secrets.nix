@@ -2,6 +2,11 @@
 with lib;
 with types;
 let
+  secret = description:
+  mkOption {
+    inherit description;
+    type = nullOr string;
+  };
   mkCredOption = service: extra:
   mkOption {
     description = "Credentials for ${service}";
@@ -20,12 +25,19 @@ let
   };
 in rec {
   options.secrets = {
-    owm-key = mkOption {
-      type = nullOr string;
-      description = "OpenWeatherMap key";
-    };
+    owm-key = secret "OpenWeatherMap key";
     irc = mkCredOption "IRC (konversation)" { };
     slack-term = mkOption { type = string; };
+    yt-utilities = {
+      user = secret "youtrack user";
+      url = secret "youtrack url";
+      token =  secret "youtrack token";
+      source = {
+        url = secret "A url to yt-utilities source";
+        rev = secret "revision";
+        sha256 = secret "sha256";
+      };
+    };
     gcal = {
       email = mkOption { type = lib.types.string; };
       client-id = mkOption { type = lib.types.string; };
