@@ -35,7 +35,6 @@ in rec {
       source = {
         url = secret "A url to yt-utilities source";
         rev = secret "revision";
-        sha256 = secret "sha256";
       };
     };
     gcal = {

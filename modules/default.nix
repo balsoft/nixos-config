@@ -24,6 +24,7 @@
     ./workspace/gcalcli.nix
     ./workspace/rclone.nix
     ./workspace/xresources.nix
+    ./applications/yt-utilities.nix
     ./themes.nix
     ./applications.nix
     ./openvpn.nix
