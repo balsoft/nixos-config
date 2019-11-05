@@ -66,7 +66,7 @@ in {
           }
           {
             command = "sticky enable";
-            criteria = {floating = "";};
+            criteria = { floating = ""; };
           }
         ];
       };
