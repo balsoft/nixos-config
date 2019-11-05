@@ -47,18 +47,6 @@
         "url": "https://github.com/rycee/home-manager/archive/8bddc1adab0f7a51476f819fa2197353e8e1d136.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "lambda-launcher": {
-        "branch": "master",
-        "description": "Application launcher in haskell. Mostly Just For Fun.",
-        "homepage": "",
-        "owner": "balsoft",
-        "repo": "lambda-launcher",
-        "rev": "47fe2eff31187a4a852a3994544bd5ff94991672",
-        "sha256": "0r3r4v92xg8fwwhrapj9964cbd5fn5gzc2smmqd97nxd5qcyxfyp",
-        "type": "tarball",
-        "url": "https://github.com/balsoft/lambda-launcher/archive/47fe2eff31187a4a852a3994544bd5ff94991672.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "materia-theme": {
         "branch": "master",
         "description": "A Material Design theme for GNOME/GTK based desktop environments",
@@ -125,10 +113,10 @@
         "homepage": "https://nixfmt.serokell.io",
         "owner": "serokell",
         "repo": "nixfmt",
-        "rev": "740ad29db77ede6cf7b052ff8f170b0b1163d619",
-        "sha256": "0ww96d5yyhl4akcwr9nbgq5kvm7j3q08ikwyqwf3ivil4a0wqc5k",
+        "rev": "921bbd3bb9c95cf2d677a8558b1a27fca6cee597",
+        "sha256": "0x08xsjal6db95y1sxxinwv9ks2k6fayvg8435s6zqy7zq42jxm4",
         "type": "tarball",
-        "url": "https://github.com/serokell/nixfmt/archive/740ad29db77ede6cf7b052ff8f170b0b1163d619.tar.gz",
+        "url": "https://github.com/serokell/nixfmt/archive/921bbd3bb9c95cf2d677a8558b1a27fca6cee597.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs": {
@@ -179,22 +167,10 @@
         "homepage": "https://swaywm.org/",
         "owner": "swaywm",
         "repo": "sway",
-        "rev": "352a3e1f7965e6cb03e9de5d952408eb91f0599b",
-        "sha256": "18ka7k1mqcfpx6ny09sgs1k1az9ma2blyc7igbc387pqbvqyara9",
+        "rev": "3975ca28c2e870eb3f40bbd43a90354743f7ccf1",
+        "sha256": "01lhclh5l6shd0624m5dm3j1irbwwq3ziin5ki5kzzgraqbfqamp",
         "type": "tarball",
-        "url": "https://github.com/swaywm/sway/archive/352a3e1f7965e6cb03e9de5d952408eb91f0599b.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "termNote": {
-        "branch": "master",
-        "description": "Terminal Notes Application",
-        "homepage": null,
-        "owner": "terodom",
-        "repo": "termNote",
-        "rev": "8d96b7d3d66f725b1f395e8b8eeea82c59f3956f",
-        "sha256": "07wcd0py5hxdbfl47mkdrk5mcq3w7b4v5f7caidz4ap082kmvyxh",
-        "type": "tarball",
-        "url": "https://github.com/terodom/termNote/archive/8d96b7d3d66f725b1f395e8b8eeea82c59f3956f.tar.gz",
+        "url": "https://github.com/swaywm/sway/archive/3975ca28c2e870eb3f40bbd43a90354743f7ccf1.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "weechat-notify-send": {
@@ -227,10 +203,10 @@
         "homepage": "https://swaywm.org",
         "owner": "swaywm",
         "repo": "wlroots",
-        "rev": "b1b93c2c7e6cc9d804390c740c2a199814e8e5ba",
-        "sha256": "1gkqzlj7c766xy40wr7y3wz5jhb8syfxpn0wj5jrqc8npvhasbd3",
+        "rev": "626c98d754253de10a7db0482e44459c7f75a85d",
+        "sha256": "104wlaa53ivf5p1fjnsfarfgyba4bkx657717vzfd7r7k6xlpy1v",
         "type": "tarball",
-        "url": "https://github.com/swaywm/wlroots/archive/b1b93c2c7e6cc9d804390c740c2a199814e8e5ba.tar.gz",
+        "url": "https://github.com/swaywm/wlroots/archive/626c98d754253de10a7db0482e44459c7f75a85d.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
