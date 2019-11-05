@@ -16,7 +16,7 @@
     end="%"
     if [[ $volume -lt 33 ]]
     then
-      icon=""
+      icon=""
     else
       if [[ $volume -lt 66 ]]
       then
