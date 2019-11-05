@@ -27,7 +27,7 @@
     services.udiskie.enable = true;
     programs.git = {
       enable = true;
-      userEmail = "balsoft@yandex.ru";
+      userEmail = "balsoft75@gmail.com";
       userName = "Alexander Bantyev";
       signing = {
         signByDefault = true;
