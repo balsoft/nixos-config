@@ -195,6 +195,7 @@ in {
         "${modifier}+p" = "sticky toggle";
         "${modifier}+i" =
           script "0x0" ''wl-paste | curl -F"file=@-" https://0x0.st | wl-copy'';
+        "${modifier}+b" = "focus mode_toggle";
         "${modifier}+z" = script "lambda-launcher"
           "${pkgs.lambda-launcher}/bin/lambda-launcher";
         "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
