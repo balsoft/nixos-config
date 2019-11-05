@@ -9,9 +9,9 @@
     if BLOCK_BUTTON == "2": call(["${playerctl}/bin/playerctl", "stop"])
     if BLOCK_BUTTON == "3": call(["${playerctl}/bin/playerctl", "next"])
   if status == "Paused": 
-    icon=""
+    icon=""
   elif status == "Playing": 
-    icon=""
+    icon=""
   else: 
     icon = ""
   text = getoutput("${playerctl}/bin/playerctl metadata title")[:20:]
