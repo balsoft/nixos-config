@@ -6,27 +6,12 @@
     x // {
       events = ["key"];
       attributes = ["exec"];
-    }) ((if config.device == "ASUS-Laptop" then [
-      {
-        keys = [229];
-        command =
-          "expr -1 + `cat '/sys/class/leds/asus::kbd_backlight/brightness'` > '/sys/class/leds/asus::kbd_backlight/brightness'";
-      }
+    }) ((if config.device == "ThinkPad-Laptop" then 
+    let kbd_backlight = "/sys/class/leds/tpacpi::kbd_backlight/brightness"; in [
       {
         keys = [230];
         command =
-          "expr 1 + `cat '/sys/class/leds/asus::kbd_backlight/brightness'` > '/sys/class/leds/asus::kbd_backlight/brightness'";
-      }
-      {
-        keys = [560];
-        command = toString (pkgs.stdenv.mkDerivation {
-          name = "als-script";
-          src = ./als-script.hs;
-          buildInputs = [pkgs.ghc];
-          buildPhase = "ghc $src -o $out";
-          unpackPhase = "true";
-          installPhase = "true";
-        });
+          "expr (1 + `cat '${kbd_backlight}) % 4'` > '${kbd_backlight}'";
       }
     ] else
       []) ++ [
