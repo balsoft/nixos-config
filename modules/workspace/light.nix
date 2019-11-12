@@ -11,7 +11,7 @@
       {
         keys = [156];
         command =
-          "expr (1 + `cat '${kbd_backlight}) % 4'` > '${kbd_backlight}'";
+          "expr (1 + `cat '${kbd_backlight}') % 4` > '${kbd_backlight}'";
       }
     ] else
       []) ++ [
