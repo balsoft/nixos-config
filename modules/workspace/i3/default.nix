@@ -219,13 +219,9 @@ in {
     };
     extraConfig = ''
       output * bg ${thm.bg} solid_color
-      input 2:7:SynPS/2_Synaptics_TouchPad {
-      tap enabled
-      natural_scroll enabled
-      }
-      input 2:18:FocalTechPS/2_FocalTech_Touchpad {
-      tap enabled
-      natural_scroll enabled
+      input 2:14:ETPS/2_Elantech_Touchpad {
+        tap enabled
+        natural_scroll enabled
       }
       default_border pixel 1
       mouse_warping container
