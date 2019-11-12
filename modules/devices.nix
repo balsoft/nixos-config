@@ -23,19 +23,19 @@ with types; {
     };
 
     devices = {
-      ASUS-Laptop = {
+      ThinkPad-Laptop = {
         cpu = {
           vendor = "intel";
 
-          clock = 2300;
-          cores = 2;
+          clock = 4600;
+          cores = 4;
         };
         drive = {
           type = "ssd";
-          speed = 500;
+          speed = 2000;
           size = 250;
         };
-        ram = 12;
+        ram = 16;
       };
       HP-Laptop = {
         cpu = {
