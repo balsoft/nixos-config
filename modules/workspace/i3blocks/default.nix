@@ -9,7 +9,7 @@ in {
       mode dock
       hidden_state hide
       position top
-      status_command /nix/store/nkpm114z5zfjzv57c7x3jcbivvp535wg-i3blocks-1.4/bin/i3blocks
+      status_command ${pkgs.i3blocks}/bin/i3blocks
       workspace_buttons yes
       strip_workspace_numbers no
       tray_output none
