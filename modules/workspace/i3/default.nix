@@ -13,7 +13,7 @@ in {
         "" = [ { class = "Chromium"; } { app_id = "firefox"; } ];
         "" = [
           { app_id = "net.flaska."; }
-          { title = "balsoft: weechat.*"; }
+          { title = "balsoft : weechat.*"; }
           { title = "nheko"; }
           { title = "Slack"; }
         ];
