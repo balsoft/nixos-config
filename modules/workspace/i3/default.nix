@@ -224,9 +224,7 @@ in {
         natural_scroll enabled
         dwt enabled
       }
-      input 2:14:ETPS/2_Elantech_TrackPoint {
-        pointer_accel -1
-      }
+      input 2:14:ETPS/2_Elantech_TrackPoint pointer_accel -0.7
       default_border pixel 1
       mouse_warping container
       hide_edge_borders --i3 smart
