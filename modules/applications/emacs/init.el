@@ -81,10 +81,16 @@
 
 (electric-indent-mode 1)
 
-(use-package ergoemacs-mode
-  :config
-  (ergoemacs-mode 1))
+;; (use-package ergoemacs-mode
+;;   :config
+;;   (ergoemacs-mode 1))
 
+
+(use-package xah-fly-keys
+  :config
+  (xah-fly-keys-set-layout "qwerty")
+  (xah-fly-keys 1)
+  )
 
 (global-set-key (kbd "C-b") 'switch-to-buffer)
 (global-set-key (kbd "C-TAB") 'org-cycle-level)

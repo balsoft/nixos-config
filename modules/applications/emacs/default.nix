@@ -32,10 +32,11 @@
           ivy
           smex
           quickrun
-          ergoemacs-mode
+          # ergoemacs-mode
           counsel-tramp
           ix
           magit
+          xah-fly-keys
         ];
     };
 
