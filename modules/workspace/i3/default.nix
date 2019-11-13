@@ -223,6 +223,10 @@ in {
         tap enabled
         natural_scroll enabled
       }
+      input 2:14:ETPS/2_Elantech_TrackPoint {
+        dwt enabled
+        accel_profile flat
+      }
       default_border pixel 1
       mouse_warping container
       hide_edge_borders --i3 smart
