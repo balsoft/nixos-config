@@ -222,9 +222,9 @@ in {
       input 2:14:ETPS/2_Elantech_Touchpad {
         tap enabled
         natural_scroll enabled
+        dwt enabled
       }
       input 2:14:ETPS/2_Elantech_TrackPoint {
-        dwt enabled
         accel_profile flat
       }
       default_border pixel 1
