@@ -12,9 +12,9 @@ in {
       assigns = {
         "" = [ { class = "Chromium"; } { app_id = "firefox"; } ];
         "" = [
-          { app_id = "net.flaska.trojita"; }
-          { app_id = "nheko"; }
-          { title = "Tootle"; }
+          { app_id = "net.flaska."; }
+          { title = "balsoft: weechat.*"; }
+          { title = "nheko"; }
           { title = "Slack"; }
         ];
         "ﱘ" = [{ app_id = "cantata"; }];
