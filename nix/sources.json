@@ -5,10 +5,10 @@
         "homepage": "",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "66dca1cf168768b9dd51b9b5a50bb9b4d77bcdc8",
-        "sha256": "0jh01hk1mvshn85q4ipbnl8hw6j38qw6kxwgb2494dxh9zig1xds",
+        "rev": "d1d4fa7548fa86c0fbb62490565495f77483fca0",
+        "sha256": "0ylyri1h6cx452k2riaa20r5qbsbyjlv82wn7dk5a05z1ym016mi",
         "type": "tarball",
-        "url": "https://github.com/nix-community/NUR/archive/66dca1cf168768b9dd51b9b5a50bb9b4d77bcdc8.tar.gz",
+        "url": "https://github.com/nix-community/NUR/archive/d1d4fa7548fa86c0fbb62490565495f77483fca0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "UserChrome-Tweaks": {
@@ -167,10 +167,10 @@
         "homepage": "https://swaywm.org/",
         "owner": "swaywm",
         "repo": "sway",
-        "rev": "3975ca28c2e870eb3f40bbd43a90354743f7ccf1",
-        "sha256": "01lhclh5l6shd0624m5dm3j1irbwwq3ziin5ki5kzzgraqbfqamp",
+        "rev": "37afbc4dbced99d008ec7014e75d65d37ff3adb3",
+        "sha256": "1ih4flpkbhjhv15zb20jfyd5k0fkdpgzampyp7qynxjr7pzzqzx6",
         "type": "tarball",
-        "url": "https://github.com/swaywm/sway/archive/3975ca28c2e870eb3f40bbd43a90354743f7ccf1.tar.gz",
+        "url": "https://github.com/swaywm/sway/archive/37afbc4dbced99d008ec7014e75d65d37ff3adb3.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "weechat-notify-send": {
@@ -203,10 +203,10 @@
         "homepage": "https://swaywm.org",
         "owner": "swaywm",
         "repo": "wlroots",
-        "rev": "626c98d754253de10a7db0482e44459c7f75a85d",
-        "sha256": "104wlaa53ivf5p1fjnsfarfgyba4bkx657717vzfd7r7k6xlpy1v",
+        "rev": "4c9423278a66ddb9cb03cee33473b1332150230f",
+        "sha256": "1jng8m7lwrpj0av9md6d40zah8ywp6j22cnlpa3jlv59zrd98y2p",
         "type": "tarball",
-        "url": "https://github.com/swaywm/wlroots/archive/626c98d754253de10a7db0482e44459c7f75a85d.tar.gz",
+        "url": "https://github.com/swaywm/wlroots/archive/4c9423278a66ddb9cb03cee33473b1332150230f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
