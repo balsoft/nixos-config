@@ -101,6 +101,7 @@
     nheko
     gitAndTools.hub
     gnupg
+    nix-patch
   ]);
 
 }
