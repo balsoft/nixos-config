@@ -90,6 +90,95 @@
   :config
   (xah-fly-keys-set-layout "qwerty")
   (xah-fly-keys 1)
+  
+  (defun xah-fly-keys-russian-on ()
+    "Add Russian layout keys.
+Hook function for `xah-fly-command-mode-activate-hook'
+ 2018-10-26 Thanks to TechiBech
+Version 2018-10-27"
+    (interactive)
+    (progn
+      (define-key xah-fly-key-map (kbd "й") 'xah-reformat-lines)
+      (define-key xah-fly-key-map (kbd "ц") 'xah-shrink-whitespaces)
+      (define-key xah-fly-key-map (kbd "э") 'xah-cycle-hyphen-underscore-space)
+      (define-key xah-fly-key-map (kbd "у") 'xah-backward-kill-word)
+      (define-key xah-fly-key-map (kbd "я") 'undo)
+      (define-key xah-fly-key-map (kbd "х") 'hippie-expand)
+      (define-key xah-fly-key-map (kbd "ф") 'execute-extended-command)
+      (define-key xah-fly-key-map (kbd "т") 'isearch-forward)
+      (define-key xah-fly-key-map (kbd "ш") 'previous-line)
+      (define-key xah-fly-key-map (kbd "р") 'xah-beginning-of-line-or-block)
+      (define-key xah-fly-key-map (kbd "в") 'xah-delete-backward-char-or-bracket-text)
+      (define-key xah-fly-key-map (kbd "н") 'xah-comment-dwim)
+      (define-key xah-fly-key-map (kbd "г") 'backward-word)
+      (define-key xah-fly-key-map (kbd "о") 'backward-char)
+      (define-key xah-fly-key-map (kbd "п") 'xah-delete-current-text-block)
+      (define-key xah-fly-key-map (kbd "с") 'xah-copy-line-or-region)
+      (define-key xah-fly-key-map (kbd "м") 'xah-paste-or-paste-previous)
+      (define-key xah-fly-key-map (kbd "з") 'xah-insert-space-before)
+      (define-key xah-fly-key-map (kbd "ь") 'xah-backward-left-bracket)
+      (define-key xah-fly-key-map (kbd "д") 'forward-char)
+      (define-key xah-fly-key-map (kbd "ы") 'open-line)
+      (define-key xah-fly-key-map (kbd "к") 'xah-kill-word)
+      (define-key xah-fly-key-map (kbd "ч") 'xah-cut-line-or-region)
+      (define-key xah-fly-key-map (kbd "щ") 'forward-word)
+      (define-key xah-fly-key-map (kbd "ж") 'xah-end-of-line-or-block)
+      (define-key xah-fly-key-map (kbd "л") 'next-line)
+      (define-key xah-fly-key-map (kbd "а") 'xah-fly-insert-mode-activate)
+      (define-key xah-fly-key-map (kbd "б") 'xah-next-window-or-frame)
+      (define-key xah-fly-key-map (kbd "и") 'xah-toggle-letter-case)
+      (define-key xah-fly-key-map (kbd "е") 'set-mark-command)))
+
+  (defun xah-fly-keys-russian-off ()
+    "Remove Russian layout keys.
+Hook function for `xah-fly-insert-mode-activate-hook'
+ 2018-10-26 Thanks to TechiBech
+Version 2018-10-27"
+    (interactive)
+    (progn
+      (define-key xah-fly-key-map (kbd "й") 'nil)
+      (define-key xah-fly-key-map (kbd "ц") 'nil)
+      (define-key xah-fly-key-map (kbd "э") 'nil)
+      (define-key xah-fly-key-map (kbd "у") 'nil)
+      (define-key xah-fly-key-map (kbd "я") 'nil)
+      (define-key xah-fly-key-map (kbd "х") 'nil)
+      (define-key xah-fly-key-map (kbd "ф") 'nil)
+      (define-key xah-fly-key-map (kbd "т") 'nil)
+      (define-key xah-fly-key-map (kbd "ш") 'nil)
+      (define-key xah-fly-key-map (kbd "р") 'nil)
+      (define-key xah-fly-key-map (kbd "в") 'nil)
+      (define-key xah-fly-key-map (kbd "н") 'nil)
+      (define-key xah-fly-key-map (kbd "г") 'nil)
+      (define-key xah-fly-key-map (kbd "о") 'nil)
+      (define-key xah-fly-key-map (kbd "п") 'nil)
+      (define-key xah-fly-key-map (kbd "с") 'nil)
+      (define-key xah-fly-key-map (kbd "м") 'nil)
+      (define-key xah-fly-key-map (kbd "з") 'nil)
+      (define-key xah-fly-key-map (kbd "ь") 'nil)
+      (define-key xah-fly-key-map (kbd "д") 'nil)
+      (define-key xah-fly-key-map (kbd "ы") 'nil)
+      (define-key xah-fly-key-map (kbd "к") 'nil)
+      (define-key xah-fly-key-map (kbd "ч") 'nil)
+      (define-key xah-fly-key-map (kbd "щ") 'nil)
+      (define-key xah-fly-key-map (kbd "ж") 'nil)
+      (define-key xah-fly-key-map (kbd "л") 'nil)
+      (define-key xah-fly-key-map (kbd "а") 'nil)
+      (define-key xah-fly-key-map (kbd "б") 'nil)
+      (define-key xah-fly-key-map (kbd "и") 'nil)
+      (define-key xah-fly-key-map (kbd "е") 'nil)))
+
+  (add-hook 'xah-fly-command-mode-activate-hook 'xah-fly-keys-russian-on )
+
+  (add-hook 'xah-fly-insert-mode-activate-hook 'xah-fly-keys-russian-off )
+  (define-key key-translation-map (kbd "ESC") (kbd "C-g"))
+  (defun my-xfk-addon-command ()
+    "Modify keys for xah fly key command mode keys
+To be added to `xah-fly-command-mode-activate-hook'"
+    (interactive)
+    (define-key xah-fly-key-map (kbd "z") 'undo)
+    (define-key xah-fly-key-map (kbd "y") 'xah-comment-dwim)
+    )
+  (add-hook 'xah-fly-command-mode-activate-hook 'my-xfk-addon-command)
   )
 
 (global-set-key (kbd "C-b") 'switch-to-buffer)
