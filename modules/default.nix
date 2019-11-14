@@ -16,7 +16,7 @@
     ./workspace/kde
     ./workspace/synergy.nix
     ./workspace/ssh.nix
-    ./workspace/locale.nix
+    ./locale.nix
     ./workspace/fonts.nix
     ./workspace/light.nix
     ./workspace/kanshi.nix
