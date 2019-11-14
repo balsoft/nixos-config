@@ -13,7 +13,7 @@ in { pkgs, config, lib, ... }: {
 
         nur = (import imports.NUR { pkgs = import imports.nixpkgs-old {}; }).repos;
 
-        inherit (nur.balsoft.pkgs) termNote lambda-launcher;
+        inherit (nur.balsoft.pkgs) termNote lambda-launcher nix-patch;
 
         nixfmt = self.callPackage imports.nixfmt { };
 
