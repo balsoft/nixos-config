@@ -7,4 +7,6 @@
   in ''
     /auto file:${mapConf} uid=1000,gid=100,--timeout=30,--ghost
   '';
+
+  environment.systemPackages = with pkgs; [ sshfs fuse ];
 }
