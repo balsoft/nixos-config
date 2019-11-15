@@ -63,25 +63,13 @@ with deviceSpecific; {
       # Set cTDP to normal=0, down=1 or up=2 (EXPERIMENTAL)
       cTDP: 2
 
-      [UNDERVOLT.BATTERY]
+      [UNDERVOLT]
       # CPU core voltage offset (mV)
-      CORE: 0
+      CORE: -60
       # Integrated GPU voltage offset (mV)
-      GPU: 0
+      GPU: -50
       # CPU cache voltage offset (mV)
-      CACHE: 0
-      # System Agent voltage offset (mV)
-      UNCORE: 0
-      # Analog I/O voltage offset (mV)
-      ANALOGIO: 0
-
-      [UNDERVOLT.AC]
-      # CPU core voltage offset (mV)
-      CORE: 0
-      # Integrated GPU voltage offset (mV)
-      GPU: 0
-      # CPU cache voltage offset (mV)
-      CACHE: 0
+      CACHE: -30
       # System Agent voltage offset (mV)
       UNCORE: 0
       # Analog I/O voltage offset (mV)
