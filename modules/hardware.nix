@@ -65,11 +65,11 @@ with deviceSpecific; {
 
       [UNDERVOLT]
       # CPU core voltage offset (mV)
-      CORE: -90
+      CORE: -200
       # Integrated GPU voltage offset (mV)
       GPU: -60
       # CPU cache voltage offset (mV)
-      CACHE: -40
+      CACHE: -50
       # System Agent voltage offset (mV)
       UNCORE: 0
       # Analog I/O voltage offset (mV)
