@@ -171,14 +171,6 @@ Version 2018-10-27"
 
   (add-hook 'xah-fly-insert-mode-activate-hook 'xah-fly-keys-russian-off )
   (define-key key-translation-map (kbd "ESC") (kbd "C-g"))
-  (defun my-xfk-addon-command ()
-    "Modify keys for xah fly key command mode keys
-To be added to `xah-fly-command-mode-activate-hook'"
-    (interactive)
-    (define-key xah-fly-key-map (kbd "z") 'undo)
-    (define-key xah-fly-key-map (kbd "y") 'xah-comment-dwim)
-    )
-  (add-hook 'xah-fly-command-mode-activate-hook 'my-xfk-addon-command)
   )
 
 (global-set-key (kbd "C-b") 'switch-to-buffer)
