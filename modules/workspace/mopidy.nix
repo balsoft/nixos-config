@@ -19,7 +19,7 @@
   };
 
   systemd.services.mopidy = {
-    requires = [ "network-online.target" ];
+    after = [ "network-online.target" ];
   };
 
 }
