@@ -34,11 +34,6 @@
   
   services.upower.enable = true;
   virtualisation.docker.enable = config.deviceSpecific.isHost;
-  virtualisation.virtualbox.host = {
-    enable = config.deviceSpecific.isHost;
-    enableHardening = false;
-    enableExtensionPack = true;
-  };
   virtualisation.libvirtd = {
     enable = config.deviceSpecific.isHost;
   };
