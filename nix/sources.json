@@ -35,6 +35,18 @@
         "url": "https://github.com/Infinisil/all-hies/archive/315936fe4da48c774601a2c4eaba72f8dc4e5fdb.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "base16-black-metal-scheme": {
+        "branch": "master",
+        "description": "A collection of Black Metal inspired base16 schemes.",
+        "homepage": null,
+        "owner": "metalelf0",
+        "repo": "base16-black-metal-scheme",
+        "rev": "cdfb3d2f3020648338253587917244eff4034781",
+        "sha256": "13pm3r2k9dvjszg2lsxw9qb3s0379dn0ypi2n0mz309zfcdkjznr",
+        "type": "tarball",
+        "url": "https://github.com/metalelf0/base16-black-metal-scheme/archive/cdfb3d2f3020648338253587917244eff4034781.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "home-manager": {
         "branch": "master",
         "description": "Manage a user environment using Nix",
