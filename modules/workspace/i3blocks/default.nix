@@ -59,8 +59,8 @@ in {
         command = scripts.brightness;
         interval = 1;
       };
-    h_wireless = lib.optionalAttrs (config.deviceSpecific.isLaptop) {
-      command = scripts.wireless;
+    h_connections = {
+      command = scripts.connections;
     };
     i_network = { command = scripts.network; };
     j_cpuload = {

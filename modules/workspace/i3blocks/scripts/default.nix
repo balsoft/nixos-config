@@ -27,7 +27,7 @@ writeTextFile {
   brightness = ./brightness.nix;
   calendar = ./calendar.nix;
   email = ./email.nix;
-  wireless = ./wireless.nix;
+  connections = ./connections.nix;
   weather = ./weather.nix;
   sound = ./sound.nix;
   music = ./music.nix;
