@@ -87,18 +87,4 @@
         timeout 900 mautrix-telegram 
       '';
     };
-  systemd.services.MatrixVkBot = lib.mkIf (config.device == "AMD-Workstation") {
-    description = "A bridge between vkontakte and matrix";
-    requires = [ "matrix-synapse.service" "network-online.target" ];
-    wantedBy = [ "multi-user.target" ];
-    path = [ pkgs.coreutils ];
-    serviceConfig = {
-      User = "balsoft";
-      Restart = "always";
-      RestartSec = 1;
-    };
-    script = "cd /home/balsoft/projects/MatrixVkBot && timeout 600 ${
-        (import ../../MatrixVkBot/requirements.nix { }).interpreter
-      }/bin/python3.6 bot.py";
-  };
 }
