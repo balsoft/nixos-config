@@ -77,7 +77,6 @@ in {
           command =
             "${pkgs.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1";
         }
-        { command = "${pkgs.blueman}/bin/blueman-applet"; }
         {
           command =
             "${pkgs.keepassxc}/bin/keepassxc /home/balsoft/projects/nixos-config/misc/Passwords.kdbx";
