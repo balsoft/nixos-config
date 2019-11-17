@@ -26,11 +26,12 @@
 
   programs.mosh.enable = true;
 
-  services.accounts-daemon.enable = true;
   services.avahi.enable = true;
 
   systemd.services.systemd-udev-settle.enable = false;
 
+  services.nix-serve.enable = config.device == "AMD-Workstation";
+  
   services.upower.enable = true;
   virtualisation.docker.enable = config.deviceSpecific.isHost;
   virtualisation.virtualbox.host = {
@@ -38,5 +39,7 @@
     enableHardening = false;
     enableExtensionPack = true;
   };
-
+  virtualisation.libvirtd = {
+    enable = config.deviceSpecific.isHost;
+  };
 }
