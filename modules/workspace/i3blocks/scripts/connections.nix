@@ -5,23 +5,25 @@
   [[ $CONNECTIONS == "" ]] && exit 33
   text=""
   grep wifi <<< $CONNECTIONS && {
-    SIGNAL="`${networkmanager}/bin/nmcli d w | grep '^\*' | tr -s \ | cut -d\ -f7`"
+    SIGNAL=$(${networkmanager}/bin/nmcli d w | grep '^\*' | tr -s ' ' | cut -d' ' -f7)
     if [[ $SIGNAL -lt 20 ]]
     then
-      text+="冷"
+      text+=冷
     elif [[ $SIGNAL -lt 40 ]]
     then
-      text+="爛"
+      text+=爛
     elif [[ $SIGNAL -lt 60 ]]
     then
-      text+="嵐"
+      text+=嵐
     elif [[ $SIGNAL -lt 80 ]]
     then
-      text+="襤"
+      text+=襤
     else
-      text+="蠟"
+      text+=蠟
     fi
-  } || { text+=郎 }
+  } || { 
+    text+=郎
+  }
   grep gsm <<< $CONNECTIONS && {
     MODEM=$(${modemmanager}/bin/mmcli -K -L | tail -1 | cut -d: -f2 | tr -d ' ')
     STATUS=$(${modemmanager}/bin/mmcli -K -m $MODEM)
