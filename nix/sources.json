@@ -35,16 +35,16 @@
         "url": "https://github.com/Infinisil/all-hies/archive/315936fe4da48c774601a2c4eaba72f8dc4e5fdb.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "base16-black-metal-scheme": {
+    "base16-unclaimed-schemes": {
         "branch": "master",
-        "description": "A collection of Black Metal inspired base16 schemes.",
+        "description": "A collection of themes that have no repositories for homes :(",
         "homepage": null,
-        "owner": "metalelf0",
-        "repo": "base16-black-metal-scheme",
-        "rev": "cdfb3d2f3020648338253587917244eff4034781",
-        "sha256": "13pm3r2k9dvjszg2lsxw9qb3s0379dn0ypi2n0mz309zfcdkjznr",
+        "owner": "chriskempson",
+        "repo": "base16-unclaimed-schemes",
+        "rev": "d6b93456dc1012628faec572387814f59e0b854a",
+        "sha256": "043ny56snl4w2ri1i0zzfh00zm2gf2h5jz57kgmf5jb9xj0sspb1",
         "type": "tarball",
-        "url": "https://github.com/metalelf0/base16-black-metal-scheme/archive/cdfb3d2f3020648338253587917244eff4034781.tar.gz",
+        "url": "https://github.com/chriskempson/base16-unclaimed-schemes/archive/d6b93456dc1012628faec572387814f59e0b854a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "home-manager": {

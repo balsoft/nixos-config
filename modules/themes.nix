@@ -60,7 +60,7 @@ in {
   };
   config = {
     themes.colors = fromBase16 (fromYAML (builtins.readFile
-      "${pkgs.imports.base16-black-metal-scheme}/black-metal-burzum.yaml"));
+      "${pkgs.imports.base16-unclaimed-schemes}/irblack.yaml"));
     # themes.colors = {
     # bg = "#114c00";
     # bg = "#000000";
