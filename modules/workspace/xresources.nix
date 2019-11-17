@@ -22,8 +22,8 @@
       "*color15" = fg;
       
       "emacs.color0" = dark;
-      "emacs.color1" = red;
-      "emacs.color2" = green;
+      "emacs.color1" = green;
+      "emacs.color2" = alt;
       "emacs.color3" = yellow;
       "emacs.color4" = gray;
       "emacs.color5" = purple;

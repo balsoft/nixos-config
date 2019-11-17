@@ -44,8 +44,10 @@ in {
               bg = color "background";
               fg = color "foreground";
               gray = color "gray";
+
               alt = color "alternative";
               dark = color "darker";
+
               blue = color "blue";
               green = color "green";
               red = color "red";
