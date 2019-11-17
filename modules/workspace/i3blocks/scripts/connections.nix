@@ -2,7 +2,6 @@
   #!${bash}/bin/bash
   [[ $BLOCK_BUTTON -eq 1 ]] && ${config.defaultApplications.term.cmd} -e ${networkmanager}/bin/nmtui-connect
   CONNECTIONS=$(${networkmanager}/bin/nmcli con show --active | tail +2 | tr -s ' ' | rev | cut -d' ' -f3 | rev)
-  [[ $CONNECTIONS == "" ]] && exit 33
   text=""
   grep wifi <<< $CONNECTIONS > /dev/null && {
     SIGNAL=$(${networkmanager}/bin/nmcli d w | grep '^\*' | tr -s ' ' | cut -d' ' -f7)
@@ -21,8 +20,6 @@
     else
       text+=蠟
     fi
-  } || { 
-    text+=郎
   }
   grep gsm <<< $CONNECTIONS >/dev/null && {
     MODEM=$(${modemmanager}/bin/mmcli -K -L | tail -1 | cut -d: -f2 | tr -d ' ')
@@ -53,5 +50,9 @@
     fi
   }
   grep ethernet <<< $CONNECTIONS > /dev/null && text+=""
-  echo "<span font=\"${iconfont}\">$text</span>"
+  [[ $text == "" ]] && {
+    echo 
+    exit 33
+  }
+  echo "<span font='${iconfont}'>$text</span>"
 ''
