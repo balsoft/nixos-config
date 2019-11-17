@@ -4,7 +4,7 @@
   CONNECTIONS=$(${networkmanager}/bin/nmcli con show --active | tail +2 | tr -s ' ' | rev | cut -d' ' -f3 | rev)
   [[ $CONNECTIONS == "" ]] && exit 33
   text=""
-  grep wifi <<< $CONNECTIONS && {
+  grep wifi <<< $CONNECTIONS > /dev/null && {
     SIGNAL=$(${networkmanager}/bin/nmcli d w | grep '^\*' | tr -s ' ' | cut -d' ' -f7)
     if [[ $SIGNAL -lt 20 ]]
     then
@@ -24,7 +24,7 @@
   } || { 
     text+=郎
   }
-  grep gsm <<< $CONNECTIONS && {
+  grep gsm <<< $CONNECTIONS >/dev/null && {
     MODEM=$(${modemmanager}/bin/mmcli -K -L | tail -1 | cut -d: -f2 | tr -d ' ')
     STATUS=$(${modemmanager}/bin/mmcli -K -m $MODEM)
     TECH=$(grep "modem.generic.access-technologies.value\[1\]" <<< $STATUS | cut -d: -f2 | tr -d ' ')
@@ -52,6 +52,6 @@
       text+=""
     fi
   }
-  grep ethernet <<< $CONNECTIONS && text+=""
-  echo '<span font="${iconfont}">$text</span>'
+  grep ethernet <<< $CONNECTIONS > /dev/null && text+=""
+  echo "<span font=\"${iconfont}\">$text</span>"
 ''
