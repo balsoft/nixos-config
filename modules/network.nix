@@ -2,6 +2,7 @@
   networking = {
     networkmanager.enable = true;
     firewall.enable = false;
+    resolvconf.extraConfig = "libc=NO";
     usePredictableInterfaceNames = false;
     hostName = config.device;
   };
