@@ -43,7 +43,7 @@ with import ../../support.nix { inherit lib config; }; {
         "1\\address" = "${config.secrets.gmail.user}@gmail.com";
         "1\\organisation" = "";
         "1\\realName" = "Alexander Bantyev";
-        "1\\signature" = ''\n\x410\x43b\x435\x43a\x441\x430\x43d\x434\x440 \x411\x430\x43d\x442\x44c\x435\x432 /Alexander Bantyev/ aka balsoft\n\nNix/NixOS DevOPS at typeable.io\n\n<balsoft75@gmail.com>\n<balsoft@yandex.ru>\n\nmatrix://@balsoft:balsoft.ru\n\nhttps://github.com/balsoft\n'';
+        "1\\signature" = ''\n\x410\x43b\x435\x43a\x441\x430\x43d\x434\x440 \x411\x430\x43d\x442\x44c\x435\x432 /Alexander Bantyev/ aka balsoft\n\nNix/NixOS DevOPS, SRE at serokell.io\n\n<balsoft75@gmail.com>\n<balsoft@yandex.ru>\n<alexander.bantyev@serokell.io>\n\nmatrix://@balsoft:balsoft.ru\n\nhttps://github.com/balsoft\n'';
         size = 1;
       };
       interoperability.revealVersions = true;
