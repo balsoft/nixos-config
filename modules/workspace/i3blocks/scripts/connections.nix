@@ -50,9 +50,11 @@
     fi
   }
   grep ethernet <<< $CONNECTIONS > /dev/null && text+=""
+  code=0
   [[ $text == "" ]] && {
-    echo 
-    exit 33
+    text=
+    code=33
   }
   echo "<span font='${iconfont}'>$text</span>"
+  exit $code
 ''
