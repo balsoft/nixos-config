@@ -95,10 +95,11 @@ in { pkgs, config, lib, ... }: {
   systemd.services.setup_root = {
     serviceConfig.User = "root";
     script = ''
-      cat << EOF > /root/id_rsa
+      mkdir -p /root/.ssh
+      cat << EOF > /root/.ssh/id_rsa
       ${config.secrets.id_rsa}
       EOF
-      chmod 100 /root/id_rsa
+      chmod 100 /root/.ssh/id_rsa
     '';
   };
   environment.etc.nixpkgs.source = imports.nixpkgs;
@@ -110,23 +111,17 @@ in { pkgs, config, lib, ... }: {
     binaryCaches = [
       "https://cache.nixos.org"
       "http://hydra.typeable.io:5000"
-      "https://nixcache.reflex-frp.org"
       "https://all-hies.cachix.org"
       "https://cache.balsoft.ru"
     ];
 
-    trustedBinaryCaches =
-      (builtins.map (x: "http://${x}:5000") (builtins.attrNames config.devices))
-      ++ binaryCaches;
-
-    trustedUsers = [ "root" "balsoft" "antorika" "@wheel" ];
+    trustedUsers = [ "root" "balsoft" "@wheel" ];
 
     optimise.automatic = true;
 
     binaryCachePublicKeys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "hydra.example.org-1:3cfw8jj8xtoKkQ2mAQxMFcEv2/fQATA/mjoUUIFxSgo="
-      "ryantrinkle.com-1:JJiAKaRv9mWgpVAz8dwewnZe0AzzEAzPkagE9SP5NWI="
       "all-hies.cachix.org-1:JjrzAOEUsD9ZMt8fdFbzo3jNAyEWlPAwdVuHw4RD43k="
     ];
   };

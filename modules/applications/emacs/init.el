@@ -176,8 +176,6 @@ Version 2018-10-27"
 (global-set-key (kbd "C-b") 'switch-to-buffer)
 (global-set-key (kbd "C-TAB") 'org-cycle-level)
 
-(use-package 0x0)
-
 (global-display-line-numbers-mode)
 
 (electric-pair-mode)
