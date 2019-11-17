@@ -16,9 +16,9 @@ with types; {
       isShared = device == "Lenovo-Workstation";
       cpu = devInfo.cpu.vendor;
       isSSD = devInfo.drive.type == "ssd";
+      # Whether machine is powerful enough for heavy stuff
       goodMachine = devInfo.cpu.clock * devInfo.cpu.cores >= 4000
-      && devInfo.drive.size >= 100 && devInfo.ram
-      >= 8; # Whether machine is powerful enough for heavy stuff
+      && devInfo.drive.size >= 100 && devInfo.ram >= 8;
       isHost = isSSD;
     };
 
@@ -36,19 +36,6 @@ with types; {
           size = 250;
         };
         ram = 16;
-      };
-      HP-Laptop = {
-        cpu = {
-          vendor = "amd";
-          clock = 3500;
-          cores = 6;
-        };
-        drive = {
-          type = "ssd";
-          speed = 500;
-          size = 500;
-        };
-        ram = 8;
       };
       Lenovo-Workstation = {
         cpu = {

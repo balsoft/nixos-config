@@ -1,7 +1,5 @@
-{ pkgs, config, lib, ...}:
-{
-  
-  home-manager.users.balsoft = {
+{ pkgs, config, lib, ... }: {
+  home-manager.users.balsoft = lib.mkIf (config.deviceSpecific.goodMachine) {
     home.file.".yt.yaml".text = builtins.toJSON {
       yt-token = config.secrets.yt-utilities.token;
       user = config.secrets.yt-utilities.user;

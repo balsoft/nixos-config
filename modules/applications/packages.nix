@@ -34,7 +34,6 @@
       nixfmt
       niv
       stdman
-      firefox-wayland
       libqalculate
       # Messaging
       libnotify

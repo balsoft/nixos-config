@@ -3,7 +3,7 @@ with import ../../support.nix { inherit lib config; };
 let thm = config.themes.colors;
 in {
   environment.sessionVariables.MOZ_USE_XINPUT2 = "1";
-  home-manager.users.balsoft = {
+  home-manager.users.balsoft = lib.mkIf (config.deviceSpecific.goodMachine) {
     programs.firefox = {
       enable = true;
       package = pkgs.firefox-wayland;

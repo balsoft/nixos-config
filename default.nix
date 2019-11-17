@@ -14,7 +14,7 @@ device: # This is the device we're on now
 let sources = import ./nix/sources.nix;
 in {
   imports = [
-    /etc/nixos/hardware-configuration.nix
+    "${./hardware-configuration}/${device}.nix"
     "${sources.home-manager}/nixos"
     "${sources.simple-nixos-mailserver}"
     ./modules

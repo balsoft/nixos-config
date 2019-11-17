@@ -1,12 +1,9 @@
 { ... }: {
   imports = [
     ./applications/packages.nix
-    ./applications/kate.nix
-    ./applications/okular.nix
     ./applications/emacs
     ./applications/konsole.nix
     ./applications/trojita.nix
-    ./applications/firefox.nix
     ./applications/weechat.nix
     ./workspace/autofs.nix
     ./workspace/i3
@@ -15,7 +12,6 @@
     ./workspace/gtk.nix
     ./workspace/misc.nix
     ./workspace/kde
-    ./workspace/synergy.nix
     ./workspace/ssh.nix
     ./workspace/locale.nix
     ./workspace/fonts.nix
@@ -26,11 +22,9 @@
     ./workspace/gcalcli.nix
     ./workspace/rclone.nix
     ./workspace/xresources.nix
-    ./applications/yt-utilities.nix
     ./themes.nix
     ./applications.nix
     ./openvpn.nix
-    ./matrix-synapse.nix
     ./nginx.nix
     ./secrets.nix
     ./devices.nix
@@ -38,8 +32,12 @@
     ./users.nix
     ./hardware.nix
     ./services.nix
-    ./mailserver.nix
     ./power.nix
     ./network.nix
+    ./applications/okular.nix
+    ./applications/yt-utilities.nix
+    ./applications/firefox.nix
+    ./mailserver.nix
+    ./matrix-synapse.nix
   ];
 }
