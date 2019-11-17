@@ -1,7 +1,7 @@
 { bash, networkmanager, iconfont, config, modemmanager, ... }: ''
   #!${bash}/bin/bash
   [[ $BLOCK_BUTTON -eq 1 ]] && ${config.defaultApplications.term.cmd} -e ${networkmanager}/bin/nmtui-connect
-  CONNECTIONS=$(${networkmanager}/bin/nmcli con show --active | tail +2 | rev | cut -d' ' -f2 | rev)
+  CONNECTIONS=$(${networkmanager}/bin/nmcli con show --active | tail +2 | tr -s ' ' | rev | cut -d' ' -f3 | rev)
   [[ $CONNECTIONS == "" ]] && exit 33
   text=""
   grep wifi <<< $CONNECTIONS && {
