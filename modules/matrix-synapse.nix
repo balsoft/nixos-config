@@ -37,12 +37,42 @@
         (builtins.toJSON config.secrets.matrix.mautrix-whatsapp.registration))
     ];
   };
+  systemd.services.whatsapp-vm =    lib.mkIf (config.device == "AMD-Workstation")
+  {
+    description = "Android VM with WhatsApp";
+    wantedBy = [ "multi-user.target" ];
+    requires = [ "network-online.target" ];
+    preStart = "mkdir -p /var/lib/whatsapp";
+    script = ''
+      NIX_ANDROID_EMULATOR_FLAGS="-no-audio -no-window" ${
+        with import <nixpkgs> {
+          config.android_sdk.accept_license = true;
+        };
+        androidenv.emulateApp {
+          name = "WhatsApp";
+          app = fetchurl {
+            url =
+              "https://www.cdn.whatsapp.net/android/2.19.214/WhatsApp.apk";
+              sha256 =
+                "1yc8zhlx86gb2ixizxgm2mp6dz8c47xa7w7jjaisb2v4ywmlmdmh";
+          };
+          platformVersion = "18";
+          abiVersion = "x86";
+          
+          package = "com.whatsapp";
+          activity = ".HomeActivity";
+          
+          avdHomeDir = "/var/lib/whatsapp";
+        }
+      }/bin/run-test-emulator
+    '';
+  };
   systemd.services.mautrix-whatsapp =
     lib.mkIf (config.device == "AMD-Workstation") {
       description = "A bridge between whatsapp and matrix";
       path = with pkgs; [ coreutils mautrix-whatsapp ];
-      wantedBy = [ "network-online.target" ];
-      requires = [ "matrix-synapse.service" ];
+      wantedBy = [ "multi-user.target" ];
+      requires = [ "matrix-synapse.service" "whatsapp-vm.service" "network-online.target" ];
       serviceConfig = {
         Restart = "always";
         RestartSec = 1;
