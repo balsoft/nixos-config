@@ -43,9 +43,14 @@
     wantedBy = [ "multi-user.target" ];
     requires = [ "network-online.target" ];
     preStart = "mkdir -p /var/lib/whatsapp";
-    serviceConfig.Type = "forking";
+    path = [ pkgs.coreutils ];
+    serviceConfig = {
+      Restart = "always";
+      RestartSec = 1;
+      Type = "forking";
+    };
     script = ''
-      NIX_ANDROID_EMULATOR_FLAGS="-no-audio -no-window" ${
+      NIX_ANDROID_EMULATOR_FLAGS="-no-audio -no-window" timeout 900 ${
         with import <nixpkgs> {
           config.android_sdk.accept_license = true;
         };
