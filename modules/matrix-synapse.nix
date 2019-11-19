@@ -43,6 +43,7 @@
     wantedBy = [ "multi-user.target" ];
     requires = [ "network-online.target" ];
     preStart = "mkdir -p /var/lib/whatsapp";
+    serviceConfig.Type = "forking";
     script = ''
       NIX_ANDROID_EMULATOR_FLAGS="-no-audio -no-window" ${
         with import <nixpkgs> {
