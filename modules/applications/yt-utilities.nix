@@ -8,7 +8,7 @@
         full-file = true;
       };
       since = "1997-11-19";
-      severity = "Debug";
+      severity = "Info";
     };
     home.packages = [ pkgs.yt-utilities ];
   };
