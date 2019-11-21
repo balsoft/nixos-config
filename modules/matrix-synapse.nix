@@ -50,7 +50,7 @@
       Type = "forking";
     };
     script = ''
-      NIX_ANDROID_EMULATOR_FLAGS="-no-audio -no-window" timeout 900 ${
+      NIX_ANDROID_EMULATOR_FLAGS="-no-audio -no-window" ${
         with import <nixpkgs> {
           config.android_sdk.accept_license = true;
         };

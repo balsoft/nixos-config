@@ -15,5 +15,5 @@
   else: 
     icon = ""
   text = getoutput("${playerctl}/bin/playerctl metadata title")[:20:]
-  print("<span font='${iconfont}'>%s</span> %s" % (icon, text.replace('&', '&amp;'))
+  print("<span font='${iconfont}'>%s</span> %s" % (icon, text.replace('&', '&amp;')))
 ''
