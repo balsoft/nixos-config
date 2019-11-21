@@ -10,7 +10,7 @@
   then
     echo -n `date -d "$DATE" +'%H:%M'`
   else
-    echo -n `date -d "$DATE" +'%H:%M %A'`
+    echo -n `date -d "$DATE" +'%H:%M %a'`
   fi
   if [[ $BLOCK_BUTTON == "1" ]]
   then
