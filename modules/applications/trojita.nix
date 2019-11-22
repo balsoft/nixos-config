@@ -8,6 +8,7 @@ with import ../../support.nix { inherit lib config; }; {
         "imap.auth.user" = config.secrets.gmail.user;
         "imap.auth.pass" = config.secrets.gmail.password;
         "imap.host" = "imap.gmail.com";
+        "imap.startmode" = "ONLINE";
         "imap.method" = "SSL";
         "imap.needsNetwork" = true;
         "imap.numberRefreshInterval" = 300;
@@ -41,9 +42,9 @@ with import ../../support.nix { inherit lib config; }; {
       };
       identities = {
         "1\\address" = "${config.secrets.gmail.user}@gmail.com";
-        "1\\organisation" = "";
+        "1\\organisation" = "serokell.io";
         "1\\realName" = "Alexander Bantyev";
-        "1\\signature" = ''\n\x410\x43b\x435\x43a\x441\x430\x43d\x434\x440 \x411\x430\x43d\x442\x44c\x435\x432 /Alexander Bantyev/ aka balsoft\n\nNix/NixOS DevOPS, SRE at serokell.io\n\n<balsoft75@gmail.com>\n<balsoft@yandex.ru>\n<alexander.bantyev@serokell.io>\n\nmatrix://@balsoft:balsoft.ru\n\nhttps://github.com/balsoft\n'';
+        "1\\signature" = ''\x410\x43b\x435\x43a\x441\x430\x43d\x434\x440 \x411\x430\x43d\x442\x44c\x435\x432 /Alexander Bantyev/ aka balsoft\n\nNix DevOPS/SRE at serokell.io\n\n<balsoft75@gmail.com>\n<balsoft@yandex.ru>\n<alexander.bantyev@serokell.io>\n\nmatrix://@balsoft:balsoft.ru \n(https://matrix.to/#/@balsoft:balsoft.ru)\nhttps://t.me/balsoft\nhttps://github.com/balsoft\n'';
         size = 1;
       };
       interoperability.revealVersions = true;
