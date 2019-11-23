@@ -71,6 +71,18 @@
         "url": "https://github.com/nana-4/materia-theme/archive/8860af49c9a21e585395de99690c5bfc1a2979b0.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "mopidy": {
+        "branch": "v2.3.1",
+        "description": "Mopidy is an extensible music server written in Python",
+        "homepage": "https://mopidy.com",
+        "owner": "mopidy",
+        "repo": "mopidy",
+        "rev": "6ee0379b0f4eee0da5721b3c415f520626e56b20",
+        "sha256": "1qdflxr0an6l2m3j90h55bzyj7rjlkkwmxx945hwv8xi472rcgdj",
+        "type": "tarball",
+        "url": "https://github.com/mopidy/mopidy/archive/6ee0379b0f4eee0da5721b3c415f520626e56b20.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "mopidy-gmusic": {
         "branch": "master",
         "description": "Mopidy extension for playing music from Google Play Music",
@@ -177,6 +189,18 @@
         "sha256": "0jqcv3rfki3mwda00g66d27k6q2y7ca5mslrnshfpbdm7j8ya0kj",
         "type": "tarball",
         "url": "https://github.com/nixos/nixpkgs-channels/archive/e89b21504f3e61e535229afa0b121defb52d2a50.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "pykka": {
+        "branch": "v2.0.1",
+        "description": "Pykka is a Python implementation of the actor model, which makes it easier to build concurrent applications",
+        "homepage": "https://www.pykka.org",
+        "owner": "jodal",
+        "repo": "pykka",
+        "rev": "1982e1caf63726c66b28616c80d548ae1bb4fe87",
+        "sha256": "011rvv3vzj9rpwaq6vfpz9hfwm6gx1jmad4iri6z12g8nnlpydhs",
+        "type": "tarball",
+        "url": "https://github.com/jodal/pykka/archive/1982e1caf63726c66b28616c80d548ae1bb4fe87.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "simple-nixos-mailserver": {

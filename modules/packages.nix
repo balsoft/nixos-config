@@ -69,16 +69,23 @@ in { pkgs, config, lib, ... }: {
 
         nerdfonts = nur.balsoft.pkgs.roboto-mono-nerd;
 
-        mopidy-gmusic = old.mopidy-gmusic.overridePythonAttrs (oa: {
-          src = imports.mopidy-gmusic;
-        } // oa);
-
+        mopidy = old.mopidy.overridePythonAttrs (oa: {
+          src = imports.mopidy;
+          propagatedBuildInputs = with self.pythonPackages; [ gst-python pygobject3 pykka2 tornado_4 requests setuptools dbus-python ];
+        });
+        
         mopidy-youtube = old.mopidy-youtube.overridePythonAttrs (oa: {
+          pythonPath = with self.pythonPackages; [cachetools requests-cache ];
           src = imports.mopidy-youtube;
-        } // oa);
+        });
 
         pythonPackages = old.pythonPackages.override {
           overrides = (self: super: {
+            pykka2 = super.pykka.overridePythonAttrs (oa: {
+              src = imports.pykka;
+              version = "2.0.1";
+              name = "pykka-2.0.1";
+            });
             backports_functools_lru_cache =
               super.backports_functools_lru_cache.overrideAttrs
               (oldAttrs: oldAttrs // { meta.priority = 1000; });
