@@ -3,9 +3,9 @@
   BATTERY="`${acpi}/bin/acpi -b | grep --invert-match unavailable | head -1`"
   STATUS=`awk -F'[,:] ' '{print $2}' <<< "$BATTERY"`
   CHARGE=`awk -F'[,%] ' '{print $2}' <<< "$BATTERY" | tr -d "%"`
-  TIME=`awk -F', ' '{print $3}' <<< "$BATTERY" | cut -d " " -f 1`
+  TIME=`awk -F', ' '{print $3}' <<< "$BATTERY" | cut -d " " -f 1 | cut -d: -f1-2`
   case "$STATUS" in
-    Full) ;& "Not charging") icon=; text="FULL"; status=0
+    Full) ;& "Not charging") icon=; text="FULL"; status=0
     ;;
     Charging) 
       text="$CHARGE% ($TIME)"
