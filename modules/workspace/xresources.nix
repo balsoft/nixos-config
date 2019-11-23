@@ -21,22 +21,22 @@
       "*color14" = cyan;
       "*color15" = fg;
       
-      "emacs.color0" = dark;
-      "emacs.color1" = green;
-      "emacs.color2" = alt;
-      "emacs.color3" = yellow;
-      "emacs.color4" = gray;
-      "emacs.color5" = purple;
-      "emacs.color6" = cyan;
-      "emacs.color7" = gray;
-      "emacs.color8" = alt;
-      "emacs.color9" = green;
-      "emacs.color10" = green;
-      "emacs.color11" = yellow;
-      "emacs.color12" = green;
-      "emacs.color13" = purple;
-      "emacs.color14" = cyan;
-      "emacs.color15" = fg;
+      # "emacs.color0" = dark;
+      # "emacs.color1" = green;
+      # "emacs.color2" = alt;
+      # "emacs.color3" = yellow;
+      # "emacs.color4" = gray;
+      # "emacs.color5" = purple;
+      # "emacs.color6" = cyan;
+      # "emacs.color7" = gray;
+      # "emacs.color8" = alt;
+      # "emacs.color9" = green;
+      # "emacs.color10" = green;
+      # "emacs.color11" = yellow;
+      # "emacs.color12" = green;
+      # "emacs.color13" = purple;
+      # "emacs.color14" = cyan;
+      # "emacs.color15" = fg;
 
     };
     home.activation.xrdb = {
