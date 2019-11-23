@@ -86,7 +86,6 @@ in {
         { command = "${pkgs.nheko}/bin/nheko"; }
         { command = "${pkgs.xorg.xrdb}/bin/xrdb -merge ~/.Xresources"; }
         { command = "sleep 2; ${pkgs.procps}/bin/pkill swaynag"; }
-        { command = "${pkgs.unstable.slack-dark}/bin/slack"; }
 
         { command = "${pkgs.cantata}/bin/cantata"; }
 
