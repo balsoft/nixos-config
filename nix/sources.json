@@ -83,6 +83,18 @@
         "url": "https://github.com/mopidy/mopidy-gmusic/archive/3562ad4b07bf6c0801338db72cd0c6f0633a07af.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "mopidy-youtube": {
+        "branch": "develop",
+        "description": "Mopidy extension for playing music from YouTube",
+        "homepage": "",
+        "owner": "natumbri",
+        "repo": "mopidy-youtube",
+        "rev": "9991f49f94a19202caab4924003034af3b15f765",
+        "sha256": "06wl4nbpdq3sv5d2lzn20mw12arjs3llck5r901hlvhaynlqcpna",
+        "type": "tarball",
+        "url": "https://github.com/natumbri/mopidy-youtube/archive/9991f49f94a19202caab4924003034af3b15f765.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "mtxclient": {
         "branch": "0.3.0-dev",
         "description": "Client API library for Matrix, built on top of Boost.Asio",

@@ -73,6 +73,10 @@ in { pkgs, config, lib, ... }: {
           src = imports.mopidy-gmusic;
         } // oa);
 
+        mopidy-youtube = old.mopidy-youtube.overridePythonAttrs (oa: {
+          src = imports.mopidy-youtube;
+        } // oa);
+
         pythonPackages = old.pythonPackages.override {
           overrides = (self: super: {
             backports_functools_lru_cache =
