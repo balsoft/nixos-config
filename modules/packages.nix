@@ -75,7 +75,7 @@ in { pkgs, config, lib, ... }: {
         });
         
         mopidy-youtube = old.mopidy-youtube.overridePythonAttrs (oa: {
-          pythonPath = with self.pythonPackages; [cachetools requests-cache ];
+          propagatedBuildInputs = oa.propagatedBuildInputs ++ (with self.pythonPackages; [cachetools requests-cache ]);
           src = imports.mopidy-youtube;
         });
 
