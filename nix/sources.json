@@ -203,6 +203,18 @@
         "url": "https://github.com/jodal/pykka/archive/1982e1caf63726c66b28616c80d548ae1bb4fe87.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "scripts": {
+        "branch": "master",
+        "description": "Official scripts for WeeChat.",
+        "homepage": "https://weechat.org/scripts/",
+        "owner": "weechat",
+        "repo": "scripts",
+        "rev": "993636b290c52ba1c0129f40fc297461991e92fe",
+        "sha256": "1jwmsjw2fz382mjmyavpnv1w5s6xqpkrmz3ync5q41g65wvrybpx",
+        "type": "tarball",
+        "url": "https://github.com/weechat/scripts/archive/993636b290c52ba1c0129f40fc297461991e92fe.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "simple-nixos-mailserver": {
         "sha256": "08wcwc54b1k9gnx5z97yv4gm28lx50vnnsvk93l98zq209rpf7rq",
         "type": "tarball",

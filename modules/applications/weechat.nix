@@ -9,9 +9,11 @@ weechat = pkgs.weechat.override {
 in
 {
   home-manager.users.balsoft = {
-    home.file.".weechat/python/autoload/notify_send.py".source = 
-      "${(import ../../nix/sources.nix).weechat-notify-send}/notify_send.py";
-
+    home.file.".weechat/python/autoload/chanotify.py".source = 
+    "${pkgs.imports.scripts}/python/chanotify.py";
+    home.file.".weechat/perl/autoload/multiline.pl".source = 
+    "${pkgs.imports.scripts}/perl/multiline.pl";
+      
     home.file.".weechat/plugins.conf".text = ''
       [var]
       lua.matrix.autojoin_on_invite = "on"
