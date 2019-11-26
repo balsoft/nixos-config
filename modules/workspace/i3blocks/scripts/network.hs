@@ -35,6 +35,6 @@ main = do
   Statistics rx' tx' <- readInterfaces interfaces
   putStrLn
     $  (icon "\58052")
-    ++ show (round $(rx' - rx)/1000) ++ "kBps "
+    ++ show (round $(rx' - rx)/1000)
     ++ (icon "\58054")
-    ++ show (round $(tx' - tx)/1000) ++ "kBps"
+    ++ show (round $(tx' - tx)/1000)

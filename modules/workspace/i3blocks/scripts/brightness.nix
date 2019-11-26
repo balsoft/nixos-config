@@ -22,5 +22,6 @@
     fi
   '' else
     ""}
-  echo "<span font='${iconfont}'>$icon</span> $LIGHT"
+  [[ -n $BLOCK_BUTTON ]] && text=" $LIGHT"
+  echo "<span font='${iconfont}'>$icon</span>$text"
 ''

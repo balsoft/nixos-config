@@ -43,12 +43,12 @@ in {
       interval = 600;
     };
     c_calendar = { command = scripts.calendar; };
-    d_sound = {
-      command = scripts.sound;
+    d_music = {
+      command = scripts.music;
       interval = 1;
     };
-    e_music = {
-      command = scripts.music;
+    e_sound = {
+      command = scripts.sound;
       interval = 1;
     };
     f_battery = pkgs.stdenv.lib.optionalAttrs config.deviceSpecific.isLaptop {

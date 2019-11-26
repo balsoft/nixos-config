@@ -5,10 +5,10 @@
   CHARGE=`awk -F'[,%] ' '{print $2}' <<< "$BATTERY" | tr -d "%"`
   TIME=`awk -F', ' '{print $3}' <<< "$BATTERY" | cut -d " " -f 1 | cut -d: -f1-2`
   case "$STATUS" in
-    Full) ;& "Not charging") icon=; text="FULL"; status=0
+    Full) ;& "Not charging") icon=; TEXT="FULL"; status=0
     ;;
     Charging) 
-      text="$CHARGE% ($TIME)"
+      TEXT="$CHARGE% ($TIME)"
       status=0
       case $CHARGE in
         [2-3]*) icon=;;
@@ -26,7 +26,7 @@
       else
         status=33
       fi
-      text="$CHARGE% ($TIME)";
+      TEXT="$CHARGE% ($TIME)";
       case $CHARGE in
         1?) icon=;;
         2?) icon=;;
@@ -42,6 +42,7 @@
       esac
     ;;
   esac
-  echo "<span font=\"${iconfont}\">$icon</span> $text"
+  [[ -n $BLOCK_BUTTON ]] && text=" $TEXT"
+  echo "<span font=\"${iconfont}\">$icon</span>$text"
   exit $status
 ''
