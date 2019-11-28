@@ -37,7 +37,22 @@ with types; {
         };
         ram = 16;
       };
+      T420-Laptop = {
+        legacy = true;
+        cpu = {
+          vendor = "intel";
+          clock = 2500;
+          cores = 2;
+        };
+        drive = {
+          type = "ssd";
+          speed = 1000;
+          size = 120;
+        };
+        ram = 8;
+      };
       Lenovo-Workstation = {
+        legacy = true;
         cpu = {
           vendor = "intel";
           clock = 2500;
