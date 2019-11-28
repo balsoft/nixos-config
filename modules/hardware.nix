@@ -83,7 +83,7 @@ with deviceSpecific; {
       grub.version = 2;
       grub.useOSProber = true;
       timeout = 1;
-    } // (if deviceSpecific.legacy or false then { # Non-UEFI config
+    } // (if deviceSpecific.devInfo.legacy or false then { # Non-UEFI config
       grub.device = "/dev/sda";
     } else { # UEFI config
       grub.efiSupport = true;

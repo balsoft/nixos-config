@@ -15,6 +15,7 @@ with types; {
       smallScreen = (device == "Prestigio-Laptop");
       isShared = device == "Lenovo-Workstation";
       cpu = devInfo.cpu.vendor;
+      inherit devInfo;
       isSSD = devInfo.drive.type == "ssd";
       # Whether machine is powerful enough for heavy stuff
       goodMachine = devInfo.cpu.clock * devInfo.cpu.cores >= 4000
@@ -38,7 +39,7 @@ with types; {
         ram = 16;
       };
       T420-Laptop = {
-        legacy = true;
+        legacy = false;
         cpu = {
           vendor = "intel";
           clock = 2500;
