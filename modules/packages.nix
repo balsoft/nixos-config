@@ -21,7 +21,7 @@ in { pkgs, config, lib, ... }: {
 
         all-hies = import imports.all-hies { };
 
-        yt-utilities = import (builtins.fetchGit config.secrets.yt-utilities.source) {};
+        yt-utilities = import (self.fetchgit config.secrets.yt-utilities.source) {};
 
         mtxclient = old.mtxclient.overrideAttrs (oa: rec {
           name = "${pname}-${version}";
