@@ -1,3 +1,3 @@
 {...}: ''
-  emacsclient --eval "(print org-mode-line-string)" | head -1 | cut -d\" -f 2
+  emacsclient --eval "org-mode-line-string" | head -1 | cut -d\" -f 2
 ''
