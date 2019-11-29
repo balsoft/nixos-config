@@ -43,22 +43,22 @@ in {
     (scrint "weather" 600)
     (scr "calendar")
     (scr "emacs")
-    (scrint "music" 1)
-    (scrint "sound" 1)
+    (scrint "music" 10)
+    (scrint "sound" 5)
   ]
   ++ optionals config.deviceSpecific.isLaptop [
     (scr "battery")
-    (scrint "brightness" 1)
+    (scrint "brightness" 5)
   ]
   ++ [
-    (scr "connections")
-    (scrint "network" 1)
+    (scrint "connections" 10)
+    (scrint "network" 5)
     (scrint "cpu" 5)
-    (scr "freq")
+    (scrint "freq" 10)
     (scr "temperature")
-    (scr "free")
+    (scrint "free" 10)
     (scr "df")
     (scr "date")
-    (scr "time")
+    (scrint "time" 1)
   ]);
 }
