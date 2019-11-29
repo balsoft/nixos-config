@@ -3,6 +3,7 @@
 import Control.Concurrent (threadDelay)
 import Control.Monad (mapM)
 import System.Directory (listDirectory)
+import Data.Bool (bool)
 
 path :: String
 path = "/sys/class/net/"
@@ -34,7 +35,5 @@ main = do
   threadDelay 1000000
   Statistics rx' tx' <- readInterfaces interfaces
   putStrLn
-    $  (icon "\58052")
-    ++ show (round $(rx' - rx)/1000)
-    ++ (icon "\58054")
-    ++ show (round $(tx' - tx)/1000)
+    $  (bool (icon "\58052") "" (rx' - rx > 100))
+    ++ (bool (icon "\58054") "" (tx' - tx > 100))
