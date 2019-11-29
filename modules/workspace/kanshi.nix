@@ -8,7 +8,7 @@
     xdg.configFile."kanshi/config".text = ''
       {
         output "Samsung Electric Company C27JG5x HTOM901267" position 0,1025
-        output "Dell Inc. DELL E176FP MC0435BH2ATP" position 1000,0
+        output "Dell Inc. DELL E176FP MC0435BH2ATP" position 1400,0
       }
     '';
   };
