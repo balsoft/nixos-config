@@ -1,7 +1,18 @@
 { pkgs, lib, config, ... }: {
   networking = {
     networkmanager.enable = true;
-    firewall.enable = false;
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [ 13748 13722 5000 22 80 443 ];
+      allowedTCPPortRanges = [{
+        from = 1714;
+        to = 1764;
+      }];
+      allowedUDPPortRanges = [{
+        from = 1714;
+        to = 1764;
+      }];
+    };
     resolvconf.extraConfig = ''
       local_nameservers=""
       name_server_blacklist="0.0.0.0 127.0.0.1"
@@ -12,6 +23,5 @@
   };
   systemd.services.ModemManager.wantedBy =
     lib.optional (config.device == "ThinkPad-Laptop") "network.target";
-  # systemd.services.dhcpcd.serviceConfig.Type = lib.mkForce
-    # "simple"; # TODO Make a PR with this change; forking is not acceptable for dhcpcd.
+
 }
