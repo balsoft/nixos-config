@@ -27,88 +27,38 @@ in {
     }
   '';
 
-  home-manager.users.balsoft.xdg.configFile."i3blocks/config".text = ''
+  home-manager.users.balsoft.xdg.configFile."i3blocks/config".text = let
+    scr = x: {
+      name = x;
+      command = scripts.${x};
+    };
+    scrint = x: interval: (scr x) // { inherit interval; };
+  in ''
     interval=60
     markup=pango
-  '' + genIniOrdered ([{
-    name = "hydra";
-    command = scripts.hydra-status;
-    interval = 30;
-  }] ++ optional (config.secrets ? gmail) {
-    name = "email";
-    command = scripts.email;
-  } ++ [
-    {
-      name = "weather";
-      command = scripts.weather;
-      interval = 600;
-    }
-    {
-      name = "calendar";
-      command = scripts.calendar;
-    }
-    {
-      command = scripts.music;
-      interval = 1;
-    }
-    {
-      command = scripts.sound;
-      interval = 1;
-    }
-  ] ++ optionals config.deviceSpecific.isLaptop [
-    {
-      name = "battery";
-      command = scripts.battery;
-    }
-    {
-      name = "brightness";
-      command = scripts.brightness;
-      interval = 1;
-    }
-  ] ++ [
-    {
-      name = "connections";
-      command = scripts.connections;
-    }
-    {
-      name = "network";
-      command = scripts.network;
-    }
-    {
-      name = "network";
-      command = ''
-        top -b -n1 -p 1 | fgrep "Cpu(s)" | tail -1 | awk -F'id,' -v prefix="$prefix" '{ split($1, vs, ","); v=vs[length(vs)]; sub("%", "", v); printf "%s%.1f%%\n", prefix, 100 - v }' '';
-      interval = 3;
-    }
-    {
-      name = "freq";
-      command = ''
-        echo $(${pkgs.bc}/bin/bc -l <<< "scale=2; `cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_cur_freq|sort|tail -1`/1000000") GHz'';
-    }
-    {
-      name = "frequency";
-      command = scripts.temperature;
-    }
-    {
-      name = "free";
-      command = scripts.free;
-    }
-    {
-      name = "df";
-      command = ''
-        echo '<span font="Material Icons 11"></span>' `df / | tail -1 | grep -o '..%'`'';
-    }
-    {
-      name = "calendar";
-      command =
-        "${pkgs.coreutils}/bin/date +'<span font=\"Material Icons 11\"></span> %a %y-%m-%d'";
-      interval = 600;
-    }
-    {
-      name = "time";
-      command =
-        "${pkgs.coreutils}/bin/date +'<span font=\"Material Icons 11\"></span> %T'";
-      interval = 1;
-    }
+  ''
+  + genIniOrdered (
+    optional (config.secrets ? gmail) (scr "email")
+  ++ [
+    (scrint "weather" 600)
+    (scr "calendar")
+    (scr "emacs")
+    (scrint "music" 1)
+    (scrint "sound" 1)
+  ]
+  ++ optionals config.deviceSpecific.isLaptop [
+    (scr "battery")
+    (scrint "brightness" 1)
+  ]
+  ++ [
+    (scr "connections")
+    (scrint "network" 1)
+    (scrint "cpu" 5)
+    (scr "freq")
+    (scr "temperature")
+    (scr "free")
+    (scr "df")
+    (scr "date")
+    (scr "time")
   ]);
 }

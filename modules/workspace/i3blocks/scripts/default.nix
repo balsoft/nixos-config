@@ -33,6 +33,11 @@ writeTextFile {
   sound = ./sound.nix;
   music = ./music.nix;
   hydra-status = ./hydra-status.nix;
+  cpu = {...}: ''top -b -n1 -p 1 | fgrep "Cpu(s)" | tail -1 | awk -F'id,' -v prefix="$prefix" '{ split($1, vs, ","); v=vs[length(vs)]; sub("%", "", v); printf "%s%.1f%%\n", prefix, 100 - v }' '';
+  freq = {...}: ''echo $(${pkgs.bc}/bin/bc -l <<< "scale=2; `cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_cur_freq|sort|tail -1`/1000000") GHz'';
+  df = {...}: ''echo '<span font="Material Icons 11"></span>' `df / | tail -1 | grep -o '..%'`'';
+  date = {...}: "${pkgs.coreutils}/bin/date +'<span font=\"Material Icons 11\"></span> %a %y-%m-%d'";
+  time = {...}: "${pkgs.coreutils}/bin/date +'<span font=\"Material Icons 11\"></span> %T'";
   #temperature = ./temperature.nix;
   #free = ./free.nix;
 }
