@@ -130,28 +130,5 @@ with deviceSpecific; {
     extraModules = [ pkgs.pulseaudio-modules-bt ];
   };
 
-  environment.etc.fancontrol = {
-    enable = device == "AMD-Workstation";
-    text = ''
-      INTERVAL=3
-      DEVPATH=hwmon1=devices/pci0000:00/0000:00:03.1/0000:26:00.0
-      DEVNAME=hwmon1=amdgpu
-      FCTEMPS=hwmon1/pwm1=hwmon1/temp1_input
-      FCFANS= hwmon1/pwm1=
-      MINTEMP=hwmon1/pwm1=20
-      MAXTEMP=hwmon1/pwm1=70
-      MINSTART=hwmon1/pwm1=255
-      MINSTOP=hwmon1/pwm1=0
-    '';
-  };
-
   services.dbus.packages = [ pkgs.blueman ];
-
-  systemd.services.fancontrol = {
-    enable = device == "AMD-Workstation";
-    description = "Control the speed of fans";
-    script = "sleep 10; ${pkgs.lm_sensors}/bin/fancontrol";
-    serviceConfig.User = "root";
-    wantedBy = [ "multi-user.target" ];
-  };
 }
