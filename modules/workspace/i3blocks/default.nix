@@ -52,7 +52,7 @@ in {
   ]
   ++ [
     (scrint "connections" 10)
-    (scrint "network" 0)
+    (scrint "network" 1)
     (scrint "cpu" 5)
     (scrint "freq" 10)
     (scr "temperature")
