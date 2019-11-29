@@ -18,10 +18,10 @@ let
 in rec {
   genIni = lib.generators.toINI { inherit mkKeyValue; };
   genIniOrdered = lst:
-    builtins.concatStringsSep "\n" (map ({ name ? "widget", ... }@attrs:
+    (builtins.concatStringsSep "\n" (map ({ name ? "widget", ... }@attrs:
       builtins.concatStringsSep "\n" ([ "[${name}]" ]
         ++ (map ({ name, value }: mkKeyValue name value)
-          (attrsToList (builtins.removeAttrs attrs [ "name" ]))))) lst);
+          (attrsToList (builtins.removeAttrs attrs [ "name" ]))))) lst)) + "\n";
   thm = config.themes.colors;
   splitHex = hexStr:
     map (x: builtins.elemAt x 0) (builtins.filter (a: a != "" && a != [ ])
