@@ -27,6 +27,7 @@ writeTextFile {
   brightness = ./brightness.nix;
   calendar = ./calendar.nix;
   email = ./email.nix;
+  emacs = ./emacs.nix;
   connections = ./connections.nix;
   weather = ./weather.nix;
   sound = ./sound.nix;
