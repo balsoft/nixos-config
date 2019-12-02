@@ -8,6 +8,7 @@
     primary = true;
     userName = config.secrets.gmail.user;
     mbsync.enable = true;
+    notmuch.enable = true;
     signature = {
       showSignature = "append";
       text = ''
