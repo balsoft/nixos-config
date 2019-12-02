@@ -54,6 +54,7 @@ in { pkgs, config, lib, ... }: {
           postFixup = "true";
           postInstall = "true";
           pname = "wlroots";
+          patches = [];
           version = "0.6.0";
           src = imports.wlroots;
         });
