@@ -7,10 +7,7 @@
     realName = "Alexander Bantyev";
     primary = true;
     userName = config.secrets.gmail.user;
-    getmail = {
-      enable = true;
-      mailboxes = [ "INBOX" ];
-    };
+    mbsync.enable = true;
     signature = {
       showSignature = "append";
       text = ''
