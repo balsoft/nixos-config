@@ -24,7 +24,7 @@ with types; {
     };
 
     devices = {
-      ThinkPad-Laptop = {
+      T490s-Laptop = {
         cpu = {
           vendor = "intel";
 

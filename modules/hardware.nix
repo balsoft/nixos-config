@@ -19,7 +19,7 @@ with deviceSpecific; {
   hardware.sane.enable = true;
 
   services.throttled = {
-    enable = device == "ThinkPad-Laptop";
+    enable = device == "T490s-Laptop";
     extraConfig = ''
       [GENERAL]
       # Enable or disable the script execution
