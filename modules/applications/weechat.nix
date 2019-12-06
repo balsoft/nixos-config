@@ -13,6 +13,9 @@ in {
     home.file.".weechat/perl/autoload/multiline.pl".source =
       "${pkgs.imports.scripts}/perl/multiline.pl";
 
+    home.file.".weechat/python/autoload/go.py".source =
+      "${pkgs.imports.scripts}/python/go.py";
+
     home.file.".weechat/plugins.conf".text = ''
       [var]
       lua.matrix.autojoin_on_invite = "on"
