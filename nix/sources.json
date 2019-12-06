@@ -228,10 +228,10 @@
         "homepage": "https://swaywm.org/",
         "owner": "swaywm",
         "repo": "sway",
-        "rev": "a3da7fec32b8f18d7a70ea346618e09892c707ed",
-        "sha256": "0b158bai9a6bpkiclwawmq1mq1ly3d3rc6mmr0m4vwbbgw4mn0pc",
+        "rev": "fe7ec8024c910ec3f0e7cb06bdcb8de2d4afcb59",
+        "sha256": "03wndgi2z3lb04y3r7hwwwswlqajwr97zsifmj4c24v5xhmc6nrd",
         "type": "tarball",
-        "url": "https://github.com/swaywm/sway/archive/a3da7fec32b8f18d7a70ea346618e09892c707ed.tar.gz",
+        "url": "https://github.com/swaywm/sway/archive/fe7ec8024c910ec3f0e7cb06bdcb8de2d4afcb59.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "weechat-notify-send": {
@@ -264,10 +264,10 @@
         "homepage": "https://swaywm.org",
         "owner": "swaywm",
         "repo": "wlroots",
-        "rev": "8681e4ab8a2d4c95abd34abf0e0eed3351d11bf0",
-        "sha256": "0p1z42cx4r60fv7wscq26lfz0bnx1drry7ya12ivpmaf89j8612m",
+        "rev": "6ca82087b1cbc3940e20df8fc14a73cf1e1eddc9",
+        "sha256": "0kwwbjp3s96wjm2jd03hl9jy71lf1jshm7d5fzd2q1qglpfq8b6w",
         "type": "tarball",
-        "url": "https://github.com/swaywm/wlroots/archive/8681e4ab8a2d4c95abd34abf0e0eed3351d11bf0.tar.gz",
+        "url": "https://github.com/swaywm/wlroots/archive/6ca82087b1cbc3940e20df8fc14a73cf1e1eddc9.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
