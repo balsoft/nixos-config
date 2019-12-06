@@ -22,7 +22,13 @@
       frei0r
       ffmpeg-full
       ghc
-      (all-hies.selection { selector = p: { inherit (p) ghc864; }; })
+      (all-hies.selection {
+        selector = p:
+          let
+            ghcVersion =
+              builtins.concatStringsSep "" (builtins.splitVersion ghc.version);
+          in { ${"ghc${ghcVersion}"} = p.${"ghc${ghcVersion}"}; };
+      })
       haskellPackages.hoogle
       haskellPackages.hindent
       arduino
