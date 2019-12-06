@@ -5,10 +5,10 @@
         "homepage": "",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "b9eadd54090ae46f76f8a51be5a65a3cfbc9fdad",
-        "sha256": "0i78d2sqbh2s9240spiq715jf682a47gz1mp55s6k5whqllnd9im",
+        "rev": "bb64a2f543185ff052fef02ea6a7fdea1fd2778f",
+        "sha256": "0bp97py4dnkc84qsfrnxp7kxri8xxpvp5n89vhasm5vml32cghrg",
         "type": "tarball",
-        "url": "https://github.com/nix-community/NUR/archive/b9eadd54090ae46f76f8a51be5a65a3cfbc9fdad.tar.gz",
+        "url": "https://github.com/nix-community/NUR/archive/bb64a2f543185ff052fef02ea6a7fdea1fd2778f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "UserChrome-Tweaks": {
@@ -157,14 +157,15 @@
     },
     "nixpkgs": {
         "branch": "nixos-19.09",
+        "builtin": false,
         "description": "The nix packages collection stable",
         "homepage": "https://github.com/nixos/nixpkgs",
         "owner": "nixos",
         "repo": "nixpkgs-channels",
-        "rev": "dae3575cee5b88de966d06b11861c602975cb23a",
-        "sha256": "0zv948jsw313fmwz3rbwna92hijq8ji3dqlzhliwkvxl1adh8pbg",
+        "rev": "a7aa5dbb194edff49f045882225b7568737611dd",
+        "sha256": "0mg9pshg91k9hy2903y1y7s4bfpvsla9l0hlimpkbk2mxmp76ffd",
         "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs-channels/archive/dae3575cee5b88de966d06b11861c602975cb23a.tar.gz",
+        "url": "https://github.com/nixos/nixpkgs-channels/archive/a7aa5dbb194edff49f045882225b7568737611dd.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs-old": {
@@ -185,10 +186,10 @@
         "homepage": "https://github.com/nixos/nixpkgs",
         "owner": "nixos",
         "repo": "nixpkgs-channels",
-        "rev": "bb1013511e1e5edcf314df8321acf2f3c536df0d",
-        "sha256": "0qycfgnf0k2bxk7k88h80l8kyq9232knbn9ybiv3nla69hjlslrk",
+        "rev": "3140fa89c51233397f496f49014f6b23216667c2",
+        "sha256": "18p0d5lnfvzsyfah02mf6bi249990pfwnylwhqdh8qi70ncrk3f8",
         "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs-channels/archive/bb1013511e1e5edcf314df8321acf2f3c536df0d.tar.gz",
+        "url": "https://github.com/nixos/nixpkgs-channels/archive/3140fa89c51233397f496f49014f6b23216667c2.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "pykka": {
