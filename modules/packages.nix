@@ -43,7 +43,7 @@ in { pkgs, config, lib, ... }: {
           (oa: rec {
             name = "${pname}-${version}";
             pname = "sway";
-            version = "1.2";
+            version = "master";
             patches = [ ];
             src = imports.sway;
           });
@@ -55,14 +55,14 @@ in { pkgs, config, lib, ... }: {
           postInstall = "true";
           pname = "wlroots";
           patches = [];
-          version = "0.6.0";
+          version = "master";
           src = imports.wlroots;
         });
 
         wl-clipboard = new.wl-clipboard.overrideAttrs (oa: rec {
           name = "${pname}-${version}";
           pname = "wl-clipboard";
-          version = "1.0";
+          version = "master";
           src = imports.wl-clipboard;
         });
 

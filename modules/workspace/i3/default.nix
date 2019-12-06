@@ -72,7 +72,7 @@ in {
       };
       startup = map (a: { notification = false; } // a) [
         { command = apps.browser.cmd; }
-        { command = "${pkgs.kdeconnect}/lib/libexec/kdeconnectd"; }
+        { command = "${pkgs.kdeconnect}/libexec/kdeconnectd"; }
         {
           command =
             "${pkgs.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1";
@@ -85,7 +85,6 @@ in {
         { command = "${pkgs.termNote}/bin/noted"; }
         { command = "${pkgs.nheko}/bin/nheko"; }
         { command = "${pkgs.xorg.xrdb}/bin/xrdb -merge ~/.Xresources"; }
-        { command = "sleep 2; ${pkgs.procps}/bin/pkill swaynag"; always = true; }
 
         { command = "${pkgs.cantata}/bin/cantata"; }
 
@@ -202,7 +201,6 @@ in {
       default_border pixel 1
       mouse_warping container
       hide_edge_borders --i3 smart
-      title_format "%title (%app_id)"
       exec pkill swaynag
     '';
   };
