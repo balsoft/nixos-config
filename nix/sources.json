@@ -156,16 +156,16 @@
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs": {
-        "branch": "nixos-19.09",
+        "branch": "nixos-unstable",
         "builtin": false,
         "description": "The nix packages collection stable",
         "homepage": "https://github.com/nixos/nixpkgs",
         "owner": "nixos",
         "repo": "nixpkgs-channels",
-        "rev": "131ff6dd9c8dc64dc7e0c4ece49782dbf54bff83",
-        "sha256": "012513794dvpg4kdwmyj4a04vgz56w9k1y9jp3c81f3zwzrclqha",
+        "rev": "3140fa89c51233397f496f49014f6b23216667c2",
+        "sha256": "18p0d5lnfvzsyfah02mf6bi249990pfwnylwhqdh8qi70ncrk3f8",
         "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs-channels/archive/131ff6dd9c8dc64dc7e0c4ece49782dbf54bff83.tar.gz",
+        "url": "https://github.com/nixos/nixpkgs-channels/archive/3140fa89c51233397f496f49014f6b23216667c2.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs-old": {

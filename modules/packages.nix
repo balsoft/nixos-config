@@ -3,15 +3,16 @@ let
   new = import imports.nixpkgs-unstable { config.allowUnfree = true; };
   filterGit =
     builtins.filterSource (type: name: name != ".git" || type != "directory");
+  old = import imports.nixpkgs-old {};
 in { pkgs, config, lib, ... }: {
   nixpkgs.overlays = [
-    (self: old:
+    (self: super:
       rec {
         inherit imports;
 
         unstable = new;
 
-        nur = (import imports.NUR { pkgs = import imports.nixpkgs-old {}; }).repos;
+        nur = (import imports.NUR { pkgs = old; }).repos;
 
         inherit (nur.balsoft.pkgs) termNote lambda-launcher nix-patch;
 
@@ -23,17 +24,17 @@ in { pkgs, config, lib, ... }: {
 
         yt-utilities = import (self.fetchgit config.secrets.yt-utilities.source) {};
 
-        mtxclient = old.mtxclient.overrideAttrs (oa: rec {
+        mtxclient = super.mtxclient.overrideAttrs (oa: rec {
           name = "${pname}-${version}";
-          buildInputs = oa.buildInputs ++ [ old.nlohmann_json ];
+          buildInputs = oa.buildInputs ++ [ super.nlohmann_json ];
           pname = "mtxclient";
           version = "0.3.0";
           src = imports.mtxclient;
         });
 
-        nheko = old.nheko.overrideAttrs (oa: rec {
+        nheko = super.nheko.overrideAttrs (oa: rec {
           name = "${pname}-${version}";
-          buildInputs = oa.buildInputs ++ [ old.nlohmann_json ];
+          buildInputs = oa.buildInputs ++ [ super.nlohmann_json ];
           pname = "nheko";
           version = "0.7.0";
           src = imports.nheko;
@@ -70,17 +71,19 @@ in { pkgs, config, lib, ... }: {
 
         nerdfonts = nur.balsoft.pkgs.roboto-mono-nerd;
 
-        mopidy = old.mopidy.overridePythonAttrs (oa: {
+        mopidy = super.mopidy.overridePythonAttrs (oa: {
           src = imports.mopidy;
           propagatedBuildInputs = with self.pythonPackages; [ gst-python pygobject3 pykka2 tornado_4 requests setuptools dbus-python ];
         });
         
-        mopidy-youtube = old.mopidy-youtube.overridePythonAttrs (oa: {
+        mopidy-youtube = super.mopidy-youtube.overridePythonAttrs (oa: {
           propagatedBuildInputs = oa.propagatedBuildInputs ++ (with self.pythonPackages; [cachetools requests-cache ]);
           src = imports.mopidy-youtube;
         });
 
-        pythonPackages = old.pythonPackages.override {
+        mautrix-telegram = old.mautrix-telegram;
+
+        pythonPackages = super.pythonPackages.override {
           overrides = (self: super: {
             pykka2 = super.pykka.overridePythonAttrs (oa: {
               src = imports.pykka;
@@ -94,7 +97,7 @@ in { pkgs, config, lib, ... }: {
         };
 
       } // (if config.device == "Prestigio-Laptop" then {
-        grub2 = old.pkgsi686Linux.grub2;
+        grub2 = super.pkgsi686Linux.grub2;
       } else
         { }))
   ];

@@ -100,10 +100,6 @@
       path = with pkgs; [
         coreutils
         mautrix-telegram
-        (python3.pkgs.alembic.overrideAttrs (old: {
-          propagatedBuildInputs = old.propagatedBuildInputs
-            ++ [ mautrix-telegram ];
-        }))
       ];
       serviceConfig = {
         Restart = "always";
