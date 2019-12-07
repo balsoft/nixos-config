@@ -1,16 +1,6 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -p git -i bash
 
-firsttime=false
-
-if [[ $1 == "--first-time" ]]
-then
-    firsttime=true
-    shift
-    hostname=$1
-    shift
-fi
-
 unset IN_NIX_SHELL
 
 nixpkgs=$(nix-build ./nix/sources.nix -A nixpkgs --no-out-link $@)
