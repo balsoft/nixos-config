@@ -125,10 +125,10 @@
         "homepage": "",
         "owner": "nheko-reborn",
         "repo": "nheko",
-        "rev": "362efbf5b9ca4d3162d4fc7035959ce1da9f1c94",
-        "sha256": "1lspsp9p6qy31r8j3q6wz6fhg0gccwp4h91ycyp0r7q1w07d0ahh",
+        "rev": "dee49508de763847b22a308cda2ba96314a63bcc",
+        "sha256": "087dvy64pwbymw73bvqjyjbmwn7cyrpihn1xg5psymcbsch0p4dy",
         "type": "tarball",
-        "url": "https://github.com/nheko-reborn/nheko/archive/362efbf5b9ca4d3162d4fc7035959ce1da9f1c94.tar.gz",
+        "url": "https://github.com/nheko-reborn/nheko/archive/dee49508de763847b22a308cda2ba96314a63bcc.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "niv": {
