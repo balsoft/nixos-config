@@ -3,7 +3,7 @@ let
   new = import imports.nixpkgs-unstable { config.allowUnfree = true; };
   filterGit =
     builtins.filterSource (type: name: name != ".git" || type != "directory");
-  old = import imports.nixpkgs-old {};
+  old = import imports.nixpkgs-old { };
 in { pkgs, config, lib, ... }: {
   nixpkgs.overlays = [
     (self: super:
@@ -22,19 +22,49 @@ in { pkgs, config, lib, ... }: {
 
         all-hies = import imports.all-hies { };
 
-        yt-utilities = import (self.fetchgit config.secrets.yt-utilities.source) {};
+        yt-utilities =
+          import (self.fetchgit config.secrets.yt-utilities.source) { };
 
         mtxclient = super.mtxclient.overrideAttrs (oa: rec {
           name = "${pname}-${version}";
-          buildInputs = oa.buildInputs ++ [ super.nlohmann_json ];
+          buildInputs = with self; [
+            boost170
+            nlohmann_json
+            openssl
+            zlib
+            libsodium
+            olm
+          ];
           pname = "mtxclient";
+          cmakeFlags = oa.cmakeFlags ++ [
+            "-DBoost_NO_BOOST_CMAKE=ON"
+            "-DBoost_LIBRARY_DIR_RELEASE=${pkgs.boost170}"
+          ];
           version = "0.3.0";
           src = imports.mtxclient;
         });
 
         nheko = super.nheko.overrideAttrs (oa: rec {
           name = "${pname}-${version}";
-          buildInputs = oa.buildInputs ++ [ super.nlohmann_json ];
+          buildInputs = with self; [
+            nlohmann_json
+            qt5.qtquickcontrols2
+            mtxclient
+            olm
+            boost170
+            lmdb
+            spdlog
+            cmark
+            qt5.qtbase
+            qt5.qtmultimedia
+            qt5.qttools
+            qt5.qtgraphicaleffects
+          ];
+          cmakeFlags = oa.cmakeFlags ++ [
+            "-DBUILD_SHARED_LIBS=ON"
+            "-DBoost_NO_BOOST_CMAKE=ON"
+            "-DBoost_LIBRARY_DIR_RELEASE=${pkgs.boost170}"
+          ];
           pname = "nheko";
           version = "0.7.0";
           src = imports.nheko;
@@ -55,7 +85,7 @@ in { pkgs, config, lib, ... }: {
           postFixup = "true";
           postInstall = "true";
           pname = "wlroots";
-          patches = [];
+          patches = [ ];
           version = "master";
           src = imports.wlroots;
         });
@@ -73,11 +103,20 @@ in { pkgs, config, lib, ... }: {
 
         mopidy = super.mopidy.overridePythonAttrs (oa: {
           src = imports.mopidy;
-          propagatedBuildInputs = with self.pythonPackages; [ gst-python pygobject3 pykka2 tornado_4 requests setuptools dbus-python ];
+          propagatedBuildInputs = with self.pythonPackages; [
+            gst-python
+            pygobject3
+            pykka2
+            tornado_4
+            requests
+            setuptools
+            dbus-python
+          ];
         });
-        
+
         mopidy-youtube = super.mopidy-youtube.overridePythonAttrs (oa: {
-          propagatedBuildInputs = oa.propagatedBuildInputs ++ (with self.pythonPackages; [cachetools requests-cache ]);
+          propagatedBuildInputs = oa.propagatedBuildInputs
+            ++ (with self.pythonPackages; [ cachetools requests-cache ]);
           src = imports.mopidy-youtube;
         });
 
