@@ -38,6 +38,7 @@ in rec {
         sha256 = secret "sha256";
       };
     };
+    wage = secret "wage (sum CURRENCY/TIME, like 10EUR/h)";
     gcal = {
       email = mkOption { type = lib.types.string; };
       client-id = mkOption { type = lib.types.string; };

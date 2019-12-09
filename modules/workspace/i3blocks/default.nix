@@ -43,6 +43,7 @@ in {
     (scrint "weather" 600)
     (scr "calendar")
     (scr "emacs")
+    (scrint "youtrack-wage" 3600)
     (scrint "music" 10)
     (scrint "sound" 5)
   ]
