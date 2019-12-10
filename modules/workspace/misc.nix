@@ -23,7 +23,14 @@
       after = [ ];
       data = "rm -f /home/balsoft/.config/mimeapps.list";
     };
-    services.gpg-agent.enable = true;
+    programs.gpg.enable = true;
+    services.gpg-agent = {
+      enable = true;
+      extraConfig = ''
+        allow-emacs-pinentry
+        allow-loopback-pinentry
+      '';
+    };
     services.udiskie.enable = true;
     programs.git = {
       enable = true;

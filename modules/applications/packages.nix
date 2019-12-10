@@ -75,7 +75,6 @@
       xdg_utils
       nheko
       gitAndTools.hub
-      gnupg
       nix-patch
     ] ++ (with pkgs.kdeApplications; [
       ark
