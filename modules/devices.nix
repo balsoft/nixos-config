@@ -77,7 +77,8 @@ with types; {
           speed = 6000;
           size = 250;
         };
-        ram = 16;
+        bigScreen = true;
+        ram = 32;
       };
       Prestigio-Laptop = {
         cpu = {
