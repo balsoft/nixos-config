@@ -47,11 +47,12 @@
     serviceConfig = {
       Restart = "always";
       RestartSec = 1;
+      TimeoutStartSec = "60";
       Type = "forking";
     };
     script = ''
-      NIX_ANDROID_EMULATOR_FLAGS="-no-audio -no-window" ${
-        with import <nixpkgs> {
+      NIX_ANDROID_EMULATOR_FLAGS="-no-audio -no-window -read-only" ${
+        with import (import ../nix/sources.nix).nixpkgs {
           config.android_sdk.accept_license = true;
         };
         androidenv.emulateApp {
