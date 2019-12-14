@@ -111,6 +111,7 @@ in { pkgs, config, lib, ... }: {
             requests
             setuptools
             dbus-python
+            protobuf
           ];
         });
 
