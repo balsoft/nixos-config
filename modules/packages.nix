@@ -119,6 +119,9 @@ in { pkgs, config, lib, ... }: {
             ++ (with self.pythonPackages; [ cachetools requests-cache ]);
           src = imports.mopidy-youtube;
         });
+        mopidy-gmusic = super.mopidy-gmusic.overridePythonAttrs (oa: {
+          propagatedBuildInputs = oa.propagatedBuildInputs ++ [ self.pythonPackages.protobuf ];
+        });
 
         mautrix-telegram = old.mautrix-telegram;
 
