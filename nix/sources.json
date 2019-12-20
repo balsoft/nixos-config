@@ -65,10 +65,10 @@
         "homepage": "",
         "owner": "nana-4",
         "repo": "materia-theme",
-        "rev": "20c36132fb2bc0f655021a0b9ac1dfffeef57c5f",
-        "sha256": "1990pa47vx251y5zmdgncjgf0lf2apam2qyfpv6imdi6gcbkikic",
+        "rev": "c95281e81605876c817feb5f874c07fb8e28822d",
+        "sha256": "1d9f31xfv788xznmprsa29cyv83wwncrsfahw521qajlpzw8xayz",
         "type": "tarball",
-        "url": "https://github.com/nana-4/materia-theme/archive/20c36132fb2bc0f655021a0b9ac1dfffeef57c5f.tar.gz",
+        "url": "https://github.com/nana-4/materia-theme/archive/c95281e81605876c817feb5f874c07fb8e28822d.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mopidy": {
