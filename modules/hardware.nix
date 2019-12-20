@@ -103,6 +103,7 @@ with deviceSpecific; {
       ""; # Attempt to fix broken wireless
     kernel.sysctl."vm.swappiness" = 0;
     kernelPackages = pkgs.linuxPackages;
+    kernel.sysctl."kernel/sysrq" = 1;
     kernelParams = [
       "quiet"
       "scsi_mod.use_blk_mq=1"
