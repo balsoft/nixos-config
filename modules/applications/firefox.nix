@@ -51,8 +51,6 @@ in {
           "font.name.monospace.x-western" = "Roboto Mono";
           "font.name.sans-serif.x-western" = "Roboto";
           "font.name.serif.x-western" = "Roboto Slab";
-          
-          "browser.tabs.remote.autostart" = false;
 
           "browser.display.background_color" = thm.bg;
           "browser.display.foreground_color" = thm.fg;
