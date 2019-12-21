@@ -10,7 +10,7 @@ in {
     package = pkgs.i3-gaps;
     config = rec {
       assigns = {
-        "" = [ { class = "Chromium"; } { app_id = "firefox"; } ];
+        "" = [ { class = "Chromium"; } { app_id = "firefox"; } { class = "Firefox"; } ];
         "" = [
           { app_id = "net.flaska."; }
           { title = "balsoft : weechat.*"; }
