@@ -64,7 +64,7 @@ in {
       extensions = with pkgs.nur.rycee.firefox-addons; [
         torswitch
         close-other-windows
-        adsum-notabs
+        # adsum-notabs
         ublock-origin
         plasma-integration
       ];
