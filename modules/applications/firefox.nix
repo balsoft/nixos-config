@@ -26,27 +26,14 @@ in {
           "extensions.autoDisableScopes" = 0;
 
           "browser.search.defaultenginename" = "Google";
-          "browser.search.selectedEnging" = "Google";
+          "browser.search.selectedEngine" = "Google";
           "browser.urlbar.placeholderName" = "Google";
           "browser.search.region" = "US";
           
           "browser.uidensity" = 1;
           "browser.search.openintab" = true;
-          "accessibility.browsewithcaret" = true;
-          "extensions.pocket.enabled" = false;
-          "datareporting.healthreport.uploadEnabled" = false;
-          "browser.ping-centre.telemetry" = false;
-          "browser.safebrowsing.blockedURIs.enabled" = false;
-          "browser.safebrowsing.downloads.enabled" = false;
-          "browser.safebrowsing.malware.enabled" = false;
-          "browser.safebrowsing.phishing.enabled" = false;
-          "network.tcp.tcp_fastopen_enable" = true;
           "xpinstall.signatures.required" = false;
           "extensions.update.enabled" = false;
-
-          "network.trr.mode" = 5;
-          "network.trr.ui" = "https://mozilla.cloudflare-dns.com/dns-query";
-          "network.trr.bootstrapAddress" = "1.1.1.1";
 
           "font.name.monospace.x-western" = "Roboto Mono";
           "font.name.sans-serif.x-western" = "Roboto";
