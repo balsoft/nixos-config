@@ -6,7 +6,7 @@ in {
   home-manager.users.balsoft = lib.mkIf (config.deviceSpecific.goodMachine) {
     programs.firefox = {
       enable = true;
-      package = pkgs.firefox-wayland;
+      package = pkgs.firefox;
       profiles.default = {
         id = 0;
         userChrome = ''
@@ -51,9 +51,9 @@ in {
       extensions = with pkgs.nur.rycee.firefox-addons; [
         torswitch
         close-other-windows
-        # adsum-notabs
+        adsum-notabs
         ublock-origin
-        plasma-integration
+        # plasma-integration
       ];
     };
   };
