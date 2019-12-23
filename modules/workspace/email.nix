@@ -16,8 +16,10 @@
       imapnotify = {
         enable = true;
         boxes = [ "INBOX" ];
-        onNotify = "${pkgs.libnotify}/bin/notify-send 'New mail!' '%s'";
+        onNotify = "${pkgs.libnotify}/bin/notify-send 'New mail in %s'";
       };
+      notmuch.enable = true;
+      astroid.enable = true;
       signature = {
         showSignature = "append";
         text = ''
