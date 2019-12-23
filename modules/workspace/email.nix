@@ -1,4 +1,4 @@
-{config, ...}:
+{pkgs, config, ...}:
 {
   home-manager.users.balsoft.accounts.email.accounts."${config.secrets.gmail.user}@gmail.com" = {
     address = "${config.secrets.gmail.user}@gmail.com";
@@ -10,7 +10,15 @@
     getmail = {
       readAll = false;
       enable = true;
-      mailboxes = [ "INBOX" "Sent" ];
+      mailboxes = [ "INBOX" ];
+    };
+    msmtp = {
+      enable = true;
+    };
+    imapnotify = {
+      enable = true;
+      boxes = [ "INBOX" ];
+      onNotify = "${pkgs.libnotify}/bin/notify-send 'New mail!' '%s'";
     };
     signature = {
       showSignature = "append";
