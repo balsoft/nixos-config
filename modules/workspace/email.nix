@@ -45,6 +45,8 @@
     };
     programs = {
       msmtp.enable = true;
+      notmuch.enable = true;
+      astroid.enable = true;
     };
   };
 }
