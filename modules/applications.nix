@@ -15,7 +15,7 @@ with import ../support.nix { inherit lib config; }; {
           name = "emacsclient";
           text = ''
             #!${pkgs.bash}/bin/bash
-             ${pkgs.emacs}/bin/emacsclient -c $@'';
+             ${pkgs.emacs}/bin/emacsclient -s /tmp/emacs1000/server -c $@'';
           executable = true;
         });
         desktop = "emacsclient";

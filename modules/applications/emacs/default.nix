@@ -49,7 +49,7 @@
         genericName = "Text editor";
         desktopName = "Emacs client";
         mimeType = "text/plain";
-        exec = "emacsclient -c %F";
+        exec = "emacsclient -s /tmp/emacs1000/server -c %F";
         categories = "Development;TextEditor;";
         icon = "emacs";
       })
