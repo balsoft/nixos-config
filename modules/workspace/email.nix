@@ -3,7 +3,7 @@
     accounts.email.accounts."${config.secrets.gmail.user}@gmail.com" = {
       address = "${config.secrets.gmail.user}@gmail.com";
       flavor = "gmail.com";
-      passwordCommand = "echo ${config.secrets.gmail.password}";
+      passwordCommand = "`b coreutils`/bin/echo ${config.secrets.gmail.password}";
       realName = "Alexander Bantyev";
       primary = true;
       userName = config.secrets.gmail.user;
