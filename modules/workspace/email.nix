@@ -10,12 +10,12 @@
       getmail = {
         readAll = false;
         enable = true;
-        mailboxes = [ "INBOX" ];
+        mailboxes = [ "INBOX" "Spam" ];
       };
       msmtp = { enable = true; };
       imapnotify = {
         enable = true;
-        boxes = [ "INBOX" "Spam" ];
+        boxes = [ "INBOX" "Junk" "Trash" ];
         onNotify = "${pkgs.libnotify}/bin/notify-send 'New mail!' '%s'";
       };
       signature = {
