@@ -15,7 +15,7 @@
       msmtp = { enable = true; };
       imapnotify = {
         enable = true;
-        boxes = [ "INBOX" ];
+        boxes = [ "INBOX" "Spam" ];
         onNotify = "${pkgs.libnotify}/bin/notify-send 'New mail!' '%s'";
       };
       signature = {
@@ -39,6 +39,7 @@
         enable = true;
         frequency = "*-*-* *:*:00,15,30,45";
       };
+      imapnotify.enable = true;
     };
   };
 }
