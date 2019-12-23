@@ -19,7 +19,6 @@
         onNotify = "${pkgs.libnotify}/bin/notify-send 'New mail in %s'";
       };
       notmuch.enable = true;
-      astroid.enable = true;
       signature = {
         showSignature = "append";
         text = ''
@@ -46,7 +45,7 @@
     programs = {
       msmtp.enable = true;
       notmuch.enable = true;
-      astroid.enable = true;
+      alot.enable = true;
     };
   };
 }
