@@ -41,5 +41,8 @@
       };
       imapnotify.enable = true;
     };
+    programs = {
+      msmtp.enable = true;
+    };
   };
 }
