@@ -14,7 +14,7 @@
     keyFile = builtins.toFile "balsoft.key" config.secrets.ssl.priv;
     enableImap = true;
     enableImapSsl = true;
-    virusScanning = true;
+    virusScanning = false;
   };
 
   
