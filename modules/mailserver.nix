@@ -12,5 +12,10 @@
     certificateScheme = 1;
     certificateFile = builtins.toFile "balsoft.crt" config.secrets.ssl.cert;
     keyFile = builtins.toFile "balsoft.key" config.secrets.ssl.priv;
+    enableImap = true;
+    enableImapSsl = true;
+    virusScanning = true;
   };
+
+  
 }
