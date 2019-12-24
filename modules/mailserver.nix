@@ -6,7 +6,7 @@
     domains = [ "balsoft.ru" ];
     loginAccounts = {
       "balsoft@balsoft.ru" = {
-        hashedPassword = "$6$6to2YwlF8id$KZMEf9iRNFJxv4UiXWFgB6AzVk23VvpTmG8UM9ywjmYcUFqcblJRVoz4c3SD1nyRZ0QAXTE727/OPPnyo6Yz2/";
+        hashedPassword = "$6$MZBL0bX51v$Qq5kxLxo60pqCqCcL/YibjOYnkt4OgY41pjPIYM6CvXB41nygy5HihvjdGjxnDIyz.M47LfcPMRGK0NfK1xe60";
       };
     };
     certificateScheme = 1;
