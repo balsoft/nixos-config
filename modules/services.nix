@@ -3,7 +3,16 @@
   services.acpid.enable = true;
   programs.ssh.startAgent = true;
 
-  power.ups.enable = config.device == "AMD-Workstation";
+  power.ups = {
+    enable = config.device == "AMD-Workstation";
+    ups.main = {
+      driver = "powercom";
+      port = "";
+      directives = [
+        "UPSTYPE usb"
+      ];
+    };
+  };
   
 
   services.earlyoom = {
