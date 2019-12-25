@@ -3,15 +3,8 @@
   services.acpid.enable = true;
   programs.ssh.startAgent = true;
 
-  power.ups = {
+  services.apcupsd = {
     enable = config.device == "AMD-Workstation";
-    ups.main = {
-      driver = "powercom";
-      port = "/dev/ttyS0";
-      directives = [
-        "UPSTYPE usb"
-      ];
-    };
   };
   
 
