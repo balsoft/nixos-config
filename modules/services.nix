@@ -7,7 +7,7 @@
     enable = config.device == "AMD-Workstation";
     ups.main = {
       driver = "powercom";
-      port = "";
+      port = "/dev/ttyS0";
       directives = [
         "UPSTYPE usb"
       ];
