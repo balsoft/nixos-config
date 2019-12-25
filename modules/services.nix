@@ -3,6 +3,8 @@
   services.acpid.enable = true;
   programs.ssh.startAgent = true;
 
+  power.ups.enable = config.device == "AMD-Workstation";
+  
 
   services.earlyoom = {
     enable = config.devices.${config.device}.ram < 16;
