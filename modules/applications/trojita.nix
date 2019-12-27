@@ -20,9 +20,9 @@ with import ../../support.nix { inherit lib config; }; {
         "msa.smtp.auth" = true;
         "msa.smtp.auth.reuseImapCredentials" = true;
         "msa.smtp.burl" = false;
-        "msa.smtp.host" = config.secrets.mail.host;
-        "msa.smtp.port" = 587;
         "msa.smtp.starttls" = true;
+        "msa.smtp.host" = config.secrets.mail.host;
+        "msa.smtp.port" = 25;
         "offline.cache" = "days";
         "offline.cache.numDays" = "30";
       };
