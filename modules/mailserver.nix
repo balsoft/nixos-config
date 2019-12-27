@@ -1,7 +1,7 @@
 { pkgs, config, lib, ... }:
 let
   readCommandResult = command:
-  builtins.readFile (pkgs.runCommand "cmd" { } "${command} > $out");
+  builtins.readFile (pkgs.runCommand "cmd" { } "echo -n $(${command}) > $out");
   
   hashedPassword = readCommandResult "${pkgs.mkpasswd}/bin/mkpasswd -m sha512crypt <<< '${config.secrets.mail.password}'";
 in {
