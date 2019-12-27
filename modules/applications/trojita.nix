@@ -44,7 +44,7 @@ with import ../../support.nix { inherit lib config; }; {
         "1\\address" = "${config.secrets.mail.user}@${config.secrets.mail.host}";
         "1\\organisation" = "serokell.io";
         "1\\realName" = "Alexander Bantyev";
-        "1\\signature" = ''\x410\x43b\x435\x43a\x441\x430\x43d\x434\x440 \x411\x430\x43d\x442\x44c\x435\x432 /Alexander Bantyev/ aka balsoft\n\nNix DevOPS/SRE at serokell.io\n\n<balsoft75@gmail.com>\n<balsoft@yandex.ru>\n<alexander.bantyev@serokell.io>\n\nmatrix://@balsoft:balsoft.ru \n(https://matrix.to/#/@balsoft:balsoft.ru)\nhttps://t.me/balsoft\nhttps://github.com/balsoft\n'';
+        "1\\signature" = ''\x410\x43b\x435\x43a\x441\x430\x43d\x434\x440 \x411\x430\x43d\x442\x44c\x435\x432 /Alexander Bantyev/ aka balsoft\n\nNix DevOPS/SRE at serokell.io\n\n<balsoft@balsoft.ru>\n<alexander.bantyev@serokell.io>\n\nmatrix://@balsoft:balsoft.ru \n(https://matrix.to/#/@balsoft:balsoft.ru)\nhttps://t.me/balsoft\nhttps://github.com/balsoft\n'';
         size = 1;
       };
       interoperability.revealVersions = true;
