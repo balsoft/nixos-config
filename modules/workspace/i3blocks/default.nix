@@ -38,7 +38,7 @@ in {
     markup=pango
   ''
   + genIniOrdered (
-    optional (config.secrets ? gmail) (scr "email")
+    optional (config.secrets ? mail) (scr "email")
   ++ [
     (scrint "weather" 600)
     (scr "calendar")

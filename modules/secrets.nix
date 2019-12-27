@@ -45,7 +45,12 @@ in rec {
       client-secret = mkOption { type = lib.types.string; };
       refresh-token = mkOption { type = lib.types.string; };
     };
-    gmail = mkCredOption "gmail (trojita)" { };
+    mail = mkCredOption "email" {
+      host = mkOption {
+        type = string;
+        description = "Mail server";
+      };
+    };
     gpmusic = mkCredOption "Google Play Music (mopidy)" {
       deviceid = mkOption {
         type = string;

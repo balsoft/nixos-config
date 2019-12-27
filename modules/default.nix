@@ -19,7 +19,6 @@
     ./workspace/kanshi.nix
     ./workspace/mako.nix
     ./workspace/mopidy.nix
-    ./workspace/email.nix
     ./workspace/gcalcli.nix
     ./workspace/rclone.nix
     ./workspace/xresources.nix
