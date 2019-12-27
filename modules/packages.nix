@@ -139,6 +139,7 @@ in { pkgs, config, lib, ... }: {
           });
         };
 
+        ebtables = old.ebtables;
       } // (if config.device == "Prestigio-Laptop" then {
         grub2 = super.pkgsi686Linux.grub2;
       } else
