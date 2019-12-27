@@ -5,7 +5,7 @@ with import ../../support.nix { inherit lib config; }; {
     genIni {
       General = {
         "app.updates.checkEnabled" = false;
-        "imap.auth.user" = config.secrets.mail.user;
+        "imap.auth.user" = "${config.secrets.mail.user}@${config.secrets.mail.host}";
         "imap.auth.pass" = config.secrets.mail.password;
         "imap.host" = config.secrets.mail.host;
         "imap.startmode" = "ONLINE";
