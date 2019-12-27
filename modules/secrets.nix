@@ -5,7 +5,7 @@ let
   secret = description:
   mkOption {
     inherit description;
-    type = nullOr string;
+    type = nullOr str;
   };
   mkCredOption = service: extra:
   mkOption {
@@ -13,11 +13,11 @@ let
     type = nullOr (submodule {
       options = {
         user = mkOption {
-          type = string;
+          type = str;
           description = "Username for ${service}";
         };
         password = mkOption {
-          type = string;
+          type = str;
           description = "Password for ${service}";
         };
       } // extra;
@@ -27,7 +27,7 @@ in rec {
   options.secrets = {
     owm-key = secret "OpenWeatherMap key";
     irc = mkCredOption "IRC (konversation)" { };
-    slack-term = mkOption { type = string; };
+    slack-term = mkOption { type = str; };
     yt-utilities = {
       user = secret "youtrack user";
       url = secret "youtrack url";
@@ -40,45 +40,45 @@ in rec {
     };
     wage = secret "wage (sum CURRENCY/TIME, like 10EUR/h)";
     gcal = {
-      email = mkOption { type = lib.types.string; };
-      client-id = mkOption { type = lib.types.string; };
-      client-secret = mkOption { type = lib.types.string; };
-      refresh-token = mkOption { type = lib.types.string; };
+      email = mkOption { type = lib.types.str; };
+      client-id = mkOption { type = lib.types.str; };
+      client-secret = mkOption { type = lib.types.str; };
+      refresh-token = mkOption { type = lib.types.str; };
     };
     mail = mkCredOption "email" {
       host = mkOption {
-        type = string;
+        type = str;
         description = "Mail server";
       };
     };
     gpmusic = mkCredOption "Google Play Music (mopidy)" {
       deviceid = mkOption {
-        type = string;
+        type = str;
         description = "Android device ID";
       };
     };
     openvpn = mkCredOption "openvpn" {};
     rclone = mkOption {
-      type = nullOr string;
+      type = nullOr str;
       description = "Rclone config";
     };
     id_rsa = mkOption {
-      type = nullOr string;
+      type = nullOr str;
       description = "SSH RSA private key";
     };
     ssl = rec {
       cert = mkOption {
-        type = nullOr string;
+        type = nullOr str;
         description = "SSL certificate";
       };
       priv = mkOption {
-        type = nullOr string;
+        type = nullOr str;
         description = "SSL RSA private key";
       };
     };
     matrix = mkCredOption "matrix" rec {
       shared_secret = mkOption {
-        type = nullOr string;
+        type = nullOr str;
         description = "A shared secret for matrix instance";
       };
       mautrix-whatsapp = {
