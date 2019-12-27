@@ -1,9 +1,9 @@
 { pkgs, config, lib, ... }:
 let
   readCommandResult = command:
-  builtins.readFile (pkgs.runCommand "cmd" { } "echo -n $(${command}) > $out");
+  builtins.readFile (pkgs.runCommand "cmd" { preferLocalBuild = true; } "echo -n $(${command}) > $out");
   
-  hashedPassword = readCommandResult "${pkgs.mkpasswd}/bin/mkpasswd -m sha512crypt <<< '${config.secrets.mail.password}'";
+  hashedPassword = readCommandResult "${pkgs.mkpasswd}/bin/mkpasswd -m sha-512 '${config.secrets.mail.password}'";
 in {
   mailserver = lib.mkIf (config.device == "AMD-Workstation") {
     enable = true;
