@@ -10,7 +10,7 @@ in {
     fqdn = config.secrets.mail.host;
     domains = [ config.secrets.mail.host ];
     loginAccounts = {
-      "balsoft@balsoft.ru" = { inherit hashedPassword; };
+      balsoft = { inherit hashedPassword; };
     };
     certificateScheme = 1;
     certificateFile = builtins.toFile "balsoft.crt" config.secrets.ssl.cert;
