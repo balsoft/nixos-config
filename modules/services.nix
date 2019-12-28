@@ -30,6 +30,8 @@
 
   programs.mosh.enable = true;
 
+  services.fwupd.enable = true;
+  
   services.avahi.enable = true;
 
   systemd.services.systemd-udev-settle.enable = false;
