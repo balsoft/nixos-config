@@ -6,7 +6,7 @@ in {
   home-manager.users.balsoft = lib.mkIf (config.deviceSpecific.goodMachine) {
     programs.firefox = {
       enable = true;
-      package = pkgs.firefox;
+      package = pkgs.firefox-wayland;
       profiles.default = {
         id = 0;
         userChrome = ''

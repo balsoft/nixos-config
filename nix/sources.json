@@ -5,10 +5,10 @@
         "homepage": "",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "1071a739a6b4935d5582c5e4841d2f30e0f07ee8",
-        "sha256": "03jpfkd9bnqfkx5hp1wx4d23ngw0cqr7a6x213bjmz5kdzkmpyf0",
+        "rev": "74ab88bb5cb602e54666009a7b858fd40f35caff",
+        "sha256": "05zp9rrfndg6gfhwp14szn5zzaqpv8dcfqgra3ssaqn6idv4ss5m",
         "type": "tarball",
-        "url": "https://github.com/nix-community/NUR/archive/1071a739a6b4935d5582c5e4841d2f30e0f07ee8.tar.gz",
+        "url": "https://github.com/nix-community/NUR/archive/74ab88bb5cb602e54666009a7b858fd40f35caff.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "UserChrome-Tweaks": {
@@ -17,10 +17,10 @@
         "homepage": null,
         "owner": "Timvde",
         "repo": "UserChrome-Tweaks",
-        "rev": "c7feb8796783ab4acd1b01cbb8edd114b77154c8",
-        "sha256": "18vbxkqmnp3jcci7r2x72jybqhn67whbiy2rmfkfp04v9gwqr6ic",
+        "rev": "b3b8699663249c34f80ddf9fefc4b826e624f079",
+        "sha256": "049mjcs6smnix8i40jpgh2vciddk3zy36pwk0zs6x0p8lrpy1vfd",
         "type": "tarball",
-        "url": "https://github.com/Timvde/UserChrome-Tweaks/archive/c7feb8796783ab4acd1b01cbb8edd114b77154c8.tar.gz",
+        "url": "https://github.com/Timvde/UserChrome-Tweaks/archive/b3b8699663249c34f80ddf9fefc4b826e624f079.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "all-hies": {
@@ -29,10 +29,10 @@
         "homepage": "",
         "owner": "Infinisil",
         "repo": "all-hies",
-        "rev": "c6e93d2d641ef48703eabed8ec5cde3d774cb0e5",
-        "sha256": "08nikzynnp9nkjixplnmqk7yp2nc4w5wp3id4av8hy835im7vjb6",
+        "rev": "85fd0be92443ca60bb649f8e7748f785fe870b7a",
+        "sha256": "0af5grq9szpyyh61zg83dx8ki1i2zqschvs91b1apww414nirlwp",
         "type": "tarball",
-        "url": "https://github.com/Infinisil/all-hies/archive/c6e93d2d641ef48703eabed8ec5cde3d774cb0e5.tar.gz",
+        "url": "https://github.com/Infinisil/all-hies/archive/85fd0be92443ca60bb649f8e7748f785fe870b7a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "base16-unclaimed-schemes": {
@@ -53,10 +53,10 @@
         "homepage": "",
         "owner": "rycee",
         "repo": "home-manager",
-        "rev": "0f1c9f25cf03cd5ed62db05c461af7e13f84a7b6",
-        "sha256": "1xf49z5sa460m03pl5lf4flvfm95gk4p0fgib86xnbfs4ifnfar1",
+        "rev": "a0ab0b16feae278f7bfd2d5d9fd8d78d77b17f4d",
+        "sha256": "0kmn3z63hxyma05n46pr9kr2j8pln4dkylbxpknv0awx821mqjgm",
         "type": "tarball",
-        "url": "https://github.com/rycee/home-manager/archive/0f1c9f25cf03cd5ed62db05c461af7e13f84a7b6.tar.gz",
+        "url": "https://github.com/rycee/home-manager/archive/a0ab0b16feae278f7bfd2d5d9fd8d78d77b17f4d.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "materia-theme": {
@@ -65,10 +65,10 @@
         "homepage": "",
         "owner": "nana-4",
         "repo": "materia-theme",
-        "rev": "c95281e81605876c817feb5f874c07fb8e28822d",
-        "sha256": "1d9f31xfv788xznmprsa29cyv83wwncrsfahw521qajlpzw8xayz",
+        "rev": "b8b04af5ca0c7730ccf04014d7cf868ca3d1b0ea",
+        "sha256": "0sc1isdidjqsiwmxg999pw8qsqywfr027z2hjhgamzqx8gpqayms",
         "type": "tarball",
-        "url": "https://github.com/nana-4/materia-theme/archive/c95281e81605876c817feb5f874c07fb8e28822d.tar.gz",
+        "url": "https://github.com/nana-4/materia-theme/archive/b8b04af5ca0c7730ccf04014d7cf868ca3d1b0ea.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mopidy": {
@@ -89,10 +89,10 @@
         "homepage": "https://www.mopidy.com",
         "owner": "mopidy",
         "repo": "mopidy-gmusic",
-        "rev": "5c30b3859f844664b4ff35d648a9669ad57e3a26",
-        "sha256": "0vc6b10bzpqy4dk258sak6zvzfq0z2jalvqzqrg54jjygcfyi79d",
+        "rev": "88e71a18fd8b20b302b990abd97e2bf52cf678b8",
+        "sha256": "08xi0pn1zvkfy1d27pll1dwj2m08mdf07g1bw4aqz2p59vy67v6v",
         "type": "tarball",
-        "url": "https://github.com/mopidy/mopidy-gmusic/archive/5c30b3859f844664b4ff35d648a9669ad57e3a26.tar.gz",
+        "url": "https://github.com/mopidy/mopidy-gmusic/archive/88e71a18fd8b20b302b990abd97e2bf52cf678b8.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "mopidy-youtube": {
@@ -113,10 +113,10 @@
         "homepage": "",
         "owner": "nheko-reborn",
         "repo": "mtxclient",
-        "rev": "fd5208d85ecc9e077fe0fde5424ba225849cccf7",
-        "sha256": "11rr9q0d128s3zz4wksmk2ygzqiga72ci3fxjiym2zzdab35z423",
+        "rev": "9fda08b222dc4f9f59da18ed8370698643131cdd",
+        "sha256": "07r9lfsib0vp9488c1pqf3hn4j3iqzsfb1nykimgqi5pk04gshgj",
         "type": "tarball",
-        "url": "https://github.com/nheko-reborn/mtxclient/archive/fd5208d85ecc9e077fe0fde5424ba225849cccf7.tar.gz",
+        "url": "https://github.com/nheko-reborn/mtxclient/archive/9fda08b222dc4f9f59da18ed8370698643131cdd.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nheko": {
@@ -125,10 +125,10 @@
         "homepage": "",
         "owner": "nheko-reborn",
         "repo": "nheko",
-        "rev": "6b16616e3a646a5fe3046434a54f9e673c1c0db6",
-        "sha256": "11vqfzrjzkjsjqm8h41nrlvilwlwny1qxbpsqx54zd0c5jkyk4qa",
+        "rev": "e084543cc07bb430995aaeaf7fc779bfb4e03106",
+        "sha256": "13cb6qc1w3q74q9qjbvlipzp170v6flinn15sjvha4dy44870xai",
         "type": "tarball",
-        "url": "https://github.com/nheko-reborn/nheko/archive/6b16616e3a646a5fe3046434a54f9e673c1c0db6.tar.gz",
+        "url": "https://github.com/nheko-reborn/nheko/archive/e084543cc07bb430995aaeaf7fc779bfb4e03106.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "niv": {
@@ -162,10 +162,10 @@
         "homepage": "https://github.com/nixos/nixpkgs",
         "owner": "nixos",
         "repo": "nixpkgs-channels",
-        "rev": "d942688fc137169b577e7bf0c09e01a2ac919b73",
-        "sha256": "01072zihcgi0vwld69ffcr08na88703wy6plxp5cb3n1wysfx81g",
+        "rev": "b0bbacb52134a7e731e549f4c0a7a2a39ca6b481",
+        "sha256": "15ix4spjpdm6wni28camzjsmhz0gzk3cxhpsk035952plwdxhb67",
         "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs-channels/archive/d942688fc137169b577e7bf0c09e01a2ac919b73.tar.gz",
+        "url": "https://github.com/nixos/nixpkgs-channels/archive/b0bbacb52134a7e731e549f4c0a7a2a39ca6b481.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs-old": {
@@ -186,10 +186,10 @@
         "homepage": "https://github.com/nixos/nixpkgs",
         "owner": "nixos",
         "repo": "nixpkgs-channels",
-        "rev": "d942688fc137169b577e7bf0c09e01a2ac919b73",
-        "sha256": "01072zihcgi0vwld69ffcr08na88703wy6plxp5cb3n1wysfx81g",
+        "rev": "b0bbacb52134a7e731e549f4c0a7a2a39ca6b481",
+        "sha256": "15ix4spjpdm6wni28camzjsmhz0gzk3cxhpsk035952plwdxhb67",
         "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs-channels/archive/d942688fc137169b577e7bf0c09e01a2ac919b73.tar.gz",
+        "url": "https://github.com/nixos/nixpkgs-channels/archive/b0bbacb52134a7e731e549f4c0a7a2a39ca6b481.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "pykka": {
@@ -228,10 +228,10 @@
         "homepage": "https://swaywm.org/",
         "owner": "swaywm",
         "repo": "sway",
-        "rev": "aa8fe584215d29e31ae5af43afa81db03b997f85",
-        "sha256": "0zpq14h3jxb2igmf3jil475ifqd45506h0vvf3s6hg2qmhmrrwvm",
+        "rev": "ed9b4e6aebb5b875a777d74777a68bbff052f103",
+        "sha256": "1r9ghingvqf1b1xlvi4yhhwqlqai5v7nbgxjy96xz3c3rly191qz",
         "type": "tarball",
-        "url": "https://github.com/swaywm/sway/archive/aa8fe584215d29e31ae5af43afa81db03b997f85.tar.gz",
+        "url": "https://github.com/swaywm/sway/archive/ed9b4e6aebb5b875a777d74777a68bbff052f103.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "weechat-notify-send": {
@@ -264,10 +264,10 @@
         "homepage": "https://swaywm.org",
         "owner": "swaywm",
         "repo": "wlroots",
-        "rev": "01818ad2c8c6b6bf3f77955775ccd5b1cffa0b29",
-        "sha256": "0js4a1hzwigyww6i7nysmvxg2dmq09kq1lmnq4wqzblyrqm821rj",
+        "rev": "18775fda0f7a3c1d73b78a4f9bf8b4c37a304597",
+        "sha256": "026mprmg67j7gnc8a9cxkqnjsm42lmsjxv8lxgmc18yga8dfgsqp",
         "type": "tarball",
-        "url": "https://github.com/swaywm/wlroots/archive/01818ad2c8c6b6bf3f77955775ccd5b1cffa0b29.tar.gz",
+        "url": "https://github.com/swaywm/wlroots/archive/18775fda0f7a3c1d73b78a4f9bf8b4c37a304597.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }

@@ -70,7 +70,7 @@ in { pkgs, config, lib, ... }: {
           src = imports.nheko;
         });
 
-        sway = (new.sway.override { wlroots = wlroots'; }).overrideAttrs
+        sway-unwrapped = (new.sway-unwrapped.override { wlroots = wlroots'; }).overrideAttrs
           (oa: rec {
             name = "${pname}-${version}";
             pname = "sway";
