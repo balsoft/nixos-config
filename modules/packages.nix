@@ -173,7 +173,6 @@ in { pkgs, config, lib, ... }: {
     ];
     binaryCaches = [
       "https://cache.nixos.org"
-      "http://hydra.typeable.io:5000"
       "https://all-hies.cachix.org"
       "https://cache.balsoft.ru"
     ];
@@ -184,7 +183,6 @@ in { pkgs, config, lib, ... }: {
 
     binaryCachePublicKeys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-      "hydra.example.org-1:3cfw8jj8xtoKkQ2mAQxMFcEv2/fQATA/mjoUUIFxSgo="
       "all-hies.cachix.org-1:JjrzAOEUsD9ZMt8fdFbzo3jNAyEWlPAwdVuHw4RD43k="
     ];
   };

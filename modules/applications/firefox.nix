@@ -46,6 +46,7 @@ in {
           "browser.visited_color" = thm.blue;
           "browser.display.use_document_fonts" = true;
           "pdfjs.disabled" = true;
+          "media.videocontrols.picture-in-picture.enabled" = true;
         };
       };
       extensions = with pkgs.nur.rycee.firefox-addons; [
