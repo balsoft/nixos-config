@@ -22,6 +22,8 @@ in { pkgs, config, lib, ... }: {
 
         all-hies = import imports.all-hies { };
 
+        firefox-wayland = old.firefox-wayland;
+
         yt-utilities =
           import (self.fetchgit config.secrets.yt-utilities.source) { };
 
