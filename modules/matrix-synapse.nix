@@ -124,5 +124,6 @@
       isNormalUser = false;
       isSystemUser = true;
       group = "matrix-synapse";
+      name = lib.mkForce "matrix-synapse";
     };
 }
