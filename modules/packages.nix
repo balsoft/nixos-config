@@ -143,6 +143,10 @@ in { pkgs, config, lib, ... }: {
           });
         };
 
+        trojita = super.trojita.overrideAttrs (oa: {
+          buildInputs = oa.buildInputs ++ [ self.libsecret ];
+        });
+
         ebtables = old.ebtables;
       } // (if config.device == "Prestigio-Laptop" then {
         grub2 = super.pkgsi686Linux.grub2;

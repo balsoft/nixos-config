@@ -133,7 +133,7 @@ in {
         "${modifier}+Shift+d" = "move right";
         "${modifier}+Shift+a" = "move left";
 
-        "${modifier}+f" = "fullscreen toggle";
+        "${modifier}+f" = "fullscreen toggle; sticky disable";
         "${modifier}+r" = "mode resize";
         "${modifier}+Shift+f" = "floating toggle";
 
