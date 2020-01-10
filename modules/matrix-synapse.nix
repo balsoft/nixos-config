@@ -120,4 +120,9 @@
         timeout 900 mautrix-telegram 
       '';
     };
+    users.users.matrix-synapse = {
+      isNormalUser = false;
+      isSystemUser = true;
+      group = "matrix-synapse";
+    };
 }
