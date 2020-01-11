@@ -120,10 +120,5 @@
         timeout 900 mautrix-telegram 
       '';
     };
-    users.users.matrix-synapse = {
-      isNormalUser = false;
-      isSystemUser = true;
-      group = "matrix-synapse";
-      name = lib.mkForce "matrix-synapse";
-    };
+    users.users.matrix-synapse.name = lib.mkForce "matrix-synapse";
 }
