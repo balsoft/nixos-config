@@ -1,7 +1,7 @@
 { bash, yt-utilities, libqalculate, config, lib, ... }:
 ''
   #!${bash}/bin/bash
-  CURRENT_TASK=$(emacsclient --eval "org-mode-line-string" | head -1 | cut -d\" -f 2 | cut -d\[ -f2 | cut -d\] -f1)h
+  CURRENT_TASK=$(emacsclient --eval "org-mode-line-string" | head -1 | cut -d\" -f 2 | cut -d\[ -f2 | cut -d\] -f1)
   HOURS_DAY=$(qalc -t -e "$(yt org local --since $(date +'%Y-%m-%d') | tail -1) + $CURRENT_TASK to time")
   HOURS_MONTH=$(qalc -t "$(yt org local --since $(date +'%Y-%m-01') | tail -1) + $CURRENT_TASK to time")
   HOURS_YEAR=$(qalc -t "$(yt org local --since $(date +'%Y-01-01') | tail -1) + $CURRENT_TASK to time")
