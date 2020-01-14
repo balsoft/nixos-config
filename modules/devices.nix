@@ -21,6 +21,7 @@ with types; {
       goodMachine = devInfo.cpu.clock * devInfo.cpu.cores >= 4000
       && devInfo.drive.size >= 100 && devInfo.ram >= 8;
       isHost = isSSD;
+      bigScreen = devInfo ? bigScreen;
     };
 
     devices = {
