@@ -2,9 +2,9 @@
 ''
   #!${bash}/bin/bash
   CURRENT_TASK=$(emacsclient --eval "org-mode-line-string" | head -1 | cut -d\" -f 2 | cut -d\[ -f2 | cut -d\] -f1)h
-  HOURS_DAY=$(qalc -t -e "$(yt org local --since $(date +'%Y-%m-%d') | tail -1) + $CURRENT_TASK")
-  HOURS_MONTH=$(qalc -t "$(yt org local --since $(date +'%Y-%m-01') | tail -1) + $CURRENT_TASK")
-  HOURS_YEAR=$(qalc -t "$(yt org local --since $(date +'%Y-01-01') | tail -1) + $CURRENT_TASK")
+  HOURS_DAY=$(qalc -t -e "$(yt org local --since $(date +'%Y-%m-%d') | tail -1) + $CURRENT_TASK to time")
+  HOURS_MONTH=$(qalc -t "$(yt org local --since $(date +'%Y-%m-01') | tail -1) + $CURRENT_TASK to time")
+  HOURS_YEAR=$(qalc -t "$(yt org local --since $(date +'%Y-01-01') | tail -1) + $CURRENT_TASK to time")
   MONEY_DAY=$(qalc -t "$HOURS_DAY * (${config.secrets.wage})")
   MONEY_MONTH=$(qalc -t "$HOURS_MONTH * (${config.secrets.wage})")
   MONEY_YEAR=$(qalc -t "$HOURS_YEAR * (${config.secrets.wage})")
