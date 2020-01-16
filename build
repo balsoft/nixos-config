@@ -18,6 +18,7 @@ fi &&
     {
         git add .
         d=$(date +%s)
-        GIT_EDITOR=emacs git commit -t <(echo -n "Update "; echo -n $(git diff HEAD --name-only) | tr "\n" ", ")
+        # The quickest way to commit
+        git commit -t <(echo -n "Update "; echo -n $(git diff HEAD --name-only) | tr "\n" ", ") --no-edit --no-gpg-sign
         git tag latestBuild --force
     }

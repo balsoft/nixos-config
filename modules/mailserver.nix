@@ -17,6 +17,7 @@ in {
         inherit hashedPassword;
       };
     };
+    localDnsResolver = false;
     certificateScheme = 1;
     certificateFile = builtins.toFile "balsoft.crt" config.secrets.ssl.cert;
     keyFile = builtins.toFile "balsoft.key" config.secrets.ssl.priv;
