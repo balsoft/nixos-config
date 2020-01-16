@@ -4,6 +4,17 @@ let thm = config.themes.colors;
 in {
   environment.sessionVariables.MOZ_USE_XINPUT2 = "1";
   home-manager.users.balsoft = lib.mkIf (config.deviceSpecific.goodMachine) {
+    home.packages = with pkgs; [
+      plasma-integration
+      plasma5.xdg-desktop-portal-kde
+      plasma-browser-integration
+    ];
+    home.file.".mozilla/native-messaging-hosts".source = pkgs.symlinkJoin {
+      name = "native-messaging-hosts";
+      paths = [
+        "${pkgs.plasma-browser-integration}/lib/mozilla/native-messaging-hosts"
+      ];
+    };
     programs.firefox = {
       enable = true;
       package = pkgs.firefox-wayland;

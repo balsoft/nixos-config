@@ -4,9 +4,6 @@
   environment.systemPackages = with pkgs;
     lib.optionals config.deviceSpecific.goodMachine [
       kded
-      plasma-integration
-      plasma5.xdg-desktop-portal-kde
-      plasma-browser-integration
       ntfs3g
     ];
 
