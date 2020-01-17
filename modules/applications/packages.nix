@@ -12,6 +12,7 @@
       # Internet
       wget
       curl
+      unrar
     ] ++ lib.optionals config.deviceSpecific.goodMachine ([
       steamcmd
       steam
