@@ -118,6 +118,8 @@ with deviceSpecific; {
     ];
   };
 
+  services.logind.lidSwitchExternalPower = "ignore";
+
   services.logind.extraConfig = "HandlePowerKey=suspend";
   sound.enable = true;
   hardware.pulseaudio = {
