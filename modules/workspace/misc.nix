@@ -9,7 +9,7 @@
     LESS = "-asrRix8";
     XDG_SESSION_TYPE = "wayland";
     XKB_DEFAULT_LAYOUT = "us,ru";
-    XKB_DEFAULT_OPTIONS = "grp:rtrl_switch,grp_led:caps,ctrl:nocaps";
+    XKB_DEFAULT_OPTIONS = "grp:rctrl_switch,grp_led:caps,ctrl:nocaps";
     QT_QPA_PLATFORM = "wayland";
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
     NIX_AUTO_RUN = "1";
