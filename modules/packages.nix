@@ -127,6 +127,9 @@ in { pkgs, config, lib, ... }: {
         mopidy-gmusic = super.mopidy-gmusic.overridePythonAttrs (oa: {
           propagatedBuildInputs = oa.propagatedBuildInputs ++ [ self.pythonPackages.protobuf ];
         });
+        mpd-mpris = super.mpd-mpris.overrideAttrs (oa: {
+          patches = [ ./mpd-mpris.patch ];
+        });
 
         mautrix-telegram = old.mautrix-telegram;
 
