@@ -3,10 +3,7 @@
   services.acpid.enable = true;
   programs.ssh.startAgent = true;
 
-  services.apcupsd = {
-    enable = config.device == "AMD-Workstation";
-  };
-  
+  services.apcupsd = { enable = config.device == "AMD-Workstation"; };
 
   services.earlyoom = {
     enable = config.devices.${config.device}.ram < 16;
@@ -31,14 +28,21 @@
   programs.mosh.enable = true;
 
   services.fwupd.enable = true;
-  
+
   services.avahi.enable = true;
 
   systemd.services.systemd-udev-settle.enable = false;
 
   services.nix-serve.enable = config.device == "AMD-Workstation";
-  
+
   services.upower.enable = true;
   virtualisation.docker.enable = config.deviceSpecific.isHost;
-  virtualisation.libvirtd.enable = config.deviceSpecific.isHost;
+  virtualisation.libvirtd = {
+    enable = config.deviceSpecific.isHost;
+    qemuVerbatimConfig = ''
+      namespaces = []
+      user = "balsoft"
+      group = "users"
+    '';
+  };
 }
