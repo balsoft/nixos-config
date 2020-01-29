@@ -27,7 +27,6 @@ device:
     ./workspace/xresources.nix
     ./themes.nix
     ./applications.nix
-    ./nginx.nix
     ./secrets.nix
     ./devices.nix
     ./packages.nix
@@ -41,5 +40,6 @@ device:
     ./matrix-synapse.nix
     ./workspace/kanshi.nix
     ./openvpn.nix
+    ./nginx.nix
   ];
 }
