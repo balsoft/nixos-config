@@ -1,11 +1,14 @@
 device:
-{ ... }: {
+{ pkgs, lib, ... }: {
   imports = [
     ./applications/packages.nix
     ./applications/emacs
     ./applications/konsole.nix
     ./applications/trojita.nix
     ./applications/weechat.nix
+    ./applications/okular.nix
+    ./applications/yt-utilities.nix
+    ./applications/firefox.nix
     ./workspace/autofs.nix
     ./workspace/i3
     ./workspace/i3blocks
@@ -17,7 +20,6 @@ device:
     ./workspace/locale.nix
     ./workspace/fonts.nix
     ./workspace/light.nix
-    ./workspace/kanshi.nix
     ./workspace/mako.nix
     ./workspace/mopidy.nix
     ./workspace/gcalcli.nix
@@ -25,7 +27,6 @@ device:
     ./workspace/xresources.nix
     ./themes.nix
     ./applications.nix
-    ./openvpn.nix
     ./nginx.nix
     ./secrets.nix
     ./devices.nix
@@ -35,10 +36,10 @@ device:
     ./services.nix
     ./power.nix
     ./network.nix
-    ./applications/okular.nix
-    ./applications/yt-utilities.nix
-    ./applications/firefox.nix
+  ] ++ lib.optionals (device == "AMD-Workstation") [
     ./mailserver.nix
     ./matrix-synapse.nix
+    ./workspace/kanshi.nix
+    ./openvpn.nix
   ];
 }

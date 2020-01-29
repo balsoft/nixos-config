@@ -7,7 +7,7 @@ let
   hashedPassword = readCommandResult
     "${pkgs.mkpasswd}/bin/mkpasswd -m sha-512 '${config.secrets.mail.password}'";
 in {
-  mailserver = lib.mkIf (config.device == "AMD-Workstation") {
+  mailserver = {
     enable = true;
     fqdn = config.secrets.mail.host;
     domains = [ config.secrets.mail.host ];
