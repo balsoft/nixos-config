@@ -16,7 +16,6 @@ in {
   imports = [
     "${./hardware-configuration}/${device}.nix"
     "${sources.home-manager}/nixos"
-    "${sources.simple-nixos-mailserver}"
     (import ./modules device)
   ];
 

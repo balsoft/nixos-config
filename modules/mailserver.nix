@@ -1,12 +1,13 @@
 { pkgs, config, lib, ... }:
 let
+  module = toString (import ../nix/sources.nix).simple-nixos-mailserver;
   readCommandResult = command:
     builtins.readFile (pkgs.runCommand "cmd" { preferLocalBuild = true; }
       "echo -n $(${command}) > $out");
-
   hashedPassword = readCommandResult
     "${pkgs.mkpasswd}/bin/mkpasswd -m sha-512 '${config.secrets.mail.password}'";
 in {
+  imports = [ module ];
   mailserver = {
     enable = true;
     fqdn = config.secrets.mail.host;
