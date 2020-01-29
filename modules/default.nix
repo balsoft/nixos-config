@@ -1,3 +1,4 @@
+device:
 { ... }: {
   imports = [
     ./applications/packages.nix

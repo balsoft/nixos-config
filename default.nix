@@ -17,7 +17,7 @@ in {
     "${./hardware-configuration}/${device}.nix"
     "${sources.home-manager}/nixos"
     "${sources.simple-nixos-mailserver}"
-    ./modules
+    (import ./modules device)
   ];
 
   inherit device;
