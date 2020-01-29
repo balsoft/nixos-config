@@ -74,6 +74,7 @@
       nheko
       gitAndTools.hub
       nix-patch
+      waypipe
     ] ++ (with pkgs.kdeApplications; [
       ark
       dolphin
