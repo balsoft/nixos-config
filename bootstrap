@@ -19,7 +19,6 @@ done
 
 mv /mnt/etc/nixos/hardware-configuration.nix hardware-configuration/$(hostname).nix
 
-mkdir /home/balsoft
 mount --rbind /mnt/home/balsoft /home/balsoft
 mount --rbind /mnt/etc/nixos /etc/nixos
 umount -l /nix/.rw-store
