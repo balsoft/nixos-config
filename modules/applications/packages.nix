@@ -29,8 +29,6 @@
       })
       haskellPackages.hoogle
       haskellPackages.hindent
-      arduino
-      kile
       clang
       clang-tools
       lldb

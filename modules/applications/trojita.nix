@@ -8,6 +8,7 @@ with import ../../support.nix { inherit lib config; }; {
         "imap.auth.user" = "${config.secrets.mail.user}@${config.secrets.mail.host}";
         "imap.auth.pass" = config.secrets.mail.password;
         "imap.host" = config.secrets.mail.host;
+        "imap.archiveFolderName" = "Archive";
         "imap.startmode" = "ONLINE";
         "imap.method" = "SSL";
         "imap.needsNetwork" = true;
@@ -32,7 +33,7 @@ with import ../../support.nix { inherit lib config; }; {
       };
       composer = {
         imapSentName = "Sent";
-        saveToImapEnabled = false;
+        saveToImapEnabled = true;
       };
       gui = {
         "mainWindow.layout" = "compact";
