@@ -56,9 +56,13 @@
         };
         androidenv.emulateApp {
           name = "WhatsApp";
-          app = fetchurl {
-            url = "https://www.cdn.whatsapp.net/android/2.19.214/WhatsApp.apk";
-            sha256 = "1yc8zhlx86gb2ixizxgm2mp6dz8c47xa7w7jjaisb2v4ywmlmdmh";
+          app = builtins.path {
+            name = "WhatsApp.apk";
+            path = fetchurl {
+              url =
+                "https://scontent.whatsapp.net/v/t61/69881048_788414318339970_5200101795019358208_n.apk/WhatsApp.apk?_nc_ohc=KuY9gcFeMBEAX_CssFG&_nc_ht=scontent.whatsapp.net&oh=ccfa509a03cd16f148e62b2ee5aa47cc&oe=5E3F4CBC";
+                sha256 = "1gc4lilpf2gaa61hbqiafnhqy3xvcnvjr6bmyb59cmmx8b4zmql1";
+            };
           };
           platformVersion = "18";
           abiVersion = "x86";
@@ -72,28 +76,28 @@
     '';
   };
   systemd.services.mautrix-whatsapp = {
-      description = "A bridge between whatsapp and matrix";
-      path = with pkgs; [ coreutils mautrix-whatsapp ];
-      wantedBy = [ "multi-user.target" ];
-      requires = [
-        "matrix-synapse.service"
-        "whatsapp-vm.service"
-        "network-online.target"
-      ];
-      serviceConfig = {
-        Restart = "always";
-        RestartSec = 1;
-      };
-      script = ''
-        mkdir -p /var/lib/mautrix-whatsapp
-        cd /var/lib/mautrix-whatsapp
-        sleep 5
-        timeout 900 mautrix-whatsapp -c ${
-          builtins.toFile "config_wa.yaml"
-          (builtins.toJSON config.secrets.matrix.mautrix-whatsapp.config)
-        }
-      '';
+    description = "A bridge between whatsapp and matrix";
+    path = with pkgs; [ coreutils mautrix-whatsapp ];
+    wantedBy = [ "multi-user.target" ];
+    requires = [
+      "matrix-synapse.service"
+      "whatsapp-vm.service"
+      "network-online.target"
+    ];
+    serviceConfig = {
+      Restart = "always";
+      RestartSec = 1;
     };
+    script = ''
+      mkdir -p /var/lib/mautrix-whatsapp
+      cd /var/lib/mautrix-whatsapp
+      sleep 5
+      timeout 900 mautrix-whatsapp -c ${
+        builtins.toFile "config_wa.yaml"
+        (builtins.toJSON config.secrets.matrix.mautrix-whatsapp.config)
+      }
+    '';
+  };
   systemd.services.mautrix-telegram = {
     description = "A bridge between telegram and matrix";
     requires = [ "matrix-synapse.service" "openvpn-client.service" ];
