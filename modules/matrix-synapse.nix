@@ -56,13 +56,11 @@
         };
         androidenv.emulateApp {
           name = "WhatsApp";
-          app = builtins.path {
+          app = fetchurl {
             name = "WhatsApp.apk";
-            path = fetchurl {
-              url =
-                "https://scontent.whatsapp.net/v/t61/69881048_788414318339970_5200101795019358208_n.apk/WhatsApp.apk?_nc_ohc=KuY9gcFeMBEAX_CssFG&_nc_ht=scontent.whatsapp.net&oh=ccfa509a03cd16f148e62b2ee5aa47cc&oe=5E3F4CBC";
-                sha256 = "1gc4lilpf2gaa61hbqiafnhqy3xvcnvjr6bmyb59cmmx8b4zmql1";
-            };
+            url =
+              "https://scontent.whatsapp.net/v/t61/69881048_788414318339970_5200101795019358208_n.apk/WhatsApp.apk?_nc_ohc=KuY9gcFeMBEAX_CssFG&_nc_ht=scontent.whatsapp.net&oh=ccfa509a03cd16f148e62b2ee5aa47cc&oe=5E3F4CBC";
+            sha256 = "1gc4lilpf2gaa61hbqiafnhqy3xvcnvjr6bmyb59cmmx8b4zmql1";
           };
           platformVersion = "18";
           abiVersion = "x86";
