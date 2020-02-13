@@ -2,7 +2,7 @@
 with lib;
 with types; {
   options = {
-    device = mkOption { type = strMatching "[A-z|0-9]*-(Laptop|Workstation)"; };
+    device = mkOption { type = strMatching "[A-z|0-9]*-(Laptop|Workstation|VM)"; };
     devices = mkOption { type = attrs; };
     deviceSpecific = mkOption { type = attrs; };
   };
