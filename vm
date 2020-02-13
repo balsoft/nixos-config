@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+[[ -z ./secret.nix ]] && echo null > secret.nix
+nixpkgs=$(nix-build --no-out-link nix/sources.nix -A nixpkgs)
+NIX_PATH=nixpkgs=$nixpkgs:nixos-config=./vm.nix nix build -f $nixpkgs/nixos vm
+./result/bin/run-NixOS-VM-vm -m size=4G # Sorry, my apps are way too large
+
