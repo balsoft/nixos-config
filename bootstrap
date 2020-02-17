@@ -1,0 +1,32 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p git gnupg
+
+export IN_NIX_SHELL=
+
+set -e
+
+mkdir -p /mnt/home/balsoft/projects
+nixos-generate-config --root /mnt
+echo 'import /home/balsoft/projects/nixos-config "$(hostname)"' > /mnt/etc/nixos/configuration.nix
+cd /mnt/home/balsoft/projects
+git clone ssh://git@github.com/balsoft/nixos-config
+cd nixos-config
+
+touch secret.nix
+while [[ -s secret.nix ]]
+do gpg -dq secret.nix.gpg > secret.nix
+done
+
+mv /mnt/etc/nixos/hardware-configuration.nix hardware-configuration/$(hostname).nix
+
+mkdir /home/balsoft
+mount --rbind /mnt/home/balsoft /home/balsoft
+mount --rbind /mnt/etc/nixos /etc/nixos
+umount -l /nix/.rw-store
+cp /nix/ /mnt -r
+mount --rbind /mnt/nix /nix
+
+./build --substituters "https://cache.balsoft.ru https://cache.nixos.org" --no-require-sigs
+nixos-install --system ./result
+cd /mnt/home/balsoft
+chmod 777 -R .

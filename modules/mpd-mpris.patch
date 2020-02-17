@@ -1,0 +1,14 @@
+diff --git a/mpd/file.go b/mpd/file.go
+index 340338e..b0d6634 100644
+--- a/mpd/file.go
++++ b/mpd/file.go
+@@ -67,6 +67,9 @@ func FileFromAttrs(attr mpd.Attrs) (s File, err error) {
+        // metadata field
+        durationF := 0.0
+        p.Float("duration", &durationF, true)
++       if durationF == 0.0 {
++         p.Float("Time", &durationF, true)
++       }
+        s.Duration = time.Duration(durationF * float64(time.Second))
+ 
+        err = p.Err
