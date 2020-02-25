@@ -41,5 +41,4 @@
     enable = config.deviceSpecific.isHost;
   };
   virtualisation.anbox.enable = true;
-  virtualisation.lxc.enable = lib.mkForce false;
 }
