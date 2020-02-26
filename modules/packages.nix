@@ -22,10 +22,6 @@ in { pkgs, config, lib, ... }: {
 
         all-hies = import imports.all-hies { };
 
-        firefox-wayland = old.firefox-wayland.overrideAttrs (oa: {
-          meta = oa.meta // { platforms = [ "x86_64-linux" ]; };
-        });
-
         yt-utilities =
           import (self.fetchgit config.secrets.yt-utilities.source) { };
 
