@@ -31,6 +31,7 @@
         allow-emacs-pinentry
         allow-loopback-pinentry
       '';
+      enableSshSupport = true;
     };
     services.udiskie.enable = true;
     programs.git = {
