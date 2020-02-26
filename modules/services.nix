@@ -35,6 +35,8 @@
 
   services.nix-serve.enable = config.device == "AMD-Workstation";
 
+  services.pcscd.enable = true;
+  
   services.upower.enable = true;
   virtualisation.docker.enable = config.deviceSpecific.isHost;
   virtualisation.libvirtd = {
