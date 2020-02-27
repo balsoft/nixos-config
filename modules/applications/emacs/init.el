@@ -285,6 +285,8 @@ If point was already at that position, move point to beginning of line."
   :hook
   ((nix-mode . (lambda () (local-set-key (kbd "<f7>") 'nix-format-buffer))))
   ((nix-mode . (lambda () (setq indent-line-function 'nix-indent-line)))))
+(use-package company-box
+  :hook (company-mode . company-box-mode))
 
 ;; -------------------
 ;; expand-region
@@ -302,8 +304,7 @@ If point was already at that position, move point to beginning of line."
   ;; Allows TAB to select and complete at the same time.
   (company-tng-configure-default)
   (setq company-frontends
-        '(company-tng-frontend
-          company-pseudo-tooltip-frontend
+        '(company-pseudo-tooltip-frontend
           company-echo-metadata-frontend))
 
   (require 'color)

@@ -38,6 +38,7 @@
           xah-fly-keys
           arduino-mode
           elixir-mode
+          company-box
         ];
     };
 
