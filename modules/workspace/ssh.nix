@@ -18,14 +18,6 @@
     gpg-connect-agent /bye
     export SSH_AUTH_SOCK="/run/user/$UID/gnupg/S.gpg-agent.ssh"
   '';
-
-  programs = {
-    ssh.startAgent = false;
-    gnupg.agent = {
-      enable = true;
-      enableSSHSupport = true;
-    };
-  };
   
   home-manager.users.balsoft.home.file.".gnupg/scdaemon.conf".text = "reader-port Yubico Yubi";
   

@@ -34,6 +34,11 @@
         key = "687558B21E04FE92B255BED0E081FF12ADCB4AD5";
       };
     };
+    services.gpg-agent = {
+      enable = true;
+      enableSshSupport = true;
+    };
+    systemd.user.sockets.gpg-agent-ssh = lib.mkForce { };
     news.display = "silent";
     programs.command-not-found = {
       enable = true;
