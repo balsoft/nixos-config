@@ -1,5 +1,6 @@
 { pkgs, config, lib, ... }:
 with import ../../support.nix { inherit lib config; }; {
+  home-manager.users.balsoft.xsession.windowManager.i3.config.startup = [ { command = "${pkgs.trojita}/bin/trojita"; } ];
   home-manager.users.balsoft.xdg.configFile."flaska.net/trojita.conf".text =
   if !isNull config.secrets.mail then
     genIni {

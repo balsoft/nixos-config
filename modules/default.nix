@@ -4,7 +4,8 @@ device:
     ./applications/packages.nix
     ./applications/emacs
     ./applications/konsole.nix
-    ./applications/trojita.nix
+    # ./applications/trojita.nix
+    ./applications/sylpheed.nix
     ./applications/weechat.nix
     ./applications/okular.nix
     ./applications/yt-utilities.nix
