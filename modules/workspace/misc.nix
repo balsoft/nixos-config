@@ -16,8 +16,12 @@
   };
   services.atd.enable = true;
   security.pam.services.sudo = {
-    u2fAuth.enable = true;
+    u2fAuth = true;
     unixAuth = false;
+  };
+  security.pam.u2f = {
+    control = "sufficient";
+    cue = true;
   };
   home-manager.users.balsoft = {
     xdg.enable = true;
@@ -41,7 +45,7 @@
     services.gpg-agent = {
       enable = true;
       enableSshSupport = true;
-      pinentryFlavor = "curses";
+      pinentryFlavor = "qt";
       sshKeys = [ "0819BD05AB506F55109B8418B7809DF496AD3C7B" ];
     };
     programs.gpg.enable = true;
