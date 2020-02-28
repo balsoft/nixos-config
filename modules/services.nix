@@ -1,7 +1,6 @@
 { config, lib, pkgs, ... }: {
 
   services.acpid.enable = true;
-  programs.ssh.startAgent = true;
 
   services.apcupsd = { enable = config.device == "AMD-Workstation"; };
 

@@ -62,10 +62,6 @@ in rec {
       type = nullOr str;
       description = "Rclone config";
     };
-    id_rsa = mkOption {
-      type = nullOr str;
-      description = "SSH RSA private key";
-    };
     ssl = rec {
       cert = mkOption {
         type = nullOr str;

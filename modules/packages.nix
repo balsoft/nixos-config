@@ -155,16 +155,6 @@ in { pkgs, config, lib, ... }: {
     config.firefox.enablePlasmaBrowserIntegration = true;
   } // config.nixpkgs.config;
 
-  systemd.services.setup_root = {
-    serviceConfig.User = "root";
-    script = ''
-      mkdir -p /root/.ssh
-      cat << EOF > /root/.ssh/id_rsa
-      ${config.secrets.id_rsa}
-      EOF
-      chmod 100 /root/.ssh/id_rsa
-    '';
-  };
   environment.etc.nixpkgs.source = imports.nixpkgs;
   nix = rec {
     nixPath = lib.mkForce [

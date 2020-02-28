@@ -40,7 +40,7 @@ read
 umount -l /nix/.rw-store || echo "RW-store is not mounted."
 mount --rbind /mnt/nix /nix
 
-nix-build /tmp/nixpkgs/nixos -A system --substituters "https://cache.balsoft.ru https://cache.nixos.org" --no-require-sigs
+nix build -f /tmp/nixpkgs/nixos system --substituters "https://cache.balsoft.ru https://cache.nixos.org" --no-require-sigs
 nixos-install --system ./result
 cd /mnt/home/balsoft
 chmod 777 -R .
