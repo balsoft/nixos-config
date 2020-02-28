@@ -38,7 +38,7 @@
       enable = true;
       enableSshSupport = true;
     };
-    systemd.user.sockets.gpg-agent-ssh = lib.mkForce { };
+    systemd.user.sockets.gpg-agent = lib.mkForce { };
     news.display = "silent";
     programs.command-not-found = {
       enable = true;
