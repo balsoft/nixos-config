@@ -15,6 +15,10 @@
     NIX_AUTO_RUN = "1";
   };
   services.atd.enable = true;
+  security.pam.services.sudo = {
+    u2fAuth.enable = true;
+    unixAuth = false;
+  };
   home-manager.users.balsoft = {
     xdg.enable = true;
 
