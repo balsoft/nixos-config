@@ -13,6 +13,7 @@ in {
         "" = [ { class = "Chromium"; } { app_id = "firefox"; } { class = "Firefox"; } ];
         "" = [
           { app_id = "org.kde.trojita"; }
+          { title = ".* - Sylpheed.*"; }
           { title = "balsoft : weechat.*"; }
           { title = "nheko"; }
           { title = "Slack"; }
