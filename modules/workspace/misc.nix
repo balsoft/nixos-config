@@ -17,7 +17,7 @@
   services.atd.enable = true;
   security.pam.services.sudo = {
     u2fAuth = true;
-    unixAuth = false;
+    unixAuth = true;
   };
   security.pam.u2f = {
     control = "sufficient";
