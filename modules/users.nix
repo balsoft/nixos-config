@@ -39,7 +39,7 @@
   services.udev.extraRules = ''
     ACTION=="remove", ATTRS{idVendor}=="1050, RUN+="${
       pkgs.writeShellScript "lock-system"
-      "/run/wrappers/bin/sudo -u balsoft 'swaylock -f -c ${
+      "/run/wrappers/bin/sudo -u balsoft 'XDG_RUNTIME_DIR=/run/user/1000/ ${pkgs.swaylock}/bin/swaylock -f -c ${
         builtins.substring 1 7 config.themes.colors.bg
       }'"
     }"'';

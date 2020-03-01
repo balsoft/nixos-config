@@ -161,9 +161,9 @@ in {
         "${modifier}+v" = "split v";
         "${modifier}+F1" = "move to scratchpad";
         "${modifier}+F2" = "scratchpad show";
-        "${modifier}+F11" = "output * dpms off";
+        "${modifier}+F11" = "exec swaylock -f -c ${builtins.substring 1 7 thm.bg}; output * dpms off";
         "${modifier}+F12" = "output * dpms on";
-        "${modifier}+End" = "swaylock -f -c ${builtins.substring 1 7 thm.bg}";
+        "${modifier}+End" = "exec swaylock -f -c ${builtins.substring 1 7 thm.bg}";
         "${modifier}+p" = "sticky toggle";
         "${modifier}+i" =
           script "0x0" ''wl-paste | curl -F"file=@-" https://0x0.st | wl-copy'';
