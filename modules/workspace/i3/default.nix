@@ -2,6 +2,7 @@
 let
   thm = config.themes.colors;
   apps = config.defaultApplications;
+  lock_fork = "swaylock -c ${builtins.substring 1 7 thm.bg}";
   lock = pkgs.writeShellScript "lock" "swaymsg 'output * dpms off'; swaylock -c ${builtins.substring 1 7 thm.bg}; swaymsg 'output * dpms on'";
 in {
   environment.sessionVariables._JAVA_AWT_WM_NONREPARENTING = "1";
@@ -86,7 +87,7 @@ in {
         { command = "${pkgs.cantata}/bin/cantata"; }
 
         {
-          command = "swayidle before-sleep '${lock}' lock '${lock}' unlock 'pkill -9 swaylock'";
+          command = "swayidle -w before-sleep '${lock_fork}' lock '${lock_fork}' unlock 'pkill -9 swaylock'";
         }
       ];
 
