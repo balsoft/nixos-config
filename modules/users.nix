@@ -46,10 +46,6 @@
     enable = true;
   };
 
-  services.mingetty.autologinUser = "balsoft";
-
-  environment.loginShellInit = "set -e; [[ $USER == balsoft ]] && (sway; sudo bash || exit 1)";
-
   security.pam.services = builtins.listToAttrs (builtins.map (name: {
     inherit name;
     value = { unixAuth = false; };
