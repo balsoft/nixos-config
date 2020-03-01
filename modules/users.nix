@@ -38,7 +38,6 @@
 
   services.udev.extraRules = ''
     ACTION=="remove", ATTRS{idVendor}=="1050", RUN+="${pkgs.systemd}/bin/systemctl start swaylock"
-    ACTION=="add", ATTRS{idVendor}=="1050", RUN+="${pkgs.systemd}/bin/systemctl restart swaylock"
   '';
 
   systemd.services.swaylock = {
