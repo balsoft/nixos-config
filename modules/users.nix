@@ -37,16 +37,8 @@
     "/run/user/1000";
 
   services.udev.extraRules = ''
-    ACTION=="remove", ATTRS{idVendor}=="1050", RUN+="${pkgs.systemd}/bin/systemctl start swaylock"
+    ACTION=="remove", ATTRS{idVendor}=="1050", RUN+="${pkgs.systemd}/bin/loginctl lock-sessions"
   '';
-
-  systemd.services.swaylock = {
-    description = "Lock the screen";
-    serviceConfig.User = "balsoft";
-    environment.XDG_RUNTIME_DIR = "/run/user/1000";
-    path = [pkgs.swaylock];
-    script = "swaylock -c ${builtins.substring 1 7 config.themes.colors.bg}";
-  };
 
   security.pam.u2f = {
     control = "sufficient";

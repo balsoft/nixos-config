@@ -2,6 +2,7 @@
 let
   thm = config.themes.colors;
   apps = config.defaultApplications;
+  lock = "swaylock -c ${builtins.substring 1 7 thm.bg}";
 in {
   environment.sessionVariables._JAVA_AWT_WM_NONREPARENTING = "1";
 
@@ -85,7 +86,7 @@ in {
         { command = "${pkgs.cantata}/bin/cantata"; }
 
         {
-          command = "swayidle -w before-sleep 'swaylock -f -c ${builtins.substring 1 7 thm.bg}'";
+          command = "swayidle before-sleep '${lock}' lock '${lock}' unlock 'pkill -9 swaylock'";
         }
       ];
 
@@ -161,9 +162,9 @@ in {
         "${modifier}+v" = "split v";
         "${modifier}+F1" = "move to scratchpad";
         "${modifier}+F2" = "scratchpad show";
-        "${modifier}+F11" = "exec swaylock -f -c ${builtins.substring 1 7 thm.bg}; output * dpms off";
+        "${modifier}+F11" = "exec ${lock}; output * dpms off";
         "${modifier}+F12" = "output * dpms on";
-        "${modifier}+End" = "exec swaylock -f -c ${builtins.substring 1 7 thm.bg}";
+        "${modifier}+End" = "exec ${lock}";
         "${modifier}+p" = "sticky toggle";
         "${modifier}+i" =
           script "0x0" ''wl-paste | curl -F"file=@-" https://0x0.st | wl-copy'';
