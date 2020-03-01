@@ -62,6 +62,10 @@ in {
             criteria = { window_role = "popup"; };
           }
           {
+            command = "floating enable";
+            criteria = { app_id = "org.kde.polkit-kde-authentication-1"; };
+          }
+          {
             command = "sticky enable";
             criteria = { floating = ""; };
           }
@@ -72,7 +76,7 @@ in {
         { command = "${pkgs.kdeconnect}/libexec/kdeconnectd"; }
         {
           command =
-            "${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1";
+            "${pkgs.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1";
         }
         {
           command =
