@@ -88,7 +88,9 @@ in {
 
         { command = "${pkgs.cantata}/bin/cantata"; }
 
-        
+        {
+          command = "swayidle -w before-sleep 'swaylock -f -c ${builtins.substring 1 7 thm.bg}'";
+        }
       ];
 
       keybindings = let
@@ -163,7 +165,7 @@ in {
         "${modifier}+v" = "split v";
         "${modifier}+F1" = "move to scratchpad";
         "${modifier}+F2" = "scratchpad show";
-        "${modifier}+F11" = "output * dpms off";
+        "${modifier}+F11" = "--locked exec 'swaylock -f -c ${builtins.substring 1 7 thm.bg}'; output * dpms off";
         "${modifier}+F12" = "output * dpms on";
         "${modifier}+p" = "sticky toggle";
         "${modifier}+i" =
