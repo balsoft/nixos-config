@@ -86,7 +86,7 @@ in {
         { command = "${pkgs.cantata}/bin/cantata"; }
 
         {
-          command = "swayidle before-sleep '${lock}' lock '${lock}' unlock 'pkill -9 swaylock; swaymsg 'output * dpms on'";
+          command = "swayidle before-sleep '${lock}' lock '${lock}' unlock 'pkill -9 swaylock'";
         }
       ];
 
