@@ -49,9 +49,7 @@
     enable = true;
   };
 
-  security.pam.services.default = {
-    unixAuth = false;
-  };
+  security.pam.services.default.unixAuth = false;
 
   security.sudo = {
     enable = true;
