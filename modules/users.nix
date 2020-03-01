@@ -44,7 +44,7 @@
       }'"
     }"'';
   security.pam.u2f = {
-    control = "required";
+    control = "sufficient";
     cue = true;
     enable = true;
   };
