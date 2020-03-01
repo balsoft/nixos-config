@@ -51,16 +51,6 @@
 
   security.pam.services.default = {
     unixAuth = false;
-    text = lib.mkAfter ''
-      auth     required pam_warn.so
-      auth     required pam_deny.so
-      account  required pam_warn.so
-      account  required pam_deny.so
-      password required pam_warn.so
-      password required pam_deny.so
-      session  required pam_warn.so
-      session  required pam_deny.so
-    '';
   };
 
   security.sudo = {
