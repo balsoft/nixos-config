@@ -28,7 +28,7 @@
   systemd.services."user@" = { serviceConfig = { Restart = "always"; }; };
 
   home-manager.users.balsoft.home.activation.yubi = {
-    data = "[ -s /home/balsoft/.config/Yubico/u2f_keys ] || { pamu2fcfg > /home/balsoft/.config/Yubico/u2f_keys }";
+    data = "[ -s /home/balsoft/.config/Yubico/u2f_keys ] || (pamu2fcfg > /home/balsoft/.config/Yubico/u2f_keys)";
     after = [ "linkGeneration" ];
     before = [ ];
   };
