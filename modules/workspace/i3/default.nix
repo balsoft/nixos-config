@@ -2,7 +2,7 @@
 let
   thm = config.themes.colors;
   apps = config.defaultApplications;
-  lock_fork = "swaylock -c ${builtins.substring 1 7 thm.bg}";
+  lock_fork = "swaylock -f -c ${builtins.substring 1 7 thm.bg}";
   lock = pkgs.writeShellScript "lock" "swaymsg 'output * dpms off'; swaylock -c ${builtins.substring 1 7 thm.bg}; swaymsg 'output * dpms on'";
 in {
   environment.sessionVariables._JAVA_AWT_WM_NONREPARENTING = "1";
