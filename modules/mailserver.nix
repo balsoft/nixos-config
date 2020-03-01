@@ -14,7 +14,9 @@ in {
     domains = [ config.secrets.mail.host ];
     loginAccounts = {
       "balsoft@balsoft.ru" = {
-        aliases = [ "balsoft" ];
+        aliases = [ "balsoft"
+        "admin@balsoft.ru" "admin"
+        "root@balsoft.ru" "root" ];
         inherit hashedPassword;
       };
     };
