@@ -2,7 +2,7 @@
 let
   thm = config.themes.colors;
   apps = config.defaultApplications;
-  lock = "swaylock -c ${builtins.substring 1 7 thm.bg}";
+  lock = "swaylock -f -c ${builtins.substring 1 7 thm.bg}";
 in {
   environment.sessionVariables._JAVA_AWT_WM_NONREPARENTING = "1";
 
@@ -86,7 +86,7 @@ in {
         { command = "${pkgs.cantata}/bin/cantata"; }
 
         {
-          command = "swayidle before-sleep '${lock}' lock '${lock}' unlock 'pkill -9 swaylock'";
+          command = "swayidle -w before-sleep '${lock}' lock '${lock}' unlock 'pkill -9 swaylock'";
         }
       ];
 
