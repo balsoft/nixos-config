@@ -69,6 +69,7 @@ in {
         ];
       };
       startup = map (a: { notification = false; } // a) [
+        { command = lock; } # For autologin purposes
         { command = apps.browser.cmd; }
         { command = "${pkgs.kdeconnect}/libexec/kdeconnectd"; }
         {

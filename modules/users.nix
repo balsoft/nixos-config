@@ -46,6 +46,10 @@
     enable = true;
   };
 
+  services.mingetty.autologinUser = "balsoft";
+
+  environment.loginShellInit = "sway; sudo -u balsoft zsh";
+
   security.pam.services = builtins.listToAttrs (builtins.map (name: {
     inherit name;
     value = { unixAuth = false; };
