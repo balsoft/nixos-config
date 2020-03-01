@@ -76,16 +76,12 @@ with deviceSpecific; {
       ANALOGIO: 0
     '';
   };
+  boot.kernelModules = [ "ec_sys" ];
   systemd.services.thinkpad_leds = {
     enable = config.device == "T490s-Laptop";
     description = "Set up thinkpad leds";
     wantedBy = [ "multi-user.target" ];
-    script = ''
-      modprobe -r ec_sys
-      modprobe ec_sys write_support=1
-      echo -n -e "\x0e" | dd of="/sys/kernel/debug/ec/ec0/io" bs=1 seek=12 count=1 conv=notrunc 2> /dev/null
-      modprobe -r ec_sys
-    '';
+    script = ''echo -n -e "\x0e" | dd of="/sys/kernel/debug/ec/ec0/io" bs=1 seek=12 count=1 conv=notrunc 2> /dev/null'';
     serviceConfig.Type = "oneshot";
   };
 
@@ -109,10 +105,7 @@ with deviceSpecific; {
       "axp288_adc"
     ]; # Disable battery driver as it hangs this piece of shit
     extraModulePackages = [ pkgs.linuxPackages.v4l2loopback ];
-    extraModprobeConfig = if (device == "ASUS-Laptop") then
-      "options iwlwifi swcrypto=1 power_save=0 power_level=5 11n_disable=8 bt_coex_active=1"
-    else
-      ""; # Attempt to fix broken wireless
+    extraModprobeConfig = "options ec_sys write_support=1";
     kernel.sysctl."vm.swappiness" = 0;
     kernelPackages = pkgs.linuxPackages;
     kernel.sysctl."kernel/sysrq" = 1;
