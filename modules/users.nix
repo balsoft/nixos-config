@@ -38,7 +38,6 @@
 
   security.pam.u2f = {
     control = "required";
-    interactive = true;
     cue = true;
     enable = true;
   };
