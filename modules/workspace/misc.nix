@@ -15,7 +15,6 @@
     NIX_AUTO_RUN = "1";
   };
   services.atd.enable = true;
-  services.dbus.packages = [ pkgs.gcr ];
 
   home-manager.users.balsoft = {
     xdg.enable = true;
@@ -39,7 +38,7 @@
     services.gpg-agent = {
       enable = true;
       enableSshSupport = true;
-      pinentryFlavor = "gnome3";
+      pinentryFlavor = "gtk2";
       sshKeys = [ "0819BD05AB506F55109B8418B7809DF496AD3C7B" ];
     };
     programs.gpg.enable = true;
