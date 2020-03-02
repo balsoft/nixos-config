@@ -40,6 +40,8 @@
     ACTION=="remove", ATTRS{idVendor}=="1050", RUN+="${pkgs.systemd}/bin/loginctl lock-sessions"
   '';
 
+  security.wrappers.vlock.source = "${pkgs.vlock}/bin/vlock";
+  
   security.pam.u2f = {
     control = "sufficient";
     cue = true;
