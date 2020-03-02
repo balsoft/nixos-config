@@ -42,7 +42,7 @@
   
   services.mingetty.autologinUser = "balsoft";
   
-  environment.loginShellInit = "sudo /run/current-system/sw/bin/lock; sway";
+  environment.loginShellInit = "sudo /run/current-system/sw/bin/lock this; sway";
 
   security.pam.u2f = {
     control = "sufficient";
@@ -51,8 +51,13 @@
   };
 
   environment.systemPackages = [
-    (pkgs.writeShellScriptBin "lock"
-      "USER=balsoft ${pkgs.vlock}/bin/vlock -san")
+    (pkgs.writeShellScriptBin "lock" ''
+      if [[ "$1" == this ]]
+        then args="-s"
+        else args="-san"
+      fi
+      USER=balsoft ${pkgs.vlock}/bin/vlock "$args"
+    '')
   ];
 
   security.pam.services = builtins.listToAttrs (builtins.map (name: {
@@ -88,6 +93,7 @@
     enable = true;
     extraConfig = ''
       balsoft ALL = (root) NOPASSWD: /run/current-system/sw/bin/lock
+      balsoft ALL = (root) NOPASSWD: /run/current-system/sw/bin/lock this
       balsoft ALL = (root) NOPASSWD: ${pkgs.light}/bin/light -A 5
       balsoft ALL = (root) NOPASSWD: ${pkgs.light}/bin/light -U 5
     '';
