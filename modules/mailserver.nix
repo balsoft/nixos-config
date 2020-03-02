@@ -65,6 +65,7 @@ in {
       "zombie.dnsbl.sorbs.net"
     ];
     networks = [ "192.168.1.0/24" ];
+    networksStyle = lib.mkForce "";
   };
   mailserver = {
     enable = true;
