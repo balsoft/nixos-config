@@ -39,14 +39,21 @@
   services.udev.extraRules = ''
     ACTION=="remove", ATTRS{idVendor}=="1050", RUN+="${pkgs.systemd}/bin/loginctl lock-sessions"
   '';
-
-  security.wrappers.vlock.source = "${pkgs.vlock}/bin/vlock";
   
+  services.mingetty.autologinUser = "balsoft";
+  
+  environment.loginShellInit = "sudo /run/current-system/sw/bin/lock; sway";
+
   security.pam.u2f = {
     control = "sufficient";
     cue = true;
     enable = true;
   };
+
+  environment.systemPackages = [
+    (pkgs.writeShellScriptBin "lock"
+      "USER=balsoft ${pkgs.vlock}/bin/vlock -san")
+  ];
 
   security.pam.services = builtins.listToAttrs (builtins.map (name: {
     inherit name;
@@ -80,6 +87,7 @@
   security.sudo = {
     enable = true;
     extraConfig = ''
+      balsoft ALL = (root) NOPASSWD: /run/current-system/sw/bin/lock
       balsoft ALL = (root) NOPASSWD: ${pkgs.light}/bin/light -A 5
       balsoft ALL = (root) NOPASSWD: ${pkgs.light}/bin/light -U 5
     '';

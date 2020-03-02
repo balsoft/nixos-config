@@ -2,8 +2,8 @@
 let
   thm = config.themes.colors;
   apps = config.defaultApplications;
-  lock_fork = pkgs.writeShellScript "lock_fork" "/run/wrappers/bin/vlock -san &";
-  lock = pkgs.writeShellScript "lock" "swaymsg 'output * dpms off'; /run/wrappers/bin/vlock -san; swaymsg 'output * dpms on'";
+  lock_fork = pkgs.writeShellScript "lock_fork" "sudo /run/current-system/sw/bin/lock &";
+  lock = pkgs.writeShellScript "lock" "swaymsg 'output * dpms off'; sudo /run/current-system/sw/bin/lock; swaymsg 'output * dpms on'";
 in {
   environment.sessionVariables._JAVA_AWT_WM_NONREPARENTING = "1";
 
