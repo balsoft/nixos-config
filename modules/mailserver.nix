@@ -64,7 +64,7 @@ in {
       "zen.spamhaus.org"
       "zombie.dnsbl.sorbs.net"
     ];
-    networks = [ "192.168.1.1/24" ];
+    networks = [ "192.168.1.0/24" ];
   };
   mailserver = {
     enable = true;
