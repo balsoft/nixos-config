@@ -65,9 +65,9 @@ in {
       "zombie.dnsbl.sorbs.net"
     ];
     dnsBlacklistOverrides = ''
-      balsoft.ru
-      ${builtins.concatStringsSep "\n" (builtins.attrNames config.devices)}
-      192.168.0.0/16
+      balsoft.ru OK
+      ${builtins.concatStringsSep "OK \n" (builtins.attrNames config.devices)} OK
+      192.168.0.0/16 OK
     '';
   };
   mailserver = {
