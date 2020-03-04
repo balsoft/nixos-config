@@ -14,7 +14,7 @@ in {
       "b.barracudacentral.org"
       "bl.spamcop.net"
       "blacklist.woody.ch"
-      "bogons.cymru.com"
+      # "bogons.cymru.com"
       "cbl.abuseat.org"
       "combined.abuse.ch"
       "db.wpbl.info"
@@ -64,7 +64,6 @@ in {
       "zen.spamhaus.org"
       "zombie.dnsbl.sorbs.net"
     ];
-    networks = [ "127.0.0.0/24" "192.168.0.0/16" ];
   };
   mailserver = {
     enable = true;
