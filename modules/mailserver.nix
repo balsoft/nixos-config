@@ -64,6 +64,11 @@ in {
       "zen.spamhaus.org"
       "zombie.dnsbl.sorbs.net"
     ];
+    dnsBlacklistOverrides = ''
+      balsoft.ru
+      ${builtins.concatStringsSep "\n" (builtins.attrNames config.devices)}
+      192.168.0.0/16
+    '';
   };
   mailserver = {
     enable = true;
