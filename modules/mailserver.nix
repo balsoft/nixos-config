@@ -21,7 +21,7 @@ in {
       "dnsbl-1.uceprotect.net"
       "dnsbl-2.uceprotect.net"
       "dnsbl-3.uceprotect.net"
-      "dnsbl.anticaptcha.net"
+      # "dnsbl.anticaptcha.net"
       "dnsbl.dronebl.org"
       "dnsbl.inps.de"
       "dnsbl.sorbs.net"
