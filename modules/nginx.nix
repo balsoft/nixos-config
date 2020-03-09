@@ -9,12 +9,19 @@
       };
     in {
       "balsoft.ru" = {
-        locations."/" = { root = "/var/lib/balsoft.ru"; index = "index.txt"; };
+        locations."/" = {
+          root = "/var/lib/balsoft.ru";
+          index = "index.txt";
+        };
         enableACME = true;
         addSSL = true;
       };
       "corona.balsoft.ru" = {
-        locations."/" = { root = "/var/lib/corona"; index = "index.html"; };
+        locations."/" = {
+          root = "/var/lib/corona";
+          index = "index.html";
+          extraConfig = "add_header 'Access-Control-Allow-Origin' '*'";
+        };
       } // default;
       "cache.balsoft.ru" = {
         locations."/" = { proxyPass = "http://localhost:5000"; };
