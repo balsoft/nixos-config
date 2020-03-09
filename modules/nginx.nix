@@ -20,7 +20,7 @@
         locations."/" = {
           root = "/var/lib/corona";
           index = "index.html";
-          extraConfig = "add_header 'Access-Control-Allow-Origin' '*'";
+          extraConfig = "add_header 'Access-Control-Allow-Origin' '*';";
         };
       } // default;
       "cache.balsoft.ru" = {
