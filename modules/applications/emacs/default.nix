@@ -39,6 +39,7 @@
           arduino-mode
           elixir-mode
           company-box
+          ws-butler
         ];
     };
 

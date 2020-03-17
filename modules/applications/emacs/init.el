@@ -35,7 +35,7 @@
   ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
   (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
   (add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
-  
+
   (add-to-list 'package-archives '("cselpa" . "https://elpa.thecybershadow.net/packages/"))
   (when (< emacs-major-version 24)
     ;; For important compatibility libraries like cl-lib
@@ -76,6 +76,11 @@
 
 (require 'gud-lldb)
 
+(use-package ws-butler
+  :config
+  (ws-butler-global-mode)
+  )
+
 (use-package auto-indent-mode
   :config
   (auto-indent-global-mode))
@@ -93,7 +98,7 @@
   :config
   (xah-fly-keys-set-layout "qwerty")
   (xah-fly-keys 1)
-  
+
   (defun xah-fly-keys-russian-on ()
     "Add Russian layout keys.
 Hook function for `xah-fly-command-mode-activate-hook'
@@ -273,7 +278,7 @@ If point was already at that position, move point to beginning of line."
                                     :compile "nix-build shell.nix"
                                     :run "nix-shell")
   (setq projectile-project-search-path '("~/projects/"))
-  
+
   (global-set-key (kbd "<f9>") 'projectile-compile-project)
   (global-set-key (kbd "<f5>") 'projectile-run-project))
 
