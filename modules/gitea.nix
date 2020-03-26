@@ -7,6 +7,6 @@
     rootUrl = "https://code.balsoft.ru";
     domain = "code.balsoft.ru";
     httpPort = 6000;
-    # disableRegistration = true;
+    disableRegistration = true;
   };
 }
