@@ -42,5 +42,6 @@ device:
     ./workspace/kanshi.nix
     ./openvpn.nix
     ./nginx.nix
+    ./gitea.nix
   ];
 }

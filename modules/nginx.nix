@@ -16,14 +16,8 @@
         enableACME = true;
         addSSL = true;
       };
-      "corona.balsoft.ru" = {
-        locations."/" = {
-          root = "/var/lib/corona";
-          index = "index.html";
-          extraConfig = ''
-            add_header 'Access-Control-Allow-Origin' '*';
-          '';
-        };
+      "code.balsoft.ru" = {
+        locations."/" = { proxyPass = "http://localhost:6000"; };
       } // default;
       "cache.balsoft.ru" = {
         locations."/" = { proxyPass = "http://localhost:5000"; };
