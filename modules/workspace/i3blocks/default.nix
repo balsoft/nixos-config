@@ -18,11 +18,11 @@ in {
         background ${config.themes.colors.bg}
         statusline ${config.themes.colors.fg}
         separator ${config.themes.colors.alt}
-        focused_workspace ${config.themes.colors.bg} ${config.themes.colors.bg} ${config.themes.colors.blue} 
-        active_workspace ${config.themes.colors.bg} ${config.themes.colors.bg} ${config.themes.colors.green} 
-        inactive_workspace ${config.themes.colors.bg} ${config.themes.colors.bg} ${config.themes.colors.fg} 
-        urgent_workspace ${config.themes.colors.bg} ${config.themes.colors.bg} ${config.themes.colors.orange} 
-        binding_mode ${config.themes.colors.bg} ${config.themes.colors.bg} ${config.themes.colors.yellow} 
+        focused_workspace ${config.themes.colors.bg} ${config.themes.colors.bg} ${config.themes.colors.blue}
+        active_workspace ${config.themes.colors.bg} ${config.themes.colors.bg} ${config.themes.colors.green}
+        inactive_workspace ${config.themes.colors.bg} ${config.themes.colors.bg} ${config.themes.colors.fg}
+        urgent_workspace ${config.themes.colors.bg} ${config.themes.colors.bg} ${config.themes.colors.orange}
+        binding_mode ${config.themes.colors.bg} ${config.themes.colors.bg} ${config.themes.colors.yellow}
       }
     }
   '';
@@ -36,8 +36,7 @@ in {
   in ''
     interval=60
     markup=pango
-  '' + genIniOrdered (
-  optional (config.secrets ? mail) (scr "email") ++ [
+  '' + genIniOrdered (optional (config.secrets ? mail) (scr "email") ++ [
     (scrint "weather" 600)
     (scr "calendar")
     (scr "emacs")
@@ -52,10 +51,6 @@ in {
   ] ++ optionals config.deviceSpecific.isLaptop [
     (scr "battery")
     (scrint "brightness" 5)
-  ] ++ [
-    (scrint "connections" 10)
-    (scr "df")
-    (scr "date")
-    (scrint "time" 1)
-  ]);
+  ] ++ optional (config.deviceSpecific.devInfo ? bigScreen) (scrint "network" 1)
+    ++ [ (scrint "connections" 10) (scr "df") (scr "date") (scrint "time" 1) ]);
 }
