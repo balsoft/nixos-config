@@ -34,6 +34,5 @@ main = do
   Statistics rx tx <- readInterfaces interfaces
   threadDelay 1000000
   Statistics rx' tx' <- readInterfaces interfaces
-  putStrLn
-    $  (bool (icon "\58052") "" (rx' - rx > 100))
-    ++ (bool (icon "\58054") "" (tx' - tx > 100))
+  putStrLn $ (icon "\58052") ++ (show $ round $ (rx' - rx) / 10^3)
+          ++ (icon "\58054") ++ (show $ round $ (tx' - tx) / 10^3)
