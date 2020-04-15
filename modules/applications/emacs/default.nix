@@ -40,6 +40,11 @@
           elixir-mode
           company-box
           ws-butler
+          yaml-mode
+          gitlab-ci-mode
+          gitlab-ci-mode-flycheck
+          gitlab
+          github-issues
         ];
     };
 
