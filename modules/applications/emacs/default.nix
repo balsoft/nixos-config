@@ -45,6 +45,7 @@
           gitlab-ci-mode-flycheck
           gitlab
           github-issues
+          (github-pullrequest.overrideAttrs (oa: { buildInputs = oa.buildInputs ++ [pkgs.git]; }))
         ];
     };
 
