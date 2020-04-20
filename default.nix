@@ -5,21 +5,19 @@
 # This is main nixos configuration
 # To use this configuration:
 #   1. Add your own secret.nix to this folder
-#   2. Replace /etc/nixos/configuration.nix with the following:
-#      import /path/to/this/nixos-config "Vendor-Type"
+#   2. ./install or ./bootstrap
 #   3. Log in to application and services where neccesary
 
-device: # This is the device we're on now
 { config, pkgs, lib, ... }:
 let sources = import ./nix/sources.nix;
-in {
+in rec {
   imports = [
     "${./hardware-configuration}/${device}.nix"
     "${sources.home-manager}/nixos"
     (import ./modules device)
   ];
 
-  inherit device;
+  device = builtins.replaceStrings ["\n"] [""] (builtins.readFile /etc/hostname);
 
   system.stateVersion = "18.03";
 }
