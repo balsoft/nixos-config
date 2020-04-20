@@ -41,8 +41,8 @@ with import ../support.nix { inherit lib config; }; {
         desktop = "org.kde.ark";
       };
       mail = {
-        cmd = "${pkgs.trojita}/bin/trojita";
-        desktop = "trojita";
+        cmd = "${pkgs.sylpheed}/bin/sylpheed";
+        desktop = "sylpheed";
       };
       text_processor = {
         cmd = "${pkgs.abiword}/bin/abiword";
@@ -53,11 +53,11 @@ with import ../support.nix { inherit lib config; }; {
         desktop = "gnumeric";
       };
     };
-    home-manager.users.balsoft.xdg.configFile."mimeapps.list.home".text =
+    home-manager.users.balsoft.xdg.mimeApps.defaultApplications =
 
       with config.defaultApplications;
-      let
-        apps = builtins.mapAttrs (name: value: "${value.desktop}.desktop;") {
+      builtins.mapAttrs (name: value:
+        if value ? desktop then [ "${value.desktop}.desktop" ] else value) {
           "text/html" = browser;
           "image/*" = { desktop = "org.kde.gwenview"; };
           "application/x-bittorrent" = torrent;
@@ -81,22 +81,5 @@ with import ../support.nix { inherit lib config; }; {
           "text/plain" =
             editor; # This actually makes Emacs an editor for everything... XDG is wierd
         };
-      in genIni {
-        "Default Applications" = apps;
-        "Added Associations" = apps;
-      };
-    home-manager.users.balsoft.xdg.configFile."filetypesrc".text = genIni {
-      EmbedSettings = {
-        "embed-application/*" = false;
-        "embed-text/*" = false;
-        "embed-text/plain" = false;
-      };
-    };
-    home-manager.users.balsoft.home.activation.mimeapps = {
-      before = [ ];
-      after = [ "linkGeneration" ];
-      data =
-        "$DRY_RUN_CMD cp ~/.config/mimeapps.list.home ~/.config/mimeapps.list";
-    };
   };
 }
