@@ -7,7 +7,6 @@ set -ex
 
 mkdir -p /mnt/home/balsoft/projects
 nixos-generate-config --root /mnt
-echo import /home/balsoft/projects/nixos-config \"$(hostname)\" > /mnt/etc/nixos/configuration.nix
 cd /mnt/home/balsoft/projects
 [ -d nixos-config ] || git clone ssh://git@github.com/balsoft/nixos-config
 cd nixos-config
@@ -43,4 +42,4 @@ mount --rbind /mnt/nix /nix
 nix build -f /tmp/nixpkgs/nixos system --substituters "https://cache.balsoft.ru https://cache.nixos.org" --no-require-sigs
 nixos-install --system ./result
 cd /mnt/home/balsoft
-chmod 777 -R .
+chown 1000:100 . -R
