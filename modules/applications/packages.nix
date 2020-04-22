@@ -73,6 +73,7 @@
       gitAndTools.hub
       nix-patch
       waypipe
+      cachix
     ] ++ (with pkgs.kdeApplications; [
       ark
       dolphin
