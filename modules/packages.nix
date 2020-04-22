@@ -163,7 +163,6 @@ in { pkgs, config, lib, ... }: {
     ];
     binaryCaches = [
       "https://cache.nixos.org"
-      "https://all-hies.cachix.org"
       "https://cache.balsoft.ru"
     ];
 
