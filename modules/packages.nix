@@ -16,8 +16,6 @@ in { pkgs, config, lib, ... }: {
 
         inherit (nur.balsoft.pkgs) termNote lambda-launcher nix-patch;
 
-        nixfmt = self.callPackage imports.nixfmt { };
-
         inherit (import imports.niv { }) niv;
 
         all-hies = import imports.all-hies { };
@@ -70,7 +68,8 @@ in { pkgs, config, lib, ... }: {
           src = imports.nheko;
         });
 
-        sway-unwrapped = (new.sway-unwrapped.override { wlroots = wlroots'; }).overrideAttrs
+        sway-unwrapped =
+          (new.sway-unwrapped.override { wlroots = wlroots'; }).overrideAttrs
           (oa: rec {
             name = "${pname}-${version}";
             pname = "sway";
@@ -101,33 +100,10 @@ in { pkgs, config, lib, ... }: {
 
         nerdfonts = nur.balsoft.pkgs.roboto-mono-nerd;
 
-        mopidy = super.mopidy.overridePythonAttrs (oa: {
-          src = imports.mopidy;
-          propagatedBuildInputs = with self.pythonPackages; [
-            gst-python
-            pygobject3
-            pykka2
-            tornado_4
-            requests
-            setuptools
-            dbus-python
-            protobuf
-          ];
-        });
+        mpd-mpris = super.mpd-mpris.overrideAttrs
+          (oa: { patches = [ ./mpd-mpris.patch ]; });
 
-        mopidy-youtube = super.mopidy-youtube.overridePythonAttrs (oa: {
-          propagatedBuildInputs = oa.propagatedBuildInputs
-            ++ (with self.pythonPackages; [ cachetools requests-cache ]);
-          src = imports.mopidy-youtube;
-        });
-        mopidy-gmusic = super.mopidy-gmusic.overridePythonAttrs (oa: {
-          propagatedBuildInputs = oa.propagatedBuildInputs ++ [ self.pythonPackages.protobuf ];
-        });
-        mpd-mpris = super.mpd-mpris.overrideAttrs (oa: {
-          patches = [ ./mpd-mpris.patch ];
-        });
-
-        mautrix-telegram = old.mautrix-telegram;
+        inherit (old) mautrix-telegram;
 
         pythonPackages = super.pythonPackages.override {
           overrides = (self: super: {
@@ -141,7 +117,6 @@ in { pkgs, config, lib, ... }: {
               (oldAttrs: oldAttrs // { meta.priority = 1000; });
           });
         };
-
 
         ebtables = old.ebtables;
       } // (if config.device == "Prestigio-Laptop" then {
@@ -161,18 +136,13 @@ in { pkgs, config, lib, ... }: {
       "nixpkgs=/etc/nixpkgs"
       "nixos-config=/etc/nixos/configuration.nix"
     ];
-    binaryCaches = [
-      "https://cache.nixos.org"
-      "https://cache.balsoft.ru"
-    ];
+    binaryCaches = [ "https://cache.nixos.org" "https://cache.balsoft.ru" ];
 
     trustedUsers = [ "root" "balsoft" "@wheel" ];
 
     optimise.automatic = true;
 
-    binaryCachePublicKeys = [
-      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-      "all-hies.cachix.org-1:JjrzAOEUsD9ZMt8fdFbzo3jNAyEWlPAwdVuHw4RD43k="
-    ];
+    binaryCachePublicKeys =
+      [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
   };
 }

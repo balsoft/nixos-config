@@ -20,15 +20,7 @@
       frei0r
       ffmpeg-full
       ghc
-      (all-hies.selection {
-        selector = p:
-          let
-            ghcVersion =
-              builtins.concatStringsSep "" (builtins.splitVersion ghc.version);
-          in { ${"ghc${ghcVersion}"} = p.${"ghc${ghcVersion}"}; };
-      })
       haskellPackages.hoogle
-      haskellPackages.hindent
       clang
       clang-tools
       lldb

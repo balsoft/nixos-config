@@ -37,6 +37,7 @@
         (builtins.toJSON config.secrets.matrix.mautrix-whatsapp.registration))
     ];
   };
+  services.postgresql.enable = true;
   home-manager.users.balsoft.xsession.windowManager.i3.config.startup = [{
     command = "anbox launch --package=com.whatsapp --component=.HomeActivity";
   }];

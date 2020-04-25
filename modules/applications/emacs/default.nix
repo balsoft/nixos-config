@@ -51,14 +51,14 @@
 
     home.packages = [
       (pkgs.makeDesktopItem {
-        terminal = "False";
+        terminal = "false";
         type = "Application";
         name = "emacsclient";
         genericName = "Text editor";
         desktopName = "Emacs client";
         mimeType = "text/plain";
         exec = "emacsclient -s /tmp/emacs1000/server -c %F";
-        categories = "Development;TextEditor;";
+        categories = "Development;TextEditor;Utility;";
         icon = "emacs";
       })
       pkgs.clang
