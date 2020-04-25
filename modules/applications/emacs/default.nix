@@ -46,6 +46,7 @@
           gitlab
           github-issues
           (github-pullrequest.overrideAttrs (oa: { buildInputs = oa.buildInputs ++ [pkgs.git]; }))
+          nix-buffer
         ];
     };
 
