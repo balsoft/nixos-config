@@ -5,7 +5,6 @@
     lib.optionals config.deviceSpecific.goodMachine [
       kded
       ntfs3g
-      nixFlakes
     ];
 
   home-manager.users.balsoft.home.packages = with pkgs;
