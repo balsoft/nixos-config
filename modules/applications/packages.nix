@@ -67,7 +67,7 @@
       nix-patch
       waypipe
       cachix
-      inputs.yt-utilities.packages.x86_64-linux.yt-utilities
+      inputs.yt-utilities.defaultPackage.x86_64-linux
     ] ++ (with pkgs.kdeApplications; [
       ark
       dolphin

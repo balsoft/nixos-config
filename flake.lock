@@ -220,7 +220,6 @@
       }
     },
     "nixpkgs_4": {
-      "flake": false,
       "info": {
         "lastModified": 1587390417,
         "narHash": "sha256-dLQebnBviLNiN2Ei3Iqyxm73EFwz77YcvitvMYwRNA8="
@@ -311,8 +310,8 @@
     },
     "yt-utilities": {
       "info": {
-        "lastModified": 1588000814,
-        "narHash": "sha256-mfNM9UsEcmdBzzeKixbWWwy9GtScF57/7xxzSBcQbYc=",
+        "lastModified": 1588006875,
+        "narHash": "sha256-u9CWK+nvCdkB5IlOLu/5BT9gzhZuh+SRcazRZV+vLuM=",
         "revCount": 288
       },
       "inputs": {
@@ -321,7 +320,7 @@
       },
       "locked": {
         "ref": "flake",
-        "rev": "5155de6cbdbf45905e1978cc43004e2cf75c0fe2",
+        "rev": "4485a1d87b027870bb1278cf827f5dc33d8367e9",
         "type": "git",
         "url": "ssh://git@github.com/serokell/yt-utilities"
       },
