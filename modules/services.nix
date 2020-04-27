@@ -36,6 +36,8 @@
 
   services.pcscd.enable = true;
   hardware.u2f.enable = true;
+
+  services.keybase.enable = true;
   
   services.upower.enable = true;
   virtualisation.docker.enable = config.deviceSpecific.isHost;
