@@ -9,16 +9,15 @@
 #   3. ./install or ./bootstrap
 #   4. Log in to application and services where neccesary
 
-{ config, pkgs, lib, ... }:
-let sources = import ./nix/sources.nix;
-in rec {
+{ config, pkgs, lib, inputs, name, ... }:
+rec {
   imports = [
-    "${./hardware-configuration}/${device}.nix"
-    "${sources.home-manager}/nixos"
+    (./hardware-configuration + "/${name}.nix")
+    inputs.home-manager.nixosModules.home-manager
     (import ./modules device)
   ];
 
-  device = builtins.replaceStrings ["\n"] [""] (builtins.readFile /etc/hostname);
+  device = name;
 
   system.stateVersion = "18.03";
 }

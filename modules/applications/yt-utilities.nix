@@ -10,6 +10,6 @@
       since = "1997-11-19";
       severity = "Info";
     };
-    home.packages = [ pkgs.yt-utilities ];
+    # home.packages = [ pkgs.yt-utilities ];
   };
 }

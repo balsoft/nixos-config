@@ -1,24 +1,18 @@
+{ pkgs, config, lib, inputs, ... }:
 let
-  imports = import ../nix/sources.nix;
-  new = import imports.nixpkgs-unstable { config.allowUnfree = true; };
   filterGit =
     builtins.filterSource (type: name: name != ".git" || type != "directory");
-  old = import imports.nixpkgs-old { };
-in { pkgs, config, lib, ... }: {
+  old = import inputs.nixpkgs-old ({ config = config.nixpkgs.config; localSystem = { system = "x86_64-linux"; }; });
+in
+{
   nixpkgs.overlays = [
     (self: super:
       rec {
-        inherit imports;
-
-        unstable = new;
-
-        nur = (import imports.NUR { pkgs = old; }).repos;
+        nur = (import inputs.NUR { pkgs = old; nurpkgs = pkgs; }).repos;
 
         inherit (nur.balsoft.pkgs) termNote lambda-launcher nix-patch;
 
-        inherit (import imports.niv { }) niv;
-
-        all-hies = import imports.all-hies { };
+        all-hies = import inputs.all-hies { };
 
         yt-utilities =
           import (self.fetchgit config.secrets.yt-utilities.source) { };
@@ -39,7 +33,7 @@ in { pkgs, config, lib, ... }: {
             "-DBoost_LIBRARY_DIR_RELEASE=${pkgs.boost170}"
           ];
           version = "0.3.0";
-          src = imports.mtxclient;
+          src = inputs.mtxclient;
         });
 
         nheko = super.nheko.overrideAttrs (oa: rec {
@@ -65,38 +59,8 @@ in { pkgs, config, lib, ... }: {
           ];
           pname = "nheko";
           version = "0.7.0";
-          src = imports.nheko;
+          src = inputs.nheko;
         });
-
-        sway-unwrapped =
-          (new.sway-unwrapped.override { wlroots = wlroots'; }).overrideAttrs
-          (oa: rec {
-            name = "${pname}-${version}";
-            pname = "sway";
-            version = "master";
-            patches = [ ];
-            src = imports.sway;
-          });
-
-        wlroots' = new.wlroots.overrideAttrs (oa: rec {
-          name = "${pname}-${version}";
-          outputs = [ "out" ];
-          postFixup = "true";
-          postInstall = "true";
-          pname = "wlroots";
-          patches = [ ];
-          version = "master";
-          src = imports.wlroots;
-        });
-
-        wl-clipboard = new.wl-clipboard.overrideAttrs (oa: rec {
-          name = "${pname}-${version}";
-          pname = "wl-clipboard";
-          version = "master";
-          src = imports.wl-clipboard;
-        });
-
-        inherit (new) kanshi mautrix-whatsapp cachix;
 
         nerdfonts = nur.balsoft.pkgs.roboto-mono-nerd;
 
@@ -108,7 +72,7 @@ in { pkgs, config, lib, ... }: {
         pythonPackages = super.pythonPackages.override {
           overrides = (self: super: {
             pykka2 = super.pykka.overridePythonAttrs (oa: {
-              src = imports.pykka;
+              src = inputs.pykka;
               version = "2.0.1";
               name = "pykka-2.0.1";
             });
@@ -124,13 +88,12 @@ in { pkgs, config, lib, ... }: {
       } else
         { }))
   ];
-  nixpkgs.pkgs = import imports.nixpkgs {
-    config.allowUnfree = true;
-    config.android_sdk.accept_license = true;
-    config.firefox.enablePlasmaBrowserIntegration = true;
-  } // config.nixpkgs.config;
-
-  environment.etc.nixpkgs.source = imports.nixpkgs;
+  nixpkgs.config = {
+    allowUnfree = true;
+    android_sdk.accept_license = true;
+    firefox.enablePlasmaBrowserIntegration = true;
+  };
+  environment.etc.nixpkgs.source = inputs.nixpkgs;
   nix = rec {
     nixPath = lib.mkForce [
       "nixpkgs=/etc/nixpkgs"
@@ -146,5 +109,9 @@ in { pkgs, config, lib, ... }: {
       [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
 
     package = pkgs.nixFlakes;
+
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
   };
 }

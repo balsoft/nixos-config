@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, config, lib, inputs, ... }:
 let
   thm = config.themes.colors;
   thm' = builtins.mapAttrs (name: value: builtins.substring 1 7 value) thm;
@@ -30,7 +30,7 @@ in {
   nixpkgs.overlays = [(self: super: {
     generated-gtk-theme = self.stdenv.mkDerivation rec {
       name = "generated-gtk-theme";
-      src = pkgs.imports.materia-theme;
+      src = inputs.materia-theme;
       buildInputs = with self; [ sassc bc which inkscape optipng ];
       installPhase = ''
         HOME=/build

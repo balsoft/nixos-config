@@ -1,0 +1,276 @@
+{
+  "nodes": {
+    "NUR": {
+      "info": {
+        "lastModified": 1587939076,
+        "narHash": "sha256-UI/Q4YXvhEoYYulOV6MnAx7dSuQYhQEN1OhGw/wD6mI="
+      },
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "owner": "nix-community",
+        "repo": "NUR",
+        "rev": "f0119b0c3041be14a7113b2e24b46b3c458377e4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "NUR",
+        "type": "github"
+      }
+    },
+    "base16-unclaimed-schemes": {
+      "flake": false,
+      "info": {
+        "lastModified": 1527170198,
+        "narHash": "sha256-YV2tgexpyeLqm6d8WaBwT9QPAHT/gxhiFpxQq03xdhA="
+      },
+      "locked": {
+        "owner": "chriskempson",
+        "repo": "base16-unclaimed-schemes",
+        "rev": "d6b93456dc1012628faec572387814f59e0b854a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "chriskempson",
+        "repo": "base16-unclaimed-schemes",
+        "type": "github"
+      }
+    },
+    "home-manager": {
+      "info": {
+        "lastModified": 1587442074,
+        "narHash": "sha256-SmC1aP9TJImzHlNIWOTa+uwePeHoEcfGJEewXXWAtfc="
+      },
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "owner": "rycee",
+        "repo": "home-manager",
+        "rev": "e13bd1e79372c58cc1e86e45bdf304f4b6770fe3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rycee",
+        "ref": "bqv-flakes",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "materia-theme": {
+      "flake": false,
+      "info": {
+        "lastModified": 1587550712,
+        "narHash": "sha256-RMifAu3dpSpXu4AdWXwO+zFgr7OHhgsj5oHOAfPNVF8="
+      },
+      "locked": {
+        "owner": "nana-4",
+        "repo": "materia-theme",
+        "rev": "b36b379c9256b67e5f63a60c6faf6912f1845b66",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nana-4",
+        "repo": "materia-theme",
+        "type": "github"
+      }
+    },
+    "mtxclient": {
+      "flake": false,
+      "info": {
+        "lastModified": 1578915159,
+        "narHash": "sha256-cwQT5j4ClrHCfMXF6g8RXS4WCMkg+rpfdjpH3SZQBY4="
+      },
+      "locked": {
+        "owner": "nheko-reborn",
+        "repo": "mtxclient",
+        "rev": "84c6778cc367bca79755e73e77b2cc69950375b2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nheko-reborn",
+        "ref": "84c6778cc367bca79755e73e77b2cc69950375b2",
+        "repo": "mtxclient",
+        "type": "github"
+      }
+    },
+    "nheko": {
+      "flake": false,
+      "info": {
+        "lastModified": 1579642615,
+        "narHash": "sha256-kdfoWPVJp1KkyYHX0FlLCQydi2x3qarKYxJx9vmoLuU="
+      },
+      "locked": {
+        "owner": "nheko-reborn",
+        "repo": "nheko",
+        "rev": "1943d1c74d5253ec9d2b7ee38f69d791d28e84c1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nheko-reborn",
+        "ref": "1943d1c74d5253ec9d2b7ee38f69d791d28e84c1",
+        "repo": "nheko",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "info": {
+        "narHash": "sha256-OnpEWzNxF/AU4KlqBXM2s5PWvfI5/BS6xQrPvkF5tO8="
+      },
+      "locked": {
+        "owner": "edolstra",
+        "repo": "nixpkgs",
+        "rev": "7f8d4b088e2df7fdb6b513bc2d6941f1d422a013",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs-old": {
+      "flake": false,
+      "info": {
+        "lastModified": 1581379743,
+        "narHash": "sha256-i1XCn9rKuLjvCdu2UeXKzGLF6IuQePQKFt4hEKRU5oc="
+      },
+      "locked": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "34c7eb7545d155cc5b6f499b23a7cb1c96ab4d59",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-19.03",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-wayland": {
+      "flake": false,
+      "info": {
+        "lastModified": 1587858280,
+        "narHash": "sha256-dDxUVUFMw3TGdiGVUT+QU0wRL1bleYmtvNf3Ah8aw14="
+      },
+      "locked": {
+        "owner": "colemickens",
+        "repo": "nixpkgs-wayland",
+        "rev": "724ac75779a1d411e89ebe0ab4aab721e0af525b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "colemickens",
+        "repo": "nixpkgs-wayland",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "info": {
+        "lastModified": 1587944902,
+        "narHash": "sha256-DS4R0WC23hcfTTuxb3b3lMdTQYaK5z/d+1ue9ZHUdtE="
+      },
+      "locked": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "92d9d07c61d06c044af0261ab1741340151e4d3b",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs_3": {
+      "info": {
+        "lastModified": 1587944902,
+        "narHash": "sha256-DS4R0WC23hcfTTuxb3b3lMdTQYaK5z/d+1ue9ZHUdtE="
+      },
+      "locked": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "92d9d07c61d06c044af0261ab1741340151e4d3b",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
+    "root": {
+      "inputs": {
+        "NUR": "NUR",
+        "base16-unclaimed-schemes": "base16-unclaimed-schemes",
+        "home-manager": "home-manager",
+        "materia-theme": "materia-theme",
+        "mtxclient": "mtxclient",
+        "nheko": "nheko",
+        "nixpkgs": "nixpkgs_3",
+        "nixpkgs-old": "nixpkgs-old",
+        "nixpkgs-wayland": "nixpkgs-wayland",
+        "simple-nixos-mailserver": "simple-nixos-mailserver",
+        "weechat-notify-send": "weechat-notify-send",
+        "weechat-scripts": "weechat-scripts"
+      }
+    },
+    "simple-nixos-mailserver": {
+      "flake": false,
+      "info": {
+        "lastModified": 1587594197,
+        "narHash": "sha256-h1WOSGZ9y2HktNLBypphNovFIWuZ/on+WO0XFF72EPU=",
+        "revCount": 409
+      },
+      "locked": {
+        "ref": "master",
+        "rev": "899d68ac7ab8580ff0ca05860bf81381ae172ae3",
+        "type": "git",
+        "url": "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver"
+      },
+      "original": {
+        "ref": "master",
+        "type": "git",
+        "url": "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver"
+      }
+    },
+    "weechat-notify-send": {
+      "flake": false,
+      "info": {
+        "lastModified": 1584284218,
+        "narHash": "sha256-Fj9FuT1Q97yZMvAvH9oGZJWO8d1QutwBhDalPlRrQnA="
+      },
+      "locked": {
+        "owner": "s3rvac",
+        "repo": "weechat-notify-send",
+        "rev": "3390f91a3af23fc49ebb77771d78732501738241",
+        "type": "github"
+      },
+      "original": {
+        "owner": "s3rvac",
+        "repo": "weechat-notify-send",
+        "type": "github"
+      }
+    },
+    "weechat-scripts": {
+      "flake": false,
+      "info": {
+        "lastModified": 1585408181,
+        "narHash": "sha256-ytASrd9KqlB2vdeF/0CLgXPJrw+FU7m5BtHljVncErY="
+      },
+      "locked": {
+        "owner": "weechat",
+        "repo": "scripts",
+        "rev": "5955bc4cabe8bdfa0c6b5f5ecfbe23df6e5560c1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "weechat",
+        "repo": "scripts",
+        "type": "github"
+      }
+    }
+  },
+  "root": "root",
+  "version": 5
+}

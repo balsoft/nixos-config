@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, config, inputs, ... }:
 let
   weechat = pkgs.weechat.override {
     configure = { availablePlugins, ... }: {
@@ -11,10 +11,10 @@ in {
       "${(import ../../nix/sources.nix).weechat-notify-send}/notify_send.py";
 
     home.file.".weechat/perl/autoload/multiline.pl".source =
-      "${pkgs.imports.scripts}/perl/multiline.pl";
+      "${inputs.weechat-scripts}/perl/multiline.pl";
 
     home.file.".weechat/python/autoload/go.py".source =
-      "${pkgs.imports.scripts}/python/go.py";
+      "${inputs.weechat-scripts}/python/go.py";
 
     home.file.".weechat/plugins.conf".text = ''
       [var]

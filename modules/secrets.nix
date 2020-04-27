@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, config, lib, inputs, ... }:
 with lib;
 with types;
 let
@@ -89,7 +89,7 @@ in rec {
     };
   };
   config = let
-    secretnix = import ../secret.nix;
+    secretnix = import inputs.secrets;
     secrets = if isNull secretnix then
       mapAttrs (n: v: null) options.secrets
     else

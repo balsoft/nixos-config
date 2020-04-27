@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 with lib;
 let
   colorType = types.str;
@@ -62,7 +62,7 @@ in {
   };
   config = {
     themes.colors = fromBase16 (fromYAML (builtins.readFile
-      "${pkgs.imports.base16-unclaimed-schemes}/irblack.yaml"));
+      "${inputs.base16-unclaimed-schemes}/irblack.yaml"));
     # themes.colors = {
     # bg = "#114c00";
     # bg = "#000000";
