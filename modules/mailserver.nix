@@ -1,6 +1,6 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, config, lib, inputs, ... }:
 let
-  module = toString (import ../nix/sources.nix).simple-nixos-mailserver;
+  module = toString inputs.simple-nixos-mailserver;
   readCommandResult = command:
     builtins.readFile (pkgs.runCommand "cmd" { preferLocalBuild = true; }
       "echo -n $(${command}) > $out");

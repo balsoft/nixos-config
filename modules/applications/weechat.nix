@@ -8,7 +8,7 @@ let
 in {
   home-manager.users.balsoft = {
     home.file.".weechat/python/autoload/notify_send.py".source =
-      "${(import ../../nix/sources.nix).weechat-notify-send}/notify_send.py";
+      "${inputs.weechat-notify-send}/notify_send.py";
 
     home.file.".weechat/perl/autoload/multiline.pl".source =
       "${inputs.weechat-scripts}/perl/multiline.pl";

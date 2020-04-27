@@ -89,7 +89,7 @@ in rec {
     };
   };
   config = let
-    secretnix = import inputs.secrets;
+    secretnix = import ../secret.nix;
     secrets = if isNull secretnix then
       mapAttrs (n: v: null) options.secrets
     else

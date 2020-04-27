@@ -80,11 +80,6 @@
       repo = "weechat-notify-send";
       flake = false;
     };
-    secrets = {
-      type = "path";
-      path = "./secret.nix";
-      flake = false;
-    };
   };
 
   outputs = { nixpkgs, ... }@inputs: {

@@ -63,6 +63,7 @@
       xdg_utils
       nheko
       gitAndTools.hub
+      git-crypt
       nix-patch
       waypipe
       cachix
