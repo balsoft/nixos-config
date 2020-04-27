@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }: {
+{ pkgs, config, lib, inputs, ... }: {
   programs.adb.enable = true;
 
   environment.systemPackages = with pkgs;
@@ -67,6 +67,7 @@
       nix-patch
       waypipe
       cachix
+      inputs.yt-utilities.packages.x86_64-linux.yt-utilities
     ] ++ (with pkgs.kdeApplications; [
       ark
       dolphin

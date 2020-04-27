@@ -80,6 +80,11 @@
       repo = "weechat-notify-send";
       flake = false;
     };
+    yt-utilities = {
+      type = "git";
+      url = "ssh://git@github.com/serokell/yt-utilities";
+      ref = "flake";
+    };
   };
 
   outputs = { nixpkgs, ... }@inputs: {
