@@ -5,12 +5,6 @@
   edition = 201909;
 
   inputs = {
-    nixpkgs = {
-      type = "github";
-      owner = "nixos";
-      repo = "nixpkgs-channels";
-      ref = "nixos-unstable";
-    };
     NUR = {
       type = "github";
       owner = "nix-community";

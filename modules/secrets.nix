@@ -89,8 +89,9 @@ in rec {
     };
   };
   config = let
+    unlocked = import (pkgs.runCommand "check-secret" {} "set +e; grep -qI . ${../secret.nix}; echo $? > $out") == 0;
     secretnix = import ../secret.nix;
-    secrets = if isNull secretnix then
+    secrets = if ! unlocked || isNull secretnix then
       mapAttrs (n: v: null) options.secrets
     else
       secretnix;
