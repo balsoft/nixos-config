@@ -19,7 +19,7 @@
       nntp_server=
       use_nntp_auth=0
       user_id=balsoft@balsoft.ru
-      password=${config.secrets.mail.password}
+      password=${config.secrets.mail.password or ""}
       inbox=inbox
       use_apop_auth=0
       remove_mail=1

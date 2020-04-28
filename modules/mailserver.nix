@@ -66,12 +66,14 @@ in {
     ];
     dnsBlacklistOverrides = ''
       balsoft.ru OK
-      ${builtins.concatStringsSep " OK \n" (builtins.attrNames config.devices)} OK
+      ${
+        builtins.concatStringsSep " OK \n" (builtins.attrNames config.devices)
+      } OK
       192.168.0.0/16 OK
     '';
   };
-  mailserver = {
-    enable = ! isNull config.secrets.mail.host;
+  mailserver = lib.mkIf (! isNull config.secrets.mail) {
+    enable = true;
     fqdn = config.secrets.mail.host;
     domains = [ config.secrets.mail.host ];
     loginAccounts = {

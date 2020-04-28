@@ -1,5 +1,5 @@
 { pkgs, config, lib, ... }:
-{
+lib.mkIf (! isNull config.secrets.openvpn) {
   services.openvpn = {
     servers = {
       client = {

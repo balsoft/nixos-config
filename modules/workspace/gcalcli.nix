@@ -1,5 +1,5 @@
 { pkgs, lib, config, ... }: {
-  home-manager.users.balsoft = {
+  home-manager.users.balsoft = lib.mkIf (! isNull config.secrets.gcal) {
     home.file.".gcalcli_oauth.home".text = lib.optionals
     (!(isNull config.secrets.gcal)) (builtins.toJSON {
       access_token = "";

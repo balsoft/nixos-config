@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }: {
+{ pkgs, config, lib, ... }: lib.mkIf (! isNull config.secrets.matrix) {
   services.matrix-synapse = {
     enable = true;
     allow_guest_access = true;

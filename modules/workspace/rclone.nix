@@ -1,5 +1,5 @@
 { pkgs, config, lib, ... }: {
-  home-manager.users.balsoft = {
+  home-manager.users.balsoft = lib.mkIf (!isNull config.secrets.rclone) {
     xdg.configFile."rclone/rclone.conf.home".text = config.secrets.rclone;
     home.activation."rclone" = {
       after = [ "linkGeneration" ];
@@ -16,15 +16,15 @@
     xsession.windowManager.i3.config.startup = [
       {
         command =
-        "${pkgs.rclone}/bin/rclone mount google:/ '/home/balsoft/cloud/Google Drive' --daemon";
+          "${pkgs.rclone}/bin/rclone mount google:/ '/home/balsoft/cloud/Google Drive' --daemon";
       }
       {
         command =
-        "${pkgs.rclone}/bin/rclone mount Yandex:/ '/home/balsoft/cloud/Yandex Disk' --daemon";
+          "${pkgs.rclone}/bin/rclone mount Yandex:/ '/home/balsoft/cloud/Yandex Disk' --daemon";
       }
       {
         command =
-        "${pkgs.rclone}/bin/rclone mount Dropbox:/ '/home/balsoft/cloud/Dropbox' --daemon";
+          "${pkgs.rclone}/bin/rclone mount Dropbox:/ '/home/balsoft/cloud/Dropbox' --daemon";
       }
     ];
   };

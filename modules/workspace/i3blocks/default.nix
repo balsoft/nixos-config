@@ -36,21 +36,18 @@ in {
   in ''
     interval=60
     markup=pango
-  '' + genIniOrdered (optional (config.secrets ? mail) (scr "email") ++ [
-    (scrint "weather" 600)
-    (scr "calendar")
-    (scr "emacs")
-    (scrint "youtrack-wage" 3600)
-    (scrint "music" 10)
-    (scrint "sound" 5)
-  ] ++ [
-    (scrint "cpu" 5)
-    (scrint "freq" 10)
-    (scr "temperature")
-    (scrint "free" 10)
-  ] ++ optionals config.deviceSpecific.isLaptop [
-    (scr "battery")
-    (scrint "brightness" 5)
-  ] ++ optional (config.deviceSpecific.devInfo ? bigScreen) (scrint "network" 1)
+  '' + genIniOrdered (optional (!isNull config.secrets.mail) (scr "email")
+    ++ [ (scrint "weather" 600) (scr "calendar") (scr "emacs") ]
+    ++ optional (!isNull config.secrets.wage) (scrint "youtrack-wage" 3600)
+    ++ [ (scrint "music" 10) (scrint "sound" 5) ] ++ [
+      (scrint "cpu" 5)
+      (scrint "freq" 10)
+      (scr "temperature")
+      (scrint "free" 10)
+    ] ++ optionals config.deviceSpecific.isLaptop [
+      (scr "battery")
+      (scrint "brightness" 5)
+    ]
+    ++ optional (config.deviceSpecific.devInfo ? bigScreen) (scrint "network" 1)
     ++ [ (scrint "connections" 10) (scr "df") (scr "date") (scrint "time" 1) ]);
 }

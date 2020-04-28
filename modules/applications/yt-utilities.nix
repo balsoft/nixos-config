@@ -1,5 +1,5 @@
-{ pkgs, config, lib, ... }: {
-  home-manager.users.balsoft = lib.mkIf (config.deviceSpecific.goodMachine) {
+{ pkgs, config, lib, ... }: lib.mkIf (! isNull config.secrets.yt-utilities) {
+  home-manager.users.balsoft =  {
     home.file.".yt.yaml".text = builtins.toJSON {
       yt-token = config.secrets.yt-utilities.token;
       user = config.secrets.yt-utilities.user;
@@ -10,6 +10,5 @@
       since = "1997-11-19";
       severity = "Info";
     };
-    # home.packages = [ pkgs.yt-utilities ];
   };
 }
