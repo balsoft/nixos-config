@@ -6,7 +6,7 @@
 # To use this configuration:
 #   1. Add your own secret.nix and hardware-configuration/`hostname`.nix to this folder
 #   2. Set the hostname to the desired one
-#   3. ./install or ./bootstrap
+#   3. `sudo nixos-rebuild switch --flake .`
 #   4. Log in to application and services where neccesary
 
 { config, pkgs, lib, inputs, name, ... }:
