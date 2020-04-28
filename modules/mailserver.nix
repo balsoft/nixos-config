@@ -71,7 +71,7 @@ in {
     '';
   };
   mailserver = {
-    enable = true;
+    enable = ! isNull config.secrets.mail.host;
     fqdn = config.secrets.mail.host;
     domains = [ config.secrets.mail.host ];
     loginAccounts = {
