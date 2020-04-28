@@ -2,13 +2,24 @@
 let
   filterGit =
     builtins.filterSource (type: name: name != ".git" || type != "directory");
-  old = import inputs.nixpkgs-old ({ config = config.nixpkgs.config; localSystem = { system = "x86_64-linux"; }; });
-in
-{
+  system = "x86_64-linux";
+  old = import inputs.nixpkgs-old ({
+    config = config.nixpkgs.config;
+    localSystem = { inherit system; };
+  });
+in {
   nixpkgs.overlays = [
+    inputs.nix.overlay
     (self: super:
       rec {
-        nur = (import inputs.NUR { pkgs = old; nurpkgs = pkgs; }).repos;
+        nix = super.nix // {
+          meta = super.nix.meta // { platforms = lib.platforms.unix; };
+        };
+
+        nur = (import inputs.NUR {
+          pkgs = old;
+          nurpkgs = pkgs;
+        }).repos;
 
         inherit (nur.balsoft.pkgs) termNote lambda-launcher nix-patch;
 
@@ -66,6 +77,13 @@ in
 
         mpd-mpris = super.mpd-mpris.overrideAttrs
           (oa: { patches = [ ./mpd-mpris.patch ]; });
+
+        mobile-broadband-provider-info =
+          super.mobile-broadband-provider-info.overrideAttrs (oa: {
+            src = inputs.mobile-broadband-provider-info;
+            nativeBuildInputs = [ self.autoreconfHook ];
+            buildInputs = [ self.libxslt ];
+          });
 
         inherit (old) mautrix-telegram;
 

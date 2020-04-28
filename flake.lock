@@ -95,6 +95,24 @@
         "type": "github"
       }
     },
+    "mobile-broadband-provider-info": {
+      "flake": false,
+      "info": {
+        "lastModified": 1586238386,
+        "narHash": "sha256-a2mHxmTkQr9bwuzfS7h8NWPDnAutmorm1IaOb2Ytvag=",
+        "revCount": 595
+      },
+      "locked": {
+        "ref": "master",
+        "rev": "43755b833aa4f0c79f2d6f04c1a2231ba106ea85",
+        "type": "git",
+        "url": "https://gitlab.gnome.org/GNOME/mobile-broadband-provider-info"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://gitlab.gnome.org/GNOME/mobile-broadband-provider-info"
+      }
+    },
     "mtxclient": {
       "flake": false,
       "info": {
@@ -131,6 +149,25 @@
         "ref": "1943d1c74d5253ec9d2b7ee38f69d791d28e84c1",
         "repo": "nheko",
         "type": "github"
+      }
+    },
+    "nix": {
+      "info": {
+        "lastModified": 1588020791,
+        "narHash": "sha256-I+GqqEKT1WTD+nAp1qU/9+cT40YwkvF4CJikMtzri8c="
+      },
+      "inputs": {
+        "nixpkgs": "nixpkgs_3"
+      },
+      "locked": {
+        "owner": "NixOS",
+        "repo": "nix",
+        "rev": "6521c92ce8289a5f9e959c6789ab24dacdad082e",
+        "type": "github"
+      },
+      "original": {
+        "id": "nix",
+        "type": "indirect"
       }
     },
     "nixpkgs": {
@@ -203,6 +240,23 @@
     },
     "nixpkgs_3": {
       "info": {
+        "lastModified": 1585405475,
+        "narHash": "sha256-bESW0n4KgPmZ0luxvwJ+UyATrC6iIltVCsGdLiphVeE="
+      },
+      "locked": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "b88ff468e9850410070d4e0ccd68c7011f15b2be",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "ref": "nixos-20.03-small",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs_4": {
+      "info": {
         "lastModified": 1587452212,
         "narHash": "sha256-Sn9xtMrUYmXCT33yQjNh0tWFwY7jF5x4vCUrkcXDMCE="
       },
@@ -219,7 +273,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_4": {
+    "nixpkgs_5": {
       "info": {
         "lastModified": 1587390417,
         "narHash": "sha256-dLQebnBviLNiN2Ei3Iqyxm73EFwz77YcvitvMYwRNA8="
@@ -242,9 +296,11 @@
         "base16-unclaimed-schemes": "base16-unclaimed-schemes",
         "home-manager": "home-manager",
         "materia-theme": "materia-theme",
+        "mobile-broadband-provider-info": "mobile-broadband-provider-info",
         "mtxclient": "mtxclient",
         "nheko": "nheko",
-        "nixpkgs": "nixpkgs_3",
+        "nix": "nix",
+        "nixpkgs": "nixpkgs_4",
         "nixpkgs-old": "nixpkgs-old",
         "nixpkgs-wayland": "nixpkgs-wayland",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
@@ -316,7 +372,7 @@
       },
       "inputs": {
         "haskell-nix": "haskell-nix",
-        "nixpkgs": "nixpkgs_4"
+        "nixpkgs": "nixpkgs_5"
       },
       "locked": {
         "ref": "flake",

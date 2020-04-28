@@ -7,7 +7,7 @@
       ntfs3g
     ];
 
-  home-manager.users.balsoft.home.packages = with pkgs;
+    home-manager.users.balsoft.home.packages = with pkgs;
     [
       # Internet
       wget
@@ -66,7 +66,6 @@
       git-crypt
       nix-patch
       waypipe
-      cachix
       inputs.yt-utilities.defaultPackage.x86_64-linux
     ] ++ (with pkgs.kdeApplications; [
       ark

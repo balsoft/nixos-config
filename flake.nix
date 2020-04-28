@@ -85,9 +85,14 @@
       url = "ssh://git@github.com/serokell/yt-utilities";
       ref = "flake";
     };
+    mobile-broadband-provider-info = {
+      type = "git";
+      url = "https://gitlab.gnome.org/GNOME/mobile-broadband-provider-info";
+      flake = false;
+    };
   };
 
-  outputs = { nixpkgs, ... }@inputs: {
+  outputs = { nixpkgs, nix, ... }@inputs: {
     nixosConfigurations = with nixpkgs.lib;
       let
         hosts = map (fname: builtins.head (builtins.match "(.*)\\.nix" fname))
