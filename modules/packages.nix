@@ -109,7 +109,7 @@ in {
       inherit (import inputs.nixpkgs-mopidy {
         localSystem.system = "x86_64-linux";
       })
-        mopidy mopidy-gmusic mopidy-mpd mopidy-mpris mopidy-youtube;
+        mopidy mopidy-gmusic mopidy-mpd mopidy-mpris mopidy-youtube pykka;
     })
   ];
   nixpkgs.config = {
