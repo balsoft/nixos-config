@@ -185,6 +185,25 @@
         "type": "indirect"
       }
     },
+    "nixpkgs-mopidy": {
+      "flake": false,
+      "info": {
+        "lastModified": 1579858055,
+        "narHash": "sha256-cbaNod+gStC32dcF15rUSsAWUa5ODXQhv0drnUpUz8I="
+      },
+      "locked": {
+        "owner": "NickHU",
+        "repo": "nixpkgs",
+        "rev": "fde5fd4beb6398e59bb639c003c6841dc2fa8579",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NickHU",
+        "ref": "mopidy",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-old": {
       "flake": false,
       "info": {
@@ -299,6 +318,7 @@
         "nheko": "nheko",
         "nix": "nix",
         "nixpkgs": "nixpkgs_4",
+        "nixpkgs-mopidy": "nixpkgs-mopidy",
         "nixpkgs-old": "nixpkgs-old",
         "nixpkgs-wayland": "nixpkgs-wayland",
         "simple-nixos-mailserver": "simple-nixos-mailserver",

@@ -5,6 +5,13 @@
   edition = 201909;
 
   inputs = {
+    nixpkgs-mopidy = {
+      type = "github";
+      owner = "NickHU";
+      repo = "nixpkgs";
+      ref = "mopidy";
+      flake = false;
+    };
     NUR = {
       type = "github";
       owner = "nix-community";

@@ -105,6 +105,12 @@ in {
         grub2 = super.pkgsi686Linux.grub2;
       } else
         { }))
+    (self: super: builtins.mapAttrs (_: v: pkgs.callPackage v.override { }) {
+      inherit (import inputs.nixpkgs-mopidy {
+        localSystem.system = "x86_64-linux";
+      })
+        mopidy mopidy-gmusic mopidy-mpd mopidy-mpris mopidy-youtube;
+    })
   ];
   nixpkgs.config = {
     allowUnfree = true;
