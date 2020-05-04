@@ -116,18 +116,18 @@
     "mtxclient": {
       "flake": false,
       "info": {
-        "lastModified": 1578915159,
-        "narHash": "sha256-cwQT5j4ClrHCfMXF6g8RXS4WCMkg+rpfdjpH3SZQBY4="
+        "lastModified": 1582462474,
+        "narHash": "sha256-YKsewl0836v4ZWYDVh6m8vwmn3B4mfo2eK+VtNikVJU="
       },
       "locked": {
         "owner": "nheko-reborn",
         "repo": "mtxclient",
-        "rev": "84c6778cc367bca79755e73e77b2cc69950375b2",
+        "rev": "7fc1d357afaabb134cb6d9c593f94915973d31fa",
         "type": "github"
       },
       "original": {
         "owner": "nheko-reborn",
-        "ref": "84c6778cc367bca79755e73e77b2cc69950375b2",
+        "ref": "0.3.0-dev",
         "repo": "mtxclient",
         "type": "github"
       }
@@ -135,18 +135,18 @@
     "nheko": {
       "flake": false,
       "info": {
-        "lastModified": 1579642615,
-        "narHash": "sha256-kdfoWPVJp1KkyYHX0FlLCQydi2x3qarKYxJx9vmoLuU="
+        "lastModified": 1583199044,
+        "narHash": "sha256-/ZBsWmIO0+bNLZfCvO/BHr5qpOvUvf/lAfvErmppGYI="
       },
       "locked": {
         "owner": "nheko-reborn",
         "repo": "nheko",
-        "rev": "1943d1c74d5253ec9d2b7ee38f69d791d28e84c1",
+        "rev": "6f248e75421f3742fedd3b5ea3d4d907f885267e",
         "type": "github"
       },
       "original": {
         "owner": "nheko-reborn",
-        "ref": "1943d1c74d5253ec9d2b7ee38f69d791d28e84c1",
+        "ref": "0.7.0-dev",
         "repo": "nheko",
         "type": "github"
       }
@@ -322,6 +322,7 @@
         "nixpkgs-old": "nixpkgs-old",
         "nixpkgs-wayland": "nixpkgs-wayland",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
+        "tweeny": "tweeny",
         "weechat-notify-send": "weechat-notify-send",
         "weechat-scripts": "weechat-scripts",
         "yt-utilities": "yt-utilities"
@@ -344,6 +345,24 @@
         "ref": "master",
         "type": "git",
         "url": "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver"
+      }
+    },
+    "tweeny": {
+      "flake": false,
+      "info": {
+        "lastModified": 1582937217,
+        "narHash": "sha256-9rSIa3t+WBzqtydStZf1pNozR8vq1dCcIlWo9E7xa2M="
+      },
+      "locked": {
+        "owner": "mobius3",
+        "repo": "tweeny",
+        "rev": "7c10995cb5f019cf8991941e1ae69e055b8eec3c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mobius3",
+        "repo": "tweeny",
+        "type": "github"
       }
     },
     "weechat-notify-send": {

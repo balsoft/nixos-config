@@ -47,6 +47,12 @@ in {
           src = inputs.mtxclient;
         });
 
+        tweeny = self.stdenv.mkDerivation {
+          name = "tweeny";
+          src = inputs.tweeny;
+          nativeBuildInputs = with self; [ cmake ];
+        };
+        
         nheko = super.nheko.overrideAttrs (oa: rec {
           name = "${pname}-${version}";
           buildInputs = with self; [
@@ -58,6 +64,7 @@ in {
             lmdb
             spdlog
             cmark
+            tweeny
             qt5.qtbase
             qt5.qtmultimedia
             qt5.qttools

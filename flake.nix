@@ -40,14 +40,20 @@
       type = "github";
       owner = "nheko-reborn";
       repo = "mtxclient";
-      ref = "84c6778cc367bca79755e73e77b2cc69950375b2";
+      ref = "0.3.0-dev";
+      flake = false;
+    };
+    tweeny = {
+      type = "github";
+      owner = "mobius3";
+      repo = "tweeny";
       flake = false;
     };
     nheko = {
       type = "github";
       owner = "nheko-reborn";
       repo = "nheko";
-      ref = "1943d1c74d5253ec9d2b7ee38f69d791d28e84c1";
+      ref = "0.7.0-dev";
       flake = false;
     };
     nixpkgs-old = {
