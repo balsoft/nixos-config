@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }: {
+{ pkgs, lib, config, inputs, ... }: {
   programs.sway.enable = true;
   users.users.balsoft.extraGroups = [ "sway" ];
   systemd.coredump.enable = true;
@@ -15,6 +15,19 @@
     NIX_AUTO_RUN = "1";
   };
   services.atd.enable = true;
+
+  containers.fhs-compat.config = {...}: {
+    imports = [ inputs.nixos-fhs-compat.nixosModules.combined ];
+
+    environment.fhs.enable = true;
+    environment.fhs.linkLibs = true;
+    environment.lsb.enable = true;
+
+    users.users.balsoft = {
+      isNormalUser = true;
+      password = "";
+    };
+  };
 
   home-manager.users.balsoft = {
     xdg.enable = true;

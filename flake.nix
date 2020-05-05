@@ -40,7 +40,7 @@
       type = "github";
       owner = "nheko-reborn";
       repo = "mtxclient";
-      ref = "0.3.0-dev";
+      ref = "v0.3.0";
       flake = false;
     };
     tweeny = {
@@ -53,7 +53,7 @@
       type = "github";
       owner = "nheko-reborn";
       repo = "nheko";
-      ref = "0.7.0-dev";
+      ref = "v0.7.1";
       flake = false;
     };
     nixpkgs-old = {
@@ -96,6 +96,11 @@
       type = "git";
       url = "https://gitlab.gnome.org/GNOME/mobile-broadband-provider-info";
       flake = false;
+    };
+    nixos-fhs-compat = {
+      type = "github";
+      owner = "balsoft";
+      repo = "nixos-fhs-compat";
     };
   };
 
