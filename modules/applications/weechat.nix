@@ -2,7 +2,7 @@
 let
   weechat = pkgs.weechat.override {
     configure = { availablePlugins, ... }: {
-      scripts = with pkgs.weechatScripts; [ wee-slack ];
+      scripts = with pkgs.weechatScripts; [ wee-slack weechat-matrix ];
     };
   };
 in {

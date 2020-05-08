@@ -36,26 +36,6 @@
       repo = "materia-theme";
       flake = false;
     };
-    mtxclient = {
-      type = "github";
-      owner = "nheko-reborn";
-      repo = "mtxclient";
-      ref = "v0.3.0";
-      flake = false;
-    };
-    tweeny = {
-      type = "github";
-      owner = "mobius3";
-      repo = "tweeny";
-      flake = false;
-    };
-    nheko = {
-      type = "github";
-      owner = "nheko-reborn";
-      repo = "nheko";
-      ref = "v0.7.1";
-      flake = false;
-    };
     nixpkgs-old = {
       type = "github";
       owner = "nixos";

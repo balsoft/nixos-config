@@ -44,5 +44,4 @@
   virtualisation.libvirtd = {
     enable = config.deviceSpecific.isHost;
   };
-  virtualisation.anbox.enable = true;
 }

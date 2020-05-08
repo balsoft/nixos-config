@@ -111,44 +111,6 @@
         "url": "https://gitlab.gnome.org/GNOME/mobile-broadband-provider-info"
       }
     },
-    "mtxclient": {
-      "flake": false,
-      "info": {
-        "lastModified": 1587078014,
-        "narHash": "sha256-wmlXEd5IKZzkEonWzK7Kn7JNla0tPzf1piU6b2ztxW0="
-      },
-      "locked": {
-        "owner": "nheko-reborn",
-        "repo": "mtxclient",
-        "rev": "61ddbb23893b1079e1b3d4bcf4aeca7718b7faa5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nheko-reborn",
-        "ref": "v0.3.0",
-        "repo": "mtxclient",
-        "type": "github"
-      }
-    },
-    "nheko": {
-      "flake": false,
-      "info": {
-        "lastModified": 1587684386,
-        "narHash": "sha256-vilOyK5pz3sozbkrykr4u9AjaZanZpnc7Dodm9eKXYs="
-      },
-      "locked": {
-        "owner": "nheko-reborn",
-        "repo": "nheko",
-        "rev": "14ce840649f201281017aac957b61b1f2118f5a1",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nheko-reborn",
-        "ref": "v0.7.1",
-        "repo": "nheko",
-        "type": "github"
-      }
-    },
     "nix": {
       "info": {
         "lastModified": 1588697973,
@@ -276,13 +238,13 @@
     },
     "nixpkgs_3": {
       "info": {
-        "lastModified": 1588110642,
-        "narHash": "sha256-A5Sqy2PAJOYaTIjHOTo3ZFbUtd1r6uZf9ymcbSyMh9Q="
+        "lastModified": 1588848333,
+        "narHash": "sha256-+t4PW8kLBe1VOZL8SFUTu3P1rNPulhYFwxkxrV2yyYY="
       },
       "locked": {
-        "owner": "nixos",
+        "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "a0ebabf60a3febbd0ba4b401b13503e1fae24934",
+        "rev": "c83f7b89c96e1f81d1745b65d2134b1e278f8c99",
         "type": "github"
       },
       "original": {
@@ -314,8 +276,6 @@
         "home-manager": "home-manager",
         "materia-theme": "materia-theme",
         "mobile-broadband-provider-info": "mobile-broadband-provider-info",
-        "mtxclient": "mtxclient",
-        "nheko": "nheko",
         "nix": "nix",
         "nixos-fhs-compat": "nixos-fhs-compat",
         "nixpkgs": "nixpkgs_3",
@@ -323,7 +283,6 @@
         "nixpkgs-old": "nixpkgs-old",
         "nixpkgs-wayland": "nixpkgs-wayland",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
-        "tweeny": "tweeny",
         "weechat-notify-send": "weechat-notify-send",
         "weechat-scripts": "weechat-scripts",
         "yt-utilities": "yt-utilities"
@@ -346,24 +305,6 @@
         "ref": "master",
         "type": "git",
         "url": "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver"
-      }
-    },
-    "tweeny": {
-      "flake": false,
-      "info": {
-        "lastModified": 1582937217,
-        "narHash": "sha256-9rSIa3t+WBzqtydStZf1pNozR8vq1dCcIlWo9E7xa2M="
-      },
-      "locked": {
-        "owner": "mobius3",
-        "repo": "tweeny",
-        "rev": "7c10995cb5f019cf8991941e1ae69e055b8eec3c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "mobius3",
-        "repo": "tweeny",
-        "type": "github"
       }
     },
     "weechat-notify-send": {
