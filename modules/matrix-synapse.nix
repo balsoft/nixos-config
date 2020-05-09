@@ -47,7 +47,6 @@
     wantedBy = [ "multi-user.target" ];
     requires = [
       "matrix-synapse.service"
-      "anbox-container-manager.service"
       "network-online.target"
     ];
     serviceConfig = {
