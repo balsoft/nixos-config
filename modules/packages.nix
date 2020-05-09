@@ -23,6 +23,8 @@ in {
 
         inherit (nur.balsoft.pkgs) termNote lambda-launcher nix-patch;
 
+        inherit (old) mautrix-telegram;
+
         yt-utilities =
           import (self.fetchgit config.secrets.yt-utilities.source) { };
 

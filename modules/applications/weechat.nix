@@ -2,8 +2,8 @@
 let
   weechat-matrix = pkgs.weechatScripts.weechat-matrix.overrideAttrs (_: {
     src = pkgs.fetchzip {
-      url = "https://github.com/myii/weechat-matrix/archive/feat/enable-replies.tar.gz";
-      sha256 = "sha256-EJI1r6Fr9X8SOGHpAUjZyNKS/uTb+DXjtQYv80BVWEE=";
+      url = "https://github.com/balsoft/weechat-matrix/archive/feat/enable-replies.tar.gz";
+      sha256 = "sha256-GdUu/dfFy8bcEF2plon9/c+9zh9nqfAqKQd8cuUT4PE=";
     };
   });
   weechat = pkgs.weechat.override {
@@ -106,16 +106,16 @@ in {
       [color]
       error_message_bg = default
       error_message_fg = darkgray
-      quote_bg = default
+      quote_bg = darkgray
       quote_fg = lightgreen
       unconfirmed_message_bg = default
       unconfirmed_message_fg = darkgray
-      untagged_code_bg = default
+      untagged_code_bg = darkgray
       untagged_code_fg = blue
 
       [server]
       balsoft.address = "matrix.balsoft.ru"
-      balsoft.autoconnect = "off"
+      balsoft.autoconnect = "on"
       balsoft.autoreconnect_delay = "10"
       balsoft.device_name = "Weechat"
       balsoft.password = "${if ! isNull config.secrets.matrix.password then config.secrets.matrix.password else ""}"
