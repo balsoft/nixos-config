@@ -55,6 +55,11 @@ in {
     ];
     binaryCaches = [ "https://cache.nixos.org" "https://cache.balsoft.ru" ];
 
+    registry.nixpkgs = {
+      from = { id = "nixpkgs"; type = "indirect"; };
+      flake = inputs.nixpkgs;
+    };
+
     trustedUsers = [ "root" "balsoft" "@wheel" ];
 
     nrBuildUsers = 16;
