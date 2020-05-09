@@ -1,8 +1,17 @@
 { pkgs, lib, config, inputs, ... }:
 let
+  weechat-matrix = pkgs.weechatScripts.weechat-matrix.overrideAttrs (_: {
+    src = pkgs.fetchzip {
+      url = "https://github.com/myii/weechat-matrix/archive/feat/enable-replies.tar.gz";
+      sha256 = "sha256-EJI1r6Fr9X8SOGHpAUjZyNKS/uTb+DXjtQYv80BVWEE=";
+    };
+  });
   weechat = pkgs.weechat.override {
     configure = { availablePlugins, ... }: {
-      scripts = with pkgs.weechatScripts; [ wee-slack weechat-matrix ];
+      scripts = [ pkgs.weechatScripts.wee-slack weechat-matrix ];
+      plugins = [
+        (availablePlugins.python.withPackages (ps: [ weechat-matrix ]))
+      ];
     };
   };
 in {
@@ -17,43 +26,105 @@ in {
       "${inputs.weechat-scripts}/python/go.py";
 
     home.file.".weechat/plugins.conf".text = ''
-        [var]
-        python.slack.auto_open_threads = "true"
-        python.slack.background_load_all_history = "true"
-        python.slack.channel_name_typing_indicator = "true"
-        python.slack.color_buflist_muted_channels = "darkgray"
-        python.slack.color_edited_suffix = "095"
-        python.slack.color_reaction_suffix = "darkgray"
-        python.slack.color_thread_suffix = "lightcyan"
-        python.slack.colorize_private_chats = "false"
-        python.slack.debug_level = "3"
-        python.slack.debug_mode = "false"
-        python.slack.distracting_channels = ""
-        python.slack.external_user_suffix = "*"
-        python.slack.files_download_location = "/home/balsoft/Downloads/slack"
-        python.slack.group_name_prefix = "&"
-        python.slack.map_underline_to = "_"
-        python.slack.migrated = "true"
-        python.slack.muted_channels_activity = "personal_highlights"
-        python.slack.never_away = "false"
-        python.slack.notify_usergroup_handle_updated = "false"
-        python.slack.record_events = "false"
-        python.slack.render_bold_as = "bold"
-        python.slack.render_italic_as = "italic"
-        python.slack.send_typing_notice = "true"
-        python.slack.server_aliases = ""
-        python.slack.shared_name_prefix = "%"
-        python.slack.short_buffer_names = "false"
-        python.slack.show_buflist_presence = "true"
-        python.slack.show_reaction_nicks = "true"
-        python.slack.slack_api_token = "${if isNull config.secrets.slack-term then "" else config.secrets.slack-term}"
-        python.slack.slack_timeout = "20000"
-        python.slack.switch_buffer_on_join = "true"
-        python.slack.thread_messages_in_channel = "false"
-        python.slack.unfurl_auto_link_display = "both"
-        python.slack.unfurl_ignore_alt_text = "false"
-        python.slack.unhide_buffers_with_activity = "false"
-      '';
+      [var]
+      python.slack.auto_open_threads = "true"
+      python.slack.background_load_all_history = "true"
+      python.slack.channel_name_typing_indicator = "true"
+      python.slack.color_buflist_muted_channels = "darkgray"
+      python.slack.color_edited_suffix = "095"
+      python.slack.color_reaction_suffix = "darkgray"
+      python.slack.color_thread_suffix = "lightcyan"
+      python.slack.colorize_private_chats = "false"
+      python.slack.debug_level = "3"
+      python.slack.debug_mode = "false"
+      python.slack.distracting_channels = ""
+      python.slack.external_user_suffix = "*"
+      python.slack.files_download_location = "/home/balsoft/Downloads/slack"
+      python.slack.group_name_prefix = "&"
+      python.slack.map_underline_to = "_"
+      python.slack.migrated = "true"
+      python.slack.muted_channels_activity = "personal_highlights"
+      python.slack.never_away = "false"
+      python.slack.notify_usergroup_handle_updated = "false"
+      python.slack.record_events = "false"
+      python.slack.render_bold_as = "bold"
+      python.slack.render_italic_as = "italic"
+      python.slack.send_typing_notice = "true"
+      python.slack.server_aliases = ""
+      python.slack.shared_name_prefix = "%"
+      python.slack.short_buffer_names = "false"
+      python.slack.show_buflist_presence = "true"
+      python.slack.show_reaction_nicks = "true"
+      python.slack.slack_api_token = "${
+        if isNull config.secrets.slack-term then
+        ""
+        else
+          config.secrets.slack-term
+      }"
+      python.slack.slack_timeout = "20000"
+      python.slack.switch_buffer_on_join = "true"
+      python.slack.thread_messages_in_channel = "false"
+      python.slack.unfurl_auto_link_display = "both"
+      python.slack.unfurl_ignore_alt_text = "false"
+      python.slack.unhide_buffers_with_activity = "false"
+    '';
+
+    home.file.".weechat/matrix.conf".text = ''
+      [network]
+      autoreconnect_delay_growing = 2
+      autoreconnect_delay_max = 600
+      debug_buffer = off
+      debug_category = all
+      debug_level = error
+      fetch_backlog_on_pgup = on
+      lag_min_show = 500
+      lag_reconnect = 90
+      lazy_load_room_users = off
+      max_backlog_sync_events = 10
+      max_initial_sync_events = 30
+      max_nicklist_users = 5000
+      print_unconfirmed_messages = on
+      read_markers_conditions = "''${markers_enabled}"
+      resending_ignores_devices = on
+      typing_notice_conditions = "''${typing_enabled}"
+
+      [look]
+      bar_item_typing_notice_prefix = "Typing: "
+      busy_sign = "⏳"
+      code_block_margin = 2
+      code_blocks = on
+      disconnect_sign = "❌"
+      encrypted_room_sign = "🔐"
+      encryption_warning_sign = "⚠️ "
+      human_buffer_names = off
+      max_typing_notice_item_length = 50
+      new_channel_position = none
+      pygments_style = "native"
+      redactions = strikethrough
+      server_buffer = merge_with_core
+
+      [color]
+      error_message_bg = default
+      error_message_fg = darkgray
+      quote_bg = default
+      quote_fg = lightgreen
+      unconfirmed_message_bg = default
+      unconfirmed_message_fg = darkgray
+      untagged_code_bg = default
+      untagged_code_fg = blue
+
+      [server]
+      balsoft.address = "matrix.balsoft.ru"
+      balsoft.autoconnect = "off"
+      balsoft.autoreconnect_delay = "10"
+      balsoft.device_name = "Weechat"
+      balsoft.password = "${if ! isNull config.secrets.matrix.password then config.secrets.matrix.password else ""}"
+      balsoft.port = "443"
+      balsoft.proxy = ""
+      balsoft.ssl_verify = "on"
+      balsoft.sso_helper_listening_port = "0"
+      balsoft.username = "${if ! isNull config.secrets.matrix.user then config.secrets.matrix.user else ""}"
+    '';
 
     home.file.".weechat/weechat.conf".text = ''
       #
