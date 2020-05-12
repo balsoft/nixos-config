@@ -8,8 +8,6 @@
     VISUAL = config.defaultApplications.editor.cmd;
     LESS = "-asrRix8";
     XDG_SESSION_TYPE = "wayland";
-    XKB_DEFAULT_LAYOUT = "us,ru";
-    XKB_DEFAULT_OPTIONS = "grp:lctrl_toggle,grp_led:caps,ctrl:nocaps";
     QT_QPA_PLATFORM = "wayland";
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
     NIX_AUTO_RUN = "1";
@@ -67,5 +65,6 @@
     home.file.".icons/default".source =
       "${pkgs.breeze-qt5}/share/icons/breeze_cursors";
     systemd.user.startServices = true;
+    services.kdeconnect.enable = true;
   };
 }

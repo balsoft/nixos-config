@@ -9,7 +9,6 @@ in {
   home-manager.users.balsoft = lib.mkIf (config.deviceSpecific.goodMachine) {
     home.packages = with pkgs; [
       plasma-integration
-      plasma5.xdg-desktop-portal-kde
       plasma-browser-integration
     ];
     home.file.".mozilla/native-messaging-hosts".source = pkgs.symlinkJoin {

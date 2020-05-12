@@ -44,8 +44,8 @@ in {
       '';
     };
   })];
+  services.dbus.packages = with pkgs; [ gnome3.dconf ];
   home-manager.users.balsoft = {
-    home.packages = [pkgs.generated-gtk-theme];
     gtk = {
       enable = true;
       iconTheme = {
@@ -56,13 +56,10 @@ in {
         name = "Generated";
         package = pkgs.generated-gtk-theme;
       };
-      font = 
-      {
-        package = pkgs.roboto;
-        name = "Roboto 11";
+      font = {
+        name = "Roboto 12";
       };
       gtk3.extraConfig.gtk-cursor-theme-name = "breeze";
     };
   };
-  environment.sessionVariables.GTK_THEME = "Generated";
 }

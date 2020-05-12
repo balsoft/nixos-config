@@ -54,7 +54,6 @@
       gnumeric
       gcalcli
       google-drive-ocamlfuse
-      kdeconnect
       trojita
       nix-zsh-completions
       papirus-icon-theme

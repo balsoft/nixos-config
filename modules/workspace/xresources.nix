@@ -39,10 +39,5 @@
       # "emacs.color15" = fg;
 
     };
-    home.activation.xrdb = {
-      after = ["linkGeneration"];
-      before = [];
-      data = "DISPLAY=:0 ${pkgs.xorg.xrdb}/bin/xrdb -merge ${config.users.users.balsoft.home}/.Xresources";
-    };
   };
 }

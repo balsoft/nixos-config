@@ -7,6 +7,8 @@ let
 in {
   environment.sessionVariables._JAVA_AWT_WM_NONREPARENTING = "1";
 
+  programs.sway.wrapperFeatures.gtk = true;
+
   home-manager.users.balsoft.wayland.windowManager.sway = {
     enable = true;
     config = rec {
@@ -70,8 +72,7 @@ in {
         ];
       };
       startup = [
-        { command = apps.browser.cmd; }
-        { command = "${pkgs.kdeconnect}/libexec/kdeconnectd"; }
+        { command = "GTK_USE_PORTAL=1 ${apps.browser.cmd}"; }
         {
           command =
             "${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1";
@@ -88,6 +89,12 @@ in {
 
         {
           command = "swayidle -w before-sleep '${lock_fork}' lock '${lock_fork}' unlock 'pkill -9 swaylock'";
+        }
+        {
+          command = "${pkgs.xdg-desktop-portal-kde}/libexec/xdg-desktop-portal-kde";
+        }
+        {
+          command = "${pkgs.xdg-desktop-portal}/libexec/xdg-desktop-portal";
         }
       ];
 

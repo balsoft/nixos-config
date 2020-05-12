@@ -33,8 +33,6 @@
     after = [ "linkGeneration" ];
     before = [ ];
   };
-  home-manager.users.balsoft.home.sessionVariables.XDG_RUNTIME_DIR =
-    "/run/user/1000";
 
   services.udev.extraRules = ''
     ACTION=="remove", ATTRS{idVendor}=="1050", RUN+="${pkgs.systemd}/bin/loginctl lock-sessions"

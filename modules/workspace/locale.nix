@@ -2,6 +2,11 @@
   console.font = "cyr-sun16";
   console.keyMap = "ruwin_cplk-UTF-8";
 
+  environment.sessionVariables = {
+    XKB_DEFAULT_LAYOUT = "us,ru";
+    XKB_DEFAULT_OPTIONS = "grp:lctrl_toggle,grp_led:caps,ctrl:nocaps";
+  };
+
   time.timeZone = "Europe/Moscow"; # Mother Russia
   home-manager.users.balsoft.home.language = let
     en = "en_GB.UTF-8";
