@@ -96,7 +96,7 @@ in {
       disconnect_sign = "❌"
       encrypted_room_sign = "🔐"
       encryption_warning_sign = "⚠️ "
-      human_buffer_names = off
+      human_buffer_names = on
       max_typing_notice_item_length = 50
       new_channel_position = none
       pygments_style = "native"

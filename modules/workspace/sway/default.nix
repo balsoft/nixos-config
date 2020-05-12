@@ -53,6 +53,7 @@ in {
         smartBorders = "on";
       };
       focus.followMouse = false;
+      focus.forceWrapping = true;
       modifier = "Mod4";
       window = {
         border = 1;
@@ -190,18 +191,24 @@ in {
       };
       workspaceLayout = "tabbed";
       workspaceAutoBackAndForth = true;
+      input = {
+        "2:14:ETPS/2_Elantech_Touchpad" = {
+          tap = "enabled";
+          natural_scroll = "enabled";
+          dwt = "enabled";
+        };
+        "2:14:ETPS/2_Elantech_TrackPoint" = {
+          pointer_accel = "-0.7";
+        };
+      };
+      output = {
+        "*".bg = "${thm.bg} solid_color";
+      };
     };
     wrapperFeatures = {
       gtk = true;
     };
     extraConfig = ''
-      output * bg ${thm.bg} solid_color
-      input 2:14:ETPS/2_Elantech_Touchpad {
-        tap enabled
-        natural_scroll enabled
-        dwt enabled
-      }
-      input 2:14:ETPS/2_Elantech_TrackPoint pointer_accel -0.7
       default_border pixel 1
       mouse_warping container
       hide_edge_borders --i3 smart
