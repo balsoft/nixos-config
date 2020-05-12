@@ -10,7 +10,7 @@ device:
     ./applications/yt-utilities.nix
     ./applications/firefox.nix
     ./workspace/autofs.nix
-    ./workspace/i3
+    ./workspace/sway
     ./workspace/i3blocks
     ./workspace/zsh.nix
     ./workspace/gtk.nix

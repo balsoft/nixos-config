@@ -7,9 +7,8 @@ let
 in {
   environment.sessionVariables._JAVA_AWT_WM_NONREPARENTING = "1";
 
-  home-manager.users.balsoft.xsession.windowManager.i3 = {
+  home-manager.users.balsoft.wayland.windowManager.sway = {
     enable = true;
-    package = pkgs.i3-gaps;
     config = rec {
       assigns = {
         "" = [ { class = "Chromium"; } { app_id = "firefox"; } { class = "Firefox"; } ];
@@ -69,7 +68,7 @@ in {
           }
         ];
       };
-      startup = map (a: { notification = false; } // a) [
+      startup = [
         { command = apps.browser.cmd; }
         { command = "${pkgs.kdeconnect}/libexec/kdeconnectd"; }
         {
@@ -190,6 +189,10 @@ in {
         "121" = "exec ${pkgs.pamixer}/bin/pamixer -t";
       };
       workspaceLayout = "tabbed";
+      workspaceAutoBackAndForth = true;
+    };
+    wrapperFeatures = {
+      gtk = true;
     };
     extraConfig = ''
       output * bg ${thm.bg} solid_color

@@ -1,7 +1,7 @@
 { pkgs, config, ... }: {
   home-manager.users.balsoft = {
     home.packages = [ pkgs.sylpheed ];
-    xsession.windowManager.i3.config.startup = [
+    wayland.windowManager.sway.config.startup = [
       {
         command = "${pkgs.sylpheed}/bin/sylpheed";
       }

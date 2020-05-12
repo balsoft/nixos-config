@@ -3,7 +3,7 @@ with import ../../../support.nix { inherit pkgs config lib; };
 with lib;
 let scripts = import ./scripts pkgs config;
 in {
-  home-manager.users.balsoft.xsession.windowManager.i3.extraConfig = ''
+  home-manager.users.balsoft.wayland.windowManager.sway.extraConfig = ''
     bar {
       id top
       font pango:Material Icons 11, Roboto Mono 11

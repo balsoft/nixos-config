@@ -804,7 +804,7 @@ in {
     '';
 
     home.packages = [ weechat ];
-    xsession.windowManager.i3.config.startup = [{
+    wayland.windowManager.sway.config.startup = [{
       command =
         "${config.defaultApplications.term.cmd} -e ${weechat}/bin/weechat";
     }];

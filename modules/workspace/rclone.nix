@@ -13,7 +13,7 @@
         mkdir -p 'Dropbox' || true
       '';
     };
-    xsession.windowManager.i3.config.startup = [
+    wayland.windowManager.sway.config.startup = [
       {
         command =
           "${pkgs.rclone}/bin/rclone mount google:/ '/home/balsoft/cloud/Google Drive' --daemon";
