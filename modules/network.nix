@@ -1,17 +1,19 @@
-{ pkgs, lib, config, ... }: {
+{ pkgs, lib, config, ... }:
+let
+  localRanges = [
+    { from = 1714; to = 1764; } # KDE connect
+    { from = 6600; to = 6600; } # Mopidy
+  ];
+in {
   networking = {
     networkmanager.enable = true;
     firewall = {
       enable = true;
       allowedTCPPorts = [ 13748 13722 5000 22 80 443 ];
-      interfaces.wlan0.allowedTCPPortRanges = [{
-        from = 1714;
-        to = 1764;
-      }];
-      interfaces.wlan0.allowedUDPPortRanges = [{
-        from = 1714;
-        to = 1764;
-      }];
+      interfaces.wlan0.allowedTCPPortRanges = localRanges;
+      interfaces.wlan0.allowedUDPPortRanges = localRanges;
+      interfaces.eth0.allowedUDPPortRanges = localRanges;
+      interfaces.eth0.allowedTCPPortRanges = localRanges;
     };
     resolvconf.extraConfig = ''
       local_nameservers=""
