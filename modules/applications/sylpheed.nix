@@ -6,7 +6,16 @@
         command = "${pkgs.sylpheed}/bin/sylpheed";
       }
     ];
-    home.file.".sylpheed-2.0/accountrc".text = ''
+    home.activation."accountrc" = {
+      data = ''
+        $DRY_RUN_CMD rm -f ~/.sylpheed-2.0/accountrc
+        $DRY_RUN_CMD cp ~/.sylpheed-2.0/accountrc.home ~/.sylpheed-2.0/accountrc
+        $DRY_RUN_CMD chmod 700 ~/.sylpheed-2.0/accountrc
+      '';
+      before = [ ];
+      after = [ "linkGeneration" ];
+    };
+    home.file.".sylpheed-2.0/accountrc.home".text = ''
       [Account: 1]
       account_name=balsoft@balsoft.ru
       is_default=1
