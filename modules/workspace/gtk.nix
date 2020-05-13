@@ -61,5 +61,6 @@ in {
       };
       gtk3.extraConfig.gtk-cursor-theme-name = "breeze";
     };
+    home.sessionVariables.GTK_THEME = "Generated";
   };
 }
