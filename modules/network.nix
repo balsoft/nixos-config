@@ -24,6 +24,5 @@ in {
     hostName = config.device;
   };
   systemd.services.ModemManager.wantedBy =
-    lib.optional (config.device == "ThinkPad-Laptop") "network.target";
-
+    lib.optional (config.device == "T490s-Laptop") "network.target";
 }

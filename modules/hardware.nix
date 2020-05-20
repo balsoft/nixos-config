@@ -16,8 +16,6 @@ with deviceSpecific; {
   hardware.bluetooth.enable = true;
   hardware.bluetooth.package = pkgs.bluezFull;
 
-  hardware.sane.enable = true;
-
   services.throttled = {
     enable = device == "T490s-Laptop";
     extraConfig = ''
@@ -99,15 +97,8 @@ with deviceSpecific; {
       grub.efiInstallAsRemovable = true; # NVRAM is unreliable
     });
     consoleLogLevel = 3;
-    blacklistedKernelModules = lib.optionals (device == "Prestigio-Laptop") [
-      "axp288_charger"
-      "axp288_fuel_gauge"
-      "axp288_adc"
-    ]; # Disable battery driver as it hangs this piece of shit
-    extraModulePackages = [ pkgs.linuxPackages.v4l2loopback ];
     extraModprobeConfig = "options ec_sys write_support=1";
     kernel.sysctl."vm.swappiness" = 0;
-    kernelPackages = pkgs.linuxPackages;
     kernel.sysctl."kernel/sysrq" = 1;
     kernelParams = [
       "quiet"
@@ -118,8 +109,6 @@ with deviceSpecific; {
       "rd.udev.log_priority=3"
       "pti=off"
       "spectre_v2=off"
-    ] ++ lib.optionals (device == "Prestigio-Laptop") [
-      "intel_idle.max_cstate=1" # Otherwise it hangs
     ];
   };
 
@@ -131,12 +120,9 @@ with deviceSpecific; {
     enable = true;
     package = pkgs.pulseaudioFull;
     support32Bit = true;
-    # systemWide = true;
     extraConfig = ''
       load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1
     '';
     extraModules = [ pkgs.pulseaudio-modules-bt ];
   };
-
-  services.dbus.packages = [ pkgs.blueman ];
 }

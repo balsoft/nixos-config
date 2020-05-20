@@ -53,7 +53,6 @@ in {
   nix = rec {
     nixPath = lib.mkForce [
       "nixpkgs=/etc/nixpkgs"
-      "nixos-config=/etc/nixos/configuration.nix"
     ];
     binaryCaches = [ "https://cache.nixos.org" "https://cache.balsoft.ru" ];
 
@@ -76,5 +75,6 @@ in {
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
+    requireSignedBinaryCaches = false;
   };
 }

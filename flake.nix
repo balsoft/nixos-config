@@ -2,8 +2,6 @@
   description =
     "A collection of crap, hacks and copy-paste to make my localhosts boot";
 
-  edition = 201909;
-
   inputs = {
     nixpkgs-mopidy = {
       type = "github";

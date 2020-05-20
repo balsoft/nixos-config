@@ -99,6 +99,5 @@
       balsoft ALL = (root) NOPASSWD: ${pkgs.light}/bin/light -U 5
     '';
   };
-  nix.requireSignedBinaryCaches = false;
   home-manager.useUserPackages = true;
 }
