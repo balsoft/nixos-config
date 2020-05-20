@@ -3,13 +3,13 @@
     "NUR": {
       "flake": false,
       "info": {
-        "lastModified": 1588691104,
-        "narHash": "sha256-q0CjiZH74tsusqTGZnwEUjrOrQIcXIlew4SUA+9Rq8I="
+        "lastModified": 1589893273,
+        "narHash": "sha256-Rz5ze8Qv0oJFzZQeapfd5u5RBYh6FwAFhbOVlga2ThM="
       },
       "locked": {
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "c5265614a05768a77ecb95c6bbbe18bba0756fb8",
+        "rev": "39d4d36188c9d0e94de2f665ac05e62dd84047fd",
         "type": "github"
       },
       "original": {
@@ -56,8 +56,8 @@
     },
     "home-manager": {
       "info": {
-        "lastModified": 1587442074,
-        "narHash": "sha256-SmC1aP9TJImzHlNIWOTa+uwePeHoEcfGJEewXXWAtfc="
+        "lastModified": 1589826413,
+        "narHash": "sha256-0qaxqdvPhRiaxtRLdhIYS384gP2VtHG2CzlxZzbfhwI="
       },
       "inputs": {
         "nixpkgs": "nixpkgs"
@@ -65,7 +65,7 @@
       "locked": {
         "owner": "rycee",
         "repo": "home-manager",
-        "rev": "e13bd1e79372c58cc1e86e45bdf304f4b6770fe3",
+        "rev": "a7a96ab121a3df4386499ebaacf23e726f0c5711",
         "type": "github"
       },
       "original": {
@@ -113,8 +113,8 @@
     },
     "nix": {
       "info": {
-        "lastModified": 1588697973,
-        "narHash": "sha256-2iTpkBYFk/uSgqyBM/6MCShN5RmqrdQylBl1tcddJAY="
+        "lastModified": 1589546290,
+        "narHash": "sha256-mGWF0XCVLLxRk7r5prEOMZz58PnyKgywRqUPpU28pow="
       },
       "inputs": {
         "nixpkgs": "nixpkgs_2"
@@ -122,7 +122,7 @@
       "locked": {
         "owner": "NixOS",
         "repo": "nix",
-        "rev": "6f3244ce4517cc51ef3ffd39025152aa7046ef69",
+        "rev": "5f64655ff429be08aa0787761697787e7050f373",
         "type": "github"
       },
       "original": {
@@ -149,14 +149,15 @@
     },
     "nixpkgs": {
       "info": {
-        "lastModified": 1588110642,
-        "narHash": "sha256-A5Sqy2PAJOYaTIjHOTo3ZFbUtd1r6uZf9ymcbSyMh9Q="
+        "lastModified": 1588848333,
+        "narHash": "sha256-+t4PW8kLBe1VOZL8SFUTu3P1rNPulhYFwxkxrV2yyYY="
       },
       "locked": {
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "a0ebabf60a3febbd0ba4b401b13503e1fae24934",
-        "type": "github"
+        "lastModified": 1588848333,
+        "narHash": "sha256-+t4PW8kLBe1VOZL8SFUTu3P1rNPulhYFwxkxrV2yyYY=",
+        "path": "/nix/store/5vbv6bzfcl28jg07pr11rrvajp92122w-source",
+        "rev": "c83f7b89c96e1f81d1745b65d2134b1e278f8c99",
+        "type": "path"
       },
       "original": {
         "id": "nixpkgs",
@@ -204,13 +205,13 @@
     "nixpkgs-wayland": {
       "flake": false,
       "info": {
-        "lastModified": 1588327603,
-        "narHash": "sha256-XtnlIHtMZWKebPMbovCXRP1GMVO4AFLFG+4FG/qVx4g="
+        "lastModified": 1589893638,
+        "narHash": "sha256-coP+7Ylp1UPCbPyzwdA+4YtabYg9H2QqHZTaPWOd5B0="
       },
       "locked": {
         "owner": "colemickens",
         "repo": "nixpkgs-wayland",
-        "rev": "d3ecfac3b3533c02e7ac7e9afdf0acc7a3c25026",
+        "rev": "9f9267248206bea5b697248246769dcc4d54592f",
         "type": "github"
       },
       "original": {
@@ -242,10 +243,11 @@
         "narHash": "sha256-+t4PW8kLBe1VOZL8SFUTu3P1rNPulhYFwxkxrV2yyYY="
       },
       "locked": {
-        "owner": "NixOS",
-        "repo": "nixpkgs",
+        "lastModified": 1588848333,
+        "narHash": "sha256-+t4PW8kLBe1VOZL8SFUTu3P1rNPulhYFwxkxrV2yyYY=",
+        "path": "/nix/store/5vbv6bzfcl28jg07pr11rrvajp92122w-source",
         "rev": "c83f7b89c96e1f81d1745b65d2134b1e278f8c99",
-        "type": "github"
+        "type": "path"
       },
       "original": {
         "id": "nixpkgs",
@@ -291,13 +293,13 @@
     "simple-nixos-mailserver": {
       "flake": false,
       "info": {
-        "lastModified": 1588705666,
-        "narHash": "sha256-MaDcYaTMkVVJHxqAXUgWYOp2w5MtbFMjik+SuoIjJK8=",
-        "revCount": 414
+        "lastModified": 1589329222,
+        "narHash": "sha256-vvzOntOdmK+4S0AqDIlwaB5MZFP7m68jEcVj00kpwXE=",
+        "revCount": 423
       },
       "locked": {
         "ref": "master",
-        "rev": "b7c49fa26a66a724e4e985851e34cf76bc01c9e1",
+        "rev": "c2ee9f217ad35a2d614cd978786b8418805ee4e0",
         "type": "git",
         "url": "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver"
       },
@@ -328,13 +330,13 @@
     "weechat-scripts": {
       "flake": false,
       "info": {
-        "lastModified": 1588331138,
-        "narHash": "sha256-fBZMLs38rGTiDItYX/V/JSvtMaVfy/81UQRU/EOHCDk="
+        "lastModified": 1589838116,
+        "narHash": "sha256-fCHVeTXo3yvf5TURZN/WyPAm4fCYNJGNvqYDzFUQJec="
       },
       "locked": {
         "owner": "weechat",
         "repo": "scripts",
-        "rev": "f86360d9fcc1d43eec4ca98ad255bf70c95efb8e",
+        "rev": "106ad6ac6622f199379d2f5743ad16f1ef4842c4",
         "type": "github"
       },
       "original": {

@@ -397,7 +397,7 @@ nothing happens."
 ;; -------------------
 (use-package xresources-theme
   :config
-  (load-theme 'xresorces t)
+  (load-theme 'xresources t)
   (setq after-init-hook (load-theme 'xresources t))
   (add-hook 'after-make-frame-functions
             (lambda (frame)
