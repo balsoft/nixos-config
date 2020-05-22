@@ -25,6 +25,8 @@ in {
 
         inherit (old) mautrix-telegram;
 
+        inherit old;
+
         yt-utilities =
           import (self.fetchgit config.secrets.yt-utilities.source) { };
 
@@ -56,10 +58,7 @@ in {
     ];
     binaryCaches = [ "https://cache.nixos.org" "https://cache.balsoft.ru" ];
 
-    registry.nixpkgs = {
-      from = { id = "nixpkgs"; type = "indirect"; };
-      flake = inputs.nixpkgs;
-    };
+    registry.self.flake = inputs.self;
 
     trustedUsers = [ "root" "balsoft" "@wheel" ];
 
