@@ -112,7 +112,7 @@ in {
         "${modifier}+q" = "kill";
         "${modifier}+Return" = "exec ${apps.term.cmd}";
         "${modifier}+e" = "exec ${apps.editor.cmd}";
-        "${modifier}+l" = "layout toggle all";
+        "${modifier}+o" = "layout toggle all";
 
         "${modifier}+Left" = "focus child; focus left; ${moveMouse}";
         "${modifier}+Right" = "focus child; focus right; ${moveMouse}";
@@ -144,8 +144,12 @@ in {
         "${modifier}+r" = "mode resize";
         "${modifier}+Shift+f" = "floating toggle";
 
-        "${modifier}+j" = "focus mode_toggle";
         "${modifier}+Escape" = "exec ${apps.monitor.cmd}";
+
+        "${modifier}+j" = "exec ${pkgs.playerctl}/bin/playerctl previous";
+        "${modifier}+k" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
+        "${modifier}+l" = "exec ${pkgs.playerctl}/bin/playerctl next";
+        "${modifier}+i" = "exec ${pkgs.lxqt.pavucontrol-qt}/bin/pavucontrol-qt";
 
         "${modifier}+Print" = script "screenshot"
           "${pkgs.grim}/bin/grim Pictures/$(date +'%Y-%m-%d+%H:%M:%S').png";
@@ -161,7 +165,6 @@ in {
             ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.wl-clipboard}/bin/wl-copy'';
 
         "${modifier}+x" = "move workspace to output right";
-        "${modifier}+k" = "exec '${pkgs.xorg.xkill}/bin/xkill'";
         "${modifier}+F5" = "reload";
         "${modifier}+Shift+F5" = "exit";
         "${modifier}+Shift+h" = "layout splith";
@@ -174,10 +177,10 @@ in {
         "${modifier}+F12" = "output * dpms on";
         "${modifier}+End" = "exec ${lock}";
         "${modifier}+p" = "sticky toggle";
-        "${modifier}+i" =
+        "${modifier}+z" =
           script "0x0" ''wl-paste | curl -F"file=@-" https://0x0.st | wl-copy'';
         "${modifier}+b" = "focus mode_toggle";
-        "${modifier}+z" = script "lambda-launcher"
+        "${modifier}+Space" = script "lambda-launcher"
           "${pkgs.lambda-launcher}/bin/lambda-launcher";
         "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
         "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";

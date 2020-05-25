@@ -12,10 +12,6 @@
   else
     echo -n `date -d "$DATE" +'%H:%M %a'`
   fi
-  if [[ $BLOCK_BUTTON == "1" ]]
-  then
-    ${config.defaultApplications.term.cmd} --hold -e "${gcalcli}/bin/gcalcli agenda"
-  fi
   if [[ $((`date -d "$DATE" +%s`-`date +%s`)) -lt 1800 ]]
   then
     code=33
