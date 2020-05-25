@@ -5,6 +5,7 @@
   environment.sessionVariables = {
     XKB_DEFAULT_LAYOUT = "us,ru";
     XKB_DEFAULT_OPTIONS = "grp:lctrl_toggle,grp_led:caps,ctrl:nocaps";
+    LANG = lib.mkForce "en_GB.UTF-8";
   };
 
   time.timeZone = "Europe/Moscow"; # Mother Russia
