@@ -109,12 +109,12 @@ with import ../../../support.nix { inherit lib config; }; {
     General = {
       ColorScheme = "Generated";
       Name = "Generated";
-      fixed = "Roboto Mono,11,-1,5,50,0,0,0,0,0";
-      font = "Roboto,11,-1,5,50,0,0,0,0,0";
-      menuFont = "Roboto,11,-1,5,50,0,0,0,0,0";
+      fixed = "IBM Plex Mono,11,-1,5,50,0,0,0,0,0";
+      font = "IBM Plex,11,-1,5,50,0,0,0,0,0";
+      menuFont = "IBM Plex,11,-1,5,50,0,0,0,0,0";
       shadeSortColumn = true;
-      smallestReadableFont = "Roboto,8,-1,5,57,0,0,0,0,0,Medium";
-      toolBarFont = "Roboto,11,-1,5,50,0,0,0,0,0";
+      smallestReadableFont = "IBM Plex,8,-1,5,57,0,0,0,0,0,Medium";
+      toolBarFont = "IBM Plex,11,-1,5,50,0,0,0,0,0";
     };
     KDE = {
       DoubleClickInterval = 400;

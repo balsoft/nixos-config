@@ -48,9 +48,9 @@ in {
           "xpinstall.signatures.required" = false;
           "extensions.update.enabled" = false;
 
-          "font.name.monospace.x-western" = "Roboto Mono";
-          "font.name.sans-serif.x-western" = "Roboto";
-          "font.name.serif.x-western" = "Roboto Slab";
+          "font.name.monospace.x-western" = "IBM Plex Mono";
+          "font.name.sans-serif.x-western" = "IBM Plex Sans";
+          "font.name.serif.x-western" = "IBM Plex Serif";
 
           "browser.display.background_color" = thm.bg;
           "browser.display.foreground_color" = thm.fg;

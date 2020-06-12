@@ -9,6 +9,9 @@ in {
 
   programs.sway.wrapperFeatures.gtk = true;
 
+  programs.sway.extraPackages = lib.mkForce (with pkgs; [ swayidle xwayland ]);
+
+
   home-manager.users.balsoft.wayland.windowManager.sway = {
     enable = true;
     config = rec {
@@ -23,7 +26,7 @@ in {
         ];
         "ﱘ" = [{ app_id = "cantata"; }];
       };
-      fonts = [ "RobotoMono 9" ];
+      fonts = [ "IBM Plex 9" ];
 
       bars = [ ];
 

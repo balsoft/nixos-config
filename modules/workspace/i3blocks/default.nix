@@ -6,7 +6,7 @@ in {
   home-manager.users.balsoft.wayland.windowManager.sway.extraConfig = ''
     bar {
       id top
-      font pango:Material Icons 11, Roboto Mono 11
+      font pango:Material Icons 11, IBM Plex 11, Roboto Mono 11
       mode dock
       hidden_state hide
       position top

@@ -57,7 +57,7 @@ in {
         package = pkgs.generated-gtk-theme;
       };
       font = {
-        name = "Roboto 12";
+        name = "IBM Plex 12";
       };
       gtk3.extraConfig.gtk-cursor-theme-name = "breeze";
     };

@@ -3,7 +3,7 @@
   home-manager.users.balsoft.programs.mako = {
     enable = true;
     layer = "overlay";
-    font = "Roboto 13";
+    font = "IBM Plex 13";
     width = 500;
     height = 80;
     defaultTimeout = 10000;
