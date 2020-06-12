@@ -29,7 +29,6 @@
       abiword
       gnumeric
       gcalcli
-      papirus-icon-theme
       breeze-icons
       kde-cli-tools
       xdg_utils

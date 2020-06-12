@@ -25,10 +25,10 @@ with import ../../../support.nix { inherit lib config; }; {
     "Colors:Button" = {
       BackgroundAlternate = thmDec.dark;
       BackgroundNormal = thmDec.bg;
-      DecorationFocus = thmDec.blue;
-      DecorationHover = thmDec.blue;
-      ForegroundActive = thmDec.blue;
-      ForegroundInactive = thmDec.alt;
+      DecorationFocus = thmDec.alt;
+      DecorationHover = thmDec.alt;
+      ForegroundActive = thmDec.alt;
+      ForegroundInactive = thmDec.dark;
       ForegroundLink = thmDec.blue;
       ForegroundNegative = thmDec.red;
       ForegroundNeutral = thmDec.orange;
@@ -39,22 +39,22 @@ with import ../../../support.nix { inherit lib config; }; {
     "Colors:Complementary" = {
       BackgroundAlternate = thmDec.dark;
       BackgroundNormal = thmDec.bg;
-      DecorationFocus = thmDec.blue;
-      DecorationHover = thmDec.blue;
+      DecorationFocus = thmDec.alt;
+      DecorationHover = thmDec.alt;
       ForegroundActive = thmDec.orange;
-      ForegroundInactive = thmDec.alt;
+      ForegroundInactive = thmDec.dark;
       ForegroundLink = thmDec.blue;
       ForegroundNegative = thmDec.red;
       ForegroundNeutral = thmDec.yellow;
       ForegroundNormal = thmDec.fg;
       ForegroundPositive = thmDec.green;
-      ForegroundVisited = thmDec.blue;
+      ForegroundVisited = thmDec.alt;
     };
     "Colors:Selection" = {
-      BackgroundAlternate = thmDec.blue;
-      BackgroundNormal = thmDec.blue;
-      DecorationFocus = thmDec.blue;
-      DecorationHover = thmDec.blue;
+      BackgroundAlternate = thmDec.alt;
+      BackgroundNormal = thmDec.alt;
+      DecorationFocus = thmDec.alt;
+      DecorationHover = thmDec.alt;
       ForegroundActive = thmDec.fg;
       ForegroundInactive = thmDec.fg;
       ForegroundLink = thmDec.blue;
@@ -67,10 +67,10 @@ with import ../../../support.nix { inherit lib config; }; {
     "Colors:Tooltip" = {
       BackgroundAlternate = thmDec.dark;
       BackgroundNormal = thmDec.bg;
-      DecorationFocus = thmDec.blue;
-      DecorationHover = thmDec.blue;
-      ForegroundActive = thmDec.blue;
-      ForegroundInactive = thmDec.alt;
+      DecorationFocus = thmDec.alt;
+      DecorationHover = thmDec.alt;
+      ForegroundActive = thmDec.alt;
+      ForegroundInactive = thmDec.dark;
       ForegroundLink = thmDec.blue;
       ForegroundNegative = thmDec.red;
       ForegroundNeutral = thmDec.orange;
@@ -81,10 +81,10 @@ with import ../../../support.nix { inherit lib config; }; {
     "Colors:View" = {
       BackgroundAlternate = thmDec.dark;
       BackgroundNormal = thmDec.bg;
-      DecorationFocus = thmDec.blue;
-      DecorationHover = thmDec.blue;
-      ForegroundActive = thmDec.blue;
-      ForegroundInactive = thmDec.alt;
+      DecorationFocus = thmDec.alt;
+      DecorationHover = thmDec.alt;
+      ForegroundActive = thmDec.alt;
+      ForegroundInactive = thmDec.dark;
       ForegroundLink = thmDec.blue;
       ForegroundNegative = thmDec.red;
       ForegroundNeutral = thmDec.orange;
@@ -95,10 +95,10 @@ with import ../../../support.nix { inherit lib config; }; {
     "Colors:Window" = {
       BackgroundAlternate = thmDec.dark;
       BackgroundNormal = thmDec.bg;
-      DecorationFocus = thmDec.blue;
-      DecorationHover = thmDec.blue;
-      ForegroundActive = thmDec.blue;
-      ForegroundInactive = thmDec.alt;
+      DecorationFocus = thmDec.alt;
+      DecorationHover = thmDec.alt;
+      ForegroundActive = thmDec.alt;
+      ForegroundInactive = thmDec.dark;
       ForegroundLink = thmDec.blue;
       ForegroundNegative = thmDec.red;
       ForegroundNeutral = thmDec.orange;
@@ -126,7 +126,7 @@ with import ../../../support.nix { inherit lib config; }; {
       contrast = 4;
       widgetStyle = "Breeze";
     };
-    Icons = { Theme = "Papirus-Dark"; };
+    Icons = { Theme = "Breeze Dark"; };
   };
   home-manager.users.balsoft.home.activation."user-places.xbel" = {
     data = ''

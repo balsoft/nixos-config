@@ -61,24 +61,15 @@ in {
     };
   };
   config = {
-    themes.colors = fromBase16 (fromYAML (builtins.readFile
-      "${inputs.base16-unclaimed-schemes}/irblack.yaml"));
-    # themes.colors = {
-    # bg = "#114c00";
-    # bg = "#000000";
-    # fg = "#ffffff";
-    # 
-    # gray = "#9bb953";
-    # alt = "#27a6a2";
-    # dark = "#169300";
-    # 
-    # red = "#d12d17";
-    # orange = "#cf7a02";
-    # yellow = "#386c34";
-    # green = "#386c34";
-    # cyan = "#09d0a5";
-    # blue = "#a5d048";
-    # purple = "#d083be";
-    # };
+    themes.colors = (fromBase16 (fromYAML
+      (builtins.readFile "${inputs.base16-unclaimed-schemes}/irblack.yaml")))
+      // {
+        alt = "#001d6c";
+
+        red = "#da1e28";
+        green = "#24a148";
+        orange = "#ff832b";
+        yellow = "#f1c21b";
+      };
   };
 }

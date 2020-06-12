@@ -3,29 +3,30 @@ with import ../../../support.nix { inherit pkgs config lib; };
 with lib;
 let scripts = import ./scripts pkgs config;
 in {
-  home-manager.users.balsoft.wayland.windowManager.sway.extraConfig = ''
-    bar {
-      id top
-      font pango:Material Icons 11, IBM Plex 11, Roboto Mono 11
-      mode dock
-      hidden_state hide
-      position top
-      status_command ${pkgs.i3blocks}/bin/i3blocks
-      workspace_buttons yes
-      strip_workspace_numbers no
-      tray_output none
-      colors {
-        background ${config.themes.colors.bg}
-        statusline ${config.themes.colors.fg}
-        separator ${config.themes.colors.alt}
-        focused_workspace ${config.themes.colors.bg} ${config.themes.colors.bg} ${config.themes.colors.blue}
-        active_workspace ${config.themes.colors.bg} ${config.themes.colors.bg} ${config.themes.colors.green}
-        inactive_workspace ${config.themes.colors.bg} ${config.themes.colors.bg} ${config.themes.colors.fg}
-        urgent_workspace ${config.themes.colors.bg} ${config.themes.colors.bg} ${config.themes.colors.orange}
-        binding_mode ${config.themes.colors.bg} ${config.themes.colors.bg} ${config.themes.colors.yellow}
-      }
-    }
-  '';
+  home-manager.users.balsoft.wayland.windowManager.sway.config.bars = [{
+    id = "top";
+    colors = let
+      thm = config.themes.colors;
+      default = {
+        background = thm.bg;
+        border = thm.bg;
+      };
+    in {
+      background = thm.bg;
+      statusline = thm.fg;
+      separator = thm.alt;
+      focusedWorkspace = default // { text = thm.fg; };
+      activeWorkspace = default // { text = thm.green; };
+      inactiveWorkspace = default // { text = thm.dark; };
+      urgentWorkspace = default // { text = thm.orange; };
+      bindingMode = default // { text = thm.yellow; };
+    };
+    statusCommand = "${pkgs.i3blocks}/bin/i3blocks";
+    fonts = [ "IBM Plex Mono 11" "Material Icons 11" "Roboto Mono 11" ];
+    mode = "hide";
+    position = "bottom";
+    workspaceNumbers = false;
+  }];
 
   home-manager.users.balsoft.xdg.configFile."i3blocks/config".text = let
     scr = x: {

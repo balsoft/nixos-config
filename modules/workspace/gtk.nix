@@ -11,15 +11,15 @@ let
       BTN_FG=${thm'.fg}
       MENU_BG=${thm'.bg}
       MENU_FG=${thm'.fg}
-      ACCENT_BG=${thm'.blue}
+      ACCENT_BG=${thm'.alt}
       SEL_BG=${thm'.blue}
       SEL_FG=${thm'.bg}
       TXT_BG=${thm'.bg}
       TXT_FG=${thm'.fg}
       HDR_BTN_BG=${thm'.bg}
       HDR_BTN_FG=${thm'.fg}
-      WM_BORDER_FOCUS=${thm'.blue}
-      WM_BORDER_UNFOCUS=${thm'.alt}
+      WM_BORDER_FOCUS=${thm'.alt}
+      WM_BORDER_UNFOCUS=${thm'.dark}
       MATERIA_STYLE_COMPACT=True
       MATERIA_COLOR_VARIANT=dark
       UNITY_DEFAULT_LAUNCHER_STYLE=False
@@ -49,8 +49,8 @@ in {
     gtk = {
       enable = true;
       iconTheme = {
-        name = "Papirus-Dark";
-        package = pkgs.papirus-icon-theme;
+        name = "Breeze Dark";
+        package = pkgs.breeze-icons;
       };
       theme = {
         name = "Generated";

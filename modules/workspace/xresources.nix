@@ -5,7 +5,7 @@
       "*background" = bg;
       "*foreground" = fg;
       "*color0" = dark;
-      "*color1" = red;
+      "*color1" = orange;
       "*color2" = green;
       "*color3" = yellow;
       "*color4" = blue;
@@ -13,13 +13,15 @@
       "*color6" = cyan;
       "*color7" = fg;
       "*color8" = dark;
-      "*color9" = red;
+      "*color9" = orange;
       "*color10" = green;
       "*color11" = yellow;
       "*color12" = blue;
       "*color13" = purple;
       "*color14" = cyan;
       "*color15" = fg;
+
+      "emacs.font" = "IBM Plex Mono 10";
       
       # "emacs.color0" = dark;
       # "emacs.color1" = green;
@@ -37,7 +39,6 @@
       # "emacs.color13" = purple;
       # "emacs.color14" = cyan;
       # "emacs.color15" = fg;
-
     };
   };
 }

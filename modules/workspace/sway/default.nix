@@ -33,7 +33,7 @@ in {
       colors = rec {
         background = thm.bg;
         unfocused = {
-          text = thm.alt;
+          text = thm.dark;
           border = thm.dark;
           background = thm.bg;
           childBorder = thm.dark;
