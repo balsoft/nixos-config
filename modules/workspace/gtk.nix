@@ -49,8 +49,8 @@ in {
     gtk = {
       enable = true;
       iconTheme = {
-        name = "Breeze Dark";
-        package = pkgs.breeze-icons;
+        name = "Adwaita";
+        package = pkgs.gnome3.adwaita-icon-theme;
       };
       theme = {
         name = "Generated";

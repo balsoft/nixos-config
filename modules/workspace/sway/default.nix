@@ -46,8 +46,8 @@ in {
           childBorder = thm.orange;
         };
         focused = unfocused // {
-          childBorder = thm.blue;
-          border = thm.blue;
+          childBorder = thm.gray;
+          border = thm.gray;
           background = thm.dark;
           text = thm.fg;
         };
