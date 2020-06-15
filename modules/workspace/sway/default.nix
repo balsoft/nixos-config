@@ -28,8 +28,6 @@ in {
       };
       fonts = [ "IBM Plex 9" ];
 
-      bars = [ ];
-
       colors = rec {
         background = thm.bg;
         unfocused = {
