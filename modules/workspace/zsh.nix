@@ -87,6 +87,9 @@
         cmd_start=`date +%s`
       }
 
+      bindkey -M emacs '^H' backward-kill-word
+      bindkey -r '^W'
+
       # make sure this plays nicely with any existing preexec
       preexec_functions+=( notifyosd-preexec )
       XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
