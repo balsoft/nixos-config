@@ -8,6 +8,9 @@
 
 ;;; Code:
 
+(require 'package)
+
+(package-initialize)
 
 (eval-when-compile
   (require 'use-package))

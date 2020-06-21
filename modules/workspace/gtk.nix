@@ -49,8 +49,8 @@ in {
     gtk = {
       enable = true;
       iconTheme = {
-        name = "Adwaita";
-        package = pkgs.gnome3.adwaita-icon-theme;
+        name = "Papirus-Dark";
+        package = pkgs.papirus-icon-theme;
       };
       theme = {
         name = "Generated";

@@ -8,7 +8,7 @@ with import ../../../support.nix { inherit lib config; }; {
     pkgs.flatpak
     pkgs.firefox
     pkgs.systemd
-    pkgs.gnome3.adwaita-icon-theme
+    pkgs.papirus-icon-theme
   ];
   nixpkgs.config.firefox.enablePlasmaBrowserIntegration = true;
   environment.sessionVariables = {
@@ -127,7 +127,7 @@ with import ../../../support.nix { inherit lib config; }; {
       contrast = 4;
       widgetStyle = "Breeze";
     };
-    Icons = { Theme = "Adwaita"; };
+    Icons = { Theme = "Papirus-Dark"; };
   };
   home-manager.users.balsoft.home.activation."user-places.xbel" = {
     data = ''

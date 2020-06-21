@@ -37,6 +37,7 @@
       nix-patch
       inputs.yt-utilities.defaultPackage.x86_64-linux
       pass-wayland
+      papirus-icon-theme
     ] ++ (with pkgs.kdeApplications; [
       ark
       dolphin
