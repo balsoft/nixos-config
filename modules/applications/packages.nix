@@ -34,8 +34,9 @@
       xdg_utils
       nheko
       git-crypt
-      nix-patch
       inputs.yt-utilities.defaultPackage.x86_64-linux
+      lambda-launcher
+      nix-patch
       pass-wayland
       papirus-icon-theme
     ] ++ (with pkgs.kdeApplications; [

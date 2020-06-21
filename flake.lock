@@ -3,11 +3,11 @@
     "NUR": {
       "flake": false,
       "locked": {
-        "lastModified": 1591945664,
-        "narHash": "sha256-ChFW3QGFwokXp7YAkjXtXgGa8xkWiEsvOM/GyHGFIfY=",
+        "lastModified": 1592760432,
+        "narHash": "sha256-x9IcjohICpEhLAkdFKR090wR27B8SyTnVbw/9RVnt0s=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "eb18cceff0fb3b2c1e65dbba7eee94cbf3872bd1",
+        "rev": "f8162f2ee1d26d850f3ed56dec9337ca5f9a9e15",
         "type": "github"
       },
       "original": {
@@ -67,6 +67,24 @@
         "type": "github"
       }
     },
+    "lambda-launcher": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1592763689,
+        "narHash": "sha256-qUA7qgDr9jgMVGM//OALAphpRb05u2tDxSEE0XLxumg=",
+        "owner": "balsoft",
+        "repo": "lambda-launcher",
+        "rev": "031fec7e39efe64bd08b58860d0868f8205c1fbd",
+        "type": "github"
+      },
+      "original": {
+        "owner": "balsoft",
+        "repo": "lambda-launcher",
+        "type": "github"
+      }
+    },
     "materia-theme": {
       "flake": false,
       "locked": {
@@ -101,7 +119,7 @@
     },
     "nix": {
       "inputs": {
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_3"
       },
       "locked": {
         "lastModified": 1591915976,
@@ -197,6 +215,22 @@
     },
     "nixpkgs_2": {
       "locked": {
+        "lastModified": 1592754205,
+        "narHash": "sha256-CQzP4Ur/lNGKQQCQlA5E44rmJmZcAparDDHAus5evH4=",
+        "owner": "balsoft",
+        "repo": "nixpkgs",
+        "rev": "a50dd17125c2923e30ff06aeafdfee29b9be9ade",
+        "type": "github"
+      },
+      "original": {
+        "owner": "balsoft",
+        "ref": "fix-gi-gtk-declarative",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
+      "locked": {
         "lastModified": 1591633336,
         "narHash": "sha256-oVXv4xAnDJB03LvZGbC72vSVlIbbJr8tpjEW5o/Fdek=",
         "owner": "NixOS",
@@ -210,7 +244,7 @@
         "type": "indirect"
       }
     },
-    "nixpkgs_3": {
+    "nixpkgs_4": {
       "locked": {
         "lastModified": 1591946521,
         "narHash": "sha256-Z9WtCDcSETJ6+wTIxNFjSFeWg3yJDAKc1nH2p6mm96s=",
@@ -224,7 +258,7 @@
         "type": "indirect"
       }
     },
-    "nixpkgs_4": {
+    "nixpkgs_5": {
       "locked": {
         "lastModified": 1587390417,
         "narHash": "sha256-dLQebnBviLNiN2Ei3Iqyxm73EFwz77YcvitvMYwRNA8=",
@@ -244,11 +278,12 @@
         "NUR": "NUR",
         "base16-unclaimed-schemes": "base16-unclaimed-schemes",
         "home-manager": "home-manager",
+        "lambda-launcher": "lambda-launcher",
         "materia-theme": "materia-theme",
         "mobile-broadband-provider-info": "mobile-broadband-provider-info",
         "nix": "nix",
         "nixos-fhs-compat": "nixos-fhs-compat",
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": "nixpkgs_4",
         "nixpkgs-mopidy": "nixpkgs-mopidy",
         "nixpkgs-old": "nixpkgs-old",
         "nixpkgs-wayland": "nixpkgs-wayland",
@@ -310,7 +345,7 @@
     "yt-utilities": {
       "inputs": {
         "haskell-nix": "haskell-nix",
-        "nixpkgs": "nixpkgs_4"
+        "nixpkgs": "nixpkgs_5"
       },
       "locked": {
         "lastModified": 1588006875,

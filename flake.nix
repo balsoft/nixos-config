@@ -10,6 +10,11 @@
       ref = "mopidy";
       flake = false;
     };
+    lambda-launcher = {
+      type = "github";
+      owner = "balsoft";
+      repo = "lambda-launcher";
+    };
     NUR = {
       type = "github";
       owner = "nix-community";

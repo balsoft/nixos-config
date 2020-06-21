@@ -21,7 +21,9 @@ in {
           nurpkgs = pkgs;
         }).repos;
 
-        inherit (nur.balsoft.pkgs) termNote lambda-launcher nix-patch;
+        inherit (nur.balsoft.pkgs) termNote nix-patch;
+
+        inherit (inputs.lambda-launcher.packages.x86_64-linux) lambda-launcher;
 
         inherit (old) mautrix-telegram;
 
