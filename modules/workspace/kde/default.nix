@@ -9,7 +9,24 @@ with import ../../../support.nix { inherit lib config; }; {
     pkgs.firefox
     pkgs.systemd
     pkgs.papirus-icon-theme
+    pkgs.kdeApplications.kdegraphics-thumbnailers
+    pkgs.kdeFrameworks.baloo
+    pkgs.kdeFrameworks.kio
+    pkgs.kdeApplications.kio-extras
+    pkgs.kdeApplications.dolphin-plugins
   ];
+  environment.systemPackages = [
+    pkgs.kdeFrameworks.baloo
+    pkgs.kdeFrameworks.kio
+    pkgs.kdeApplications.kio-extras
+    pkgs.kdeApplications.kdegraphics-thumbnailers
+    pkgs.kdeApplications.dolphin-plugins
+  ];
+  services.udev.packages = [
+    pkgs.libmtp
+    pkgs.media-player-info
+  ];
+
   nixpkgs.config.firefox.enablePlasmaBrowserIntegration = true;
   environment.sessionVariables = {
     DESKTOP_SESSION = "kde";
@@ -21,6 +38,7 @@ with import ../../../support.nix { inherit lib config; }; {
     QT_AUTO_SCREEN_SCALE_FACTOR = "0";
     DE = "kde";
     QT_QPA_PLATFORMTHEME = "kde";
+    KDEDIRS = "/run/current-system/sw:/run/current-system/sw/share/kservices5:/run/current-system/sw/share/kservicetypes5:/run/current-system/sw/share/kxmlgui5";
   };
   home-manager.users.balsoft.xdg.configFile."kdeglobals".text = genIni {
     "Colors:Button" = {
