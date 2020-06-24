@@ -214,6 +214,9 @@ in {
       };
       output = {
         "*".bg = "${thm.bg} solid_color";
+      } // lib.optionalAttrs (config.device == "AMD-Workstation") {
+        DP-1.position = "0 400";
+        HDMI-A-1 = { transform = "90"; position = "2560 0"; };
       };
     };
     wrapperFeatures = {
