@@ -48,6 +48,7 @@
           (github-pullrequest.overrideAttrs (oa: { buildInputs = oa.buildInputs ++ [pkgs.git]; }))
           scad-mode
           scad-preview
+          languagetool
         ];
     };
 

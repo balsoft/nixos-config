@@ -35,7 +35,6 @@
   services.nix-serve.enable = config.device == "AMD-Workstation";
 
   services.pcscd.enable = true;
-  hardware.u2f.enable = true;
 
   services.keybase.enable = true;
   

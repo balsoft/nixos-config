@@ -3,13 +3,6 @@
     "A collection of crap, hacks and copy-paste to make my localhosts boot";
 
   inputs = {
-    nixpkgs-mopidy = {
-      type = "github";
-      owner = "NickHU";
-      repo = "nixpkgs";
-      ref = "mopidy";
-      flake = false;
-    };
     lambda-launcher = {
       type = "github";
       owner = "balsoft";
@@ -99,6 +92,7 @@
             specialArgs = { inherit inputs name; };
           };
       in genAttrs hosts mkHost;
+
     legacyPackages.x86_64-linux =
       (builtins.head (builtins.attrValues self.nixosConfigurations)).pkgs;
 

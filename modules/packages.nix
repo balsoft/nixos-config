@@ -23,9 +23,9 @@ in {
 
         inherit (nur.balsoft.pkgs) termNote nix-patch;
 
-        inherit (inputs.lambda-launcher.packages.x86_64-linux) lambda-launcher;
-
         inherit (old) mautrix-telegram;
+
+        inherit (inputs.lambda-launcher.packages.x86_64-linux) lambda-launcher;
 
         inherit old;
 
@@ -41,12 +41,6 @@ in {
             buildInputs = [ self.libxslt ];
           });
       })
-    (self: super: builtins.mapAttrs (_: v: pkgs.callPackage v.override { }) {
-      inherit (import inputs.nixpkgs-mopidy {
-        localSystem.system = "x86_64-linux";
-      })
-        mopidy mopidy-gmusic mopidy-mpd mopidy-mpris mopidy-youtube pykka;
-    })
   ];
   nixpkgs.config = {
     allowUnfree = true;
