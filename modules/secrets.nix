@@ -25,8 +25,6 @@ let
     };
 in rec {
   options.secrets = {
-    owm-key = secret "OpenWeatherMap key";
-    irc = mkCredOption "IRC (konversation)" { };
     slack-term = secret "slack token";
     yt-utilities = mkOption {
       description = "youtrack";

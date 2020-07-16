@@ -65,7 +65,7 @@
   };
   systemd.services.mautrix-telegram = {
     description = "A bridge between telegram and matrix";
-    requires = [ "matrix-synapse.service" "openvpn-client.service" ];
+    requires = [ "matrix-synapse.service" ];
     path = with pkgs; [ coreutils mautrix-telegram ];
     serviceConfig = {
       Restart = "always";

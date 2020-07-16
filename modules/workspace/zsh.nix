@@ -46,7 +46,7 @@
       "p" = "nix-shell --run zsh -p";
       "o" = "xdg-open";
       "post" = ''curl -F"file=@-" https://0x0.st'';
-      "clip" = "${pkgs.xclip}/bin/xclip -selection clipboard";
+      "cat" = "${pkgs.bat}/bin/bat";
     };
     initExtra = ''
       r(){nix run nixpkgs.$1 -c $@ }

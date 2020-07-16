@@ -56,7 +56,6 @@ with import ../support.nix { inherit lib config; }; {
     home-manager.users.balsoft.xdg.mimeApps = {
       enable = true;
       defaultApplications =
-
         with config.defaultApplications;
         builtins.mapAttrs (name: value:
           if value ? desktop then [ "${value.desktop}.desktop" ] else value) {

@@ -2,7 +2,7 @@
 {
   services.mopidy = {
     enable = true;
-    extensionPackages = with pkgs; [ mopidy-mpd mopidy-gmusic ];
+    extensionPackages = with pkgs; [ mopidy-mpd mopidy-gmusic mopidy-youtube ];
     configuration = (if (!isNull config.secrets.gpmusic) then ''
       [gmusic]
       username = ${config.secrets.gpmusic.user}

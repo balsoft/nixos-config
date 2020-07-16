@@ -38,7 +38,6 @@ device:
     ./mailserver.nix
     ./matrix-synapse.nix
     ./workspace/kanshi.nix
-    ./openvpn.nix
     ./nginx.nix
     ./gitea.nix
   ];

@@ -43,4 +43,24 @@
   virtualisation.libvirtd = {
     enable = config.deviceSpecific.isHost;
   };
+
+  services.vsftpd = {
+    enable = true;
+    anonymousUser = true;
+  };
+  networking.firewall.trustedInterfaces = [ "eth0" ];
+
+  services.nextcloud = {
+    enable = true;
+    nginx.enable = true;
+    hostName = "nextcloud.balsoft.ru";
+    config.adminpassFile = "/home/balsoft/nextcloud-admin";
+    package = pkgs.nextcloud19;
+  };
+
+  services.nginx.virtualHosts."nextcloud.balsoft.ru" = {
+    enableACME = true;
+    forceSSL = true;
+  };
+
 }
