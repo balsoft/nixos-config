@@ -9,19 +9,19 @@
   then
     volume=""
     end=""
-    icon=""
+    icon="婢"
   else
     volume=`${pamixer}/bin/pamixer --get-volume`
     end="%"
     if [[ $volume -lt 33 ]]
     then
-      icon=""
+      icon="奄"
     else
       if [[ $volume -lt 66 ]]
       then
-        icon=""
+        icon="奔"
       else
-        icon=""
+        icon="墳"
         code=33
       fi
     fi

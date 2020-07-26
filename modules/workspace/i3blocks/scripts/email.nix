@@ -5,6 +5,9 @@
   obj.login("${config.secrets.mail.user}@${config.secrets.mail.host}", "${config.secrets.mail.password}")
   obj.select()
   l = len(obj.search(None, 'unseen')[1][0].split())
-  print('<span font="${iconfont}"></span> %s' % str(l))
-  exit(33 if l != 0 else 0)
+  if l == 0:
+    print('')
+  else:
+    print('<span font="${iconfont}">﯍</span> %s' % str(l))
+    exit(33)
 ''

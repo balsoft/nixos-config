@@ -1,9 +1,12 @@
-{-# LANGUAGE BangPatterns #-}
+{-# LANGUAGE BangPatterns, TemplateHaskell #-}
 
 import Control.Concurrent (threadDelay)
-import Control.Monad (mapM)
+import Control.Monad (mapM, join)
 import System.Directory (listDirectory)
 import Data.Bool (bool)
+import Language.Haskell.TH.Syntax (liftString, runIO)
+import System.Environment (getEnv)
+import Control.Monad.IO.Class (liftIO)
 
 path :: String
 path = "/sys/class/net/"
@@ -17,7 +20,7 @@ instance Monoid Statistics where
   mempty = Statistics 0 0
 
 icon :: String -> String
-icon i = "<span font='Material Icons 11'>" ++ i ++ "</span>"
+icon i = "<span font='"++ $(join $ liftIO $ liftString <$> getEnv "ICONFONT") ++ "'>" ++ i ++ "</span>"
 
 readInterface :: FilePath -> IO Statistics
 readInterface interface = do 

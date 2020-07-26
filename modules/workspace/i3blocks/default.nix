@@ -38,9 +38,9 @@ in {
     interval=60
     markup=pango
   '' + genIniOrdered (optional (!isNull config.secrets.mail) (scr "email")
-    ++ [ (scrint "weather" 600) (scr "calendar") (scr "emacs") ]
+    ++ [ (scrint "weather" 600) (scr "calendar") (scr "emacs") (scr "nixos")  ]
     ++ optional (!isNull config.secrets.wage) (scrint "youtrack-wage" 3600)
-    ++ [ (scrint "music" 10) (scrint "sound" 5) ] ++ [
+    ++ [ (scrint "music" 3) (scrint "sound" 1) ] ++ [
       (scrint "cpu" 5)
       (scrint "freq" 10)
       (scr "temperature")
@@ -50,5 +50,5 @@ in {
       (scrint "brightness" 5)
     ]
     ++ optional (config.deviceSpecific.devInfo ? bigScreen) (scrint "network" 1)
-    ++ [ (scrint "connections" 10) (scr "df") (scr "date") (scrint "time" 1) ]);
+    ++ [ (scrint "bluetooth" 3) (scrint "connections" 3) (scr "df") (scr "date") (scrint "time" 1) ]);
 }

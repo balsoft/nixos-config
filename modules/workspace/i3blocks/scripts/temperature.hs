@@ -1,11 +1,19 @@
+{-# LANGUAGE TemplateHaskell, OverloadedStrings #-}
+
+import Prelude hiding (readFile)
 import System.Directory
 import System.FilePath
-import Control.Monad (forM)
+import Control.Monad (forM, join)
 import System.Posix.Files
 import Data.List (isPrefixOf, isInfixOf)
 import System.Exit
-
-
+import Language.Haskell.TH.Syntax (liftString, runIO)
+import System.Environment (getEnv)
+import Control.Monad.IO.Class (liftIO)
+import Data.Maybe (catMaybes)
+import Control.Exception
+import Data.Text (unpack)
+import Data.Text.IO (readFile)
 
 -- | Traverse from 'top' directory and return all the files by
 -- filtering with 'include' predicate.
@@ -31,7 +39,7 @@ getTemps = do
       -> ("hwmon" `isPrefixOf` name)
       || ("temp" `isInfixOf` name) && ("input" `isInfixOf` name)
     )
-  fmap (round .(/1000) . read) <$> traverse (readFile) hwmons
+  fmap (round . (/1000) . read . unpack) <$> traverse (handle (\e -> do pure (e :: IOException); pure "0") . readFile) hwmons
   
 -- | Get a symbol corresponding to the temperature
 getSymbol :: Integral n => n -> String
@@ -39,6 +47,9 @@ getSymbol t
   | t < 50    = "\57868" -- 
   | t < 80    = "\57866" -- 
   | otherwise = "\57867" -- 
+
+icon :: String -> String
+icon s = "<span font='"++ $(join $ liftIO $ liftString <$> getEnv "ICONFONT") ++ "'>" ++ s ++ "</span>"
 
 main :: IO ()
 main = do
