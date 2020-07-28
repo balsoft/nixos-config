@@ -9,6 +9,7 @@
       };
     in {
       "balsoft.ru" = {
+        default = true;
         locations."/" = {
           root = "/var/lib/balsoft.ru";
           index = "index.txt";
