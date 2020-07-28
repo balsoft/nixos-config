@@ -13,6 +13,10 @@
           root = "/var/lib/balsoft.ru";
           index = "index.txt";
         };
+        locations."/.well-known".proxyPass = "https://localhost:13748";
+        locations."/_matrix" = {
+          proxyPass = "https://localhost:13748";
+        };
         enableACME = true;
         addSSL = true;
       };
