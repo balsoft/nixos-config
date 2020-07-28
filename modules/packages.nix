@@ -29,12 +29,9 @@ in {
 
         inherit old;
 
-        yt-utilities =
-          import (self.fetchgit config.secrets.yt-utilities.source) { };
+        yt-utilities = inputs.yt-utilities.defaultPackage.x86_64-linux;
 
         nerdfonts = nur.balsoft.pkgs.roboto-mono-nerd;
-
-
 
         mobile-broadband-provider-info =
           super.mobile-broadband-provider-info.overrideAttrs (oa: {
