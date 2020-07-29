@@ -14,9 +14,9 @@
           root = "/var/lib/balsoft.ru";
           index = "index.txt";
         };
-        locations."/.well-known".proxyPass = "https://localhost:13748";
+        locations."/.well-known".proxyPass = "http://localhost:13748";
         locations."/_matrix" = {
-          proxyPass = "https://localhost:13748";
+          proxyPass = "http://localhost:13748";
         };
         enableACME = true;
         addSSL = true;
@@ -28,7 +28,7 @@
         locations."/" = { proxyPass = "http://localhost:5000"; };
       } // default;
       "matrix.balsoft.ru" = {
-        locations."/" = { proxyPass = "https://localhost:13748"; };
+        locations."/" = { proxyPass = "http://localhost:13748"; };
       } // default;
       "share.balsoft.ru" = {
         locations."/" = { root = "/var/lib/share"; };

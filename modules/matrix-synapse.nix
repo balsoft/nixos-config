@@ -15,21 +15,13 @@
           names = [ "federation" ];
         }
       ];
-      tls = true;
       type = "http";
-      x_forwarded = false;
+      tls = false;
+      x_forwarded = true;
     }];
     registration_shared_secret = config.secrets.matrix.shared_secret;
-    public_baseurl = "https://balsoft.ru:13748/";
+    public_baseurl = "http://balsoft.ru";
     server_name = "balsoft.ru";
-    tls_certificate_path = toString (pkgs.writeTextFile {
-      name = "matrix.crt";
-      text = config.secrets.ssl.cert;
-    });
-    tls_private_key_path = toString (pkgs.writeTextFile {
-      name = "matrix_rsa";
-      text = config.secrets.ssl.priv;
-    });
     app_service_config_files = [
       (builtins.toFile "registration_tg.yaml"
         (builtins.toJSON config.secrets.matrix.mautrix-telegram.registration))
