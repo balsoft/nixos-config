@@ -83,7 +83,7 @@ in {
             "${pkgs.keepassxc}/bin/keepassxc /home/balsoft/projects/nixos-config/misc/Passwords.kdbx";
         }
         { command = "${pkgs.termNote}/bin/noted"; }
-        { command = "${pkgs.nheko}/bin/nheko"; }
+        { command = "${pkgs.fractal}/bin/fractal"; }
         { command = "${pkgs.xorg.xrdb}/bin/xrdb -merge ~/.Xresources"; }
 
         { command = "${pkgs.cantata}/bin/cantata"; }
