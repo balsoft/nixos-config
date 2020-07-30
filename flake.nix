@@ -68,11 +68,6 @@
       url = "ssh://git@github.com/serokell/yt-utilities";
       ref = "flake";
     };
-    mobile-broadband-provider-info = {
-      type = "git";
-      url = "https://gitlab.gnome.org/GNOME/mobile-broadband-provider-info";
-      flake = false;
-    };
     nixos-fhs-compat = {
       type = "github";
       owner = "balsoft";

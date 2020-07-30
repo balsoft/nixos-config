@@ -88,33 +88,17 @@
     "materia-theme": {
       "flake": false,
       "locked": {
-        "lastModified": 1587550712,
-        "narHash": "sha256-RMifAu3dpSpXu4AdWXwO+zFgr7OHhgsj5oHOAfPNVF8=",
+        "lastModified": 1595824519,
+        "narHash": "sha256-cvKm3XONZy062P7XZdPQO98t0qmL/buiFM/oekTrfJQ=",
         "owner": "nana-4",
         "repo": "materia-theme",
-        "rev": "b36b379c9256b67e5f63a60c6faf6912f1845b66",
+        "rev": "c6aa571a1ba279e48f3f52610c9c6bedc2c9a0f8",
         "type": "github"
       },
       "original": {
         "owner": "nana-4",
         "repo": "materia-theme",
         "type": "github"
-      }
-    },
-    "mobile-broadband-provider-info": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1588667400,
-        "narHash": "sha256-xkUehl/Z0WpRDoRdNiEcMSU3A+BG7lcJRnrvRcn/0UQ=",
-        "ref": "master",
-        "rev": "8053c3edb73bed639a6f45bbf48bfa5fd418b61a",
-        "revCount": 597,
-        "type": "git",
-        "url": "https://gitlab.gnome.org/GNOME/mobile-broadband-provider-info"
-      },
-      "original": {
-        "type": "git",
-        "url": "https://gitlab.gnome.org/GNOME/mobile-broadband-provider-info"
       }
     },
     "nix": {
@@ -229,11 +213,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1593760204,
-        "narHash": "sha256-M/c2DTP6EUnSgnBYyVScApeHv5I+NbN57nn+px4bEaI=",
+        "lastModified": 1596043279,
+        "narHash": "sha256-PgQAn4NUVLLO058jyl73stME492PBv6On6HR+SbmCJ4=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "bdac777becdbb8780c35be4f552c9d4518fe0bdb",
+        "rev": "9e453cc2b7d015ab7554be471f130825f2a44604",
         "type": "github"
       },
       "original": {
@@ -263,7 +247,6 @@
         "home-manager": "home-manager",
         "lambda-launcher": "lambda-launcher",
         "materia-theme": "materia-theme",
-        "mobile-broadband-provider-info": "mobile-broadband-provider-info",
         "nix": "nix",
         "nixos-fhs-compat": "nixos-fhs-compat",
         "nixpkgs": "nixpkgs_4",

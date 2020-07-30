@@ -32,13 +32,6 @@ in {
         yt-utilities = inputs.yt-utilities.defaultPackage.x86_64-linux;
 
         nerdfonts = nur.balsoft.pkgs.roboto-mono-nerd;
-
-        mobile-broadband-provider-info =
-          super.mobile-broadband-provider-info.overrideAttrs (oa: {
-            src = inputs.mobile-broadband-provider-info;
-            nativeBuildInputs = [ self.autoreconfHook ];
-            buildInputs = [ self.libxslt ];
-          });
       })
   ];
   nixpkgs.config = {
