@@ -88,11 +88,11 @@
     "materia-theme": {
       "flake": false,
       "locked": {
-        "lastModified": 1595824519,
-        "narHash": "sha256-cvKm3XONZy062P7XZdPQO98t0qmL/buiFM/oekTrfJQ=",
+        "lastModified": 1596129804,
+        "narHash": "sha256-Vtyja8A6SfeRA78XK1e89hwWYY0kQm1VkY7/EagDXl8=",
         "owner": "nana-4",
         "repo": "materia-theme",
-        "rev": "c6aa571a1ba279e48f3f52610c9c6bedc2c9a0f8",
+        "rev": "6f7e51a97fc7ff3ddbb7908cff505a8c1919b6a2",
         "type": "github"
       },
       "original": {
@@ -147,19 +147,35 @@
         "type": "indirect"
       }
     },
-    "nixpkgs-old": {
-      "flake": false,
+    "nixpkgs-mesa": {
       "locked": {
-        "lastModified": 1581379743,
-        "narHash": "sha256-i1XCn9rKuLjvCdu2UeXKzGLF6IuQePQKFt4hEKRU5oc=",
+        "lastModified": 1593760204,
+        "narHash": "sha256-M/c2DTP6EUnSgnBYyVScApeHv5I+NbN57nn+px4bEaI=",
         "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "34c7eb7545d155cc5b6f499b23a7cb1c96ab4d59",
+        "repo": "nixpkgs-channels",
+        "rev": "bdac777becdbb8780c35be4f552c9d4518fe0bdb",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
-        "ref": "nixos-19.03",
+        "repo": "nixpkgs-channels",
+        "rev": "bdac777becdbb8780c35be4f552c9d4518fe0bdb",
+        "type": "github"
+      }
+    },
+    "nixpkgs-old": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1592518222,
+        "narHash": "sha256-dkWpvJM3y7vXNu2FFrj4XHE3GoX0h+pIyc4gLQpQsmQ=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "289466dd6a11c65a7de4a954d6ebf66c1ad07652",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-19.09",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -213,11 +229,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1596043279,
-        "narHash": "sha256-PgQAn4NUVLLO058jyl73stME492PBv6On6HR+SbmCJ4=",
+        "lastModified": 1596185210,
+        "narHash": "sha256-Dj9rN3OxZ/j0XH00bwe/4teq9DN4Q0mynKm46BKulFM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "9e453cc2b7d015ab7554be471f130825f2a44604",
+        "rev": "b0edcfd09bbf9e8571704cf5df8d68956c79af44",
         "type": "github"
       },
       "original": {
@@ -250,6 +266,7 @@
         "nix": "nix",
         "nixos-fhs-compat": "nixos-fhs-compat",
         "nixpkgs": "nixpkgs_4",
+        "nixpkgs-mesa": "nixpkgs-mesa",
         "nixpkgs-old": "nixpkgs-old",
         "nixpkgs-wayland": "nixpkgs-wayland",
         "simple-nixos-mailserver": "simple-nixos-mailserver",

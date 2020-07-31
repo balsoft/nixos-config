@@ -21,7 +21,7 @@ in {
           { app_id = "org.kde.trojita"; }
           { title = ".* - Sylpheed.*"; }
           { title = "balsoft : weechat.*"; }
-          { title = "nheko"; }
+          { title = "Spectral"; }
           { title = "Slack"; }
         ];
         "ﱘ" = [{ app_id = "cantata"; }];
@@ -83,7 +83,7 @@ in {
             "${pkgs.keepassxc}/bin/keepassxc /home/balsoft/projects/nixos-config/misc/Passwords.kdbx";
         }
         { command = "${pkgs.termNote}/bin/noted"; }
-        { command = "${pkgs.fractal}/bin/fractal"; }
+        { command = "${pkgs.spectral}/bin/spectral"; }
         { command = "${pkgs.xorg.xrdb}/bin/xrdb -merge ~/.Xresources"; }
 
         { command = "${pkgs.cantata}/bin/cantata"; }

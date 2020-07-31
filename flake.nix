@@ -3,46 +3,27 @@
     "A collection of crap, hacks and copy-paste to make my localhosts boot";
 
   inputs = {
-    lambda-launcher = {
-      type = "github";
-      owner = "balsoft";
-      repo = "lambda-launcher";
-    };
+    nixpkgs-mesa.url = github:nixos/nixpkgs-channels/bdac777becdbb8780c35be4f552c9d4518fe0bdb;
+    lambda-launcher.url = github:balsoft/lambda-launcher;
     NUR = {
-      type = "github";
-      owner = "nix-community";
-      repo = "NUR";
+      url = github:nix-community/NUR;
       flake = false;
     };
     base16-unclaimed-schemes = {
-      type = "github";
-      owner = "chriskempson";
-      repo = "base16-unclaimed-schemes";
+      url = github:chriskempson/base16-unclaimed-schemes;
       flake = false;
     };
-    home-manager = {
-      type = "github";
-      owner = "rycee";
-      repo = "home-manager";
-      ref = "bqv-flakes";
-    };
+    home-manager.url = github:rycee/home-manager/bqv-flakes;
     materia-theme = {
-      type = "github";
-      owner = "nana-4";
-      repo = "materia-theme";
+      url = github:nana-4/materia-theme;
       flake = false;
     };
     nixpkgs-old = {
-      type = "github";
-      owner = "nixos";
-      repo = "nixpkgs";
-      ref = "nixos-19.03";
+      url = github:nixos/nixpkgs/nixos-19.09;
       flake = false;
     };
     weechat-scripts = {
-      type = "github";
-      owner = "weechat";
-      repo = "scripts";
+      url = github:weechat/scripts;
       flake = false;
     };
     simple-nixos-mailserver = {
@@ -52,15 +33,11 @@
       flake = false;
     };
     nixpkgs-wayland = {
-      type = "github";
-      owner = "colemickens";
-      repo = "nixpkgs-wayland";
+      url = github:colemickens/nixpkgs-wayland;
       flake = false;
     };
     weechat-notify-send = {
-      type = "github";
-      owner = "s3rvac";
-      repo = "weechat-notify-send";
+      url = github:s3rvac/weechat-notify-send;
       flake = false;
     };
     yt-utilities = {
@@ -68,11 +45,7 @@
       url = "ssh://git@github.com/serokell/yt-utilities";
       ref = "flake";
     };
-    nixos-fhs-compat = {
-      type = "github";
-      owner = "balsoft";
-      repo = "nixos-fhs-compat";
-    };
+    nixos-fhs-compat.url = github:balsoft/nixos-fhs-compat;
   };
 
   outputs = { nixpkgs, nix, self, ... }@inputs: {

@@ -20,7 +20,7 @@
       x_forwarded = true;
     }];
     registration_shared_secret = config.secrets.matrix.shared_secret;
-    public_baseurl = "http://balsoft.ru";
+    public_baseurl = "https://balsoft.ru";
     server_name = "balsoft.ru";
     app_service_config_files = [
       (builtins.toFile "registration_tg.yaml"

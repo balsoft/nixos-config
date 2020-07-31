@@ -14,7 +14,9 @@
           root = "/var/lib/balsoft.ru";
           index = "index.txt";
         };
-        locations."/.well-known".proxyPass = "http://localhost:13748";
+        locations."/.well-known" = {
+          proxyPass = "http://localhost:13748";
+        };
         locations."/_matrix" = {
           proxyPass = "http://localhost:13748";
         };
@@ -28,7 +30,9 @@
         locations."/" = { proxyPass = "http://localhost:5000"; };
       } // default;
       "matrix.balsoft.ru" = {
-        locations."/" = { proxyPass = "http://localhost:13748"; };
+        locations."/" = {
+          proxyPass = "http://localhost:13748";
+        };
       } // default;
       "share.balsoft.ru" = {
         locations."/" = { root = "/var/lib/share"; };

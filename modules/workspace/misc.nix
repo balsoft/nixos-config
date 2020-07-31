@@ -67,6 +67,5 @@
       "${pkgs.breeze-qt5}/share/icons/breeze_cursors";
     systemd.user.startServices = true;
     services.kdeconnect.enable = true;
-    services.gnome-keyring.enable = true;
   };
 }

@@ -21,6 +21,8 @@ in {
           nurpkgs = pkgs;
         }).repos;
 
+        inherit (inputs.nixpkgs-mesa.legacyPackages.x86_64-linux) sway mesa_drivers;
+
         inherit (nur.balsoft.pkgs) termNote nix-patch;
 
         inherit (old) mautrix-telegram;

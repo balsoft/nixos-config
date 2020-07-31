@@ -66,5 +66,4 @@
     locations."~ ^\\/(?:build|tests|config|lib|3rdparty|templates|data)\\/".proxyWebsockets = true;
     locations."~ ^\\/(?:index|remote|public|cron|core/ajax\\/update|status|ocs\\/v[12]|updater\\/.+|ocs-provider\\/.+|ocm-provider\\/.+)\\.php(?:$|\\/)".proxyWebsockets = true;
   };
-
 }
