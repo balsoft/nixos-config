@@ -35,6 +35,7 @@ device:
     ./power.nix
     ./network.nix
   ] ++ lib.optionals (device == "AMD-Workstation") [
+    ./nextcloud.nix
     ./mailserver.nix
     ./matrix-synapse.nix
     ./workspace/kanshi.nix

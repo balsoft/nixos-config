@@ -51,13 +51,15 @@
   networking.firewall.trustedInterfaces = [ "eth0" ];
 
   services.nextcloud = {
-    enable = true;
+    enable = config.device == "AMD-Workstation";
     nginx.enable = true;
     hostName = "nextcloud.balsoft.ru";
     config.adminpassFile = "/home/balsoft/nextcloud-admin";
     package = pkgs.nextcloud19;
     https = true;
   };
+
+  services.nginx.enable = config.device == "AMD-Workstation";
 
   services.nginx.virtualHosts."nextcloud.balsoft.ru" = {
     enableACME = true;
