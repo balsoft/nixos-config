@@ -15,7 +15,16 @@ with deviceSpecific; {
   hardware.opengl.package = pkgs.mesa_drivers;
 
   hardware.bluetooth.enable = true;
-  hardware.bluetooth.package = pkgs.bluezFull;
+  hardware.bluetooth.package = pkgs.bluezFull.overrideAttrs (_: {
+    patches = [
+      (pkgs.fetchurl {
+        name = "volume-patch";
+        url = "https://marc.info/?l=linux-bluetooth&m=159446824521591&q=raw";
+        sha256 =
+          "448ce22b6fec2746d075390a898d1d08828c4008a6efcd8b98825ec60e5d1b81";
+      })
+    ];
+  });
 
   services.throttled = {
     enable = device == "T490s-Laptop";
@@ -80,7 +89,8 @@ with deviceSpecific; {
     enable = config.device == "T490s-Laptop";
     description = "Set up thinkpad leds";
     wantedBy = [ "multi-user.target" ];
-    script = ''echo -n -e "\x0e" | dd of="/sys/kernel/debug/ec/ec0/io" bs=1 seek=12 count=1 conv=notrunc 2> /dev/null'';
+    script = ''
+      echo -n -e "\x0e" | dd of="/sys/kernel/debug/ec/ec0/io" bs=1 seek=12 count=1 conv=notrunc 2> /dev/null'';
     serviceConfig.Type = "oneshot";
   };
 
@@ -119,11 +129,18 @@ with deviceSpecific; {
   sound.enable = true;
   hardware.pulseaudio = {
     enable = true;
-    package = pkgs.pulseaudioFull;
+    package = pkgs.pulseaudioFull.overrideAttrs (oa: {
+      patches = [
+        (pkgs.fetchurl {
+          url =
+            "https://gitlab.freedesktop.org/pulseaudio/pulseaudio/-/merge_requests/239.diff";
+          sha256 = "07qrpqwvn9sr87z2kn1yaza5bs9ivywd7sl194zwphlq94xrlzdf";
+        })
+      ];
+    });
     support32Bit = true;
     extraConfig = ''
       load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1
     '';
-    extraModules = [ pkgs.pulseaudio-modules-bt ];
   };
 }
