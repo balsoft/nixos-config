@@ -1,4 +1,4 @@
-{ pamixer, lxqt, iconfont, ... }: ''
+{ pamixer, lxqt, iconfont, config, lib, ... }: ''
   case $BLOCK_BUTTON in
        2) ${pamixer}/bin/pamixer -t;;
        4) ${pamixer}/bin/pamixer -i 5;;
@@ -26,7 +26,7 @@
       fi
     fi
   fi
-  [[ -n $BLOCK_BUTTON ]] && text=" $volume$end"
+  ${lib.optionalString (! config.deviceSpecific.bigScreen) "[[ -n $BLOCK_BUTTON ]] &&"} text=" $volume$end"
   echo "<span font='${iconfont}'>$icon</span>$text"
   exit $code
 ''
