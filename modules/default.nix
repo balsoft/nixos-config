@@ -3,7 +3,7 @@ device:
   imports = [
     ./applications/packages.nix
     ./applications/emacs
-    ./applications/konsole.nix
+    ./applications/alacritty.nix
     ./applications/sylpheed.nix
     ./applications/weechat.nix
     ./applications/okular.nix
