@@ -49,33 +49,41 @@
       mkdir -p /var/lib/mautrix-whatsapp
       cd /var/lib/mautrix-whatsapp
       sleep 5
-      timeout 900 mautrix-whatsapp -c ${
+      mautrix-whatsapp -c ${
         builtins.toFile "config_wa.yaml"
-        (builtins.toJSON config.secrets.matrix.mautrix-whatsapp.config)
+          (builtins.toJSON config.secrets.matrix.mautrix-whatsapp.config)
       }
     '';
   };
-  systemd.services.mautrix-telegram = {
-    description = "A bridge between telegram and matrix";
-    requires = [ "matrix-synapse.service" ];
-    path = with pkgs; [ coreutils mautrix-telegram ];
-    serviceConfig = {
-      Restart = "always";
-      RestartSec = 1;
-    };
-    wantedBy = [ "network-online.target" ];
-    script = ''
-      mkdir -p /var/lib/mautrix-telegram
-      cp -r ${pkgs.mautrix-telegram}/* /var/lib/mautrix-telegram
-      cd /var/lib/mautrix-telegram
-      alembic upgrade head || echo "update failed"
-      sleep 5
-      cp ${
-        builtins.toFile "config.yaml"
-        (builtins.toJSON config.secrets.matrix.mautrix-telegram.config)
-      } ./config.yaml
-      timeout 900 mautrix-telegram 
-    '';
+  # systemd.services.mautrix-telegram = {
+  #   description = "A bridge between telegram and matrix";
+  #   requires = [ "matrix-synapse.service" ];
+  #   path = with pkgs; [ coreutils mautrix-telegram ];
+  #   serviceConfig = {
+  #     Restart = "always";
+  #     RestartSec = 1;
+  #   };
+  #   wantedBy = [ "network-online.target" ];
+  #   script = ''
+  #     mkdir -p /var/lib/mautrix-telegram
+  #     cp -r ${pkgs.mautrix-telegram}/* /var/lib/mautrix-telegram
+  #     cd /var/lib/mautrix-telegram
+  #     alembic upgrade head || echo "update failed"
+  #     sleep 5
+  #     cp ${
+  #       builtins.toFile "config.yaml"
+  #       (builtins.toJSON config.secrets.matrix.mautrix-telegram.config)
+  #     } ./config.yaml
+  #     timeout 900 mautrix-telegram
+  #   '';
+  # };
+
+  services.mautrix-telegram = {
+    enable = true;
+    settings = config.secrets.matrix.mautrix-telegram.config;
   };
+
+  systemd.services.mautrix-telegram.serviceConfig.DynamicUser = lib.mkForce false;
+
   users.users.matrix-synapse.name = lib.mkForce "matrix-synapse";
 }

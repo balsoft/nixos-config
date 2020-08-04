@@ -25,7 +25,7 @@ in {
 
         inherit (nur.balsoft.pkgs) termNote nix-patch;
 
-        inherit (old) mautrix-telegram;
+        # inherit (old) mautrix-telegram;
 
         inherit (inputs.lambda-launcher.packages.x86_64-linux) lambda-launcher;
 

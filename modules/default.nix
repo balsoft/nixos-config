@@ -9,6 +9,7 @@ device:
     ./applications/okular.nix
     ./applications/yt-utilities.nix
     ./applications/firefox.nix
+    ./applications/spectral.nix
     ./workspace/sway
     ./workspace/i3blocks
     ./workspace/zsh.nix
