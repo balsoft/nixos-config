@@ -107,6 +107,7 @@ with deviceSpecific; {
       grub.device = "nodev";
       grub.efiInstallAsRemovable = true; # NVRAM is unreliable
     });
+    kernelPackages = pkgs.linuxPackages_latest;
     consoleLogLevel = 3;
     extraModprobeConfig = "options ec_sys write_support=1";
     kernel.sysctl."vm.swappiness" = 0;
@@ -141,6 +142,7 @@ with deviceSpecific; {
     support32Bit = true;
     extraConfig = ''
       load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1
+      load-module module-bluetooth-policy auto_switch=2
     '';
   };
 }
