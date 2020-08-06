@@ -186,6 +186,11 @@ in {
         "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
         "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
         "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
+        "XF86AudioLowerVolume" = "exec ${pkgs.pamixer}/bin/pamixer -d 2";
+        "XF86AudioRaiseVolume" = "exec ${pkgs.pamixer}/bin/pamixer -i 2";
+        "XF86AudioMute" = "exec ${pkgs.pamixer}/bin/pamixer -t";
+        "${modifier}+XF86AudioLowerVolume" = "exec ${pkgs.pamixer}/bin/pamixer -d 1";
+        "${modifier}+XF86AudioRaiseVolume" = "exec ${pkgs.pamixer}/bin/pamixer -i 1";
         "button2" = "kill";
         "--whole-window ${modifier}+button2" = "kill";
       } // builtins.listToAttrs (builtins.map (x: {
@@ -196,9 +201,6 @@ in {
         value = "move container to workspace ${builtins.elemAt x 1}";
       }) workspaces));
       keycodebindings = {
-        "122" = "exec ${pkgs.pamixer}/bin/pamixer -d 2";
-        "123" = "exec ${pkgs.pamixer}/bin/pamixer -i 2";
-        "121" = "exec ${pkgs.pamixer}/bin/pamixer -t";
       };
       workspaceLayout = "tabbed";
       workspaceAutoBackAndForth = true;
