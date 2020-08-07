@@ -3,6 +3,7 @@
     "A collection of crap, hacks and copy-paste to make my localhosts boot";
 
   inputs = {
+    nixpkgs.url = github:nixos/nixpkgs/c253216595572930316f2be737dc288a1da22558;
     nixpkgs-mesa.url = github:nixos/nixpkgs-channels/bdac777becdbb8780c35be4f552c9d4518fe0bdb;
     lambda-launcher.url = github:balsoft/lambda-launcher;
     NUR = {

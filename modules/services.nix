@@ -44,12 +44,17 @@
     enable = config.deviceSpecific.isHost;
   };
 
-  services.vsftpd = {
-    enable = true;
-    anonymousUser = true;
-  };
   networking.firewall.trustedInterfaces = [ "eth0" ];
 
   services.nginx.enable = config.device == "AMD-Workstation";
 
+  services.jitsi-meet = {
+    enable = true;
+    hostName = "meet.balsoft.ru";
+  };
+
+  services.nginx.virtualHosts.${config.services.jitsi-meet.hostName} = {
+    enableACME = true;
+    forceSSL = true;
+  };
 }

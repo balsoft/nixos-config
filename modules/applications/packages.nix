@@ -32,7 +32,6 @@
       breeze-icons
       kde-cli-tools
       xdg_utils
-      nheko
       git-crypt
       inputs.yt-utilities.defaultPackage.x86_64-linux
       lambda-launcher
@@ -46,9 +45,7 @@
       gwenview
       kcachegrind
       kcolorchooser
-      kdenlive
       kolourpaint
-      marble
       okular
       print-manager
     ]));
