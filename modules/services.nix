@@ -49,7 +49,7 @@
   services.nginx.enable = config.device == "AMD-Workstation";
 
   services.jitsi-meet = {
-    enable = true;
+    enable = config.device == "AMD-Workstation";
     hostName = "meet.balsoft.ru";
   };
 
