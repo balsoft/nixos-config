@@ -46,7 +46,7 @@ in {
     nixPath = lib.mkForce [
       "nixpkgs=/etc/nixpkgs"
     ];
-    binaryCaches = [ "https://cache.nixos.org" "https://cache.balsoft.ru" ];
+    binaryCaches = [ "https://cache.nixos.org" ];
 
     registry.self.flake = inputs.self;
 
