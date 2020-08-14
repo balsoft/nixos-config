@@ -96,16 +96,14 @@ with deviceSpecific; {
 
   boot = {
     loader = {
+      timeout = 1;
+    } // (if deviceSpecific.devInfo.legacy or false then { # Non-UEFI config
       grub.enable = true;
       grub.version = 2;
       grub.useOSProber = true;
-      timeout = 1;
-    } // (if deviceSpecific.devInfo.legacy or false then { # Non-UEFI config
       grub.device = "/dev/sda";
     } else { # UEFI config
-      grub.efiSupport = true;
-      grub.device = "nodev";
-      grub.efiInstallAsRemovable = true; # NVRAM is unreliable
+      systemd-boot.enable = true;
     });
     kernelPackages = pkgs.linuxPackages_latest;
     consoleLogLevel = 3;
