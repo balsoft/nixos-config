@@ -4,7 +4,6 @@
 
   inputs = {
     nixpkgs.url = github:nixos/nixpkgs/c253216595572930316f2be737dc288a1da22558;
-    nix.url = github:nixos/nix/6ff9aa8df7ce8266147f74c65e2cc529a1e72ce0;
     nixpkgs-mesa.url = github:nixos/nixpkgs-channels/bdac777becdbb8780c35be4f552c9d4518fe0bdb;
     lambda-launcher.url = github:balsoft/lambda-launcher;
     NUR = {
