@@ -1,3 +1,4 @@
+
 { config, lib, pkgs, ... }: {
 
   services.acpid.enable = true;
@@ -47,6 +48,15 @@
   networking.firewall.trustedInterfaces = [ "eth0" ];
 
   services.nginx.enable = config.device == "AMD-Workstation";
+
+  services.vsftpd = {
+    enable = config.device == "AMD-Workstation";
+    anonymousUser = true;
+    allowWriteableChroot = true;
+    anonymousMkdirEnable = true;
+    anonymousUploadEnable = true;
+    writeEnable = true;
+  };
 
   services.jitsi-meet = {
     enable = config.device == "AMD-Workstation";
