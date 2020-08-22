@@ -11,6 +11,10 @@
       theme = "agnoster";
       plugins = [ "git" "dirhistory" ];
     };
+    history = rec {
+      size = 1000000;
+      save = size;
+    };
     plugins = [
       {
         name = "zsh-nix-shell";
