@@ -21,8 +21,6 @@ in {
           nurpkgs = pkgs;
         }).repos;
 
-        inherit (inputs.nixpkgs-mesa.legacyPackages.x86_64-linux) sway mesa_drivers;
-
         inherit (nur.balsoft.pkgs) termNote nix-patch;
 
         # inherit (old) mautrix-telegram;
@@ -34,6 +32,8 @@ in {
         yt-utilities = inputs.yt-utilities.defaultPackage.x86_64-linux;
 
         nerdfonts = nur.balsoft.pkgs.roboto-mono-nerd;
+
+        inherit (inputs.nixpkgs-mesa.legacyPackages.x86_64-linux) sway mesa_drivers;
       })
   ];
   nixpkgs.config = {

@@ -2,8 +2,8 @@
 let
   weechat-matrix = pkgs.weechatScripts.weechat-matrix.overrideAttrs (_: {
     src = pkgs.fetchzip {
-      url = "https://github.com/myii/weechat-matrix/archive/feat/enable-replies.tar.gz";
-      sha256 = "sha256-KeTfSdwVosouJwz0aZARKdxNERmFWl96Dl1ps0kbBy4=";
+      url = "https://github.com/poljar/weechat-matrix/archive/master.tar.gz";
+      sha256 = "sha256-zYq68dl9nlHflsVrbg32KNNa/P3otEfvZrUTuD3ahT0=";
     };
   });
   weechat = pkgs.weechat.override {

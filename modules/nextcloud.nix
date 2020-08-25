@@ -2,7 +2,6 @@
 {
   services.nextcloud = {
     enable = true;
-    nginx.enable = true;
     hostName = "nextcloud.balsoft.ru";
     config.adminpassFile = "/home/balsoft/nextcloud-admin";
     package = pkgs.nextcloud19;
