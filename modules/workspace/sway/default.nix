@@ -128,6 +128,9 @@ in {
         "${modifier}+Shift+Right" = "move right";
         "${modifier}+Shift+Left" = "move left";
 
+        "${modifier}+Comma" = "workspace prev";
+        "${modifier}+Period" = "workspace next";
+
         "${modifier}+a" = "focus child; focus left; ${moveMouse}";
         "${modifier}+d" = "focus child; focus right; ${moveMouse}";
         "${modifier}+w" = "focus child; focus up; ${moveMouse}";
