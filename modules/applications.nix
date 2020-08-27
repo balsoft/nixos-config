@@ -15,7 +15,7 @@ with import ../support.nix { inherit lib config; }; {
           name = "emacsclient";
           text = ''
             #!${pkgs.bash}/bin/bash
-            ${config.home-manager.users.balsoft.programs.emacs.finalPackage}/bin/emacsclient -s /tmp/emacs1000/server -c $@'';
+            ${config.home-manager.users.balsoft.programs.emacs.finalPackage}/bin/emacsclient -s /run/user/1000/emacs/server -c $@'';
           executable = true;
         });
         desktop = "emacsclient";
