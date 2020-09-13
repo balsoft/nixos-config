@@ -45,6 +45,8 @@
           gitlab-ci-mode-flycheck
           gitlab
           undo-tree
+          rust-mode
+          go-mode
         ];
     };
 

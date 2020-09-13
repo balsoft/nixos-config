@@ -79,7 +79,7 @@ in {
     loginAccounts = {
       "balsoft@balsoft.ru" = {
         aliases =
-          [ "balsoft" "admin@balsoft.ru" "admin" "root@balsoft.ru" "root" ];
+          [ "balsoft" "admin@balsoft.ru" "patches" "patches@balsoft.ru" "issues" "issues@balsoft.ru" "admin" "root@balsoft.ru" "root" ];
         inherit hashedPassword;
       };
     };
