@@ -35,6 +35,7 @@ device:
     ./services.nix
     ./power.nix
     ./network.nix
+    ./simple-osd-daemons.nix
   ] ++ lib.optionals (device == "AMD-Workstation") [
     ./nextcloud.nix
     ./mailserver.nix

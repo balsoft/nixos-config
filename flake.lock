@@ -245,6 +245,21 @@
     },
     "nixpkgs_5": {
       "locked": {
+        "lastModified": 1599773960,
+        "narHash": "sha256-5bL52aaUOOyOBjgKh9/6jQlFbeE+WfVX7dpvjohmD+w=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "5916b9637048446755629c84ae6f13361f623d13",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_6": {
+      "locked": {
         "lastModified": 1587390417,
         "narHash": "sha256-dLQebnBviLNiN2Ei3Iqyxm73EFwz77YcvitvMYwRNA8=",
         "owner": "serokell",
@@ -272,6 +287,7 @@
         "nixpkgs-old": "nixpkgs-old",
         "nixpkgs-wayland": "nixpkgs-wayland",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
+        "simple-osd-daemons": "simple-osd-daemons",
         "weechat-notify-send": "weechat-notify-send",
         "weechat-scripts": "weechat-scripts",
         "yt-utilities": "yt-utilities"
@@ -292,6 +308,24 @@
         "ref": "master",
         "type": "git",
         "url": "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver"
+      }
+    },
+    "simple-osd-daemons": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_5"
+      },
+      "locked": {
+        "lastModified": 1600036524,
+        "narHash": "sha256-Xyb2qLHhqgW+oyl2qQAh1Zcoj5Y69IHRkaGd9htEEC0=",
+        "ref": "master",
+        "rev": "ee4bf80484acbf18ab7d9f2da83ee3dfc9c1f722",
+        "revCount": 3,
+        "type": "git",
+        "url": "https://code.balsoft.ru/balsoft/simple-osd-daemons"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://code.balsoft.ru/balsoft/simple-osd-daemons"
       }
     },
     "weechat-notify-send": {
@@ -329,7 +363,7 @@
     "yt-utilities": {
       "inputs": {
         "haskell-nix": "haskell-nix",
-        "nixpkgs": "nixpkgs_5"
+        "nixpkgs": "nixpkgs_6"
       },
       "locked": {
         "lastModified": 1588006875,

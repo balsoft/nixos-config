@@ -47,6 +47,7 @@
       ref = "flake";
     };
     nixos-fhs-compat.url = github:balsoft/nixos-fhs-compat;
+    simple-osd-daemons.url = git+https://code.balsoft.ru/balsoft/simple-osd-daemons;
   };
 
   outputs = { nixpkgs, nix, self, ... }@inputs: {

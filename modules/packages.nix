@@ -27,6 +27,8 @@ in {
 
         inherit (inputs.lambda-launcher.packages.x86_64-linux) lambda-launcher;
 
+        simple-osd = { inherit (inputs.simple-osd-daemons.packages.x86_64-linux) battery bluetooth brightness pulseaudio; };
+
         inherit old;
 
         yt-utilities = inputs.yt-utilities.defaultPackage.x86_64-linux;
