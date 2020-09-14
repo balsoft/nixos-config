@@ -85,6 +85,23 @@
         "type": "github"
       }
     },
+    "lowdown-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1598296217,
+        "narHash": "sha256-ha7lyNY1d8m+osmDpPc9f/bfZ3ZC1IVIXwfyklSWg8I=",
+        "owner": "edolstra",
+        "repo": "lowdown",
+        "rev": "c7a4e715af1e233080842db82d15b261cb74cb28",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "ref": "no-structs-in-anonymous-unions",
+        "repo": "lowdown",
+        "type": "github"
+      }
+    },
     "materia-theme": {
       "flake": false,
       "locked": {
@@ -103,14 +120,15 @@
     },
     "nix": {
       "inputs": {
+        "lowdown-src": "lowdown-src",
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1598352458,
-        "narHash": "sha256-mcIJ0IPKHBHKXdLimFXYRPU2n9E03o6SvB4t+oa9DyU=",
+        "lastModified": 1599941320,
+        "narHash": "sha256-xe0WZVLuWQ3goCnlh1VDDykwdUSOyikXoaclhH+xqVU=",
         "owner": "NixOS",
         "repo": "nix",
-        "rev": "3ccf3801fb1c3aac6a170318d367bc2e75ac590e",
+        "rev": "7cb5f643a6ee5b8ffee2e0bb9159a677ff76d17c",
         "type": "github"
       },
       "original": {
