@@ -124,11 +124,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1599941320,
-        "narHash": "sha256-xe0WZVLuWQ3goCnlh1VDDykwdUSOyikXoaclhH+xqVU=",
+        "lastModified": 1600170522,
+        "narHash": "sha256-rY7p7K5djPHvuRHNrRRS80j0BlbH2rp9w0F4uQbZYbs=",
         "owner": "NixOS",
         "repo": "nix",
-        "rev": "7cb5f643a6ee5b8ffee2e0bb9159a677ff76d17c",
+        "rev": "733d2e9402807e54d503c3113e854bfddb3d44e0",
         "type": "github"
       },
       "original": {
@@ -333,17 +333,17 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1600036524,
-        "narHash": "sha256-Xyb2qLHhqgW+oyl2qQAh1Zcoj5Y69IHRkaGd9htEEC0=",
+        "lastModified": 1600420679,
+        "narHash": "sha256-3bolSr1u1xfvk/fZw9yk7iKeLI1R0Uu7UXcloysl5c8=",
         "ref": "master",
-        "rev": "ee4bf80484acbf18ab7d9f2da83ee3dfc9c1f722",
-        "revCount": 3,
+        "rev": "449a3912bd090011e538504b4daae6e61dc7523b",
+        "revCount": 15,
         "type": "git",
-        "url": "https://code.balsoft.ru/balsoft/simple-osd-daemons"
+        "url": "ssh://gitea@code.balsoft.ru/balsoft/simple-osd-daemons"
       },
       "original": {
         "type": "git",
-        "url": "https://code.balsoft.ru/balsoft/simple-osd-daemons"
+        "url": "ssh://gitea@code.balsoft.ru/balsoft/simple-osd-daemons"
       }
     },
     "weechat-notify-send": {
