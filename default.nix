@@ -17,6 +17,8 @@ rec {
     (import ./modules device)
   ];
 
+  home-manager.users.balsoft.home.stateVersion = "20.09";
+
   device = name;
 
   system.stateVersion = "18.03";

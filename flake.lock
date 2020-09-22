@@ -32,6 +32,39 @@
         "type": "github"
       }
     },
+    "crate2nix": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1600704184,
+        "narHash": "sha256-PaLz9kGAfmumbftRBqbDlUVOxXey1Mt/LS3Tov//1PU=",
+        "owner": "balsoft",
+        "repo": "crate2nix",
+        "rev": "f26503fece52ce143e207dceff337c83ff4c2f65",
+        "type": "github"
+      },
+      "original": {
+        "owner": "balsoft",
+        "ref": "balsoft/callcrate",
+        "repo": "crate2nix",
+        "type": "github"
+      }
+    },
+    "crates-io-index": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1600641984,
+        "narHash": "sha256-u2juQ6LmitgAlj/lztMhjw6i0dIFEUdyVfYYIABWw90=",
+        "owner": "rust-lang",
+        "repo": "crates.io-index",
+        "rev": "6adca9dd72305e56efc0bd516b6324d2542f71d1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rust-lang",
+        "repo": "crates.io-index",
+        "type": "github"
+      }
+    },
     "haskell-nix": {
       "locked": {
         "lastModified": 1587989559,
@@ -53,12 +86,13 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1591751635,
-        "narHash": "sha256-KgGtyFlkI/fsp+j8VEgJ/ynY9B91aX35Xp04HlDLRTo=",
-        "owner": "rycee",
-        "repo": "home-manager",
-        "rev": "b3fee796fcd5531693d9b84ece76ad6836bb1cfa",
-        "type": "github"
+        "lastModified": 1600450519,
+        "narHash": "sha256-JzfJPzOUTv2AA/FnRWTr2tNIvNtPNRoCilBqh3e+dtM=",
+        "ref": "master",
+        "rev": "9b1b55ba0264a55add4b7b4e022bdc2832b531f6",
+        "revCount": 1207,
+        "type": "git",
+        "url": "https://gitlab.com/rycee/home-manager"
       },
       "original": {
         "owner": "rycee",
@@ -247,11 +281,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1597943282,
-        "narHash": "sha256-G/VQBlqO7YeFOSvn29RqdvABZxmQBtiRYVA6kjqWZ6o=",
+        "lastModified": 1600573085,
+        "narHash": "sha256-w5SGosyuTbFCBoUzgy2gyVcxYxRUvZ6SgHsRIPkZXgI=",
         "owner": "nixos",
         "repo": "nixpkgs-channels",
-        "rev": "c59ea8b8a0e7f927e7291c14ea6cd1bd3a16ff38",
+        "rev": "1179840f9a88b8a548f4b11d1a03aa25a790c379",
         "type": "github"
       },
       "original": {
@@ -330,14 +364,16 @@
     },
     "simple-osd-daemons": {
       "inputs": {
+        "crate2nix": "crate2nix",
+        "crates-io-index": "crates-io-index",
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1600420679,
-        "narHash": "sha256-3bolSr1u1xfvk/fZw9yk7iKeLI1R0Uu7UXcloysl5c8=",
+        "lastModified": 1600704328,
+        "narHash": "sha256-NIhp+XxMAFJGPWXeGpYRJMhl9ai9TC0LPV4x9KavTGk=",
         "ref": "master",
-        "rev": "449a3912bd090011e538504b4daae6e61dc7523b",
-        "revCount": 15,
+        "rev": "6ac095c9be38863155991dff66ca5b4a10ddb811",
+        "revCount": 17,
         "type": "git",
         "url": "ssh://gitea@code.balsoft.ru/balsoft/simple-osd-daemons"
       },
