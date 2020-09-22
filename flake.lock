@@ -199,22 +199,6 @@
         "type": "indirect"
       }
     },
-    "nixpkgs-mesa": {
-      "locked": {
-        "lastModified": 1593760204,
-        "narHash": "sha256-M/c2DTP6EUnSgnBYyVScApeHv5I+NbN57nn+px4bEaI=",
-        "owner": "nixos",
-        "repo": "nixpkgs-channels",
-        "rev": "bdac777becdbb8780c35be4f552c9d4518fe0bdb",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "repo": "nixpkgs-channels",
-        "rev": "bdac777becdbb8780c35be4f552c9d4518fe0bdb",
-        "type": "github"
-      }
-    },
     "nixpkgs-old": {
       "flake": false,
       "locked": {
@@ -335,7 +319,6 @@
         "nix": "nix",
         "nixos-fhs-compat": "nixos-fhs-compat",
         "nixpkgs": "nixpkgs_4",
-        "nixpkgs-mesa": "nixpkgs-mesa",
         "nixpkgs-old": "nixpkgs-old",
         "nixpkgs-wayland": "nixpkgs-wayland",
         "simple-nixos-mailserver": "simple-nixos-mailserver",

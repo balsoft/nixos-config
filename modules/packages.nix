@@ -35,7 +35,7 @@ in {
 
         nerdfonts = nur.balsoft.pkgs.roboto-mono-nerd;
 
-        inherit (inputs.nixpkgs-mesa.legacyPackages.x86_64-linux) sway mesa_drivers;
+        # inherit (inputs.nixpkgs-mesa.legacyPackages.x86_64-linux) sway mesa_drivers;
       })
   ];
   nixpkgs.config = {
