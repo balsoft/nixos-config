@@ -43,5 +43,6 @@ device:
     ./workspace/kanshi.nix
     ./nginx.nix
     ./gitea.nix
+    ./minidlna.nix
   ];
 }

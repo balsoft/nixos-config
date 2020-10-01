@@ -67,4 +67,6 @@
     enableACME = true;
     forceSSL = true;
   };
+
+  virtualisation.spiceUSBRedirection.enable = true;
 }
