@@ -1,17 +1,8 @@
 { pkgs, lib, config, inputs, ... }:
 let
-  weechat-matrix = pkgs.weechatScripts.weechat-matrix.overrideAttrs (_: {
-    src = pkgs.fetchzip {
-      url = "https://github.com/poljar/weechat-matrix/archive/master.tar.gz";
-      sha256 = "sha256-zYq68dl9nlHflsVrbg32KNNa/P3otEfvZrUTuD3ahT0=";
-    };
-  });
   weechat = pkgs.weechat.override {
     configure = { availablePlugins, ... }: {
-      scripts = [ pkgs.weechatScripts.wee-slack weechat-matrix ];
-      plugins = [
-        (availablePlugins.python.withPackages (ps: [ weechat-matrix ]))
-      ];
+      scripts = [ pkgs.weechatScripts.wee-slack ];
     };
   };
 in {
@@ -67,63 +58,6 @@ in {
       python.slack.unfurl_auto_link_display = "both"
       python.slack.unfurl_ignore_alt_text = "false"
       python.slack.unhide_buffers_with_activity = "false"
-    '';
-
-    home.file.".weechat/matrix.conf".text = ''
-      [network]
-      autoreconnect_delay_growing = 2
-      autoreconnect_delay_max = 600
-      debug_buffer = off
-      debug_category = all
-      debug_level = error
-      fetch_backlog_on_pgup = on
-      lag_min_show = 500
-      lag_reconnect = 90
-      lazy_load_room_users = off
-      max_backlog_sync_events = 10
-      max_initial_sync_events = 30
-      max_nicklist_users = 5000
-      print_unconfirmed_messages = on
-      read_markers_conditions = "''${markers_enabled}"
-      resending_ignores_devices = on
-      typing_notice_conditions = "''${typing_enabled}"
-
-      [look]
-      bar_item_typing_notice_prefix = "Typing: "
-      busy_sign = "⏳"
-      code_block_margin = 2
-      code_blocks = on
-      disconnect_sign = "❌"
-      encrypted_room_sign = "🔐"
-      encryption_warning_sign = "⚠️ "
-      human_buffer_names = on
-      max_typing_notice_item_length = 50
-      new_channel_position = none
-      pygments_style = "native"
-      redactions = strikethrough
-      server_buffer = merge_with_core
-
-      [color]
-      error_message_bg = default
-      error_message_fg = darkgray
-      quote_bg = darkgray
-      quote_fg = lightgreen
-      unconfirmed_message_bg = default
-      unconfirmed_message_fg = darkgray
-      untagged_code_bg = darkgray
-      untagged_code_fg = blue
-
-      [server]
-      balsoft.address = "matrix.balsoft.ru"
-      balsoft.autoconnect = "on"
-      balsoft.autoreconnect_delay = "10"
-      balsoft.device_name = "Weechat"
-      balsoft.password = "${if ! isNull config.secrets.matrix.password then config.secrets.matrix.password else ""}"
-      balsoft.port = "443"
-      balsoft.proxy = ""
-      balsoft.ssl_verify = "on"
-      balsoft.sso_helper_listening_port = "0"
-      balsoft.username = "${if ! isNull config.secrets.matrix.user then config.secrets.matrix.user else ""}"
     '';
 
     home.file.".weechat/weechat.conf".text = ''
