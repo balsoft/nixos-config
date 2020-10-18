@@ -66,6 +66,7 @@
   services.nginx.virtualHosts.${config.services.jitsi-meet.hostName} = {
     enableACME = true;
     forceSSL = true;
+    basicAuthFile = "/var/lib/jitsi-auth";
   };
 
   virtualisation.spiceUSBRedirection.enable = true;

@@ -47,6 +47,7 @@
           undo-tree
           rust-mode
           go-mode
+          edit-indirect
         ];
     };
 
