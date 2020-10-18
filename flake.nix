@@ -14,7 +14,7 @@
       url = github:chriskempson/base16-unclaimed-schemes;
       flake = false;
     };
-    home-manager.url = github:rycee/home-manager/bqv-flakes;
+    home-manager.url = github:rycee/home-manager;
     materia-theme = {
       url = github:nana-4/materia-theme;
       flake = false;
