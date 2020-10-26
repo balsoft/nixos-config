@@ -4,6 +4,7 @@ let
     Install.WantedBy = [ "default.target" ];
     Service = {
       ExecStart = "${pkgs.simple-osd.${name}}/bin/simple-osd-${name}";
+      Restart = "always";
     };
   };
   inherit (import ../support.nix { inherit lib config; }) genIni;
