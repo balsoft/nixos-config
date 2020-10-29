@@ -88,11 +88,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1592763689,
-        "narHash": "sha256-qUA7qgDr9jgMVGM//OALAphpRb05u2tDxSEE0XLxumg=",
+        "lastModified": 1604012111,
+        "narHash": "sha256-B2b5mBDts5b0ROiT1fHGvDB1hVTDtw2RCR9trnr97qc=",
         "owner": "balsoft",
         "repo": "lambda-launcher",
-        "rev": "031fec7e39efe64bd08b58860d0868f8205c1fbd",
+        "rev": "4fc0223c6540172dc11f687e14473f932b6e1d9f",
         "type": "github"
       },
       "original": {
@@ -216,17 +216,17 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1592754205,
-        "narHash": "sha256-CQzP4Ur/lNGKQQCQlA5E44rmJmZcAparDDHAus5evH4=",
-        "owner": "balsoft",
+        "lastModified": 1592810120,
+        "narHash": "sha256-1xlD1OIs75DvjkWpyZcQBjdu/IgugspPpz8CsBeutaM=",
+        "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "a50dd17125c2923e30ff06aeafdfee29b9be9ade",
+        "rev": "dbcd55844106241cf2d6aa0bc6ccb1613d1a5ed4",
         "type": "github"
       },
       "original": {
-        "owner": "balsoft",
-        "ref": "fix-gi-gtk-declarative",
+        "owner": "NixOS",
         "repo": "nixpkgs",
+        "rev": "dbcd55844106241cf2d6aa0bc6ccb1613d1a5ed4",
         "type": "github"
       }
     },
