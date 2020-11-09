@@ -313,18 +313,17 @@
     "simple-nixos-mailserver": {
       "flake": false,
       "locked": {
-        "lastModified": 1590567059,
-        "narHash": "sha256-VUk0jGW+aHd9shcPPBFcsCpzgKYCl9fq4UNTsfaTybE=",
-        "ref": "master",
-        "rev": "fb8886547b569be3e6b72b526cea64c02424a5c4",
-        "revCount": 430,
-        "type": "git",
-        "url": "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver"
+        "lastModified": 1604129676,
+        "narHash": "sha256-Kxou8A/LHZ7LdgPfBunllyJR5FTEg/jYIQPx6Jqj37E=",
+        "owner": "simple-nixos-mailserver",
+        "repo": "nixos-mailserver",
+        "rev": "c04260cf5e685fc99ccb669654e147f94e3de8a4",
+        "type": "gitlab"
       },
       "original": {
-        "ref": "master",
-        "type": "git",
-        "url": "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver"
+        "owner": "simple-nixos-mailserver",
+        "repo": "nixos-mailserver",
+        "type": "gitlab"
       }
     },
     "simple-osd-daemons": {

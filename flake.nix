@@ -28,9 +28,7 @@
       flake = false;
     };
     simple-nixos-mailserver = {
-      type = "git";
-      url = "https://gitlab.com/simple-nixos-mailserver/nixos-mailserver";
-      ref = "master";
+      url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
       flake = false;
     };
     nixpkgs-wayland = {
