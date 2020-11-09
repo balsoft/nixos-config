@@ -27,7 +27,6 @@ with import ../../../support.nix { inherit lib config; }; {
     pkgs.media-player-info
   ];
 
-  nixpkgs.config.firefox.enablePlasmaBrowserIntegration = true;
   environment.sessionVariables = {
     DESKTOP_SESSION = "kde";
     QT_XFT = "true";

@@ -2,8 +2,10 @@
 let
   thm = config.themes.colors;
   apps = config.defaultApplications;
-  lock_fork = pkgs.writeShellScript "lock_fork" "sudo /run/current-system/sw/bin/lock &";
-  lock = pkgs.writeShellScript "lock" "swaymsg 'output * dpms off'; sudo /run/current-system/sw/bin/lock; swaymsg 'output * dpms on'";
+  lock_fork =
+    pkgs.writeShellScript "lock_fork" "sudo /run/current-system/sw/bin/lock &";
+  lock = pkgs.writeShellScript "lock"
+    "swaymsg 'output * dpms off'; sudo /run/current-system/sw/bin/lock; swaymsg 'output * dpms on'";
 in {
   environment.sessionVariables._JAVA_AWT_WM_NONREPARENTING = "1";
 
@@ -11,12 +13,15 @@ in {
 
   programs.sway.extraPackages = lib.mkForce (with pkgs; [ swayidle xwayland ]);
 
-
   home-manager.users.balsoft.wayland.windowManager.sway = {
     enable = true;
     config = rec {
       assigns = {
-        "" = [ { class = "Chromium"; } { app_id = "firefox"; } { class = "Firefox"; } ];
+        "" = [
+          { class = "Chromium"; }
+          { app_id = "firefox"; }
+          { class = "Firefox"; }
+        ];
         "" = [
           { app_id = "org.kde.trojita"; }
           { title = ".* - Sylpheed.*"; }
@@ -89,14 +94,14 @@ in {
         { command = "${pkgs.cantata}/bin/cantata"; }
 
         {
-          command = "swayidle -w before-sleep '${lock_fork}' lock '${lock_fork}' unlock 'pkill -9 swaylock'";
+          command =
+            "swayidle -w before-sleep '${lock_fork}' lock '${lock_fork}' unlock 'pkill -9 swaylock'";
         }
         {
-          command = "${pkgs.xdg-desktop-portal-kde}/libexec/xdg-desktop-portal-kde";
+          command =
+            "${pkgs.xdg-desktop-portal-kde}/libexec/xdg-desktop-portal-kde";
         }
-        {
-          command = "${pkgs.xdg-desktop-portal}/libexec/xdg-desktop-portal";
-        }
+        { command = "${pkgs.xdg-desktop-portal}/libexec/xdg-desktop-portal"; }
       ];
 
       keybindings = let
@@ -192,8 +197,10 @@ in {
         "XF86AudioLowerVolume" = "exec ${pkgs.pamixer}/bin/pamixer -d 2";
         "XF86AudioRaiseVolume" = "exec ${pkgs.pamixer}/bin/pamixer -i 2";
         "XF86AudioMute" = "exec ${pkgs.pamixer}/bin/pamixer -t";
-        "${modifier}+XF86AudioLowerVolume" = "exec ${pkgs.pamixer}/bin/pamixer -d 1";
-        "${modifier}+XF86AudioRaiseVolume" = "exec ${pkgs.pamixer}/bin/pamixer -i 1";
+        "${modifier}+XF86AudioLowerVolume" =
+          "exec ${pkgs.pamixer}/bin/pamixer -d 1";
+        "${modifier}+XF86AudioRaiseVolume" =
+          "exec ${pkgs.pamixer}/bin/pamixer -i 1";
         "button2" = "kill";
         "--whole-window ${modifier}+button2" = "kill";
       } // builtins.listToAttrs (builtins.map (x: {
@@ -203,8 +210,7 @@ in {
         name = "${modifier}+Shift+${builtins.elemAt x 0}";
         value = "move container to workspace ${builtins.elemAt x 1}";
       }) workspaces));
-      keycodebindings = {
-      };
+      keycodebindings = { };
       workspaceLayout = "tabbed";
       workspaceAutoBackAndForth = true;
       input = {
@@ -213,20 +219,24 @@ in {
           natural_scroll = "enabled";
           dwt = "enabled";
         };
-        "2:14:ETPS/2_Elantech_TrackPoint" = {
-          pointer_accel = "-0.7";
+        "2:14:ETPS/2_Elantech_TrackPoint" = { pointer_accel = "-0.7"; };
+        "2:10:TPPS/2_IBM_TrackPoint" = {
+          pointer_accel = "0.4";
+          accel_profile = "adaptive";
         };
       };
       output = {
         "*".bg = "${thm.bg} solid_color";
       } // lib.optionalAttrs (config.device == "AMD-Workstation") {
         DP-1.position = "0 400";
-        HDMI-A-1 = { transform = "90"; position = "2560 0"; };
+        HDMI-A-1 = {
+          transform = "90";
+          position = "2560 0";
+        };
+        "Unknown 0x0000 0x00000000".scale = "2";
       };
     };
-    wrapperFeatures = {
-      gtk = true;
-    };
+    wrapperFeatures = { gtk = true; };
     extraConfig = ''
       default_border pixel 1
       mouse_warping container
@@ -235,4 +245,3 @@ in {
     '';
   };
 }
-

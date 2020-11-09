@@ -7,16 +7,6 @@ in {
     MOZ_DBUS_REMOTE = "1";
   };
   home-manager.users.balsoft = lib.mkIf (config.deviceSpecific.goodMachine) {
-    home.packages = with pkgs; [
-      plasma-integration
-      plasma-browser-integration
-    ];
-    home.file.".mozilla/native-messaging-hosts".source = pkgs.symlinkJoin {
-      name = "native-messaging-hosts";
-      paths = [
-        "${pkgs.plasma-browser-integration}/lib/mozilla/native-messaging-hosts"
-      ];
-    };
     programs.firefox = {
       enable = true;
       package = pkgs.firefox-wayland;
@@ -67,7 +57,6 @@ in {
         close-other-windows
         adsum-notabs
         ublock-origin
-        plasma-integration
       ];
     };
   };

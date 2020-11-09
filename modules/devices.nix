@@ -94,6 +94,19 @@ with types; {
         };
         ram = 2;
       };
+      X2100-Laptop = {
+        cpu = {
+          vendor = "intel";
+          clock = 4800;
+          cores = 4;
+        };
+        drive = {
+          type = "ssd";
+          speed = 6000;
+          size = 256;
+        };
+        ram = 16;
+      };
       NixOS-VM = {
         cpu = {
           vendor = "intel";
