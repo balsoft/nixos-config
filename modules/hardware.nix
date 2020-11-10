@@ -107,7 +107,11 @@ with deviceSpecific; {
     });
     kernelPackages = pkgs.linuxPackages_latest;
     consoleLogLevel = 3;
-    extraModprobeConfig = "options ec_sys write_support=1";
+    extraModprobeConfig = ''
+      options ec_sys write_support=1
+    '' + lib.optionalString (device == "X2100-Laptop") ''
+      options iwlwifi bt_coex_active=0
+    '';
     kernel.sysctl."vm.swappiness" = 0;
     kernel.sysctl."kernel/sysrq" = 1;
     kernelParams = [
