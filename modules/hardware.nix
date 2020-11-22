@@ -15,16 +15,7 @@ with deviceSpecific; {
   hardware.opengl.package = pkgs.mesa_drivers;
 
   hardware.bluetooth.enable = true;
-  hardware.bluetooth.package = pkgs.bluezFull.overrideAttrs (_: {
-    patches = [
-      (pkgs.fetchurl {
-        name = "volume-patch";
-        url = "https://marc.info/?l=linux-bluetooth&m=159446824521591&q=raw";
-        sha256 =
-          "448ce22b6fec2746d075390a898d1d08828c4008a6efcd8b98825ec60e5d1b81";
-      })
-    ];
-  });
+  hardware.bluetooth.package = pkgs.bluezFull;
 
   services.throttled = {
     enable = device == "T490s-Laptop";

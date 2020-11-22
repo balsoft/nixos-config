@@ -4,7 +4,7 @@
     enable = true;
     hostName = "nextcloud.balsoft.ru";
     config.adminpassFile = "/home/balsoft/nextcloud-admin";
-    package = pkgs.nextcloud19;
+    package = pkgs.nextcloud20;
     https = true;
   };
   services.nginx.virtualHosts."nextcloud.balsoft.ru" = {
