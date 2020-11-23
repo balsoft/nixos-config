@@ -51,7 +51,6 @@
       enable = true;
       enableSshSupport = true;
       pinentryFlavor = "gtk2";
-      sshKeys = [ "0819BD05AB506F55109B8418B7809DF496AD3C7B" ];
     };
     programs.gpg.enable = true;
     news.display = "silent";
