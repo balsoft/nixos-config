@@ -217,4 +217,13 @@ If point was already at that position, move point to beginning of line."
 
 (setq inhibit-startup-screen t)
 
+(use-package lsp-mode
+  :config
+  (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
+                    :major-modes '(nix-mode)
+                    :server-id 'nix))
+  )
+
 ;;; init.el ends here
