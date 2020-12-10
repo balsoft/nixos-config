@@ -40,6 +40,8 @@ in {
 
       yt-utilities = inputs.yt-utilities.defaultPackage.x86_64-linux;
 
+      # mopidy-youtube = super.mopidy-youtube.overrideAttrs (_: { src = inputs.mopidy-youtube; });
+
       nerdfonts = nur.balsoft.pkgs.roboto-mono-nerd;
 
       # inherit (inputs.nixpkgs-mesa.legacyPackages.x86_64-linux) sway mesa_drivers;

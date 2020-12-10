@@ -54,12 +54,6 @@ in rec {
         description = "Mail server";
       };
     };
-    gpmusic = mkCredOption "Google Play Music (mopidy)" {
-      deviceid = mkOption {
-        type = str;
-        description = "Android device ID";
-      };
-    };
     openvpn = mkCredOption "openvpn" { };
     rclone = mkOption {
       type = nullOr str;

@@ -2,15 +2,10 @@
 {
   services.mopidy = {
     enable = true;
-    extensionPackages = with pkgs; [ mopidy-mpd mopidy-gmusic mopidy-youtube ];
-    configuration = (if (!isNull config.secrets.gpmusic) then ''
-      [gmusic]
-      username = ${config.secrets.gpmusic.user}
-      refresh_token = ${config.secrets.gpmusic.password}
-      deviceid = ${config.secrets.gpmusic.deviceid}
-      bitrate = 128
-    '' else
-    "") + ''
+    extensionPackages = with pkgs; [ mopidy-mpd mopidy-youtube ];
+    configuration = ''
+      [youtube]
+      enabled = true
       [mpd]
       hostname = 0.0.0.0
       port = 6600
