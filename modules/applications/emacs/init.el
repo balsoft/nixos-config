@@ -74,6 +74,9 @@
 (tool-bar-mode -1)
 (cua-selection-mode 1)
 
+(setq auto-revert-check-vc-info t)
+
+(vc-mode-line t)
 
 (when (not window-system)
   (xterm-mouse-mode 1))
