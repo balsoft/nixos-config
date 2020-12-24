@@ -19,6 +19,8 @@
       "libvirtd"
       "vboxusers"
       "wireshark"
+      "lp"
+      "scanner"
     ];
     description = "Александр Бантьев";
     uid = 1000;

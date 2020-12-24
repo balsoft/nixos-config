@@ -117,6 +117,13 @@ with deviceSpecific; {
     ];
   };
 
+  hardware.sane = {
+    enable = true;
+    # extraBackends = [ pkgs.hplipWithPlugin ];
+  };
+
+  services.saned.enable = true;
+
   services.logind.lidSwitchExternalPower = "ignore";
 
   services.logind.extraConfig = "HandlePowerKey=suspend";

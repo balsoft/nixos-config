@@ -38,6 +38,7 @@
       nix-patch
       pass-wayland
       papirus-icon-theme
+      gnome3.simple-scan
     ] ++ (with pkgs.kdeApplications; [
       ark
       dolphin
