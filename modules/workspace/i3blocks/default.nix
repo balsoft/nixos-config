@@ -40,7 +40,7 @@ in {
       interval=60
       markup=pango
     '' + genIniOrdered (optional (!isNull config.secrets.mail) (scr "email")
-      ++ [ (scrint "weather" 600) (scr "calendar") (scr "emacs") (scr "nixos") ]
+      ++ [ (scrint "weather" 600) (scr "emacs") (scr "nixos") ]
       ++ optional (!isNull config.secrets.wage) (scrint "youtrack-wage" 3600)
       ++ [ (scrint "music" 3) (scrint "sound" 1) ] ++ [
         (scrint "cpu" 5)

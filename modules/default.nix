@@ -23,7 +23,6 @@ device:
     ./workspace/light.nix
     ./workspace/mako.nix
     ./workspace/mopidy.nix
-    ./workspace/gcalcli.nix
     ./workspace/xresources.nix
     ./themes.nix
     ./applications.nix
