@@ -35,16 +35,16 @@
     "crate2nix": {
       "flake": false,
       "locked": {
-        "lastModified": 1603629926,
-        "narHash": "sha256-mQg9HzU0tRCKgk8GFhQ2QrxyCUjGgsJqH5JA4SZDyc4=",
+        "lastModified": 1608814925,
+        "narHash": "sha256-GdFBG2LmpbY4C1OJBFfWLMKXzGyFq4mJBK+SVMNNE+8=",
         "owner": "balsoft",
         "repo": "crate2nix",
-        "rev": "9b7b8ea918e3b28538868f8aeb8318f02bb75cb9",
+        "rev": "68be3d90f31bf0bfd525da77e0ae6e89f48abd24",
         "type": "github"
       },
       "original": {
         "owner": "balsoft",
-        "ref": "balsoft/fix-tools-nix",
+        "ref": "tools-nix-version-comparison",
         "repo": "crate2nix",
         "type": "github"
       }
@@ -104,16 +104,15 @@
     "lowdown-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1598296217,
-        "narHash": "sha256-ha7lyNY1d8m+osmDpPc9f/bfZ3ZC1IVIXwfyklSWg8I=",
-        "owner": "edolstra",
+        "lastModified": 1598695561,
+        "narHash": "sha256-gyH/5j+h/nWw0W8AcR2WKvNBUsiQ7QuxqSJNXAwV+8E=",
+        "owner": "kristapsdz",
         "repo": "lowdown",
-        "rev": "c7a4e715af1e233080842db82d15b261cb74cb28",
+        "rev": "1705b4a26fbf065d9574dce47a94e8c7c79e052f",
         "type": "github"
       },
       "original": {
-        "owner": "edolstra",
-        "ref": "no-structs-in-anonymous-unions",
+        "owner": "kristapsdz",
         "repo": "lowdown",
         "type": "github"
       }
@@ -140,11 +139,11 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1600170522,
-        "narHash": "sha256-rY7p7K5djPHvuRHNrRRS80j0BlbH2rp9w0F4uQbZYbs=",
+        "lastModified": 1608754232,
+        "narHash": "sha256-Yc0F2ISEr9LKzQ4amnbwZ4Nf8sX5n4HpI0lrhc9PEEo=",
         "owner": "NixOS",
         "repo": "nix",
-        "rev": "733d2e9402807e54d503c3113e854bfddb3d44e0",
+        "rev": "a93916b1905cd7b968e92cd94a3e4a595bff2e0f",
         "type": "github"
       },
       "original": {
@@ -232,16 +231,16 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1602604700,
-        "narHash": "sha256-TSfAZX0czPf1P8xnnGFXcoeoM9I5CaFjAdNP63W9DCY=",
+        "lastModified": 1602702596,
+        "narHash": "sha256-fqJ4UgOb4ZUnCDIapDb4gCrtAah5Rnr2/At3IzMitig=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "3a10a004bb5802d5f23c58886722e4239705e733",
+        "rev": "ad0d20345219790533ebe06571f82ed6b034db31",
         "type": "github"
       },
       "original": {
         "id": "nixpkgs",
-        "ref": "nixos-20.03-small",
+        "ref": "nixos-20.09-small",
         "type": "indirect"
       }
     },
@@ -332,11 +331,11 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1603630365,
-        "narHash": "sha256-HO8yS9S63EOMBmbxjA5emTwj/GjoEa9cZjv74s3dRsE=",
+        "lastModified": 1608815402,
+        "narHash": "sha256-oBgd7ZjGho0ivROpc9bIAqN+AbD70HBVWMz36LefK2E=",
         "ref": "master",
-        "rev": "933dcefc7b1f05e1d79a17adf34580c080eedb75",
-        "revCount": 19,
+        "rev": "dd5883f58c7e49d2b00bd186dfb54afe0dc8fa8a",
+        "revCount": 20,
         "type": "git",
         "url": "https://code.balsoft.ru/balsoft/simple-osd-daemons.git"
       },
