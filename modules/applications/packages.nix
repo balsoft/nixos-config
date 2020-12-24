@@ -39,15 +39,5 @@
       pass-wayland
       papirus-icon-theme
       gnome3.simple-scan
-    ] ++ (with pkgs.kdeApplications; [
-      ark
-      dolphin
-      dolphin-plugins
-      gwenview
-      kcachegrind
-      kcolorchooser
-      kolourpaint
-      okular
-      print-manager
-    ]));
+    ]);
 }

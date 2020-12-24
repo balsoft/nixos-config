@@ -1,26 +1,10 @@
 { pkgs, lib, config, ... }:
 with import ../../../support.nix { inherit lib config; }; {
   xdg.portal.enable = true;
-  # services.flatpak.enable = true;
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-kde ];
   services.dbus.packages = [
-    pkgs.plasma5.xdg-desktop-portal-kde
-    pkgs.flatpak
     pkgs.firefox
     pkgs.systemd
     pkgs.papirus-icon-theme
-    pkgs.kdeApplications.kdegraphics-thumbnailers
-    pkgs.kdeFrameworks.baloo
-    pkgs.kdeFrameworks.kio
-    pkgs.kdeApplications.kio-extras
-    pkgs.kdeApplications.dolphin-plugins
-  ];
-  environment.systemPackages = [
-    pkgs.kdeFrameworks.baloo
-    pkgs.kdeFrameworks.kio
-    pkgs.kdeApplications.kio-extras
-    pkgs.kdeApplications.kdegraphics-thumbnailers
-    pkgs.kdeApplications.dolphin-plugins
   ];
   services.udev.packages = [
     pkgs.libmtp
@@ -145,14 +129,5 @@ with import ../../../support.nix { inherit lib config; }; {
       widgetStyle = "Breeze";
     };
     Icons = { Theme = "Papirus-Dark"; };
-  };
-  home-manager.users.balsoft.home.activation."user-places.xbel" = {
-    data = ''
-      $DRY_RUN_CMD rm -f ~/.local/share/user-places.xbel
-      $DRY_RUN_CMD cp ${./user-places.xbel} ~/.local/share/user-places.xbel
-      $DRY_RUN_CMD chmod 777 ~/.local/share/user-places.xbel
-    '';
-    before = [ ];
-    after = [ "linkGeneration" ];
   };
 }

@@ -9,7 +9,7 @@ let
   });
 in {
   nixpkgs.overlays = [
-    inputs.nix.overlay
+    # inputs.nix.overlay
     (self: super: rec {
       nix = super.nix // {
         meta = super.nix.meta // { platforms = lib.platforms.unix; };

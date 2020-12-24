@@ -14,6 +14,7 @@ device:
     ./workspace/i3blocks
     ./workspace/zsh.nix
     ./workspace/gtk.nix
+    ./workspace/gnome3.nix
     ./workspace/misc.nix
     ./workspace/kde
     ./workspace/ssh.nix
@@ -23,7 +24,6 @@ device:
     ./workspace/mako.nix
     ./workspace/mopidy.nix
     ./workspace/gcalcli.nix
-    ./workspace/rclone.nix
     ./workspace/xresources.nix
     ./themes.nix
     ./applications.nix

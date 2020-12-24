@@ -20,9 +20,13 @@
   services.tor = {
     enable = true;
     client.enable = true;
-    client.privoxy.enable = true;
     torsocks.enable = true;
     client.socksListenAddressFaster = "127.0.0.1:9063";
+  };
+
+  services.privoxy = {
+    enable = true;
+    enableTor = true;
   };
 
   programs.mosh.enable = true;
