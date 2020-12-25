@@ -168,7 +168,8 @@ in {
           script "screenshot-area-copy" ''
             ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.wl-clipboard}/bin/wl-copy'';
 
-        "${modifier}+x" = "move workspace to output right";
+        "${modifier}+x" = "focus output right";
+        "${modifier}+Shift+x" = "move workspace to output right";
         "${modifier}+F5" = "reload";
         "${modifier}+Shift+F5" = "exit";
         "${modifier}+Shift+h" = "layout splith";
@@ -181,7 +182,7 @@ in {
         "${modifier}+F12" = "output * dpms on";
         "${modifier}+End" = "exec ${lock}";
         "${modifier}+p" = "sticky toggle";
-        "${modifier}+z" =
+        "${modifier}+backslash" =
           script "0x0" ''wl-paste | curl -F"file=@-" https://0x0.st | wl-copy'';
         "${modifier}+b" = "focus mode_toggle";
         "${modifier}+Space" = script "lambda-launcher"
