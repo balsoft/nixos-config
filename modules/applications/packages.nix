@@ -15,6 +15,7 @@
       libqalculate
       # Messaging
       libnotify
+      spectral
       # Audio/Video
       vlc
       cantata
