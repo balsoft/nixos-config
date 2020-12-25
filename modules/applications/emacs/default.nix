@@ -48,6 +48,7 @@
           rust-mode
           go-mode
           edit-indirect
+          idris-mode
           lsp-mode
         ];
     };
