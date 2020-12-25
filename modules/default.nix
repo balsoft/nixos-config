@@ -4,7 +4,7 @@ device:
     ./applications/packages.nix
     ./applications/emacs
     ./applications/alacritty.nix
-    ./applications/sylpheed.nix
+    ./applications/geary.nix
     ./applications/weechat.nix
     ./applications/okular.nix
     ./applications/yt-utilities.nix

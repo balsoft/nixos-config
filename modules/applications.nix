@@ -31,8 +31,8 @@ with import ../support.nix { inherit lib config; }; {
         desktop = "org.gnome.FileRoller";
       };
       mail = {
-        cmd = "${pkgs.sylpheed}/bin/sylpheed";
-        desktop = "sylpheed";
+        cmd = "${pkgs.gnome3.geary}/bin/geary";
+        desktop = "org.gnome.Geary";
       };
       text_processor = {
         cmd = "${pkgs.abiword}/bin/abiword";

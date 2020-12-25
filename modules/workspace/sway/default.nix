@@ -24,7 +24,7 @@ in {
         ];
         "" = [
           { app_id = "org.kde.trojita"; }
-          { title = ".* - Sylpheed.*"; }
+          { title = ".*.Geary*"; }
           { title = "balsoft : weechat.*"; }
           { title = "Spectral"; }
           { title = "Slack"; }
@@ -78,7 +78,9 @@ in {
         ];
       };
       startup = [
-        { command = "${apps.browser.cmd}"; }
+        { command = apps.browser.cmd; }
+        { command = apps.mail.cmd; }
+
         {
           command =
             "${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1";
@@ -87,7 +89,6 @@ in {
           command =
             "${pkgs.keepassxc}/bin/keepassxc /home/balsoft/projects/nixos-config/misc/Passwords.kdbx";
         }
-        { command = "${pkgs.termNote}/bin/noted"; }
         { command = "${pkgs.spectral}/bin/spectral"; }
         { command = "${pkgs.xorg.xrdb}/bin/xrdb -merge ~/.Xresources"; }
 
