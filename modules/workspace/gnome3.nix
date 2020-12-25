@@ -11,10 +11,10 @@
   services.gvfs.enable = true;
   home-manager.users.balsoft = {
     xdg.configFile."gtk-3.0/bookmarks".text = builtins.concatStringsSep "\n" ([
-      "file:///home/balsoft/projects"
-    ] ++ map (machine: "sftp://${machine}/home/balsoft ${machine}") (builtins.attrNames config.devices));
-    xdg.userDirs = {
-      enable = true;
-    };
+      "file:///home/balsoft/projects Projects"
+      "davs://nextcloud.balsoft.ru/remote.php/dav/files/balsoft nextcloud.balsoft.ru"
+    ] ++ map (machine: "sftp://${machine}/home/balsoft ${machine}")
+      (builtins.attrNames config.devices));
+    xdg.userDirs.enable = true;
   };
 }
