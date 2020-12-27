@@ -27,23 +27,25 @@ let
     '';
   };
 in {
-  nixpkgs.overlays = [(self: super: {
-    generated-gtk-theme = self.stdenv.mkDerivation rec {
-      name = "generated-gtk-theme";
-      src = inputs.materia-theme;
-      buildInputs = with self; [ sassc bc which inkscape optipng ];
-      installPhase = ''
-        HOME=/build
-        chmod 777 -R .
-        patchShebangs .
-        mkdir -p $out/share/themes
-        substituteInPlace change_color.sh --replace "\$HOME/.themes" "$out/share/themes"
-        echo "Changing colours:"
-        ./change_color.sh -o Generated ${materia_colors}
-        chmod 555 -R .
-      '';
-    };
-  })];
+  nixpkgs.overlays = [
+    (self: super: {
+      generated-gtk-theme = self.stdenv.mkDerivation rec {
+        name = "generated-gtk-theme";
+        src = inputs.materia-theme;
+        buildInputs = with self; [ sassc bc which inkscape optipng ];
+        installPhase = ''
+          HOME=/build
+          chmod 777 -R .
+          patchShebangs .
+          mkdir -p $out/share/themes
+          substituteInPlace change_color.sh --replace "\$HOME/.themes" "$out/share/themes"
+          echo "Changing colours:"
+          ./change_color.sh -o Generated ${materia_colors}
+          chmod 555 -R .
+        '';
+      };
+    })
+  ];
   services.dbus.packages = with pkgs; [ gnome3.dconf ];
   home-manager.users.balsoft = {
     gtk = {
@@ -56,10 +58,19 @@ in {
         name = "Generated";
         package = pkgs.generated-gtk-theme;
       };
-      font = {
-        name = "IBM Plex 12";
+      font = { name = "IBM Plex 12"; };
+      gtk3 = {
+        bookmarks = [
+          "file:///home/balsoft/projects Projects"
+          "davs://nextcloud.balsoft.ru/remote.php/dav/files/balsoft nextcloud.balsoft.ru"
+          "sftp://balsoft.ru/home/balsoft balsoft.ru"
+        ] ++ map (machine: "sftp://${machine}/home/balsoft ${machine}")
+          (builtins.attrNames config.devices);
+        extraConfig = {
+          gtk-cursor-theme-name = "breeze";
+        };
       };
-      gtk3.extraConfig.gtk-cursor-theme-name = "breeze";
+
     };
     home.sessionVariables.GTK_THEME = "Generated";
   };
