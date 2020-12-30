@@ -59,7 +59,10 @@ in {
       *, html, body, body.plain div, body.plain a, body.plain p, body.plain span {
         background: ${config.themes.colors .bg} !important;
         color: ${config.themes.colors.fg} !important;
-        font: 16px 'IBM Plex Mono', monospace;
+        font-family: 'IBM Plex Mono', monospace !important;
+      }
+      *, html, body {
+        font-size: 16px;
       }
     '';
     xdg.configFile."geary/account_03/geary.ini".text = lib.generators.toGitINI gearyConfig;
