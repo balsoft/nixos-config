@@ -9,6 +9,7 @@
     glib-networking.enable = true;
   };
   services.gvfs.enable = true;
+  services.geoclue2.enable = true;
   home-manager.users.balsoft = {
     xdg.userDirs.enable = true;
     dconf.settings = {
