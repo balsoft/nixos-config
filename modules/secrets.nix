@@ -113,7 +113,7 @@ in {
         pkgs.writeShellScript "push" "${pkgs.git}/bin/git push origin master"
       } "$HOME/.password-store/.git/hooks/post-commit"
       cat $HOME/.password-store/email/balsoft@balsoft.ru.gpg | ${pkgs.gnupg}/bin/gpg --decrypt > /dev/null
-      sudo systemctl restart '*-secrets.service' '*-envsubst.service'
+      sudo systemctl start --all '*-secrets.service' '*-envsubst.service'
     '')
   ];
 
@@ -121,7 +121,7 @@ in {
     users = [ "balsoft" ];
     commands = [{
       command =
-        "/run/current-system/sw/bin/systemctl restart '*-secrets.service' '*-envsubst.service'";
+        "/run/current-system/sw/bin/systemctl start --all '*-secrets.service' '*-envsubst.service'";
       options = [ "NOPASSWD" ];
     }];
   }];

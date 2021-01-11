@@ -14,7 +14,7 @@ device:
     ./workspace/i3blocks
     ./workspace/zsh.nix
     ./workspace/gtk.nix
-    ./workspace/gnome3.nix
+    ./workspace/gnome3
     ./workspace/misc.nix
     ./workspace/kde
     ./workspace/ssh.nix

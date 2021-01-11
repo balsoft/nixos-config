@@ -1,0 +1,31 @@
+[Data Source]
+DisplayName=balsoft@nextcloud.balsoft.ru
+Enabled=true
+Parent=
+
+[Authentication]
+Host=
+Method=none
+Port=0
+ProxyUid=system-proxy
+RememberPassword=true
+User=
+CredentialName=
+IsExternal=true
+
+[Collection]
+BackendName=webdav
+CalendarEnabled=true
+ContactsEnabled=true
+Identity=balsoft
+MailEnabled=true
+AllowSourcesRename=false
+CalendarUrl=
+ContactsUrl=
+
+[GNOME Online Accounts]
+AccountId=account_1609508064_4
+CalendarUrl=https://balsoft@nextcloud.balsoft.ru/remote.php/caldav/
+ContactsUrl=https://balsoft@nextcloud.balsoft.ru/remote.php/carddav/
+Name=
+Address=

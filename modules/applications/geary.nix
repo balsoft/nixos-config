@@ -65,6 +65,9 @@ in {
         font-size: 16px;
       }
     '';
-    xdg.configFile."geary/account_03/geary.ini".text = genIni gearyConfig;
+    home.activation.geary = ''
+      mkdir -p "$XDG_CONFIG_HOME/geary/account_03"
+      $DRY_RUN_CMD ln -sf $VERBOSE_ARG ${builtins.toFile "geary.ini" (genIni gearyConfig)} "$XDG_CONFIG_HOME/geary/account_03/geary.ini"
+    '';
   };
 }
