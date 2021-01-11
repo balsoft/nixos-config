@@ -74,6 +74,7 @@ let
           else
             echo "Failed to run the substition"
             rm '${substituted}.tmp'
+            exit 1
           fi
         '';
 

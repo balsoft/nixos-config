@@ -64,6 +64,7 @@ let
           else
             echo "Failed to decrypt the secret"
             rm '${decrypted}.tmp'
+            exit 1
           fi
         '';
 
