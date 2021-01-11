@@ -2,98 +2,161 @@
 with lib;
 with types;
 let
-  secret = description:
-    mkOption {
-      inherit description;
-      type = nullOr str;
-    };
-  mkCredOption = service: extra:
-    mkOption {
-      description = "Credentials for ${service}";
-      type = nullOr (submodule {
-        options = {
-          user = mkOption {
-            type = str;
-            description = "Username for ${service}";
-          };
-          password = mkOption {
-            type = str;
-            description = "Password for ${service}";
-          };
-        } // extra;
-      });
-    };
-in rec {
-  options.secrets = {
-    slack-term = secret "slack token";
-    yt-utilities = mkOption {
-      description = "youtrack";
-      type = nullOr (submodule {
-        options = {
-          user = secret "youtrack user";
-          url = secret "youtrack url";
-          token = secret "youtrack token";
-        };
-      });
-    };
-    wage = secret "wage (sum CURRENCY/TIME, like 10EUR/h)";
-    gcal = mkOption {
-      description = "Google calendar auth";
-      type = nullOr (submodule {
-        options = {
-          email = mkOption { type = lib.types.str; };
-          client-id = mkOption { type = lib.types.str; };
-          client-secret = mkOption { type = lib.types.str; };
-          refresh-token = mkOption { type = lib.types.str; };
-        };
-      });
-    };
-    mail = mkCredOption "email" {
-      host = mkOption {
+  secret = { name, ... }: {
+    options = {
+      encrypted = mkOption {
+        type = path;
+        default = inputs.secrets + "/${name}.gpg";
+      };
+      decrypted = mkOption {
+        type = path;
+        default = "/var/secrets/${name}";
+      };
+      decrypt = mkOption {
+        default = pkgs.writeShellScript "gpg-decrypt" ''
+          set -euo pipefail
+          export GPG_TTY="$(tty)"
+          ${pkgs.gnupg}/bin/gpg-connect-agent updatestartuptty /bye 1>&2
+          ${pkgs.gnupg}/bin/gpg --batch --no-tty --decrypt
+        '';
+      };
+      user = mkOption {
         type = str;
-        description = "Mail server";
+        default = "balsoft";
       };
-    };
-    openvpn = mkCredOption "openvpn" { };
-    rclone = mkOption {
-      type = nullOr str;
-      description = "Rclone config";
-    };
-    ssl = mkOption {
-      description = "Certs";
-      type = nullOr (submodule {
-        options = {
-          cert = mkOption {
-            type = nullOr str;
-            description = "SSL certificate";
-          };
-          priv = mkOption {
-            type = nullOr str;
-            description = "SSL RSA private key";
-          };
-        };
-      });
-    };
-    matrix = mkCredOption "matrix" rec {
-      shared_secret = mkOption {
-        type = nullOr str;
-        description = "A shared secret for matrix instance";
+      owner = mkOption {
+        type = str;
+        default = "root:root";
       };
-      mautrix-whatsapp = {
-        config = mkOption { type = attrs; };
-        registration = mkOption { type = attrs; };
+      permissions = mkOption {
+        type = lib.types.addCheck lib.types.str
+          (perm: !isNull (builtins.match "[0-7]{3}" perm));
+        default = "400";
       };
-      mautrix-telegram = mautrix-whatsapp;
+      services = mkOption {
+        type = listOf str;
+        default = [ "${name}.service" ];
+      };
+      __toString = mkOption {
+        readOnly = true;
+        default = s: s.decrypted;
+      };
     };
   };
-  config = let
-    unlocked = import (pkgs.runCommand "check-secret" { }
-      "set +e; grep -qI . ${../secret.nix}; echo $? > $out") == 0;
-    secretnix = import ../secret.nix;
-    secrets = if !unlocked || isNull secretnix then
-      builtins.trace "secret.nix locked, building without any secrets"
-      (mapAttrs (n: v: null) options.secrets)
-    else
-      secretnix;
-  in { inherit secrets; };
+
+  decrypt = name: cfg:
+    with cfg; {
+      "${name}-secrets" = rec {
+
+        wantedBy = [ "multi-user.target" ];
+
+        requires = [ "user@1000.service" "gpg-setup.service" ];
+        after = requires;
+
+        preStart = ''
+          [[ -r '${encrypted}' ]]
+          mkdir -p '${builtins.dirOf decrypted}'
+        '';
+
+        script = ''
+          ${optionalString (pkgs.gnupg.version == "2.2.24")
+          "/run/wrappers/bin/sudo -u ${user} ${pkgs.gnupg}/bin/gpg --card-status"
+          # 2.2.24 is broken and needs this hack for yubi to work
+          }
+
+          if cat '${encrypted}' | /run/wrappers/bin/sudo -u ${user} ${cfg.decrypt} > '${decrypted}.tmp'; then
+            mv -f '${decrypted}.tmp' '${decrypted}'
+            chown '${owner}' '${decrypted}'
+            chmod '${permissions}' '${decrypted}'
+          else
+            echo "Failed to decrypt the secret"
+            rm '${decrypted}.tmp'
+          fi
+        '';
+
+        serviceConfig = {
+          Type = "oneshot";
+          RemainAfterExit = "yes";
+        };
+
+        unitConfig = {
+          ConditionPathExists = [
+            "/run/user/${
+              toString config.users.users.${user}.uid
+            }/gnupg/S.gpg-agent"
+          ];
+        };
+
+      };
+    };
+
+  addDependencies = name: cfg:
+    with cfg;
+    genAttrs services (service: rec {
+      requires = [ "${name}-secrets" ];
+      after = requires;
+    });
+
+  gpg-setup = rec {
+
+    wantedBy = [ "multi-user.target" ];
+
+    requires = [ "user@1000.service" ];
+    after = requires;
+
+    path = [ pkgs.gnupg ];
+
+    script = "echo fetch | gpg --card-edit --no-tty --command-fd=0";
+
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = "yes";
+      User = "balsoft";
+    };
+  };
+
+  mkServices = name: cfg: [ (decrypt name cfg) (addDependencies name cfg) ];
+in {
+  options.secrets = lib.mkOption { type = attrsOf (submodule secret); };
+  config.systemd.services = mkMerge ([{ inherit gpg-setup; }]
+    ++ concatLists (mapAttrsToList mkServices config.secrets));
+
+  config.home-manager.users.balsoft = {
+    systemd.user.services.pass-sync = {
+      Install.WantedBy =
+        [ "sway-session.target" ]; # Start when the gpg agent is ready
+
+      Service = {
+        ExecStartPre = toString (pkgs.writeShellScript "clone-pass-repo" ''
+          set -euo pipefail
+
+        '');
+        ExecStart = toString (pkgs.writeShellScript "pass-sync" ''
+          set -euo pipefail
+          cd $HOME/.password-store
+          while ${pkgs.inotifyTools}/bin/inotifywait "$HOME/.password-store/.git" -r -e modify -e close_write -e move -e create -e delete; do
+            sleep 0.5
+            ${pkgs.git}/bin/git push
+          done
+        '');
+      };
+    };
+    wayland.windowManager.sway = {
+      config.startup = [{
+        command = toString (pkgs.writeShellScript "activate-secrets" ''
+          set -euo pipefail
+          # Make sure card is available and unlocked
+          ${pkgs.gnupg}/bin/gpg --card-status
+          cat ${inputs.secrets}/email/balsoft@balsoft.ru.gpg | ${pkgs.gnupg}/bin/gpg --decrypt
+          systemctl restart '*-secrets.service' '*-envsubst.service'
+          if [ -d "$HOME/.password-store" ]; then
+            cd "$HOME/.password-store"; ${pkgs.git}/bin/git pull
+          else
+            ${pkgs.git}/bin/git clone ssh://git@github.com/balsoft/pass "$HOME/.password-store"
+          fi
+          ln -sf ${pkgs.writeShellScript "push" "${pkgs.git}/bin/git push origin master"} "$HOME/.password-store/.git/hooks/post-commit"
+        '');
+      }];
+    };
+  };
 }

@@ -6,17 +6,10 @@ let
     };
   };
 in {
-  home-manager.users.balsoft = {
-    home.file.".weechat/python/autoload/notify_send.py".source =
-      "${inputs.weechat-notify-send}/notify_send.py";
-
-    home.file.".weechat/perl/autoload/multiline.pl".source =
-      "${inputs.weechat-scripts}/perl/multiline.pl";
-
-    home.file.".weechat/python/autoload/go.py".source =
-      "${inputs.weechat-scripts}/python/go.py";
-
-    home.file.".weechat/plugins.conf".text = ''
+  secrets-envsubst.weechat = {
+    owner = "balsoft:users";
+    directory = "weechat";
+    template = ''
       [var]
       python.slack.auto_open_threads = "true"
       python.slack.background_load_all_history = "true"
@@ -46,18 +39,29 @@ in {
       python.slack.short_buffer_names = "false"
       python.slack.show_buflist_presence = "true"
       python.slack.show_reaction_nicks = "true"
-      python.slack.slack_api_token = "${
-        if isNull config.secrets.slack-term then
-        ""
-        else
-          config.secrets.slack-term
-      }"
+      python.slack.slack_api_token = "$slack_api_token"
       python.slack.slack_timeout = "20000"
       python.slack.switch_buffer_on_join = "true"
       python.slack.thread_messages_in_channel = "false"
       python.slack.unfurl_auto_link_display = "both"
       python.slack.unfurl_ignore_alt_text = "false"
       python.slack.unhide_buffers_with_activity = "false"
+    '';
+  };
+
+  home-manager.users.balsoft = {
+    home.file.".weechat/python/autoload/notify_send.py".source =
+      "${inputs.weechat-notify-send}/notify_send.py";
+
+    home.file.".weechat/perl/autoload/multiline.pl".source =
+      "${inputs.weechat-scripts}/perl/multiline.pl";
+
+    home.file.".weechat/python/autoload/go.py".source =
+      "${inputs.weechat-scripts}/python/go.py";
+
+    home.activation.weechat = ''
+      $DRY_RUN_CMD mkdir -p $HOME/.weechat
+      $DRY_RUN_CMD ln -sf $VERBOSE_ARG ${config.secrets-envsubst.weechat} $HOME/.weechat/plugins.conf
     '';
 
     home.file.".weechat/weechat.conf".text = ''

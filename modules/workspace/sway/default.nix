@@ -85,10 +85,6 @@ in {
           command =
             "${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1";
         }
-        {
-          command =
-            "${pkgs.keepassxc}/bin/keepassxc /home/balsoft/projects/nixos-config/misc/Passwords.kdbx";
-        }
         { command = "${pkgs.spectral}/bin/spectral"; }
         { command = "${pkgs.xorg.xrdb}/bin/xrdb -merge ~/.Xresources"; }
 

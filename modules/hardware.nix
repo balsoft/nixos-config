@@ -86,7 +86,7 @@ with deviceSpecific; {
   };
 
   boot = {
-    loader = {
+    loader = lib.mkIf (config.device != "iso-image") ({
       timeout = 1;
     } // (if deviceSpecific.devInfo.legacy or false then { # Non-UEFI config
       grub.enable = true;
@@ -95,7 +95,7 @@ with deviceSpecific; {
       grub.device = "/dev/sda";
     } else { # UEFI config
       systemd-boot.enable = true;
-    });
+    }));
     kernelPackages = pkgs.linuxPackages_latest;
     consoleLogLevel = 3;
     extraModprobeConfig = ''

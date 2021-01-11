@@ -27,6 +27,7 @@ device:
     ./themes.nix
     ./applications.nix
     ./secrets.nix
+    ./secrets-envsubst.nix
     ./devices.nix
     ./packages.nix
     ./users.nix
@@ -39,7 +40,7 @@ device:
     ./nextcloud.nix
     ./mailserver.nix
     ./matrix-synapse.nix
-    ./workspace/kanshi.nix
+    # ./workspace/kanshi.nix
     ./nginx.nix
     ./gitea.nix
     ./minidlna.nix

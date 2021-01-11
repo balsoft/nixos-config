@@ -1,8 +1,13 @@
-{ pkgs, config, lib, ... }: lib.mkIf (! isNull config.secrets.yt-utilities) {
-  home-manager.users.balsoft =  {
-    home.file.".yt.yaml".text = builtins.toJSON {
-      yt-token = config.secrets.yt-utilities.token;
-      user = config.secrets.yt-utilities.user;
+{ pkgs, config, lib, ... }: {
+  home-manager.users.balsoft = {
+    home.activation.yt-config = "$DRY_RUN_CMD ln -sf $VERBOSE_ARG ${config.secrets-envsubst.yt} $HOME/.yt.yaml";
+  };
+  secrets-envsubst.yt = {
+    directory = "yt";
+    owner = "balsoft:users";
+    template = builtins.toJSON {
+      yt-token = "$user";
+      user = "$token";
       from = {
         org = "/home/balsoft/Documents/serokell.org";
         full-file = true;

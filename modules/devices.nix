@@ -2,7 +2,7 @@
 with lib;
 with types; {
   options = {
-    device = mkOption { type = strMatching "[A-z|0-9]*-(Laptop|Workstation|VM)"; };
+    device = mkOption { type = strMatching "[A-z|0-9]*-(Laptop|Workstation|VM|image)"; };
     devices = mkOption { type = attrs; };
     deviceSpecific = mkOption { type = attrs; };
   };
@@ -28,7 +28,6 @@ with types; {
       T490s-Laptop = {
         cpu = {
           vendor = "intel";
-
           clock = 4600;
           cores = 4;
         };
@@ -117,6 +116,19 @@ with types; {
           type = "ssd";
           speed = 50;
           size = 1;
+        };
+        ram = 4;
+      };
+      iso-image = {
+        cpu = {
+          vendor = "intel";
+          clock = 1000;
+          cores = 1;
+        };
+        drive = {
+          type = "ssd";
+          speed = 50;
+          size = 8;
         };
         ram = 4;
       };

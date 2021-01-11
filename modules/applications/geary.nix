@@ -1,10 +1,10 @@
 { config, pkgs, lib, ... }:
-let
+with import ../../support.nix { inherit lib config; }; let
   gearyConfig = {
     Account = {
       label = "";
       ordinal = 6;
-      prefetch_days = 30;
+      prefetch_days = -1;
       save_drafts = true;
       save_sent = true;
       sender_mailboxes = "Alexander Bantyev <balsoft@balsoft.ru>;";
@@ -65,6 +65,6 @@ in {
         font-size: 16px;
       }
     '';
-    xdg.configFile."geary/account_03/geary.ini".text = lib.generators.toGitINI gearyConfig;
+    xdg.configFile."geary/account_03/geary.ini".text = genIni gearyConfig;
   };
 }

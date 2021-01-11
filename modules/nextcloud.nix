@@ -3,9 +3,13 @@
   services.nextcloud = {
     enable = true;
     hostName = "nextcloud.balsoft.ru";
-    config.adminpassFile = "/home/balsoft/nextcloud-admin";
+    config.adminpassFile = config.secrets.nextcloud.decrypted;
     package = pkgs.nextcloud20;
     https = true;
+  };
+  secrets.nextcloud = {
+    owner = "nextcloud:nextcloud";
+    services = [ "nextcloud-setup" ];
   };
   services.nginx.virtualHosts."nextcloud.balsoft.ru" = {
     enableACME = true;

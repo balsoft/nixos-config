@@ -6,6 +6,7 @@ in {
     MOZ_USE_XINPUT2 = "1";
     MOZ_DBUS_REMOTE = "1";
   };
+  programs.browserpass.enable = true;
   home-manager.users.balsoft = lib.mkIf (config.deviceSpecific.goodMachine) {
     programs.firefox = {
       enable = true;
@@ -57,6 +58,7 @@ in {
         close-other-windows
         adsum-notabs
         ublock-origin
+        browserpass
       ];
     };
   };

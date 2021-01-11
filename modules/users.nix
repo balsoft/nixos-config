@@ -30,8 +30,10 @@
   systemd.services."user@" = { serviceConfig = { Restart = "always"; }; };
 
   home-manager.users.balsoft.home.activation.yubi = {
-    data =
-      "[ -s /home/balsoft/.config/Yubico/u2f_keys ] || (pamu2fcfg > /home/balsoft/.config/Yubico/u2f_keys)";
+    data = ''
+      mkdir -p .config/Yubico
+      [ -f /home/balsoft/.config/Yubico/u2f_keys ] || (pamu2fcfg > /home/balsoft/.config/Yubico/u2f_keys)
+    '';
     after = [ "linkGeneration" ];
     before = [ ];
   };
@@ -55,11 +57,12 @@
 
   environment.systemPackages = [
     (pkgs.writeShellScriptBin "lock" ''
+      set -euo pipefail
       if [[ "$1" == this ]]
         then args="-s"
         else args="-san"
       fi
-      USER=balsoft ${pkgs.vlock}/bin/vlock "$args"
+      ${lib.optionalString (config.deviceSpecific.isLaptop) ''USER=balsoft ${pkgs.vlock}/bin/vlock "$args"''}
     '')
   ];
 

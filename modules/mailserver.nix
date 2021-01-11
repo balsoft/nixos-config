@@ -1,13 +1,12 @@
 { pkgs, config, lib, inputs, ... }:
 let
   module = toString inputs.simple-nixos-mailserver;
-  readCommandResult = command:
-    builtins.readFile (pkgs.runCommand "cmd" { preferLocalBuild = true; }
-      "echo -n $(${command}) > $out");
-  hashedPassword = readCommandResult
-    "${pkgs.mkpasswd}/bin/mkpasswd -m sha-512 '${config.secrets.mail.password}'";
 in {
   imports = [ module ];
+  secrets.mailserver = {
+    owner = "dovecot2:dovecot2";
+    services = [ "dovecot2" ];
+  };
   services.postfix = {
     dnsBlacklists = [
       "all.s5h.net"
@@ -72,15 +71,15 @@ in {
       192.168.0.0/16 OK
     '';
   };
-  mailserver = lib.mkIf (! isNull config.secrets.mail) {
+  mailserver = {
     enable = true;
-    fqdn = config.secrets.mail.host;
-    domains = [ config.secrets.mail.host ];
+    fqdn = "balsoft.ru";
+    domains = [ "balsoft.ru" ];
     loginAccounts = {
       "balsoft@balsoft.ru" = {
         aliases =
           [ "balsoft" "admin@balsoft.ru" "patches" "patches@balsoft.ru" "issues" "issues@balsoft.ru" "admin" "root@balsoft.ru" "root" ];
-        inherit hashedPassword;
+        hashedPasswordFile = config.secrets.mailserver.decrypted;
       };
     };
     localDnsResolver = false;

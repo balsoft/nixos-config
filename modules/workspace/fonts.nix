@@ -9,7 +9,7 @@
       material-icons
     ];
     fontconfig = {
-      enable = true;
+      enable = lib.mkForce true;
       defaultFonts = {
         monospace = [ "IBM Plex Mono 13" ];
         sansSerif = [ "IBM Plex Sans 13" ];

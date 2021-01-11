@@ -3,6 +3,11 @@ with import ../../../support.nix { inherit pkgs config lib; };
 with lib;
 let scripts = import ./scripts pkgs config;
 in {
+  secrets.wage = {
+    owner = "balsoft:users";
+    services = [ ];
+  };
+
   home-manager.users.balsoft = {
     wayland.windowManager.sway.config.bars = [{
       id = "default";
@@ -39,10 +44,10 @@ in {
     in ''
       interval=60
       markup=pango
-    '' + genIniOrdered (optional (!isNull config.secrets.mail) (scr "email")
+    '' + genIniOrdered ([]
+      # (scr "email")
       ++ [ (scrint "weather" 600) (scr "emacs") (scr "nixos") ]
-      ++ optional (!isNull config.secrets.wage) (scrint "youtrack-wage" 3600)
-      ++ [ (scrint "music" 3) (scrint "sound" 1) ] ++ [
+      ++ [ (scrint "youtrack-wage" 3600) (scrint "music" 3) (scrint "sound" 1) ] ++ [
         (scrint "cpu" 5)
         (scrint "freq" 10)
         (scr "temperature")
