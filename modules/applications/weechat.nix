@@ -8,7 +8,7 @@ let
 in {
   secrets-envsubst.weechat = {
     owner = "balsoft:users";
-    directory = "weechat";
+    secrets = [ "slack_api_token" ];
     template = ''
       [var]
       python.slack.auto_open_threads = "true"

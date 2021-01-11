@@ -85,7 +85,7 @@
   };
 
   secrets-envsubst.mautrix-telegram = {
-    directory = "mautrix-telegram";
+    secrets = [ "as_token" "hs_token" "api_id" "api_hash" ];
     template = ''
       MAUTRIX_TELEGRAM_APPSERVICE_AS_TOKEN=$as_token
       MAUTRIX_TELEGRAM_APPSERVICE_HS_TOKEN=$hs_token
@@ -96,6 +96,7 @@
 
   secrets-envsubst.mautrix-telegram-registration = {
     directory = "mautrix-telegram";
+    secrets = [ "as_token" "hs_token" ];
     owner = "matrix-synapse";
     template = builtins.toJSON {
       as_token = "$as_token";
@@ -118,7 +119,7 @@
   };
 
   secrets-envsubst.mautrix-whatsapp = {
-    directory = "mautrix-whatsapp";
+    secrets = [ "as_token" "hs_token" ];
     owner = "mautrix-whatsapp";
     template = builtins.toJSON {
       appservice = {
@@ -181,6 +182,7 @@
 
   secrets-envsubst.mautrix-whatsapp-registration = {
     directory = "mautrix-whatsapp";
+    secrets = [ "as_token" "hs_token" ];
     owner = "matrix-synapse";
     template = builtins.toJSON {
       as_token = "$as_token";

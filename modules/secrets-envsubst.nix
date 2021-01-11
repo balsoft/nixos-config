@@ -4,7 +4,11 @@ with types;
 let
   envsubstSecrets = { name, ... }: {
     options = {
-      directory = mkOption { type = str; };
+      directory = mkOption {
+        type = nullOr str;
+        default = name;
+      };
+      secrets = mkOption { type = listOf str; };
       template = mkOption { type = str; };
       prefix = mkOption {
         type = nullOr str;
@@ -38,34 +42,32 @@ let
     };
   };
 
-  individualSecrets = name: cfg:
-  map (x: builtins.elemAt (builtins.match "(.*).gpg" x) 0) (builtins.attrNames (lib.filterAttrs (n: v: v == "regular" || v == "symlink")
-  (builtins.readDir (inputs.secrets + "/${cfg.directory}"))));
-
   exportSecrets = name: cfg:
     let prefix = lib.optionalString (!isNull cfg.prefix) "${cfg.prefix}_";
     in map (secret:
       ''
         export ${prefix}${secret}="$(cat ${
           config.secrets."${name}-envsubst-${secret}".decrypted
-        })"'') (individualSecrets name cfg);
+        })"'') cfg.secrets;
 
   envsubst = name: cfg:
     with cfg; {
       "${name}-envsubst" = rec {
 
-        wantedBy = [ "multi-user.target" ];
-
-        requires = [ "user@1000.service" "gpg-setup.service" ]
-          ++ map (secret: "${name}-envsubst-${secret}-secrets.service") (individualSecrets name cfg);
+        requires = [ "user@1000.service" ]
+          ++ map (secret: "${name}-envsubst-${secret}-secrets.service")
+          cfg.secrets;
         after = requires;
+        bindsTo = requires;
 
         preStart = "mkdir -p '${builtins.dirOf substituted}'";
 
         script = ''
           ${builtins.concatStringsSep "\n" (exportSecrets name cfg)}
 
-          if cat '${builtins.toFile "template" template}' | ${cfg.envsubst} > '${substituted}.tmp'; then
+          if cat '${
+            builtins.toFile "template" template
+          }' | ${cfg.envsubst} > '${substituted}.tmp'; then
             mv -f '${substituted}.tmp' '${substituted}'
             chown '${owner}' '${substituted}'
             chmod '${permissions}' '${substituted}'
@@ -87,16 +89,17 @@ let
     genAttrs services (service: rec {
       requires = [ "${name}-envsubst" ];
       after = requires;
+      bindsTo = requires;
     });
   mkServices = name: cfg: [ (envsubst name cfg) (addDependencies name cfg) ];
 
   mkIndividualSecrets = name: cfg:
     map (x: {
       "${name}-envsubst-${x}" = {
-        encrypted = inputs.secrets + "/${cfg.directory}/${x}.gpg";
+        encrypted = "/home/balsoft/.password-store/${lib.optionalString (! isNull cfg.directory) "${cfg.directory}/"}${x}.gpg";
         services = [ ];
       };
-    }) (individualSecrets name cfg);
+    }) cfg.secrets;
 in {
   options.secrets-envsubst =
     lib.mkOption { type = attrsOf (submodule envsubstSecrets); };

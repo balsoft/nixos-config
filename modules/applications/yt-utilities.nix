@@ -3,7 +3,7 @@
     home.activation.yt-config = "$DRY_RUN_CMD ln -sf $VERBOSE_ARG ${config.secrets-envsubst.yt} $HOME/.yt.yaml";
   };
   secrets-envsubst.yt = {
-    directory = "yt";
+    secrets = [ "user" "template" ];
     owner = "balsoft:users";
     template = builtins.toJSON {
       yt-token = "$user";

@@ -302,27 +302,11 @@
         "nixpkgs": "nixpkgs_4",
         "nixpkgs-old": "nixpkgs-old",
         "nixpkgs-wayland": "nixpkgs-wayland",
-        "secrets": "secrets",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "simple-osd-daemons": "simple-osd-daemons",
         "weechat-notify-send": "weechat-notify-send",
         "weechat-scripts": "weechat-scripts",
         "yt-utilities": "yt-utilities"
-      }
-    },
-    "secrets": {
-      "locked": {
-        "lastModified": 1610367002,
-        "narHash": "sha256-u2bwZhhTvXl9XK6EMVRyBiEjs7DDTCx1Nog1mQkB0yQ=",
-        "ref": "master",
-        "rev": "77a6f919690c8a0dd383fccdd61f2c7c99fc24cb",
-        "revCount": 1,
-        "type": "git",
-        "url": "ssh://git@github.com/balsoft/pass"
-      },
-      "original": {
-        "type": "git",
-        "url": "ssh://git@github.com/balsoft/pass"
       }
     },
     "simple-nixos-mailserver": {
