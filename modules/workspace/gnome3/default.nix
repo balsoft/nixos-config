@@ -2,24 +2,28 @@
   services.gnome3 = {
     core-os-services.enable = true;
     core-utilities.enable = true;
+    evolution-data-server.enable = true;
     sushi.enable = true;
     tracker.enable = true;
     tracker-miners.enable = true;
     gnome-settings-daemon.enable = true;
     glib-networking.enable = true;
+    gnome-keyring.enable = true;
+    gnome-online-accounts.enable = true;
+    gnome-online-miners.enable = true;
   };
   services.gvfs.enable = true;
   services.geoclue2.enable = true;
   home-manager.users.balsoft = {
     xdg.userDirs.enable = true;
     home.activation.gnome = ''
-      $DRY_RUN_CMD mkdir -p "$XDG_DATA_HOME/keyrings/Default_keyring"
-      $DRY_RUN_CMD cp -f ${config.secrets-envsubst.gnome-keyring} "$XDG_DATA_HOME/keyrings/Default_keyring.keyring"
+      $DRY_RUN_CMD mkdir -p "$XDG_DATA_HOME/keyrings"
+      $DRY_RUN_CMD ln -sf ${config.secrets-envsubst.gnome-keyring} "$XDG_DATA_HOME/keyrings/Default_keyring.keyring"
       echo "Default_keyring" > "$XDG_DATA_HOME/keyrings/default"
       $DRY_RUN_CMD mkdir -p "$XDG_CONFIG_HOME/goa-1.0"
-      $DRY_RUN_CMD cp -f ${./accounts.conf} "$XDG_CONFIG_HOME/goa-1.0/accounts.conf"
+      $DRY_RUN_CMD ln -sf ${./accounts.conf} "$XDG_CONFIG_HOME/goa-1.0/accounts.conf"
       $DRY_RUN_CMD mkdir -p "$XDG_CONFIG_HOME/evolution/sources"
-      $DRY_RUN_CMD cp -f ${./nextcloud.source} "$XDG_CONFIG_HOME/evolution/sources/nextcloud.source"
+      $DRY_RUN_CMD ln -sf ${./nextcloud.source} "$XDG_CONFIG_HOME/evolution/sources/nextcloud.source"
     '';
 
     dconf.settings = {

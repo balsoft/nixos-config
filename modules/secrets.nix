@@ -93,6 +93,12 @@ let
     });
 
   mkServices = name: cfg: [ (decrypt name cfg) (addDependencies name cfg) ];
+
+  allServices = toString
+    (map (name: "${name}-envsubst.service")
+    (builtins.attrNames config.secrets-envsubst)
+    ++ map (name: "${name}-secrets.service")
+    (builtins.attrNames config.secrets));
 in {
   options.secrets = lib.mkOption { type = attrsOf (submodule secret); };
   config.systemd.services =
@@ -113,15 +119,14 @@ in {
         pkgs.writeShellScript "push" "${pkgs.git}/bin/git push origin master"
       } "$HOME/.password-store/.git/hooks/post-commit"
       cat $HOME/.password-store/email/balsoft@balsoft.ru.gpg | ${pkgs.gnupg}/bin/gpg --decrypt > /dev/null
-      sudo systemctl start --all '*-secrets.service' '*-envsubst.service'
+      sudo systemctl restart ${allServices}
     '')
   ];
 
   config.security.sudo.extraRules = [{
     users = [ "balsoft" ];
     commands = [{
-      command =
-        "/run/current-system/sw/bin/systemctl start --all '*-secrets.service' '*-envsubst.service'";
+      command = "/run/current-system/sw/bin/systemctl restart ${allServices}";
       options = [ "NOPASSWD" ];
     }];
   }];
