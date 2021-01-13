@@ -88,11 +88,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1610470274,
-        "narHash": "sha256-CtTfjqs5M9n2YWmuwsivaesz/JPSbflB30NiNWfFu6Q=",
+        "lastModified": 1610540707,
+        "narHash": "sha256-Fzwxs5a42ZsvjWnshMJYPHCoSyxFIq6+/xIz/sfKGzQ=",
         "owner": "balsoft",
         "repo": "lambda-launcher",
-        "rev": "3e553f0676a98f3fb00c626563ead378aed2b8ea",
+        "rev": "17cc7bbf1504704e9d6ba019312dc8b250b3a5f2",
         "type": "github"
       },
       "original": {
