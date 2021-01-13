@@ -5,6 +5,7 @@
       wget
       curl
       unrar
+      neochat
     ] ++ lib.optionals config.deviceSpecific.goodMachine ([
       steamcmd
       steam
@@ -18,7 +19,6 @@
       spectral
       # Audio/Video
       vlc
-      cantata
       lxqt.pavucontrol-qt
       # Tools
       zip
@@ -31,9 +31,7 @@
       gnumeric
       gcalcli
       breeze-icons
-      kde-cli-tools
       xdg_utils
-      git-crypt
       inputs.yt-utilities.defaultPackage.x86_64-linux
       lambda-launcher
       nix-patch

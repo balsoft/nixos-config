@@ -9,7 +9,6 @@ device:
     ./applications/okular.nix
     ./applications/yt-utilities.nix
     ./applications/firefox.nix
-    ./applications/spectral.nix
     ./workspace/sway
     ./workspace/i3blocks
     ./workspace/zsh.nix
@@ -22,7 +21,6 @@ device:
     ./workspace/fonts.nix
     ./workspace/light.nix
     ./workspace/mako.nix
-    ./workspace/mopidy.nix
     ./workspace/xresources.nix
     ./themes.nix
     ./applications.nix

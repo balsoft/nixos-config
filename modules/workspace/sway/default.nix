@@ -26,7 +26,7 @@ in {
           { app_id = "org.kde.trojita"; }
           { title = ".*.Geary*"; }
           { title = "balsoft : weechat.*"; }
-          { title = "Spectral"; }
+          { title = "Neochat"; }
           { title = "Slack"; }
         ];
         "ﱘ" = [{ app_id = "cantata"; }];
@@ -85,10 +85,8 @@ in {
           command =
             "${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1";
         }
-        { command = "${pkgs.spectral}/bin/spectral"; }
+        { command = "${pkgs.neochat}/bin/neochat"; }
         { command = "${pkgs.xorg.xrdb}/bin/xrdb -merge ~/.Xresources"; }
-
-        { command = "${pkgs.cantata}/bin/cantata"; }
 
         {
           command =

@@ -21,7 +21,7 @@
     enable = true;
     client.enable = true;
     torsocks.enable = true;
-    client.socksListenAddressFaster = "127.0.0.1:9063";
+    settings.SOCKSPort = [ 9050 ];
   };
 
   services.privoxy = {

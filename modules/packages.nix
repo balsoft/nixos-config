@@ -24,15 +24,7 @@ in {
 
       # inherit (old) mautrix-telegram;
 
-      lambda-launcher = let
-        pkgs' =
-          inputs.lambda-launcher.inputs.nixpkgs.legacyPackages.x86_64-linux.extend (_: _: {
-            inherit (pkgs) glibc stdenv glibc-locales;
-          });
-      in pkgs'.callPackage "${inputs.lambda-launcher}/wrapper.nix" {
-        lambda-launcher-unwrapped =
-          pkgs'.haskellPackages.callPackage "${inputs.lambda-launcher}/lambda-launcher.nix" { };
-      };
+      lambda-launcher = inputs.lambda-launcher.defaultPackage.x86_64-linux;
 
       simple-osd = inputs.simple-osd-daemons.packages.x86_64-linux;
 
@@ -50,7 +42,6 @@ in {
   nixpkgs.config = {
     allowUnfree = true;
     android_sdk.accept_license = true;
-    firefox.enablePlasmaBrowserIntegration = true;
   };
   environment.etc.nixpkgs.source = inputs.nixpkgs;
   nix = rec {

@@ -42,7 +42,7 @@
     ACTION=="remove", ATTRS{idVendor}=="1050", RUN+="${pkgs.systemd}/bin/loginctl lock-sessions"
   '';
   
-  services.mingetty.autologinUser = "balsoft";
+  services.getty.autologinUser = "balsoft";
   
   environment.loginShellInit = ''
     [[ "$(tty)" == /dev/tty? ]] && sudo /run/current-system/sw/bin/lock this 
