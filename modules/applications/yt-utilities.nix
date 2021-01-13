@@ -6,8 +6,8 @@
     secrets = [ "user" "token" ];
     owner = "balsoft:users";
     template = builtins.toJSON {
-      yt-token = "$user";
-      user = "$token";
+      yt-token = "$token";
+      user = "$user";
       from = {
         org = "/home/balsoft/Documents/serokell.org";
         full-file = true;
