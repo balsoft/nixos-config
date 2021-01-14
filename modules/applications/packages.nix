@@ -14,6 +14,7 @@
       niv
       stdman
       libqalculate
+      github-cli
       # Messaging
       libnotify
       spectral
