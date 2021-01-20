@@ -67,7 +67,7 @@ in {
         ] ++ map (machine: "sftp://${machine}/home/balsoft ${machine}")
           (builtins.attrNames config.devices);
         extraConfig = {
-          gtk-cursor-theme-name = "breeze";
+          gtk-cursor-theme-name = "Breeze";
         };
       };
 

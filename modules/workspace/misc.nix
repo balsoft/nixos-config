@@ -2,7 +2,7 @@
   programs.sway.enable = true;
   users.users.balsoft.extraGroups = [ "sway" ];
   systemd.coredump.enable = true;
-  environment.sessionVariables = {
+  environment.sessionVariables = config.home-manager.users.balsoft.home.sessionVariables // {
     EDITOR = config.defaultApplications.editor.cmd;
     VISUAL = config.defaultApplications.editor.cmd;
     LESS = "-asrRix8";
@@ -10,7 +10,8 @@
     QT_QPA_PLATFORM = "wayland";
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
     NIX_AUTO_RUN = "1";
-  } // config.home-manager.users.balsoft.home.sessionVariables;
+    XCURSOR_PATH = lib.mkForce "/home/balsoft/.icons";
+  };
 
   services.atd.enable = true;
 
@@ -61,9 +62,15 @@
       options = [ "grp:win_space_toggle,grp_led:caps,ctrl:nocaps" ];
       layout = "us,ru";
     };
-    home.file.".icons/default".source =
-      "${pkgs.breeze-qt5}/share/icons/breeze_cursors";
     systemd.user.startServices = true;
     services.kdeconnect.enable = true;
+
+    xsession.pointerCursor = {
+      package = pkgs.breeze-qt5;
+      name = "Breeze";
+    };
+
+    home.file.".icons/default".source = "${pkgs.breeze-qt5}/share/icons/breeze_cursors";
   };
+
 }

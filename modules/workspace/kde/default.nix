@@ -15,7 +15,6 @@ with import ../../../support.nix { inherit lib config; }; {
     DESKTOP_SESSION = "kde";
     QT_XFT = "true";
     QT_SELECT = "5";
-    XDG_CURRENT_DESKTOP = "KDE";
     KDE_SESSION_VERSION = "5";
     QT_SCALE_FACTOR = "1";
     QT_AUTO_SCREEN_SCALE_FACTOR = "0";
