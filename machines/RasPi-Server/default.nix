@@ -5,7 +5,7 @@
     mailserver
   ];
 
-  loader.raspberryPi = {
+  boot.loader.raspberryPi = {
     enable = true;
     version = 3;
   };
