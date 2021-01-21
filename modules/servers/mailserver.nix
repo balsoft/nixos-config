@@ -65,9 +65,6 @@ in {
     ];
     dnsBlacklistOverrides = ''
       balsoft.ru OK
-      ${
-        builtins.concatStringsSep " OK \n" (builtins.attrNames config.devices)
-      } OK
       192.168.0.0/16 OK
     '';
   };

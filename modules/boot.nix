@@ -4,20 +4,15 @@
 
     loader.systemd-boot.enable = lib.mkIf (pkgs.system == "x86_64-linux") true;
 
-    # loader.raspberryPi = lib.mkIf (pkgs.system == "aarch64-linux") {
-    #   enable = true;
-    #   version = 4;
-    # };
-
     loader.grub.enable = false;
 
-    # kernelParams = [ "quiet" "scsi_mod.use_blk_mq=1" "modeset" "nofb" ]
-    #   ++ lib.optional (pkgs.system == "x86_64-linux") [
-    #     "rd.systemd.show_status=auto"
-    #     "rd.udev.log_priority=3"
-    #     "pti=off"
-    #     "spectre_v2=off"
-    #   ];
+    kernelParams = [ "quiet" "scsi_mod.use_blk_mq=1" "modeset" "nofb" ]
+      ++ lib.optional (pkgs.system == "x86_64-linux") [
+        "rd.systemd.show_status=auto"
+        "rd.udev.log_priority=3"
+        "pti=off"
+        "spectre_v2=off"
+      ];
 
     kernelPackages = pkgs.linuxPackages_latest;
 

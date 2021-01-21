@@ -2,15 +2,14 @@
   imports = with inputs.self.nixosModules; [
     ./hardware-configuration.nix
     inputs.self.nixosProfiles.server
-    gitea
-    jitsi
     mailserver
-    matrix-synapse
-    minidlna
-    nextcloud
-    nginx
-    vsftpd
   ];
+
+  loader.raspberryPi = {
+    enable = true;
+    version = 3;
+  };
+
   deviceSpecific.devInfo = {
     cpu = {
       vendor = "broadcom";
