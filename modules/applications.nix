@@ -43,6 +43,12 @@ with import ../support.nix { inherit lib config; }; {
         desktop = "gnumeric";
       };
     };
+
+    environment.sessionVariables = {
+      EDITOR = config.defaultApplications.editor.cmd;
+      VISUAL = config.defaultApplications.editor.cmd;
+    };
+
     home-manager.users.balsoft.xdg.mimeApps = {
       enable = true;
       defaultApplications =

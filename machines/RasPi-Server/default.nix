@@ -1,0 +1,28 @@
+{ inputs, ... }: {
+  imports = with inputs.self.nixosModules; [
+    ./hardware-configuration.nix
+    inputs.self.nixosProfiles.server
+    gitea
+    jitsi
+    mailserver
+    matrix-synapse
+    minidlna
+    nextcloud
+    nginx
+    vsftpd
+  ];
+  deviceSpecific.devInfo = {
+    cpu = {
+      vendor = "broadcom";
+      clock = 4200;
+      cores = 8;
+    };
+    drive = {
+      type = "ssd";
+      speed = 6000;
+      size = 250;
+    };
+    bigScreen = true;
+    ram = 32;
+  };
+}

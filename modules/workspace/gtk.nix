@@ -46,6 +46,7 @@ in {
       };
     })
   ];
+  programs.dconf.enable = true;
   services.dbus.packages = with pkgs; [ gnome3.dconf ];
   home-manager.users.balsoft = {
     gtk = {
@@ -65,7 +66,7 @@ in {
           "davs://nextcloud.balsoft.ru/remote.php/dav/files/balsoft nextcloud.balsoft.ru"
           "sftp://balsoft.ru/home/balsoft balsoft.ru"
         ] ++ map (machine: "sftp://${machine}/home/balsoft ${machine}")
-          (builtins.attrNames config.devices);
+          (builtins.attrNames inputs.self.nixosConfigurations);
         extraConfig = {
           gtk-cursor-theme-name = "Breeze";
         };

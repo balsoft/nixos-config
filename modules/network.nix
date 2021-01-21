@@ -2,7 +2,6 @@
 let
   localRanges = [
     { from = 1714; to = 1764; } # KDE connect
-    { from = 6600; to = 6600; } # Mopidy
   ];
 in {
   networking = {
@@ -23,6 +22,7 @@ in {
     usePredictableInterfaceNames = false;
     hostName = config.device;
   };
+  networking.firewall.trustedInterfaces = [ "eth0" ];
   systemd.services.ModemManager.wantedBy =
     lib.optional (config.device == "T490s-Laptop") "network.target";
 }

@@ -7,7 +7,7 @@ let
       Restart = "always";
     };
   };
-  inherit (import ../support.nix { inherit lib config; }) genIni;
+  inherit (import ../../support.nix { inherit lib config; }) genIni;
   daemons = names:
     builtins.listToAttrs (builtins.map (name:
       {

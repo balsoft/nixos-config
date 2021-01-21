@@ -7,11 +7,20 @@ let
   lock = pkgs.writeShellScript "lock"
     "swaymsg 'output * dpms off'; sudo /run/current-system/sw/bin/lock; swaymsg 'output * dpms on'";
 in {
-  environment.sessionVariables._JAVA_AWT_WM_NONREPARENTING = "1";
+  environment.sessionVariables = {
+    _JAVA_AWT_WM_NONREPARENTING = "1";
+    XDG_SESSION_TYPE = "wayland";
+    QT_QPA_PLATFORM = "wayland";
+    QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+  };
+
+  programs.sway.enable = true;
 
   programs.sway.wrapperFeatures.gtk = true;
 
   programs.sway.extraPackages = lib.mkForce (with pkgs; [ swayidle xwayland ]);
+
+  users.users.balsoft.extraGroups = [ "sway" ];
 
   home-manager.users.balsoft.wayland.windowManager.sway = {
     enable = true;
