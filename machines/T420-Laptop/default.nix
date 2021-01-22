@@ -1,7 +1,21 @@
 { inputs, ... }: {
-  imports = [ ./hardware-configuration.nix inputs.self.nixosProfiles.desktop ];
+  imports = with inputs.self.nixosModules; [
+    ./hardware-configuration.nix
+    inputs.self.nixosProfiles.desktop
+    gitea
+    jitsi
+    mailserver
+    matrix-synapse
+    minidlna
+    nextcloud
+    nginx
+    vsftpd
+  ];
+
+  security.sudo.wheelNeedsPassword = false;
+
   deviceSpecific.devInfo = {
-    legacy = false;
+    legacy = true;
     cpu = {
       vendor = "intel";
       clock = 2500;

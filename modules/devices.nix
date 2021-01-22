@@ -22,6 +22,7 @@ with types; {
           size = mkOption { type = int; };
         };
         ram = mkOption { type = int; };
+        legacy = mkOption { type = bool; default = false; };
         bigScreen = mkOption {
           type = bool;
           default = true;
