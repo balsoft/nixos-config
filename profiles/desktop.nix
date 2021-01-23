@@ -25,7 +25,6 @@
     kde
     light
     mako
-    misc
     simple-osd-daemons
     sway
     xresources

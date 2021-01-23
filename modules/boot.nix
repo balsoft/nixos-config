@@ -1,15 +1,10 @@
 { lib, pkgs, config, ... }: {
   boot = {
     loader = {
-      timeout = 1;
-    } // (if config.deviceSpecific.devInfo.legacy or false then { # Non-UEFI config
-      grub.enable = true;
-      grub.version = 2;
-      grub.useOSProber = true;
-      grub.device = "/dev/sda";
-    } else { # UEFI config
-      systemd-boot.enable = true;
-    });
+      timeout = lib.mkForce 1;
+      grub.enable = lib.mkForce false;
+      systemd-boot.enable = pkgs.system == "x86_64-linux";
+    };
     kernelParams = [ "quiet" "scsi_mod.use_blk_mq=1" "modeset" "nofb" ]
       ++ lib.optionals (pkgs.system == "x86_64-linux") [
         "rd.systemd.show_status=auto"

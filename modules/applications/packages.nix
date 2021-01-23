@@ -6,7 +6,7 @@
       curl
       unrar
       neochat
-    ] ++ lib.optionals config.deviceSpecific.goodMachine ([
+    ] ++ lib.optionals config.deviceSpecific.goodMachine [
       steamcmd
       steam
       haskellPackages.hoogle
@@ -38,5 +38,5 @@
       pass-wayland
       papirus-icon-theme
       gnome3.simple-scan
-    ]);
+    ];
 }

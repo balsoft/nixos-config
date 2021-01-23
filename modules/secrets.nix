@@ -94,13 +94,15 @@ let
 
   mkServices = name: cfg: [ (decrypt name cfg) (addDependencies name cfg) ];
 
-  allServices = toString
-    (map (name: "${name}-envsubst.service")
+  allServices = toString (map (name: "${name}-envsubst.service")
     (builtins.attrNames config.secrets-envsubst)
     ++ map (name: "${name}-secrets.service")
     (builtins.attrNames config.secrets));
 in {
-  options.secrets = lib.mkOption { type = attrsOf (submodule secret); };
+  options.secrets = lib.mkOption {
+    type = attrsOf (submodule secret);
+    default = { };
+  };
   config.systemd.services =
     mkMerge (concatLists (mapAttrsToList mkServices config.secrets));
 

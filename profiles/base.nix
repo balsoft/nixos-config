@@ -16,5 +16,6 @@
     git
     gpg
     zsh
+    misc
   ];
 }

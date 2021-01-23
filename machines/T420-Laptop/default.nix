@@ -1,7 +1,7 @@
 { inputs, ... }: {
   imports = with inputs.self.nixosModules; [
     ./hardware-configuration.nix
-    inputs.self.nixosProfiles.desktop
+    inputs.self.nixosProfiles.base
     gitea
     jitsi
     mailserver

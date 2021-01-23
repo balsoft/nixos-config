@@ -97,13 +97,17 @@ let
   mkIndividualSecrets = name: cfg:
     map (x: {
       "${name}-envsubst-${x}" = {
-        encrypted = "/home/balsoft/.password-store/${lib.optionalString (! isNull cfg.directory) "${cfg.directory}/"}${x}.gpg";
+        encrypted = "/home/balsoft/.password-store/${
+            lib.optionalString (!isNull cfg.directory) "${cfg.directory}/"
+          }${x}.gpg";
         services = [ ];
       };
     }) cfg.secrets;
 in {
-  options.secrets-envsubst =
-    lib.mkOption { type = attrsOf (submodule envsubstSecrets); };
+  options.secrets-envsubst = lib.mkOption {
+    type = attrsOf (submodule envsubstSecrets);
+    default = { };
+  };
   config.systemd.services =
     mkMerge (concatLists (mapAttrsToList mkServices config.secrets-envsubst));
   config.secrets = mkMerge
