@@ -18,4 +18,5 @@
     ram = 32;
   };
   services.apcupsd.enable = true;
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 }
