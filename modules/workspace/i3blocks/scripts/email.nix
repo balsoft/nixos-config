@@ -2,7 +2,8 @@
   #!${python3}/bin/python3
   import imaplib
   obj = imaplib.IMAP4_SSL('balsoft.ru', 993)
-  obj.login("balsoft@balsoft.ru", "${config.secrets.gnome-keyring-envsubst-email.decrypted}")
+  password = open("${config.secrets.email.decrypted}").read()[:-1:]
+  obj.login("balsoft@balsoft.ru", password)
   obj.select()
   l = len(obj.search(None, 'unseen')[1][0].split())
   if l == 0:

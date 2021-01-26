@@ -8,6 +8,12 @@ in {
     services = [ ];
   };
 
+  secrets.email = {
+    owner = "balsoft:users";
+    services = [ ];
+    encrypted = "/home/balsoft/.password-store/email/balsoft@balsoft.ru.gpg";
+  };
+
   home-manager.users.balsoft = {
     wayland.windowManager.sway.config.bars = [{
       id = "default";
@@ -64,7 +70,10 @@ in {
         (scrint "time" 1)
       ]);
     systemd.user.services.swaybar = {
-      Unit = { Description = "Start default bar"; };
+      Unit = {
+        Description = "Start default bar";
+        X-RestartIfChanged = true;
+      };
 
       Install.WantedBy = [ "sway-session.target" ];
 
