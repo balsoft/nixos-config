@@ -66,6 +66,7 @@ in {
     dnsBlacklistOverrides = ''
       balsoft.ru OK
       192.168.0.0/16 OK
+      ${lib.concatMapStringsSep "\n" (machine: "${machine}.lan OK") (builtins.attrNames inputs.self.nixosConfigurations)}
     '';
   };
   mailserver = {

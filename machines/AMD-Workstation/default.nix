@@ -17,6 +17,7 @@
     bigScreen = true;
     ram = 32;
   };
+  deviceSpecific.isHost = true;
   services.apcupsd.enable = true;
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 }

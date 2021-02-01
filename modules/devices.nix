@@ -37,7 +37,7 @@ with types; {
         };
       isHost = mkOption {
         type = bool;
-        default = with config.deviceSpecific; goodMachine;
+        default = false;
       };
       bigScreen = mkOption {
         type = bool;

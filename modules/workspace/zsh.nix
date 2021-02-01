@@ -11,6 +11,7 @@
       theme = "agnoster";
       plugins = [ "git" "dirhistory" ];
     };
+
     history = rec {
       size = 1000000;
       save = size;
@@ -48,20 +49,17 @@
     shellAliases = {
       "b" = ''nix-build "<nixpkgs>" --no-out-link -A'';
       "p" = "nix-shell --run zsh -p";
+      "s" = "nix shell";
+      "ss" = "nix shell self#";
+      "d" = "nix develop";
+      "ds" = "nix develop self#";
+      "e" = "nix edit self#";
       "o" = "xdg-open";
       "post" = ''curl -F"file=@-" https://0x0.st'';
       "cat" = "${pkgs.bat}/bin/bat";
     };
     initExtra = ''
-      r(){nix run nixpkgs.$1 -c $@ }
       cmdignore=(htop tmux top vim)
-      function active_window_id () {
-        if [[ -n $DISPLAY ]] ; then
-          ${pkgs.xorg.xprop}/bin/xprop -root _NET_ACTIVE_WINDOW | awk '{print $5}'
-          return
-        fi
-        echo nowindowid
-      }
 
       # end and compare timer, notify-send if needed
       function notifyosd-precmd() {
@@ -75,7 +73,7 @@
         else
           cmdstat="✘"
         fi
-        if [ ! -z "$cmd" -a ! $term_window = $(active_window_id) ]; then
+        if [ ! -z "$cmd" ]; then
           ${pkgs.libnotify}/bin/notify-send -i utilities-terminal -u low "$cmdstat $cmd" "in `date -u -d @$cmd_time +'%T'`"
         fi
         unset cmd
@@ -87,7 +85,6 @@
       # get command name and start the timer
       function notifyosd-preexec() {
         cmd=$1
-        term_window=$(active_window_id)
         cmd_start=`date +%s`
       }
 
