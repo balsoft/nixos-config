@@ -47,13 +47,14 @@
       }
     ];
     shellAliases = {
-      "b" = ''nix-build "<nixpkgs>" --no-out-link -A'';
+      "b" = "nix build";
       "p" = "nix-shell --run zsh -p";
       "s" = "nix shell";
-      "ss" = "nix shell self#";
+      "e" = "nix edit";
       "d" = "nix develop";
-      "ds" = "nix develop self#";
-      "e" = "nix edit self#";
+      "r" = "nix run";
+      "f" = "nix search";
+      "fs" = "nix search self";
       "o" = "xdg-open";
       "post" = ''curl -F"file=@-" https://0x0.st'';
       "cat" = "${pkgs.bat}/bin/bat";
@@ -94,7 +95,13 @@
       # make sure this plays nicely with any existing preexec
       preexec_functions+=( notifyosd-preexec )
       XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
-       
+
+      function ss() { nix shell "self#$1" }
+      function es() { nix edit "self#$1" }
+      function bs() { nix build "self#$1" }
+      function rs() { nix run "self#$1" }
+      function is() { nix search "self#$1" }
+
       PS1="$PS1
      $ "
    '';
