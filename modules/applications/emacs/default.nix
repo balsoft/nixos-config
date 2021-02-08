@@ -1,4 +1,9 @@
 { pkgs, config, lib, ... }: {
+  # secrets-envsubst.emacs = {
+    # owner = "balsoft:users";
+    # directory = "emacs";
+  # };
+  
   home-manager.users.balsoft = {
     programs.emacs = {
       enable = true;
@@ -50,6 +55,7 @@
           edit-indirect
           idris-mode
           lsp-mode
+          org-caldav
         ];
     };
 

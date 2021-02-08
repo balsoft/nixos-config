@@ -2,8 +2,8 @@
   imports = with inputs.self.nixosModules; [
     ./hardware-configuration.nix
     inputs.self.nixosProfiles.base
-    gitea
-    jitsi
+    # gitea
+    # jitsi
     mailserver
     matrix-synapse
     minidlna

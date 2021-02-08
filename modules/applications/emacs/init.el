@@ -229,4 +229,12 @@ If point was already at that position, move point to beginning of line."
                     :server-id 'nix))
   )
 
+
+(use-package org-caldav
+  :config
+  (setq org-caldav-url "https://nextcloud.balsoft.ru/remote.php/dav/calendars/balsoft")
+  (setq org-caldav-calendar-id "work")
+  (setq org-caldav-inbox "/home/balsoft/Documents/Work/calendar.org")
+  (setq org-icalendar-timezone "Europe/Moscow")
+  )
 ;;; init.el ends here
