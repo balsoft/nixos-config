@@ -55,7 +55,6 @@ in {
       };
       extensions = with pkgs.nur.rycee.firefox-addons; [
         torswitch
-        close-other-windows
         adsum-notabs
         ublock-origin
         browserpass
