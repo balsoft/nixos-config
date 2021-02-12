@@ -107,26 +107,21 @@ in {
         script = name: content: "exec ${pkgs.writeScript name content}";
         workspaces = (builtins.genList (x: [ (toString x) (toString x) ]) 10)
           ++ [ [ "c" "" ] [ "t" "" ] [ "m" "ﱘ" ] ];
-        moveMouse = ''
-          exec "sh -c 'eval `${pkgs.xdotool}/bin/xdotool \
-                getactivewindow \
-                getwindowgeometry --shell`; ${pkgs.xdotool}/bin/xdotool \
-                mousemove \
-                $((X+WIDTH/2)) $((Y+HEIGHT/2))'"'';
       in ({
         "${modifier}+q" = "kill";
+        "${modifier}+Shift+q" = "move container to workspace temp; [workspace=__focused__] kill; workspace temp; move container to workspace temp; workspace temp";
         "${modifier}+Return" = "exec ${apps.term.cmd}";
         "${modifier}+e" = "exec ${apps.editor.cmd}";
         "${modifier}+o" = "layout toggle all";
 
-        "${modifier}+Left" = "focus child; focus left; ${moveMouse}";
-        "${modifier}+Right" = "focus child; focus right; ${moveMouse}";
-        "${modifier}+Up" = "focus child; focus up; ${moveMouse}";
-        "${modifier}+Down" = "focus child; focus down; ${moveMouse}";
-        "${modifier}+Control+Left" = "focus parent; focus left; ${moveMouse}";
-        "${modifier}+Control+Right" = "focus parent; focus right; ${moveMouse}";
-        "${modifier}+Control+Up" = "focus parent; focus up; ${moveMouse}";
-        "${modifier}+Control+Down" = "focus parent; focus down; ${moveMouse}";
+        "${modifier}+Left" = "focus child; focus left";
+        "${modifier}+Right" = "focus child; focus right";
+        "${modifier}+Up" = "focus child; focus up";
+        "${modifier}+Down" = "focus child; focus down";
+        "${modifier}+Control+Left" = "focus parent; focus left";
+        "${modifier}+Control+Right" = "focus parent; focus right";
+        "${modifier}+Control+Up" = "focus parent; focus up";
+        "${modifier}+Control+Down" = "focus parent; focus down";
         "${modifier}+Shift+Up" = "move up";
         "${modifier}+Shift+Down" = "move down";
         "${modifier}+Shift+Right" = "move right";
@@ -135,14 +130,14 @@ in {
         "${modifier}+Comma" = "workspace prev";
         "${modifier}+Period" = "workspace next";
 
-        "${modifier}+a" = "focus child; focus left; ${moveMouse}";
-        "${modifier}+d" = "focus child; focus right; ${moveMouse}";
-        "${modifier}+w" = "focus child; focus up; ${moveMouse}";
-        "${modifier}+s" = "focus child; focus down; ${moveMouse}";
-        "${modifier}+Control+a" = "focus parent; focus left; ${moveMouse}";
-        "${modifier}+Control+d" = "focus parent; focus right; ${moveMouse}";
-        "${modifier}+Control+w" = "focus parent; focus up; ${moveMouse}";
-        "${modifier}+Control+s" = "focus parent; focus down; ${moveMouse}";
+        "${modifier}+a" = "focus child; focus left";
+        "${modifier}+d" = "focus child; focus right";
+        "${modifier}+w" = "focus child; focus up";
+        "${modifier}+s" = "focus child; focus down";
+        "${modifier}+Control+a" = "focus parent; focus left";
+        "${modifier}+Control+d" = "focus parent; focus right";
+        "${modifier}+Control+w" = "focus parent; focus up";
+        "${modifier}+Control+s" = "focus parent; focus down";
         "${modifier}+Shift+w" = "move up";
         "${modifier}+Shift+s" = "move down";
         "${modifier}+Shift+d" = "move right";
