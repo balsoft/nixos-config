@@ -47,6 +47,8 @@
     };
     nixos-fhs-compat.url = "github:balsoft/nixos-fhs-compat";
     simple-osd-daemons.url = "github:balsoft/simple-osd-daemons";
+    wee-slack.url = "github:wee-slack/wee-slack";
+    wee-slack.flake = false;
   };
 
   outputs = { nixpkgs, nix, self, deploy-rs, ... }@inputs: {

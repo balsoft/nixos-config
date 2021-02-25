@@ -379,6 +379,7 @@
         "nixpkgs-wayland": "nixpkgs-wayland",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "simple-osd-daemons": "simple-osd-daemons",
+        "wee-slack": "wee-slack",
         "weechat-notify-send": "weechat-notify-send",
         "weechat-scripts": "weechat-scripts",
         "yt-utilities": "yt-utilities"
@@ -431,6 +432,22 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "wee-slack": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1614008547,
+        "narHash": "sha256-FVU5ttWtqheqYB2V5CUIokLoSaGtPnFOk5/K9ir7fA0=",
+        "owner": "wee-slack",
+        "repo": "wee-slack",
+        "rev": "fef777b7dced08c4299c8aa2d3a8065371194b21",
+        "type": "github"
+      },
+      "original": {
+        "owner": "wee-slack",
+        "repo": "wee-slack",
         "type": "github"
       }
     },

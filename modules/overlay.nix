@@ -36,6 +36,11 @@ in {
 
       nerdfonts = nur.balsoft.pkgs.roboto-mono-nerd;
 
+      weechatScripts.wee-slack = super.weechatScripts.wee-slack.overrideAttrs (oa: {
+        src = inputs.wee-slack;
+        patches = [(builtins.elemAt oa.patches 0)];
+      });
+
       # inherit (inputs.nixpkgs-mesa.legacyPackages.x86_64-linux) sway mesa_drivers;
     })
   ];
