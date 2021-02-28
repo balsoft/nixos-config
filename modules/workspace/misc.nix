@@ -20,6 +20,10 @@
       dbPath = ../../misc/programs.sqlite;
     };
     systemd.user.startServices = true;
+
+
+    programs.direnv.enable = true;
+    programs.direnv.enableNixDirenvIntegration = true;
   };
 
 

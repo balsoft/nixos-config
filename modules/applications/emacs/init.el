@@ -86,8 +86,6 @@
 (use-package hasklig-mode
   :hook (haskell-mode))
 
-
-
 (use-package company-ghci
   :config
   (push 'company-ghci company-backends))
@@ -238,3 +236,7 @@ If point was already at that position, move point to beginning of line."
   (setq org-icalendar-timezone "Europe/Moscow")
   )
 ;;; init.el ends here
+
+(use-package envrc
+  :config
+  (envrc-global-mode))

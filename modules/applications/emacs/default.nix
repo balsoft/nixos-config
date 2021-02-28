@@ -56,6 +56,7 @@
           idris-mode
           lsp-mode
           org-caldav
+          envrc
         ];
     };
 
