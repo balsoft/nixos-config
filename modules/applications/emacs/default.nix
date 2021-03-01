@@ -57,6 +57,7 @@
           lsp-mode
           org-caldav
           envrc
+          lsp-haskell
         ];
     };
 

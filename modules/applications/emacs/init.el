@@ -220,14 +220,14 @@ If point was already at that position, move point to beginning of line."
 
 (use-package lsp-mode
   :config
-  (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
-  (lsp-register-client
-   (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
-                    :major-modes '(nix-mode)
-                    :server-id 'nix))
+  (add-hook 'rust-mode-hook 'lsp)
   )
 
-
+(use-package lsp-haskell
+  :config
+  (add-hook 'haskell-mode-hook 'lsp)
+  (add-hook 'haskell-literate-mode-hook 'lsp)
+  )
 (use-package org-caldav
   :config
   (setq org-caldav-url "https://nextcloud.balsoft.ru/remote.php/dav/calendars/balsoft")
@@ -235,8 +235,9 @@ If point was already at that position, move point to beginning of line."
   (setq org-caldav-inbox "/home/balsoft/Documents/Work/calendar.org")
   (setq org-icalendar-timezone "Europe/Moscow")
   )
-;;; init.el ends here
 
 (use-package envrc
   :config
-  (envrc-global-mode))
+  (envrc-global-mode)
+  (advice-add 'lsp :before (lambda (&optional n) (envrc--update))))
+;;; init.el ends here
