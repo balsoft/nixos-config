@@ -41,6 +41,10 @@ in {
         patches = [(builtins.elemAt oa.patches 0)];
       });
 
+      nix-zsh-completions = super.nix-zsh-completions.overrideAttrs (_: {
+        src = inputs.nix-zsh-completions;
+      });
+
       # inherit (inputs.nixpkgs-mesa.legacyPackages.x86_64-linux) sway mesa_drivers;
     })
   ];

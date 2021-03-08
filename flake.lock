@@ -209,6 +209,23 @@
         "type": "indirect"
       }
     },
+    "nix-zsh-completions": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1600188236,
+        "narHash": "sha256-3HVYez/wt7EP8+TlhTppm968Wl8x5dXuGU0P+8xNDpo=",
+        "owner": "Ma27",
+        "repo": "nix-zsh-completions",
+        "rev": "939c48c182e9d018eaea902b1ee9d00a415dba86",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Ma27",
+        "ref": "flakes",
+        "repo": "nix-zsh-completions",
+        "type": "github"
+      }
+    },
     "nixos-fhs-compat": {
       "locked": {
         "lastModified": 1588706047,
@@ -373,6 +390,7 @@
         "lambda-launcher": "lambda-launcher",
         "materia-theme": "materia-theme",
         "nix": "nix",
+        "nix-zsh-completions": "nix-zsh-completions",
         "nixos-fhs-compat": "nixos-fhs-compat",
         "nixpkgs": "nixpkgs_5",
         "nixpkgs-old": "nixpkgs-old",

@@ -49,6 +49,8 @@
     simple-osd-daemons.url = "github:balsoft/simple-osd-daemons";
     wee-slack.url = "github:wee-slack/wee-slack";
     wee-slack.flake = false;
+    nix-zsh-completions.url = "github:Ma27/nix-zsh-completions/flakes";
+    nix-zsh-completions.flake = false;
   };
 
   outputs = { nixpkgs, nix, self, deploy-rs, ... }@inputs: {
