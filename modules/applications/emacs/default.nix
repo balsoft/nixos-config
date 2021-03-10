@@ -7,7 +7,7 @@
   home-manager.users.balsoft = {
     programs.emacs = {
       enable = true;
-      package = pkgs.emacs;
+      package = pkgs.emacsPgtk;
       extraPackages = epkgs:
         with epkgs; [
           use-package
@@ -31,7 +31,6 @@
           clipmon
           org-gcal
           company-ghci
-          xresources-theme
           company-tabnine
           expand-region
           ivy
@@ -62,17 +61,6 @@
     };
 
     home.packages = [
-      (pkgs.makeDesktopItem {
-        terminal = "false";
-        type = "Application";
-        name = "emacsclient";
-        genericName = "Text editor";
-        desktopName = "Emacs client";
-        mimeType = "text/plain";
-        exec = "emacsclient -c %F";
-        categories = "Development;TextEditor;Utility;";
-        icon = "emacs";
-      })
       pkgs.clang
     ];
 

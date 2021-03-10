@@ -70,6 +70,21 @@
         "type": "github"
       }
     },
+    "emacs-overlay": {
+      "locked": {
+        "lastModified": 1615335717,
+        "narHash": "sha256-nJ4CSh9hm5U1g+x0ev1nozhgfFVG2jKU1DCKoEMBbeI=",
+        "owner": "nix-community",
+        "repo": "emacs-overlay",
+        "rev": "2d16cdb183d1c5de65758d602a7fbb2f17d2099d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "emacs-overlay",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -385,6 +400,7 @@
         "NUR": "NUR",
         "base16-unclaimed-schemes": "base16-unclaimed-schemes",
         "deploy-rs": "deploy-rs",
+        "emacs-overlay": "emacs-overlay",
         "flake-compat": "flake-compat_2",
         "home-manager": "home-manager",
         "lambda-launcher": "lambda-launcher",

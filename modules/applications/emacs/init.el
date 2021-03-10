@@ -206,15 +206,15 @@ If point was already at that position, move point to beginning of line."
 ;; -------------------
 ;; Theme
 ;; -------------------
-(use-package xresources-theme
-  :config
-  (load-theme 'xresources t)
-  (setq after-init-hook (load-theme 'xresources t))
-  (add-hook 'after-make-frame-functions
-            (lambda (frame)
-                (with-selected-frame frame
-                  (load-theme 'xresources t)
-                  (set-frame-font "IBM Plex Mono 11" nil t)))))
+;; (use-package xresources-theme
+;;   :config
+;;   (load-theme 'xresources t)
+;;   (setq after-init-hook (load-theme 'xresources t))
+;;   (add-hook 'after-make-frame-functions
+;;             (lambda (frame)
+;;                 (with-selected-frame frame
+;;                   (load-theme 'xresources t)
+;;                   (set-frame-font "IBM Plex Mono 11" nil t)))))
 
 (setq inhibit-startup-screen t)
 
@@ -240,4 +240,6 @@ If point was already at that position, move point to beginning of line."
   :config
   (envrc-global-mode)
   (advice-add 'lsp :before (lambda (&optional n) (envrc--update))))
+
+(load-theme 'manoj-dark t)
 ;;; init.el ends here

@@ -11,15 +11,16 @@
 
     optimise.automatic = true;
 
-    binaryCachePublicKeys =
-      [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
+    binaryCachePublicKeys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+    ];
 
     package = inputs.nix.packages.x86_64-linux.nix;
 
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
-    requireSignedBinaryCaches = false;
+    requireSignedBinaryCaches = true;
   };
   environment.etc.nixpkgs.source = inputs.nixpkgs;
 }

@@ -9,6 +9,7 @@ let
   });
 in {
   nixpkgs.overlays = [
+    (import inputs.emacs-overlay)
     # inputs.nix.overlay
     (self: super: rec {
       nix = super.nix // {
