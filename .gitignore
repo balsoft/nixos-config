@@ -5,3 +5,4 @@ tramp
 .\#*
 result
 *\.qcow2
+.direnv

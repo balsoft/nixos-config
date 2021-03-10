@@ -7,6 +7,10 @@
     # nixpkgs-mesa.url = github:nixos/nixpkgs-channels/bdac777becdbb8780c35be4f552c9d4518fe0bdb;
     lambda-launcher.url = "github:balsoft/lambda-launcher";
     deploy-rs.url = "github:serokell/deploy-rs";
+    flake-compat = {
+      url = "github:edolstra/flake-compat";
+      flake = false;
+    };
     NUR = {
       url = "github:nix-community/NUR";
       flake = false;
@@ -73,6 +77,15 @@
       (builtins.head (builtins.attrValues self.nixosConfigurations)).pkgs;
 
     defaultApp = deploy-rs.defaultApp;
+
+    devShell.x86_64-linux = with nixpkgs.legacyPackages.x86_64-linux;
+      mkShell {
+        buildInputs = [
+          nix.defaultPackage.x86_64-linux
+          deploy-rs.defaultPackage.x86_64-linux
+          nixfmt
+        ];
+      };
 
     deploy = {
       user = "root";

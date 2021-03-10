@@ -86,6 +86,22 @@
         "type": "github"
       }
     },
+    "flake-compat_2": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1606424373,
+        "narHash": "sha256-oq8d4//CJOrVj+EcOaSXvMebvuTkmBJuT5tzlfewUnQ=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "99f1c2157fba4bfe6211a321fd0ee43199025dbf",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
     "haskell-nix": {
       "locked": {
         "lastModified": 1587989559,
@@ -369,6 +385,7 @@
         "NUR": "NUR",
         "base16-unclaimed-schemes": "base16-unclaimed-schemes",
         "deploy-rs": "deploy-rs",
+        "flake-compat": "flake-compat_2",
         "home-manager": "home-manager",
         "lambda-launcher": "lambda-launcher",
         "materia-theme": "materia-theme",
