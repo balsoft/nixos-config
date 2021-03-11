@@ -97,10 +97,9 @@
       XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 
       function repl() {
-        flake_compat="$(nix flake prefetch --json github:edolstra/flake-compat | ${pkgs.jq}/bin/jq -r .storePath)"
         source="$(nix flake prefetch --json "$1" | ${pkgs.jq}/bin/jq -r .storePath)"
         TEMP="$(mktemp --suffix=.nix)"
-        echo "let self = (import $flake_compat { src = \"$source\"; }).defaultNix; in self // self.legacyPackages.\''${builtins.currentSystem} or { } // self.packages.\''${builtins.currentSystem} or { }" > "$TEMP"
+        echo "let self = builtins.getFlake \"$source\"; in self // self.legacyPackages.\''${builtins.currentSystem} or { } // self.packages.\''${builtins.currentSystem} or { }" > "$TEMP"
         nix repl "$TEMP"
       }
 

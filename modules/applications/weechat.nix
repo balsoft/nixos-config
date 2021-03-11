@@ -6,12 +6,19 @@ let
     };
   };
 in {
-  secrets-envsubst.weechat = {
-    owner = "balsoft:users";
-    secrets = [ "slack_api_token" ];
-    template = ''
+  home-manager.users.balsoft = {
+    home.file.".weechat/python/autoload/notify_send.py".source =
+      "${inputs.weechat-notify-send}/notify_send.py";
+
+    home.file.".weechat/perl/autoload/multiline.pl".source =
+      "${inputs.weechat-scripts}/perl/multiline.pl";
+
+    home.file.".weechat/python/autoload/go.py".source =
+      "${inputs.weechat-scripts}/python/go.py";
+
+    home.file.".weechat/plugins.conf".text = ''
       [var]
-      python.slack.auto_open_threads = "true"
+      python.slack.auto_open_threads = "false"
       python.slack.background_load_all_history = "true"
       python.slack.channel_name_typing_indicator = "true"
       python.slack.color_buflist_muted_channels = "darkgray"
@@ -46,22 +53,6 @@ in {
       python.slack.unfurl_auto_link_display = "both"
       python.slack.unfurl_ignore_alt_text = "false"
       python.slack.unhide_buffers_with_activity = "false"
-    '';
-  };
-
-  home-manager.users.balsoft = {
-    home.file.".weechat/python/autoload/notify_send.py".source =
-      "${inputs.weechat-notify-send}/notify_send.py";
-
-    home.file.".weechat/perl/autoload/multiline.pl".source =
-      "${inputs.weechat-scripts}/perl/multiline.pl";
-
-    home.file.".weechat/python/autoload/go.py".source =
-      "${inputs.weechat-scripts}/python/go.py";
-
-    home.activation.weechat = ''
-      $DRY_RUN_CMD mkdir -p $HOME/.weechat
-      $DRY_RUN_CMD ln -sf $VERBOSE_ARG ${config.secrets-envsubst.weechat} $HOME/.weechat/plugins.conf
     '';
 
     home.file.".weechat/weechat.conf".text = ''
