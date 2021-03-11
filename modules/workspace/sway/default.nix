@@ -18,12 +18,15 @@ in {
 
   programs.sway.wrapperFeatures.gtk = true;
 
-  programs.sway.extraPackages = lib.mkForce (with pkgs; [ swayidle xwayland ]);
+  programs.sway.extraPackages = lib.mkForce (with pkgs; [ swayidle ]);
+
+  programs.xwayland.enable = false;
 
   users.users.balsoft.extraGroups = [ "sway" ];
 
   home-manager.users.balsoft.wayland.windowManager.sway = {
     enable = true;
+    xwayland = false;
     config = rec {
       assigns = {
         "" = [
@@ -238,6 +241,7 @@ in {
       mouse_warping container
       hide_edge_borders --i3 smart
       exec pkill swaynag
+      xwayland disable
     '';
   };
 }
