@@ -10,7 +10,6 @@ let
 in {
   nixpkgs.overlays = [
     (import inputs.emacs-overlay)
-    # inputs.nix.overlay
     (self: super: rec {
       nix = super.nix // {
         meta = super.nix.meta // { platforms = lib.platforms.unix; };
@@ -23,8 +22,6 @@ in {
 
       inherit (nur.balsoft.pkgs) termNote nix-patch;
 
-      # inherit (old) mautrix-telegram;
-
       lambda-launcher = inputs.lambda-launcher.defaultPackage.x86_64-linux;
 
       simple-osd = inputs.simple-osd-daemons.packages.x86_64-linux;
@@ -32,8 +29,6 @@ in {
       inherit old;
 
       yt-utilities = inputs.yt-utilities.defaultPackage.x86_64-linux;
-
-      # mopidy-youtube = super.mopidy-youtube.overrideAttrs (_: { src = inputs.mopidy-youtube; });
 
       nerdfonts = nur.balsoft.pkgs.roboto-mono-nerd;
 
@@ -45,8 +40,6 @@ in {
       nix-zsh-completions = super.nix-zsh-completions.overrideAttrs (_: {
         src = inputs.nix-zsh-completions;
       });
-
-      # inherit (inputs.nixpkgs-mesa.legacyPackages.x86_64-linux) sway mesa_drivers;
     })
   ];
   nixpkgs.config = {

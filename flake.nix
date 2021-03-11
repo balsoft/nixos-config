@@ -4,7 +4,6 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    # nixpkgs-mesa.url = github:nixos/nixpkgs-channels/bdac777becdbb8780c35be4f552c9d4518fe0bdb;
     lambda-launcher.url = "github:balsoft/lambda-launcher";
     deploy-rs.url = "github:serokell/deploy-rs";
     flake-compat = {

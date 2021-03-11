@@ -96,11 +96,20 @@
       preexec_functions+=( notifyosd-preexec )
       XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 
+      function repl() {
+        flake_compat="$(nix flake prefetch --json github:edolstra/flake-compat | ${pkgs.jq}/bin/jq -r .storePath)"
+        source="$(nix flake prefetch --json "$1" | ${pkgs.jq}/bin/jq -r .storePath)"
+        TEMP="$(mktemp --suffix=.nix)"
+        echo "let self = (import $flake_compat { src = \"$source\"; }).defaultNix; in self // self.legacyPackages.\''${builtins.currentSystem} or { } // self.packages.\''${builtins.currentSystem} or { }" > "$TEMP"
+        nix repl "$TEMP"
+      }
+
+
       function ss() { nix shell "self#$1" }
       function es() { nix edit "self#$1" }
       function bs() { nix build "self#$1" }
-      function rs() { nix run "self#$1" }
       function is() { nix search "self#$1" }
+      function rs() { repl self }
 
       source ${pkgs.nix-zsh-completions}/share/zsh/plugins/nix/nix-zsh-completions.plugin.zsh
       fpath=(${pkgs.nix-zsh-completions}/share/zsh/site-functions $fpath)

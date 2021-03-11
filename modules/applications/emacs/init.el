@@ -216,6 +216,9 @@ If point was already at that position, move point to beginning of line."
 ;;                   (load-theme 'xresources t)
 ;;                   (set-frame-font "IBM Plex Mono 11" nil t)))))
 
+(add-to-list 'default-frame-alist '(font . "IBM Plex Mono 11"))
+(set-face-attribute 'default nil :font "IBM Plex Mono 11")
+
 (setq inhibit-startup-screen t)
 
 (use-package lsp-mode
