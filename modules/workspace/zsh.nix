@@ -101,6 +101,7 @@
         TEMP="$(mktemp --suffix=.nix)"
         echo "let self = builtins.getFlake \"$source\"; in self // self.legacyPackages.\''${builtins.currentSystem} or { } // self.packages.\''${builtins.currentSystem} or { }" > "$TEMP"
         nix repl "$TEMP"
+        rm "$TEMP"
       }
 
 
