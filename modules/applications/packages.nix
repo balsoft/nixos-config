@@ -20,7 +20,7 @@
       spectral
       # Audio/Video
       vlc
-      lxqt.pavucontrol-qt
+      pavucontrol
       # Tools
       zip
       unrar
