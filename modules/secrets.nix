@@ -35,7 +35,7 @@ let
       };
       services = mkOption {
         type = listOf str;
-        default = [ "${name}.service" ];
+        default = [ "${name}" ];
       };
       __toString = mkOption {
         readOnly = true;
@@ -87,7 +87,7 @@ let
   addDependencies = name: cfg:
     with cfg;
     genAttrs services (service: rec {
-      requires = [ "${name}-secrets" ];
+      requires = [ "${name}-secrets.service" ];
       after = requires;
       bindsTo = requires;
     });
