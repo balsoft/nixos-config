@@ -413,6 +413,7 @@
         "nixpkgs-wayland": "nixpkgs-wayland",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "simple-osd-daemons": "simple-osd-daemons",
+        "sonoff-lan": "sonoff-lan",
         "wee-slack": "wee-slack",
         "weechat-notify-send": "weechat-notify-send",
         "weechat-scripts": "weechat-scripts",
@@ -451,6 +452,22 @@
       "original": {
         "owner": "balsoft",
         "repo": "simple-osd-daemons",
+        "type": "github"
+      }
+    },
+    "sonoff-lan": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1615813622,
+        "narHash": "sha256-05KhxvwHm3hya/9uibSggnRjmU1QOxJNzUacfsoYQ64=",
+        "owner": "AlexxIT",
+        "repo": "SonoffLAN",
+        "rev": "412b1b709c5f5de6f1266cf4e6f0b4795a827976",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AlexxIT",
+        "repo": "SonoffLAN",
         "type": "github"
       }
     },

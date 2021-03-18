@@ -32,6 +32,7 @@ builtins.listToAttrs (builtins.map (path: {
   ./servers/nextcloud.nix
   ./servers/nginx.nix
   ./servers/vsftpd.nix
+  ./servers/home-assistant.nix
   ./services.nix
   ./themes.nix
   ./virtualisation.nix

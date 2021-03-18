@@ -10,6 +10,7 @@
     nextcloud
     nginx
     vsftpd
+    home-assistant
   ];
 
   services.logind.lidSwitch = "ignore";

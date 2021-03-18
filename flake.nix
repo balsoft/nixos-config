@@ -55,6 +55,10 @@
     nix-zsh-completions.url = "github:Ma27/nix-zsh-completions/flakes";
     nix-zsh-completions.flake = false;
     emacs-overlay.url = "github:nix-community/emacs-overlay";
+    sonoff-lan = {
+      url = "github:AlexxIT/SonoffLAN";
+      flake = false;
+    };
   };
 
   outputs = { nixpkgs, nix, self, deploy-rs, ... }@inputs: {
