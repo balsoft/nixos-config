@@ -93,13 +93,11 @@ in {
         { command = apps.browser.cmd; }
         { command = apps.mail.cmd; }
 
-        {
-          command =
-            "${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1";
-        }
-        { command = "${pkgs.neochat}/bin/neochat"; }
-        { command = "${pkgs.xorg.xrdb}/bin/xrdb -merge ~/.Xresources"; }
-
+        # {
+          # command =
+            # "${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1";
+        # }
+        { command = "${pkgs.nheko}/bin/nheko"; }
         {
           command =
             "swayidle -w before-sleep '${lock_fork}' lock '${lock_fork}' unlock 'pkill -9 swaylock'";

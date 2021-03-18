@@ -8,6 +8,10 @@ in {
   };
   programs.browserpass.enable = true;
   home-manager.users.balsoft = lib.mkIf (config.deviceSpecific.goodMachine) {
+    programs.browserpass = {
+      enable = true;
+      browsers = [ "firefox" ];
+    };
     programs.firefox = {
       enable = true;
       package = pkgs.firefox-wayland;

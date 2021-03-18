@@ -29,23 +29,35 @@
 
   systemd.services."user@" = { serviceConfig = { Restart = "always"; }; };
 
-  home-manager.users.balsoft.home.activation.yubi = {
-    data = ''
-      mkdir -p .config/Yubico
-      [ -f /home/balsoft/.config/Yubico/u2f_keys ] || (pamu2fcfg > /home/balsoft/.config/Yubico/u2f_keys)
-    '';
-    after = [ "linkGeneration" ];
-    before = [ ];
+  home-manager.users.balsoft = {
+    systemd.user.services.polkit-agent = {
+      Unit = {
+        Description = "Run polkit authentication agent";
+        X-RestartIfChanged = true;
+      };
+
+      Install.WantedBy = [ "sway-session.target" ];
+
+      Service = { ExecStart = "${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1"; };
+    };
+    home.activation.yubi = {
+      data = ''
+        mkdir -p .config/Yubico
+        [ -f /home/balsoft/.config/Yubico/u2f_keys ] || (pamu2fcfg > /home/balsoft/.config/Yubico/u2f_keys)
+      '';
+      after = [ "linkGeneration" ];
+      before = [ ];
+    };
   };
 
   services.udev.extraRules = ''
     ACTION=="remove", ATTRS{idVendor}=="1050", RUN+="${pkgs.systemd}/bin/loginctl lock-sessions"
   '';
-  
+
   services.getty.autologinUser = "balsoft";
-  
+
   environment.loginShellInit = ''
-    [[ "$(tty)" == /dev/tty? ]] && sudo /run/current-system/sw/bin/lock this 
+    [[ "$(tty)" == /dev/tty? ]] && sudo /run/current-system/sw/bin/lock this
     [[ "$(tty)" == /dev/tty1 ]] && sway
   '';
 
@@ -62,7 +74,10 @@
         then args="-s"
         else args="-san"
       fi
-      # ${lib.optionalString (config.deviceSpecific.isLaptop) ''USER=balsoft ${pkgs.vlock}/bin/vlock "$args"''}
+      # ${
+        lib.optionalString (config.deviceSpecific.isLaptop)
+        ''USER=balsoft ${pkgs.vlock}/bin/vlock "$args"''
+      }
     '')
   ];
 
