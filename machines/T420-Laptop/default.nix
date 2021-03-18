@@ -11,6 +11,7 @@
     nginx
     vsftpd
     home-assistant
+    mastodon
   ];
 
   services.logind.lidSwitch = "ignore";

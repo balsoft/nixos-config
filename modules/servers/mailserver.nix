@@ -7,6 +7,10 @@ in {
     owner = "dovecot2:dovecot2";
     services = [ "dovecot2" ];
   };
+  secrets.mailserver-mastodon = {
+    owner = "dovecot2:dovecot2";
+    services = [ "dovecot2" ];
+  };
   services.postfix = {
     dnsBlacklists = [
       "all.s5h.net"
@@ -78,6 +82,10 @@ in {
         aliases =
           [ "balsoft" "admin@balsoft.ru" "patches" "patches@balsoft.ru" "issues" "issues@balsoft.ru" "admin" "root@balsoft.ru" "root" ];
         hashedPasswordFile = config.secrets.mailserver.decrypted;
+      };
+      "mastodon@balsoft.ru" = {
+        aliases = [ "mastodon" ];
+        hashedPasswordFile = config.secrets.mailserver-mastodon.decrypted;
       };
     };
     localDnsResolver = false;

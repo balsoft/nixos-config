@@ -33,6 +33,7 @@ builtins.listToAttrs (builtins.map (path: {
   ./servers/nginx.nix
   ./servers/vsftpd.nix
   ./servers/home-assistant.nix
+  ./servers/mastodon.nix
   ./services.nix
   ./themes.nix
   ./virtualisation.nix

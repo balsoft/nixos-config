@@ -21,7 +21,7 @@
           proxyPass = "http://localhost:13748";
         };
         enableACME = true;
-        addSSL = true;
+        forceSSL = true;
       };
       "code.balsoft.ru" = {
         locations."/" = { proxyPass = "http://localhost:6000"; };
