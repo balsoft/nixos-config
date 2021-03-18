@@ -28,30 +28,4 @@ in {
   systemd.services.ModemManager.wantedBy =
     lib.optional (config.device == "T490s-Laptop") "network.target";
 
-  secrets.wireguard-serokell = { };
-
-  networking.wireguard.interfaces.serokell = {
-    listenPort = 51820;
-    ips = [
-      "172.20.0.52/32"
-      # "fd73:7272:ed50::52/128"
-    ];
-    privateKeyFile = config.secrets.wireguard-serokell.decrypted;
-    peers = [{
-      allowedIPs = [
-        "0.0.0.0/0"
-        # "::/0"
-      ];
-      # endpoint = "serokell.net:35944";
-      endpoint = "147.75.100.17:35944";
-      publicKey = "sgLUARawWJejANs2CwuCptwJO55c4jkmnP0L14FNCyw=";
-      persistentKeepalive = 24;
-    }];
-  };
-
-  # restart when the service fails to resolve DNS
-  systemd.services.wireguard-serokell.serviceConfig = {
-    Restart = "on-failure";
-    RestartSec = "30s";
-  };
 }

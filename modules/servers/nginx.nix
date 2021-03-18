@@ -37,6 +37,9 @@
       "share.balsoft.ru" = {
         locations."/" = { root = "/var/lib/share"; };
       } // default;
+      "things.balsoft.ru" = {
+        locations."/" = { root = "/nix/var/nix/profiles/per-user/nginx/random-things/www"; };
+      } // default;
     };
   };
   security.acme = {
