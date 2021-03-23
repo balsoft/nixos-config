@@ -43,10 +43,6 @@
   (ws-butler-global-mode)
   )
 
-(use-package auto-indent-mode
-  :config
-  (auto-indent-global-mode))
-
 (global-auto-revert-mode)
 
 
