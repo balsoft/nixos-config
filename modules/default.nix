@@ -16,6 +16,7 @@ builtins.listToAttrs (builtins.map (path: {
   ./applications/yt-utilities.nix
   ./boot.nix
   ./devices.nix
+  ./ezwg.nix
   ./hardware.nix
   ./network.nix
   ./nix.nix
@@ -25,15 +26,15 @@ builtins.listToAttrs (builtins.map (path: {
   ./secrets.nix
   ./security.nix
   ./servers/gitea.nix
+  ./servers/home-assistant.nix
   ./servers/jitsi.nix
   ./servers/mailserver.nix
+  ./servers/mastodon.nix
   ./servers/matrix-synapse.nix
   ./servers/minidlna.nix
   ./servers/nextcloud.nix
   ./servers/nginx.nix
   ./servers/vsftpd.nix
-  ./servers/home-assistant.nix
-  ./servers/mastodon.nix
   ./services.nix
   ./themes.nix
   ./virtualisation.nix

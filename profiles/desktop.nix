@@ -3,6 +3,7 @@
     ./base.nix
 
     applications
+    ezwg
     hardware
     power
     services
