@@ -40,6 +40,17 @@ in {
   };
   config = mkIf cfg.enable {
     networking.firewall.checkReversePath = false;
+    systemd.services.wireguard-wg0.wantedBy = lib.mkForce [ ];
+    systemd.paths.wireguard-wg0.wantedBy = lib.mkForce [ ];
+    systemd.services."wireguard-wg0-peer-${
+      lib.replaceChars [ "/" "-" " " "+" "=" ] [
+        "-"
+        "\\x2d"
+        "\\x20"
+        "\\x2b"
+        "\\x3d"
+      ] cfg.serverKey
+    }".wantedBy = lib.mkForce [ ];
     networking.wireguard.interfaces.wg0 = let
       generateRangesScript =
         builtins.toFile "exclusionary-wildcard-ranges-generator.py" ''
