@@ -59,6 +59,10 @@
       url = "github:AlexxIT/SonoffLAN";
       flake = false;
     };
+    crdt = {
+      url = "git+https://code.librehq.com/qhong/crdt.el";
+      flake = false;
+    };
   };
 
   outputs = { nixpkgs, nix, self, deploy-rs, ... }@inputs: {

@@ -1,4 +1,16 @@
-{ pkgs, config, lib, ... }: {
+{ pkgs, config, lib, inputs, ... }:
+let
+  emacs = pkgs.emacsPgtk;
+  crdt = (pkgs.emacsPackagesNgFor emacs).trivialBuild {
+    pname = "crdt";
+    version = "0.0.0";
+    phases = [ "buildPhase" "installPhase" ];
+    buildPhase = ''
+      cp ${inputs.crdt}/*.el .
+    '';
+  };
+in
+{
   # secrets-envsubst.emacs = {
     # owner = "balsoft:users";
     # directory = "emacs";
@@ -7,7 +19,7 @@
   home-manager.users.balsoft = {
     programs.emacs = {
       enable = true;
-      package = pkgs.emacsPgtk;
+      package = emacs;
       extraPackages = epkgs:
         with epkgs; [
           use-package
@@ -57,6 +69,7 @@
           org-caldav
           envrc
           lsp-haskell
+          crdt
         ];
     };
 

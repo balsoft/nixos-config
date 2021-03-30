@@ -240,5 +240,7 @@ If point was already at that position, move point to beginning of line."
   (envrc-global-mode)
   (advice-add 'lsp :before (lambda (&optional n) (envrc--update))))
 
+(use-package crdt)
+
 (load-theme 'manoj-dark t)
 ;;; init.el ends here

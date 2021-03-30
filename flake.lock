@@ -49,6 +49,22 @@
         "type": "github"
       }
     },
+    "crdt": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1613110836,
+        "narHash": "sha256-i37FEsWPFgowMogUFwdu2iOBXS3rvNFh7w8cEhyERkk=",
+        "ref": "master",
+        "rev": "3a2424afa91e2205a18af68972537df8695e7c06",
+        "revCount": 69,
+        "type": "git",
+        "url": "https://code.librehq.com/qhong/crdt.el"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://code.librehq.com/qhong/crdt.el"
+      }
+    },
     "deploy-rs": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -399,6 +415,7 @@
       "inputs": {
         "NUR": "NUR",
         "base16-unclaimed-schemes": "base16-unclaimed-schemes",
+        "crdt": "crdt",
         "deploy-rs": "deploy-rs",
         "emacs-overlay": "emacs-overlay",
         "flake-compat": "flake-compat_2",
