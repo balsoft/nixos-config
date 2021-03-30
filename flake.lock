@@ -411,6 +411,23 @@
         "type": "github"
       }
     },
+    "pulseaudio": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1616962871,
+        "narHash": "sha256-hUSMqLpFQgL8sv9fsc5E4WFZXsAHSuj/kqS9KxhghSk=",
+        "ref": "a2dp-avrcp-absolute-volume",
+        "rev": "7f58efcd7cc2e513c155f9504deda6d7a2e466ac",
+        "revCount": 9724,
+        "type": "git",
+        "url": "https://gitlab.freedesktop.org/MarijnS95/pulseaudio.git"
+      },
+      "original": {
+        "ref": "a2dp-avrcp-absolute-volume",
+        "type": "git",
+        "url": "https://gitlab.freedesktop.org/MarijnS95/pulseaudio.git"
+      }
+    },
     "root": {
       "inputs": {
         "NUR": "NUR",
@@ -428,6 +445,7 @@
         "nixpkgs": "nixpkgs_5",
         "nixpkgs-old": "nixpkgs-old",
         "nixpkgs-wayland": "nixpkgs-wayland",
+        "pulseaudio": "pulseaudio",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "simple-osd-daemons": "simple-osd-daemons",
         "sonoff-lan": "sonoff-lan",
