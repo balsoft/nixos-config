@@ -23,15 +23,7 @@ with deviceSpecific; {
   sound.enable = true;
   hardware.pulseaudio = {
     enable = true;
-    package = pkgs.pulseaudioFull.overrideAttrs (oa: {
-      patches = [
-        (pkgs.fetchurl {
-          url =
-            "https://gitlab.freedesktop.org/pulseaudio/pulseaudio/-/merge_requests/239.diff";
-          sha256 = "07qrpqwvn9sr87z2kn1yaza5bs9ivywd7sl194zwphlq94xrlzdf";
-        })
-      ];
-    });
+    package = pkgs.pulseaudioFull;
     support32Bit = true;
     extraConfig = ''
       load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1
