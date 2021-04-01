@@ -1,5 +1,5 @@
 
-{ config, lib, pkgs, ... }: {
+{ config, lib, pkgs, inputs, ... }: {
 
   services.acpid.enable = true;
 
@@ -24,5 +24,11 @@
 
   services.pcscd.enable = true;
 
-  services.upower.enable = true;
+  services.upower = {
+    enable = true;
+    package = pkgs.upower.overrideAttrs (oa: {
+      src = inputs.upower;
+      nativeBuildInputs = oa.nativeBuildInputs ++ [ pkgs.autoreconfHook pkgs.gtk_doc ];
+    });
+  };
 }

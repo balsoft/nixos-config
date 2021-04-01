@@ -227,11 +227,11 @@
         "nixpkgs": "nixpkgs_4"
       },
       "locked": {
-        "lastModified": 1615194819,
-        "narHash": "sha256-LfPUsgeFRBzRgTp+828E7UhiVItSYH+CK6IJcjmlcZ4=",
+        "lastModified": 1617098825,
+        "narHash": "sha256-jiCtWHbFLyJHI0CgywofLYuyl00eZvhZrcPhfU940NU=",
         "owner": "NixOS",
         "repo": "nix",
-        "rev": "1c0e3e453d41b869e4ac7e25dc1c00c349a7c411",
+        "rev": "e7810665a72592de08b61b1e83b150b5282e1e82",
         "type": "github"
       },
       "original": {
@@ -411,21 +411,21 @@
         "type": "github"
       }
     },
-    "pulseaudio": {
+    "pipewire": {
       "flake": false,
       "locked": {
-        "lastModified": 1616962871,
-        "narHash": "sha256-hUSMqLpFQgL8sv9fsc5E4WFZXsAHSuj/kqS9KxhghSk=",
-        "ref": "a2dp-avrcp-absolute-volume",
-        "rev": "7f58efcd7cc2e513c155f9504deda6d7a2e466ac",
-        "revCount": 9724,
+        "lastModified": 1612480581,
+        "narHash": "sha256-Ah5qntk3mGKUXzVpH4OPIZsNmnCBJw/gj7VX7P3povI=",
+        "ref": "bt-mic-volume",
+        "rev": "c3c9bd0c012ba20b9f3c34535c8d4082860eee52",
+        "revCount": 5490,
         "type": "git",
-        "url": "https://gitlab.freedesktop.org/MarijnS95/pulseaudio.git"
+        "url": "https://gitlab.freedesktop.org/pvir/pipewire"
       },
       "original": {
-        "ref": "a2dp-avrcp-absolute-volume",
+        "ref": "bt-mic-volume",
         "type": "git",
-        "url": "https://gitlab.freedesktop.org/MarijnS95/pulseaudio.git"
+        "url": "https://gitlab.freedesktop.org/pvir/pipewire"
       }
     },
     "root": {
@@ -445,10 +445,11 @@
         "nixpkgs": "nixpkgs_5",
         "nixpkgs-old": "nixpkgs-old",
         "nixpkgs-wayland": "nixpkgs-wayland",
-        "pulseaudio": "pulseaudio",
+        "pipewire": "pipewire",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "simple-osd-daemons": "simple-osd-daemons",
         "sonoff-lan": "sonoff-lan",
+        "upower": "upower",
         "wee-slack": "wee-slack",
         "weechat-notify-send": "weechat-notify-send",
         "weechat-scripts": "weechat-scripts",
@@ -504,6 +505,22 @@
         "owner": "AlexxIT",
         "repo": "SonoffLAN",
         "type": "github"
+      }
+    },
+    "upower": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1612431950,
+        "narHash": "sha256-euoLe1/XmW3LK4PvznrryDufNZrASJL3XMW7qaXTXeM=",
+        "ref": "master",
+        "rev": "706dcd44e443f630607554b1154a5d3685d43a9c",
+        "revCount": 1337,
+        "type": "git",
+        "url": "https://gitlab.freedesktop.org/upower/upower"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://gitlab.freedesktop.org/upower/upower"
       }
     },
     "utils": {

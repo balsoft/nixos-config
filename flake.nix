@@ -63,8 +63,12 @@
       url = "git+https://code.librehq.com/qhong/crdt.el";
       flake = false;
     };
-    pulseaudio = {
-      url = "git+https://gitlab.freedesktop.org/MarijnS95/pulseaudio.git?ref=a2dp-avrcp-absolute-volume";
+    upower = {
+      url = "git+https://gitlab.freedesktop.org/upower/upower";
+      flake = false;
+    };
+    pipewire = {
+      url = "git+https://gitlab.freedesktop.org/pvir/pipewire?ref=bt-mic-volume";
       flake = false;
     };
   };
