@@ -20,7 +20,7 @@ with deviceSpecific; {
 
   services.logind.extraConfig = "HandlePowerKey=suspend";
 
-  sound.enable = true;
+  # sound.enable = true;
 
   hardware.pulseaudio.enable = false;
 

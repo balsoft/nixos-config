@@ -4,7 +4,7 @@
     enable = true;
     hostName = "nextcloud.balsoft.ru";
     config.adminpassFile = config.secrets.nextcloud.decrypted;
-    package = pkgs.nextcloud20;
+    package = pkgs.nextcloud21;
     https = true;
   };
   secrets.nextcloud = {
