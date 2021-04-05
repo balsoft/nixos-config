@@ -150,7 +150,7 @@ in {
         "${modifier}+j" = "exec ${pkgs.playerctl}/bin/playerctl previous";
         "${modifier}+k" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
         "${modifier}+l" = "exec ${pkgs.playerctl}/bin/playerctl next";
-        "${modifier}+i" = "exec ${pkgs.lxqt.pavucontrol-qt}/bin/pavucontrol-qt";
+        "${modifier}+i" = "exec ${pkgs.pavucontrol}/bin/pavucontrol";
 
         "${modifier}+Print" = script "screenshot"
           "${pkgs.grim}/bin/grim Pictures/$(date +'%Y-%m-%d+%H:%M:%S').png";

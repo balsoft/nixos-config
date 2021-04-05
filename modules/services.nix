@@ -24,6 +24,8 @@
 
   services.pcscd.enable = true;
 
+  services.blueman.enable = true;
+
   services.upower = {
     enable = true;
     package = pkgs.upower.overrideAttrs (oa: {
