@@ -20,18 +20,5 @@ in {
       (daemons [ "battery" "brightness" ]);
     xdg.configFile."simple-osd/common".text =
       genIni { progressbar.length = 25; };
-    xdg.configFile."simple-osd/battery" =
-      lib.mkIf (config.deviceSpecific.isLaptop) ({
-        text = genIni {
-          default = {
-            "refresh interval" = 1;
-            "show battery charge" = true;
-          };
-          threshold = {
-            low = "20%";
-            critical = "10%";
-          };
-        };
-      });
   };
 }
