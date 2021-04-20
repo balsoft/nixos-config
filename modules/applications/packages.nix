@@ -36,6 +36,7 @@
       lambda-launcher
       nix-patch
       pass-wayland
+      gopass
       papirus-icon-theme
       gnome3.simple-scan
       shellcheck
