@@ -1,8 +1,10 @@
 { pkgs, lib, config, inputs, ... }: {
   systemd.coredump.enable = true;
 
-  environment.sessionVariables = config.home-manager.users.balsoft.home.sessionVariables // {
+  environment.sessionVariables = config.home-manager.users.balsoft.home.sessionVariables // rec {
     NIX_AUTO_RUN = "1";
+    LESS = "MR";
+    SYSTEMD_LESS = LESS;
   };
 
   home-manager.users.balsoft = {
