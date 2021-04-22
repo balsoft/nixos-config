@@ -9,13 +9,12 @@ let
       cp ${inputs.crdt}/*.el .
     '';
   };
-in
-{
+in {
   # secrets-envsubst.emacs = {
-    # owner = "balsoft:users";
-    # directory = "emacs";
+  # owner = "balsoft:users";
+  # directory = "emacs";
   # };
-  
+
   home-manager.users.balsoft = {
     programs.emacs = {
       enable = true;
@@ -43,7 +42,8 @@ in
           clipmon
           org-gcal
           company-ghci
-          company-tabnine
+          (company-tabnine.overrideAttrs
+            (_: { patches = [ ./company-tabnine.patch ]; }))
           expand-region
           ivy
           smex
@@ -73,9 +73,7 @@ in
         ];
     };
 
-    home.packages = [
-      pkgs.clang
-    ];
+    home.packages = [ pkgs.clang ];
 
     services.emacs.enable = true;
 
