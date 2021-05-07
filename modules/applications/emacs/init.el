@@ -160,9 +160,6 @@ If point was already at that position, move point to beginning of line."
 (use-package company-box
   :hook (company-mode . company-box-mode))
 
-(use-package company-tabnine
-  :config
-  (push 'company-tabnine company-backends))
 
 ;; -------------------
 ;; Ivy
@@ -227,20 +224,19 @@ If point was already at that position, move point to beginning of line."
   (add-hook 'haskell-mode-hook 'lsp)
   (add-hook 'haskell-literate-mode-hook 'lsp)
   )
-(use-package org-caldav
-  :config
-  (setq org-caldav-url "https://nextcloud.balsoft.ru/remote.php/dav/calendars/balsoft")
-  (setq org-caldav-calendar-id "work")
-  (setq org-caldav-inbox "/home/balsoft/Documents/Work/calendar.org")
-  (setq org-icalendar-timezone "Europe/Moscow")
-  )
 
 (use-package envrc
   :config
   (envrc-global-mode)
   (advice-add 'lsp :before (lambda (&optional n) (envrc--update))))
 
-(use-package crdt)
+(setq treemacs-position 'right)
+
+(use-package treemacs)
+
+(use-package lsp-treemacs)
+
+(use-package treemacs-projectile)
 
 (load-theme 'manoj-dark t)
 ;;; init.el ends here

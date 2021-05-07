@@ -24,7 +24,6 @@ in {
           use-package
           nix-mode
           haskell-mode
-          wakib-keys
           exec-path-from-shell
           counsel
           projectile
@@ -39,11 +38,7 @@ in {
           flycheck
           flycheck-pkg-config
           auto-indent-mode
-          clipmon
-          org-gcal
           company-ghci
-          (company-tabnine.overrideAttrs
-            (_: { patches = [ ./company-tabnine.patch ]; }))
           expand-region
           ivy
           smex
@@ -62,14 +57,15 @@ in {
           gitlab
           undo-tree
           rust-mode
-          go-mode
           edit-indirect
           idris-mode
           lsp-mode
-          org-caldav
           envrc
           lsp-haskell
-          crdt
+          treemacs
+          lsp-treemacs
+          treemacs-projectile
+          dap-mode
         ];
     };
 
