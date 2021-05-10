@@ -40,7 +40,11 @@ in {
         ];
         "ﱘ" = [{ app_id = "cantata"; }];
       };
-      fonts = [ "IBM Plex 9" ];
+      fonts = {
+        names = [ "IBM Plex" ];
+        style = "Regular";
+        size = 9.0;
+      };
 
       colors = rec {
         background = thm.bg;

@@ -1,11 +1,13 @@
-{ pkgs, ... }: {
-  services.dbus.packages = [ pkgs.gcr ];
+{ pkgs, config, ... }: {
   home-manager.users.balsoft = {
     services.gpg-agent = {
       enable = true;
       enableSshSupport = true;
-      pinentryFlavor = "gnome3";
+      pinentryFlavor = "gtk2";
     };
-    programs.gpg.enable = true;
+    programs.gpg = {
+      enable = true;
+      homedir = "${config.home-manager.users.balsoft.xdg.dataHome}/gnupg";
+    };
   };
 }

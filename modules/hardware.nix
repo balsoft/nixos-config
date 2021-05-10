@@ -28,5 +28,27 @@ with deviceSpecific; {
     enable = true;
     alsa.enable = true;
     pulse.enable = true;
+    media-session.config.bluez-monitor = {
+      properties = { };
+      rules = [
+        {
+          actions = {
+            update-props = {
+              "bluez5.auto-connect" = [ "hfp_hf" "hsp_hs" "a2dp_sink" ];
+              "bluez5.hw-volume" =
+                [ "hfp_ag" "hsp_ag" "a2dp_source" "a2dp_sink" ];
+            };
+          };
+          matches = [{ "device.name" = "~bluez_card.*"; }];
+        }
+        {
+          actions = { update-props = { "node.pause-on-idle" = false; }; };
+          matches = [
+            { "node.name" = "~bluez_input.*"; }
+            { "node.name" = "~bluez_output.*"; }
+          ];
+        }
+      ];
+    };
   };
 }

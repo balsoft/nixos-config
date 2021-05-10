@@ -67,9 +67,6 @@ in {
           "sftp://balsoft.ru/home/balsoft balsoft.ru"
         ] ++ map (machine: "sftp://${machine}/home/balsoft ${machine}")
           (builtins.attrNames inputs.self.nixosConfigurations);
-        extraConfig = {
-          gtk-cursor-theme-name = "Breeze";
-        };
       };
 
     };

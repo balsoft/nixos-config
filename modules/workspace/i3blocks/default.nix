@@ -36,7 +36,11 @@ in {
         bindingMode = default // { text = thm.yellow; };
       };
       statusCommand = "${pkgs.i3blocks}/bin/i3blocks";
-      fonts = [ "IBM Plex Mono 11" "Material Icons 11" "Roboto Mono 11" ];
+      fonts = {
+        names = [ "IBM Plex Sans" "Material Icons" "Roboto Mono" ];
+        style = "Regular";
+        size = 12.0;
+      };
       mode = "hide";
       position = "bottom";
       workspaceNumbers = false;
@@ -50,10 +54,10 @@ in {
     in ''
       interval=60
       markup=pango
-    '' + genIniOrdered (
-      [ (scr "email") ]
+    '' + genIniOrdered ([ (scr "email") ]
       ++ [ (scrint "weather" 600) (scr "emacs") (scr "nixos") ]
-      ++ [ (scrint "youtrack-wage" 3600) (scrint "music" 3) (scrint "sound" 1) ] ++ [
+      ++ [ (scrint "youtrack-wage" 3600) (scrint "music" 3) (scrint "sound" 1) ]
+      ++ [
         (scrint "cpu" 5)
         (scrint "freq" 10)
         (scr "temperature")

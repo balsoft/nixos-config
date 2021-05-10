@@ -12,12 +12,7 @@
 
   services.udev.packages = [ pkgs.yubikey-personalization ];
 
-  home-manager.users.balsoft.home.sessionVariables.SSH_AUTH_SOCK = "/run/user/1000/gnupg/S.gpg-agent.ssh";
-
-  environment.shellInit = ''
-    export GPG_TTY="$(tty)"
-    gpg-connect-agent /bye
-  '';
+  # home-manager.users.balsoft.home.sessionVariables.SSH_AUTH_SOCK = "/run/user/1000/gnupg/S.gpg-agent.ssh";
   
   home-manager.users.balsoft.home.file.".gnupg/scdaemon.conf".text = "reader-port Yubico Yubi";
   
