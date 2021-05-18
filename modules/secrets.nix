@@ -72,15 +72,6 @@ let
           Type = "oneshot";
           RemainAfterExit = "yes";
         };
-
-        unitConfig = {
-          ConditionPathExists = [
-            "/run/user/${
-              toString config.users.users.${user}.uid
-            }/gnupg/S.gpg-agent"
-          ];
-        };
-
       };
     };
 
