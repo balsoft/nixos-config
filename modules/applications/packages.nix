@@ -41,5 +41,6 @@
       gnome3.simple-scan
       shellcheck
       proselint
+      inputs.himalaya.defaultPackage.x86_64-linux
     ];
 }

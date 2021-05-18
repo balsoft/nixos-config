@@ -71,6 +71,7 @@
       url = "git+https://gitlab.freedesktop.org/pvir/pipewire?ref=bt-mic-volume";
       flake = false;
     };
+    himalaya.url = "github:soywod/himalaya";
   };
 
   outputs = { nixpkgs, nix, self, deploy-rs, ... }@inputs: {
