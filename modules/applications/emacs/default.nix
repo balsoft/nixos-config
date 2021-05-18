@@ -66,6 +66,7 @@ in {
           lsp-treemacs
           treemacs-projectile
           dap-mode
+          forge
         ];
     };
 

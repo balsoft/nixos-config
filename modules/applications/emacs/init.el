@@ -31,12 +31,9 @@
 
 (setq-default indent-tabs-mode nil)
 
-
-(setq-default tab-always-indent 'complete)
-
+(setq-default tab-always-indent 't)
 
 (setq-default compilation-scroll-output 'first-error)
-
 
 (use-package ws-butler
   :config
@@ -86,18 +83,6 @@
   :config
   (push 'company-ghci company-backends))
 
-
-(defun smart-beginning-of-line ()
-  "Move point to first non-whitespace character or beginning of line.
-
-Move point to the first non-whitespace character on this line.
-If point was already at that position, move point to beginning of line."
-  (interactive "^") ; Use (interactive) in Emacs 22 or older
-  (let ((oldpos (point)))
-    (back-to-indentation)
-    (and (= oldpos (point))
-         (beginning-of-line))))
-
 (global-set-key [home] 'smart-beginning-of-line)
 
 (global-unset-key [menu-bar options cua-mode])
@@ -120,11 +105,6 @@ If point was already at that position, move point to beginning of line."
 (setq gdb-use-separate-io-buffer nil)
 (setq gdb-many-windows nil)
 
-
-(use-package counsel
-  :config
-  (counsel-mode 1))
-
 ;; -------------------
 ;; Projectile
 ;; -------------------
@@ -136,9 +116,9 @@ If point was already at that position, move point to beginning of line."
   (define-key projectile-mode-map (kbd "C-x p") 'projectile-command-map)
   (projectile-mode 1)
   (global-unset-key [menu-bar tools Projectile])
-  (projectile-register-project-type 'nix-shell '("shell.nix")
-                                    :compile "nix-build shell.nix"
-                                    :run "nix-shell")
+  (projectile-register-project-type 'flake '("flake.nix")
+                                    :compile "nix build"
+                                    :run "nix run")
   (setq projectile-project-search-path '("~/projects/"))
 
   (global-set-key (kbd "<f9>") 'projectile-compile-project)
@@ -172,6 +152,9 @@ If point was already at that position, move point to beginning of line."
   (setq ivy-count-format "")
   (setq ivy-initial-inputs-alist nil))
 
+(use-package counsel
+  :config
+  counsel-mode)
 
 (use-package smex)
 
