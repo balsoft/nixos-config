@@ -1,5 +1,5 @@
 { config, pkgs, lib, ... }:
-with import ../../support.nix { inherit lib config; }; let
+let
   gearyConfig = {
     Account = {
       label = "";
@@ -57,7 +57,7 @@ in {
   home-manager.users.balsoft = {
     xdg.configFile."geary/user-style.css".text = ''
       *, html, body, body.plain div, body.plain a, body.plain p, body.plain span {
-        background: ${config.themes.colors .bg} !important;
+        background: ${config.themes.colors.bg} !important;
         color: ${config.themes.colors.fg} !important;
         font-family: 'IBM Plex Mono', monospace !important;
       }
@@ -67,7 +67,7 @@ in {
     '';
     home.activation.geary = ''
       mkdir -p "$XDG_CONFIG_HOME/geary/account_03"
-      $DRY_RUN_CMD ln -sf $VERBOSE_ARG ${builtins.toFile "geary.ini" (genIni gearyConfig)} "$XDG_CONFIG_HOME/geary/account_03/geary.ini"
+      $DRY_RUN_CMD ln -sf $VERBOSE_ARG ${builtins.toFile "geary.ini" (pkgs.my-lib.genIni gearyConfig)} "$XDG_CONFIG_HOME/geary/account_03/geary.ini"
     '';
   };
 }

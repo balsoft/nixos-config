@@ -67,6 +67,7 @@ in {
           treemacs-projectile
           dap-mode
           forge
+          crdt
         ];
     };
 

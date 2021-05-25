@@ -1,5 +1,6 @@
 { pkgs, lib, config, ... }:
-with import ../../../support.nix { inherit lib config; }; {
+with pkgs.my-lib;
+{
   xdg.portal.enable = true;
   services.dbus.packages =
     [ pkgs.firefox pkgs.systemd pkgs.papirus-icon-theme ];

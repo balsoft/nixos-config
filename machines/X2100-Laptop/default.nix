@@ -1,4 +1,4 @@
-{ inputs, lib, config, ... }: {
+{ inputs, lib, config, pkgs, ... }: {
   imports = [ ./hardware-configuration.nix inputs.self.nixosProfiles.desktop ];
   deviceSpecific.devInfo = {
     cpu = {
@@ -13,7 +13,7 @@
     };
     ram = 16;
   };
-  home-manager.users.balsoft.xdg.configFile."simple-osd/brightness".text = (import ../../support.nix { inherit lib config; }).genIni {
+  home-manager.users.balsoft.xdg.configFile."simple-osd/brightness".text = pkgs.my-lib.genIni {
     default = {
       "backlight backend" = "/sys/class/backlight/intel_backlight";
       "refresh interval" = 100;

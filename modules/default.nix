@@ -10,6 +10,7 @@ builtins.listToAttrs (builtins.map (path: {
   ./applications/emacs
   ./applications/firefox.nix
   ./applications/geary.nix
+  ./applications/himalaya.nix
   ./applications/okular.nix
   ./applications/packages.nix
   ./applications/weechat.nix

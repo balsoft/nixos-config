@@ -14,6 +14,7 @@
     emacs
     firefox
     geary
+    himalaya
     packages
     weechat
     yt-utilities

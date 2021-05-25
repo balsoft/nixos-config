@@ -1,5 +1,4 @@
 { pkgs, config, lib, ... }:
-with import ../../../support.nix { inherit pkgs config lib; };
 with lib;
 let scripts = import ./scripts pkgs config;
 in {
@@ -54,7 +53,7 @@ in {
     in ''
       interval=60
       markup=pango
-    '' + genIniOrdered ([ (scr "email") ]
+    '' + pkgs.my-lib.genIniOrdered ([ (scr "email") ]
       ++ [ (scrint "weather" 600) (scr "emacs") (scr "nixos") ]
       ++ [ (scrint "youtrack-wage" 3600) (scrint "music" 3) (scrint "sound" 1) ]
       ++ [

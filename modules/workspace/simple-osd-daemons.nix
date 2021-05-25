@@ -7,7 +7,7 @@ let
       Restart = "always";
     };
   };
-  inherit (import ../../support.nix { inherit lib config; }) genIni;
+  inherit (pkgs.my-lib) genIni;
   daemons = names:
     builtins.listToAttrs (builtins.map (name: {
       name = "simple-osd-${name}";
