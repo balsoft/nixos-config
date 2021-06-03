@@ -15,7 +15,7 @@ let
         value
       else
         builtins.toString value;
-    in "${key}=${mvalue}";
+    in ''${key}=${mvalue}'';
   attrsToList = with builtins;
     x:
     (map (key: {
