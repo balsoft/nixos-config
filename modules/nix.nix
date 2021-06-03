@@ -1,6 +1,6 @@
 { lib, inputs, ... }: {
   nix = rec {
-    nixPath = lib.mkForce [ "nixpkgs=/etc/nixpkgs" ];
+    nixPath = lib.mkForce [ "nixpkgs=/etc/self/compat" ];
     binaryCaches = [ "https://cache.nixos.org" ];
 
     registry.self.flake = inputs.self;
@@ -23,4 +23,5 @@
     requireSignedBinaryCaches = true;
   };
   environment.etc.nixpkgs.source = inputs.nixpkgs;
+  environment.etc.self.source = inputs.self;
 }
