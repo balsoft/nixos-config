@@ -94,14 +94,17 @@ in {
 
       nerdfonts = nur.balsoft.pkgs.roboto-mono-nerd;
 
-      weechatScripts.wee-slack = super.weechatScripts.wee-slack.overrideAttrs
-        (oa: {
-          src = inputs.wee-slack;
-          patches = [ (builtins.elemAt oa.patches 0) ];
-        });
-
-      nix-zsh-completions = super.nix-zsh-completions.overrideAttrs
-        (_: { src = inputs.nix-zsh-completions; });
+      # inkscape = super.inkscape.overrideAttrs (oa: {
+      #   src = inputs.inkscape;
+      #   buildInputs = oa.buildInputs ++ [
+      #     self.double-conversion
+      #   ];
+      #   postPatch = ''
+      #     patchShebangs share/extensions
+      #     patchShebangs share/templates
+      #     patchShebangs man/fix-roff-punct
+      #   '';
+      # });
     })
   ];
   nixpkgs.config = {

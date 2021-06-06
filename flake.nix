@@ -27,20 +27,12 @@
       url = "github:nixos/nixpkgs/nixos-19.09";
       flake = false;
     };
-    weechat-scripts = {
-      url = "github:weechat/scripts";
-      flake = false;
-    };
     simple-nixos-mailserver = {
       url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
       flake = false;
     };
     nixpkgs-wayland = {
       url = "github:colemickens/nixpkgs-wayland";
-      flake = false;
-    };
-    weechat-notify-send = {
-      url = "github:s3rvac/weechat-notify-send";
       flake = false;
     };
     yt-utilities = {
@@ -50,10 +42,6 @@
     };
     nixos-fhs-compat.url = "github:balsoft/nixos-fhs-compat";
     simple-osd-daemons.url = "github:balsoft/simple-osd-daemons";
-    wee-slack.url = "github:wee-slack/wee-slack";
-    wee-slack.flake = false;
-    nix-zsh-completions.url = "github:Ma27/nix-zsh-completions/flakes";
-    nix-zsh-completions.flake = false;
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     sonoff-lan = {
       url = "github:AlexxIT/SonoffLAN";
@@ -61,14 +49,6 @@
     };
     crdt = {
       url = "git+https://code.librehq.com/qhong/crdt.el";
-      flake = false;
-    };
-    upower = {
-      url = "git+https://gitlab.freedesktop.org/upower/upower";
-      flake = false;
-    };
-    pipewire = {
-      url = "git+https://gitlab.freedesktop.org/pvir/pipewire?ref=bt-mic-volume";
       flake = false;
     };
     himalaya.url = "github:soywod/himalaya";

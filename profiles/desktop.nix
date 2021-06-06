@@ -16,7 +16,6 @@
     geary
     himalaya
     packages
-    weechat
     yt-utilities
 
     cursor

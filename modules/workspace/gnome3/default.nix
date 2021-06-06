@@ -1,5 +1,5 @@
 { config, pkgs, lib, ... }: {
-  services.gnome3 = {
+  services.gnome = {
     core-os-services.enable = true;
     core-utilities.enable = true;
     evolution-data-server.enable = true;

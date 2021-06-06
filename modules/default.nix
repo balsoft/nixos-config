@@ -13,7 +13,6 @@ builtins.listToAttrs (builtins.map (path: {
   ./applications/himalaya.nix
   ./applications/okular.nix
   ./applications/packages.nix
-  ./applications/weechat.nix
   ./applications/yt-utilities.nix
   ./boot.nix
   ./devices.nix

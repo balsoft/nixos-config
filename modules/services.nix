@@ -28,9 +28,5 @@
 
   services.upower = {
     enable = true;
-    package = pkgs.upower.overrideAttrs (oa: {
-      src = inputs.upower;
-      nativeBuildInputs = oa.nativeBuildInputs ++ [ pkgs.autoreconfHook pkgs.gtk_doc ];
-    });
   };
 }
