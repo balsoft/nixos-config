@@ -4,6 +4,7 @@
     passwordAuthentication = false;
     permitRootLogin = "no";
     forwardX11 = true;
+    extraConfig = "StreamLocalBindUnlink yes";
     ports = [ 22 ];
   };
 
