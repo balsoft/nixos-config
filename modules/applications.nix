@@ -22,6 +22,10 @@
         cmd = "${pkgs.gnome3.nautilus}/bin/nautilus";
         desktop = "org.gnome.Nautilus";
       };
+      matrix = {
+        cmd = "${pkgs.nheko}/bin/nheko";
+        desktop = "nheko";
+      };
       monitor = {
         cmd = "${pkgs.gnome3.gnome-system-monitor}/bin/gnome-system-monitor";
         desktop = "gnome-system-monitor";
@@ -66,6 +70,7 @@
             "x-scheme-handler/about" = browser;
             "x-scheme-handler/unknown" = browser;
             "x-scheme-handler/mailto" = mail;
+            "x-scheme-handler/matrix" = matrix;
             "application/pdf" = { desktop = "org.kde.okular"; };
             "application/vnd.openxmlformats-officedocument.wordprocessingml.document" =
               text_processor;

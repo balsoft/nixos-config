@@ -38,7 +38,6 @@
       pass-wayland
       gopass
       papirus-icon-theme
-      gnome3.simple-scan
       shellcheck
       proselint
     ];

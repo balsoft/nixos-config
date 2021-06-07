@@ -6,7 +6,6 @@
     ezwg
     hardware
     power
-    services
     themes
     virtualisation
 

@@ -12,9 +12,13 @@ with deviceSpecific; {
   hardware.bluetooth.enable = true;
   hardware.bluetooth.package = pkgs.bluezFull;
 
-  hardware.sane.enable = true;
 
-  services.saned.enable = true;
+  systemd.services.systemd-udev-settle.enable = false;
+
+  services.upower = {
+    enable = true;
+  };
+
 
   services.logind.lidSwitchExternalPower = "ignore";
 

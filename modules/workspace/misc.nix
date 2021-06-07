@@ -25,10 +25,11 @@
 
     programs.direnv.enable = true;
     programs.direnv.enableNixDirenvIntegration = true;
+
+    home.stateVersion = "20.09";
   };
 
-
-  home-manager.users.balsoft.home.stateVersion = "20.09";
+  services.avahi.enable = true;
 
   system.stateVersion = "18.03";
 

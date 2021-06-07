@@ -35,7 +35,6 @@ builtins.listToAttrs (builtins.map (path: {
   ./servers/nextcloud.nix
   ./servers/nginx.nix
   ./servers/vsftpd.nix
-  ./services.nix
   ./themes.nix
   ./virtualisation.nix
   ./workspace/cursor.nix
@@ -50,6 +49,7 @@ builtins.listToAttrs (builtins.map (path: {
   ./workspace/locale.nix
   ./workspace/mako.nix
   ./workspace/misc.nix
+  ./workspace/print-scan.nix
   ./workspace/simple-osd-daemons.nix
   ./workspace/ssh.nix
   ./workspace/sway

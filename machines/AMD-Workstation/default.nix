@@ -2,6 +2,7 @@
   imports = [
     ./hardware-configuration.nix
     inputs.self.nixosProfiles.desktop
+    inputs.self.nixosModules.print-scan
   ];
   deviceSpecific.devInfo = {
     cpu = {
