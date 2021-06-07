@@ -17,7 +17,7 @@
       github-cli
       # Messaging
       libnotify
-      spectral
+      nheko
       # Audio/Video
       vlc
       pavucontrol

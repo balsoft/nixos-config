@@ -68,7 +68,6 @@
             "x-scheme-handler/http" = browser;
             "x-scheme-handler/https" = browser;
             "x-scheme-handler/about" = browser;
-            "x-scheme-handler/unknown" = browser;
             "x-scheme-handler/mailto" = mail;
             "x-scheme-handler/matrix" = matrix;
             "application/pdf" = { desktop = "org.kde.okular"; };

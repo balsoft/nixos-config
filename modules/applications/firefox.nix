@@ -54,6 +54,8 @@ in {
           "browser.display.use_document_fonts" = true;
           "pdfjs.disabled" = true;
           "media.videocontrols.picture-in-picture.enabled" = true;
+
+          "widget.non-native-theme.enabled" = false;
         };
       };
       extensions = with pkgs.nur.rycee.firefox-addons; [
