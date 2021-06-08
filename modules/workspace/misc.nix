@@ -31,6 +31,8 @@
 
   persist.cache.directories = [ "/home/balsoft/.cache" "/var/cache" ];
 
+  persist.state.directories = [ "/home/balsoft/.local/share/direnv" ];
+
   services.avahi.enable = true;
 
   system.stateVersion = "18.03";
