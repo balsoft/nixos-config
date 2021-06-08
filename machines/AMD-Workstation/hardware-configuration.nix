@@ -12,14 +12,16 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" = {
+  fileSystems."/persist" = {
     device = "/dev/nvme0n1p2";
     fsType = "ext4";
+    neededForBoot = true;
   };
 
-  fileSystems."/home" = {
+  fileSystems."/persist/home" = {
     device = "/dev/disk/by-label/Home";
     fsType = "ext4";
+    neededForBoot = true;
   };
 
   fileSystems."/boot" = {

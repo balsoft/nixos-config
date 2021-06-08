@@ -22,27 +22,20 @@
   services.apcupsd.enable = true;
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
+  boot.loader.timeout = 4; # Otherwise it's impossible to change generations
 
   secrets.wireguard-wg0 = { };
 
-  # networking.wireguard.interfaces.serokell = {
-  #   listenPort = 51820;
-  #   ips = [
-  #     "172.20.0.52/32"
-  #     # "fd73:7272:ed50::52/128"
-  #   ];
-  #   privateKeyFile = config.secrets.wireguard-serokell.decrypted;
-  #   peers = [{
-  #     allowedIPs = [
-  #       "0.0.0.0/0"
-  #       # "::/0"
-  #     ];
-  #     # endpoint = "serokell.net:35944";
-  #     endpoint = "147.75.100.17:35944";
-  #     publicKey = "sgLUARawWJejANs2CwuCptwJO55c4jkmnP0L14FNCyw=";
-  #     persistentKeepalive = 24;
-  #   }];
-  # };
+  persist = {
+    enable = true;
+    cache.clean.enable = false; # Scary...
+
+    state.homeFiles = [ ".aws/credentials" ];
+
+    state.directories = [ "/home/balsoft/.local/share/Steam" ];
+
+    derivative.directories = [ "/home/balsoft/.wine" "/home/balsoft/.wine32" ];
+  };
 
   services.ezwg = {
     enable = true;

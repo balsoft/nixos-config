@@ -29,7 +29,7 @@
     home.stateVersion = "20.09";
   };
 
-
+  persist.cache.directories = [ "/home/balsoft/.cache" "/var/cache" ];
 
   services.avahi.enable = true;
 
