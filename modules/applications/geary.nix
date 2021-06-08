@@ -54,6 +54,9 @@ let
   };
 in {
   programs.geary.enable = true;
+
+  persist.cache.directories = [ "/home/balsoft/.local/share/geary" ];
+
   home-manager.users.balsoft = {
     xdg.configFile."geary/user-style.css".text = ''
       *, html, body, body.plain div, body.plain a, body.plain p, body.plain span {

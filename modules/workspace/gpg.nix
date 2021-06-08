@@ -2,6 +2,8 @@
   services.pcscd.enable = true;
   services.udev.packages = [ pkgs.yubikey-personalization ];
 
+  persist.derivative.directories = [ "/home/balsoft/.local/share/gnupg" ];
+
   home-manager.users.balsoft = {
     services.gpg-agent = {
       enable = true;

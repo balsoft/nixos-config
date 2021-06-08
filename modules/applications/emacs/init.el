@@ -23,12 +23,6 @@
 (line-number-mode)
 (column-number-mode)
 
-;; backup in one place. flat, no tree structure
-(setq backup-directory-alist '(("" . "~/.emacs.d/backup")))
-
-(setq auto-save-file-name-transforms
-      `((".*" "~/.emacs.d/autosave/" t)))
-
 (setq-default indent-tabs-mode nil)
 
 (setq-default tab-always-indent 't)

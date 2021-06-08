@@ -29,6 +29,8 @@
     home.stateVersion = "20.09";
   };
 
+
+
   services.avahi.enable = true;
 
   system.stateVersion = "18.03";

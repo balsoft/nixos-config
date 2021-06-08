@@ -24,6 +24,9 @@ in {
     usePredictableInterfaceNames = false;
     hostName = config.device;
   };
+
+  persist.state.directories = [ "/etc/NetworkManager/system-connections" ];
+
   networking.firewall.trustedInterfaces = [ "eth0" ];
   systemd.services.ModemManager.wantedBy =
     lib.optional (config.device == "T490s-Laptop") "network.target";

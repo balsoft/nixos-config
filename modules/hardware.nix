@@ -12,6 +12,8 @@ with deviceSpecific; {
   hardware.bluetooth.enable = true;
   hardware.bluetooth.package = pkgs.bluezFull;
 
+  persist.state.directories = [ "/var/lib/bluetooth" ];
+
 
   systemd.services.systemd-udev-settle.enable = false;
 

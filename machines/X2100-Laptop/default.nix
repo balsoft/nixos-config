@@ -1,5 +1,8 @@
 { inputs, lib, config, pkgs, ... }: {
-  imports = [ ./hardware-configuration.nix inputs.self.nixosProfiles.desktop ];
+  imports = [
+    ./hardware-configuration.nix
+    inputs.self.nixosProfiles.desktop
+  ];
   deviceSpecific.devInfo = {
     cpu = {
       vendor = "intel";
@@ -13,12 +16,19 @@
     };
     ram = 16;
   };
-  home-manager.users.balsoft.xdg.configFile."simple-osd/brightness".text = pkgs.my-lib.genIni {
-    default = {
-      "backlight backend" = "/sys/class/backlight/intel_backlight";
-      "refresh interval" = 100;
-    };
+
+  persist = {
+    enable = true;
+    cache.clean.enable = true;
   };
+
+  home-manager.users.balsoft.xdg.configFile."simple-osd/brightness".text =
+    pkgs.my-lib.genIni {
+      default = {
+        "backlight backend" = "/sys/class/backlight/intel_backlight";
+        "refresh interval" = 100;
+      };
+    };
   boot.extraModprobeConfig = ''
     options iwlwifi bt_coex_active=0
   '';

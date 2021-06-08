@@ -11,6 +11,7 @@ builtins.listToAttrs (builtins.map (path: {
   ./applications/firefox.nix
   ./applications/geary.nix
   ./applications/himalaya.nix
+  ./applications/nheko.nix
   ./applications/okular.nix
   ./applications/packages.nix
   ./applications/yt-utilities.nix
@@ -21,6 +22,7 @@ builtins.listToAttrs (builtins.map (path: {
   ./network.nix
   ./nix.nix
   ./overlay.nix
+  ./persist.nix
   ./power.nix
   ./secrets-envsubst.nix
   ./secrets.nix

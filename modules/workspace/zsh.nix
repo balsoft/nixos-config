@@ -2,6 +2,9 @@
 
   environment.pathsToLink = [ "/share/zsh" ];
   environment.sessionVariables.SHELL = "zsh";
+
+  persist.state.homeFiles = [ ".zsh_history" ];
+
   home-manager.users.balsoft.programs.zsh = {
     enable = true;
     enableAutosuggestions = true;

@@ -15,6 +15,8 @@ in {
   # directory = "emacs";
   # };
 
+  persist.state.homeFiles = [ ".config/emacs/custom" ".config/emacs/eshell/history" ];
+
   home-manager.users.balsoft = {
     programs.emacs = {
       enable = true;
@@ -78,11 +80,6 @@ in {
     systemd.user.services.emacs.Service.Environment =
       "PATH=/run/current-system/sw/bin:/etc/profiles/per-user/balsoft/bin";
 
-    home.file.".emacs.d/init.el".source = ./init.el;
-    home.activation.emacs = {
-      before = [ ];
-      after = [ ];
-      data = "$DRY_RUN_CMD mkdir -p ~/.emacs.d/autosave";
-    };
+    xdg.configFile."emacs/init.el".source = ./init.el;
   };
 }

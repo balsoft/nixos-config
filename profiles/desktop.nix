@@ -14,6 +14,7 @@
     firefox
     geary
     himalaya
+    nheko
     packages
     yt-utilities
 

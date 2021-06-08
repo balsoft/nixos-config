@@ -124,6 +124,9 @@ in {
     }];
   }];
 
+  config.persist.derivative.directories =
+    [ "/var/secrets" "/home/balsoft/.password-store" ];
+
   config.home-manager.users.balsoft = {
     wayland.windowManager.sway = {
       config.startup = [{ command = "activate-secrets"; }];

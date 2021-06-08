@@ -6,6 +6,9 @@ in {
     MOZ_DBUS_REMOTE = "1";
   };
   programs.browserpass.enable = true;
+
+  persist.state.directories = [ "/home/balsoft/.mozilla/firefox/default" ];
+
   home-manager.users.balsoft = lib.mkIf (config.deviceSpecific.goodMachine) {
     programs.browserpass = {
       enable = true;

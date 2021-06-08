@@ -22,6 +22,9 @@
     '';
     requireSignedBinaryCaches = true;
   };
+
+  persist.state.homeFiles = [ ".local/share/nix/repl-history" ];
+
   environment.etc.nixpkgs.source = inputs.nixpkgs;
   environment.etc.self.source = inputs.self;
 }

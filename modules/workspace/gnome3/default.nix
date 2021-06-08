@@ -15,11 +15,21 @@
 
   environment.sessionVariables.XDG_CURRENT_DESKTOP = "X-Generic";
 
+  persist.state.directories = map (x: "/home/balsoft/${x}") [
+    "Pictures"
+    "Documents"
+    "Downloads"
+    "Music"
+    "projects"
+    "Videos"
+  ];
 
   services.gvfs.enable = true;
   services.geoclue2.enable = true;
   home-manager.users.balsoft = {
     xdg.userDirs.enable = true;
+
+
     home.activation.gnome = ''
       $DRY_RUN_CMD mkdir -p "$XDG_DATA_HOME/keyrings"
       $DRY_RUN_CMD ln -sf ${config.secrets-envsubst.gnome-keyring} "$XDG_DATA_HOME/keyrings/Default_keyring.keyring"

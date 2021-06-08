@@ -52,6 +52,7 @@
       flake = false;
     };
     himalaya.url = "github:soywod/himalaya";
+    impermanence.url = "github:nix-community/impermanence";
   };
 
   outputs = { nixpkgs, nix, self, deploy-rs, ... }@inputs: {

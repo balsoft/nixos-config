@@ -6,16 +6,17 @@
     secrets
     secrets-envsubst
 
-    locale
-    network
-    overlay
     devices
-    nix
-    security
-    ssh
     git
     gpg
-    zsh
+    locale
     misc
+    network
+    nix
+    overlay
+    persist
+    security
+    ssh
+    zsh
   ];
 }

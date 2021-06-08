@@ -51,6 +51,7 @@ in {
         "\\x3d"
       ] cfg.serverKey
     }".wantedBy = lib.mkForce [ ];
+
     networking.wireguard.interfaces.wg0 = let
       generateRangesScript =
         builtins.toFile "exclusionary-wildcard-ranges-generator.py" ''
