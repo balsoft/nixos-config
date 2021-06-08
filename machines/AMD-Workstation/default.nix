@@ -22,8 +22,6 @@
   services.apcupsd.enable = true;
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
-  boot.loader.timeout = 4; # Otherwise it's impossible to change generations
-
   secrets.wireguard-wg0 = { };
 
   persist = {

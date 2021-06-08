@@ -1,7 +1,7 @@
 { lib, pkgs, config, ... }: {
   boot = {
     loader = {
-      timeout = lib.mkForce 1;
+      timeout = lib.mkForce 4;
       grub.enable = lib.mkForce false;
       systemd-boot.enable = pkgs.system == "x86_64-linux";
     };
