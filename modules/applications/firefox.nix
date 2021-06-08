@@ -59,6 +59,9 @@ in {
           "media.videocontrols.picture-in-picture.enabled" = true;
 
           "widget.non-native-theme.enabled" = false;
+
+          "browser.newtabpage.enabled" = false;
+          "browser.startup.homepage" = "about:blank";
         };
       };
       extensions = with pkgs.nur.rycee.firefox-addons; [
