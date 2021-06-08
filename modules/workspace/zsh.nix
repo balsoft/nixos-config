@@ -3,7 +3,8 @@
   environment.pathsToLink = [ "/share/zsh" ];
   environment.sessionVariables.SHELL = "zsh";
 
-  persist.state.homeFiles = [ ".zsh_history" ];
+  # A history file is screwed up otherwise :(
+  persist.state.directories = [ "/home/balsoft/.config/zsh/history" ];
 
   home-manager.users.balsoft.programs.zsh = {
     enable = true;
@@ -15,9 +16,12 @@
       plugins = [ "git" "dirhistory" ];
     };
 
+    dotDir = ".config/zsh";
+
     history = rec {
       size = 1000000;
       save = size;
+      path = "$HOME/.config/zsh/history/file";
     };
     plugins = [
       {

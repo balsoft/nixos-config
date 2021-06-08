@@ -50,6 +50,8 @@
     };
   };
 
+  persist.state.directories = [ "/home/balsoft/.config/Yubico" ];
+
   services.udev.extraRules = ''
     ACTION=="remove", ATTRS{idVendor}=="1050", RUN+="${pkgs.systemd}/bin/loginctl lock-sessions"
   '';
