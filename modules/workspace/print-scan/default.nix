@@ -1,0 +1,30 @@
+{ pkgs, config, ... }:
+let
+  brother_printer = pkgs.linkFarm "Brother_HL-3170CDW_series" [{
+    name = "share/cups/model/hl3170cdw.ppd";
+    path = ./Brother_HL-3170CDW_series.ppd;
+  }];
+in {
+  services.printing = {
+    enable = true;
+    drivers = [
+      brother_printer
+    ];
+  };
+
+  hardware.printers = {
+    ensureDefaultPrinter = "Brother_HL-3170CDW_series";
+    ensurePrinters = [{
+      name = "Brother_HL-3170CDW_series";
+      deviceUri = "usb://Brother/HL-3170CDW%20series?serial=E71798K6J706416";
+      model = "hl3170cdw.ppd";
+    }];
+  };
+
+  programs.system-config-printer.enable = true;
+
+  hardware.sane.enable = true;
+  services.saned.enable = true;
+
+  environment.systemPackages = [ pkgs.gnome3.simple-scan ];
+}

@@ -51,7 +51,7 @@ builtins.listToAttrs (builtins.map (path: {
   ./workspace/locale.nix
   ./workspace/mako.nix
   ./workspace/misc.nix
-  ./workspace/print-scan.nix
+  ./workspace/print-scan
   ./workspace/simple-osd-daemons.nix
   ./workspace/ssh.nix
   ./workspace/sway

@@ -5,6 +5,7 @@
     NIX_AUTO_RUN = "1";
     LESS = "MR";
     SYSTEMD_LESS = LESS;
+    DE = "generic";
   };
 
   home-manager.users.balsoft = {

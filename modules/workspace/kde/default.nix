@@ -13,7 +13,6 @@ with pkgs.my-lib;
     KDE_SESSION_VERSION = "5";
     QT_SCALE_FACTOR = "1";
     QT_AUTO_SCREEN_SCALE_FACTOR = "0";
-    DE = "kde";
     QT_QPA_PLATFORMTHEME = "kde";
     KDEDIRS =
       "/run/current-system/sw:/run/current-system/sw/share/kservices5:/run/current-system/sw/share/kservicetypes5:/run/current-system/sw/share/kxmlgui5";
