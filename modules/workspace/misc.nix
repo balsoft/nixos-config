@@ -1,12 +1,13 @@
 { pkgs, lib, config, inputs, ... }: {
   systemd.coredump.enable = true;
 
-  environment.sessionVariables = config.home-manager.users.balsoft.home.sessionVariables // rec {
-    NIX_AUTO_RUN = "1";
-    LESS = "MR";
-    SYSTEMD_LESS = LESS;
-    DE = "generic";
-  };
+  environment.sessionVariables =
+    config.home-manager.users.balsoft.home.sessionVariables // rec {
+      NIX_AUTO_RUN = "1";
+      LESS = "MR";
+      SYSTEMD_LESS = LESS;
+      DE = "generic";
+    };
 
   home-manager.users.balsoft = {
     xdg.enable = true;
@@ -32,7 +33,8 @@
 
   persist.cache.directories = [ "/home/balsoft/.cache" "/var/cache" ];
 
-  persist.state.directories = [ "/home/balsoft/.local/share/direnv" ];
+  persist.state.directories =
+    [ "/home/balsoft/.local/share/direnv" "/var/lib/nixos" "/var/lib/systemd" ];
 
   services.avahi.enable = true;
 
