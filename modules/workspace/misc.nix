@@ -1,6 +1,12 @@
 { pkgs, lib, config, inputs, ... }: {
   systemd.coredump.enable = true;
 
+  systemd.services.systemd-timesyncd.wantedBy = [ "multi-user.target" ];
+
+  systemd.timers.systemd-timesyncd = {
+    timerConfig.OnCalendar = "hourly";
+  };
+
   environment.sessionVariables =
     config.home-manager.users.balsoft.home.sessionVariables // rec {
       NIX_AUTO_RUN = "1";
