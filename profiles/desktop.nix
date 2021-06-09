@@ -13,6 +13,7 @@
     emacs
     firefox
     geary
+    github
     himalaya
     nheko
     packages
