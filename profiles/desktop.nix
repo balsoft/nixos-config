@@ -5,7 +5,6 @@
     applications
     ezwg
     hardware
-    power
     themes
     virtualisation
 

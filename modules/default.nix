@@ -24,7 +24,6 @@ builtins.listToAttrs (builtins.map (path: {
   ./nix.nix
   ./overlay.nix
   ./persist.nix
-  ./power.nix
   ./secrets-envsubst.nix
   ./secrets.nix
   ./security.nix
