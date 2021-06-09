@@ -32,11 +32,9 @@ in {
           { class = "Firefox"; }
         ];
         "" = [
-          { app_id = "org.kde.trojita"; }
-          { title = ".*.Geary*"; }
-          { title = "balsoft : weechat.*"; }
-          { title = "Neochat"; }
-          { title = "Slack"; }
+          { app_id = "geary"; }
+          { title = "nheko"; }
+          { title = "Slack.*"; }
         ];
         "ﱘ" = [{ app_id = "cantata"; }];
       };
@@ -99,6 +97,12 @@ in {
             # "${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1";
         # }
         { command = "${pkgs.nheko}/bin/nheko"; }
+        { command = toString (pkgs.writeShellScript "slack" ''
+          firefox https://serokell.slack.com &
+          sleep 10
+          swaymsg '[title=Slack.*] move to workspace '
+          swaymsg '[title=Slack.*] fullscreen disable'
+        ''); }
         {
           command =
             "swayidle -w before-sleep '${lock_fork}' lock '${lock_fork}' unlock 'pkill -9 swaylock'";
