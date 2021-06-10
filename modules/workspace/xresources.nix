@@ -1,27 +1,27 @@
 { config, lib, pkgs, ... }:
 {
   home-manager.users.balsoft = {
-    xresources.properties = with config.themes.colors; {
-      "*background" = bg;
-      "*foreground" = fg;
-      "*color0" = dark;
-      "*color1" = orange;
-      "*color2" = green;
-      "*color3" = yellow;
-      "*color4" = blue;
-      "*color5" = purple;
-      "*color6" = cyan;
-      "*color7" = fg;
-      "*color8" = dark;
-      "*color9" = orange;
-      "*color10" = green;
-      "*color11" = yellow;
-      "*color12" = blue;
-      "*color13" = purple;
-      "*color14" = cyan;
-      "*color15" = fg;
+    xresources.properties = with pkgs.my-lib.thmHash; {
+      "*background" = base00;
+      "*foreground" = base07;
+      "*color0" = base00;
+      "*color1" = base08;
+      "*color2" = base0B;
+      "*color3" = base0A;
+      "*color4" = base0D;
+      "*color5" = base0E;
+      "*color6" = base0C;
+      "*color7" = base07;
+      "*color8" = base03;
+      "*color9" = base09;
+      "*color10" = base01;
+      "*color11" = base02;
+      "*color12" = base04;
+      "*color13" = base07;
+      "*color14" = base0F;
+      "*color15" = base07;
 
-      "emacs.font" = "IBM Plex Mono 10";
+      "emacs.font" = "${config.themes.fonts.mono.family} ${toString config.themes.fonts.mono.size}";
       
       # "emacs.color0" = dark;
       # "emacs.color1" = green;

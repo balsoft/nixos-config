@@ -1,56 +1,21 @@
 { pkgs, config, lib, inputs, ... }:
 let
   thm = config.themes.colors;
-  thm' = builtins.mapAttrs (name: value: builtins.substring 1 7 value) thm;
-  materia_colors = pkgs.writeTextFile {
-    name = "gtk-generated-colors";
-    text = ''
-      BG=${thm'.bg}
-      FG=${thm'.fg}
-      BTN_BG=${thm'.bg}
-      BTN_FG=${thm'.fg}
-      MENU_BG=${thm'.bg}
-      MENU_FG=${thm'.fg}
-      ACCENT_BG=${thm'.alt}
-      SEL_BG=${thm'.blue}
-      SEL_FG=${thm'.bg}
-      TXT_BG=${thm'.bg}
-      TXT_FG=${thm'.fg}
-      HDR_BTN_BG=${thm'.bg}
-      HDR_BTN_FG=${thm'.fg}
-      WM_BORDER_FOCUS=${thm'.alt}
-      WM_BORDER_UNFOCUS=${thm'.dark}
-      MATERIA_STYLE_COMPACT=True
-      MATERIA_COLOR_VARIANT=dark
-      UNITY_DEFAULT_LAUNCHER_STYLE=False
-      NAME=generated
-    '';
-  };
+  thm' = builtins.mapAttrs (name: value: { hex.rgb = value; }) thm;
 in {
   nixpkgs.overlays = [
     (self: super: {
-      rendersvg = self.runCommandNoCC "rendersvg" {} ''
-        mkdir -p $out/bin
-        ln -s ${self.resvg}/bin/resvg $out/bin/rendersvg
-      '';
-      generated-gtk-theme = self.stdenv.mkDerivation rec {
-        name = "generated-gtk-theme";
-        src = inputs.materia-theme;
-        buildInputs = with self; [ sassc bc which rendersvg meson ninja nodePackages.sass gtk4.dev optipng ];
-        MATERIA_COLORS = materia_colors;
-        phases = [ "unpackPhase" "installPhase" ];
-        installPhase = ''
-          HOME=/build
-          chmod 777 -R .
-          patchShebangs .
-          mkdir -p $out/share/themes
-          mkdir bin
-          sed -e 's/handle-horz-.*//' -e 's/handle-vert-.*//' -i ./src/gtk-2.0/assets.txt
-          echo "Changing colours:"
-          ./change_color.sh -o Generated "$MATERIA_COLORS" -i False -t "$out/share/themes"
-          chmod 555 -R .
-        '';
-      };
+      generated-gtk-theme =
+        pkgs.callPackage "${inputs.rycee}/pkgs/materia-theme" {
+          configBase16 = {
+            name = "Generated";
+            kind = "dark";
+            colors = thm' // {
+              base01 = thm'.base00;
+              base02 = thm'.base00;
+            };
+          };
+        };
     })
   ];
   programs.dconf.enable = true;
@@ -66,7 +31,9 @@ in {
         name = "Generated";
         package = pkgs.generated-gtk-theme;
       };
-      font = { name = "IBM Plex 12"; };
+      font = {
+        name = with config.themes.fonts; "${main.family} ${toString main.size}";
+      };
       gtk3 = {
         bookmarks = [
           "file:///home/balsoft/projects Projects"

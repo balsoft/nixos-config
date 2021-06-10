@@ -3,11 +3,11 @@
     "NUR": {
       "flake": false,
       "locked": {
-        "lastModified": 1593719873,
-        "narHash": "sha256-AK0s3BOp7qO/d1vGL6Lh7hLjbqv3Zjo9KIr61UjBD78=",
+        "lastModified": 1623311631,
+        "narHash": "sha256-3lzdbWWoSE8zbNKvB2yOY1AAtLL/nIWcD94uRCwATvU=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "8654e8b452aee888d4cc67c649b70ddf1f50ea5e",
+        "rev": "97b0f023d370295a84c644be037b49bcf9c63c85",
         "type": "github"
       },
       "original": {
@@ -16,19 +16,19 @@
         "type": "github"
       }
     },
-    "base16-unclaimed-schemes": {
+    "base16-black-metal-scheme": {
       "flake": false,
       "locked": {
-        "lastModified": 1527170198,
-        "narHash": "sha256-YV2tgexpyeLqm6d8WaBwT9QPAHT/gxhiFpxQq03xdhA=",
-        "owner": "chriskempson",
-        "repo": "base16-unclaimed-schemes",
-        "rev": "d6b93456dc1012628faec572387814f59e0b854a",
+        "lastModified": 1585330710,
+        "narHash": "sha256-ctsMdfUpqVZfqtg4paYg4oCataRHoapxSiYRsi0lwhI=",
+        "owner": "metalelf0",
+        "repo": "base16-black-metal-scheme",
+        "rev": "c7a32bec8105a1ceddb9fcc90b713dabde5e7e5e",
         "type": "github"
       },
       "original": {
-        "owner": "chriskempson",
-        "repo": "base16-unclaimed-schemes",
+        "owner": "metalelf0",
+        "repo": "base16-black-metal-scheme",
         "type": "github"
       }
     },
@@ -376,11 +376,11 @@
     "nixpkgs-old": {
       "flake": false,
       "locked": {
-        "lastModified": 1592518222,
-        "narHash": "sha256-dkWpvJM3y7vXNu2FFrj4XHE3GoX0h+pIyc4gLQpQsmQ=",
+        "lastModified": 1600952148,
+        "narHash": "sha256-GUKHrnng33luc6mUT3rDnZ3Hm+4MMEJpEchRIAQx7JQ=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "289466dd6a11c65a7de4a954d6ebf66c1ad07652",
+        "rev": "75f4ba05c63be3f147bcc2f7bd4ba1f029cedcb1",
         "type": "github"
       },
       "original": {
@@ -531,7 +531,7 @@
     "root": {
       "inputs": {
         "NUR": "NUR",
-        "base16-unclaimed-schemes": "base16-unclaimed-schemes",
+        "base16-black-metal-scheme": "base16-black-metal-scheme",
         "crdt": "crdt",
         "deploy-rs": "deploy-rs",
         "emacs-overlay": "emacs-overlay",
@@ -546,6 +546,7 @@
         "nixpkgs": "nixpkgs_7",
         "nixpkgs-old": "nixpkgs-old",
         "nixpkgs-wayland": "nixpkgs-wayland",
+        "rycee": "rycee",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "simple-osd-daemons": "simple-osd-daemons",
         "sonoff-lan": "sonoff-lan",
@@ -569,6 +570,22 @@
         "owner": "oxalica",
         "repo": "rust-overlay",
         "type": "github"
+      }
+    },
+    "rycee": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1623298028,
+        "narHash": "sha256-ewN6rXEIiwysCZ6EN469Kdj3kuq/cEbEJOK0ZVWqK84=",
+        "owner": "rycee",
+        "repo": "nur-expressions",
+        "rev": "32bbce160cc8472102cf618d47f353781b903865",
+        "type": "gitlab"
+      },
+      "original": {
+        "owner": "rycee",
+        "repo": "nur-expressions",
+        "type": "gitlab"
       }
     },
     "simple-nixos-mailserver": {

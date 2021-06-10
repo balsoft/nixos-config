@@ -15,7 +15,8 @@ in {
   # directory = "emacs";
   # };
 
-  persist.state.homeFiles = [ ".config/emacs/custom" ".config/emacs/eshell/history" ];
+  persist.state.homeFiles =
+    [ ".config/emacs/custom" ".config/emacs/eshell/history" ];
 
   home-manager.users.balsoft = {
     programs.emacs = {
@@ -70,6 +71,7 @@ in {
           dap-mode
           forge
           crdt
+          base16-theme
         ];
     };
 
@@ -80,6 +82,9 @@ in {
     systemd.user.services.emacs.Service.Environment =
       "PATH=/run/current-system/sw/bin:/etc/profiles/per-user/balsoft/bin";
 
-    xdg.configFile."emacs/init.el".source = ./init.el;
+    xdg.configFile."emacs/init.el".source = pkgs.substituteAll ({
+      src = ./init.el;
+      font = with config.themes.fonts; "${mono.family} ${toString mono.size}";
+    } // pkgs.my-lib.thmHash);
   };
 }

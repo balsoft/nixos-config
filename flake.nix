@@ -14,8 +14,8 @@
       url = "github:nix-community/NUR";
       flake = false;
     };
-    base16-unclaimed-schemes = {
-      url = "github:chriskempson/base16-unclaimed-schemes";
+    base16-black-metal-scheme = {
+      url = "github:metalelf0/base16-black-metal-scheme";
       flake = false;
     };
     home-manager.url = "github:rycee/home-manager";
@@ -53,6 +53,11 @@
     };
     himalaya.url = "github:soywod/himalaya";
     impermanence.url = "github:nix-community/impermanence";
+
+    rycee = {
+      url = "gitlab:rycee/nur-expressions";
+      flake = false;
+    };
   };
 
   outputs = { nixpkgs, nix, self, deploy-rs, ... }@inputs: {

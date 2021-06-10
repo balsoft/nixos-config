@@ -1,13 +1,12 @@
 { config, pkgs, lib, ... }:
-let thm = config.themes.colors;
-in {
+{
   home-manager.users.balsoft.programs.alacritty = {
     enable = true;
     settings = {
 
       font = rec {
-        normal.family = "IBM Plex Mono";
-        size = 11;
+        normal.family = config.themes.fonts.mono.family;
+        size = config.themes.fonts.mono.size;
         bold = { style = "Bold"; };
       };
 
@@ -20,20 +19,23 @@ in {
 
       cursor.style = "Beam";
 
-      colors = {
+      colors = with pkgs.my-lib.thmHash; {
         primary = {
-          background = thm.bg;
-          foreground = thm.fg;
+          background = base00;
+          foreground = base05;
         };
         cursor = {
-          text = thm.alt;
-          cursor = thm.fg;
+          text = base02;
+          cursor = base00;
         };
         normal = {
-          black = thm.bg;
-          inherit (thm) red green yellow blue cyan;
-          magenta = thm.purple;
-          white = thm.fg;
+          black = base00;
+          red = base08;
+          green = base0B;
+          yellow = base0A;
+          blue = base0D;
+          magenta = base0E;
+          white = base07;
         };
       };
     };

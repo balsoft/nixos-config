@@ -41,7 +41,7 @@ in {
         thm = config.themes.colors;
         splitHex = hexStr:
           map (x: builtins.elemAt x 0) (builtins.filter (a: a != "" && a != [ ])
-            (builtins.split "(.{2})" (builtins.substring 1 6 hexStr)));
+            (builtins.split "(.{2})" hexStr));
         hex2decDigits = rec {
           "0" = 0;
           "1" = 1;
@@ -71,6 +71,7 @@ in {
           16 * hex2decDigits."${builtins.substring 0 1 hex}"
           + hex2decDigits."${builtins.substring 1 2 hex}";
         thmDec = builtins.mapAttrs (name: color: colorHex2Dec color) thm;
+        thmHash = builtins.mapAttrs (name: color: "#${color}") thm;
         colorHex2Dec = color:
           builtins.concatStringsSep ","
           (map (x: toString (doubleDigitHexToDec x)) (splitHex color));
@@ -87,8 +88,6 @@ in {
       lambda-launcher = inputs.lambda-launcher.defaultPackage.x86_64-linux;
 
       simple-osd = inputs.simple-osd-daemons.packages.x86_64-linux;
-
-      inherit old;
 
       yt-utilities = inputs.yt-utilities.defaultPackage.x86_64-linux;
 

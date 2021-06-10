@@ -60,12 +60,12 @@ in {
   home-manager.users.balsoft = {
     xdg.configFile."geary/user-style.css".text = ''
       *, html, body, body.plain div, body.plain a, body.plain p, body.plain span {
-        background: ${config.themes.colors.bg} !important;
-        color: ${config.themes.colors.fg} !important;
-        font-family: 'IBM Plex Mono', monospace !important;
+        background: ${pkgs.my-lib.thmHash.base00} !important;
+        color: ${pkgs.my-lib.thmHash.base05} !important;
+        font-family: '${config.themes.fonts.mono.family}', monospace !important;
       }
       *, html, body {
-        font-size: 16px;
+        font-size: ${toString config.themes.fonts.mono.size}pt;
       }
     '';
     home.activation.geary = ''

@@ -3,7 +3,7 @@ builtins.listToAttrs (builtins.map (path: {
     b = builtins.baseNameOf path;
     m = builtins.match "(.*)\\.nix" b;
   in if isNull m then [ b ] else m);
-  value = import path;
+  value = path;
 }) [
   ./applications.nix
   ./applications/alacritty.nix

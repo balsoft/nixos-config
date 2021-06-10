@@ -1,5 +1,7 @@
 { config, pkgs, lib, ... }:
-let thm = config.themes.colors;
+let
+  thm = pkgs.my-lib.thmHash;
+  fonts = config.themes.fonts;
 in {
   environment.sessionVariables = {
     MOZ_USE_XINPUT2 = "1";
@@ -24,10 +26,10 @@ in {
             visibility: collapse;
           }
           toolbar#nav-bar, nav-bar-customization-target {
-            background: ${thm.bg} !important;
+            background: ${thm.base00} !important;
           }
           @-moz-document url("about:newtab") {
-            * { background-color: ${thm.bg}  !important; }
+            * { background-color: ${thm.base00}  !important; }
           }
         '';
         settings = {
@@ -39,21 +41,21 @@ in {
           "browser.search.selectedEngine" = "Google";
           "browser.urlbar.placeholderName" = "Google";
           "browser.search.region" = "US";
-          
+
           "browser.uidensity" = 1;
           "browser.search.openintab" = true;
           "xpinstall.signatures.required" = false;
           "extensions.update.enabled" = false;
 
-          "font.name.monospace.x-western" = "IBM Plex Mono";
-          "font.name.sans-serif.x-western" = "IBM Plex Sans";
-          "font.name.serif.x-western" = "IBM Plex Serif";
+          "font.name.monospace.x-western" = "${fonts.mono.family}";
+          "font.name.sans-serif.x-western" = "${fonts.main.family}";
+          "font.name.serif.x-western" = "${fonts.serif.family}";
 
-          "browser.display.background_color" = thm.bg;
-          "browser.display.foreground_color" = thm.fg;
+          "browser.display.background_color" = thm.base00;
+          "browser.display.foreground_color" = thm.base05;
           "browser.display.document_color_use" = 2;
-          "browser.anchor_color" = thm.fg;
-          "browser.visited_color" = thm.blue;
+          "browser.anchor_color" = thm.base0D;
+          "browser.visited_color" = thm.base0C;
           "browser.display.use_document_fonts" = true;
           "pdfjs.disabled" = true;
           "media.videocontrols.picture-in-picture.enabled" = true;
@@ -65,7 +67,6 @@ in {
         };
       };
       extensions = with pkgs.nur.rycee.firefox-addons; [
-        torswitch
         adsum-notabs
         ublock-origin
         browserpass

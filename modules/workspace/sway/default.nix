@@ -1,6 +1,6 @@
 { pkgs, lib, config, ... }:
 let
-  thm = config.themes.colors;
+  thm = pkgs.my-lib.thmHash;
   apps = config.defaultApplications;
   lock_fork =
     pkgs.writeShellScript "lock_fork" "sudo /run/current-system/sw/bin/lock &";
@@ -39,31 +39,31 @@ in {
         "ﱘ" = [{ app_id = "cantata"; }];
       };
       fonts = {
-        names = [ "IBM Plex" ];
+        names = [ config.themes.fonts.main.family ];
         style = "Regular";
         size = 9.0;
       };
 
       colors = rec {
-        background = thm.bg;
+        background = thm.base00;
         unfocused = {
-          text = thm.dark;
-          border = thm.dark;
-          background = thm.bg;
-          childBorder = thm.dark;
-          indicator = thm.fg;
+          text = thm.base02;
+          border = thm.base01;
+          background = thm.base00;
+          childBorder = thm.base01;
+          indicator = thm.base07;
         };
         focusedInactive = unfocused;
         urgent = unfocused // {
-          text = thm.fg;
-          border = thm.orange;
-          childBorder = thm.orange;
+          text = thm.base05;
+          border = thm.base09;
+          childBorder = thm.base09;
         };
         focused = unfocused // {
-          childBorder = thm.gray;
-          border = thm.gray;
-          background = thm.dark;
-          text = thm.fg;
+          childBorder = thm.base03;
+          border = thm.base03;
+          background = thm.base01;
+          text = thm.base05;
         };
       };
       gaps = {
@@ -227,7 +227,7 @@ in {
         };
       };
       output = {
-        "*".bg = "${thm.bg} solid_color";
+        "*".bg = "${thm.base00} solid_color";
       } // lib.optionalAttrs (config.device == "AMD-Workstation") {
         DP-1.position = "0 400";
         HDMI-A-1 = {

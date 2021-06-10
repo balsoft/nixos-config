@@ -1,6 +1,5 @@
 { pkgs, lib, config, ... }:
-with pkgs.my-lib;
-{
+with pkgs.my-lib; {
   xdg.portal.enable = true;
   services.dbus.packages =
     [ pkgs.firefox pkgs.systemd pkgs.papirus-icon-theme ];
@@ -17,103 +16,105 @@ with pkgs.my-lib;
     KDEDIRS =
       "/run/current-system/sw:/run/current-system/sw/share/kservices5:/run/current-system/sw/share/kservicetypes5:/run/current-system/sw/share/kxmlgui5";
   };
-  home-manager.users.balsoft = {
+  home-manager.users.balsoft = let fonts = config.themes.fonts;
+  in {
     services.kdeconnect.enable = true;
 
-    xdg.configFile."kdeglobals".text = genIni {
+    xdg.configFile."kdeglobals".text = with thmDec; genIni {
       "Colors:Button" = {
-        BackgroundAlternate = thmDec.dark;
-        BackgroundNormal = thmDec.bg;
-        DecorationFocus = thmDec.alt;
-        DecorationHover = thmDec.alt;
-        ForegroundActive = thmDec.alt;
-        ForegroundInactive = thmDec.dark;
-        ForegroundLink = thmDec.blue;
-        ForegroundNegative = thmDec.red;
-        ForegroundNeutral = thmDec.orange;
-        ForegroundNormal = thmDec.fg;
-        ForegroundPositive = thmDec.green;
-        ForegroundVisited = thmDec.gray;
+        BackgroundAlternate = base01;
+        BackgroundNormal = base00;
+        DecorationFocus = base02;
+        DecorationHover = base02;
+        ForegroundActive = base02;
+        ForegroundInactive = base01;
+        ForegroundLink = base0D;
+        ForegroundNegative = base08;
+        ForegroundNeutral = base09;
+        ForegroundNormal = base05;
+        ForegroundPositive = base0B;
+        ForegroundVisited = base03;
       };
       "Colors:Complementary" = {
-        BackgroundAlternate = thmDec.dark;
-        BackgroundNormal = thmDec.bg;
-        DecorationFocus = thmDec.alt;
-        DecorationHover = thmDec.alt;
-        ForegroundActive = thmDec.orange;
-        ForegroundInactive = thmDec.dark;
-        ForegroundLink = thmDec.blue;
-        ForegroundNegative = thmDec.red;
-        ForegroundNeutral = thmDec.yellow;
-        ForegroundNormal = thmDec.fg;
-        ForegroundPositive = thmDec.green;
-        ForegroundVisited = thmDec.alt;
+        BackgroundAlternate = base01;
+        BackgroundNormal = base00;
+        DecorationFocus = base02;
+        DecorationHover = base02;
+        ForegroundActive = base09;
+        ForegroundInactive = base01;
+        ForegroundLink = base0D;
+        ForegroundNegative = base08;
+        ForegroundNeutral = base0A;
+        ForegroundNormal = base05;
+        ForegroundPositive = base0B;
+        ForegroundVisited = base02;
       };
       "Colors:Selection" = {
-        BackgroundAlternate = thmDec.alt;
-        BackgroundNormal = thmDec.alt;
-        DecorationFocus = thmDec.alt;
-        DecorationHover = thmDec.alt;
-        ForegroundActive = thmDec.fg;
-        ForegroundInactive = thmDec.fg;
-        ForegroundLink = thmDec.blue;
-        ForegroundNegative = thmDec.red;
-        ForegroundNeutral = thmDec.orange;
-        ForegroundNormal = thmDec.fg;
-        ForegroundPositive = thmDec.green;
-        ForegroundVisited = thmDec.alt;
+        BackgroundAlternate = base0D;
+        BackgroundNormal = base0D;
+        DecorationFocus = base0D;
+        DecorationHover = base0D;
+        ForegroundActive = base05;
+        ForegroundInactive = base05;
+        ForegroundLink = base0D;
+        ForegroundNegative = base08;
+        ForegroundNeutral = base09;
+        ForegroundNormal = base05;
+        ForegroundPositive = base0B;
+        ForegroundVisited = base02;
       };
       "Colors:Tooltip" = {
-        BackgroundAlternate = thmDec.dark;
-        BackgroundNormal = thmDec.bg;
-        DecorationFocus = thmDec.alt;
-        DecorationHover = thmDec.alt;
-        ForegroundActive = thmDec.alt;
-        ForegroundInactive = thmDec.dark;
-        ForegroundLink = thmDec.blue;
-        ForegroundNegative = thmDec.red;
-        ForegroundNeutral = thmDec.orange;
-        ForegroundNormal = thmDec.fg;
-        ForegroundPositive = thmDec.green;
-        ForegroundVisited = thmDec.gray;
+        BackgroundAlternate = base01;
+        BackgroundNormal = base00;
+        DecorationFocus = base02;
+        DecorationHover = base02;
+        ForegroundActive = base02;
+        ForegroundInactive = base01;
+        ForegroundLink = base0D;
+        ForegroundNegative = base08;
+        ForegroundNeutral = base09;
+        ForegroundNormal = base05;
+        ForegroundPositive = base0B;
+        ForegroundVisited = base03;
       };
       "Colors:View" = {
-        BackgroundAlternate = thmDec.dark;
-        BackgroundNormal = thmDec.bg;
-        DecorationFocus = thmDec.alt;
-        DecorationHover = thmDec.alt;
-        ForegroundActive = thmDec.alt;
-        ForegroundInactive = thmDec.dark;
-        ForegroundLink = thmDec.blue;
-        ForegroundNegative = thmDec.red;
-        ForegroundNeutral = thmDec.orange;
-        ForegroundNormal = thmDec.fg;
-        ForegroundPositive = thmDec.green;
-        ForegroundVisited = thmDec.gray;
+        BackgroundAlternate = base01;
+        BackgroundNormal = base00;
+        DecorationFocus = base02;
+        DecorationHover = base02;
+        ForegroundActive = base02;
+        ForegroundInactive = base01;
+        ForegroundLink = base0D;
+        ForegroundNegative = base08;
+        ForegroundNeutral = base09;
+        ForegroundNormal = base05;
+        ForegroundPositive = base0B;
+        ForegroundVisited = base03;
       };
       "Colors:Window" = {
-        BackgroundAlternate = thmDec.dark;
-        BackgroundNormal = thmDec.bg;
-        DecorationFocus = thmDec.alt;
-        DecorationHover = thmDec.alt;
-        ForegroundActive = thmDec.alt;
-        ForegroundInactive = thmDec.dark;
-        ForegroundLink = thmDec.blue;
-        ForegroundNegative = thmDec.red;
-        ForegroundNeutral = thmDec.orange;
-        ForegroundNormal = thmDec.fg;
-        ForegroundPositive = thmDec.green;
-        ForegroundVisited = thmDec.gray;
+        BackgroundAlternate = base01;
+        BackgroundNormal = base00;
+        DecorationFocus = base02;
+        DecorationHover = base02;
+        ForegroundActive = base02;
+        ForegroundInactive = base01;
+        ForegroundLink = base0D;
+        ForegroundNegative = base08;
+        ForegroundNeutral = base09;
+        ForegroundNormal = base05;
+        ForegroundPositive = base0B;
+        ForegroundVisited = base03;
       };
       General = {
         ColorScheme = "Generated";
         Name = "Generated";
-        fixed = "IBM Plex Mono,11,-1,5,50,0,0,0,0,0";
-        font = "IBM Plex,11,-1,5,50,0,0,0,0,0";
-        menuFont = "IBM Plex,11,-1,5,50,0,0,0,0,0";
+        fixed = "${fonts.mono.family},${toString fonts.mono.size},-1,5,50,0,0,0,0,0";
+        font = "${fonts.main.family},${toString fonts.main.size},-1,5,50,0,0,0,0,0";
+        menuFont = "${fonts.main.family},${toString fonts.main.size},-1,5,50,0,0,0,0,0";
         shadeSortColumn = true;
-        smallestReadableFont = "IBM Plex,8,-1,5,57,0,0,0,0,0,Medium";
-        toolBarFont = "IBM Plex,11,-1,5,50,0,0,0,0,0";
+        smallestReadableFont =
+          "${fonts.main.family},${toString fonts.main.size},-1,5,57,0,0,0,0,0,Medium";
+        toolBarFont = "${fonts.main.family},${toString fonts.main.size},-1,5,50,0,0,0,0,0";
       };
       KDE = {
         DoubleClickInterval = 400;

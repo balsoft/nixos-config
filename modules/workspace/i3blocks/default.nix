@@ -1,5 +1,5 @@
 { pkgs, config, lib, ... }:
-with lib;
+with lib; with pkgs.my-lib;
 let scripts = import ./scripts pkgs config;
 in {
   secrets.wage = {
@@ -19,24 +19,24 @@ in {
       trayOutput = "primary";
       command = "true";
       colors = let
-        thm = config.themes.colors;
+        thm = pkgs.my-lib.thmHash;
         default = {
-          background = thm.bg;
-          border = thm.bg;
+          background = thm.base00;
+          border = thm.base00;
         };
       in {
-        background = thm.bg;
-        statusline = thm.fg;
-        separator = thm.alt;
-        focusedWorkspace = default // { text = thm.red; };
-        activeWorkspace = default // { text = thm.green; };
-        inactiveWorkspace = default // { text = thm.fg; };
-        urgentWorkspace = default // { text = thm.orange; };
-        bindingMode = default // { text = thm.yellow; };
+        background = thm.base00;
+        statusline = thm.base05;
+        separator = thm.base02;
+        focusedWorkspace = default // { text = thm.base08; };
+        activeWorkspace = default // { text = thm.base0B; };
+        inactiveWorkspace = default // { text = thm.base05; };
+        urgentWorkspace = default // { text = thm.base09; };
+        bindingMode = default // { text = thm.base0A; };
       };
       statusCommand = "${pkgs.i3blocks}/bin/i3blocks";
       fonts = {
-        names = [ "IBM Plex Sans" "Material Icons" "Roboto Mono" ];
+        names = [ "${config.themes.fonts.main.family}" "Material Icons" "Roboto Mono" ];
         style = "Regular";
         size = 12.0;
       };

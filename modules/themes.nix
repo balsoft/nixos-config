@@ -1,30 +1,14 @@
 { config, lib, pkgs, inputs, ... }:
 with lib;
 let
-  colorType = types.str;
-  color = (name:
-    (mkOption {
-      description = "${name} color of palette";
-      type = colorType;
-    }));
-  fromBase16 = { base00, base01, base02, base03, base04, base05, base06, base07
-    , base08, base09, base0A, base0B, base0C, base0D, base0E, base0F, ... }:
-    builtins.mapAttrs (_: v: "#" + v) {
-      bg = base00;
-      fg = base07;
+  colorType =
+    types.addCheck types.str (x: !isNull (builtins.match "[0-9a-fA-F]{6}" x));
+  color = mkOption { type = colorType; };
 
-      gray = base03;
-      alt = base02;
-      dark = base01;
-
-      red = base08;
-      orange = base09;
-      yellow = base0A;
-      green = base0B;
-      cyan = base0C;
-      blue = base0D;
-      purple = base0E;
-    };
+  font = {
+    family = mkOption { type = types.str; };
+    size = mkOption { type = types.int; };
+  };
 
   fromYAML = yaml:
     builtins.fromJSON (builtins.readFile (pkgs.stdenv.mkDerivation {
@@ -35,41 +19,55 @@ let
 in {
   options = {
     themes = {
-      colors = mkOption {
-        description =
-          "Set of colors from which the themes for various applications will be generated";
-        type = with types;
-          submodule {
-            options = {
-              bg = color "background";
-              fg = color "foreground";
-              gray = color "gray";
-
-              alt = color "alternative";
-              dark = color "darker";
-
-              blue = color "blue";
-              green = color "green";
-              red = color "red";
-              orange = color "orange";
-              yellow = color "yellow";
-              cyan = color "cyan";
-              purple = color "purple";
-            };
-          };
+      colors = builtins.listToAttrs (map (name: {
+        inherit name;
+        value = color;
+      }) [
+        "base00"
+        "base01"
+        "base02"
+        "base03"
+        "base04"
+        "base05"
+        "base06"
+        "base07"
+        "base08"
+        "base09"
+        "base0A"
+        "base0B"
+        "base0C"
+        "base0D"
+        "base0E"
+        "base0F"
+      ]);
+      fonts = {
+        main = font;
+        serif = font;
+        mono = font;
       };
     };
   };
   config = {
-    themes.colors = (fromBase16 (fromYAML
-      (builtins.readFile "${inputs.base16-unclaimed-schemes}/irblack.yaml")))
-      // {
-        alt = "#001d6c";
-
-        red = "#da1e28";
-        green = "#24a148";
-        orange = "#ff832b";
-        yellow = "#f1c21b";
-      };
+    themes.colors = {
+      # H = 0, S = 0%
+      base00 = "000000"; # L = 0%
+      base01 = "333333"; # L = 20%
+      base02 = "666666"; # L = 40%
+      base03 = "999999"; # L = 60%
+      base04 = "cccccc"; # L = 80%
+      base05 = "ffffff"; # L = 100%
+      base06 = "e6e6e6"; # L = 90%
+      base07 = "e6e6e6"; # L = 90%
+      # L = 50%, S = 50%
+      base08 = "bf4040"; # H = 0    RED
+      base09 = "bf8040"; # H = 30   ORANGE
+      base0A = "bfbf40"; # H = 60   YELLOW-ish
+      base0B = "80bf40"; # H = 90   GREEN
+      # Whoa, a lot of hues are green!
+      base0C = "40bfbf"; # H = 180  TEAL
+      base0D = "407fbf"; # H = 210  BLUE
+      base0E = "7f40bf"; # H = 270  PURPLE
+      base0F = "bf40bf"; # H = 300  MAGENTA
+    };
   };
 }
