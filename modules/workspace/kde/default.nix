@@ -19,13 +19,13 @@ with pkgs.my-lib; {
   in {
     services.kdeconnect.enable = true;
 
-    xdg.configFile."kdeglobals".text = with thmDec; genIni {
+    xdg.configFile."kdeglobals".text = with thmDec; lib.generators.toGitINI {
       "Colors:Button" = {
         BackgroundAlternate = base01;
-        BackgroundNormal = base00;
+        BackgroundNormal = base01;
         DecorationFocus = base02;
         DecorationHover = base02;
-        ForegroundActive = base02;
+        ForegroundActive = base05;
         ForegroundInactive = base01;
         ForegroundLink = base0D;
         ForegroundNegative = base08;
@@ -36,7 +36,7 @@ with pkgs.my-lib; {
       };
       "Colors:Complementary" = {
         BackgroundAlternate = base01;
-        BackgroundNormal = base00;
+        BackgroundNormal = base03;
         DecorationFocus = base02;
         DecorationHover = base02;
         ForegroundActive = base09;

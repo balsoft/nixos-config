@@ -11,7 +11,7 @@ let
     let
       mvalue = if builtins.isBool value then
         (if value then "true" else "false")
-      else if (builtins.isString value && key != "include-file") then
+      else if builtins.isString value then
         value
       else
         builtins.toString value;
