@@ -6,7 +6,6 @@ with pkgs.my-lib; {
   services.udev.packages = [ pkgs.libmtp pkgs.media-player-info ];
 
   environment.sessionVariables = {
-    DESKTOP_SESSION = "kde";
     QT_XFT = "true";
     QT_SELECT = "5";
     KDE_SESSION_VERSION = "5";

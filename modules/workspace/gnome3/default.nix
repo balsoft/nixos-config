@@ -13,31 +13,28 @@
     gnome-online-miners.enable = true;
   };
 
-  environment.sessionVariables.XDG_CURRENT_DESKTOP = "X-Generic";
-
-  persist.state.directories = map (x: "/home/balsoft/${x}") [
-    "Pictures"
-    "Documents"
-    "Downloads"
-    "Music"
-    "projects"
-    "Videos"
-  ];
-
   services.gvfs.enable = true;
   services.geoclue2.enable = true;
+
+  fileSystems = with config.persist;
+    lib.mkIf enable (builtins.listToAttrs (map (name: {
+      inherit name;
+      value.options = [ "x-gvfs-hide" ];
+    }) (state.directories ++ cache.directories ++ derivative.directories)));
+
   home-manager.users.balsoft = {
-    xdg.userDirs.enable = true;
-
-
     home.activation.gnome = ''
       $DRY_RUN_CMD mkdir -p "$XDG_DATA_HOME/keyrings"
       $DRY_RUN_CMD ln -sf ${config.secrets-envsubst.gnome-keyring} "$XDG_DATA_HOME/keyrings/Default_keyring.keyring"
       echo "Default_keyring" > "$XDG_DATA_HOME/keyrings/default"
       $DRY_RUN_CMD mkdir -p "$XDG_CONFIG_HOME/goa-1.0"
-      $DRY_RUN_CMD ln -sf ${./accounts.conf} "$XDG_CONFIG_HOME/goa-1.0/accounts.conf"
+      $DRY_RUN_CMD ln -sf ${
+        ./accounts.conf
+      } "$XDG_CONFIG_HOME/goa-1.0/accounts.conf"
       $DRY_RUN_CMD mkdir -p "$XDG_CONFIG_HOME/evolution/sources"
-      $DRY_RUN_CMD ln -sf ${./nextcloud.source} "$XDG_CONFIG_HOME/evolution/sources/nextcloud.source"
+      $DRY_RUN_CMD ln -sf ${
+        ./nextcloud.source
+      } "$XDG_CONFIG_HOME/evolution/sources/nextcloud.source"
     '';
 
     dconf.settings = {
@@ -71,13 +68,9 @@
         thumbnail-limit = 10;
       };
 
-      "org/gnome/desktop/interface" = {
-        cursor-theme = "default";
-      };
+      "org/gnome/desktop/interface" = { cursor-theme = "default"; };
 
-      "org/gnome/evince/default" = {
-        inverted-colors = true;
-      };
+      "org/gnome/evince/default" = { inverted-colors = true; };
 
       "org/gnome/maps" = {
         night-mode = true;

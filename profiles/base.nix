@@ -6,6 +6,9 @@
     secrets
     secrets-envsubst
 
+    autoRun
+    xdg
+
     devices
     git
     gpg
