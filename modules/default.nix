@@ -1,60 +1,17 @@
-builtins.listToAttrs (builtins.map (path: {
-  name = builtins.head (let
-    b = builtins.baseNameOf path;
-    m = builtins.match "(.*)\\.nix" b;
-  in if isNull m then [ b ] else m);
-  value = path;
-}) [
-  ./applications.nix
-  ./applications/alacritty.nix
-  ./applications/emacs
-  ./applications/firefox.nix
-  ./applications/geary.nix
-  ./applications/github.nix
-  ./applications/himalaya.nix
-  ./applications/nheko.nix
-  ./applications/okular.nix
-  ./applications/packages.nix
-  ./applications/yt-utilities.nix
-  ./boot.nix
-  ./devices.nix
-  ./ezwg.nix
-  ./hardware.nix
-  ./network.nix
-  ./nix.nix
-  ./overlay.nix
-  ./persist.nix
-  ./secrets-envsubst.nix
-  ./secrets.nix
-  ./security.nix
-  ./servers/gitea.nix
-  ./servers/home-assistant.nix
-  ./servers/jitsi.nix
-  ./servers/mailserver.nix
-  ./servers/mastodon.nix
-  ./servers/matrix-synapse.nix
-  ./servers/minidlna.nix
-  ./servers/nextcloud.nix
-  ./servers/nginx.nix
-  ./servers/vsftpd.nix
-  ./themes.nix
-  ./virtualisation.nix
-  ./workspace/cursor.nix
-  ./workspace/fonts.nix
-  ./workspace/git.nix
-  ./workspace/gnome3
-  ./workspace/gpg.nix
-  ./workspace/gtk.nix
-  ./workspace/i3blocks
-  ./workspace/kde
-  ./workspace/light.nix
-  ./workspace/locale.nix
-  ./workspace/mako.nix
-  ./workspace/misc.nix
-  ./workspace/print-scan
-  ./workspace/simple-osd-daemons.nix
-  ./workspace/ssh.nix
-  ./workspace/sway
-  ./workspace/xresources.nix
-  ./workspace/zsh.nix
-])
+let
+  findModules = dir:
+    builtins.concatLists (builtins.attrValues (builtins.mapAttrs (name: type:
+      if type == "regular" then
+        (if name == "default.nix" then
+          [ ]
+        else [{
+          name = builtins.elemAt (builtins.match "(.*)\\.nix" name) 0;
+          value = dir + "/${name}";
+        }])
+      else if (builtins.readDir (dir + "/${name}")) ? "default.nix" then [{
+        inherit name;
+        value = dir + "/${name}";
+      }] else
+        findModules (dir + "/${name}")) (builtins.readDir dir)));
+
+in builtins.listToAttrs (findModules ./.)
