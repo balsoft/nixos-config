@@ -1,5 +1,6 @@
-{ pkgs, config, lib, ... }: {
+{ pkgs, config, lib, inputs, ... }: {
   home-manager.users.balsoft = {
+    home.packages = [ inputs.yt-utilities.defaultPackage.x86_64-linux ];
     home.activation.yt-config = "$DRY_RUN_CMD ln -sf $VERBOSE_ARG ${config.secrets-envsubst.yt} $HOME/.yt.yaml";
   };
   secrets-envsubst.yt = {

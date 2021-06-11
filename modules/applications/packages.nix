@@ -30,7 +30,6 @@
       gnumeric
       gcalcli
       xdg_utils
-      inputs.yt-utilities.defaultPackage.x86_64-linux
       lambda-launcher
       nix-patch
       pass-wayland

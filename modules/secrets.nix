@@ -94,6 +94,14 @@ in {
     type = attrsOf (submodule secret);
     default = { };
   };
+
+  options.secretsConfig = {
+    repo = lib.mkOption {
+      type = str;
+      default = "ssh://git@github.com/balsoft/pass";
+    };
+  };
+
   config.systemd.services =
     mkMerge (concatLists (mapAttrsToList mkServices config.secrets));
 
@@ -106,7 +114,7 @@ in {
       if [ -d "$HOME/.password-store" ]; then
         cd "$HOME/.password-store"; ${pkgs.git}/bin/git pull
       else
-        ${pkgs.git}/bin/git clone ssh://git@github.com/balsoft/pass "$HOME/.password-store"
+        ${pkgs.git}/bin/git clone ${lib.escapeShellArg config.secretsConfig.repo} "$HOME/.password-store"
       fi
       ln -sf ${
         pkgs.writeShellScript "push" "${pkgs.git}/bin/git push origin master"
