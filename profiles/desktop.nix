@@ -19,6 +19,7 @@
     yt-utilities
 
     cursor
+    direnv
     fonts
     gnome3
     gtk
