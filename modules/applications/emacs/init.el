@@ -216,6 +216,10 @@
 
 (use-package treemacs-projectile)
 
+(setq initial-major-mode 'text-mode)
+
+(setq initial-buffer-choice 'xah-new-empty-buffer)
+
 (require 'base16-theme)
 
 (defvar base16-generated-colors
