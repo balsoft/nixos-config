@@ -1,9 +1,10 @@
 { lib, inputs, ... }: {
   nix = rec {
-    nixPath = lib.mkForce [ "nixpkgs=/etc/self/compat" ];
+    nixPath = lib.mkForce [ "self=/etc/self/compat" "nixpkgs=/etc/nixpkgs" ];
     binaryCaches = [ "https://cache.nixos.org" ];
 
     registry.self.flake = inputs.self;
+    registry.nixpkgs.flake = inputs.nixpkgs;
 
     trustedUsers = [ "root" "balsoft" "@wheel" ];
 
