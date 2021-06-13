@@ -1,10 +1,10 @@
-{ pkgs, config, ... }: {
+{ pkgs, config, lib, ... }: {
 
   environment.pathsToLink = [ "/share/zsh" ];
   environment.sessionVariables.SHELL = "zsh";
 
   # A history file is screwed up otherwise :(
-  persist.state.directories = [ "/home/balsoft/.config/zsh/history" ];
+  persist.state.directories = [ "/home/balsoft/.local/share/zsh" ];
 
   home-manager.users.balsoft.programs.zsh = {
     enable = true;
@@ -21,18 +21,18 @@
     history = rec {
       size = 1000000;
       save = size;
-      path = "$HOME/.config/zsh/history/file";
+      path = "$HOME/.local/share/zsh/history";
     };
     plugins = [
       {
         name = "zsh-nix-shell";
         file = "nix-shell.plugin.zsh";
         src = pkgs.fetchFromGitHub {
-         owner = "chisui";
-         repo = "zsh-nix-shell";
-         rev = "b2609ca787803f523a18bb9f53277d0121e30389";
-         sha256 = "01w59zzdj12p4ag9yla9ycxx58pg3rah2hnnf3sw4yk95w3hlzi6";
-       };
+          owner = "chisui";
+          repo = "zsh-nix-shell";
+          rev = "b2609ca787803f523a18bb9f53277d0121e30389";
+          sha256 = "01w59zzdj12p4ag9yla9ycxx58pg3rah2hnnf3sw4yk95w3hlzi6";
+        };
       }
       {
         name = "zsh-autosuggestions";
@@ -67,63 +67,63 @@
       "cat" = "${pkgs.bat}/bin/bat";
     };
     initExtra = ''
-      cmdignore=(htop tmux top vim)
+       cmdignore=(htop tmux top vim)
 
-      # end and compare timer, notify-send if needed
-      function notifyosd-precmd() {
-        retval=$?
-        if [ ! -z "$cmd" ]; then
-          cmd_end=`date +%s`
-          ((cmd_time=$cmd_end - $cmd_start))
-        fi
-        if [ $retval -eq 0 ]; then
-          cmdstat="✓"
-        else
-          cmdstat="✘"
-        fi
-        if [ ! -z "$cmd" ]; then
-          ${pkgs.libnotify}/bin/notify-send -i utilities-terminal -u low "$cmdstat $cmd" "in `date -u -d @$cmd_time +'%T'`"
-        fi
-        unset cmd
-      }
+       # end and compare timer, notify-send if needed
+       function notifyosd-precmd() {
+         retval=$?
+         if [ ! -z "$cmd" ]; then
+           cmd_end=`date +%s`
+           ((cmd_time=$cmd_end - $cmd_start))
+         fi
+         if [ $retval -eq 0 ]; then
+           cmdstat="✓"
+         else
+           cmdstat="✘"
+         fi
+         if [ ! -z "$cmd" ]; then
+           ${pkgs.libnotify}/bin/notify-send -i utilities-terminal -u low "$cmdstat $cmd" "in `date -u -d @$cmd_time +'%T'`"
+         fi
+         unset cmd
+       }
 
-      # make sure this plays nicely with any existing precmd
-      precmd_functions+=( notifyosd-precmd )
+       # make sure this plays nicely with any existing precmd
+       precmd_functions+=( notifyosd-precmd )
 
-      # get command name and start the timer
-      function notifyosd-preexec() {
-        cmd=$1
-        cmd_start=`date +%s`
-      }
+       # get command name and start the timer
+       function notifyosd-preexec() {
+         cmd=$1
+         cmd_start=`date +%s`
+       }
 
-      bindkey -M emacs '^H' backward-kill-word
-      bindkey -r '^W'
+       bindkey -M emacs '^H' backward-kill-word
+       bindkey -r '^W'
 
-      # make sure this plays nicely with any existing preexec
-      preexec_functions+=( notifyosd-preexec )
-      XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
+       # make sure this plays nicely with any existing preexec
+       preexec_functions+=( notifyosd-preexec )
+       XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 
-      function repl() {
-        source="$(nix flake prefetch --json "$1" | ${pkgs.jq}/bin/jq -r .storePath)"
-        TEMP="$(mktemp --suffix=.nix)"
-        echo "let self = builtins.getFlake \"$source\"; in self // self.legacyPackages.\''${builtins.currentSystem} or { } // self.packages.\''${builtins.currentSystem} or { }" > "$TEMP"
-        nix repl "$TEMP"
-        rm "$TEMP"
-      }
+       function repl() {
+         source="$(nix flake prefetch --json "$1" | ${pkgs.jq}/bin/jq -r .storePath)"
+         TEMP="$(mktemp --suffix=.nix)"
+         echo "let self = builtins.getFlake \"$source\"; in self // self.legacyPackages.\''${builtins.currentSystem} or { } // self.packages.\''${builtins.currentSystem} or { }" > "$TEMP"
+         nix repl "$TEMP"
+         rm "$TEMP"
+       }
 
 
-      function ss() { nix shell "self#$1" }
-      function es() { nix edit "self#$1" }
-      function bs() { nix build "self#$1" }
-      function is() { nix search "self#$1" }
-      function rs() { repl self }
+       function ss() { nix shell "self#$1" }
+       function es() { nix edit "self#$1" }
+       function bs() { nix build "self#$1" }
+       function is() { nix search "self#$1" }
+       function rs() { repl self }
 
-      source ${pkgs.nix-zsh-completions}/share/zsh/plugins/nix/nix-zsh-completions.plugin.zsh
-      fpath=(${pkgs.nix-zsh-completions}/share/zsh/site-functions $fpath)
-      autoload -U compinit && compinit
+       source ${pkgs.nix-zsh-completions}/share/zsh/plugins/nix/nix-zsh-completions.plugin.zsh
+       fpath=(${pkgs.nix-zsh-completions}/share/zsh/site-functions $fpath)
+       autoload -U compinit && compinit
 
-      PS1="$PS1
-     $ "
-   '';
+       PS1="$PS1
+      $ "
+    '';
   };
 }

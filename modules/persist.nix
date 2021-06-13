@@ -132,5 +132,11 @@ in {
       startAt = cfg.cache.clean.dates;
     };
 
+    system.activationScripts = {
+      homedir.text = builtins.concatStringsSep "\n" (map (dir: ''
+        mkdir -p ${cfg.persistRoot}${dir}
+        chown balsoft:users ${cfg.persistRoot}${dir}
+      '') (builtins.filter (lib.hasPrefix "/home/balsoft") allDirectories));
+    };
   };
 }
