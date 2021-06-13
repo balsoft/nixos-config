@@ -24,7 +24,7 @@
     requireSignedBinaryCaches = true;
   };
 
-  persist.state.homeFiles = [ ".local/share/nix/repl-history" ];
+  persist.state.directories = [ "/home/balsoft/.local/share/nix" ];
 
   environment.etc.nixpkgs.source = inputs.nixpkgs;
   environment.etc.self.source = inputs.self;
