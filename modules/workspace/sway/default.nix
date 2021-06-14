@@ -22,6 +22,8 @@ in {
 
   users.users.balsoft.extraGroups = [ "sway" ];
 
+  environment.loginShellInit = lib.mkAfter ''[[ "$(tty)" == /dev/tty1 ]] && sway'';
+
   home-manager.users.balsoft.wayland.windowManager.sway = {
     enable = true;
     config = rec {

@@ -58,9 +58,8 @@
 
   services.getty.autologinUser = "balsoft";
 
-  environment.loginShellInit = ''
+  environment.loginShellInit = lib.mkBefore ''
     [[ "$(tty)" == /dev/tty? ]] && sudo /run/current-system/sw/bin/lock this
-    [[ "$(tty)" == /dev/tty1 ]] && sway
   '';
 
   security.pam.u2f = {
