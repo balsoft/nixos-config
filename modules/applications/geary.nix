@@ -9,7 +9,7 @@ let
       save_sent = true;
       sender_mailboxes = "Alexander Bantyev <balsoft@balsoft.ru>;";
       service_provider = "other";
-      signature = builtins.replaceStrings ["\n"] ["\\n"] ''
+      signature = builtins.replaceStrings [ "\n" ] [ "\\n" ] ''
         --
         Александр Бантьев /Alexander Bantyev/ aka balsoft
 
@@ -57,6 +57,11 @@ in {
 
   persist.cache.directories = [ "/home/balsoft/.local/share/geary" ];
 
+  defaultApplications.mail = {
+    cmd = "${pkgs.gnome3.geary}/bin/geary";
+    desktop = "org.gnome.Geary";
+  };
+
   home-manager.users.balsoft = {
     xdg.configFile."geary/user-style.css".text = ''
       *, html, body, body.plain div, body.plain a, body.plain p, body.plain span {
@@ -70,7 +75,9 @@ in {
     '';
     home.activation.geary = ''
       mkdir -p "$XDG_CONFIG_HOME/geary/account_03"
-      $DRY_RUN_CMD ln -sf $VERBOSE_ARG ${builtins.toFile "geary.ini" (pkgs.my-lib.genIni gearyConfig)} "$XDG_CONFIG_HOME/geary/account_03/geary.ini"
+      $DRY_RUN_CMD ln -sf $VERBOSE_ARG ${
+        builtins.toFile "geary.ini" (pkgs.my-lib.genIni gearyConfig)
+      } "$XDG_CONFIG_HOME/geary/account_03/geary.ini"
     '';
   };
 }

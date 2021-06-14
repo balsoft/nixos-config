@@ -2,6 +2,7 @@
   imports = with inputs.self.nixosModules; [
     inputs.home-manager.nixosModules.home-manager
 
+    applications
     boot
     secrets
     secrets-envsubst

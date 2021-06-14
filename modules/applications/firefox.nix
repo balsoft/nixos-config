@@ -11,6 +11,11 @@ in {
 
   persist.state.directories = [ "/home/balsoft/.mozilla/firefox/default" ];
 
+  defaultApplications.browser = {
+    cmd = "${pkgs.firefox-wayland}/bin/firefox";
+    desktop = "firefox";
+  };
+
   home-manager.users.balsoft = lib.mkIf (config.deviceSpecific.goodMachine) {
     programs.browserpass = {
       enable = true;

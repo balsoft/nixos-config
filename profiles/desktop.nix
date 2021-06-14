@@ -2,7 +2,7 @@
   imports = with inputs.self.nixosModules; [
     ./base.nix
 
-    applications
+    applications-setup
     ezwg
     hardware
     themes

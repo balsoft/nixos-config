@@ -18,6 +18,12 @@ in {
   persist.state.homeFiles =
     [ ".config/emacs/custom" ".config/emacs/eshell/history" ];
 
+  defaultApplications.editor = {
+    cmd =
+      "${config.home-manager.users.balsoft.programs.emacs.finalPackage}/bin/emacsclient -c $@";
+    desktop = "emacsclient";
+  };
+
   home-manager.users.balsoft = {
     programs.emacs = {
       enable = true;

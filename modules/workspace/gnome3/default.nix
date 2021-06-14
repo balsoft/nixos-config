@@ -22,6 +22,21 @@
       value.options = [ "x-gvfs-hide" ];
     }) (state.directories ++ cache.directories ++ derivative.directories)));
 
+  defaultApplications = {
+    fm = {
+      cmd = "${pkgs.gnome3.nautilus}/bin/nautilus";
+      desktop = "org.gnome.Nautilus";
+    };
+    monitor = {
+      cmd = "${pkgs.gnome3.gnome-system-monitor}/bin/gnome-system-monitor";
+      desktop = "gnome-system-monitor";
+    };
+    archive = {
+      cmd = "${pkgs.gnome3.file-roller}/bin/file-roller";
+      desktop = "org.gnome.FileRoller";
+    };
+  };
+
   home-manager.users.balsoft = {
     home.activation.gnome = ''
       $DRY_RUN_CMD mkdir -p "$XDG_DATA_HOME/keyrings"

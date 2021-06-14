@@ -1,5 +1,8 @@
-{ config, pkgs, lib, ... }:
-{
+{ config, pkgs, lib, ... }: {
+  defaultApplications.term = {
+    cmd = "${pkgs.alacritty}/bin/alacritty";
+    desktop = "alacritty";
+  };
   home-manager.users.balsoft.programs.alacritty = {
     enable = true;
     settings = {

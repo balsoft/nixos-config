@@ -90,15 +90,7 @@ in {
           }
         ];
       };
-      startup = [
-        { command = apps.browser.cmd; }
-        { command = apps.mail.cmd; }
-
-        # {
-          # command =
-            # "${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1";
-        # }
-        { command = "${pkgs.nheko}/bin/nheko"; }
+      startup = (map (command: { inherit command; }) config.startupApplications) ++ [
         { command = toString (pkgs.writeShellScript "slack" ''
           firefox https://serokell.slack.com &
           sleep 10

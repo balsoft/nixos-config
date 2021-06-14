@@ -1,7 +1,12 @@
 { modulesPath, lib, inputs, pkgs, ... }: {
-  imports = [
+  imports = with inputs.self.nixosModules; [
     "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
     inputs.self.nixosProfiles.base
+    themes
+    fonts
+    cage
+    gtk
+    alacritty
   ];
   networking.wireless.enable = lib.mkForce false;
   services.openssh.permitRootLogin = lib.mkForce "no";
