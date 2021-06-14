@@ -123,7 +123,7 @@
        autoload -U compinit && compinit
 
        PS1="$PS1
-      $ "
+       $ "
     '';
   };
 }
