@@ -29,6 +29,5 @@
     mako
     simple-osd-daemons
     sway
-    xresources
   ];
 }
