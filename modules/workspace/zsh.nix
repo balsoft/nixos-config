@@ -65,6 +65,7 @@
       "o" = "xdg-open";
       "post" = ''curl -F"file=@-" https://0x0.st'';
       "cat" = "${pkgs.bat}/bin/bat";
+      "ls" = "${pkgs.exa}/bin/exa";
     };
     initExtra = ''
        cmdignore=(htop tmux top vim)
