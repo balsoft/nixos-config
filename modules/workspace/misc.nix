@@ -3,6 +3,7 @@
   environment.sessionVariables =
     config.home-manager.users.balsoft.home.sessionVariables // rec {
       LESS = "MR";
+      LESSHISTFILE = "~/.local/share/lesshist";
       SYSTEMD_LESS = LESS;
     };
 
