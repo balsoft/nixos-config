@@ -1,0 +1,42 @@
+diff --git a/src/libstore/profiles.cc b/src/libstore/profiles.cc
+index 5d1723886..4f2e4f5db 100644
+--- a/src/libstore/profiles.cc
++++ b/src/libstore/profiles.cc
+@@ -250,13 +250,6 @@ Path getDefaultProfile()
+ {
+     Path profileLink = getHome() + "/.nix-profile";
+     try {
+-        if (!pathExists(profileLink)) {
+-            replaceSymlink(
+-                getuid() == 0
+-                ? settings.nixStateDir + "/profiles/default"
+-                : fmt("%s/profiles/per-user/%s/profile", settings.nixStateDir, getUserName()),
+-                profileLink);
+-        }
+         return absPath(readLink(profileLink), dirOf(profileLink));
+     } catch (Error &) {
+         return profileLink;
+diff --git a/src/nix-env/nix-env.cc b/src/nix-env/nix-env.cc
+index e04954d45..5649bd01a 100644
+--- a/src/nix-env/nix-env.cc
++++ b/src/nix-env/nix-env.cc
+@@ -1336,19 +1336,6 @@ static int main_nix_env(int argc, char * * argv)
+         globals.instSource.nixExprPath = getHome() + "/.nix-defexpr";
+         globals.instSource.systemFilter = "*";
+ 
+-        if (!pathExists(globals.instSource.nixExprPath)) {
+-            try {
+-                createDirs(globals.instSource.nixExprPath);
+-                replaceSymlink(
+-                    fmt("%s/profiles/per-user/%s/channels", settings.nixStateDir, getUserName()),
+-                    globals.instSource.nixExprPath + "/channels");
+-                if (getuid() != 0)
+-                    replaceSymlink(
+-                        fmt("%s/profiles/per-user/root/channels", settings.nixStateDir),
+-                        globals.instSource.nixExprPath + "/channels_root");
+-            } catch (Error &) { }
+-        }
+-
+         globals.dryRun = false;
+         globals.preserveInstalled = false;
+         globals.removeAll = false;

@@ -25,13 +25,15 @@
 
   secrets.wireguard-wg0 = { };
 
+  environment.sessionVariables.WINEPREFIX = "/home/balsoft/.local/share/wineprefixes/default";
+
   persist = {
     enable = true;
     cache.clean.enable = false; # Scary...
 
     state.directories = [ "/home/balsoft/.local/share/Steam" ];
 
-    derivative.directories = [ "/home/balsoft/.wine" "/home/balsoft/.wine32" ];
+    derivative.directories = [ "/home/balsoft/.local/share/wineprefixes/default" ];
   };
 
   services.ezwg = {
