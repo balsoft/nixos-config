@@ -3,6 +3,7 @@
     ./hardware-configuration.nix
     inputs.self.nixosProfiles.desktop
     inputs.self.nixosModules.print-scan
+    inputs.self.nixosModules.aws
   ];
   deviceSpecific.devInfo = {
     cpu = {
@@ -27,8 +28,6 @@
   persist = {
     enable = true;
     cache.clean.enable = false; # Scary...
-
-    state.homeFiles = [ ".aws/credentials" ];
 
     state.directories = [ "/home/balsoft/.local/share/Steam" ];
 
