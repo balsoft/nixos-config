@@ -92,11 +92,20 @@
 
     deploy = {
       user = "root";
-      nodes.T420-Laptop = {
-        hostname =
-          self.nixosConfigurations.T420-Laptop.config.networking.hostName;
-        profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos
-          self.nixosConfigurations.T420-Laptop;
+      nodes = (builtins.mapAttrs (_: machine: {
+        hostname = machine.config.networking.hostName;
+        profiles.system = {
+          user = "balsoft";
+          path = deploy-rs.lib.x86_64-linux.activate.noop
+            machine.config.system.build.toplevel;
+        };
+      }) self.nixosConfigurations) // {
+        T420-Laptop = {
+          hostname =
+            self.nixosConfigurations.T420-Laptop.config.networking.hostName;
+          profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos
+            self.nixosConfigurations.T420-Laptop;
+        };
       };
     };
   };
