@@ -32,7 +32,6 @@
       xdg_utils
       lambda-launcher
       nix-patch
-      pass-wayland
       gopass
       papirus-icon-theme
       shellcheck

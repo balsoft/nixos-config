@@ -2,11 +2,12 @@
 with lib;
 with types;
 let
+  password-store = "/home/balsoft/.local/share/password-store";
   secret = { name, ... }: {
     options = {
       encrypted = mkOption {
         type = path;
-        default = "/home/balsoft/.password-store/${name}.gpg";
+        default = "${password-store}/${name}.gpg";
       };
       decrypted = mkOption {
         type = path;
@@ -111,15 +112,15 @@ in {
       # Make sure card is available and unlocked
       echo fetch | gpg --card-edit --no-tty --command-fd=0
       ${pkgs.gnupg}/bin/gpg --card-status
-      if [ -d "$HOME/.password-store" ]; then
-        cd "$HOME/.password-store"; ${pkgs.git}/bin/git pull
+      if [ -d "${password-store}/.git" ]; then
+        cd "${password-store}"; ${pkgs.git}/bin/git pull
       else
-        ${pkgs.git}/bin/git clone ${lib.escapeShellArg config.secretsConfig.repo} "$HOME/.password-store"
+        ${pkgs.git}/bin/git clone ${lib.escapeShellArg config.secretsConfig.repo} "${password-store}"
       fi
       ln -sf ${
         pkgs.writeShellScript "push" "${pkgs.git}/bin/git push origin master"
-      } "$HOME/.password-store/.git/hooks/post-commit"
-      cat $HOME/.password-store/email/balsoft@balsoft.ru.gpg | ${pkgs.gnupg}/bin/gpg --decrypt > /dev/null
+      } "${password-store}/.git/hooks/post-commit"
+      cat ${password-store}/email/balsoft@balsoft.ru.gpg | ${pkgs.gnupg}/bin/gpg --decrypt > /dev/null
       sudo systemctl restart ${allServices}
     '')
   ];
@@ -133,11 +134,16 @@ in {
   }];
 
   config.persist.derivative.directories =
-    [ "/var/secrets" "/home/balsoft/.password-store" ];
+    [ "/var/secrets" password-store ];
 
   config.home-manager.users.balsoft = {
     wayland.windowManager.sway = {
       config.startup = [{ command = "activate-secrets"; }];
+    };
+    programs.password-store = {
+      enable = true;
+      package = pkgs.pass-wayland;
+      settings.PASSWORD_STORE_DIR = password-store;
     };
   };
 }
