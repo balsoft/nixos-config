@@ -174,19 +174,6 @@
 (auto-fill-mode)
 
 
-;; -------------------
-;; Theme
-;; -------------------
-;; (use-package xresources-theme
-;;   :config
-;;   (load-theme 'xresources t)
-;;   (setq after-init-hook (load-theme 'xresources t))
-;;   (add-hook 'after-make-frame-functions
-;;             (lambda (frame)
-;;                 (with-selected-frame frame
-;;                   (load-theme 'xresources t)
-;;                   (set-frame-font "IBM Plex Mono 11" nil t)))))
-
 (add-to-list 'default-frame-alist '(font . "@font@"))
 (set-face-attribute 'default nil :font "@font@")
 
