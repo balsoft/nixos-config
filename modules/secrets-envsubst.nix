@@ -97,7 +97,7 @@ let
   mkIndividualSecrets = name: cfg:
     map (x: {
       "${name}-envsubst-${x}" = {
-        encrypted = "/home/balsoft/.password-store/${
+        encrypted = "${config.environment.sessionVariables.PASSWORD_STORE_DIR}/${
             lib.optionalString (!isNull cfg.directory) "${cfg.directory}/"
           }${x}.gpg";
         services = [ ];

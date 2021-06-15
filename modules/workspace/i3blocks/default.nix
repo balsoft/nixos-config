@@ -10,7 +10,7 @@ in {
   secrets.email = {
     owner = "balsoft:users";
     services = [ ];
-    encrypted = "/home/balsoft/.password-store/email/balsoft@balsoft.ru.gpg";
+    encrypted = "${config.environment.sessionVariables.PASSWORD_STORE_DIR}/email/balsoft@balsoft.ru.gpg";
   };
 
   home-manager.users.balsoft = {
