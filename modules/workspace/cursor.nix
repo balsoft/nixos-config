@@ -11,11 +11,11 @@
       name = "Breeze";
     };
 
-    home.file.".icons/default".source =
-      "${pkgs.breeze-qt5}/share/icons/breeze_cursors";
+    home.file."/home/balsoft/.icons/default".source =
+      "${lib.getBin pkgs.breeze-qt5}/share/icons/breeze_cursors";
 
 
-    home.file.".icons/Breeze".source =
-      "${pkgs.breeze-qt5}/share/icons/breeze_cursors";
+    home.file."/home/balsoft/.icons/Breeze".source =
+      "${lib.getBin pkgs.breeze-qt5}/share/icons/breeze_cursors";
   };
 }
