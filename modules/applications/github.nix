@@ -13,7 +13,7 @@
     in [ stateless-github-cli ];
 
     xdg.configFile."gh/config.yaml".text = builtins.toJSON {
-      git_protocol = "https";
+      git_protocol = "ssh";
       editor = "";
       aliases = {
         pv = "pr view --comments";

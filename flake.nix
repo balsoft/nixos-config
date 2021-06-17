@@ -58,6 +58,10 @@
       url = "gitlab:rycee/nur-expressions";
       flake = false;
     };
+
+    nix-direnv = {
+      url = "github:nix-community/nix-direnv";
+    };
   };
 
   outputs = { nixpkgs, nix, self, deploy-rs, ... }@inputs: {

@@ -85,11 +85,11 @@ in {
 
       inherit (nur.balsoft.pkgs) termNote nix-patch;
 
-      lambda-launcher = inputs.lambda-launcher.defaultPackage.x86_64-linux;
+      lambda-launcher = inputs.lambda-launcher.defaultPackage.${system};
 
-      simple-osd = inputs.simple-osd-daemons.packages.x86_64-linux;
+      simple-osd = inputs.simple-osd-daemons.packages.${system};
 
-      yt-utilities = inputs.yt-utilities.defaultPackage.x86_64-linux;
+      yt-utilities = inputs.yt-utilities.defaultPackage.${system};
 
       nerdfonts = nur.balsoft.pkgs.roboto-mono-nerd;
 
@@ -104,6 +104,8 @@ in {
       #     patchShebangs man/fix-roff-punct
       #   '';
       # });
+
+      nix-direnv = inputs.nix-direnv.defaultPackage.${system};
     })
   ];
   nixpkgs.config = {
