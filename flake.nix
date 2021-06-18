@@ -62,6 +62,11 @@
     nix-direnv = {
       url = "github:nix-community/nix-direnv";
     };
+
+    nheko = {
+      url = "github:balsoft/nheko/allow-edits-of-pending-messages";
+      flake = false;
+    };
   };
 
   outputs = { nixpkgs, nix, self, deploy-rs, ... }@inputs: {

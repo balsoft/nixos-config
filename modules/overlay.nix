@@ -106,6 +106,14 @@ in {
       # });
 
       nix-direnv = inputs.nix-direnv.defaultPackage.${system};
+
+      nheko = super.nheko.overrideAttrs (oa: {
+        src = inputs.nheko;
+        patches = [(self.fetchpatch {
+          url = "https://nheko.im/nheko-reborn/nheko/-/commit/78fb89355f189e4fb57e8d0ca0089e09547fea50.patch";
+          sha256 = "0lqjzv5k9cxi7sfrhj0a75vyzx1m5bzvmbvn4ckr098zilr914bb";
+        })] ++ oa.patches or [];
+      });
     })
   ];
   nixpkgs.config = {

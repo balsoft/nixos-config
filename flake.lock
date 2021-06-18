@@ -339,6 +339,23 @@
         "type": "github"
       }
     },
+    "nheko": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1624023535,
+        "narHash": "sha256-m1gt1pUX1VnZIJzGGde52ZbKn4o44p2RM3f6sUtJcM4=",
+        "owner": "balsoft",
+        "repo": "nheko",
+        "rev": "9f798e76ede3672d91276b1be7dd20de5459c9df",
+        "type": "github"
+      },
+      "original": {
+        "owner": "balsoft",
+        "ref": "allow-edits-of-pending-messages",
+        "repo": "nheko",
+        "type": "github"
+      }
+    },
     "nix": {
       "inputs": {
         "lowdown-src": "lowdown-src",
@@ -589,6 +606,7 @@
         "impermanence": "impermanence",
         "lambda-launcher": "lambda-launcher",
         "materia-theme": "materia-theme",
+        "nheko": "nheko",
         "nix": "nix",
         "nix-direnv": "nix-direnv",
         "nixos-fhs-compat": "nixos-fhs-compat",
