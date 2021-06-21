@@ -4,7 +4,7 @@
     binaryCaches = [ "https://cache.nixos.org" ];
 
     registry.self.flake = inputs.self;
-    registry.nixpkgs.flake = inputs.nixpkgs;
+    registry.np.flake = inputs.nixpkgs;
 
     trustedUsers = [ "root" "balsoft" "@wheel" ];
 
