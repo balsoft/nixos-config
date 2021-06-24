@@ -1,9 +1,9 @@
 { config, inputs, ... }: {
   imports = [
     ./hardware-configuration.nix
-    inputs.self.nixosProfiles.desktop
-    inputs.self.nixosModules.print-scan
-    inputs.self.nixosModules.aws
+    inputs.self.nixosRoles.desktop
+    inputs.self.nixosProfiles.print-scan
+    inputs.self.nixosProfiles.aws
   ];
   deviceSpecific.devInfo = {
     cpu = {

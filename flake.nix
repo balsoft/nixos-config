@@ -59,9 +59,7 @@
       flake = false;
     };
 
-    nix-direnv = {
-      url = "github:nix-community/nix-direnv";
-    };
+    nix-direnv = { url = "github:nix-community/nix-direnv"; };
 
     nheko = {
       url = "github:balsoft/nheko/allow-edits-of-pending-messages";
@@ -69,53 +67,72 @@
     };
   };
 
-  outputs = { nixpkgs, nix, self, deploy-rs, ... }@inputs: {
-    nixosModules = import ./modules;
+  outputs = { nixpkgs, nix, self, deploy-rs, ... }@inputs:
+    let
+      findModules = dir:
+        builtins.concatLists (builtins.attrValues (builtins.mapAttrs
+          (name: type:
+            if type == "regular" then
+              [{
+                name = builtins.elemAt (builtins.match "(.*)\\.nix" name) 0;
+                value = dir + "/${name}";
+              }]
+            else if (builtins.readDir (dir + "/${name}"))
+            ? "default.nix" then [{
+              inherit name;
+              value = dir + "/${name}";
+            }] else
+              findModules (dir + "/${name}")) (builtins.readDir dir)));
+    in {
+      nixosModules = builtins.listToAttrs (findModules ./modules);
 
-    nixosProfiles = import ./profiles;
+      nixosProfiles = builtins.listToAttrs (findModules ./profiles);
 
-    nixosConfigurations = with nixpkgs.lib;
-      let
-        hosts = builtins.attrNames (builtins.readDir ./machines);
-        mkHost = name:
-          nixosSystem {
-            system = builtins.readFile (./machines + "/${name}/system");
-            modules = [ (import (./machines + "/${name}")) { device = name; } ];
-            specialArgs = { inherit inputs; };
-          };
-      in genAttrs hosts mkHost;
+      nixosRoles = import ./roles;
 
-    legacyPackages.x86_64-linux =
-      (builtins.head (builtins.attrValues self.nixosConfigurations)).pkgs;
+      nixosConfigurations = with nixpkgs.lib;
+        let
+          hosts = builtins.attrNames (builtins.readDir ./machines);
+          mkHost = name:
+            nixosSystem {
+              system = builtins.readFile (./machines + "/${name}/system");
+              modules =
+                [ (import (./machines + "/${name}")) { device = name; } ];
+              specialArgs = { inherit inputs; };
+            };
+        in genAttrs hosts mkHost;
 
-    defaultApp = deploy-rs.defaultApp;
+      legacyPackages.x86_64-linux =
+        (builtins.head (builtins.attrValues self.nixosConfigurations)).pkgs;
 
-    devShell.x86_64-linux = with nixpkgs.legacyPackages.x86_64-linux;
-      mkShell {
-        buildInputs = [
-          nix.defaultPackage.x86_64-linux
-          deploy-rs.defaultPackage.x86_64-linux
-          nixfmt
-        ];
-      };
+      defaultApp = deploy-rs.defaultApp;
 
-    deploy = {
-      user = "root";
-      nodes = (builtins.mapAttrs (_: machine: {
-        hostname = machine.config.networking.hostName;
-        profiles.system = {
-          user = "balsoft";
-          path = deploy-rs.lib.x86_64-linux.activate.noop
-            machine.config.system.build.toplevel;
+      devShell.x86_64-linux = with nixpkgs.legacyPackages.x86_64-linux;
+        mkShell {
+          buildInputs = [
+            nix.defaultPackage.x86_64-linux
+            deploy-rs.defaultPackage.x86_64-linux
+            nixfmt
+          ];
         };
-      }) self.nixosConfigurations) // {
-        T420-Laptop = {
-          hostname =
-            self.nixosConfigurations.T420-Laptop.config.networking.hostName;
-          profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos
-            self.nixosConfigurations.T420-Laptop;
+
+      deploy = {
+        user = "root";
+        nodes = (builtins.mapAttrs (_: machine: {
+          hostname = machine.config.networking.hostName;
+          profiles.system = {
+            user = "balsoft";
+            path = deploy-rs.lib.x86_64-linux.activate.noop
+              machine.config.system.build.toplevel;
+          };
+        }) self.nixosConfigurations) // {
+          T420-Laptop = {
+            hostname =
+              self.nixosConfigurations.T420-Laptop.config.networking.hostName;
+            profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos
+              self.nixosConfigurations.T420-Laptop;
+          };
         };
       };
     };
-  };
 }

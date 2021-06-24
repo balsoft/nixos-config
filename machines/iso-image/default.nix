@@ -1,7 +1,7 @@
 { modulesPath, lib, inputs, pkgs, ... }: {
   imports = with inputs.self.nixosModules; [
     "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
-    inputs.self.nixosProfiles.base
+    inputs.self.nixosRoles.base
     themes
     fonts
     cage

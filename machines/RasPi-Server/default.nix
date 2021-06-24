@@ -1,7 +1,7 @@
 { inputs, ... }: {
   imports = with inputs.self.nixosModules; [
     ./hardware-configuration.nix
-    inputs.self.nixosProfiles.server
+    inputs.self.nixosRoles.server
     mailserver
   ];
 

@@ -1,15 +1,19 @@
 { inputs, ... }: {
-  imports = with inputs.self.nixosModules; [
+  imports = with inputs.self.nixosModules; with inputs.self.nixosProfiles; [
     inputs.home-manager.nixosModules.home-manager
 
+    # MODULES
     applications
-    boot
     secrets
     secrets-envsubst
+    persist
 
+
+    # PROFILES
     autoRun
     xdg
 
+    boot
     devices
     git
     gpg
@@ -18,7 +22,6 @@
     network
     nix
     overlay
-    persist
     security
     ssh
     zsh

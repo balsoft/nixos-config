@@ -1,11 +1,15 @@
 { inputs, ... }: {
-  imports = with inputs.self.nixosModules; [
+  imports = with inputs.self.nixosModules; with inputs.self.nixosProfiles; [
     ./base.nix
 
-    applications-setup
-    ezwg
-    hardware
+    # MODULES
     themes
+    ezwg
+
+
+    # PROFILES
+    applications-setup
+    hardware
     virtualisation
 
     alacritty
