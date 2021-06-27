@@ -62,7 +62,12 @@
     nix-direnv = { url = "github:nix-community/nix-direnv"; };
 
     nheko = {
-      url = "github:balsoft/nheko/allow-edits-of-pending-messages";
+      url = "github:nheko-reborn/nheko";
+      flake = false;
+    };
+
+    mtxclient ={
+      url = "github:nheko-reborn/mtxclient";
       flake = false;
     };
   };

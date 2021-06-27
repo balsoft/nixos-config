@@ -318,6 +318,22 @@
         "type": "github"
       }
     },
+    "mtxclient": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1624110239,
+        "narHash": "sha256-JlTGwFZKQ0sJpOPtMPKY9wm11yDrdyNw9OKr7E4yBOQ=",
+        "owner": "nheko-reborn",
+        "repo": "mtxclient",
+        "rev": "acfff15ca153723e41cf7ef06ff82b1c24c933ef",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nheko-reborn",
+        "repo": "mtxclient",
+        "type": "github"
+      }
+    },
     "naersk": {
       "inputs": {
         "nixpkgs": [
@@ -342,16 +358,15 @@
     "nheko": {
       "flake": false,
       "locked": {
-        "lastModified": 1624023535,
-        "narHash": "sha256-m1gt1pUX1VnZIJzGGde52ZbKn4o44p2RM3f6sUtJcM4=",
-        "owner": "balsoft",
+        "lastModified": 1624613955,
+        "narHash": "sha256-/k/081pI0S8YHxbct1yhNqJQW4EKfu9/KsjLZ2CoQDU=",
+        "owner": "nheko-reborn",
         "repo": "nheko",
-        "rev": "9f798e76ede3672d91276b1be7dd20de5459c9df",
+        "rev": "36f0e044398535143f24bbf2850df9e5b2947770",
         "type": "github"
       },
       "original": {
-        "owner": "balsoft",
-        "ref": "allow-edits-of-pending-messages",
+        "owner": "nheko-reborn",
         "repo": "nheko",
         "type": "github"
       }
@@ -606,6 +621,7 @@
         "impermanence": "impermanence",
         "lambda-launcher": "lambda-launcher",
         "materia-theme": "materia-theme",
+        "mtxclient": "mtxclient",
         "nheko": "nheko",
         "nix": "nix",
         "nix-direnv": "nix-direnv",

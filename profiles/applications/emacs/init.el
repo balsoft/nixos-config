@@ -222,8 +222,6 @@ nothing happens."
         (add-hook 'after-save-hook 'compile-on-save-start nil t))
       (kill-local-variable 'after-save-hook)))
 
-
-
 (require 'base16-theme)
 
 (defvar base16-generated-colors
