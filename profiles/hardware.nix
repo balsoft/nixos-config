@@ -35,14 +35,16 @@ with deviceSpecific; {
     alsa.enable = true;
     pulse.enable = true;
     media-session.config.bluez-monitor = {
-      properties = { };
+      properties = {
+        "bluez5.codecs" = [ "sbc" "aac" "ldac" "aptx" "aptx_hd" ];
+      };
       rules = [
         {
           actions = {
             update-props = {
-              "bluez5.auto-connect" = [ "hfp_hf" "hsp_hs" "a2dp_sink" ];
+              "bluez5.auto-connect" = [ "hsp_hs" "hfp_hf" "a2dp_sink" ];
               "bluez5.hw-volume" =
-                [ "hfp_ag" "hsp_ag" "a2dp_source" "a2dp_sink" ];
+                [ "hsp_ag" "hfp_ag" "a2dp_source" "a2dp_sink" ];
             };
           };
           matches = [{ "device.name" = "~bluez_card.*"; }];
