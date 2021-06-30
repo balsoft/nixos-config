@@ -37,6 +37,7 @@ with deviceSpecific; {
     media-session.config.bluez-monitor = {
       properties = {
         "bluez5.codecs" = [ "sbc" "aac" "ldac" "aptx" "aptx_hd" ];
+        "bluez5.mdbc-support" = true;
       };
       rules = [
         {
