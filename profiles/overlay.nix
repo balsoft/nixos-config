@@ -26,9 +26,6 @@ in {
   nixpkgs.overlays = [
     (import inputs.emacs-overlay)
     (self: super: rec {
-      nix = super.nix // {
-        meta = super.nix.meta // { platforms = lib.platforms.unix; };
-      };
 
       my-lib = rec {
         genIni = lib.generators.toINI { inherit mkKeyValue; };

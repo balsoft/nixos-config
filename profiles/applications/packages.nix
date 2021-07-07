@@ -36,5 +36,6 @@
       papirus-icon-theme
       shellcheck
       proselint
+      ripgrep
     ];
 }

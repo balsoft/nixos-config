@@ -72,7 +72,7 @@
     };
   };
 
-  outputs = { nixpkgs, nix, self, deploy-rs, ... }@inputs:
+  outputs = { nixpkgs, self, nix, deploy-rs, ... }@inputs:
     let
       findModules = dir:
         builtins.concatLists (builtins.attrValues (builtins.mapAttrs

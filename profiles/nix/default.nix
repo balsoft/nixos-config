@@ -1,4 +1,4 @@
-{ lib, inputs, ... }: {
+{ pkgs, lib, inputs, ... }: {
   nix = rec {
     nixPath = lib.mkForce [ "self=/etc/self/compat" "nixpkgs=/etc/nixpkgs" ];
     binaryCaches = [ "https://cache.nixos.org" ];
@@ -16,8 +16,10 @@
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
     ];
 
-    package = inputs.nix.packages.x86_64-linux.nix.overrideAttrs (oa: {
+    package = inputs.nix.defaultPackage.x86_64-linux.overrideAttrs (oa: {
       patches = [./nix.patch] ++ oa.patches or [];
+      # HAHA
+      doInstallCheck = false;
     });
 
     extraOptions = ''
