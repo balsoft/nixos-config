@@ -1,5 +1,5 @@
 { inputs, ... }: {
-  imports = with inputs.self.nixosModules; [
+  imports = with inputs.self.nixosModules; with inputs.self.nixosProfiles; [
     ./hardware-configuration.nix
     inputs.self.nixosRoles.base
     gitea
