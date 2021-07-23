@@ -85,8 +85,14 @@ in {
 
     services.emacs.enable = true;
 
-    systemd.user.services.emacs.Service.Environment =
-      "PATH=/run/current-system/sw/bin:/etc/profiles/per-user/balsoft/bin";
+    systemd.user.services.emacs = {
+      Service = {
+        Environment =
+          "PATH=/run/current-system/sw/bin:/etc/profiles/per-user/balsoft/bin";
+        After = "sway-session.target";
+        WantedBy = "sway-session.target";
+      };
+    };
 
     xdg.configFile."emacs/init.el".source = pkgs.substituteAll ({
       src = ./init.el;
