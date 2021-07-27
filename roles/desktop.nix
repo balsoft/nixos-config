@@ -31,6 +31,7 @@
     kde
     light
     mako
+    mopidy
     simple-osd-daemons
     sway
   ];

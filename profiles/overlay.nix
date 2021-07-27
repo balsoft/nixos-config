@@ -80,6 +80,28 @@ in {
         nurpkgs = pkgs;
       }).repos;
 
+      mopidy-ytmusic = with pkgs;
+        python3Packages.buildPythonApplication rec {
+          pname = "mopidy-ytmusic";
+          version = "3.2";
+
+          src = fetchFromGitHub {
+            owner = "ozymandiasthegreat";
+            repo = "mopidy-ytmusic";
+            rev = "2a7d8ec7f7161e5ca81e999786ea7c1f4da9205f";
+            sha256 = "hDOP0AR9P0sQHeW7JmG+yZf/w5mZrIu4Nl4xCMjQaIQ=";
+            fetchSubmodules = true;
+          };
+
+          propagatedBuildInputs = [
+            mopidy
+            python3Packages.pytube
+            python3Packages.ytmusicapi
+          ];
+
+          doCheck = false;
+        };
+
       inherit (nur.balsoft.pkgs) termNote nix-patch;
 
       lambda-launcher = inputs.lambda-launcher.defaultPackage.${system};

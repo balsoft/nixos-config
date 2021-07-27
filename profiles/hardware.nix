@@ -14,13 +14,9 @@ with deviceSpecific; {
 
   persist.state.directories = [ "/var/lib/bluetooth" ];
 
-
   systemd.services.systemd-udev-settle.enable = false;
 
-  services.upower = {
-    enable = true;
-  };
-
+  services.upower = { enable = true; };
 
   services.logind.lidSwitchExternalPower = "ignore";
 
@@ -34,6 +30,32 @@ with deviceSpecific; {
     enable = true;
     alsa.enable = true;
     pulse.enable = true;
+    config.pipewire-pulse = {
+      "context.modules" = [
+        {
+          "args" = { };
+          "flags" = [ "ifexists" "nofail" ];
+          "name" = "libpipewire-module-rtkit";
+        }
+        { "name" = "libpipewire-module-protocol-native"; }
+        { "name" = "libpipewire-module-client-node"; }
+        { "name" = "libpipewire-module-adapter"; }
+        { "name" = "libpipewire-module-metadata"; }
+        {
+          "args" = {
+            "server.address" = [ "unix =native" "tcp:4713" ];
+            "vm.overrides" = { "pulse.min.quantum" = "1024/48000"; };
+          };
+          "name" = "libpipewire-module-protocol-pulse";
+        }
+      ];
+      "context.properties" = { };
+      "context.spa-libs" = {
+        "audio.convert.*" = "audioconvert/libspa-audioconvert";
+        "support.*" = "support/libspa-support";
+      };
+      "stream.properties" = { };
+    };
     media-session.config.bluez-monitor = {
       properties = {
         "bluez5.codecs" = [ "sbc" "aac" "ldac" "aptx" "aptx_hd" ];
