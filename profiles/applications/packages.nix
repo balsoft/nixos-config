@@ -6,6 +6,8 @@
       curl
       unrar
       neochat
+
+      exa
     ] ++ lib.optionals config.deviceSpecific.goodMachine [
       steamcmd
       steam
