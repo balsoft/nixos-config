@@ -1,7 +1,10 @@
 { pkgs, lib, inputs, ... }: {
   nix = rec {
     nixPath = lib.mkForce [ "self=/etc/self/compat" "nixpkgs=/etc/nixpkgs" ];
-    binaryCaches = [ "https://cache.nixos.org" ];
+    binaryCaches = [
+      "https://cache.nixos.org"
+      "s3://serokell-private-cache?endpoint=s3.eu-central-1.wasabisys.com&profile=serokell-private-cache-wasabi"
+    ];
 
     registry.self.flake = inputs.self;
     registry.np.flake = inputs.nixpkgs;
@@ -14,10 +17,11 @@
 
     binaryCachePublicKeys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "serokell-1:aIojg2Vxgv7MkzPJoftOO/I8HKX622sT+c0fjnZBLj0="
     ];
 
     package = inputs.nix.defaultPackage.x86_64-linux.overrideAttrs (oa: {
-      patches = [./nix.patch] ++ oa.patches or [];
+      patches = [ ./nix.patch ] ++ oa.patches or [ ];
       # HAHA
       doInstallCheck = false;
     });
