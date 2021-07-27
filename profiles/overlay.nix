@@ -93,6 +93,10 @@ in {
             fetchSubmodules = true;
           };
 
+          prePatch = ''
+            sed s/0.18.0/0.18.1/ -i setup.py
+          '';
+
           propagatedBuildInputs = [
             mopidy
             python3Packages.pytube

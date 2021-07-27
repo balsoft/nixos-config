@@ -2,6 +2,8 @@
   description =
     "A collection of crap, hacks and copy-paste to make my localhosts boot";
 
+  nixConfig.substituters = [ "https://cache.nixos.org" ];
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     lambda-launcher.url = "github:balsoft/lambda-launcher";
