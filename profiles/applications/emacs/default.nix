@@ -19,8 +19,9 @@ in {
     [ ".config/emacs/custom" ".config/emacs/eshell/history" ];
 
   defaultApplications.editor = {
-    cmd =
-      "${config.home-manager.users.balsoft.programs.emacs.finalPackage}/bin/emacsclient -c $@";
+    cmd = toString (pkgs.writeShellScript "emacsclient-newwindow" ''
+      ${config.home-manager.users.balsoft.programs.emacs.finalPackage}/bin/emacsclient -c "$@"
+    '');
     desktop = "emacsclient";
   };
 
