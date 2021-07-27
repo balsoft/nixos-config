@@ -38,7 +38,6 @@ in {
           { title = "nheko"; }
           { title = "Slack.*"; }
         ];
-        "ﱘ" = [{ app_id = "cantata"; }];
       };
       fonts = {
         names = [ config.themes.fonts.main.family ];

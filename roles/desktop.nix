@@ -13,6 +13,7 @@
     virtualisation
 
     alacritty
+    cantata
     emacs
     firefox
     geary
