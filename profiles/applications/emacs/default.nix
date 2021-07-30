@@ -79,6 +79,7 @@ in {
           forge
           crdt
           base16-theme
+          org-caldav
         ];
     };
 

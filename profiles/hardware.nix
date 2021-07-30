@@ -43,7 +43,7 @@ with deviceSpecific; {
         { "name" = "libpipewire-module-metadata"; }
         {
           "args" = {
-            "server.address" = [ "unix =native" "tcp:4713" ];
+            "server.address" = [ "unix:native" "tcp:4713" ];
             "vm.overrides" = { "pulse.min.quantum" = "1024/48000"; };
           };
           "name" = "libpipewire-module-protocol-pulse";
