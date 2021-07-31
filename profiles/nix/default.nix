@@ -3,6 +3,9 @@
     nixPath = lib.mkForce [ "self=/etc/self/compat" "nixpkgs=/etc/nixpkgs" ];
     binaryCaches = [
       "https://cache.nixos.org"
+    ];
+
+    trustedBinaryCaches = [
       "s3://serokell-private-cache?endpoint=s3.eu-central-1.wasabisys.com&profile=serokell-private-cache-wasabi"
     ];
 
