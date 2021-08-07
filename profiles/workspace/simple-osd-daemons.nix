@@ -18,7 +18,11 @@ in {
     systemd.user.services = daemons [ "pulseaudio" "mpris" ]
       // pkgs.lib.optionalAttrs (config.deviceSpecific.isLaptop)
       (daemons [ "battery" "brightness" ]);
-    xdg.configFile."simple-osd/common".text =
-      genIni { progressbar.length = 25; };
+    xdg.configFile = {
+      "simple-osd/common".text =
+        genIni { progressbar.length = 25; notification."default timeout" = 3; };
+      "simple-osd/mpris".text =
+        genIni { default."notification display time" = 3; };
+    };
   };
 }
