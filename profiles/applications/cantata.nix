@@ -14,6 +14,8 @@
         currentConnection = "Default";
 
         version = pkgs.cantata.version;
+
+        hiddenPages = "PlayQueuePage, LibraryPage, PlaylistsPage, OnlineServicesPage, DevicesPage";
       };
 
       AlbumView.fullWidthCover = false;
