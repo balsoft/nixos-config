@@ -4,6 +4,9 @@
     config.home-manager.users.balsoft.home.sessionVariables // rec {
       LESS = "MR";
       LESSHISTFILE = "~/.local/share/lesshist";
+
+      CARGO_HOME = "${config.home-manager.users.balsoft.xdg.dataHome}/cargo";
+
       SYSTEMD_LESS = LESS;
     };
 
@@ -15,7 +18,7 @@
     home.stateVersion = "20.09";
   };
 
-  persist.cache.directories = [ "/home/balsoft/.cache" "/var/cache" ];
+  persist.cache.directories = [ "/home/balsoft/.cache" "/home/balsoft/.local/share/cargo" "/var/cache" ];
 
   persist.state.directories = [ "/var/lib/nixos" "/var/lib/systemd" ];
 
