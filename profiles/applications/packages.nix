@@ -24,7 +24,7 @@
       # Tools
       zip
       unrar
-      ksysguard
+      plasma-systemmonitor
       wl-clipboard
       grim
       slurp
