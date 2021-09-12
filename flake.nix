@@ -72,6 +72,11 @@
       url = "github:nheko-reborn/mtxclient";
       flake = false;
     };
+
+    mopidy-ytmusic = {
+      url = "github:OzymandiasTheGreat/mopidy-ytmusic";
+      flake = false;
+    };
   };
 
   outputs = { nixpkgs, self, nix, deploy-rs, ... }@inputs:

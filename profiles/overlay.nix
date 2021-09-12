@@ -85,22 +85,21 @@ in {
           pname = "mopidy-ytmusic";
           version = "3.2";
 
-          src = fetchFromGitHub {
-            owner = "ozymandiasthegreat";
-            repo = "mopidy-ytmusic";
-            rev = "2a7d8ec7f7161e5ca81e999786ea7c1f4da9205f";
-            sha256 = "hDOP0AR9P0sQHeW7JmG+yZf/w5mZrIu4Nl4xCMjQaIQ=";
-            fetchSubmodules = true;
-          };
-
-          prePatch = ''
-            sed s/0.18.0/0.18.1/ -i setup.py
-          '';
+          src = inputs.mopidy-ytmusic;
 
           propagatedBuildInputs = [
             mopidy
             python3Packages.pytube
-            python3Packages.ytmusicapi
+            (python3Packages.ytmusicapi.overrideAttrs (oa: {
+              version = "0.19.1";
+              src = fetchFromGitHub {
+                owner = "sigma67";
+                repo = "ytmusicapi";
+                rev = "fd9f57750de103202106f02be1696bd440f2c05b";
+                sha256 = "/NMy2cGe0K/14OZd+/dXKA6Ez1ivrtrZ6Lwl0P8dioA=";
+                fetchSubmodules = true;
+              };
+            }))
           ];
 
           doCheck = false;

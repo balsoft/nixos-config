@@ -318,6 +318,22 @@
         "type": "github"
       }
     },
+    "mopidy-ytmusic": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1630842402,
+        "narHash": "sha256-Gxlbfjenra3el5eym22POpGLyVx3mKx0PguH0jE/M40=",
+        "owner": "OzymandiasTheGreat",
+        "repo": "mopidy-ytmusic",
+        "rev": "e9b4741b80116b14d700b5f17607254a5059cc9b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "OzymandiasTheGreat",
+        "repo": "mopidy-ytmusic",
+        "type": "github"
+      }
+    },
     "mtxclient": {
       "flake": false,
       "locked": {
@@ -622,6 +638,7 @@
         "impermanence": "impermanence",
         "lambda-launcher": "lambda-launcher",
         "materia-theme": "materia-theme",
+        "mopidy-ytmusic": "mopidy-ytmusic",
         "mtxclient": "mtxclient",
         "nheko": "nheko",
         "nix": "nix",
