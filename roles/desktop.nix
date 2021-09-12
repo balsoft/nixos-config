@@ -18,6 +18,7 @@
     firefox
     geary
     github
+    gwenview
     himalaya
     nheko
     packages
