@@ -65,7 +65,12 @@ let
           else
             echo "Failed to decrypt the secret"
             rm '${decrypted}.tmp'
-            exit 1
+            if [[ -f '${decrypted}' ]]; then
+              echo "The decrypted file exists anyways, not failing"
+              exit 0
+            else
+              exit 1
+            fi
           fi
         '';
 
