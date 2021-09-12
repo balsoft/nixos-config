@@ -5,6 +5,8 @@ with pkgs.my-lib; {
     [ pkgs.firefox pkgs.systemd pkgs.papirus-icon-theme ];
   services.udev.packages = [ pkgs.libmtp pkgs.media-player-info ];
 
+  qt5.enable = false;
+
   environment.sessionVariables = {
     QT_XFT = "true";
     QT_SELECT = "5";
