@@ -89,8 +89,8 @@ in {
 
           propagatedBuildInputs = [
             mopidy
-            python3Packages.pytube
-            (python3Packages.ytmusicapi.overrideAttrs (oa: {
+            (python3Packages.ytmusicapi.overrideAttrs (oa: rec {
+              name = "python3.9-ytmusicapi-${version}";
               version = "0.19.1";
               src = fetchFromGitHub {
                 owner = "sigma67";
@@ -100,7 +100,20 @@ in {
                 fetchSubmodules = true;
               };
             }))
+            (python3Packages.pytube.overrideAttrs (oa: rec {
+              name = "python3.9-pytube-${version}";
+              version = "11.0.1";
+              src = fetchFromGitHub {
+                owner = "pytube";
+                repo = "pytube";
+                rev = "bb890af3b271a616bbe1d08abc8c65bac9266b0a";
+                sha256 = "vUAvaTY5f5IBj3hwNnHsX58vIOdZj3KbZiRi19Rv/oU=";
+                fetchSubmodules = true;
+              };
+            }))
           ];
+
+          patchPhase = "sed s/11.0/12.0/ -i setup.py";
 
           doCheck = false;
         };
