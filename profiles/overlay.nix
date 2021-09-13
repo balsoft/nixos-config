@@ -140,12 +140,34 @@ in {
 
       nix-direnv = inputs.nix-direnv.defaultPackage.${system};
 
-      mtxclient = super.mtxclient.overrideAttrs (_: {
+      coeurl = self.stdenv.mkDerivation {
+        name = "coeurl";
+        src = inputs.coeurl;
+        buildInputs = [ self.curl.all self.libevent self.spdlog ];
+        nativeBuildInputs = [ self.meson self.ninja self.pkg-config self.cmake ];
+      };
+
+      mtxclient = super.mtxclient.overrideAttrs (oa: {
         src = inputs.mtxclient;
+        cmakeFlags = oa.cmakeFlags ++ [ "-DCMAKE_CXX_FLAGS=-DSPDLOG_FMT_EXTERNAL" ];
+        buildInputs = oa.buildInputs ++ [ self.libevent self.curl.all self.coeurl self.spdlog.dev ];
       });
 
       nheko = (super.nheko.overrideAttrs (oa: {
         src = inputs.nheko;
+        postPatch = ''
+          substituteInPlace CMakeLists.txt --replace "# Fixup bundled keychain include dirs" "find_package(Boost COMPONENTS iostreams system  thread REQUIRED)"
+        '';
+        buildInputs = oa.buildInputs ++ [
+          self.xorg.libXdmcp
+          self.pcre
+          self.libunwind
+          self.elfutils
+          self.coeurl
+          self.curl
+          self.libevent
+        ];
+        cmakeFlags = oa.cmakeFlags ++ [ "-DBUILD_SHARED_LIBS=OFF" ];
       })).override { mtxclient = self.mtxclient; };
     })
   ];
