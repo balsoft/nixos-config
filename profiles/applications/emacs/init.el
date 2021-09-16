@@ -36,6 +36,8 @@
 
 (global-auto-revert-mode)
 
+(setq auto-save-default nil)
+(setq make-backup-files nil)
 
 (use-package xah-fly-keys
   :config
