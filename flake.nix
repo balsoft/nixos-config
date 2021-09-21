@@ -73,11 +73,6 @@
       flake = false;
     };
 
-    coeurl = {
-      url = "git+https://nheko.im/nheko-reborn/coeurl";
-      flake = false;
-    };
-
     mopidy-ytmusic = {
       url = "github:OzymandiasTheGreat/mopidy-ytmusic";
       flake = false;

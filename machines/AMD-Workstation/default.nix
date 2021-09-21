@@ -40,7 +40,7 @@
     enable = true;
     proxy = true;
     lanSize = 32;
-    serverIP = "95.217.152.163";
+    serverIP = "147.75.100.17";
     serverPort = 35944;
     serverKey = "sgLUARawWJejANs2CwuCptwJO55c4jkmnP0L14FNCyw=";
     privateKeyFile = config.secrets.wireguard-wg0.decrypted;
