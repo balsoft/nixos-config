@@ -1,6 +1,7 @@
 { pkgs, lib, config, ... }:
 with pkgs.my-lib; {
   xdg.portal.enable = true;
+
   services.dbus.packages =
     [ pkgs.firefox pkgs.systemd pkgs.papirus-icon-theme ];
   services.udev.packages = [ pkgs.libmtp pkgs.media-player-info ];

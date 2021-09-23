@@ -1,6 +1,14 @@
 { pkgs, config, ... }: {
   home-manager.users.balsoft = {
-    wayland.windowManager.sway.config.startup = [{ command = "mako"; }];
+    systemd.user.services.mako = {
+      Service = {
+        ExecStart = "${pkgs.mako}/bin/mako";
+      };
+      Install = {
+        After = [ "sway-session.target" ];
+        WantedBy = [ "sway-session.target" ];
+      };
+    };
     programs.mako = with pkgs.my-lib.thmHash; {
       enable = true;
       layer = "overlay";

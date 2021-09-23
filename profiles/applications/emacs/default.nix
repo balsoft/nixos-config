@@ -91,8 +91,10 @@ in {
       Service = {
         Environment =
           "PATH=/run/current-system/sw/bin:/etc/profiles/per-user/balsoft/bin";
-        After = "sway-session.target";
-        WantedBy = "sway-session.target";
+      };
+      Install = {
+        After = [ "sway-session.target" ];
+        WantedBy = lib.mkForce [ "sway-session.target" ];
       };
     };
 
