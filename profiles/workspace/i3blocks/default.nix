@@ -61,8 +61,8 @@ in {
         (scrint "freq" 10)
         (scr "temperature")
         (scrint "free" 10)
-      ] ++ optionals config.deviceSpecific.isLaptop [
         (scr "battery")
+      ] ++ optionals config.deviceSpecific.isLaptop [
         (scrint "brightness" 5)
       ] ++ optional (config.deviceSpecific.devInfo ? bigScreen)
       (scrint "network" 1) ++ [

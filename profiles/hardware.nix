@@ -9,8 +9,12 @@ with deviceSpecific; {
   hardware.opengl.driSupport32Bit = true; # For steam
   hardware.opengl.package = pkgs.mesa_drivers;
 
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.package = pkgs.bluezFull;
+  hardware.bluetooth = {
+    enable = true;
+    package = pkgs.bluezFull;
+  };
+
+  systemd.services.bluetooth.serviceConfig.ExecStart = lib.mkForce [ "" "${pkgs.bluezFull}/libexec/bluetooth/bluetoothd -f /etc/bluetooth/main.conf -E" ];
 
   persist.state.directories = [ "/var/lib/bluetooth" ];
 
