@@ -24,7 +24,7 @@
     ];
 
     package = inputs.nix.defaultPackage.x86_64-linux.overrideAttrs (oa: {
-      patches = [ ./nix.patch ] ++ oa.patches or [ ];
+      patches = [ ./nix.patch ./unset-is-macho.patch ] ++ oa.patches or [ ];
       # HAHA
       doInstallCheck = false;
     });
