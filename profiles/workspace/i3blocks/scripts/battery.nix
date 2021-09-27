@@ -9,9 +9,9 @@
       INFO="$(${upower}/bin/upower -i "$dev")"
       PERCENTAGE="$(echo "$INFO" | grep 'percentage:' | grep -o '[[:digit:]]*')"
       if [ -n "$PERCENTAGE" ]; then
+          TIME="$(echo "$INFO" | grep 'time to' | tr -s ' ' | cut -d' ' -f5-6)"
           STATE="$(echo "$INFO" | grep 'state:' | tr -s ' ' | cut -d' ' -f3)"
           if [[ "x$STATE" == "xfully-charged" ]] || [[ "x$STATE" == "xcharging" ]]; then
-              TIME="$(echo "$INFO" | grep 'time to empty:' | tr -s ' ' | cut -d' ' -f5-6)"
               case $PERCENTAGE in
                   [2-3]*) icon=;;
                   [4-5]*) icon=;;
@@ -24,7 +24,6 @@
               if [[ "$PERCENTAGE" -lt ${toString low_threshold} ]]; then
                   STATUS=33
               fi
-              TIME="$(echo "$INFO" | grep 'time to full:' | tr -s ' ' | cut -d' ' -f5-6)"
               case $PERCENTAGE in
                   1?) icon=;;
                   2?) icon=;;
