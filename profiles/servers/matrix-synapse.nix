@@ -44,7 +44,12 @@
       mautrix-whatsapp -c ${config.secrets-envsubst.mautrix-whatsapp}
     '';
   };
-  users.users.mautrix-whatsapp.isSystemUser = true;
+  users.users.mautrix-whatsapp = {
+    group = "mautrix-whatsapp";
+    isSystemUser = true;
+  };
+
+  users.groups.mautrix-whatsapp = {};
 
   services.mautrix-telegram = {
     enable = true;
@@ -205,7 +210,12 @@
 
   systemd.services.mautrix-telegram.serviceConfig.User = "mautrix-telegram";
 
-  users.users.mautrix-telegram.isSystemUser = true;
+  users.users.mautrix-telegram = {
+    group = "mautrix-telegram";
+    isSystemUser = true;
+  };
+
+  users.groups.mautrix-telegram = {};
 
   users.users.matrix-synapse.name = lib.mkForce "matrix-synapse";
 }
