@@ -10,6 +10,7 @@
     # PROFILES
     applications-setup
     hardware
+    sound
     virtualisation
 
     alacritty
