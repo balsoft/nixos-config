@@ -319,11 +319,11 @@
     "mopidy-ytmusic": {
       "flake": false,
       "locked": {
-        "lastModified": 1630842402,
-        "narHash": "sha256-Gxlbfjenra3el5eym22POpGLyVx3mKx0PguH0jE/M40=",
+        "lastModified": 1631816087,
+        "narHash": "sha256-yUsN31JkzQ6kkgVTPHXVVEtRXcss1mhRXB20GnPV+8k=",
         "owner": "OzymandiasTheGreat",
         "repo": "mopidy-ytmusic",
-        "rev": "e9b4741b80116b14d700b5f17607254a5059cc9b",
+        "rev": "f1f1e655705a9efc6c88d3f02d4cfde0a776edb8",
         "type": "github"
       },
       "original": {

@@ -106,14 +106,12 @@ in {
               src = fetchFromGitHub {
                 owner = "pytube";
                 repo = "pytube";
-                rev = "bb890af3b271a616bbe1d08abc8c65bac9266b0a";
-                sha256 = "vUAvaTY5f5IBj3hwNnHsX58vIOdZj3KbZiRi19Rv/oU=";
+                rev = "f06e0710dcf5089e582487fee94f7bb0afbf7ba9";
+                sha256 = "sha256-yQCgrnoPOSdTnTPEsVkgLYpPLiHq7kXRUO72TxD152k=";
                 fetchSubmodules = true;
               };
             }))
           ];
-
-          patchPhase = "sed s/11.0/12.0/ -i setup.py";
 
           doCheck = false;
         };
