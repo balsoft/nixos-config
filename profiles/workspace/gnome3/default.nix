@@ -38,10 +38,9 @@
   };
 
   home-manager.users.balsoft = {
+    services.pass-secret-service.enable = true;
+
     home.activation.gnome = ''
-      $DRY_RUN_CMD mkdir -p "$XDG_DATA_HOME/keyrings"
-      $DRY_RUN_CMD ln -sf ${config.secrets-envsubst.gnome-keyring} "$XDG_DATA_HOME/keyrings/Default_keyring.keyring"
-      echo "Default_keyring" > "$XDG_DATA_HOME/keyrings/default"
       $DRY_RUN_CMD mkdir -p "$XDG_CONFIG_HOME/goa-1.0"
       $DRY_RUN_CMD ln -sf ${
         ./accounts.conf
@@ -92,10 +91,5 @@
         transportation-type = "car";
       };
     };
-  };
-  secrets-envsubst.gnome-keyring = {
-    owner = "balsoft:users";
-    secrets = [ "matrix_token" "matrix_password" "email" "nextcloud" ];
-    template = builtins.readFile ./gnome-keyring-template.conf;
   };
 }
