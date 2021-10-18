@@ -351,11 +351,11 @@
     "mtxclient": {
       "flake": false,
       "locked": {
-        "lastModified": 1630632658,
-        "narHash": "sha256-onpaWKkTgwQkIZrou7VmhlLRq5dIu1yZ8R/pc00KCkc=",
+        "lastModified": 1634078806,
+        "narHash": "sha256-OuLSoAvdL34EeMCTSsCLDyN4MphTOKKijnjPXpiPXhc=",
         "owner": "nheko-reborn",
         "repo": "mtxclient",
-        "rev": "a4f4c79153cc139c44aaf7bd5bf47fef6c0712b3",
+        "rev": "e5284ccc9d902117bbe782b0be76fa272b7f0a90",
         "type": "github"
       },
       "original": {
@@ -367,11 +367,11 @@
     "nheko": {
       "flake": false,
       "locked": {
-        "lastModified": 1631536282,
-        "narHash": "sha256-kavv/Aw38skTuL6AlhgE5pdDm/8RWl3I+sheTJFQD3A=",
+        "lastModified": 1634484839,
+        "narHash": "sha256-51PlMOILa85ESUJANu1Gd3yKeq9WEPgleAM8eqdpPlc=",
         "owner": "nheko-reborn",
         "repo": "nheko",
-        "rev": "1b82b8242b1290b3ce39f932597e8cd3854b5e82",
+        "rev": "2981f71d2268087b04f6dfef2fd0d42a4f786b4d",
         "type": "github"
       },
       "original": {
