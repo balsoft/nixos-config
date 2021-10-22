@@ -7,22 +7,25 @@
   imports =
     [ "${inputs.nixpkgs}/nixos/modules/installer/scan/not-detected.nix" ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
+  boot.initrd.availableKernelModules =
+    [ "xhci_pci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/7c16955c-8414-4971-bf37-6492e8c0cb61";
-      fsType = "ext4";
-    };
+  fileSystems."/persist" = {
+    device = "/dev/disk/by-uuid/7c16955c-8414-4971-bf37-6492e8c0cb61";
+    fsType = "ext4";
+    neededForBoot = true;
+  };
 
-  boot.initrd.luks.devices."root".device = "/dev/disk/by-uuid/234de44d-b2d4-44d0-a4e3-b3ef6b159424";
+  boot.initrd.luks.devices."root".device =
+    "/dev/disk/by-uuid/234de44d-b2d4-44d0-a4e3-b3ef6b159424";
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/66D2-DC8B";
-      fsType = "vfat";
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/66D2-DC8B";
+    fsType = "vfat";
+  };
 
   swapDevices = [ ];
 

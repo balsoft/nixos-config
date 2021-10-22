@@ -13,6 +13,12 @@
     };
     ram = 16;
   };
+
+  persist = {
+    enable = true;
+    cache.clean.enable = true;
+  };
+
   services.throttled = {
     enable = true;
     extraConfig = ''
