@@ -8,6 +8,7 @@
     tracker-miners.enable = true;
     gnome-settings-daemon.enable = true;
     glib-networking.enable = true;
+    # pass-secret-service is used instead
     gnome-keyring.enable = true;
     gnome-online-accounts.enable = true;
     gnome-online-miners.enable = true;
@@ -39,6 +40,18 @@
 
   home-manager.users.balsoft = {
     services.pass-secret-service.enable = true;
+
+    systemd.user.services.pass-secret-service = {
+      Service = {
+        Type = "dbus";
+        BusName = "org.freedesktop.secrets";
+      };
+      Unit = rec {
+        Wants = [ "gpg-agent.service" "activate-secrets.service" ];
+        After = Wants;
+        PartOf = [ "graphical-session-pre.target" ];
+      };
+    };
 
     home.activation.gnome = ''
       $DRY_RUN_CMD mkdir -p "$XDG_CONFIG_HOME/goa-1.0"

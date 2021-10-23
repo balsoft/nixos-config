@@ -92,8 +92,8 @@ in {
         Environment =
           "PATH=/run/current-system/sw/bin:/etc/profiles/per-user/balsoft/bin";
       };
+      Unit.After = [ "sway-session.target" ];
       Install = {
-        After = [ "sway-session.target" ];
         WantedBy = lib.mkForce [ "sway-session.target" ];
       };
     };
