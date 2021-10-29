@@ -149,6 +149,29 @@ in {
       };
       Install.WantedBy = [ "graphical-session-pre.target" ];
     };
+    systemd.user.services.pass-store-sync = {
+      Service = {
+        Environment = [
+          "PASSWORD_STORE_DIR=${password-store}"
+          "PATH=${lib.makeBinPath [ pkgs.pass pkgs.inotify-tools pkgs.gnupg ]}"
+        ];
+        ExecStart = toString (pkgs.writeShellScript "pass-store-sync" ''
+          export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+          while inotifywait "$PASSWORD_STORE_DIR" -r -e move -e close_write -e create -e delete --exclude .git; do
+            sleep 0.1
+            pass git add --all
+            pass git commit -m "Change"
+            pass git pull --rebase
+            pass git push
+          done
+        '');
+      };
+      Unit = rec {
+        After = [ "activate-secrets.service" ];
+        Wants = After;
+      };
+      Install.WantedBy = [ "graphical-session-pre.target" ];
+    };
     programs.password-store = {
       enable = true;
       package = pkgs.pass-wayland;
