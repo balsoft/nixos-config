@@ -23,7 +23,6 @@
     himalaya
     nheko
     packages
-    yt-utilities
 
     cursor
     direnv

@@ -37,11 +37,6 @@
       url = "github:colemickens/nixpkgs-wayland";
       flake = false;
     };
-    yt-utilities = {
-      type = "git";
-      url = "ssh://git@github.com/serokell/yt-utilities";
-      ref = "flake";
-    };
     nixos-fhs-compat.url = "github:balsoft/nixos-fhs-compat";
     simple-osd-daemons.url = "github:balsoft/simple-osd-daemons";
     emacs-overlay.url = "github:nix-community/emacs-overlay";

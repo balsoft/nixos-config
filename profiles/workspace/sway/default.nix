@@ -96,7 +96,7 @@ in {
       };
       startup = (map (command: { inherit command; }) config.startupApplications) ++ [
         { command = toString (pkgs.writeShellScript "slack" ''
-          firefox https://serokell.slack.com &
+          firefox https://tweag.slack.com &
           sleep 10
           swaymsg '[title=Slack.*] move to workspace '
           swaymsg '[title=Slack.*] fullscreen disable'

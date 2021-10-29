@@ -122,8 +122,6 @@ in {
 
       simple-osd = inputs.simple-osd-daemons.packages.${system};
 
-      yt-utilities = inputs.yt-utilities.defaultPackage.${system};
-
       nerdfonts = nur.balsoft.pkgs.roboto-mono-nerd;
 
       # inkscape = super.inkscape.overrideAttrs (oa: {

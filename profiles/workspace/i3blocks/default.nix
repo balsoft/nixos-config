@@ -55,7 +55,7 @@ in {
       markup=pango
     '' + pkgs.my-lib.genIniOrdered ([ (scr "email") ]
       ++ [ (scrint "weather" 600) (scr "emacs") (scr "nixos") ]
-      ++ [ (scrint "youtrack-wage" 3600) (scrint "music" 3) (scrint "sound" 1) ]
+      ++ [ (scrint "music" 3) (scrint "sound" 1) ]
       ++ [
         (scrint "cpu" 5)
         (scrint "freq" 10)

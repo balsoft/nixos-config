@@ -211,22 +211,6 @@
         "type": "github"
       }
     },
-    "haskell-nix": {
-      "locked": {
-        "lastModified": 1587989559,
-        "narHash": "sha256-5GwV9ueo7jX0/sbU9+YLUzkqY9cSDwQp3VCimYRuSlY=",
-        "owner": "serokell",
-        "repo": "haskell.nix",
-        "rev": "a562ef6eec71672e3f414f76cc7c751466e1d099",
-        "type": "github"
-      },
-      "original": {
-        "owner": "serokell",
-        "ref": "flake",
-        "repo": "haskell.nix",
-        "type": "github"
-      }
-    },
     "himalaya": {
       "inputs": {
         "crate2nix": "crate2nix",
@@ -481,21 +465,6 @@
         "type": "github"
       }
     },
-    "nixpkgs_10": {
-      "locked": {
-        "lastModified": 1587390417,
-        "narHash": "sha256-dLQebnBviLNiN2Ei3Iqyxm73EFwz77YcvitvMYwRNA8=",
-        "owner": "serokell",
-        "repo": "nixpkgs",
-        "rev": "6951747f4f4e9e27580150eb91587af94e41640d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "serokell",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1627857416,
@@ -644,8 +613,7 @@
         "rycee": "rycee",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "simple-osd-daemons": "simple-osd-daemons",
-        "sonoff-lan": "sonoff-lan",
-        "yt-utilities": "yt-utilities"
+        "sonoff-lan": "sonoff-lan"
       }
     },
     "rust-overlay": {
@@ -762,26 +730,6 @@
         "owner": "numtide",
         "repo": "flake-utils",
         "type": "github"
-      }
-    },
-    "yt-utilities": {
-      "inputs": {
-        "haskell-nix": "haskell-nix",
-        "nixpkgs": "nixpkgs_10"
-      },
-      "locked": {
-        "lastModified": 1588006875,
-        "narHash": "sha256-u9CWK+nvCdkB5IlOLu/5BT9gzhZuh+SRcazRZV+vLuM=",
-        "ref": "flake",
-        "rev": "4485a1d87b027870bb1278cf827f5dc33d8367e9",
-        "revCount": 288,
-        "type": "git",
-        "url": "ssh://git@github.com/serokell/yt-utilities"
-      },
-      "original": {
-        "ref": "flake",
-        "type": "git",
-        "url": "ssh://git@github.com/serokell/yt-utilities"
       }
     }
   },

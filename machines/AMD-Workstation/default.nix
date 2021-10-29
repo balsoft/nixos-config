@@ -35,21 +35,4 @@
 
     derivative.directories = [ "/home/balsoft/.local/share/wineprefixes/default" ];
   };
-
-  services.ezwg = {
-    enable = true;
-    proxy = true;
-    lanSize = 32;
-    serverIP = "95.217.152.163";
-    serverPort = 35944;
-    serverKey = "sgLUARawWJejANs2CwuCptwJO55c4jkmnP0L14FNCyw=";
-    privateKeyFile = config.secrets.wireguard-wg0.decrypted;
-    vlanIP = "172.20.0.52";
-  };
-
-  # restart when the service fails to resolve DNS
-  systemd.services.wireguard-serokell.serviceConfig = {
-    Restart = "on-failure";
-    RestartSec = "30s";
-  };
 }

@@ -17,7 +17,6 @@
       editor = "";
       aliases = {
         pv = "pr view --comments";
-        pcr = "pr create -r serokell/operations";
       };
     };
   };

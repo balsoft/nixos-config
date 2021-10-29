@@ -58,9 +58,6 @@ let
         lib.escapeShellArg config.secretsConfig.repo
       } "${password-store}"
     fi
-    ln -sf ${
-      pkgs.writeShellScript "push" "${pkgs.git}/bin/git push origin master"
-    } "${password-store}/.git/hooks/post-commit"
     cat ${password-store}/email/balsoft@balsoft.ru.gpg | ${pkgs.gnupg}/bin/gpg --decrypt > /dev/null
     sudo systemctl restart ${allServices}
   '';

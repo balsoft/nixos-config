@@ -13,10 +13,10 @@ let
         --
         Александр Бантьев /Alexander Bantyev/ aka balsoft
 
-        Nix DevOPS/SRE at serokell.io
+        Nix DevOPS/SRE at tweag.io
 
         <balsoft@balsoft.ru>
-        <alexander.bantyev@serokell.io>
+        <alexander.bantyev@tweag.io>
 
         matrix://@balsoft:balsoft.ru
         (https://matrix.to/#/@balsoft:balsoft.ru)
