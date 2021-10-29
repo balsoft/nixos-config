@@ -151,6 +151,7 @@ in {
         src = inputs.mtxclient;
         cmakeFlags = oa.cmakeFlags ++ [ "-DCMAKE_CXX_FLAGS=-DSPDLOG_FMT_EXTERNAL" ];
         buildInputs = oa.buildInputs ++ [ self.libevent self.curl.all self.coeurl self.spdlog.dev ];
+        patches = [];
       });
 
       nheko = (super.nheko.overrideAttrs (oa: {

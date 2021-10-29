@@ -56,7 +56,6 @@ in {
           counsel-tramp
           ix
           magit
-          xah-fly-keys
           arduino-mode
           elixir-mode
           company-box
@@ -80,6 +79,7 @@ in {
           crdt
           base16-theme
           org-caldav
+          evil
         ];
     };
 

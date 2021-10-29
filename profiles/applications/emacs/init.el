@@ -39,12 +39,16 @@
 (setq auto-save-default nil)
 (setq make-backup-files nil)
 
-(use-package xah-fly-keys
+;; (use-package xah-fly-keys
+;;   :config
+;;   (xah-fly-keys-set-layout "qwerty")
+;;   (xah-fly-keys 1)
+;;   (define-key xah-fly-insert-map (kbd "M-SPC") 'xah-fly-command-mode-activate)
+;;   )
+
+(use-package evil
   :config
-  (xah-fly-keys-set-layout "qwerty")
-  (xah-fly-keys 1)
-  (define-key xah-fly-insert-map (kbd "M-SPC") 'xah-fly-command-mode-activate)
-  )
+  (evil-mode 1))
 
 (global-set-key (kbd "C-b") 'switch-to-buffer)
 
@@ -206,8 +210,6 @@
 (use-package treemacs-projectile)
 
 (setq initial-major-mode 'text-mode)
-
-(setq initial-buffer-choice 'xah-new-empty-buffer)
 
 (defun compile-on-save-start ()
   (let ((buffer (compilation-find-buffer)))
