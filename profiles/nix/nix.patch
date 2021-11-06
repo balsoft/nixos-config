@@ -40,20 +40,3 @@ index e04954d45..5649bd01a 100644
          globals.dryRun = false;
          globals.preserveInstalled = false;
          globals.removeAll = false;
-diff --git a/src/libexpr/primops.cc b/src/libexpr/primops.cc
-index f27331534..386a664d9 100644
---- a/src/libexpr/primops.cc
-+++ b/src/libexpr/primops.cc
-@@ -1862,9 +1862,9 @@ static void addPath(
-         if (state.store->isInStore(path)) {
-             auto [storePath, subPath] = state.store->toStorePath(path);
-             auto info = state.store->queryPathInfo(storePath);
--            if (!info->references.empty())
--                throw EvalError("store path '%s' is not allowed to have references",
--                    state.store->printStorePath(storePath));
-+            // if (!info->references.empty())
-+            //     throw EvalError("store path '%s' is not allowed to have references",
-+            //         state.store->printStorePath(storePath));
-             path = state.store->toRealPath(storePath) + subPath;
-         }
- 

@@ -370,16 +370,18 @@
         "nixpkgs": "nixpkgs_6"
       },
       "locked": {
-        "lastModified": 1635424607,
-        "narHash": "sha256-Yumem7c3rcngTaPtUc/yms3Imi5P6dVMPmy0GnHyCWw=",
-        "owner": "NixOS",
+        "lastModified": 1636141290,
+        "narHash": "sha256-mQ+qS1oTnxBDWUUT1kr7QzjUz4K35JDFdO8ELsfCEgk=",
+        "owner": "tweag",
         "repo": "nix",
-        "rev": "bc4b7521f4a72de1d7a9db0b5be76885e0729e7c",
+        "rev": "9d4dcff37a14c5bab98761e417a2335a9ac68c96",
         "type": "github"
       },
       "original": {
-        "id": "nix",
-        "type": "indirect"
+        "owner": "tweag",
+        "ref": "balsoft/allow-references-in-addPath",
+        "repo": "nix",
+        "type": "github"
       }
     },
     "nix-direnv": {

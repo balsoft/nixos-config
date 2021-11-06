@@ -24,9 +24,7 @@
     ];
 
     package = inputs.nix.defaultPackage.${pkgs.system}.overrideAttrs (oa: {
-      patches = [ ./nix.patch ./unset-is-macho.patch ] ++ oa.patches or [ ];
-      # HAHA
-      doInstallCheck = false;
+      patches = [ ./nix.patch ] ++ oa.patches or [ ];
     });
 
     extraOptions = ''

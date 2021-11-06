@@ -6,6 +6,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nix.url = "github:tweag/nix?ref=balsoft/allow-references-in-addPath";
     lambda-launcher.url = "github:balsoft/lambda-launcher";
     deploy-rs.url = "github:serokell/deploy-rs";
     flake-compat = {
