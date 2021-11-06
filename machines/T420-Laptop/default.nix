@@ -16,8 +16,6 @@
 
   services.logind.lidSwitch = "ignore";
 
-  security.sudo.wheelNeedsPassword = false;
-
   deviceSpecific.devInfo = {
     legacy = true;
     cpu = {

@@ -1,14 +1,20 @@
-{ inputs, ... }: {
-  imports = with inputs.self.nixosModules; [
+{ inputs, pkgs, lib, ... }: {
+  imports = with inputs.self.nixosModules; with inputs.self.nixosProfiles; [
     ./hardware-configuration.nix
     inputs.self.nixosRoles.server
-    mailserver
+    themes
+    fonts
+    cage
+    gtk
+    alacritty
   ];
 
   boot.loader.raspberryPi = {
     enable = true;
     version = 3;
   };
+
+  nix.package = lib.mkForce pkgs.nixUnstable;
 
   deviceSpecific.devInfo = {
     cpu = {

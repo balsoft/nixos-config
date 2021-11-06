@@ -130,21 +130,16 @@
 
       deploy = {
         user = "root";
-        nodes = (builtins.mapAttrs (_: machine: {
+        nodes = (builtins.mapAttrs (name: machine:
+        let activateable = name == "T420-Laptop" || name == "RasPi-Server"; in {
           hostname = machine.config.networking.hostName;
           profiles.system = {
-            user = "balsoft";
-            path = deploy-rs.lib.x86_64-linux.activate.noop
-              machine.config.system.build.toplevel;
+            user = if activateable then "root" else "balsoft";
+            path = with deploy-rs.lib.${machine.pkgs.system}.activate; if activateable
+              then nixos machine
+              else noop machine.config.system.build.toplevel;
           };
-        }) self.nixosConfigurations) // {
-          T420-Laptop = {
-            hostname =
-              self.nixosConfigurations.T420-Laptop.config.networking.hostName;
-            profiles.system.path = deploy-rs.lib.x86_64-linux.activate.nixos
-              self.nixosConfigurations.T420-Laptop;
-          };
-        };
+        }) self.nixosConfigurations);
       };
     };
 }

@@ -23,7 +23,7 @@
       "serokell-1:aIojg2Vxgv7MkzPJoftOO/I8HKX622sT+c0fjnZBLj0="
     ];
 
-    package = inputs.nix.defaultPackage.x86_64-linux.overrideAttrs (oa: {
+    package = inputs.nix.defaultPackage.${pkgs.system}.overrideAttrs (oa: {
       patches = [ ./nix.patch ./unset-is-macho.patch ] ++ oa.patches or [ ];
       # HAHA
       doInstallCheck = false;

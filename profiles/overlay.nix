@@ -2,7 +2,7 @@
 let
   filterGit =
     builtins.filterSource (type: name: name != ".git" || type != "directory");
-  system = "x86_64-linux";
+  inherit (pkgs) system;
   old = import inputs.nixpkgs-old ({
     config = config.nixpkgs.config;
     localSystem = { inherit system; };
