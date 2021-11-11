@@ -43,6 +43,8 @@
 
     systemd.user.services.pass-secret-service = {
       Service = {
+        ExecStart = lib.mkForce
+          "${pkgs.pass-secret-service}/bin/pass_secret_service --path ${config.environment.variables.PASSWORD_STORE_DIR}";
         Type = "dbus";
         BusName = "org.freedesktop.secrets";
       };

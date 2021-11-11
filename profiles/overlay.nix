@@ -124,17 +124,7 @@ in {
 
       nerdfonts = nur.balsoft.pkgs.roboto-mono-nerd;
 
-      # inkscape = super.inkscape.overrideAttrs (oa: {
-      #   src = inputs.inkscape;
-      #   buildInputs = oa.buildInputs ++ [
-      #     self.double-conversion
-      #   ];
-      #   postPatch = ''
-      #     patchShebangs share/extensions
-      #     patchShebangs share/templates
-      #     patchShebangs man/fix-roff-punct
-      #   '';
-      # });
+      pass-secret-service = super.pass-secret-service.overrideAttrs (_: { installCheckPhase = null; });
 
       nix-direnv = inputs.nix-direnv.defaultPackage.${system};
 

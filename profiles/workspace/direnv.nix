@@ -4,8 +4,6 @@
       enable = true;
       nix-direnv = {
         enable = true;
-        enableFlakes = true;
-        # package = inputs.nix-direnv.defaultPackage.${pkgs.system};
       };
     };
   };
