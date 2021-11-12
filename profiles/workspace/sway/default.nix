@@ -38,11 +38,8 @@ in {
           { app_id = "firefox"; }
           { class = "Firefox"; }
         ];
-        "" = [
-          { app_id = "geary"; }
-          { title = "nheko"; }
-          { title = "Slack.*"; }
-        ];
+        "" =
+          [ { app_id = "geary"; } { title = "nheko"; } { title = "Slack.*"; } ];
       };
       fonts = {
         names = [ config.themes.fonts.main.family ];
@@ -92,20 +89,31 @@ in {
             command = "sticky enable";
             criteria = { floating = ""; };
           }
+          {
+            criteria = { title = "Firefox — Sharing Indicator"; };
+            command = "floating enable";
+          }
+          {
+            criteria = { title = "Firefox — Sharing Indicator"; };
+            command = "no_focus";
+          }
         ];
       };
-      startup = (map (command: { inherit command; }) config.startupApplications) ++ [
-        { command = toString (pkgs.writeShellScript "slack" ''
-          firefox https://tweag.slack.com &
-          sleep 10
-          swaymsg '[title=Slack.*] move to workspace '
-          swaymsg '[title=Slack.*] fullscreen disable'
-        ''); }
-        {
-          command =
-            "swayidle -w before-sleep '${lock_fork}' lock '${lock_fork}' unlock 'pkill -9 swaylock'";
-        }
-      ];
+      startup = (map (command: { inherit command; }) config.startupApplications)
+        ++ [
+          {
+            command = toString (pkgs.writeShellScript "slack" ''
+              firefox https://tweag.slack.com &
+              sleep 10
+              swaymsg '[title=Slack.*] move to workspace '
+              swaymsg '[title=Slack.*] fullscreen disable'
+            '');
+          }
+          {
+            command =
+              "swayidle -w before-sleep '${lock_fork}' lock '${lock_fork}' unlock 'pkill -9 swaylock'";
+          }
+        ];
 
       keybindings = let
         script = name: content: "exec ${pkgs.writeScript name content}";
@@ -113,7 +121,8 @@ in {
           ++ [ [ "c" "" ] [ "t" "" ] [ "m" "ﱘ" ] ];
       in ({
         "${modifier}+q" = "kill";
-        "${modifier}+Shift+q" = "move container to workspace temp; [workspace=__focused__] kill; workspace temp; move container to workspace temp; workspace temp";
+        "${modifier}+Shift+q" =
+          "move container to workspace temp; [workspace=__focused__] kill; workspace temp; move container to workspace temp; workspace temp";
         "${modifier}+Return" = "exec ${apps.term.cmd}";
         "${modifier}+e" = "exec ${apps.editor.cmd}";
         "${modifier}+o" = "layout toggle all";
