@@ -23,10 +23,6 @@
       "serokell-1:aIojg2Vxgv7MkzPJoftOO/I8HKX622sT+c0fjnZBLj0="
     ];
 
-    package = inputs.nix.defaultPackage.${pkgs.system}.overrideAttrs (oa: {
-      patches = [ ./nix.patch ] ++ oa.patches or [ ];
-    });
-
     extraOptions = ''
       experimental-features = nix-command flakes
     '';

@@ -158,6 +158,11 @@ in {
         ];
         cmakeFlags = oa.cmakeFlags ++ [ "-DBUILD_SHARED_LIBS=OFF" ];
       })).override { mtxclient = self.mtxclient; };
+
+      nix = inputs.nix.defaultPackage.${pkgs.system}.overrideAttrs (oa: {
+        patches = [ ./nix/nix.patch ] ++ oa.patches or [ ];
+      });
+
     })
   ];
   nixpkgs.config = {
