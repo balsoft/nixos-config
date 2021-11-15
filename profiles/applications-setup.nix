@@ -22,6 +22,7 @@
       defaultApplications = with config.defaultApplications;
         builtins.mapAttrs (name: value:
           if value ? desktop then [ "${value.desktop}.desktop" ] else value) {
+            "inode/directory" = fm;
             "text/html" = browser;
             "image/*" = { desktop = "org.gnome.eog"; };
             "application/zip" = archive;
