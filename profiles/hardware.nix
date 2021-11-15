@@ -26,5 +26,6 @@ with deviceSpecific; {
 
   services.logind.extraConfig = "HandlePowerKey=suspend";
 
+  services.fwupd.enable = true;
   # sound.enable = true;
 }
