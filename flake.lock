@@ -35,11 +35,11 @@
     "coeurl": {
       "flake": false,
       "locked": {
-        "lastModified": 1628872501,
-        "narHash": "sha256-bslkrBjAsf2co4lt9efEQ3R6YNR2+minZAKkcZKjykI=",
+        "lastModified": 1637469966,
+        "narHash": "sha256-IMj8qK9OQ5C1+LTs+pBJXxkqY0+Pz0AjsffkHshWVcg=",
         "ref": "master",
-        "rev": "22f58922da16c3b94d293d98a07cb7caa7a019e8",
-        "revCount": 51,
+        "rev": "abafd60d7e9f5cce76c9abad3b2b3dc1382e5349",
+        "revCount": 62,
         "type": "git",
         "url": "https://nheko.im/nheko-reborn/coeurl"
       },
@@ -335,11 +335,11 @@
     "mtxclient": {
       "flake": false,
       "locked": {
-        "lastModified": 1634078806,
-        "narHash": "sha256-OuLSoAvdL34EeMCTSsCLDyN4MphTOKKijnjPXpiPXhc=",
+        "lastModified": 1637470185,
+        "narHash": "sha256-0uVL8u6u9kqfmEAm8p4kAwk5GzQ8L3xXJWRm1TEtEN4=",
         "owner": "nheko-reborn",
         "repo": "mtxclient",
-        "rev": "e5284ccc9d902117bbe782b0be76fa272b7f0a90",
+        "rev": "ffc1d3e13a507fa501966b2d7e9d4eda881f6bf4",
         "type": "github"
       },
       "original": {
@@ -351,11 +351,11 @@
     "nheko": {
       "flake": false,
       "locked": {
-        "lastModified": 1635238949,
-        "narHash": "sha256-9Xo0ThJ2UpgNhG52aPGZYy4WS1DM05/FZMiGyIvUvNw=",
+        "lastModified": 1637406359,
+        "narHash": "sha256-J7F9e6LmHgtSDrPu8qPZugnofErjPrpJqHeKNVYzus4=",
         "owner": "nheko-reborn",
         "repo": "nheko",
-        "rev": "923b8157134389598b3071824d8b7ce015806968",
+        "rev": "a6e633cdab32e0fca568ef4892d82e31a6b00dd9",
         "type": "github"
       },
       "original": {
