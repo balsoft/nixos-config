@@ -8,7 +8,7 @@
 
   home-manager.users.balsoft.programs.zsh = {
     enable = true;
-    enableAutosuggestions = true;
+    # enableAutosuggestions = true;
     enableCompletion = true;
     oh-my-zsh = {
       enable = true;
@@ -120,10 +120,6 @@
        function bs() { nix build "self#$1" }
        function is() { nix search "self#$1" }
        function rs() { repl self }
-
-       source ${pkgs.nix-zsh-completions}/share/zsh/plugins/nix/nix-zsh-completions.plugin.zsh
-       fpath=(${pkgs.nix-zsh-completions}/share/zsh/site-functions $fpath)
-       autoload -U compinit && compinit
 
        PS1="$PS1
        $ "
