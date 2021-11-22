@@ -5,7 +5,7 @@
   environment.sessionVariables = {
     XKB_DEFAULT_LAYOUT = "us,ru";
     XKB_DEFAULT_OPTIONS =
-      "grp:lctrl_toggle,grp_led:caps,ctrl:nocaps,misc:typo,lv3:ralt_switch";
+      "grp:lctrl_toggle,grp_led:caps,ctrl:nocaps,compose:ralt";
     LANG = lib.mkForce "en_GB.UTF-8";
   };
 
