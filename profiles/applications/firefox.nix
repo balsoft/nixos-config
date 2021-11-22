@@ -21,6 +21,27 @@ in {
       enable = true;
       browsers = [ "firefox" ];
     };
+    wayland.windowManager.sway.config = {
+      window.commands = [
+        {
+          criteria = { title = "Firefox — Sharing Indicator"; };
+          command = "floating enable";
+        }
+        {
+          criteria = { title = "Firefox — Sharing Indicator"; };
+          command = "no_focus";
+        }
+        {
+          criteria = { title = "Firefox — Sharing Indicator"; };
+          command = "resize set 0 0";
+        }
+        {
+          criteria = { title = "Firefox — Sharing Indicator"; };
+          command = "move absolute position 10 10";
+        }
+      ];
+    };
+
     programs.firefox = {
       enable = true;
       package = pkgs.firefox-wayland;
@@ -83,7 +104,6 @@ in {
           "toolkit.telemetry.shutdownPingSender.enabled" = false;
           "toolkit.telemetry.unified" = false;
           "toolkit.telemetry.updatePing.enabled" = false;
-
 
           "experiments.activeExperiment" = false;
           "experiments.enabled" = false;

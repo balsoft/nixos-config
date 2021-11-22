@@ -89,14 +89,6 @@ in {
             command = "sticky enable";
             criteria = { floating = ""; };
           }
-          {
-            criteria = { title = "Firefox — Sharing Indicator"; };
-            command = "floating enable";
-          }
-          {
-            criteria = { title = "Firefox — Sharing Indicator"; };
-            command = "no_focus";
-          }
         ];
       };
       startup = (map (command: { inherit command; }) config.startupApplications)
