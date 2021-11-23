@@ -20,7 +20,6 @@ with pkgs.my-lib; {
   };
   home-manager.users.balsoft = let fonts = config.themes.fonts;
   in {
-    services.kdeconnect.enable = true;
 
     xdg.configFile."kdeglobals".text = with thmDec; lib.generators.toGitINI {
       "Colors:Button" = {

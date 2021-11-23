@@ -33,7 +33,8 @@
     gnome3
     gtk
     i3blocks
-    kde
+    qt
+    kdeconnect
     light
     mako
     mopidy
