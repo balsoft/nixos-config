@@ -3,11 +3,11 @@
     "NUR": {
       "flake": false,
       "locked": {
-        "lastModified": 1623311631,
-        "narHash": "sha256-3lzdbWWoSE8zbNKvB2yOY1AAtLL/nIWcD94uRCwATvU=",
+        "lastModified": 1637699577,
+        "narHash": "sha256-xHP0GAdS5MLWDZIZhCTuB7DzNNXTdMfRFu2jaXgz/YY=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "97b0f023d370295a84c644be037b49bcf9c63c85",
+        "rev": "973bfd81d258f12e48987223e3322cb8755856fe",
         "type": "github"
       },
       "original": {
@@ -639,11 +639,11 @@
     "rycee": {
       "flake": false,
       "locked": {
-        "lastModified": 1623298028,
-        "narHash": "sha256-ewN6rXEIiwysCZ6EN469Kdj3kuq/cEbEJOK0ZVWqK84=",
+        "lastModified": 1637649569,
+        "narHash": "sha256-K9h23y/tyYTn13F0u+77Z7P2+CcH5hyCfJD6u40pHo8=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "32bbce160cc8472102cf618d47f353781b903865",
+        "rev": "f49251761135d61520c08e236b1e54f773e9804f",
         "type": "gitlab"
       },
       "original": {
