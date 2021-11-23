@@ -9,6 +9,9 @@
 
     # PROFILES
     applications-setup
+    bluetooth
+    power
+    opengl
     hardware
     sound
     virtualisation

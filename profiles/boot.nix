@@ -2,7 +2,7 @@
   boot = {
     loader = {
       timeout = lib.mkForce 4;
-      grub.enable = lib.mkForce false;
+      grub.enable = false;
       systemd-boot.enable = pkgs.system == "x86_64-linux";
     };
     kernelParams = [ "quiet" "scsi_mod.use_blk_mq=1" "modeset" "nofb" ]
