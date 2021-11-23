@@ -94,16 +94,11 @@ in {
       startup = (map (command: { inherit command; }) config.startupApplications)
         ++ [
           {
-            command = toString (pkgs.writeShellScript "slack" ''
-              firefox https://tweag.slack.com &
-              sleep 10
-              swaymsg '[title=Slack.*] move to workspace '
-              swaymsg '[title=Slack.*] fullscreen disable'
-            '');
-          }
-          {
             command =
               "swayidle -w before-sleep '${lock_fork}' lock '${lock_fork}' unlock 'pkill -9 swaylock'";
+          }
+          {
+            command = "dbus-update-activation-environment --systemd WAYLAND_DISPLAY GDK_BACKEND";
           }
         ];
 

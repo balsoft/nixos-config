@@ -34,6 +34,7 @@
     gtk
     i3blocks
     qt
+    slack
     kdeconnect
     light
     mako
