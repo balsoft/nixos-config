@@ -12,6 +12,7 @@
     i3blocks
     himalaya
     bluetooth
+    power
 
     simple-osd-daemons
     alacritty
@@ -44,6 +45,7 @@
     enable = lib.mkForce true;
     devices = [ "/dev/sdc" ];
   };
+  security.sudo.wheelNeedsPassword = false;
   persist = {
     enable = true;
   };

@@ -16,7 +16,7 @@ in {
     desktop = "firefox";
   };
 
-  home-manager.users.balsoft = lib.mkIf (config.deviceSpecific.goodMachine) {
+  home-manager.users.balsoft = {
     programs.browserpass = {
       enable = true;
       browsers = [ "firefox" ];
