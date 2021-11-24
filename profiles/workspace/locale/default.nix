@@ -11,6 +11,7 @@
 
   time.timeZone = "Europe/Moscow"; # Mother Russia
   home-manager.users.balsoft = {
+    home.file.".XCompose".source = ./compose;
     home.language = let
       en = "en_GB.UTF-8";
       ru = "ru_RU.UTF-8";
