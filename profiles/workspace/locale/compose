@@ -161,10 +161,13 @@
 <Multi_key> <space> <i> : "ι" U03B9 # GREEK SMALL LETTER ΙΟΤΑ
 <Multi_key> <space> <k> : "κ" U03BA # GREEK SMALL LETTER KAPPA
 <Multi_key> <space> <l> : "λ" U03BB # GREEK SMALL LETTER LAMBDA
+<Multi_key> <backslash> : "λ" U03BB # GREEK SMALL LETTER LAMBDA
 <Multi_key> <space> <m> : "μ" U03BC # GREEK SMALL LETTER MU
+<Multi_key> <m> <u>     : "μ" U03BC # GREEK SMALL LETTER MU
 <Multi_key> <space> <n> : "ν" U03BD # GREEK SMALL LETTER NU
 <Multi_key> <space> <o> : "ο" U03BF # GREEK SMALL LETTER OMICRON
 <Multi_key> <space> <p> : "π" U03C0 # GREEK SMALL LETTER PI
+<Multi_key> <p> <i>     : "π" U03C0 # GREEK SMALL LETTER PI
 <Multi_key> <space> <q> : "ψ" U03C8 # GREEK SMALL LETTER PSI
 <Multi_key> <space> <r> : "ρ" U03C1 # GREEK SMALL LETTER RHO
 <Multi_key> <space> <s> : "σ" U03C3 # GREEK SMALL LETTER SIGMA
