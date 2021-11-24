@@ -98,7 +98,8 @@ in {
               "swayidle -w before-sleep '${lock_fork}' lock '${lock_fork}' unlock 'pkill -9 swaylock'";
           }
           {
-            command = "dbus-update-activation-environment --systemd WAYLAND_DISPLAY GDK_BACKEND";
+            command =
+              "dbus-update-activation-environment --systemd WAYLAND_DISPLAY GDK_BACKEND";
           }
         ];
 
@@ -147,12 +148,28 @@ in {
         "${modifier}+r" = "mode resize";
         "${modifier}+Shift+f" = "floating toggle";
 
-        "${modifier}+Escape" = "exec ${apps.monitor.cmd}";
+        "${modifier}+Escape" =
+          ''exec ${apps.monitor.cmd}; [app_id="gnome-system-monitor"] focus'';
+        "${modifier}+F1" = ''
+          exec ${pkgs.pavucontrol}/bin/pavucontrol; [app_id="pavucontrol"] focus'';
+        "${modifier}+Shift+F1" = ''
+          exec ${
+            pkgs.writeShellScript "helvum"
+            "GTK_THEME=adwaita:dark ${pkgs.helvum}/bin/helvum"
+          }; [app_id="org.freedesktop.ryuukyu.Helvum"] focus'';
+        "${modifier}+F3" = "exec ${pkgs.alsa-utils}/bin/amixer set Capture cap";
+        "${modifier}+Shift+F3" = "exec ${pkgs.alsa-utils}/bin/amixer set Capture nocap";
+        "${modifier}+F5" = "reload";
+        "${modifier}+Shift+F5" = "exit";
+        "${modifier}+F9" = "exec systemctl --user restart mako.service";
+        "${modifier}+Shift+F9" = "exec systemctl --user stop mako.service";
+        "${modifier}+F11" = "output * dpms off";
+        "${modifier}+F12" = "output * dpms on";
+        "${modifier}+End" = "exec ${lock}";
 
         "${modifier}+j" = "exec ${pkgs.playerctl}/bin/playerctl previous";
         "${modifier}+k" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
         "${modifier}+l" = "exec ${pkgs.playerctl}/bin/playerctl next";
-        "${modifier}+i" = "exec ${pkgs.pavucontrol}/bin/pavucontrol";
 
         "${modifier}+Print" = script "screenshot"
           "${pkgs.grim}/bin/grim Pictures/$(date +'%Y-%m-%d+%H:%M:%S').png";
@@ -169,20 +186,13 @@ in {
 
         "${modifier}+x" = "focus output right";
         "${modifier}+Shift+x" = "move workspace to output right";
-        "${modifier}+F5" = "reload";
-        "${modifier}+Shift+F5" = "exit";
         "${modifier}+Shift+h" = "layout splith";
         "${modifier}+Shift+v" = "layout splitv";
         "${modifier}+h" = "split h";
         "${modifier}+v" = "split v";
-        "${modifier}+F1" = "move to scratchpad";
-        "${modifier}+F2" = "scratchpad show";
-        "${modifier}+F11" = "output * dpms off";
-        "${modifier}+F12" = "output * dpms on";
-        "${modifier}+End" = "exec ${lock}";
+        "${modifier}+i" = "move to scratchpad";
+        "${modifier}+Shift+i" = "scratchpad show";
         "${modifier}+p" = "sticky toggle";
-        "${modifier}+backslash" =
-          script "0x0" ''wl-paste | curl -F"file=@-" https://0x0.st | wl-copy'';
         "${modifier}+b" = "focus mode_toggle";
         "${modifier}+Space" = script "lambda-launcher"
           "${pkgs.lambda-launcher}/bin/lambda-launcher";
