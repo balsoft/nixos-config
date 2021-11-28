@@ -80,6 +80,7 @@ in {
           base16-theme
           org-caldav
           evil
+          tuareg
         ];
     };
 
