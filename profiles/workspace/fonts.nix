@@ -2,10 +2,11 @@
   fonts = {
     fonts = with pkgs; [
       ibm-plex
-      hasklig
       nerdfonts
       material-design-icons
       material-icons
+      fira-code
+      fira-code-symbols
     ];
     fontconfig = let fonts = config.themes.fonts;
     in {

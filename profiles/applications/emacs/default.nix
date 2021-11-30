@@ -44,7 +44,6 @@ in {
           rainbow-delimiters
           diff-hl
           mode-line-bell
-          hasklig-mode
           flycheck
           flycheck-pkg-config
           auto-indent-mode
@@ -81,6 +80,7 @@ in {
           org-caldav
           evil
           tuareg
+          fira-code-mode
         ];
     };
 

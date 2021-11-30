@@ -75,10 +75,8 @@
 (when (not window-system)
   (xterm-mouse-mode 1))
 
-
-
-(use-package hasklig-mode
-  :hook (haskell-mode))
+(use-package fira-code-mode
+  :config (global-fira-code-mode))
 
 (use-package company-ghci
   :config
