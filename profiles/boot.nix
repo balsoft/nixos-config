@@ -5,10 +5,8 @@
       grub.enable = false;
       systemd-boot.enable = pkgs.system == "x86_64-linux";
     };
-    kernelParams = [ "quiet" "scsi_mod.use_blk_mq=1" "modeset" "nofb" ]
+    kernelParams = [ "modeset" "nofb" ]
       ++ lib.optionals (pkgs.system == "x86_64-linux") [
-        "rd.systemd.show_status=auto"
-        "rd.udev.log_priority=3"
         "pti=off"
         "spectre_v2=off"
       ];
