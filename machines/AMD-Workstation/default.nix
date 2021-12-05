@@ -20,8 +20,17 @@
     ram = 32;
   };
   deviceSpecific.isHost = true;
-  services.apcupsd.enable = true;
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
+  services.apcupsd = {
+    enable = false;
+    configText = ''
+      UPSTYPE usb
+      NISIP 127.0.0.1
+      BATTERYLEVEL 10
+      MINUTES 1
+    '';
+  };
 
   secrets.wireguard-wg0 = { };
 
