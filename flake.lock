@@ -32,6 +32,22 @@
         "type": "github"
       }
     },
+    "brother-hl-3170cdw-driver": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1638705897,
+        "narHash": "sha256-U4x0V8rLwL41FdQ1K/0i7unAKcN1hCRISG8GwMWnXpY=",
+        "owner": "balsoft",
+        "repo": "brother-hl-3170cdw-driver",
+        "rev": "5e2f487d957b195b1e3afcf68ac1f5c695b06085",
+        "type": "github"
+      },
+      "original": {
+        "owner": "balsoft",
+        "repo": "brother-hl-3170cdw-driver",
+        "type": "github"
+      }
+    },
     "coeurl": {
       "flake": false,
       "locked": {
@@ -592,6 +608,7 @@
       "inputs": {
         "NUR": "NUR",
         "base16-black-metal-scheme": "base16-black-metal-scheme",
+        "brother-hl-3170cdw-driver": "brother-hl-3170cdw-driver",
         "coeurl": "coeurl",
         "crdt": "crdt",
         "deploy-rs": "deploy-rs",

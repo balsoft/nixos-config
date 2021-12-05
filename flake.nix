@@ -78,6 +78,11 @@
       url = "github:OzymandiasTheGreat/mopidy-ytmusic";
       flake = false;
     };
+
+    brother-hl-3170cdw-driver = {
+      url = "github:balsoft/brother-hl-3170cdw-driver";
+      flake = false;
+    };
   };
 
   outputs = { nixpkgs, self, nix, deploy-rs, ... }@inputs:

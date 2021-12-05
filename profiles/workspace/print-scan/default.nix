@@ -1,8 +1,8 @@
-{ pkgs, config, ... }:
+{ pkgs, config, inputs, ... }:
 let
   brother_printer = pkgs.linkFarm "Brother_HL-3170CDW_series" [{
     name = "share/cups/model/hl3170cdw.ppd";
-    path = ./Brother_HL-3170CDW_series.ppd;
+    path = "${inputs.brother-hl-3170cdw-driver}/Brother_HL-3170CDW_series.ppd";
   }];
 in {
   services.printing = {
