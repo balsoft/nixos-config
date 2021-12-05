@@ -23,7 +23,7 @@
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   services.apcupsd = {
-    enable = false;
+    enable = true;
     configText = ''
       UPSTYPE usb
       NISIP 127.0.0.1
