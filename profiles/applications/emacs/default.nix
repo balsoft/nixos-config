@@ -81,6 +81,7 @@ in {
           evil
           tuareg
           fira-code-mode
+          terraform-mode
         ];
     };
 
