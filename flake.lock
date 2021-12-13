@@ -691,11 +691,11 @@
         "nixpkgs": "nixpkgs_9"
       },
       "locked": {
-        "lastModified": 1615418763,
-        "narHash": "sha256-rMLdp7JO2vqzOzaWkQD9WlJm4ikFwVduiYouxPRKUk4=",
+        "lastModified": 1639393537,
+        "narHash": "sha256-w2V+dbLTaJJnQXokxSnK6qp0VSm3nmxMTuAMDHw795Q=",
         "owner": "balsoft",
         "repo": "simple-osd-daemons",
-        "rev": "6f85144934c0c1382c7a4d3a2bbb80106776e270",
+        "rev": "079e854664c6a4cdb10a5ca8ff646098ee808ce2",
         "type": "github"
       },
       "original": {
