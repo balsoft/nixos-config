@@ -155,6 +155,7 @@ in {
           self.coeurl
           self.curl
           self.libevent
+          self.asciidoc
         ];
         cmakeFlags = oa.cmakeFlags ++ [ "-DBUILD_SHARED_LIBS=OFF" ];
       })).override { mtxclient = self.mtxclient; };

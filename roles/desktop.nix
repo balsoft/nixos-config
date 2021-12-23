@@ -38,7 +38,7 @@
     kdeconnect
     light
     mako
-    mopidy
+    # mopidy
     simple-osd-daemons
     sway
     yubikey-touch-detector
