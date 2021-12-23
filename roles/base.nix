@@ -21,7 +21,6 @@
     misc
     network
     nix
-    overlay
     security
     ssh
     zsh

@@ -4,7 +4,6 @@
       # Internet
       wget
       curl
-      unrar
       neochat
 
       exa
@@ -23,7 +22,6 @@
       pavucontrol
       # Tools
       zip
-      unrar
       plasma-systemmonitor
       wl-clipboard
       grim

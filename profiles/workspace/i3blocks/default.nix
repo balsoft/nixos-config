@@ -19,7 +19,7 @@ in {
       trayOutput = "primary";
       command = "true";
       colors = let
-        thm = pkgs.my-lib.thmHash;
+        thm = pkgs.my-lib.thmHash config.themes.colors;
         default = {
           background = thm.base00;
           border = thm.base00;

@@ -95,6 +95,6 @@ in {
     xdg.configFile."emacs/init.el".source = pkgs.substituteAll ({
       src = ./init.el;
       font = with config.themes.fonts; "${mono.family} ${toString mono.size}";
-    } // pkgs.my-lib.thmHash);
+    } // pkgs.my-lib.thmHash config.themes.colors);
   };
 }

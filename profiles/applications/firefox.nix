@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 let
-  thm = pkgs.my-lib.thmHash;
+  thm = pkgs.my-lib.thmHash config.themes.colors;
   fonts = config.themes.fonts;
 in {
   environment.sessionVariables = {

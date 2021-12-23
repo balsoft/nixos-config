@@ -62,15 +62,18 @@ in {
     desktop = "org.gnome.Geary";
   };
 
-  home-manager.users.balsoft = {
+  home-manager.users.balsoft = let
+    fonts = config.themes.fonts;
+    thm = pkgs.my-lib.thmHash config.themes.colors;
+  in {
     xdg.configFile."geary/user-style.css".text = ''
       *, html, body, body.plain div, body.plain a, body.plain p, body.plain span {
-        background: ${pkgs.my-lib.thmHash.base00} !important;
-        color: ${pkgs.my-lib.thmHash.base05} !important;
-        font-family: '${config.themes.fonts.mono.family}', monospace !important;
+        background: ${thm.base00} !important;
+        color: ${thm.base05} !important;
+        font-family: '${fonts.mono.family}', monospace !important;
       }
       *, html, body {
-        font-size: ${toString config.themes.fonts.mono.size}pt;
+        font-size: ${toString fonts.mono.size}pt;
       }
     '';
     home.activation.geary = ''

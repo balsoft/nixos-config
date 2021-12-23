@@ -1,6 +1,6 @@
 { pkgs, lib, config, ... }:
 let
-  thm = pkgs.my-lib.thmHash;
+  thm = pkgs.my-lib.thmHash config.themes.colors;
   apps = config.defaultApplications;
   lock_fork =
     pkgs.writeShellScript "lock_fork" "sudo /run/current-system/sw/bin/lock &";

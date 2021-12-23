@@ -21,7 +21,7 @@ with pkgs.my-lib; {
   home-manager.users.balsoft = let fonts = config.themes.fonts;
   in {
 
-    xdg.configFile."kdeglobals".text = with thmDec; lib.generators.toGitINI {
+    xdg.configFile."kdeglobals".text = with (thmDec config.themes.colors); lib.generators.toGitINI {
       "Colors:Button" = {
         BackgroundAlternate = base01;
         BackgroundNormal = base01;

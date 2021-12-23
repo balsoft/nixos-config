@@ -64,7 +64,7 @@
       flake = false;
     };
 
-    mtxclient ={
+    mtxclient = {
       url = "github:nheko-reborn/mtxclient";
       flake = false;
     };
@@ -90,17 +90,24 @@
       findModules = dir:
         builtins.concatLists (builtins.attrValues (builtins.mapAttrs
           (name: type:
-            if type == "regular" then
-              [{
-                name = builtins.elemAt (builtins.match "(.*)\\.nix" name) 0;
-                value = dir + "/${name}";
-              }]
-            else if (builtins.readDir (dir + "/${name}"))
+            if type == "regular" then [{
+              name = builtins.elemAt (builtins.match "(.*)\\.nix" name) 0;
+              value = dir + "/${name}";
+            }] else if (builtins.readDir (dir + "/${name}"))
             ? "default.nix" then [{
               inherit name;
               value = dir + "/${name}";
             }] else
               findModules (dir + "/${name}")) (builtins.readDir dir)));
+      pkgsFor = system:
+        import inputs.nixpkgs {
+          overlays = [ (import inputs.emacs-overlay) self.overlay ];
+          localSystem = { inherit system; };
+          config = {
+            allowUnfree = true;
+            android_sdk.accept_license = true;
+          };
+        };
     in {
       nixosModules = builtins.listToAttrs (findModules ./modules);
 
@@ -111,19 +118,29 @@
       nixosConfigurations = with nixpkgs.lib;
         let
           hosts = builtins.attrNames (builtins.readDir ./machines);
+
           mkHost = name:
-            nixosSystem {
+            let
               system = builtins.readFile (./machines + "/${name}/system");
-              modules =
-                [ (import (./machines + "/${name}")) { device = name; } ];
+              pkgs = pkgsFor system;
+            in nixosSystem {
+              inherit system;
+              modules = [
+                (import (./machines + "/${name}"))
+                { nixpkgs.pkgs = pkgs; }
+                { device = name; }
+              ];
               specialArgs = { inherit inputs; };
             };
         in genAttrs hosts mkHost;
 
-      legacyPackages.x86_64-linux =
-        (builtins.head (builtins.attrValues self.nixosConfigurations)).pkgs;
+      legacyPackages.x86_64-linux = pkgsFor "x86_64-linux";
 
       defaultApp = deploy-rs.defaultApp;
+
+      overlay = import ./overlay.nix inputs;
+
+      lib = import ./lib.nix nixpkgs.lib;
 
       devShell.x86_64-linux = with nixpkgs.legacyPackages.x86_64-linux;
         mkShell {
@@ -137,15 +154,18 @@
       deploy = {
         user = "root";
         nodes = (builtins.mapAttrs (name: machine:
-        let activateable = name == "T420-Laptop" || name == "RasPi-Server"; in {
-          hostname = machine.config.networking.hostName;
-          profiles.system = {
-            user = if activateable then "root" else "balsoft";
-            path = with deploy-rs.lib.${machine.pkgs.system}.activate; if activateable
-              then nixos machine
-              else noop machine.config.system.build.toplevel;
-          };
-        }) self.nixosConfigurations);
+          let activateable = name == "T420-Laptop" || name == "RasPi-Server";
+          in {
+            hostname = machine.config.networking.hostName;
+            profiles.system = {
+              user = if activateable then "root" else "balsoft";
+              path = with deploy-rs.lib.${machine.pkgs.system}.activate;
+                if activateable then
+                  nixos machine
+                else
+                  noop machine.config.system.build.toplevel;
+            };
+          }) self.nixosConfigurations);
       };
     };
 }

@@ -22,7 +22,7 @@
 
       cursor.style = "Beam";
 
-      colors = with pkgs.my-lib.thmHash; {
+      colors = with pkgs.my-lib.thmHash config.themes.colors; {
         primary = {
           background = base00;
           foreground = base05;

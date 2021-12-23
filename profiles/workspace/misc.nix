@@ -18,6 +18,8 @@
     home.stateVersion = "20.09";
   };
 
+  home-manager.useGlobalPkgs = true;
+
   persist.cache.directories = [ "/home/balsoft/.cache" "/home/balsoft/.local/share/cargo" "/var/cache" ];
 
   persist.state.directories = [ "/var/lib/nixos" "/var/lib/systemd" ];
