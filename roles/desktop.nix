@@ -17,7 +17,7 @@
     virtualisation
 
     alacritty
-    cantata
+    # cantata
     emacs
     firefox
     geary
