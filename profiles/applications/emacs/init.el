@@ -86,6 +86,9 @@
 (global-set-key [home] 'smart-beginning-of-line)
 
 (global-unset-key [menu-bar options cua-mode])
+(global-unset-key (kbd "C-x C-f"))
+(global-set-key (kbd "C-x C-f") 'find-file-other-frame)
+(global-unset-key (kbd "C-x b")) ;; Old habits die hard
 
 (fringe-mode '(0 . 0))
 
