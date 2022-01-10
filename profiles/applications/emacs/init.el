@@ -76,6 +76,7 @@
   (xterm-mouse-mode 1))
 
 (use-package fira-code-mode
+  :custom (fira-code-mode-disabled-ligatures '("[]" "#{" "#(" "#_" "#_(" "x")) ;; List of ligatures to turn off
   :config (global-fira-code-mode))
 
 (use-package company-ghci
