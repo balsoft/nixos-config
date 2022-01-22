@@ -47,7 +47,6 @@ in {
           counsel-tramp
           ix
           magit
-          arduino-mode
           elixir-mode
           company-box
           ws-butler

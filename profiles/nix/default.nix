@@ -1,4 +1,4 @@
-{ pkgs, lib, inputs, ... }: {
+{ pkgs, lib, inputs, config, ... }: {
   nix = rec {
     nixPath = lib.mkForce [ "self=/etc/self/compat" "nixpkgs=/etc/nixpkgs" ];
     binaryCaches = [
@@ -14,7 +14,7 @@
 
     trustedUsers = [ "root" "balsoft" "@wheel" ];
 
-    nrBuildUsers = 16;
+    nrBuildUsers = config.nix.maxJobs;
 
     optimise.automatic = true;
 
