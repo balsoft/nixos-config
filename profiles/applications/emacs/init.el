@@ -228,6 +228,18 @@ nothing happens."
         (add-hook 'after-save-hook 'compile-on-save-start nil t))
       (kill-local-variable 'after-save-hook)))
 
+(defun maybe-delete-frame-buffer (frame)
+  "When a dedicated FRAME is deleted, also kill its buffer.
+A dedicated frame contains a single window whose buffer is not
+displayed anywhere else."
+  (let ((windows (window-list frame)))
+    (when (eq 1 (length windows))
+      (let ((buffer (window-buffer (car windows))))
+        (when (eq 1 (length (get-buffer-window-list buffer nil t)))
+          (kill-buffer buffer))))))
+
+(add-to-list 'delete-frame-functions #'maybe-delete-frame-buffer)
+
 (require 'base16-theme)
 
 (defvar base16-generated-colors
