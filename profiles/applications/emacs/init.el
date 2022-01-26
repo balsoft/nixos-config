@@ -36,7 +36,10 @@
 
 (global-auto-revert-mode)
 
-(setq auto-save-default nil)
+(setq auto-save-interval 5)
+
+(auto-save-visited-mode)
+
 (setq make-backup-files nil)
 
 ;; (use-package xah-fly-keys
