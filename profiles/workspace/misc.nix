@@ -31,4 +31,6 @@
   systemd.timers.systemd-timesyncd = { timerConfig.OnCalendar = "hourly"; };
 
   services.avahi.enable = true;
+
+  environment.systemPackages = [ pkgs.ntfs3g ];
 }
