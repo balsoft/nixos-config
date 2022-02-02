@@ -1,7 +1,7 @@
 { inputs, ... }: {
   imports = with inputs.self.nixosModules; with inputs.self.nixosProfiles; [
     ./hardware-configuration.nix
-    inputs.self.nixosRoles.base
+    inputs.self.nixosRoles.server
     gitea
     # jitsi
     mailserver
@@ -10,11 +10,13 @@
     nextcloud
     nginx
     vsftpd
-    home-assistant
-    mastodon
+    # home-assistant
+    # mastodon
   ];
 
   services.logind.lidSwitch = "ignore";
+
+  system.stateVersion = "21.11";
 
   deviceSpecific.devInfo = {
     legacy = true;

@@ -94,8 +94,9 @@ in rec {
     cmakeFlags = oa.cmakeFlags ++ [ "-DBUILD_SHARED_LIBS=OFF" ];
   })).override { mtxclient = final.mtxclient; };
 
-  nix = inputs.nix.defaultPackage.${system}.overrideAttrs
-    (oa: { patches = [ ./profiles/nix/nix.patch ] ++ oa.patches or [ ]; });
+  nix = inputs.nix.defaultPackage.${system};
+  # .overrideAttrs
+    # (oa: { patches = [ ./profiles/nix/nix.patch ] ++ oa.patches or [ ]; });
 
   mako = prev.mako.overrideAttrs (_: {
     postInstall =

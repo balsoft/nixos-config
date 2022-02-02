@@ -24,7 +24,7 @@
 
   persist.state.directories = [ "/var/lib/nixos" "/var/lib/systemd" ];
 
-  system.stateVersion = "18.03";
+  system.stateVersion = lib.mkDefault "18.03";
 
   systemd.services.systemd-timesyncd.wantedBy = [ "multi-user.target" ];
 

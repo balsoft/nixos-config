@@ -29,7 +29,7 @@
         };
         cursor = {
           text = base02;
-          cursor = base00;
+          cursor = base05;
         };
         normal = {
           black = base00;
