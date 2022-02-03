@@ -13,12 +13,12 @@
           STATE="$(echo "$INFO" | grep 'state:' | tr -s ' ' | cut -d' ' -f3)"
           if [[ "x$STATE" == "xfully-charged" ]] || [[ "x$STATE" == "xcharging" ]]; then
               case $PERCENTAGE in
-                  [2-3]*) icon=;;
-                  [4-5]*) icon=;;
-                  [6-7]*) icon=;;
-                  [8-9]*) icon=;;
+                  [0-9]|1[0-9]) icon=;;
+                  [2-3][0-9]) icon=;;
+                  [4-5][0-9]) icon=;;
+                  [6-7][0-9]) icon=;;
+                  [8-9][0-9]) icon=;;
                   100) icon=;;
-                  *) icon=;;
               esac
           else
               if [[ "$PERCENTAGE" -lt ${toString low_threshold} ]]; then
