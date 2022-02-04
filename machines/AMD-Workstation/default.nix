@@ -36,6 +36,11 @@
 
   environment.sessionVariables.WINEPREFIX = "/home/balsoft/.local/share/wineprefixes/default";
 
+  services.bt-agent = {
+    enable = true;
+    capability = "NoInputNoOutput";
+  };
+
   persist = {
     enable = true;
     cache.clean.enable = false; # Scary...

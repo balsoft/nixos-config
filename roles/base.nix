@@ -7,6 +7,7 @@
     secrets
     secrets-envsubst
     persist
+    bt-agent
 
 
     # PROFILES
