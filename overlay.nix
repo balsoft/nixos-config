@@ -65,7 +65,8 @@ in rec {
     name = "coeurl";
     src = inputs.coeurl;
     buildInputs = [ final.curl.all final.libevent final.spdlog ];
-    nativeBuildInputs = [ final.meson final.ninja final.pkg-config final.cmake ];
+    nativeBuildInputs =
+      [ final.meson final.ninja final.pkg-config final.cmake ];
   };
 
   mtxclient = prev.mtxclient.overrideAttrs (oa: {
@@ -94,9 +95,8 @@ in rec {
     cmakeFlags = oa.cmakeFlags ++ [ "-DBUILD_SHARED_LIBS=OFF" ];
   })).override { mtxclient = final.mtxclient; };
 
-  nix = inputs.nix.defaultPackage.${system};
-  # .overrideAttrs
-    # (oa: { patches = [ ./profiles/nix/nix.patch ] ++ oa.patches or [ ]; });
+  nix = inputs.nix.defaultPackage.${system}.overrideAttrs
+    (oa: { patches = [ ./profiles/nix/nix.patch ] ++ oa.patches or [ ]; });
 
   mako = prev.mako.overrideAttrs (_: {
     postInstall =
