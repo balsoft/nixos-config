@@ -1,4 +1,4 @@
-{ pkgs, config, ... }: {
+{ pkgs, lib, config, ... }: {
   services.pcscd.enable = true;
   services.udev.packages = [ pkgs.yubikey-personalization ];
 
@@ -9,6 +9,16 @@
       enable = true;
       enableSshSupport = true;
       pinentryFlavor = "gtk2";
+    };
+
+    systemd.user.services.gpg-agent = {
+      Service = {
+        Environment = lib.mkForce [
+          "GPG_TTY=/dev/tty1"
+          "DISPLAY=:0"
+          "GNUPGHOME=${config.home-manager.users.balsoft.xdg.dataHome}/gnupg"
+        ];
+      };
     };
 
     programs.gpg = {

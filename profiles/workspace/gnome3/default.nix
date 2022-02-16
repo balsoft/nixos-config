@@ -46,6 +46,7 @@
         ExecStart = lib.mkForce
           "${pkgs.pass-secret-service}/bin/pass_secret_service --path ${config.environment.variables.PASSWORD_STORE_DIR}";
         Type = "dbus";
+        Environment = [ "GPG_TTY=/dev/tty1" "DISPLAY=:0" ];
         BusName = "org.freedesktop.secrets";
       };
       Unit = rec {
