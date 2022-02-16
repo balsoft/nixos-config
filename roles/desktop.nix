@@ -27,6 +27,7 @@
     nheko
     packages
 
+    clipman
     cursor
     direnv
     fonts
