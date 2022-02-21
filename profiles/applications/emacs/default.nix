@@ -73,6 +73,7 @@ in {
           tuareg
           fira-code-mode
           terraform-mode
+          dhall-mode
         ];
     };
 
