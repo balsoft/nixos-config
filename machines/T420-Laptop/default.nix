@@ -12,6 +12,7 @@
     vsftpd
     # home-assistant
     # mastodon
+    irc
   ];
 
   services.logind.lidSwitch = "ignore";
