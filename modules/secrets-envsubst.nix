@@ -88,7 +88,7 @@ let
   addDependencies = name: cfg:
     with cfg;
     genAttrs services (service: rec {
-      requires = [ "${name}-envsubst" ];
+      requires = [ "${name}-envsubst.service" ];
       after = requires;
       bindsTo = requires;
     });
