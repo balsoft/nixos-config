@@ -1,7 +1,7 @@
 { pkgs, config, lib, ... }: {
   services.matrix-synapse = {
     enable = true;
-    allow_guest_access = true;
+    allow_guest_access = false;
     listeners = [{
       bind_address = "0.0.0.0";
       port = 13748;
