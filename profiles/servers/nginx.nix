@@ -42,8 +42,6 @@
       } // default;
     };
   };
-  security.acme = {
-    email = "balsoft@balsoft.ru";
-    acceptTerms = true;
-  };
+  security.acme.defaults.email = "balsoft@balsoft.ru";
+  security.acme.acceptTerms = true;
 }
