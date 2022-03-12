@@ -21,6 +21,12 @@
     }];
     public_baseurl = "https://balsoft.ru";
     server_name = "balsoft.ru";
+    turn_uris =
+      [ "turn:balsoft.ru?transport=udp" "turn:balsoft.ru?transport=tcp" ];
+    extraConfigFiles = [
+      config.secrets-envsubst.coturn.substituted
+      config.secrets-envsubst.matrix.substituted
+    ];
     app_service_config_files =
       [ config.secrets-envsubst.mautrix-telegram-registration.substituted ];
   };
@@ -112,4 +118,64 @@
   users.groups.mautrix-telegram = { };
 
   users.users.matrix-synapse.name = lib.mkForce "matrix-synapse";
+
+  services.coturn = {
+    enable = true;
+    use-auth-secret = true;
+    static-auth-secret-file = config.secrets.coturn.decrypted;
+    no-tls = true;
+    realm = "balsoft.ru";
+    extraConfig = ''
+      external-ip=94.25.150.197
+
+      denied-peer-ip=10.0.0.0-10.255.255.255
+      denied-peer-ip=192.168.0.0-192.168.255.255
+      denied-peer-ip=172.16.0.0-172.31.255.255
+
+      denied-peer-ip=0.0.0.0-0.255.255.255
+      denied-peer-ip=100.64.0.0-100.127.255.255
+      denied-peer-ip=127.0.0.0-127.255.255.255
+      denied-peer-ip=169.254.0.0-169.254.255.255
+      denied-peer-ip=192.0.0.0-192.0.0.255
+      denied-peer-ip=192.0.2.0-192.0.2.255
+      denied-peer-ip=192.88.99.0-192.88.99.255
+      denied-peer-ip=198.18.0.0-198.19.255.255
+      denied-peer-ip=198.51.100.0-198.51.100.255
+      denied-peer-ip=203.0.113.0-203.0.113.255
+      denied-peer-ip=240.0.0.0-255.255.255.255
+
+      allowed-peer-ip=192.168.8.236
+    '';
+  };
+
+  secrets.coturn = {
+    encrypted =
+      "/home/balsoft/.local/share/password-store/coturn/shared_secret.gpg";
+    services = [ "coturn" ];
+    owner = "turnserver:turnserver";
+  };
+  secrets-envsubst.coturn = {
+    secrets = [ "shared_secret" ];
+    services = [ "matrix-synapse" ];
+    owner = "matrix-synapse:matrix-synapse";
+    template = builtins.toJSON { turn_shared_secret = "$shared_secret"; };
+  };
+  secrets-envsubst.matrix = {
+    secrets = [ "registration_shared_secret" ];
+    services = [ "matrix-synapse" ];
+    owner = "matrix-synapse:matrix-synapse";
+    template = builtins.toJSON {
+      registration_shared_secret = "$registration_shared_secret";
+    };
+  };
+
+  networking.firewall = rec {
+    allowedTCPPorts = [ 3478 5349 ];
+    allowedUDPPorts = allowedTCPPorts;
+    allowedUDPPortRanges = [{
+      from = 49152;
+      to = 65535;
+    }];
+  };
+
 }
