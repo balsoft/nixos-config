@@ -9,6 +9,7 @@
     optimise.automatic = true;
 
     extraOptions = ''
+      builders-use-substitutes = true
       experimental-features = nix-command flakes
     '';
 
@@ -23,6 +24,17 @@
         "s3://serokell-private-cache?endpoint=s3.eu-central-1.wasabisys.com&profile=serokell-private-cache-wasabi"
       ];
     };
+    buildMachines = [
+      # tweag remote builder
+      {
+        hostName = "build01.tweag.io";
+        maxJobs = 24;
+        sshUser = "nix";
+        sshKey = "/root/.ssh/id_ed25519";
+        system = "x86_64-linux";
+        supportedFeatures = [ "benchmark" "big-parallel" "kvm" ];
+      }
+    ];
   };
 
   persist.state.directories = [ "/home/balsoft/.local/share/nix" ];
