@@ -75,7 +75,7 @@
         then args="-s"
         else args="-san"
       fi
-      # ${
+      ${
         lib.optionalString (config.deviceSpecific.isLaptop)
         ''USER=balsoft ${pkgs.vlock}/bin/vlock "$args"''
       }

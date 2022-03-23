@@ -3,9 +3,9 @@ let
   thm = pkgs.my-lib.thmHash config.themes.colors;
   apps = config.defaultApplications;
   lock_fork =
-    pkgs.writeShellScript "lock_fork" "sudo /run/current-system/sw/bin/lock &";
+    pkgs.writeShellScript "lock_fork" "sudo /run/current-system/sw/bin/lock all &";
   lock = pkgs.writeShellScript "lock"
-    "swaymsg 'output * dpms off'; sudo /run/current-system/sw/bin/lock; swaymsg 'output * dpms on'";
+    "swaymsg 'output * dpms off'; sudo /run/current-system/sw/bin/lock all; swaymsg 'output * dpms on'";
 in {
   environment.sessionVariables = {
     _JAVA_AWT_WM_NONREPARENTING = "1";
