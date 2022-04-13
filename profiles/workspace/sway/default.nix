@@ -153,16 +153,16 @@ in {
         "${modifier}+F1" = ''
           exec ${pkgs.pavucontrol}/bin/pavucontrol; [app_id="pavucontrol"] focus'';
         "${modifier}+Shift+F1" = ''
-          exec ${
-            pkgs.writeShellScript "helvum"
-            "GTK_THEME=adwaita:dark ${pkgs.helvum}/bin/helvum"
-          }; [app_id="org.freedesktop.ryuukyu.Helvum"] focus'';
+          exec ${pkgs.helvum}/bin/helvum; [app_id="org.freedesktop.ryuukyu.Helvum"] focus'';
         "${modifier}+F3" = "exec ${pkgs.alsa-utils}/bin/amixer set Capture cap";
         "${modifier}+Shift+F3" = "exec ${pkgs.alsa-utils}/bin/amixer set Capture nocap";
         "${modifier}+F5" = "reload";
         "${modifier}+Shift+F5" = "exit";
-        "${modifier}+F9" = "exec systemctl --user restart mako.service";
-        "${modifier}+Shift+F9" = "exec systemctl --user stop mako.service";
+        "${modifier}+F8" = "exec ${pkgs.mako}/bin/makoctl dismiss";
+        "${modifier}+Shift+F8" = "exec ${pkgs.mako}/bin/makoctl restore";
+        "${modifier}+Control+F8" = "exec ${pkgs.mako}/bin/makoctl dismiss -a";
+        "${modifier}+F9" = "exec ${pkgs.libnotify}/bin/notify-send \"Do not disturb: on\"; exec ${pkgs.mako}/bin/makoctl set-mode do-not-disturb";
+        "${modifier}+Shift+F9" = "exec ${pkgs.libnotify}/bin/notify-send \"Do not disturb: off\"; exec ${pkgs.mako}/bin/makoctl set-mode default";
         "${modifier}+F11" = "output * dpms off";
         "${modifier}+F12" = "output * dpms on";
         "${modifier}+End" = "exec ${lock}";

@@ -23,6 +23,18 @@
       progressColor = "over ${base0B}";
       iconPath = "${pkgs.papirus-icon-theme}/share/icons/Papirus-Dark";
       maxIconSize = 24;
+      extraConfig = ''
+        [mode=do-not-disturb]
+        invisible=1
+        [mode=do-not-disturb summary="Do not disturb: on"]
+        invisible=0
+        [mode=concentrate]
+        invisible=1
+        [mode=concentrate urgency=critical]
+        invisible=0
+        [mode=concentrate summary="Concentrate mode: on"]
+        invisible=0
+      '';
     };
   };
 }
