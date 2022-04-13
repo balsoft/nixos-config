@@ -451,6 +451,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-firefox": {
+      "locked": {
+        "lastModified": 1648632716,
+        "narHash": "sha256-kCmnDeiaMsdhfnNKjxdOzwRh2H6eQb8yWAL+nNabC/Y=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "710fed5a2483f945b14f4a58af2cd3676b42d8c8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "710fed5a2483f945b14f4a58af2cd3676b42d8c8",
+        "type": "github"
+      }
+    },
     "nixpkgs-old": {
       "flake": false,
       "locked": {
@@ -656,6 +672,7 @@
         "nix-direnv": "nix-direnv",
         "nixos-fhs-compat": "nixos-fhs-compat",
         "nixpkgs": "nixpkgs_9",
+        "nixpkgs-firefox": "nixpkgs-firefox",
         "nixpkgs-old": "nixpkgs-old",
         "nixpkgs-wayland": "nixpkgs-wayland",
         "rycee": "rycee",

@@ -6,6 +6,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-firefox.url = "github:nixos/nixpkgs/710fed5a2483f945b14f4a58af2cd3676b42d8c8";
     nix.url = "github:nixos/nix";
     lambda-launcher.url = "github:balsoft/lambda-launcher";
     deploy-rs.url = "github:serokell/deploy-rs";
