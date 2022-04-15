@@ -104,6 +104,4 @@ in rec {
     postInstall =
       "sed 's/Exec=.*//' -i $out/share/dbus-1/services/fr.emersion.mako.service";
   });
-
-  firefox-wayland = inputs.nixpkgs-firefox.legacyPackages.${system}.firefox-wayland;
 }
