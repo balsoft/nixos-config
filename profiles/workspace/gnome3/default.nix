@@ -98,7 +98,7 @@
         thumbnail-limit = 10;
       };
 
-      # "org/gnome/desktop/interface" = { cursor-theme = "default"; };
+      "org/gnome/desktop/interface" = { cursor-theme = "default"; };
 
       "org/gnome/evince/default" = { inverted-colors = true; };
 
