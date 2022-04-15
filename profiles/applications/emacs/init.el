@@ -216,6 +216,10 @@
 
 (setq initial-major-mode 'text-mode)
 
+(use-package undo-tree-mode
+  :config
+  (global-undo))
+
 (defun compile-on-save-start ()
   (let ((buffer (compilation-find-buffer)))
     (unless (get-buffer-process buffer)
