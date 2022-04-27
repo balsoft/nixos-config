@@ -1,34 +1,36 @@
 { pkgs, config, lib, ... }: {
   services.matrix-synapse = {
     enable = true;
-    allow_guest_access = false;
-    listeners = [{
-      bind_address = "0.0.0.0";
-      port = 13748;
-      resources = [
-        {
-          compress = true;
-          names = [ "client" ];
-        }
-        {
-          compress = false;
-          names = [ "federation" ];
-        }
+    settings = {
+      allow_guest_access = false;
+      listeners = [{
+        # bind_address = "0.0.0.0";
+        port = 13748;
+        resources = [
+          {
+            compress = true;
+            names = [ "client" ];
+          }
+          {
+            compress = false;
+            names = [ "federation" ];
+          }
+        ];
+        type = "http";
+        tls = false;
+        x_forwarded = true;
+      }];
+      public_baseurl = "https://balsoft.ru";
+      server_name = "balsoft.ru";
+      turn_uris =
+        [ "turn:balsoft.ru?transport=udp" "turn:balsoft.ru?transport=tcp" ];
+      extraConfigFiles = [
+        config.secrets-envsubst.coturn.substituted
+        config.secrets-envsubst.matrix.substituted
       ];
-      type = "http";
-      tls = false;
-      x_forwarded = true;
-    }];
-    public_baseurl = "https://balsoft.ru";
-    server_name = "balsoft.ru";
-    turn_uris =
-      [ "turn:balsoft.ru?transport=udp" "turn:balsoft.ru?transport=tcp" ];
-    extraConfigFiles = [
-      config.secrets-envsubst.coturn.substituted
-      config.secrets-envsubst.matrix.substituted
-    ];
-    app_service_config_files =
-      [ config.secrets-envsubst.mautrix-telegram-registration.substituted ];
+      app_service_config_files =
+        [ config.secrets-envsubst.mautrix-telegram-registration.substituted ];
+    };
   };
 
   services.postgresql.enable = true;
