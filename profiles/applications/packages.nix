@@ -4,7 +4,6 @@
       # Internet
       wget
       curl
-      neochat
 
       exa
     ] ++ lib.optionals config.deviceSpecific.goodMachine [
@@ -18,6 +17,7 @@
       # Messaging
       libnotify
       # Audio/Video
+      mpv
       vlc
       pavucontrol
       # Tools

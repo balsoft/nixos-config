@@ -721,11 +721,11 @@
         "nixpkgs": "nixpkgs_10"
       },
       "locked": {
-        "lastModified": 1639393537,
-        "narHash": "sha256-w2V+dbLTaJJnQXokxSnK6qp0VSm3nmxMTuAMDHw795Q=",
+        "lastModified": 1651151365,
+        "narHash": "sha256-00nR5swTsFqp9A04MQC1y35oK//R9P6+3sFNbaZPh6E=",
         "owner": "balsoft",
         "repo": "simple-osd-daemons",
-        "rev": "079e854664c6a4cdb10a5ca8ff646098ee808ce2",
+        "rev": "a105793bca69ecd78c4c8895a89eadd2a9116888",
         "type": "github"
       },
       "original": {
