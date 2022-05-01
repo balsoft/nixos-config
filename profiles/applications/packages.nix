@@ -37,5 +37,7 @@
       shellcheck
       proselint
       ripgrep
+      bat
+      fx
     ];
 }
