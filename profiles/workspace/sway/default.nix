@@ -158,9 +158,9 @@ in {
         "${modifier}+Shift+F3" = "exec ${pkgs.alsa-utils}/bin/amixer set Capture nocap";
         "${modifier}+F5" = "reload";
         "${modifier}+Shift+F5" = "exit";
-        "${modifier}+F8" = "exec ${pkgs.mako}/bin/makoctl dismiss";
-        "${modifier}+Shift+F8" = "exec ${pkgs.mako}/bin/makoctl restore";
-        "${modifier}+Control+F8" = "exec ${pkgs.mako}/bin/makoctl dismiss -a";
+        "${modifier}+z" = "exec ${pkgs.mako}/bin/makoctl dismiss";
+        "${modifier}+Shift+z" = "exec ${pkgs.mako}/bin/makoctl restore";
+        "${modifier}+Control+z" = "exec ${pkgs.mako}/bin/makoctl dismiss -a";
         "${modifier}+F9" = "exec ${pkgs.libnotify}/bin/notify-send \"Do not disturb: on\"; exec ${pkgs.mako}/bin/makoctl set-mode do-not-disturb";
         "${modifier}+Shift+F9" = "exec ${pkgs.libnotify}/bin/notify-send \"Do not disturb: off\"; exec ${pkgs.mako}/bin/makoctl set-mode default";
         "${modifier}+F11" = "output * dpms off";
