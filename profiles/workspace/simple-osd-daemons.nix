@@ -5,6 +5,8 @@ let
     Service = {
       ExecStart = "${pkgs.simple-osd.${name}}/bin/simple-osd-${name}";
       Restart = "always";
+      After = [ "mako.service" ];
+      Wants = [ "mako.service" ];
     };
   };
   inherit (pkgs.my-lib) genIni;
