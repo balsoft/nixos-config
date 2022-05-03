@@ -241,6 +241,8 @@ in {
         };
       } // lib.optionalAttrs (config.device == "X2100-Laptop") {
         "Unknown 0x0000 0x00000000".scale = "2";
+      } // lib.optionalAttrs (config.device == "T490s-Laptop") {
+        DP-2.position = "0 0";
       };
     };
     wrapperFeatures = { gtk = true; };
