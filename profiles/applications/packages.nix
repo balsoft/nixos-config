@@ -38,6 +38,6 @@
       proselint
       ripgrep
       bat
-      fx
+      jless
     ];
 }
