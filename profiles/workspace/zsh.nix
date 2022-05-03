@@ -86,6 +86,7 @@
          fi
          if [ ! -z "$cmd" ] && [[ $cmd_time -gt 3 ]]; then
            ${pkgs.libnotify}/bin/notify-send -a command_complete -i utilities-terminal -u low "$cmdstat $cmd" "in `date -u -d @$cmd_time +'%T'`"
+           echo -e '\a'
          fi
          unset cmd
        }
