@@ -9,6 +9,7 @@
     xsession.pointerCursor = {
       package = pkgs.breeze-qt5;
       name = "Breeze";
+      size = 16;
     };
 
     home.file."/home/balsoft/.icons/default".source =
