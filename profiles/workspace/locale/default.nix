@@ -9,7 +9,7 @@
     LANG = lib.mkForce "en_GB.UTF-8";
   };
 
-  time.timeZone = "Europe/Moscow"; # Mother Russia
+  time.timeZone = "Asia/Tbilisi";
   home-manager.users.balsoft = {
     home.file.".XCompose".source = ./compose;
     home.language = let
