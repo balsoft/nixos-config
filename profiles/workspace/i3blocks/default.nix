@@ -16,7 +16,7 @@ in {
   home-manager.users.balsoft = {
     wayland.windowManager.sway.config.bars = [{
       id = "default";
-      trayOutput = "primary";
+      trayOutput = "none";
       command = "true";
       colors = let
         thm = pkgs.my-lib.thmHash config.themes.colors;
