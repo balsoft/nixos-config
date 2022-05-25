@@ -6,7 +6,7 @@
 
   home-manager.users.balsoft = {
 
-    xsession.pointerCursor = {
+    home.pointerCursor = {
       package = pkgs.breeze-qt5;
       name = "Breeze";
       size = 16;

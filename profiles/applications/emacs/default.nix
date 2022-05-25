@@ -65,7 +65,7 @@ in {
           lsp-treemacs
           treemacs-projectile
           dap-mode
-          forge
+          # forge
           crdt
           base16-theme
           org-caldav
