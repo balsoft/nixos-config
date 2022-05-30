@@ -1,10 +1,38 @@
-{ config, pkgs, inputs, ... }: {
+{ config, pkgs, inputs, ... }:
+let
+  codium-wayland = pkgs.buildEnv {
+    name = "codium-wayland";
+    paths = [
+      (pkgs.writeShellScriptBin "codium-wayland" ''
+        NIX_OZONE_WL=1 \
+        ${config.home-manager.users.balsoft.programs.vscode.package}/bin/codium \
+        --enable-features=UseOzonePlatform \
+        --ozone-platform=wayland \
+        "$@"
+      '')
+      (pkgs.makeDesktopItem {
+        name = "codium-wayland";
+        desktopName = "VSCodium (Wayland)";
+        exec = "codium-wayland";
+        icon = "code";
+        categories = [ "Utility" "TextEditor" "Development" "IDE" ];
+        mimeTypes = [ "text/plain" "inode/directory" ];
+        extraConfig = {
+          StartupNotify = "true";
+          StartupWMClass = "vscodium";
+        };
+      })
+    ];
+  };
+in {
+  environment.systemPackages = [ codium-wayland ];
+
   defaultApplications.editor = {
-    cmd =
-      "${config.home-manager.users.balsoft.programs.vscode.package}/bin/codium";
-    desktop = "codium";
+    cmd = "${codium-wayland}/bin/codium-wayland";
+    desktop = "codium-wayland";
   };
   home-manager.users.balsoft = {
+
     programs.vscode = {
       enable = true;
       package = pkgs.vscodium;
@@ -15,17 +43,17 @@
         kahole.magit
         (inputs.direnv-vscode.packages.${pkgs.system}.vsix.overrideAttrs (_: {
           buildPhase = "yarn run build";
-          installPhase =
-            "mkdir -p $out/share/vscode/extensions/direnv.direnv-vscode; cp -R * $out/share/vscode/extensions/direnv.direnv-vscode";
+          installPhase = ''
+            mkdir -p $out/share/vscode/extensions/direnv.direnv-vscode
+            cp -R * $out/share/vscode/extensions/direnv.direnv-vscode
+          '';
         }))
 
         (pkgs.callPackage ./theme.nix { } config.themes.colors)
 
         matklad.rust-analyzer
-        ocamllabs.ocaml-platform
         redhat.vscode-yaml
-        bbenoist.nix
-        brettm12345.nixfmt-vscode
+        jnoortheen.nix-ide
         dhall.dhall-lang
         hashicorp.terraform
         timonwong.shellcheck
@@ -40,6 +68,7 @@
           "/run/current-system/sw/bin/bash";
         "terminal.integrated.defaultProfile.linux" = "bash";
         "editor.fontFamily" = "IBM Plex Mono";
+        "nix.formatterPath" = "nixfmt";
       };
       keybindings = [{
         key = "ctrl+shift+r";
