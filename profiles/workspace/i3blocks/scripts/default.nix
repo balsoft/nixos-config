@@ -32,7 +32,7 @@ builtins.mapAttrs buildHaskellScript {
   battery = ./battery.nix;
   brightness = ./brightness.nix;
   email = ./email.nix;
-  emacs = ./emacs.nix;
+  # emacs = ./emacs.nix;
   bluetooth = ./bluetooth.nix;
   connections = ./connections.nix;
   weather = ./weather.nix;

@@ -54,7 +54,7 @@ in {
       interval=60
       markup=pango
     '' + pkgs.my-lib.genIniOrdered ([ (scr "email") ]
-      ++ [ (scrint "weather" 600) (scr "emacs") (scr "nixos") ]
+      ++ [ (scrint "weather" 600) (scr "nixos") ]
       ++ [ (scrint "music" 3) (scrint "sound" 1) ]
       ++ [
         (scrint "cpu" 5)

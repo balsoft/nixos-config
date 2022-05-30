@@ -40,7 +40,6 @@
     };
     nixos-fhs-compat.url = "github:balsoft/nixos-fhs-compat";
     simple-osd-daemons.url = "github:balsoft/simple-osd-daemons";
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
     sonoff-lan = {
       url = "github:AlexxIT/SonoffLAN";
       flake = false;
@@ -83,6 +82,8 @@
       url = "github:balsoft/brother-hl-3170cdw-driver";
       flake = false;
     };
+
+    direnv-vscode.url = "github:direnv/direnv-vscode";
   };
 
   outputs = { nixpkgs, self, nix, deploy-rs, ... }@inputs:
@@ -101,10 +102,9 @@
               findModules (dir + "/${name}")) (builtins.readDir dir)));
       pkgsFor = system:
         import inputs.nixpkgs {
-          overlays = [ (import inputs.emacs-overlay) self.overlay ];
+          overlays = [ self.overlay ];
           localSystem = { inherit system; };
           config = {
-            allowUnfree = true;
             android_sdk.accept_license = true;
           };
         };

@@ -7,11 +7,11 @@
 
       exa
     ] ++ lib.optionals config.deviceSpecific.goodMachine [
-      steamcmd
-      steam
+      # steamcmd
+      # steam
       haskellPackages.hoogle
       nixfmt
-      niv
+      nixpkgs-fmt
       stdman
       libqalculate
       # Messaging

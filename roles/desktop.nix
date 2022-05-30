@@ -18,7 +18,8 @@
 
     alacritty
     # cantata
-    emacs
+    # emacs
+    vscodium
     firefox
     geary
     github
