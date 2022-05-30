@@ -208,6 +208,8 @@
 <Multi_key> <space> <Y> : "Η" U0397 # GREEK CAPITAL LETTER ΕΤΑ
 <Multi_key> <space> <Z> : "Ζ" U0396 # GREEK CAPITAL LETTER ZETA
 
+<Multi_key> <d> <e> <l> : "∇" U2207 # Nabla/del
+
 
 <Multi_key> <d> <e> <g> : "°" U00B0 # Degree
 <Multi_key> <Multi_key> <d> : "°" U00B0 # Degree
@@ -225,4 +227,5 @@
 <Multi_key> <r> <e> <t> <r> <y> : "⟲" U27F2
 
 <Multi_key> <r> <u> <s> : "🇷🇺" # Russian flag
+<Multi_key> <g> <e> : "🇬🇪" # Georgian flag
 <Multi_key> <l> <g> <b> <t> : "🏳️‍⚧️" # LGBT flag
