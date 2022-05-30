@@ -171,6 +171,8 @@ in {
         "${modifier}+k" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
         "${modifier}+l" = "exec ${pkgs.playerctl}/bin/playerctl next";
 
+        "${modifier}+Slash" = "exec ${pkgs.copyq}/bin/copyq menu";
+
         "${modifier}+Print" = script "screenshot"
           "${pkgs.grim}/bin/grim Pictures/$(date +'%Y-%m-%d+%H:%M:%S').png";
 

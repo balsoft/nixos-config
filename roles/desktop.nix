@@ -27,7 +27,7 @@
     nheko
     packages
 
-    clipman
+    copyq
     cursor
     direnv
     fonts
