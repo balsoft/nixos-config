@@ -36,6 +36,10 @@
         "[nix]"."editor.tabSize" = 2;
         "workbench.colorTheme" = "Balsoft's generated theme";
         "vim.useCtrlKeys" = false;
+        "terminal.integrated.profiles.linux".bash.path =
+          "/run/current-system/sw/bin/bash";
+        "terminal.integrated.defaultProfile.linux" = "bash";
+        "editor.fontFamily" = "IBM Plex Mono";
       };
       keybindings = [{
         key = "ctrl+shift+r";
