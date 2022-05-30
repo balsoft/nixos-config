@@ -32,7 +32,7 @@
       ];
 
       userSettings = {
-        "update.channel" = "none";
+        "update.mode" = "none";
         "[nix]"."editor.tabSize" = 2;
         "workbench.colorTheme" = "Balsoft's generated theme";
         "vim.useCtrlKeys" = false;
