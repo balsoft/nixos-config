@@ -22,6 +22,7 @@
         (pkgs.callPackage ./theme.nix { } config.themes.colors)
 
         matklad.rust-analyzer
+        ocamllabs.ocaml-platform
         redhat.vscode-yaml
         bbenoist.nix
         brettm12345.nixfmt-vscode
@@ -34,7 +35,13 @@
         "update.channel" = "none";
         "[nix]"."editor.tabSize" = 2;
         "workbench.colorTheme" = "Balsoft's generated theme";
+        "vim.useCtrlKeys" = false;
       };
+      keybindings = [{
+        key = "ctrl+shift+r";
+        command = "workbench.action.tasks.runTask";
+        when = "textInputFocus";
+      }];
     };
   };
 }

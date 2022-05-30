@@ -34,7 +34,7 @@ let
         "charts.purple" = "#${base0E}";
         "charts.red" = "#${base08}";
         "charts.yellow" = "#${base0A}";
-        "checkbox.background" = "#${base00}";
+        "checkbox.background" = "#${base01}";
         "checkbox.foreground" = "#${base05}";
         "debugConsole.errorForeground" = "#${base08}";
         "debugConsole.infoForeground" = "#${base05}";
@@ -152,14 +152,14 @@ let
         "extensionButton.prominentHoverBackground" = "#${base02}";
         foreground = "#${base05}";
         "gitDecoration.addedResourceForeground" = "#${base0B}";
-        "gitDecoration.conflictingResourceForeground" = "#${base0A}";
+        "gitDecoration.conflictingResourceForeground" = "#${base09}";
         "gitDecoration.deletedResourceForeground" = "#${base08}";
         "gitDecoration.ignoredResourceForeground" = "#${base03}";
-        "gitDecoration.modifiedResourceForeground" = "#${base0E}";
-        "gitDecoration.stageDeletedResourceForeground" = "#${base08}";
-        "gitDecoration.stageModifiedResourceForeground" = "#${base0E}";
+        "gitDecoration.modifiedResourceForeground" = "#${base0A}";
+        "gitDecoration.stageDeletedResourceForeground" = "#${base0C}";
+        "gitDecoration.stageModifiedResourceForeground" = "#${base0C}";
         "gitDecoration.submoduleResourceForeground" = "#${base0F}";
-        "gitDecoration.untrackedResourceForeground" = "#${base09}";
+        "gitDecoration.untrackedResourceForeground" = "#${base0E}";
         "icon.foreground" = "#${base04}";
         "input.background" = "#${base00}";
         "input.foreground" = "#${base05}";
@@ -260,9 +260,9 @@ let
         "scrollbarSlider.background" = "#${base02}6f";
         "scrollbarSlider.hoverBackground" = "#${base03}6f";
         "selection.background" = "#${base01}";
-        "settings.checkboxBackground" = "#${base00}";
+        "settings.checkboxBackground" = "#${base01}";
         "settings.checkboxForeground" = "#${base05}";
-        "settings.dropdownBackground" = "#${base00}";
+        "settings.dropdownBackground" = "#${base01}";
         "settings.dropdownForeground" = "#${base05}";
         "settings.focusedRowBackground" = "#${base02}";
         "settings.headerForeground" = "#${base05}";
@@ -270,7 +270,7 @@ let
         "settings.modifiedItemIndicator" = "#${base0D}";
         "settings.numberInputBackground" = "#${base00}";
         "settings.numberInputForeground" = "#${base05}";
-        "settings.textInputBackground" = "#${base00}";
+        "settings.textInputBackground" = "#${base01}";
         "settings.textInputForeground" = "#${base05}";
         "sideBar.background" = "#${base00}";
         "sideBar.dropBackground" = "#${base01}6f";
@@ -481,7 +481,7 @@ let
         {
           name = "Embedded";
           scope = [ "punctuation.section.embedded" "variable.interpolation" ];
-          settings = { foreground = "#${base0F}"; };
+          settings = { foreground = "#${base0C}"; };
         }
         {
           name = "Tag";
