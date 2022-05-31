@@ -8,6 +8,7 @@ let
         ${config.home-manager.users.balsoft.programs.vscode.package}/bin/codium \
         --enable-features=UseOzonePlatform \
         --ozone-platform=wayland \
+        -w \
         "$@"
       '')
       (pkgs.makeDesktopItem {
@@ -57,6 +58,10 @@ in {
         dhall.dhall-lang
         hashicorp.terraform
         timonwong.shellcheck
+        bungcip.better-toml        
+        haskell.haskell
+        justusadam.language-haskell
+        ms-python.python
       ];
 
       userSettings = {
