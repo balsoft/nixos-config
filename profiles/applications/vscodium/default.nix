@@ -77,6 +77,8 @@ in {
         "nix.formatterPath" = "nixfmt";
         "git.autofetch" = true;
         "vscode-neovim.neovimExecutablePaths.linux" = "${pkgs.neovim}/bin/nvim";
+        "vscode-neovim.useCtrlKeysForNormalMode" = false;
+        "vscode-neovim.mouseSelectionStartVisualMode" = true;
       };
       keybindings = [{
         key = "ctrl+shift+r";
