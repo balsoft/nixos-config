@@ -47,7 +47,8 @@
       "b" = "nix build";
       "p" = "nix-shell --run zsh -p";
       "s" = "nix shell";
-      "e" = "nix edit";
+      "e" = "$EDITOR -n";
+      "dog" = "$EDITOR -n -";
       "d" = "nix develop";
       "r" = "nix run";
       "f" = "nix search";
