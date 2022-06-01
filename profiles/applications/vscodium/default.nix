@@ -5,6 +5,7 @@ let
     paths = [
       (pkgs.writeShellScriptBin "codium-wayland" ''
         NIX_OZONE_WL=1 \
+        exec \
         ${config.home-manager.users.balsoft.programs.vscode.package}/bin/codium \
         --enable-features=UseOzonePlatform \
         --ozone-platform=wayland \
