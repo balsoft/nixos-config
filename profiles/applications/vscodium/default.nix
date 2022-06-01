@@ -40,7 +40,7 @@ in {
 
       mutableExtensionsDir = false;
       extensions = with pkgs.vscode-extensions; [
-        vscodevim.vim
+        asvetliakov.vscode-neovim
         kahole.magit
         (inputs.direnv-vscode.packages.${pkgs.system}.vsix.overrideAttrs (_: {
           buildPhase = "yarn run build";
@@ -62,6 +62,7 @@ in {
         haskell.haskell
         justusadam.language-haskell
         ms-python.python
+        github.vscode-pull-request-github
       ];
 
       userSettings = {
@@ -74,6 +75,8 @@ in {
         "terminal.integrated.defaultProfile.linux" = "bash";
         "editor.fontFamily" = "IBM Plex Mono";
         "nix.formatterPath" = "nixfmt";
+        "git.autofetch" = true;
+        "vscode-neovim.neovimExecutablePaths.linux" = "${pkgs.neovim}/bin/nvim";
       };
       keybindings = [{
         key = "ctrl+shift+r";
