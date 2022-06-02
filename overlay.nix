@@ -119,6 +119,6 @@ in rec {
 
   mako = prev.mako.overrideAttrs (_: {
     postInstall =
-      "sed 's/Exec=.*//' -i $out/share/dbus-1/services/fr.emersion.mako.service";
+      "sed 's|Exec=.*|Exec=/run/current-system/sw/bin/systemctl --user start mako|' -i $out/share/dbus-1/services/fr.emersion.mako.service";
   });
 }
