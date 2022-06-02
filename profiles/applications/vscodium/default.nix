@@ -54,7 +54,6 @@ in {
       mutableExtensionsDir = false;
       extensions = with pkgs.vscode-extensions;
         [
-          asvetliakov.vscode-neovim
           kahole.magit
           (inputs.direnv-vscode.packages.${pkgs.system}.vsix.overrideAttrs (_: {
             buildPhase = "yarn run build";

@@ -9,10 +9,14 @@
     gnome-settings-daemon.enable = true;
     glib-networking.enable = true;
     # pass-secret-service is used instead
-    gnome-keyring.enable = true;
+    gnome-keyring.enable = lib.mkForce false;
     gnome-online-accounts.enable = true;
     gnome-online-miners.enable = true;
   };
+
+  environment.systemPackages = [ pkgs.pass-secret-service ];
+  services.dbus.packages = [ pkgs.pass-secret-service ];
+  xdg.portal.extraPortals = [ pkgs.pass-secret-service ];
 
   services.gvfs.enable = true;
   services.geoclue2.enable = true;
@@ -43,14 +47,12 @@
 
     systemd.user.services.pass-secret-service = {
       Service = {
-        ExecStart = lib.mkForce
-          "${pkgs.pass-secret-service}/bin/pass_secret_service --path ${config.environment.variables.PASSWORD_STORE_DIR}";
         Type = "dbus";
         Environment = [ "GPG_TTY=/dev/tty1" "DISPLAY=:0" ];
         BusName = "org.freedesktop.secrets";
       };
       Unit = rec {
-        Wants = [ "gpg-agent.service" "activate-secrets.service" ];
+        Wants = [ "gpg-agent.service" ];
         After = Wants;
         PartOf = [ "graphical-session-pre.target" ];
       };

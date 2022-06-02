@@ -57,7 +57,24 @@ in rec {
   nerdfonts = nur.balsoft.pkgs.roboto-mono-nerd;
 
   pass-secret-service =
-    prev.pass-secret-service.overrideAttrs (_: { installCheckPhase = null; });
+    prev.pass-secret-service.overrideAttrs (_: { 
+      installCheckPhase = null;
+      postInstall = ''
+        mkdir -p $out/share/{dbus-1/services,xdg-desktop-portal/portals}
+        cat > $out/share/dbus-1/services/org.freedesktop.secrets.service << EOF
+        [D-BUS Service]
+        Name=org.freedesktop.secrets
+        Exec=/run/current-system/sw/bin/systemctl --user start pass-secret-service
+        EOF
+        cp $out/share/dbus-1/services/{org.freedesktop.secrets.service,org.freedesktop.impl.portal.Secret.service}
+        cat > $out/share/xdg-desktop-portal/portals/pass-secret-service.portal << EOF
+        [portal]
+        DBusName=org.freedesktop.secrets
+        Interfaces=org.freedesktop.impl.portal.Secrets
+        UseIn=gnome
+        EOF
+      '';
+    });
 
   nix-direnv = inputs.nix-direnv.defaultPackage.${system};
 
