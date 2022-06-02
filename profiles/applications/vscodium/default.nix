@@ -34,6 +34,10 @@ let
       })
     ];
   };
+
+  custom-extensions = import ./extensions.nix {
+    inherit (pkgs.vscode-utils) buildVscodeMarketplaceExtension;
+  };
 in {
   environment.systemPackages = [ codium-wayland ];
 
@@ -48,31 +52,33 @@ in {
       package = pkgs.vscodium;
 
       mutableExtensionsDir = false;
-      extensions = with pkgs.vscode-extensions; [
-        asvetliakov.vscode-neovim
-        kahole.magit
-        (inputs.direnv-vscode.packages.${pkgs.system}.vsix.overrideAttrs (_: {
-          buildPhase = "yarn run build";
-          installPhase = ''
-            mkdir -p $out/share/vscode/extensions/direnv.direnv-vscode
-            cp -R * $out/share/vscode/extensions/direnv.direnv-vscode
-          '';
-        }))
+      extensions = with pkgs.vscode-extensions;
+        [
+          asvetliakov.vscode-neovim
+          kahole.magit
+          (inputs.direnv-vscode.packages.${pkgs.system}.vsix.overrideAttrs (_: {
+            buildPhase = "yarn run build";
+            installPhase = ''
+              mkdir -p $out/share/vscode/extensions/direnv.direnv-vscode
+              cp -R * $out/share/vscode/extensions/direnv.direnv-vscode
+            '';
+          }))
 
-        (pkgs.callPackage ./theme.nix { } config.themes.colors)
+          (pkgs.callPackage ./theme.nix { } config.themes.colors)
 
-        matklad.rust-analyzer
-        redhat.vscode-yaml
-        jnoortheen.nix-ide
-        dhall.dhall-lang
-        hashicorp.terraform
-        timonwong.shellcheck
-        bungcip.better-toml        
-        haskell.haskell
-        justusadam.language-haskell
-        ms-python.python
-        github.vscode-pull-request-github
-      ];
+          matklad.rust-analyzer
+          redhat.vscode-yaml
+          jnoortheen.nix-ide
+          dhall.dhall-lang
+          hashicorp.terraform
+          timonwong.shellcheck
+          bungcip.better-toml
+          haskell.haskell
+          justusadam.language-haskell
+          ms-python.python
+          github.vscode-pull-request-github
+        ] ++ pkgs.lib.concatMap builtins.attrValues
+        (builtins.attrValues custom-extensions);
 
       userSettings = {
         "update.mode" = "none";
@@ -88,6 +94,7 @@ in {
         "vscode-neovim.neovimExecutablePaths.linux" = "${pkgs.neovim}/bin/nvim";
         "vscode-neovim.useCtrlKeysForNormalMode" = false;
         "vscode-neovim.mouseSelectionStartVisualMode" = true;
+        "security.workspace.trust.untrustedFiles" = "open";
       };
       keybindings = [{
         key = "ctrl+shift+r";
