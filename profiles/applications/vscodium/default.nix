@@ -1,5 +1,14 @@
 { config, pkgs, inputs, ... }:
 let
+  EDITOR = pkgs.writeShellScript "codium-editor" ''
+    NIX_OZONE_WL=1 \
+    exec \
+    ${config.home-manager.users.balsoft.programs.vscode.package}/bin/codium \
+    --enable-features=UseOzonePlatform \
+    --ozone-platform=wayland \
+    -w -n \
+    "$@"
+  '';
   codium-wayland = pkgs.buildEnv {
     name = "codium-wayland";
     paths = [
@@ -9,7 +18,6 @@ let
         ${config.home-manager.users.balsoft.programs.vscode.package}/bin/codium \
         --enable-features=UseOzonePlatform \
         --ozone-platform=wayland \
-        -w \
         "$@"
       '')
       (pkgs.makeDesktopItem {
@@ -30,7 +38,7 @@ in {
   environment.systemPackages = [ codium-wayland ];
 
   defaultApplications.editor = {
-    cmd = "${codium-wayland}/bin/codium-wayland";
+    cmd = "${EDITOR}";
     desktop = "codium-wayland";
   };
   home-manager.users.balsoft = {
@@ -70,13 +78,13 @@ in {
         "update.mode" = "none";
         "[nix]"."editor.tabSize" = 2;
         "workbench.colorTheme" = "Balsoft's generated theme";
-        "vim.useCtrlKeys" = false;
         "terminal.integrated.profiles.linux".bash.path =
           "/run/current-system/sw/bin/bash";
         "terminal.integrated.defaultProfile.linux" = "bash";
         "editor.fontFamily" = "IBM Plex Mono";
         "nix.formatterPath" = "nixfmt";
         "git.autofetch" = true;
+        "redhat.telemetry.enabled" = false;
         "vscode-neovim.neovimExecutablePaths.linux" = "${pkgs.neovim}/bin/nvim";
         "vscode-neovim.useCtrlKeysForNormalMode" = false;
         "vscode-neovim.mouseSelectionStartVisualMode" = true;
