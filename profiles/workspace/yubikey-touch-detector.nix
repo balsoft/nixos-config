@@ -9,6 +9,8 @@
     };
     Install = rec {
       WantedBy = [ "graphical-session.target" ];
+      Wants = [ "gpg-agent-ssh.socket" "gpg-agent.socket" ];
+      After = Wants;
     };
   };
 }
