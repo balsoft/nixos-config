@@ -34,6 +34,13 @@
         system = "x86_64-linux";
         supportedFeatures = [ "benchmark" "big-parallel" "kvm" ];
       }
+      {
+        hostName = "build02.tweag.io";
+        maxJobs = 24;
+        sshUser = "nix";
+        sshKey = "/root/.ssh/id_ed25519";
+        systems = [ "aarch64-darwin" "x86_64-darwin" ];
+      }
     ];
   };
 
