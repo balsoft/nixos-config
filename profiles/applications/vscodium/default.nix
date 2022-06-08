@@ -76,6 +76,8 @@ in {
           justusadam.language-haskell
           ms-python.python
           github.vscode-pull-request-github
+          eamodio.gitlens
+          llvm-vs-code-extensions.vscode-clangd
         ] ++ pkgs.lib.concatMap builtins.attrValues
         (builtins.attrValues custom-extensions);
 
