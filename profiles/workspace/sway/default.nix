@@ -6,6 +6,9 @@ let
     pkgs.writeShellScript "lock_fork" "sudo /run/current-system/sw/bin/lock all &";
   lock = pkgs.writeShellScript "lock"
     "swaymsg 'output * dpms off'; sudo /run/current-system/sw/bin/lock all; swaymsg 'output * dpms on'";
+  htmlify = pkgs.writeShellScript "htmlify" ''
+    ${pkgs.wl-clipboard}/bin/wl-paste -p | ${pkgs.pandoc}/bin/pandoc -t html | ${pkgs.wl-clipboard}/bin/wl-copy -t text/html
+  '';
 in {
   environment.sessionVariables = {
     _JAVA_AWT_WM_NONREPARENTING = "1";
@@ -172,6 +175,7 @@ in {
         "${modifier}+l" = "exec ${pkgs.playerctl}/bin/playerctl next";
 
         "${modifier}+Slash" = "exec ${pkgs.copyq}/bin/copyq menu";
+        "${modifier}+Shift+Slash" = "exec ${htmlify}";
 
         "${modifier}+Print" = script "screenshot"
           "${pkgs.grim}/bin/grim Pictures/$(date +'%Y-%m-%d+%H:%M:%S').png";
