@@ -306,11 +306,11 @@
         "nixpkgs": "nixpkgs_7"
       },
       "locked": {
-        "lastModified": 1646497007,
-        "narHash": "sha256-KO7VyvRY4/A3/1lJWl911u+WQorcd5XepkJU0N8x9Fs=",
+        "lastModified": 1654984020,
+        "narHash": "sha256-uCZ9pU1QfACHbtNIS9V6eZZsHOtwAFJfg8VC44Q5FVM=",
         "owner": "balsoft",
         "repo": "lambda-launcher",
-        "rev": "39f102b265f9852b9d85d0bfc99bbf4c0255332b",
+        "rev": "f1b3078e90684ac528e46c2364ba97ddbc57b580",
         "type": "github"
       },
       "original": {
