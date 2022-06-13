@@ -1,6 +1,7 @@
 { config, pkgs, inputs, ... }:
 let
   EDITOR = pkgs.writeShellScript "codium-editor" ''
+    source "/etc/profiles/per-user/balsoft/etc/profile.d/hm-session-vars.sh"
     NIX_OZONE_WL=1 \
     exec \
     ${config.home-manager.users.balsoft.programs.vscode.package}/bin/codium \
