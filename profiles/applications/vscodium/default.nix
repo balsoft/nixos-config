@@ -92,10 +92,8 @@ in {
         "nix.formatterPath" = "nixfmt";
         "git.autofetch" = true;
         "redhat.telemetry.enabled" = false;
-        "vscode-neovim.neovimExecutablePaths.linux" = "${pkgs.neovim}/bin/nvim";
-        "vscode-neovim.useCtrlKeysForNormalMode" = false;
-        "vscode-neovim.mouseSelectionStartVisualMode" = true;
         "security.workspace.trust.untrustedFiles" = "open";
+        "window.menuBarVisibility" = "toggle";
       };
       keybindings = [{
         key = "ctrl+shift+r";
