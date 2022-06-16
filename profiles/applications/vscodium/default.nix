@@ -79,6 +79,7 @@ in {
           github.vscode-pull-request-github
           eamodio.gitlens
           llvm-vs-code-extensions.vscode-clangd
+          stkb.rewrap
         ] ++ pkgs.lib.concatMap builtins.attrValues
         (builtins.attrValues custom-extensions);
 
