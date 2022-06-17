@@ -43,7 +43,7 @@
               "bluez5.auto-connect" = [ "hsp_hs" "hfp_hf" "a2dp_sink" ];
               "bluez5.hw-volume" =
                 [ "hsp_ag" "hfp_ag" "a2dp_source" "a2dp_sink" ];
-              "bluez5.autoswitch-profile" = true;
+              "bluez5.autoswitch-profile" = false;
             };
           };
           matches = [{ "device.name" = "~bluez_card.*"; }];
