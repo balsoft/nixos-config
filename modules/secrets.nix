@@ -66,6 +66,8 @@ let
     with cfg; {
       "${name}-secrets" = rec {
 
+        wantedBy = ["multi-user.target"];
+
         requires = [ "user@1000.service" ];
         after = requires;
 
