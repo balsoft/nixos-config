@@ -112,7 +112,7 @@ in rec {
     cmakeFlags = oa.cmakeFlags ++ [ "-DBUILD_SHARED_LIBS=OFF" ];
   })).override { mtxclient = final.mtxclient; };
 
-  nix = inputs.nix.defaultPackage.${system}.overrideAttrs (oa: {
+  nix = inputs.nix.packages.${system}.default.overrideAttrs (oa: {
     doInstallCheck = false;
     patches = [ ./profiles/nix/nix.patch ] ++ oa.patches or [ ];
   });

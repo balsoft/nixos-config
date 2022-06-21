@@ -145,7 +145,7 @@
       devShell.x86_64-linux = with nixpkgs.legacyPackages.x86_64-linux;
         mkShell {
           buildInputs = [
-            nix.defaultPackage.x86_64-linux
+            nix.packages.x86_64-linux.default
             deploy-rs.defaultPackage.x86_64-linux
             nixfmt
           ];
