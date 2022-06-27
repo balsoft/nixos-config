@@ -2,7 +2,7 @@
 with lib;
 with types;
 let
-  password-store = "/home/balsoft/.local/share/password-store";
+  password-store = config.secretsConfig.password-store;
   secret = { name, ... }: {
     options = {
       encrypted = mkOption {
@@ -121,6 +121,10 @@ in {
   };
 
   options.secretsConfig = {
+    password-store = lib.mkOption {
+      type = lib.types.path;
+      default = "/home/balsoft/.local/share/password-store";
+    };
     repo = lib.mkOption {
       type = str;
       default = "ssh://git@github.com/balsoft/pass";

@@ -41,6 +41,7 @@
     light
     mako
     # mopidy
+    openvpn
     simple-osd-daemons
     sway
     yubikey-touch-detector
