@@ -7,11 +7,14 @@
     XKB_DEFAULT_OPTIONS =
       "grp:lctrl_toggle,grp_led:caps,ctrl:nocaps,compose:ralt";
     LANG = lib.mkForce "en_GB.UTF-8";
+    XCOMPOSEFILE = "${config.home-manager.users.balsoft.xdg.configHome}/XCompose";
   };
 
   time.timeZone = "Asia/Tbilisi";
   home-manager.users.balsoft = {
     home.file.".XCompose".source = ./compose;
+    xdg.configFile."gtk-3.0/Compose".source = ./compose;
+    xdg.configFile."XCompose".source = ./compose;
     home.language = let
       en = "en_GB.UTF-8";
       ru = "ru_RU.UTF-8";

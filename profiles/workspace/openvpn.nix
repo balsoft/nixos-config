@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: let password-store = config.secretsConfig.password-store; in {
+{ config, pkgs, lib, ... }: let password-store = config.secretsConfig.password-store; in {
   secrets.tawasal_eu1 = {
     encrypted = "${password-store}/openvpn/tawasal_eu1.gpg";
     services = [ "openvpn-tawasal-eu1.service" ];
@@ -12,4 +12,7 @@
     tawasal-eu1.config = "config ${config.secrets.tawasal_eu1.decrypted}";
     tawasal-eu2.config = "config ${config.secrets.tawasal_eu2.decrypted}";
   };
+
+  systemd.services.openvpn-tawasal-eu1.wantedBy = lib.mkForce [];
+  systemd.services.openvpn-tawasal-eu2.wantedBy = lib.mkForce [];
 }
