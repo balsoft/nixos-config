@@ -2,11 +2,7 @@
 
 ## License
 
-Most of this config is in public domain (see [LICENSE](./LICENSE)), with
-the exception of [a Brother printer ppd file](./modules/workspace/print-scan/Brother_HL-3170CDW_series.ppd)
-which is licensed under GPLv2 and [an sqlite database of programs in nixpkgs](./misc/programs.sqlite).
-I believe I am entitled to distribute both with this config, if this is
-not true, please contact me.
+Most of this config is in public domain (see [LICENSE](./LICENSE)).
 
 ## Stuff that may be useful
 
@@ -37,6 +33,5 @@ Can be found in [ezwg.nix](./modules/ezwg.nix)
 
 ## Installing it on your machine
 
-1. Remove `yt-utilities` from `profiles/desktop.nix`;
-2. Add a config for your device to `machines` (it has to set `deviceSpecific.devInfo`, import your `hardware-configuration.nix` and one of the profiles, and contain a `system` file);
-3. `sudo nixos-rebuild test --flake .`
+1. Add a config for your device to `machines` (it has to set `deviceSpecific.devInfo`, import your `hardware-configuration.nix` and one of the profiles, and contain a `system` file);
+2. `sudo nixos-rebuild test --flake .`
