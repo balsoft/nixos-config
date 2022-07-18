@@ -39,5 +39,8 @@
       ripgrep
       bat
       jless
+
+      pandoc
+      codebraid
     ];
 }

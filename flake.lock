@@ -48,6 +48,22 @@
         "type": "github"
       }
     },
+    "codebraid": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1657582153,
+        "narHash": "sha256-gFprQTx59q/K+K2u1eQvpG06eBNvMwapgHRgueWxtOM=",
+        "owner": "gpoore",
+        "repo": "codebraid",
+        "rev": "571de9554020044b07aedf9f0a8a6db7c8caf83e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "gpoore",
+        "repo": "codebraid",
+        "type": "github"
+      }
+    },
     "coeurl": {
       "flake": false,
       "locked": {
@@ -745,6 +761,7 @@
         "NUR": "NUR",
         "base16-black-metal-scheme": "base16-black-metal-scheme",
         "brother-hl-3170cdw-driver": "brother-hl-3170cdw-driver",
+        "codebraid": "codebraid",
         "coeurl": "coeurl",
         "crdt": "crdt",
         "deploy-rs": "deploy-rs",

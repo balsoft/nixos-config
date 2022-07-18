@@ -84,6 +84,11 @@
     };
 
     direnv-vscode.url = "github:direnv/direnv-vscode";
+
+    codebraid = {
+      url = "github:gpoore/codebraid";
+      flake = false;
+    };
   };
 
   outputs = { nixpkgs, self, nix, deploy-rs, ... }@inputs:

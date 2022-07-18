@@ -7,4 +7,12 @@
       sha256 = "sha256-WopWzMCtiiLrx3pHNiDMZYFdjS359vu3T+6uI5A+Nv4=";
     };
   };
+  gpoore.codebraid-preview = buildVscodeMarketplaceExtension {
+    mktplcRef = {
+      publisher = "gpoore";
+      name = "codebraid-preview";
+      version = "0.8.0";
+      sha256 = "sha256-bw/uzdbLDREwhd0PHOD+Ref3UdaYlkhegsUhkTX1WlI=";
+    };
+  };
 }
