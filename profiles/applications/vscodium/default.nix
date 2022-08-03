@@ -66,6 +66,8 @@ in {
 
           (pkgs.callPackage ./theme.nix { } config.themes.colors)
 
+          vscodevim.vim
+
           matklad.rust-analyzer
           redhat.vscode-yaml
           jnoortheen.nix-ide
