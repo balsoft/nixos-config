@@ -98,6 +98,7 @@ in {
         "redhat.telemetry.enabled" = false;
         "security.workspace.trust.untrustedFiles" = "open";
         "window.menuBarVisibility" = "toggle";
+        "vim.useSystemClipboard" = true;
       };
       keybindings = [{
         key = "ctrl+shift+r";
