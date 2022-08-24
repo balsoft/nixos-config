@@ -12,7 +12,6 @@
     enableCompletion = true;
     oh-my-zsh = {
       enable = true;
-      theme = "agnoster";
       plugins = [ "git" "dirhistory" ];
     };
 
@@ -41,6 +40,16 @@
           rev = "2be37f376c13187c445ae9534550a8a5810d4361";
           sha256 = "0yhwn6av4q6hz9s34h4m3vdk64ly6s28xfd8ijgdbzic8qawj5p1";
         };
+      }
+      {
+        name = "powerlevel10k-config";
+        src = ./.;
+        file = "p10k.zsh";
+      }
+      {
+        name = "zsh-powerlevel10k";
+        src = pkgs.zsh-powerlevel10k;
+        file = "share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
       }
     ];
     shellAliases = {
