@@ -70,60 +70,69 @@
       "hpd" = "bluetoothctl disconnect CC:98:8B:C0:FC:D2";
     };
     initExtra = ''
-       cmdignore=(htop tmux top vim)
+      cmdignore=(htop tmux top vim)
 
-       # end and compare timer, notify-send if needed
-       function notifyosd-precmd() {
-         retval=$?
-         if [ ! -z "$cmd" ]; then
-           cmd_end=`date +%s`
-           ((cmd_time=$cmd_end - $cmd_start))
-         fi
-         if [ $retval -eq 0 ]; then
-           cmdstat="✓"
-         else
-           cmdstat="✘"
-         fi
-         if [ ! -z "$cmd" ] && [[ $cmd_time -gt 3 ]]; then
-           ${pkgs.libnotify}/bin/notify-send -a command_complete -i utilities-terminal -u low "$cmdstat $cmd" "in `date -u -d @$cmd_time +'%T'`"
-           echo -e '\a'
-         fi
-         unset cmd
-       }
+      # end and compare timer, notify-send if needed
+      function notifyosd-precmd() {
+        retval=$?
+        if [ ! -z "$cmd" ]; then
+          cmd_end=`date +%s`
+          ((cmd_time=$cmd_end - $cmd_start))
+        fi
+        if [ $retval -eq 0 ]; then
+          cmdstat="✓"
+          bgcolor="\e[1;30;42m"
+          fgcolor="\e[1;32;40m"
+        else
+          cmdstat="✘"
+          bgcolor="\e[1;41m"
+          fgcolor="\e[1;31;40m"
+        fi
+        cleareol="\e[K"
+        colorreset="\e[1;0m"
+        if [ ! -z "$cmd" ]; then
+          printf "$bgcolor $cmdstat $retval $colorreset\n"
+          if [[ $cmd_time -gt 3 ]]; then
+            ${pkgs.libnotify}/bin/notify-send -a command_complete -i utilities-terminal -u low "$cmdstat $cmd" "in `date -u -d @$cmd_time +'%T'`"
+            echo -e '\a'
+          fi
+        fi
+        unset cmd
+      }
 
-       # make sure this plays nicely with any existing precmd
-       precmd_functions+=( notifyosd-precmd )
+      # make sure this plays nicely with any existing precmd
+      precmd_functions+=( notifyosd-precmd )
 
-       # get command name and start the timer
-       function notifyosd-preexec() {
-         cmd=$1
-         cmd_start=`date +%s`
-       }
+      # get command name and start the timer
+      function notifyosd-preexec() {
+        cmd=$1
+        cmd_start=`date +%s`
+      }
 
-       bindkey -M emacs '^H' backward-kill-word
-       bindkey -r '^W'
+      bindkey -v
+      bindkey -M viins '^H' backward-kill-word
 
-       # make sure this plays nicely with any existing preexec
-       preexec_functions+=( notifyosd-preexec )
-       XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
+      # make sure this plays nicely with any existing preexec
+      preexec_functions+=( notifyosd-preexec )
+      XDG_DATA_DIRS=$XDG_DATA_DIRS:$GSETTINGS_SCHEMAS_PATH
 
-       function repl() {
-         source="$(nix flake prefetch --json "$1" | ${pkgs.jq}/bin/jq -r .storePath)"
-         TEMP="$(mktemp --suffix=.nix)"
-         echo "let self = builtins.getFlake \"$source\"; in self // self.legacyPackages.\''${builtins.currentSystem} or { } // self.packages.\''${builtins.currentSystem} or { }" > "$TEMP"
-         nix repl "$TEMP"
-         rm "$TEMP"
-       }
+      function repl() {
+        source="$(nix flake prefetch --json "$1" | ${pkgs.jq}/bin/jq -r .storePath)"
+        TEMP="$(mktemp --suffix=.nix)"
+        echo "let self = builtins.getFlake \"$source\"; in self // self.legacyPackages.\''${builtins.currentSystem} or { } // self.packages.\''${builtins.currentSystem} or { }" > "$TEMP"
+        nix repl "$TEMP"
+        rm "$TEMP"
+      }
 
 
-       function ss() { nix shell "self#$1" }
-       function es() { nix edit "self#$1" }
-       function bs() { nix build "self#$1" }
-       function is() { nix search "self#$1" }
-       function rs() { repl self }
+      function ss() { nix shell "self#$1" }
+      function es() { nix edit "self#$1" }
+      function bs() { nix build "self#$1" }
+      function is() { nix search "self#$1" }
+      function rs() { repl self }
 
-       PS1="$PS1
-       $ "
+      PS1="$PS1
+      $ "
     '';
   };
 }

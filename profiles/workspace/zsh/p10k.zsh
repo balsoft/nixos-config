@@ -33,7 +33,7 @@
   # The list of segments shown on the left. Fill it with the most important segments.
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
     # =========================[ Line #1 ]=========================
-    os_icon                 # os identifier
+    # os_icon                 # os identifier
     dir                     # current directory
     vcs                     # git status
     # =========================[ Line #2 ]=========================
@@ -51,13 +51,13 @@
     command_execution_time  # duration of the last command
     background_jobs         # presence of background jobs
     direnv                  # direnv status (https://direnv.net/)
-    asdf                    # asdf version manager (https://github.com/asdf-vm/asdf)
-    virtualenv              # python virtual environment (https://docs.python.org/3/library/venv.html)
-    anaconda                # conda environment (https://conda.io/)
+    # asdf                    # asdf version manager (https://github.com/asdf-vm/asdf)
+    # virtualenv              # python virtual environment (https://docs.python.org/3/library/venv.html)
+    # anaconda                # conda environment (https://conda.io/)
     pyenv                   # python environment (https://github.com/pyenv/pyenv)
     goenv                   # go environment (https://github.com/syndbg/goenv)
-    nodenv                  # node.js version from nodenv (https://github.com/nodenv/nodenv)
-    nvm                     # node.js version from nvm (https://github.com/nvm-sh/nvm)
+    # nodenv                  # node.js version from nodenv (https://github.com/nodenv/nodenv)
+    # nvm                     # node.js version from nvm (https://github.com/nvm-sh/nvm)
     nodeenv                 # node.js environment (https://github.com/ekalinin/nodeenv)
     # node_version          # node.js version
     # go_version            # go version (https://golang.org)
@@ -67,16 +67,16 @@
     # laravel_version       # laravel php framework version (https://laravel.com/)
     # java_version          # java version (https://www.java.com/)
     # package               # name@version from package.json (https://docs.npmjs.com/files/package.json)
-    rbenv                   # ruby version from rbenv (https://github.com/rbenv/rbenv)
-    rvm                     # ruby version from rvm (https://rvm.io)
-    fvm                     # flutter version management (https://github.com/leoafarias/fvm)
-    luaenv                  # lua version from luaenv (https://github.com/cehoffman/luaenv)
-    jenv                    # java version from jenv (https://github.com/jenv/jenv)
-    plenv                   # perl version from plenv (https://github.com/tokuhirom/plenv)
-    phpenv                  # php version from phpenv (https://github.com/phpenv/phpenv)
-    scalaenv                # scala version from scalaenv (https://github.com/scalaenv/scalaenv)
-    haskell_stack           # haskell version from stack (https://haskellstack.org/)
-    kubecontext             # current kubernetes context (https://kubernetes.io/)
+    # rbenv                   # ruby version from rbenv (https://github.com/rbenv/rbenv)
+    # rvm                     # ruby version from rvm (https://rvm.io)
+    # fvm                     # flutter version management (https://github.com/leoafarias/fvm)
+    # luaenv                  # lua version from luaenv (https://github.com/cehoffman/luaenv)
+    # jenv                    # java version from jenv (https://github.com/jenv/jenv)
+    # plenv                   # perl version from plenv (https://github.com/tokuhirom/plenv)
+    # phpenv                  # php version from phpenv (https://github.com/phpenv/phpenv)
+    # scalaenv                # scala version from scalaenv (https://github.com/scalaenv/scalaenv)
+    # haskell_stack           # haskell version from stack (https://haskellstack.org/)
+    # kubecontext             # current kubernetes context (https://kubernetes.io/)
     terraform               # terraform workspace (https://www.terraform.io)
     # terraform_version     # terraform version (https://www.terraform.io)
     aws                     # aws profile (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
@@ -86,7 +86,7 @@
     google_app_cred         # google application credentials (https://cloud.google.com/docs/authentication/production)
     toolbox                 # toolbox name (https://github.com/containers/toolbox)
     context                 # user@hostname
-    nordvpn                 # nordvpn connection status, linux only (https://nordvpn.com/)
+    # nordvpn                 # nordvpn connection status, linux only (https://nordvpn.com/)
     ranger                  # ranger shell (https://github.com/ranger/ranger)
     nnn                     # nnn shell (https://github.com/jarun/nnn)
     xplr                    # xplr shell (https://github.com/sayanarijit/xplr)
@@ -99,10 +99,10 @@
     # disk_usage            # disk usage
     # ram                   # free RAM
     # swap                  # used swap
-    todo                    # todo items (https://github.com/todotxt/todo.txt-cli)
-    timewarrior             # timewarrior tracking status (https://timewarrior.net/)
-    taskwarrior             # taskwarrior task count (https://taskwarrior.org/)
-    time                    # current time
+    # todo                    # todo items (https://github.com/todotxt/todo.txt-cli)
+    # timewarrior             # timewarrior tracking status (https://timewarrior.net/)
+    # taskwarrior             # taskwarrior task count (https://taskwarrior.org/)
+    # time                    # current time
     # =========================[ Line #2 ]=========================
     newline
     # ip                    # ip address and bandwidth usage for a specified network interface
@@ -133,7 +133,7 @@
   typeset -g POWERLEVEL9K_ICON_BEFORE_CONTENT=
 
   # Add an empty line before each prompt.
-  typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
+  typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE=false
 
   # Connect left prompt lines with these symbols. You'll probably want to use the same color
   # as POWERLEVEL9K_MULTILINE_FIRST_PROMPT_GAP_FOREGROUND below.
@@ -192,9 +192,9 @@
   # Transparent background.
   typeset -g POWERLEVEL9K_PROMPT_CHAR_BACKGROUND=
   # Green prompt symbol if the last command succeeded.
-  typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=76
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=015
   # Red prompt symbol if the last command failed.
-  typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=196
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=015
   # Default prompt symbol.
   typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIINS_CONTENT_EXPANSION='❯'
   # Prompt symbol in command vi mode.
@@ -440,15 +440,15 @@
     # ⇢42 if ahead of the push remote; no leading space if also behind: ⇠42⇢42.
     (( VCS_STATUS_PUSH_COMMITS_AHEAD  )) && res+="${clean}⇢${VCS_STATUS_PUSH_COMMITS_AHEAD}"
     # *42 if have stashes.
-    (( VCS_STATUS_STASHES        )) && res+=" ${clean}*${VCS_STATUS_STASHES}"
+    # (( VCS_STATUS_STASHES        )) && res+=" ${clean}*${VCS_STATUS_STASHES}"
     # 'merge' if the repo is in an unusual state.
     [[ -n $VCS_STATUS_ACTION     ]] && res+=" ${conflicted}${VCS_STATUS_ACTION}"
     # ~42 if have merge conflicts.
-    (( VCS_STATUS_NUM_CONFLICTED )) && res+=" ${conflicted}~${VCS_STATUS_NUM_CONFLICTED}"
+    (( VCS_STATUS_NUM_CONFLICTED )) && res+=" ${conflicted}!${VCS_STATUS_NUM_CONFLICTED}"
     # +42 if have staged changes.
-    (( VCS_STATUS_NUM_STAGED     )) && res+=" ${modified}+${VCS_STATUS_NUM_STAGED}"
+    (( VCS_STATUS_NUM_STAGED     )) && res+=" ${modified}➕${VCS_STATUS_NUM_STAGED}"
     # !42 if have unstaged changes.
-    (( VCS_STATUS_NUM_UNSTAGED   )) && res+=" ${modified}!${VCS_STATUS_NUM_UNSTAGED}"
+    (( VCS_STATUS_NUM_UNSTAGED   )) && res+=" ${modified}+${VCS_STATUS_NUM_UNSTAGED}"
     # ?42 if have untracked files. It's really a question mark, your font isn't broken.
     # See POWERLEVEL9K_VCS_UNTRACKED_ICON above if you want to use a different icon.
     # Remove the next line if you don't want to see untracked files at all.
@@ -562,8 +562,8 @@
 
   #######################[ direnv: direnv status (https://direnv.net/) ]########################
   # Direnv color.
-  typeset -g POWERLEVEL9K_DIRENV_FOREGROUND=3
-  typeset -g POWERLEVEL9K_DIRENV_BACKGROUND=0
+  typeset -g POWERLEVEL9K_DIRENV_FOREGROUND=0
+  typeset -g POWERLEVEL9K_DIRENV_BACKGROUND=3
   # Custom icon.
   # typeset -g POWERLEVEL9K_DIRENV_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
@@ -776,7 +776,7 @@
   typeset -g POWERLEVEL9K_NIX_SHELL_BACKGROUND=4
 
   # Tip: If you want to see just the icon without "pure" and "impure", uncomment the next line.
-  # typeset -g POWERLEVEL9K_NIX_SHELL_CONTENT_EXPANSION=
+  typeset -g POWERLEVEL9K_NIX_SHELL_CONTENT_EXPANSION=
 
   # Custom icon.
   # typeset -g POWERLEVEL9K_NIX_SHELL_VISUAL_IDENTIFIER_EXPANSION='⭐'
