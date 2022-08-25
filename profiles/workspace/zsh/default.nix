@@ -79,6 +79,8 @@
           cmd_end=`date +%s`
           ((cmd_time=$cmd_end - $cmd_start))
         fi
+        cleareol="\e[K"
+        colorreset="\e[1;0m"
         if [ $retval -eq 0 ]; then
           cmdstat="✓"
           bgcolor="\e[1;30;42m"
@@ -87,11 +89,9 @@
           cmdstat="✘"
           bgcolor="\e[1;41m"
           fgcolor="\e[1;31;40m"
+          printf "$bgcolor $cmdstat $retval $colorreset\n"
         fi
-        cleareol="\e[K"
-        colorreset="\e[1;0m"
         if [ ! -z "$cmd" ]; then
-          printf "$fgcolor$cmdstat $retval$colorreset\n"
           if [[ $cmd_time -gt 3 ]]; then
             ${pkgs.libnotify}/bin/notify-send -a command_complete -i utilities-terminal -u low "$cmdstat $cmd" "in `date -u -d @$cmd_time +'%T'`"
             echo -e '\a'
