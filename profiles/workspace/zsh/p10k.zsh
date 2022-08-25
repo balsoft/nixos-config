@@ -50,7 +50,6 @@
     status                  # exit code of the last command
     command_execution_time  # duration of the last command
     background_jobs         # presence of background jobs
-    direnv                  # direnv status (https://direnv.net/)
     # asdf                    # asdf version manager (https://github.com/asdf-vm/asdf)
     # virtualenv              # python virtual environment (https://docs.python.org/3/library/venv.html)
     # anaconda                # conda environment (https://conda.io/)
@@ -92,7 +91,8 @@
     xplr                    # xplr shell (https://github.com/sayanarijit/xplr)
     vim_shell               # vim shell indicator (:sh)
     midnight_commander      # midnight commander shell (https://midnight-commander.org/)
-    nix_shell               # nix shell (https://nixos.org/nixos/nix-pills/developing-with-nix-shell.html)
+    direnv                  # direnv status (https://direnv.net/)
+    nix_shell_with_name
     # vi_mode               # vi mode (you don't need this if you've enabled prompt_char)
     # vpn_ip                # virtual private network indicator
     # load                  # CPU load
@@ -1665,6 +1665,20 @@
   # Type `p10k help segment` for documentation and a more sophisticated example.
   function prompt_example() {
     p10k segment -b 1 -f 3 -i '⭐' -t 'hello, %n'
+  }
+
+  function prompt_filecount() {
+    p10k segment -b 6 -f 0 -t "$(ls -a | wc -l)"
+  }
+
+  function prompt_nix_shell_with_name() {
+    if [[ -n "${IN_NIX_SHELL-:}" ]]; then
+      if [[ "${name-nix-shell}" != nix-shell ]]; then
+        p10k segment -b 4 -f 15 -r -i NIX_SHELL_ICON -t "$name"
+      else
+        p10k segment -b 4 -f 15 -r -i NIX_SHELL_ICON
+      fi
+    fi
   }
 
   # User-defined prompt segments may optionally provide an instant_prompt_* function. Its job
