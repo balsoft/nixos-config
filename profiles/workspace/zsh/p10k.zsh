@@ -1672,7 +1672,7 @@
   }
 
   function prompt_nix_shell_with_name() {
-    if [[ -n "${IN_NIX_SHELL-:}" ]]; then
+    if [[ -n "${IN_NIX_SHELL-}" ]]; then
       if [[ "${name-nix-shell}" != nix-shell ]]; then
         p10k segment -b 4 -f 15 -r -i NIX_SHELL_ICON -t "$name"
       else
