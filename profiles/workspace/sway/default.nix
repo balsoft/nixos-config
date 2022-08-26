@@ -192,7 +192,7 @@ in {
 
         "--release ${modifier}+Insert" =
           script "screenshot-ocr"
-            "${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp)\" - | ${pkgs.tesseract5}/bin/tesseract - - | ${pkgs.wl-clipboard}/bin/wl-copy";
+            "${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp)\" - | ${pkgs.tesseract5}/bin/tesseract -l eng - - | ${pkgs.wl-clipboard}/bin/wl-copy";
 
         "${modifier}+x" = "focus output right";
         "${modifier}+Shift+x" = "move workspace to output right";
