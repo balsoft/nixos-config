@@ -89,6 +89,11 @@
       url = "github:gpoore/codebraid";
       flake = false;
     };
+
+    flake-registry = {
+      url = "github:nixos/flake-registry";
+      flake = false;
+    };
   };
 
   outputs = { nixpkgs, self, nix, deploy-rs, ... }@inputs:

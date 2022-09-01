@@ -10,7 +10,10 @@
 
     extraOptions = ''
       builders-use-substitutes = true
+      # Enable flakes
       experimental-features = nix-command flakes
+      # Prevent Nix from fetching the registry every time
+      flake-registry = ${inputs.flake-registry}/flake-registry.json
     '';
 
     settings = {

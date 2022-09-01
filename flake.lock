@@ -217,6 +217,22 @@
         "type": "github"
       }
     },
+    "flake-registry": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1661161594,
+        "narHash": "sha256-tu1KKNLw+v7ZOIUPGDE66tn9vEyhIAWiiJYZRGGev8E=",
+        "owner": "nixos",
+        "repo": "flake-registry",
+        "rev": "8634fb4e1db6c76ce037bc00ef80f9ebd2616476",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "flake-registry",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "locked": {
         "lastModified": 1656928814,
@@ -716,6 +732,7 @@
         "deploy-rs": "deploy-rs",
         "direnv-vscode": "direnv-vscode",
         "flake-compat": "flake-compat_3",
+        "flake-registry": "flake-registry",
         "himalaya": "himalaya",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
