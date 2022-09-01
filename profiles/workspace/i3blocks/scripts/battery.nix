@@ -1,5 +1,6 @@
-{ upower, bash, iconfont, low_threshold ? 10, ... }: ''
+{ upower, gnugrep, coreutils-full, lib, bash, iconfont, low_threshold ? 10, ... }: ''
   #!${bash}/bin/bash
+  PATH=$PATH:${lib.makeBinPath [ gnugrep upower coreutils-full ]}
   readarray -t DEVICES <<< "$(${upower}/bin/upower -e | grep -v "DisplayDevice$")"
 
   DELIM=""

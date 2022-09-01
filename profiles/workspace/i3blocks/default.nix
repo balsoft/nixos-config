@@ -34,7 +34,7 @@ in {
         urgentWorkspace = default // { text = thm.base09; };
         bindingMode = default // { text = thm.base0A; };
       };
-      statusCommand = "${pkgs.i3blocks}/bin/i3blocks";
+      statusCommand = "${pkgs.i3blocks}/bin/i3blocks -o json";
       fonts = {
         names = [ "${config.themes.fonts.main.family}" "Material Icons" "Roboto Mono" ];
         style = "Regular";
@@ -80,7 +80,10 @@ in {
 
       Install.WantedBy = [ "sway-session.target" ];
 
-      Service = { ExecStart = "${pkgs.sway}/bin/swaybar -b default"; };
+      Service = {
+        ExecStart = "${pkgs.sway}/bin/swaybar -d -b default";
+        Environment = [ "PATH=${pkgs.bash}/bin" ];
+      };
     };
   };
 }

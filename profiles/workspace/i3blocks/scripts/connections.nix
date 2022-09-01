@@ -1,6 +1,8 @@
-{ bash, networkmanager, iconfont, config, modemmanager, ... }: ''
+{ bash, gnugrep, coreutils-full, util-linux, networkmanager, iconfont, config, modemmanager, lib, ... }: ''
   #!${bash}/bin/bash
-  CONNECTIONS=$(${networkmanager}/bin/nmcli con show --active | tail +2 | tr -s ' ' | rev | cut -d' ' -f3 | rev)
+  PATH=$PATH:${lib.makeBinPath [ networkmanager coreutils-full gnugrep modemmanager util-linux.bin ]}
+  export PATH
+  CONNECTIONS=$(nmcli con show --active | tail +2 | tr -s ' ' | rev | cut -d' ' -f3 | rev)
   text=""
   for connection in $CONNECTIONS
   do
@@ -24,8 +26,8 @@
       text=
     }
     grep gsm <<< $connection >/dev/null && {
-      MODEM=$(${modemmanager}/bin/mmcli -K -L | tail -1 | cut -d: -f2 | tr -d ' ')
-      STATUS=$(${modemmanager}/bin/mmcli -K -m $MODEM)
+      MODEM=$(mmcli -K -L | tail -1 | cut -d: -f2 | tr -d ' ')
+      STATUS=$(mmcli -K -m $MODEM)
       TECH=$(grep "modem.generic.access-technologies.value\[1\]" <<< $STATUS | cut -d: -f2 | tr -d ' ')
 
       # SIGNAL=$(grep "modem.generic.signal-quality.value" <<< $STATUS | cut -d: -f2 | tr -d ' ')
