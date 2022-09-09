@@ -19,7 +19,6 @@
 [[ ! -o 'sh_glob'         ]] || p10k_config_opts+=('sh_glob')
 [[ ! -o 'no_brace_expand' ]] || p10k_config_opts+=('no_brace_expand')
 'builtin' 'setopt' 'no_aliases' 'no_sh_glob' 'brace_expand'
-
 () {
   emulate -L zsh -o extended_glob
 
@@ -91,6 +90,8 @@
     xplr                    # xplr shell (https://github.com/sayanarijit/xplr)
     vim_shell               # vim shell indicator (:sh)
     midnight_commander      # midnight commander shell (https://midnight-commander.org/)
+    buildkite
+    github_status
     direnv                  # direnv status (https://direnv.net/)
     nix_shell_with_name
     # vi_mode               # vi mode (you don't need this if you've enabled prompt_char)
@@ -563,7 +564,7 @@
   #######################[ direnv: direnv status (https://direnv.net/) ]########################
   # Direnv color.
   typeset -g POWERLEVEL9K_DIRENV_FOREGROUND=0
-  typeset -g POWERLEVEL9K_DIRENV_BACKGROUND=3
+  typeset -g POWERLEVEL9K_DIRENV_BACKGROUND=15
   # Custom icon.
   # typeset -g POWERLEVEL9K_DIRENV_VISUAL_IDENTIFIER_EXPANSION='⭐'
 
@@ -1673,7 +1674,7 @@
 
   function prompt_nix_shell_with_name() {
     if [[ -n "${IN_NIX_SHELL-}" ]]; then
-      if [[ "${name-nix-shell}" != nix-shell ]]; then
+      if [[ "${name-nix-shell}" != nix-shell ]] && [ "${name-shell}" != shell ]; then
         p10k segment -b 4 -f 15 -r -i NIX_SHELL_ICON -t "$name"
       else
         p10k segment -b 4 -f 15 -r -i NIX_SHELL_ICON
@@ -1681,6 +1682,174 @@
     fi
   }
 
+  typeset -gi _buildkite_scheduled_for
+
+  # Get buildkite status: amount of jobs waiting, running, and failing, for a given commit.
+  # $1: buildkite API key, with at least pipelines and builds permissions
+  # $2: buildkite pipeline slug, <org>/<pipeline>
+  # $3: git commit sha1
+  function get_buildkite_status() {
+    local query="\
+    query(\$pipeline: ID!, \$commit: String!) {\
+      pipeline(slug: \$pipeline) {\
+        builds(commit:[\$commit]) {\
+          edges {\
+            node {\
+              waiting: jobs(state:[WAITING,PENDING,BLOCKED,LIMITING,LIMITED,SCHEDULED,ASSIGNED,ACCEPTED]) { count },\
+              running: jobs(state:RUNNING) { count },\
+              failed: jobs(state:FINISHED, passed: false) { count },\
+              passed: jobs(state:FINISHED, passed: true) { count },\
+              state\
+            }\
+          }\
+        }\
+      }\
+    }"
+    curl -s -H "Authorization: Bearer $1" "https://graphql.buildkite.com/v1" -d '{"query": "'$query'", "variables": { "pipeline": "'$2'", "commit": "'$3'" }}' | tee /dev/stderr \
+    | jq -r '.data.pipeline.builds.edges[0].node as $result | $result.state as $s
+      | if $s != null then ["("+if $s == "SCHEDULED" or $s == "RUNNING" then "⌛" elif $s == "PASSED" then "✔" elif $s == "FAILED" or $s == "FAILING" then "✘" else "?" end+")" ] else [] end
+      + if $result.waiting.count > 0 then ["⌛",$result.waiting.count|tostring] else [] end
+      + if $result.running.count > 0 then ["🔨",$result.running.count|tostring] else [] end
+      + if $result.failed.count  > 0 then ["✘",$result.failed.count|tostring] else [] end
+      + if $result.passed.count  > 0 then ["✔",$result.passed.count|tostring] else [] end
+      | join(" ")'
+
+  }
+
+  function buildkite_unfinished() {
+    [[ "$buildkite_status" =~ "\(⌛\)" ]]
+  }
+
+  function get_buildkite_status_after() {
+    sleep "$1"
+    shift
+    get_buildkite_status $@
+  }
+
+  function buildkite_async_callback() {
+    typeset -g buildkite_status="$3"
+    p10k display -r
+    if buildkite_unfinished; then schedule_buildkite_fetch; fi
+  }
+
+  function schedule_buildkite_fetch() {
+    if [[ "$_buildkite_scheduled_for" -le "$(date +%s)" ]]; then
+      _buildkite_scheduled_for="$(( $(date +%s) + ${POWERLEVEL9K_BUILDKITE_REFRESH_RATE} ))"
+      async_job buildkite_async_worker get_buildkite_status_after "${POWERLEVEL9K_BUILDKITE_REFRESH_RATE}" "$BUILDKITE_API_KEY" "$BUILDKITE_PIPELINE_SLUG" "$_buildkite_rev"
+    fi
+  }
+
+  async_stop_worker         buildkite_async_worker
+  async_start_worker        buildkite_async_worker -u
+  async_unregister_callback buildkite_async_worker
+  async_register_callback   buildkite_async_worker buildkite_async_callback
+
+
+  function prompt_buildkite() {
+    POWERLEVEL9K_BUILDKITE_REFRESH_RATE="${POWERLEVEL9K_BUILDKITE_REFRESH_RATE-30}"
+    if [[ -n "${BUILDKITE_API_KEY-}" ]] && [[ -n "${BUILDKITE_PIPELINE_SLUG-}" ]] && git rev-parse HEAD > /dev/null 2>/dev/null; then
+      typeset -g buildkite_status
+      _buildkite_rev="$(git rev-parse HEAD)"
+      local url="$BUILDKITE_PIPELINE_SLUG/$_buildkite_rev"
+      if [[ "${buildkite_previous_url-}" != "$url" ]]; then
+        buildkite_previous_url="$url"
+        buildkite_status=""
+        _buildkite_scheduled_for=0
+      fi
+      if [[ "$buildkite_status" =~ "\(✘\)" ]]; then color=1;
+      elif buildkite_unfinished; then color=3
+      elif [[ "$buildkite_status" =~ "\(✔\)" ]]; then color=2;
+      else color=8;
+      fi
+      p10k segment -e -b $color -t '$buildkite_status' -i "↻"
+      if [[ -z "$buildkite_status" ]] || ( [[ "$_buildkite_scheduled_for" -le "$(date +%s)" ]] && buildkite_unfinished ); then
+        async_job buildkite_async_worker get_buildkite_status "$BUILDKITE_API_KEY" "$BUILDKITE_PIPELINE_SLUG" "$_buildkite_rev"
+      fi
+    fi
+  }
+
+  typeset -gi _github_status_scheduled_for
+
+  # Get github status: amount of jobs waiting, running, and failing, for a given commit.
+  # $1: github API key, with at least pipelines and builds permissions
+  # $2: github repo slug, <org>/<pipeline>
+  # $3: git commit sha1
+  function get_github_status() {
+    local cachefile="$3/$1/$2"
+
+    if [[ -f "$cachefile" ]] && ( ( ! grep -q "\(⌛\)" "$cachefile" ) || [[ "$(( $(stat -c %Y "$cachefile") + 60 ))" -gt "$(date +%s)" ]] ) && [[ -n "$(cat "$cachefile")" ]]; then
+      cat "$cachefile"
+    else
+      mkdir -p "$(dirname "$cachefile")"
+      local url="https://api.github.com/repos/$1/commits/$2/status?per_page=100"
+      if [[ -n "$4" ]];
+      then curl -s -H "Authorization: Bearer $4" "$url"
+      else curl -s "$url"
+      fi | tee /dev/stderr \
+      | jq -r '.state as $state | .statuses as $statuses | $statuses | map (.state) | unique | map(. as $state | {} | .[$state] = ($statuses | map(select(.state == $state)) | length)) | add as $result
+        | if $statuses == [] then ["∅"] else if $state == "pending" then ["(⌛)"] elif $state == "success" then ["(✔)"] elif $state == "failure" then ["(✘)"] else ["(?)"] end
+        + if $result.pending > 0 then ["⌛",$result.pending|tostring] else [] end
+        + if $result.success > 0 then ["✔",$result.success|tostring] else [] end
+        + if $result.failure + $result.error > 0 then ["✘",$result.failure+$result.error|tostring] else [] end end
+        | join(" ")' \
+      | tee "$cachefile"
+    fi
+  }
+
+  function github_status_unfinished() {
+    [[ "$github_status" =~ "(⌛)" ]]
+  }
+
+  function get_github_status_after() {
+    sleep "$1"
+    shift
+    get_github_status $@
+  }
+
+  function github_status_async_callback() {
+    typeset -g github_status="$3"
+    p10k display -r
+    if github_status_unfinished; then schedule_github_status_fetch; fi
+  }
+
+  function schedule_github_status_fetch() {
+    if [[ "$_github_status_scheduled_for" -le "$(date +%s)" ]]; then
+      _github_status_scheduled_for="$(( $(date +%s) + ${POWERLEVEL9K_GITHUB_STATUS_REFRESH_RATE} ))"
+      async_job github_status_async_worker get_github_status_after "${POWERLEVEL9K_GITHUB_STATUS_REFRESH_RATE}" "$_github_status_repo" "$_github_status_rev" "$_github_status_cache" "$GITHUB_TOKEN"
+    fi
+  }
+
+  async_stop_worker         github_status_async_worker
+  async_start_worker        github_status_async_worker -u
+  async_unregister_callback github_status_async_worker
+  async_register_callback   github_status_async_worker github_status_async_callback
+
+
+  function prompt_github_status() {
+    POWERLEVEL9K_GITHUB_STATUS_REFRESH_RATE="${POWERLEVEL9K_GITHUB_STATUS_REFRESH_RATE-30}"
+    if git rev-parse HEAD > /dev/null 2>/dev/null && [[ "$(git remote get-url origin 2>/dev/null)" =~ "github.com" ]]; then
+      _github_status_cache="${ZSH_CACHE_DIR-$HOME/.cache/zsh}/github-status"
+      typeset -g github_status
+      _github_status_rev="$(git rev-parse HEAD)"
+      _github_status_repo="${$(git remote get-url origin)%/}"
+      _github_status_repo="${$(echo "$_github_status_repo" | rev | cut -d/ -f1-2 | rev)%.git}"
+      local url="$repo/$_github_status_rev"
+      if [[ "${github_status_previous_url-}" != "$url" ]]; then
+        github_status_previous_url="$url"
+        github_status=""
+        _github_status_scheduled_for=0
+      fi
+      if [[ "$github_status" =~ "(✘)" ]]; then color=1;
+      elif github_status_unfinished; then color=3
+      elif [[ "$github_status" =~ "(✔)" ]]; then color=2;
+      else color=8;
+      fi
+      p10k segment -e -b $color -t '$github_status' -r -i "VCS_GIT_GITHUB_ICON"
+      if [[ -z "$github_status" ]] || ( [[ "$_github_status_scheduled_for" -le "$(date +%s)" ]] && github_status_unfinished ); then
+        async_job github_status_async_worker get_github_status "$_github_status_repo" "$_github_status_rev" "$_github_status_cache" "$GITHUB_TOKEN"
+      fi
+    fi
+  }
   # User-defined prompt segments may optionally provide an instant_prompt_* function. Its job
   # is to generate the prompt segment for display in instant prompt. See
   # https://github.com/romkatv/powerlevel10k/blob/master/README.md#instant-prompt.

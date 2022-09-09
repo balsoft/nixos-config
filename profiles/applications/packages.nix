@@ -6,6 +6,7 @@
       curl
 
       exa
+      jq
     ] ++ lib.optionals config.deviceSpecific.goodMachine [
       # steamcmd
       # steam

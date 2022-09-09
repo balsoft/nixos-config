@@ -82,6 +82,7 @@ in {
           eamodio.gitlens
           llvm-vs-code-extensions.vscode-clangd
           stkb.rewrap
+          shardulm94.trailing-spaces
         ] ++ pkgs.lib.concatMap builtins.attrValues
         (builtins.attrValues custom-extensions);
 
