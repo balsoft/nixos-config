@@ -1811,12 +1811,12 @@
       then curl -s -H "Authorization: Bearer $4" "$url" -d "$data"
       else curl -s "$url" -d "$data"
       fi | tee /dev/stderr \
-      | jq -r '.data.repository.object.statusCheckRollup as $rollup | $rollup.state as $state | $rollup.contexts.edges as $contexts
-        | $contexts | map (.node.state) | unique | map(. as $state | {} | .[$state|tostring] = ($contexts | map(select(.node.state == $state)) | length)) | add as $result
+      | jq -r '.data.repository.object.statusCheckRollup as $rollup | $rollup.state as $state | $rollup.contexts.edges as $contexts | if $rollup == null then ["∅"] else
+        $contexts | map (.node.state) | unique | map(. as $state | {} | .[$state|tostring] = ($contexts | map(select(.node.state == $state)) | length)) | add as $result
         | (($result.PENDING//0) + ($result.EXPECTED//0) + ($result.null//0)) as $waiting
         | (($result.SUCCESS//0) + ($result.NEUTRAL//0)) as $success
         | (($result.FAILURE//0) + ($result.ERROR//0)) as $failure
-        | if $contexts == [] then ["∅"] else if $state == "PENDING" or $state == "EXPECTED" then ["(⌛)"] elif $state == "SUCCESS" then ["(✔)"] elif $state == "FAILURE" or $state == "ERROR" then ["(✘)"] else ["(?)"] end
+        | if $state == "PENDING" or $state == "EXPECTED" then ["(⌛)"] elif $state == "SUCCESS" then ["(✔)"] elif $state == "FAILURE" or $state == "ERROR" then ["(✘)"] else ["(?)"] end
         + if $waiting > 0 then ["⌛",$waiting|tostring] else [] end
         + if $success > 0 then ["✔",$success|tostring] else [] end
         + if $failure > 0 then ["✘",$failure|tostring] else [] end end
