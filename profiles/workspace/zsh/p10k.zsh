@@ -1781,18 +1781,57 @@
       cat "$cachefile"
     else
       mkdir -p "$(dirname "$cachefile")"
-      local url="https://api.github.com/repos/$1/commits/$2/status?per_page=100"
+      local query="query(\$owner: String!, \$repo: String!, \$commit: String!) {\
+        repository(owner:\$owner, name: \$repo){\
+          object(expression:\$commit) {\
+            ... on Commit {\
+              statusCheckRollup {\
+                state\
+                contexts(first:100) {\
+                  edges {\
+                    node {\
+                      ... on CheckRun {\
+                        state: conclusion\
+                      }\
+                      ... on StatusContext {\
+                        state\
+                      }\
+                    }\
+                  }\
+                }\
+              }\
+            }\
+          }\
+        }\
+      }"
+      local url="https://api.github.com/graphql"
+      local variables='{ "owner": "'${1%/*}'", "repo": "'${1#*/}'", "commit": "'${2}'" }'
+      local data="{\"query\": \"${query}\", \"variables\": ${variables}}"
       if [[ -n "$4" ]];
-      then curl -s -H "Authorization: Bearer $4" "$url"
-      else curl -s "$url"
+      then curl -s -H "Authorization: Bearer $4" "$url" -d "$data"
+      else curl -s "$url" -d "$data"
       fi | tee /dev/stderr \
-      | jq -r '.state as $state | .statuses as $statuses | $statuses | map (.state) | unique | map(. as $state | {} | .[$state] = ($statuses | map(select(.state == $state)) | length)) | add as $result
-        | if $statuses == [] then ["∅"] else if $state == "pending" then ["(⌛)"] elif $state == "success" then ["(✔)"] elif $state == "failure" then ["(✘)"] else ["(?)"] end
-        + if $result.pending > 0 then ["⌛",$result.pending|tostring] else [] end
-        + if $result.success > 0 then ["✔",$result.success|tostring] else [] end
-        + if $result.failure + $result.error > 0 then ["✘",$result.failure+$result.error|tostring] else [] end end
+      | jq -r '.data.repository.object.statusCheckRollup as $rollup | $rollup.state as $state | $rollup.contexts.edges as $contexts
+        | $contexts | map (.node.state) | unique | map(. as $state | {} | .[$state|tostring] = ($contexts | map(select(.node.state == $state)) | length)) | add as $result
+        | (($result.PENDING//0) + ($result.EXPECTED//0) + ($result.null//0)) as $waiting
+        | (($result.SUCCESS//0) + ($result.NEUTRAL//0)) as $success
+        | (($result.FAILURE//0) + ($result.ERROR//0)) as $failure
+        | if $contexts == [] then ["∅"] else if $state == "PENDING" or $state == "EXPECTED" then ["(⌛)"] elif $state == "SUCCESS" then ["(✔)"] elif $state == "FAILURE" or $state == "ERROR" then ["(✘)"] else ["(?)"] end
+        + if $waiting > 0 then ["⌛",$waiting|tostring] else [] end
+        + if $success > 0 then ["✔",$success|tostring] else [] end
+        + if $failure > 0 then ["✘",$failure|tostring] else [] end end
         | join(" ")' \
       | tee "$cachefile"
+    fi
+  }
+
+  function github_status_reset() {
+    if [[ -n "$_github_status_cache" ]] && [[ -n "$_github_status_repo" ]] && [[ -n "$_github_status_rev" ]]; then
+      local cachefile="$_github_status_cache/$_github_status_repo/$_github_status_rev"
+      printf "Removing %s\n" "$cachefile" > /dev/stderr
+      rm "$cachefile"
+    else
+      echo "No cache at the moment" > /dev/stderr
     fi
   }
 
