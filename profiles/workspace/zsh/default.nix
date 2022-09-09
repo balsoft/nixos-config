@@ -82,6 +82,8 @@
     initExtra = ''
       cmdignore=(htop tmux top vim)
 
+      export GITHUB_TOKEN=$(cat /var/secrets/github_token)
+
       # end and compare timer, notify-send if needed
       function notifyosd-precmd() {
         retval=$?

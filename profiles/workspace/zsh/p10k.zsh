@@ -1707,7 +1707,7 @@
     }"
     curl -s -H "Authorization: Bearer $1" "https://graphql.buildkite.com/v1" -d '{"query": "'$query'", "variables": { "pipeline": "'$2'", "commit": "'$3'" }}' | tee /dev/stderr \
     | jq -r '.data.pipeline.builds.edges[0].node as $result | $result.state as $s
-      | if $s != null then ["("+if $s == "SCHEDULED" or $s == "RUNNING" then "⌛" elif $s == "PASSED" then "✔" elif $s == "FAILED" or $s == "FAILING" then "✘" else "?" end+")" ] else [] end
+      | if $s != null then ["("+if $s == "SCHEDULED" or $s == "RUNNING" or $s == "FAILING" then "⌛" elif $s == "PASSED" then "✔" elif $s == "FAILED" then "✘" else "?" end+")" ] else [] end
       + if $result.waiting.count > 0 then ["⌛",$result.waiting.count|tostring] else [] end
       + if $result.running.count > 0 then ["🔨",$result.running.count|tostring] else [] end
       + if $result.failed.count  > 0 then ["✘",$result.failed.count|tostring] else [] end
@@ -1845,9 +1845,7 @@
       else color=8;
       fi
       p10k segment -e -b $color -t '$github_status' -r -i "VCS_GIT_GITHUB_ICON"
-      if [[ -z "$github_status" ]] || ( [[ "$_github_status_scheduled_for" -le "$(date +%s)" ]] && github_status_unfinished ); then
-        async_job github_status_async_worker get_github_status "$_github_status_repo" "$_github_status_rev" "$_github_status_cache" "$GITHUB_TOKEN"
-      fi
+      async_job github_status_async_worker get_github_status "$_github_status_repo" "$_github_status_rev" "$_github_status_cache" "$GITHUB_TOKEN"
     fi
   }
   # User-defined prompt segments may optionally provide an instant_prompt_* function. Its job
