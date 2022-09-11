@@ -504,21 +504,21 @@
   # Status on success. No content, just an icon. No need to show it if prompt_char is enabled as
   # it will signify success by turning green.
   typeset -g POWERLEVEL9K_STATUS_OK=false
-  typeset -g POWERLEVEL9K_STATUS_OK_VISUAL_IDENTIFIER_EXPANSION='✔'
+  typeset -g POWERLEVEL9K_STATUS_OK_VISUAL_IDENTIFIER_EXPANSION=''
   typeset -g POWERLEVEL9K_STATUS_OK_FOREGROUND=2
   typeset -g POWERLEVEL9K_STATUS_OK_BACKGROUND=0
 
   # Status when some part of a pipe command fails but the overall exit status is zero. It may look
   # like this: 1|0.
   typeset -g POWERLEVEL9K_STATUS_OK_PIPE=true
-  typeset -g POWERLEVEL9K_STATUS_OK_PIPE_VISUAL_IDENTIFIER_EXPANSION='✔'
+  typeset -g POWERLEVEL9K_STATUS_OK_PIPE_VISUAL_IDENTIFIER_EXPANSION=''
   typeset -g POWERLEVEL9K_STATUS_OK_PIPE_FOREGROUND=2
   typeset -g POWERLEVEL9K_STATUS_OK_PIPE_BACKGROUND=0
 
   # Status when it's just an error code (e.g., '1'). No need to show it if prompt_char is enabled as
   # it will signify error by turning red.
   typeset -g POWERLEVEL9K_STATUS_ERROR=false
-  typeset -g POWERLEVEL9K_STATUS_ERROR_VISUAL_IDENTIFIER_EXPANSION='✘'
+  typeset -g POWERLEVEL9K_STATUS_ERROR_VISUAL_IDENTIFIER_EXPANSION=''
   typeset -g POWERLEVEL9K_STATUS_ERROR_FOREGROUND=3
   typeset -g POWERLEVEL9K_STATUS_ERROR_BACKGROUND=1
 
@@ -526,14 +526,14 @@
   typeset -g POWERLEVEL9K_STATUS_ERROR_SIGNAL=true
   # Use terse signal names: "INT" instead of "SIGINT(2)".
   typeset -g POWERLEVEL9K_STATUS_VERBOSE_SIGNAME=false
-  typeset -g POWERLEVEL9K_STATUS_ERROR_SIGNAL_VISUAL_IDENTIFIER_EXPANSION='✘'
+  typeset -g POWERLEVEL9K_STATUS_ERROR_SIGNAL_VISUAL_IDENTIFIER_EXPANSION=''
   typeset -g POWERLEVEL9K_STATUS_ERROR_SIGNAL_FOREGROUND=3
   typeset -g POWERLEVEL9K_STATUS_ERROR_SIGNAL_BACKGROUND=1
 
   # Status when some part of a pipe command fails and the overall exit status is also non-zero.
   # It may look like this: 1|0.
   typeset -g POWERLEVEL9K_STATUS_ERROR_PIPE=true
-  typeset -g POWERLEVEL9K_STATUS_ERROR_PIPE_VISUAL_IDENTIFIER_EXPANSION='✘'
+  typeset -g POWERLEVEL9K_STATUS_ERROR_PIPE_VISUAL_IDENTIFIER_EXPANSION=''
   typeset -g POWERLEVEL9K_STATUS_ERROR_PIPE_FOREGROUND=3
   typeset -g POWERLEVEL9K_STATUS_ERROR_PIPE_BACKGROUND=1
 
@@ -1707,17 +1707,17 @@
     }"
     curl -s -H "Authorization: Bearer $1" "https://graphql.buildkite.com/v1" -d '{"query": "'$query'", "variables": { "pipeline": "'$2'", "commit": "'$3'" }}' | tee /dev/stderr \
     | jq -r '.data.pipeline.builds.edges[0].node as $result | $result.state as $s
-      | if $s != null then ["("+if $s == "SCHEDULED" or $s == "RUNNING" or $s == "FAILING" then "⌛" elif $s == "PASSED" then "✔" elif $s == "FAILED" then "✘" else "?" end+")" ] else [] end
-      + if $result.waiting.count > 0 then ["⌛",$result.waiting.count|tostring] else [] end
-      + if $result.running.count > 0 then ["🔨",$result.running.count|tostring] else [] end
-      + if $result.failed.count  > 0 then ["✘",$result.failed.count|tostring] else [] end
-      + if $result.passed.count  > 0 then ["✔",$result.passed.count|tostring] else [] end
+      | if $s != null then [if $s == "SCHEDULED" or $s == "RUNNING" or $s == "FAILING" then "" elif $s == "PASSED" then "" elif $s == "FAILED" then "" else "(?)" end ] else [] end
+      + if $result.waiting.count > 0 then ["",$result.waiting.count|tostring] else [] end
+      + if $result.running.count > 0 then ["",$result.running.count|tostring] else [] end
+      + if $result.failed.count  > 0 then ["",$result.failed.count|tostring] else [] end
+      + if $result.passed.count  > 0 then ["",$result.passed.count|tostring] else [] end
       | join(" ")'
 
   }
 
   function buildkite_unfinished() {
-    [[ "$buildkite_status" =~ "\(⌛\)" ]]
+    [[ "$buildkite_status" =~ "" ]]
   }
 
   function get_buildkite_status_after() {
@@ -1756,9 +1756,9 @@
         buildkite_status=""
         _buildkite_scheduled_for=0
       fi
-      if [[ "$buildkite_status" =~ "\(✘\)" ]]; then color=1;
+      if [[ "$buildkite_status" =~ "" ]]; then color=1;
       elif buildkite_unfinished; then color=3
-      elif [[ "$buildkite_status" =~ "\(✔\)" ]]; then color=2;
+      elif [[ "$buildkite_status" =~ "" ]]; then color=2;
       else color=8;
       fi
       p10k segment -e -b $color -t '$buildkite_status' -i "↻"
@@ -1777,7 +1777,7 @@
   function get_github_status() {
     local cachefile="$3/$1/$2"
 
-    if [[ -f "$cachefile" ]] && ( ( ! grep -q "\(⌛\)" "$cachefile" ) || [[ "$(( $(stat -c %Y "$cachefile") + 60 ))" -gt "$(date +%s)" ]] ) && [[ -n "$(cat "$cachefile")" ]]; then
+    if [[ -f "$cachefile" ]] && ( ( ! grep -q "" "$cachefile" ) || [[ "$(( $(stat -c %Y "$cachefile") + 60 ))" -gt "$(date +%s)" ]] ) && [[ -n "$(cat "$cachefile")" ]]; then
       cat "$cachefile"
     else
       mkdir -p "$(dirname "$cachefile")"
@@ -1816,10 +1816,10 @@
         | (($result.PENDING//0) + ($result.EXPECTED//0) + ($result.null//0)) as $waiting
         | (($result.SUCCESS//0) + ($result.NEUTRAL//0)) as $success
         | (($result.FAILURE//0) + ($result.ERROR//0)) as $failure
-        | if $state == "PENDING" or $state == "EXPECTED" then ["(⌛)"] elif $state == "SUCCESS" then ["(✔)"] elif $state == "FAILURE" or $state == "ERROR" then ["(✘)"] else ["(?)"] end
-        + if $waiting > 0 then ["⌛",$waiting|tostring] else [] end
-        + if $success > 0 then ["✔",$success|tostring] else [] end
-        + if $failure > 0 then ["✘",$failure|tostring] else [] end end
+        | if $state == "PENDING" or $state == "EXPECTED" then [" "] elif $state == "SUCCESS" then [""] elif $state == "FAILURE" or $state == "ERROR" then [""] else ["(?)"] end
+        + if $waiting > 0 then ["",$waiting|tostring] else [] end
+        + if $success > 0 then ["",$success|tostring] else [] end
+        + if $failure > 0 then ["",$failure|tostring] else [] end end
         | join(" ")' \
       | tee "$cachefile"
     fi
@@ -1836,7 +1836,7 @@
   }
 
   function github_status_unfinished() {
-    [[ "$github_status" =~ "(⌛)" ]]
+    [[ "$github_status" =~ "" ]]
   }
 
   function get_github_status_after() {
@@ -1878,9 +1878,9 @@
         github_status=""
         _github_status_scheduled_for=0
       fi
-      if [[ "$github_status" =~ "(✘)" ]]; then color=1;
+      if [[ "$github_status" =~ "" ]]; then color=1;
       elif github_status_unfinished; then color=3
-      elif [[ "$github_status" =~ "(✔)" ]]; then color=2;
+      elif [[ "$github_status" =~ "" ]]; then color=2;
       else color=8;
       fi
       p10k segment -e -b $color -t '$github_status' -r -i "VCS_GIT_GITHUB_ICON"
