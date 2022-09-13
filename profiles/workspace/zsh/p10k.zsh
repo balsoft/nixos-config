@@ -1709,7 +1709,7 @@
     | jq -r '.data.pipeline.builds.edges[0].node as $result | $result.state as $s
       | if $s != null then [if $s == "SCHEDULED" or $s == "RUNNING" or $s == "FAILING" then "" elif $s == "PASSED" then "" elif $s == "FAILED" then "" else "(?)" end ] else [] end
       + if $result.waiting.count > 0 then ["",$result.waiting.count|tostring] else [] end
-      + if $result.running.count > 0 then ["",$result.running.count|tostring] else [] end
+      + if $result.running.count > 0 then ["",$result.running.count|tostring] else [] end
       + if $result.failed.count  > 0 then ["",$result.failed.count|tostring] else [] end
       + if $result.passed.count  > 0 then ["",$result.passed.count|tostring] else [] end
       | join(" ")'
@@ -1813,11 +1813,13 @@
       fi | tee /dev/stderr \
       | jq -r '.data.repository.object.statusCheckRollup as $rollup | $rollup.state as $state | $rollup.contexts.edges as $contexts | if $rollup == null then ["∅"] else
         $contexts | map (.node.state) | unique | map(. as $state | {} | .[$state|tostring] = ($contexts | map(select(.node.state == $state)) | length)) | add as $result
-        | (($result.PENDING//0) + ($result.EXPECTED//0) + ($result.null//0)) as $waiting
+        | (($result.PENDING//0) + ($result.EXPECTED//0)) as $waiting
+        | ($result.null//0) as $running
         | (($result.SUCCESS//0) + ($result.NEUTRAL//0)) as $success
         | (($result.FAILURE//0) + ($result.ERROR//0)) as $failure
         | if $state == "PENDING" or $state == "EXPECTED" then [" "] elif $state == "SUCCESS" then [""] elif $state == "FAILURE" or $state == "ERROR" then [""] else ["(?)"] end
-        + if $waiting > 0 then ["",$waiting|tostring] else [] end
+        + if $waiting > 0 then ["",$waiting|tostring] else [] end
+        + if $running > 0 then ["",$running|tostring] else [] end
         + if $success > 0 then ["",$success|tostring] else [] end
         + if $failure > 0 then ["",$failure|tostring] else [] end end
         | join(" ")' \
