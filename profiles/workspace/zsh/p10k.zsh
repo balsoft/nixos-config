@@ -1817,7 +1817,7 @@
         | (($result.null//0)  + ($result.PENDING//0)) as $running
         | (($result.SUCCESS//0) + ($result.NEUTRAL//0)) as $success
         | (($result.FAILURE//0) + ($result.ERROR//0)) as $failure
-        | if $state == "PENDING" or $state == "EXPECTED" then [" "] elif $state == "SUCCESS" then [""] elif $state == "FAILURE" or $state == "ERROR" then [""] else ["(?)"] end
+        | if $state == "PENDING" or $state == "EXPECTED" then [""] elif $state == "SUCCESS" then [""] elif $state == "FAILURE" or $state == "ERROR" then [""] else ["(?)"] end
         + if $waiting > 0 then ["",$waiting|tostring] else [] end
         + if $running > 0 then ["",$running|tostring] else [] end
         + if $success > 0 then ["",$success|tostring] else [] end
