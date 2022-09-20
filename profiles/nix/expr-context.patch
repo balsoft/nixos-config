@@ -1,0 +1,410 @@
+From 519d541fdc71508793ece6e087d2c1a231378558 Mon Sep 17 00:00:00 2001
+From: Skyler Grey <skyler3665@gmail.com>
+Date: Wed, 20 Jul 2022 14:45:45 +0100
+Subject: [PATCH 01/10] Make --expr always include nixpkgs
+
+---
+ src/libcmd/installables.cc | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/src/libcmd/installables.cc b/src/libcmd/installables.cc
+index 59162c4df03..7dc3f7435ee 100644
+--- a/src/libcmd/installables.cc
++++ b/src/libcmd/installables.cc
+@@ -778,8 +778,11 @@ std::vector<std::shared_ptr<Installable>> SourceExprCommand::parseInstallables(
+         } else if (file)
+             state->evalFile(lookupFileArg(*state, *file), *vFile);
+         else {
+-            auto e = state->parseExprFromString(*expr, absPath("."));
+-            state->eval(e, *vFile);
++            Strings e = {};
++            e.push_back("with (builtins.getFlake \"nixpkgs\")");
++            e.push_back(*expr);
++            auto parsed = state->parseExprFromString(concatStringsSep(";", e), absPath("."));
++            state->eval(parsed, *vFile);
+         }
+ 
+         for (auto & s : ss) {
+
+From 29b83de5671901e5e8755c17b840139a6f8650db Mon Sep 17 00:00:00 2001
+From: Skyler Grey <skyler3665@gmail.com>
+Date: Wed, 20 Jul 2022 14:46:17 +0100
+Subject: [PATCH 02/10] Stop --expr requiring --impure flag
+
+---
+ src/libcmd/installables.cc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/libcmd/installables.cc b/src/libcmd/installables.cc
+index 7dc3f7435ee..43e759b3e93 100644
+--- a/src/libcmd/installables.cc
++++ b/src/libcmd/installables.cc
+@@ -767,7 +767,7 @@ std::vector<std::shared_ptr<Installable>> SourceExprCommand::parseInstallables(
+             throw UsageError("'--file' and '--expr' are exclusive");
+ 
+         // FIXME: backward compatibility hack
+-        if (file) evalSettings.pureEval = false;
++        evalSettings.pureEval = false;
+ 
+         auto state = getEvalState();
+         auto vFile = state->allocValue();
+
+From 9e9d28496a7216a0e2893ac0eb05a8c45d898c95 Mon Sep 17 00:00:00 2001
+From: Skyler Grey <skyler3665@gmail.com>
+Date: Wed, 20 Jul 2022 23:51:16 +0100
+Subject: [PATCH 03/10] Make nix shell take installables as context
+
+---
+ src/libcmd/installables.cc | 46 +++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 45 insertions(+), 1 deletion(-)
+
+diff --git a/src/libcmd/installables.cc b/src/libcmd/installables.cc
+index 43e759b3e93..1abad72e333 100644
+--- a/src/libcmd/installables.cc
++++ b/src/libcmd/installables.cc
+@@ -779,10 +779,54 @@ std::vector<std::shared_ptr<Installable>> SourceExprCommand::parseInstallables(
+             state->evalFile(lookupFileArg(*state, *file), *vFile);
+         else {
+             Strings e = {};
+-            e.push_back("with (builtins.getFlake \"nixpkgs\")");
++
++            for (auto & s : ss) {
++                std::exception_ptr ex;
++
++                if (s.find('/') != std::string::npos) {
++                    try {
++                        result.push_back(std::make_shared<InstallableStorePath>(store, store->followLinksToStorePath(s)));
++                        continue;
++                    } catch (BadStorePath &) {
++                    } catch (...) {
++                        if (!ex)
++                            ex = std::current_exception();
++                    }
++                }
++
++                try {
++                    auto [flakeRef, fragment, outputsSpec] = parseFlakeRefWithFragmentAndOutputsSpec(s, absPath("."));
++/*                    result.push_back(std::make_shared<InstallableFlake>(
++                            this,
++                            getEvalState(),
++                            std::move(flakeRef),
++                            fragment,
++                            outputsSpec,
++                            getDefaultFlakeAttrPaths(),
++                            getDefaultFlakeAttrPathPrefixes(),
++                            lockFlags));*/
++                    e.push_back("with (builtins.getFlake \"" + flakeRef.to_string() + "\")" + (fragment != "" ? "." + fragment : ""));
++                    e.push_back("with (builtins.getFlake \"" + flakeRef.to_string() + "\").packages.\"${builtins.currentSystem}\"" + (fragment != "" ? "." + fragment : ""));
++                    e.push_back("with (builtins.getFlake \"" + flakeRef.to_string() + "\").legacyPackages.\"${builtins.currentSystem}\"" + (fragment != "" ? "." + fragment : ""));
++                    continue;
++                } catch (...) {
++                    ex = std::current_exception();
++                }
++
++                std::rethrow_exception(ex);
++            }
++
+             e.push_back(*expr);
+             auto parsed = state->parseExprFromString(concatStringsSep(";", e), absPath("."));
+             state->eval(parsed, *vFile);
++
++            auto [prefix, outputsSpec] = parseOutputsSpec(".");
++            result.push_back(
++                std::make_shared<InstallableAttrPath>(
++                    state, *this, vFile,
++                    prefix == "." ? "" : prefix,
++                    outputsSpec));
++            return result;
+         }
+ 
+         for (auto & s : ss) {
+
+From e3045be11cbac91a5e65ef42e42e320e6689e713 Mon Sep 17 00:00:00 2001
+From: Skyler Grey <skyler3665@gmail.com>
+Date: Wed, 20 Jul 2022 23:56:09 +0100
+Subject: [PATCH 04/10] Update documentation to match nix shell change
+
+---
+ src/nix/nix.md | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/src/nix/nix.md b/src/nix/nix.md
+index d48682a9432..b5bee708451 100644
+--- a/src/nix/nix.md
++++ b/src/nix/nix.md
+@@ -139,8 +139,13 @@ the Nix store. Here are the recognised types of installables:
+ * **Nix expressions**: `--expr '(import <nixpkgs> {}).hello.overrideDerivation (prev: { name = "my-hello"; })'`.
+ 
+   When the `--expr` option is given, all installables are interpreted
+-  as Nix expressions. You may need to specify `--impure` if the
+-  expression references impure inputs (such as `<nixpkgs>`).
++  as context for the expression. For example, the following is valid:
++
++  ```console
++  # nix shell nixpkgs#python3 --expr 'withPackages(pyPkgs: with pyPkgs; [ numpy ])'
++  ```
++
++  Using `--expr` implies `--impure`.
+ 
+ For most commands, if no installable is specified, the default is `.`,
+ i.e. Nix will operate on the default flake output attribute of the
+
+From 4d6c60a8187d9904312d062a19e61ca5c338bc94 Mon Sep 17 00:00:00 2001
+From: Skyler Grey <skyler3665@gmail.com>
+Date: Thu, 21 Jul 2022 21:49:44 +0100
+Subject: [PATCH 05/10] Only build . with expr if it'd be a default installable
+
+---
+ src/libcmd/installables.cc | 16 +++++++++-------
+ 1 file changed, 9 insertions(+), 7 deletions(-)
+
+diff --git a/src/libcmd/installables.cc b/src/libcmd/installables.cc
+index 1abad72e333..15679590e39 100644
+--- a/src/libcmd/installables.cc
++++ b/src/libcmd/installables.cc
+@@ -820,13 +820,15 @@ std::vector<std::shared_ptr<Installable>> SourceExprCommand::parseInstallables(
+             auto parsed = state->parseExprFromString(concatStringsSep(";", e), absPath("."));
+             state->eval(parsed, *vFile);
+ 
+-            auto [prefix, outputsSpec] = parseOutputsSpec(".");
+-            result.push_back(
+-                std::make_shared<InstallableAttrPath>(
+-                    state, *this, vFile,
+-                    prefix == "." ? "" : prefix,
+-                    outputsSpec));
+-            return result;
++            if (!ss.empty()) {
++                auto [prefix, outputsSpec] = parseOutputsSpec(".");
++                result.push_back(
++                    std::make_shared<InstallableAttrPath>(
++                        state, *this, vFile,
++                        prefix == "." ? "" : prefix,
++                        outputsSpec));
++                return result;
++            }
+         }
+ 
+         for (auto & s : ss) {
+
+From 14084facbd5654fa9e406ce0391c0544f3a42763 Mon Sep 17 00:00:00 2001
+From: Skyler Grey <skyler3665@gmail.com>
+Date: Fri, 22 Jul 2022 14:28:31 +0100
+Subject: [PATCH 06/10] Do not include implicit installables with expr
+
+---
+ src/libcmd/command.hh      | 2 +-
+ src/libcmd/installables.cc | 9 +++++----
+ 2 files changed, 6 insertions(+), 5 deletions(-)
+
+diff --git a/src/libcmd/command.hh b/src/libcmd/command.hh
+index 3b4b40981de..ba6ab4197ad 100644
+--- a/src/libcmd/command.hh
++++ b/src/libcmd/command.hh
+@@ -102,7 +102,7 @@ struct SourceExprCommand : virtual Args, MixFlakeOptions
+     SourceExprCommand(bool supportReadOnlyMode = false);
+ 
+     std::vector<std::shared_ptr<Installable>> parseInstallables(
+-        ref<Store> store, std::vector<std::string> ss);
++        ref<Store> store, std::vector<std::string> ss, std::optional<std::vector<std::string>> explicitInstallables);
+ 
+     std::shared_ptr<Installable> parseInstallable(
+         ref<Store> store, const std::string & installable);
+diff --git a/src/libcmd/installables.cc b/src/libcmd/installables.cc
+index 15679590e39..fee419b240a 100644
+--- a/src/libcmd/installables.cc
++++ b/src/libcmd/installables.cc
+@@ -754,7 +754,7 @@ FlakeRef InstallableFlake::nixpkgsFlakeRef() const
+ }
+ 
+ std::vector<std::shared_ptr<Installable>> SourceExprCommand::parseInstallables(
+-    ref<Store> store, std::vector<std::string> ss)
++    ref<Store> store, std::vector<std::string> ss, std::optional<std::vector<std::string>> explicitInstallables = std::nullopt)
+ {
+     std::vector<std::shared_ptr<Installable>> result;
+ 
+@@ -780,7 +780,7 @@ std::vector<std::shared_ptr<Installable>> SourceExprCommand::parseInstallables(
+         else {
+             Strings e = {};
+ 
+-            for (auto & s : ss) {
++            for (auto & s : explicitInstallables.value_or(ss)) {
+                 std::exception_ptr ex;
+ 
+                 if (s.find('/') != std::string::npos) {
+@@ -827,8 +827,8 @@ std::vector<std::shared_ptr<Installable>> SourceExprCommand::parseInstallables(
+                         state, *this, vFile,
+                         prefix == "." ? "" : prefix,
+                         outputsSpec));
+-                return result;
+             }
++            return result;
+         }
+ 
+         for (auto & s : ss) {
+@@ -1094,11 +1094,12 @@ void InstallablesCommand::prepare()
+ 
+ Installables InstallablesCommand::load() {
+     Installables installables;
++    auto explicitInstallables = _installables;
+     if (_installables.empty() && useDefaultInstallables())
+         // FIXME: commands like "nix profile install" should not have a
+         // default, probably.
+         _installables.push_back(".");
+-    return parseInstallables(getStore(), _installables);
++    return parseInstallables(getStore(), _installables, explicitInstallables);
+ }
+ 
+ std::vector<std::string> InstallablesCommand::getFlakesForCompletion()
+
+From f82a172cfe18af507fadac565223769af2a39d86 Mon Sep 17 00:00:00 2001
+From: Skyler Grey <skyler3665@gmail.com>
+Date: Fri, 22 Jul 2022 20:13:48 +0100
+Subject: [PATCH 07/10] Allow running --expr purely again
+
+---
+ src/libcmd/installables.cc | 15 ++++++++-------
+ src/nix/nix.md             |  2 --
+ 2 files changed, 8 insertions(+), 9 deletions(-)
+
+diff --git a/src/libcmd/installables.cc b/src/libcmd/installables.cc
+index fee419b240a..3073b153568 100644
+--- a/src/libcmd/installables.cc
++++ b/src/libcmd/installables.cc
+@@ -767,7 +767,7 @@ std::vector<std::shared_ptr<Installable>> SourceExprCommand::parseInstallables(
+             throw UsageError("'--file' and '--expr' are exclusive");
+ 
+         // FIXME: backward compatibility hack
+-        evalSettings.pureEval = false;
++        if (file) evalSettings.pureEval = false;
+ 
+         auto state = getEvalState();
+         auto vFile = state->allocValue();
+@@ -780,7 +780,7 @@ std::vector<std::shared_ptr<Installable>> SourceExprCommand::parseInstallables(
+         else {
+             Strings e = {};
+ 
+-            for (auto & s : explicitInstallables.value_or(ss)) {
++            for (auto & s : explicitInstallables.value_or(std::vector<std::string>())) {
+                 std::exception_ptr ex;
+ 
+                 if (s.find('/') != std::string::npos) {
+@@ -796,7 +796,7 @@ std::vector<std::shared_ptr<Installable>> SourceExprCommand::parseInstallables(
+ 
+                 try {
+                     auto [flakeRef, fragment, outputsSpec] = parseFlakeRefWithFragmentAndOutputsSpec(s, absPath("."));
+-/*                    result.push_back(std::make_shared<InstallableFlake>(
++                    auto installableFlake = InstallableFlake(
+                             this,
+                             getEvalState(),
+                             std::move(flakeRef),
+@@ -804,10 +804,11 @@ std::vector<std::shared_ptr<Installable>> SourceExprCommand::parseInstallables(
+                             outputsSpec,
+                             getDefaultFlakeAttrPaths(),
+                             getDefaultFlakeAttrPathPrefixes(),
+-                            lockFlags));*/
+-                    e.push_back("with (builtins.getFlake \"" + flakeRef.to_string() + "\")" + (fragment != "" ? "." + fragment : ""));
+-                    e.push_back("with (builtins.getFlake \"" + flakeRef.to_string() + "\").packages.\"${builtins.currentSystem}\"" + (fragment != "" ? "." + fragment : ""));
+-                    e.push_back("with (builtins.getFlake \"" + flakeRef.to_string() + "\").legacyPackages.\"${builtins.currentSystem}\"" + (fragment != "" ? "." + fragment : ""));
++                            lockFlags);
++                    auto lockedFlake = installableFlake.getLockedFlake()->flake.lockedRef;
++                    e.push_back("with (builtins.getFlake \"" + lockedFlake.to_string() + "\")" + (fragment != "" ? "." + fragment : ""));
++                    e.push_back("with (builtins.getFlake \"" + lockedFlake.to_string() + "\").packages.\"${builtins.currentSystem}\"" + (fragment != "" ? "." + fragment : ""));
++                    e.push_back("with (builtins.getFlake \"" + lockedFlake.to_string() + "\").legacyPackages.\"${builtins.currentSystem}\"" + (fragment != "" ? "." + fragment : ""));
+                     continue;
+                 } catch (...) {
+                     ex = std::current_exception();
+diff --git a/src/nix/nix.md b/src/nix/nix.md
+index b5bee708451..33d618d88ad 100644
+--- a/src/nix/nix.md
++++ b/src/nix/nix.md
+@@ -145,8 +145,6 @@ the Nix store. Here are the recognised types of installables:
+   # nix shell nixpkgs#python3 --expr 'withPackages(pyPkgs: with pyPkgs; [ numpy ])'
+   ```
+ 
+-  Using `--expr` implies `--impure`.
+-
+ For most commands, if no installable is specified, the default is `.`,
+ i.e. Nix will operate on the default flake output attribute of the
+ flake in the current directory.
+
+From 91da7d50e7ba52b846fa50b8e106d723380b08d5 Mon Sep 17 00:00:00 2001
+From: Skyler Grey <skyler3665@gmail.com>
+Date: Sat, 23 Jul 2022 11:46:07 +0100
+Subject: [PATCH 08/10] Fix builtins.currentSystem in pure evaluation
+
+---
+ src/libcmd/installables.cc | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
+
+diff --git a/src/libcmd/installables.cc b/src/libcmd/installables.cc
+index 3073b153568..d20ce6ed618 100644
+--- a/src/libcmd/installables.cc
++++ b/src/libcmd/installables.cc
+@@ -806,9 +806,18 @@ std::vector<std::shared_ptr<Installable>> SourceExprCommand::parseInstallables(
+                             getDefaultFlakeAttrPathPrefixes(),
+                             lockFlags);
+                     auto lockedFlake = installableFlake.getLockedFlake()->flake.lockedRef;
+-                    e.push_back("with (builtins.getFlake \"" + lockedFlake.to_string() + "\")" + (fragment != "" ? "." + fragment : ""));
+-                    e.push_back("with (builtins.getFlake \"" + lockedFlake.to_string() + "\").packages.\"${builtins.currentSystem}\"" + (fragment != "" ? "." + fragment : ""));
+-                    e.push_back("with (builtins.getFlake \"" + lockedFlake.to_string() + "\").legacyPackages.\"${builtins.currentSystem}\"" + (fragment != "" ? "." + fragment : ""));
++
++                    auto defaultPathPrefixes = getDefaultFlakeAttrPathPrefixes();
++                    defaultPathPrefixes.push_back("");
++
++                    for (auto & path : defaultPathPrefixes) {
++                        if (path.length()) {
++                            path.pop_back();
++                            path = "." + path;
++                        }
++
++                        e.push_back(str(boost::format("with (builtins.getFlake \"%1%\")%2%%3%") % lockedFlake.to_string() % path % (fragment != "" ? "." + fragment : "")));
++                    }
+                     continue;
+                 } catch (...) {
+                     ex = std::current_exception();
+
+From a126a92e4f2c6087bf46dfb8c4acd5c34e5422eb Mon Sep 17 00:00:00 2001
+From: Skyler Grey <skyler3665@gmail.com>
+Date: Sun, 24 Jul 2022 01:30:00 +0100
+Subject: [PATCH 09/10] Gracefully handle missing attributes
+
+---
+ src/libcmd/installables.cc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/libcmd/installables.cc b/src/libcmd/installables.cc
+index d20ce6ed618..9c8a848d641 100644
+--- a/src/libcmd/installables.cc
++++ b/src/libcmd/installables.cc
+@@ -816,7 +816,7 @@ std::vector<std::shared_ptr<Installable>> SourceExprCommand::parseInstallables(
+                             path = "." + path;
+                         }
+ 
+-                        e.push_back(str(boost::format("with (builtins.getFlake \"%1%\")%2%%3%") % lockedFlake.to_string() % path % (fragment != "" ? "." + fragment : "")));
++                        e.push_back(str(boost::format("with (builtins.getFlake \"%1%\")%2%%3% or {}") % lockedFlake.to_string() % path % (fragment != "" ? "." + fragment : "")));
+                     }
+                     continue;
+                 } catch (...) {
+
+From c7302640120ff9fff6c3a653c22fa678efbeb903 Mon Sep 17 00:00:00 2001
+From: Skyler Grey <skyler3665@gmail.com>
+Date: Sun, 24 Jul 2022 07:11:37 +0100
+Subject: [PATCH 10/10] Fix including a flake without any attrpath
+
+---
+ src/libcmd/installables.cc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/libcmd/installables.cc b/src/libcmd/installables.cc
+index 9c8a848d641..bdc3830956a 100644
+--- a/src/libcmd/installables.cc
++++ b/src/libcmd/installables.cc
+@@ -816,7 +816,7 @@ std::vector<std::shared_ptr<Installable>> SourceExprCommand::parseInstallables(
+                             path = "." + path;
+                         }
+ 
+-                        e.push_back(str(boost::format("with (builtins.getFlake \"%1%\")%2%%3% or {}") % lockedFlake.to_string() % path % (fragment != "" ? "." + fragment : "")));
++                        e.push_back(str(boost::format("with (builtins.getFlake \"%1%\").outputs%2%%3% or {}") % lockedFlake.to_string() % path % (fragment != "" ? "." + fragment : "")));
+                     }
+                     continue;
+                 } catch (...) {

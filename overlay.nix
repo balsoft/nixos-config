@@ -114,7 +114,7 @@ in rec {
 
   nix = inputs.nix.packages.${system}.default.overrideAttrs (oa: {
     doInstallCheck = false;
-    patches = [ ./profiles/nix/nix.patch ] ++ oa.patches or [ ];
+    patches = [ ./profiles/nix/nix.patch ./profiles/nix/expr-context.patch ] ++ oa.patches or [ ];
   });
 
   mako = prev.mako.overrideAttrs (_: {
