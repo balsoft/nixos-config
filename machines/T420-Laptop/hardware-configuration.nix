@@ -4,27 +4,35 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+  imports =
+    [ (modulesPath + "/profiles/qemu-guest.nix")
+    ];
 
-  boot.initrd.availableKernelModules =
-    [ "ehci_pci" "ahci" "uas" "sd_mod" "sdhci_pci" ];
+  boot.initrd.availableKernelModules = [ "ahci" "xhci_pci" "virtio_pci" "sd_mod" "sr_mod" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
+  boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/d3a1bd83-db4d-4e98-9231-b7c7f19a2cfc";
-    fsType = "ext4";
-  };
+  fileSystems."/" =
+    { device = "/dev/disk/by-uuid/1364826d-5333-4ec9-93cf-aba2925e41d0";
+      fsType = "ext4";
+    };
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/D36A-068D";
-    fsType = "vfat";
-  };
+  fileSystems."/var/lib" =
+    { device = "/dev/disk/by-uuid/e4122adb-3f73-44b5-8763-7fb91e9a52e7";
+      fsType = "ext4";
+    };
 
   swapDevices = [ ];
 
-  nix.settings.max-jobs = lib.mkDefault 4;
+  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
+  # (the default) this is the recommended approach. When using systemd-networkd it's
+  # still possible to use this option, but it's recommended to use it in conjunction
+  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
+  networking.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp1s0.useDHCP = lib.mkDefault true;
 
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+  # nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  nix.settings.max-jobs = 4;
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

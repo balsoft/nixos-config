@@ -10,6 +10,8 @@
     XCOMPOSEFILE = "${config.home-manager.users.balsoft.xdg.configHome}/XCompose";
   };
 
+  i18n.defaultLocale = "en_GB.UTF-8";
+
   time.timeZone = "Asia/Tbilisi";
   home-manager.users.balsoft = {
     home.file.".XCompose".source = ./compose;
