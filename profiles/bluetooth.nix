@@ -1,12 +1,12 @@
 { pkgs, lib, config, ... }: {
   hardware.bluetooth = {
     enable = true;
-    package = pkgs.bluezFull;
+    package = pkgs.bluez;
   };
 
   systemd.services.bluetooth.serviceConfig.ExecStart = lib.mkForce [
     ""
-    "${pkgs.bluezFull}/libexec/bluetooth/bluetoothd -f /etc/bluetooth/main.conf -E"
+    "${pkgs.bluez}/libexec/bluetooth/bluetoothd -f /etc/bluetooth/main.conf -E"
   ];
 
   persist.state.directories = [ "/var/lib/bluetooth" ];

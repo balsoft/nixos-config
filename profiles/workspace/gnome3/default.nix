@@ -29,15 +29,15 @@
 
   defaultApplications = {
     fm = {
-      cmd = "${pkgs.gnome3.nautilus}/bin/nautilus";
+      cmd = "${pkgs.gnome.nautilus}/bin/nautilus";
       desktop = "org.gnome.Nautilus";
     };
     monitor = {
-      cmd = "${pkgs.gnome3.gnome-system-monitor}/bin/gnome-system-monitor";
+      cmd = "${pkgs.gnome.gnome-system-monitor}/bin/gnome-system-monitor";
       desktop = "gnome-system-monitor";
     };
     archive = {
-      cmd = "${pkgs.gnome3.file-roller}/bin/file-roller";
+      cmd = "${pkgs.gnome.file-roller}/bin/file-roller";
       desktop = "org.gnome.FileRoller";
     };
   };

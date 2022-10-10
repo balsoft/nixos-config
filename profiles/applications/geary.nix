@@ -58,7 +58,7 @@ in {
   persist.cache.directories = [ "/home/balsoft/.local/share/geary" ];
 
   defaultApplications.mail = {
-    cmd = "${pkgs.gnome3.geary}/bin/geary";
+    cmd = "${pkgs.gnome.geary}/bin/geary";
     desktop = "org.gnome.Geary";
   };
 

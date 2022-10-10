@@ -30,7 +30,7 @@
       abiword
       gnumeric
       gcalcli
-      xdg_utils
+      xdg-utils
       lambda-launcher
       nix-patch
       gopass

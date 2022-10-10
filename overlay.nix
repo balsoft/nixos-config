@@ -76,7 +76,10 @@ in rec {
       '';
     });
 
-  nix-direnv = inputs.nix-direnv.defaultPackage.${system};
+  nix-direnv = inputs.nix-direnv.packages.${system}.default.override { pkgs = final; };
+
+  # For nix-direnv
+  nixFlakes = final.nix;
 
   coeurl = final.stdenv.mkDerivation {
     name = "coeurl";
