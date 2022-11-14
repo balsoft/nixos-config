@@ -53,7 +53,10 @@ in {
       package = pkgs.vscodium;
 
       mutableExtensionsDir = false;
-      extensions = with pkgs.vscode-extensions;
+      extensions =
+        with inputs.nix-vscode-marketplace.packages.${pkgs.system}.vscode;
+        with inputs.nix-vscode-marketplace.packages.${pkgs.system}.open-vsx;
+        with pkgs.vscode-extensions;
         [
           kahole.magit
           (inputs.direnv-vscode.packages.${pkgs.system}.vsix.overrideAttrs (_: {
@@ -83,6 +86,7 @@ in {
           llvm-vs-code-extensions.vscode-clangd
           stkb.rewrap
           shardulm94.trailing-spaces
+          meraymond.idris-vscode
         ] ++ pkgs.lib.concatMap builtins.attrValues
         (builtins.attrValues custom-extensions);
 

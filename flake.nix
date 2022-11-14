@@ -94,6 +94,8 @@
       url = "github:nixos/flake-registry";
       flake = false;
     };
+
+    nix-vscode-marketplace.url = "github:AmeerTaweel/nix-vscode-marketplace";
   };
 
   outputs = { nixpkgs, self, nix, deploy-rs, ... }@inputs:
