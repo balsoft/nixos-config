@@ -48,7 +48,6 @@
       url = "git+https://code.librehq.com/qhong/crdt.el";
       flake = false;
     };
-    himalaya.url = "github:soywod/himalaya";
     impermanence.url = "github:nix-community/impermanence";
 
     rycee = {

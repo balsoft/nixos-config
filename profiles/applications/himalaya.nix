@@ -1,5 +1,5 @@
 { config, pkgs, inputs, lib, ... }: {
-  environment.systemPackages = [ inputs.himalaya.defaultPackage.${pkgs.system} ];
+  environment.systemPackages = [ pkgs.himalaya ];
   home-manager.users.balsoft = {
     xdg.configFile."himalaya/config.toml".text = ''
       downloads-dir="/home/balsoft/Downloads/mail"

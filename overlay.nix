@@ -93,7 +93,7 @@ in rec {
     src = inputs.mtxclient;
     cmakeFlags = oa.cmakeFlags ++ [ "-DCMAKE_CXX_FLAGS=-DSPDLOG_FMT_EXTERNAL" ];
     buildInputs = oa.buildInputs
-      ++ [ final.libevent final.curl.all final.coeurl final.spdlog.dev ];
+      ++ [ final.libevent final.curl.all final.coeurl final.spdlog.dev final.re2 ];
     patches = [ ];
   });
 
@@ -111,6 +111,7 @@ in rec {
       final.curl
       final.libevent
       final.asciidoc
+      final.re2
     ];
     cmakeFlags = oa.cmakeFlags ++ [ "-DBUILD_SHARED_LIBS=OFF" ];
   })).override { mtxclient = final.mtxclient; };
