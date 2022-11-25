@@ -63,23 +63,28 @@
         plaintext_highlights = true;
         startup_sync = true;
         username_template = "tg_{userid}";
+        relay_user_distinguishers = [ ];
+        state_event_formats = {
+          leave = "";
+          name_change = "";
+        };
       };
       homeserver = {
         address = "https://matrix.balsoft.ru";
         domain = "balsoft.ru";
         verify_ssl = true;
       };
-      telegram = { bot_token = "disabled"; };
     };
   };
 
   secrets-envsubst.mautrix-telegram = {
-    secrets = [ "as_token" "hs_token" "api_id" "api_hash" ];
+    secrets = [ "as_token" "hs_token" "api_id" "api_hash" "bot_token" ];
     template = ''
       MAUTRIX_TELEGRAM_APPSERVICE_AS_TOKEN=$as_token
       MAUTRIX_TELEGRAM_APPSERVICE_HS_TOKEN=$hs_token
       MAUTRIX_TELEGRAM_TELEGRAM_API_ID=$api_id
       MAUTRIX_TELEGRAM_TELEGRAM_API_HASH=$api_hash
+      MAUTRIX_TELEGRAM_TELEGRAM_BOT_TOKEN=$bot_token
     '';
   };
 

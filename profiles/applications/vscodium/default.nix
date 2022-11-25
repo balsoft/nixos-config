@@ -87,6 +87,7 @@ in {
           stkb.rewrap
           shardulm94.trailing-spaces
           meraymond.idris-vscode
+          ocamllabs.ocaml-platform
         ] ++ pkgs.lib.concatMap builtins.attrValues
         (builtins.attrValues custom-extensions);
 
