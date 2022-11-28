@@ -14,7 +14,8 @@
 <Multi_key> <V> : "✓" U2713 # Check Mark
 <Multi_key> <X> : "✗" U2717 # Ballot X
 
-<Multi_key> <t> <h> <e> <r> <e> <f> : "⟹" U27F9 # RIGHTWARDS DOUBLE ARROW (therefore)
+<Multi_key> <r> <a> <r> <r> : "⟹" U27F9 # RIGHTWARDS DOUBLE ARROW
+<Multi_key> <t> <h> <e> <r> <e> <f> : "∴" U2234 # Therefore
 <Multi_key> <i> <f> <f> : "⟺" U27FA # If and only if, equivalent
 <Multi_key> <n> <i> <f> <f> : "⇎" U21CE # Not iff
 <Multi_key> <equal> <greater> : "⇒" U21D2 # =>
