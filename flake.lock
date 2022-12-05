@@ -391,11 +391,11 @@
     "mtxclient": {
       "flake": false,
       "locked": {
-        "lastModified": 1670029774,
-        "narHash": "sha256-N1mGJByIJswK+TOdZuTwGMsFJQVkCHeaV4CKDJDXjQA=",
+        "lastModified": 1668909821,
+        "narHash": "sha256-V9mjd3VKHYk2Hw+D4FsX3YBe5Dm4Rmoi+Tdm92bkyAM=",
         "owner": "nheko-reborn",
         "repo": "mtxclient",
-        "rev": "7155cbb8ed3289f2cc7269da7607b0dd012f471b",
+        "rev": "c7a13e79289ae35c4e2a9bccb3fdeb2bc03a925d",
         "type": "github"
       },
       "original": {
