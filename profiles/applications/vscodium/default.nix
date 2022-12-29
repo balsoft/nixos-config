@@ -88,6 +88,7 @@ in {
           shardulm94.trailing-spaces
           meraymond.idris-vscode
           ocamllabs.ocaml-platform
+          bierner.markdown-mermaid
         ] ++ pkgs.lib.concatMap builtins.attrValues
         (builtins.attrValues custom-extensions);
 
