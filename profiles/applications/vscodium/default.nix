@@ -59,13 +59,8 @@ in {
         with pkgs.vscode-extensions;
         [
           kahole.magit
-          (inputs.direnv-vscode.packages.${pkgs.system}.vsix.overrideAttrs (_: {
-            buildPhase = "yarn run build";
-            installPhase = ''
-              mkdir -p $out/share/vscode/extensions/direnv.direnv-vscode
-              cp -R * $out/share/vscode/extensions/direnv.direnv-vscode
-            '';
-          }))
+
+          cab404.vscode-direnv
 
           (pkgs.callPackage ./theme.nix { } config.themes.colors)
 
