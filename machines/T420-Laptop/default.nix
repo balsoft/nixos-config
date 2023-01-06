@@ -13,6 +13,7 @@
     # home-assistant
     # mastodon
     irc
+    remapper
   ];
 
   services.logind.lidSwitch = "ignore";

@@ -95,6 +95,8 @@
     };
 
     nix-vscode-marketplace.url = "github:AmeerTaweel/nix-vscode-marketplace";
+
+    remapper.url = "github:balsoft/remapper";
   };
 
   outputs = { nixpkgs, self, nix, deploy-rs, ... }@inputs:

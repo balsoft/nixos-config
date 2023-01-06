@@ -129,4 +129,6 @@ in rec {
   codebraid = prev.codebraid.overrideAttrs (_: {
     src = inputs.codebraid;
   });
+
+  remapper = inputs.remapper.packages.${final.system}.default;
 }

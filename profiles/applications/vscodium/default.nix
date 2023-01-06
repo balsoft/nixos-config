@@ -47,12 +47,11 @@ in {
     desktop = "codium-wayland";
   };
   home-manager.users.balsoft = {
-
     programs.vscode = {
       enable = true;
       package = pkgs.vscodium;
 
-      mutableExtensionsDir = false;
+      mutableExtensionsDir = true;
       extensions =
         with inputs.nix-vscode-marketplace.packages.${pkgs.system}.vscode;
         with inputs.nix-vscode-marketplace.packages.${pkgs.system}.open-vsx;
