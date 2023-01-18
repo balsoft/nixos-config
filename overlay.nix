@@ -121,6 +121,8 @@ in rec {
     patches = [ ./profiles/nix/nix.patch ./profiles/nix/expr-context.patch ] ++ oa.patches or [ ];
   });
 
+  nil = prev.nil.overrideAttrs (_: { doCheck = false; doInstallCheck = false; });
+
   mako = prev.mako.overrideAttrs (_: {
     postInstall =
       "sed 's|Exec=.*|Exec=/run/current-system/sw/bin/systemctl --user start mako|' -i $out/share/dbus-1/services/fr.emersion.mako.service";
