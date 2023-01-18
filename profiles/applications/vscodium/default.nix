@@ -100,6 +100,9 @@ in {
         "security.workspace.trust.untrustedFiles" = "open";
         "window.menuBarVisibility" = "toggle";
         "vim.useSystemClipboard" = true;
+        "haskell.manageHLS" = "PATH";
+        "extensions.autoCheckUpdates" = false;
+        "extensions.autoUpdate" = false;
       };
       keybindings = [{
         key = "ctrl+shift+r";

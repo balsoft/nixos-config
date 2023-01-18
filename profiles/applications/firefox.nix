@@ -115,6 +115,7 @@ in {
         adsum-notabs
         ublock-origin
         browserpass
+        vimium-c
       ];
     };
   };
