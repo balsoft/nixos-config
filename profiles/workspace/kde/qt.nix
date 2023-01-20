@@ -116,6 +116,7 @@ with pkgs.my-lib; {
         smallestReadableFont =
           "${fonts.main.family},${toString fonts.main.size},-1,5,57,0,0,0,0,0,Medium";
         toolBarFont = "${fonts.main.family},${toString fonts.main.size},-1,5,50,0,0,0,0,0";
+        TerminalApplication = "alacritty";
       };
       KDE = {
         DoubleClickInterval = 400;

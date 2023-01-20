@@ -41,8 +41,8 @@
             "application/vnd.oasis.opendocument.text" = text_processor;
             "text/csv" = spreadsheet;
             "application/vnd.oasis.opendocument.spreadsheet" = spreadsheet;
-            "text/plain" =
-              editor; # This actually makes Emacs an editor for everything... XDG is wierd
+            "text/plain" = editor;
+            "text/*" = editor;
           };
     };
   };

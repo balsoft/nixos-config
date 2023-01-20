@@ -23,6 +23,7 @@
       maxIconSize = 24;
       extraConfig = let
         play = sound:
+          pkgs.writeShellScript "play-${sound}"
           "${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/${sound}.oga";
       in ''
         on-notify=exec ${play "message"}

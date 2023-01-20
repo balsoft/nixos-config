@@ -15,6 +15,9 @@
   };
 
   environment.systemPackages = [ pkgs.pass-secret-service ];
+
+  environment.gnome.excludePackages = [ pkgs.gnome-console ];
+
   services.dbus.packages = [ pkgs.pass-secret-service ];
   xdg.portal.extraPortals = [ pkgs.pass-secret-service ];
 

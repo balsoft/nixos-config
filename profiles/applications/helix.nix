@@ -1,9 +1,40 @@
 { config, pkgs, ... }: {
   defaultApplications.editor = {
-    cmd = "${pkgs.helix}/bin/helix";
+    cmd = "${pkgs.helix}/bin/hx";
     desktop = "helix";
   };
   home-manager.users.balsoft = {
+    home.packages = [
+      (pkgs.makeDesktopItem {
+        name = "helix";
+        desktopName = "Helix editor";
+        terminal = true;
+        categories = [ "Utility" "TextEditor" "Development" "IDE" ];
+        mimeTypes = [
+          "inode/directory"
+          "text/english"
+          "text/plain"
+          "text/x-makefile"
+          "text/x-c++hdr"
+          "text/x-c++src"
+          "text/x-chdr"
+          "text/x-csrc"
+          "text/x-java"
+          "text/x-moc"
+          "text/x-pascal"
+          "text/x-tcl"
+          "text/x-tex"
+          "application/x-shellscript"
+          "application/json"
+          "application/xml"
+          "text/xml"
+          "text/x-c"
+          "text/x-c++"
+        ];
+        exec = "${pkgs.helix}/bin/hx %F";
+        icon = "helix";
+      })
+    ];
     xdg.configFile."helix/languages.toml".text = ''
       [[language]]
       name = "nix"
@@ -100,7 +131,7 @@
           };
           "ui.cursor.match" = { bg = base01; };
           "string" = base0B;
-          "variable.other.member" = base0B;
+          # "variable.other.member" = base0B;
           "constant.character.escape" = base0E;
           "function" = base05;
           "constructor" = base0A;
