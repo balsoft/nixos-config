@@ -44,7 +44,15 @@
       enable = true;
       settings = {
         theme = "base16";
-        editor.lsp.display-messages = true;
+        editor = {
+          indent-guides.render = true;
+          lsp.display-messages = true;
+          cursor-shape = {
+            insert = "bar";
+            normal = "block";
+            select = "underline";
+          };
+        };
         keys = {
           insert = {
             up = "no_op";
@@ -161,7 +169,7 @@
           "debug" = base02;
           "warning" = base09;
           "error" = base08;
-          "indent" = "none";
+          "ui.virtual.indent-guide" = base01;
           "highlight" = base09;
         };
     };
