@@ -1,7 +1,11 @@
 { pkgs, config, ... }: {
   home-manager.users.balsoft = {
     systemd.user.services.mako = {
-      Service = { ExecStart = "${pkgs.mako}/bin/mako"; };
+      Service = {
+        ExecStart = "${pkgs.mako}/bin/mako";
+        Environment =
+          [ "PATH=${pkgs.lib.makeBinPath [ pkgs.bash pkgs.mpv ]}" ];
+      };
       Install = {
         After = [ "sway-session.target" ];
         WantedBy = [ "sway-session.target" ];
@@ -23,8 +27,7 @@
       maxIconSize = 24;
       extraConfig = let
         play = sound:
-          pkgs.writeShellScript "play-${sound}"
-          "${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/${sound}.oga";
+          "mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/${sound}.oga";
       in ''
         on-notify=exec ${play "message"}
         [app-name=yubikey-touch-detector]
