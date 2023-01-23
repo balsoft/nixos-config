@@ -39,6 +39,9 @@
       [[language]]
       name = "nix"
       formatter = { command = "nixfmt", args = [] }
+      [[language]]
+      name = "markdown"
+      language-server = { command = "vscode-markdown-language-server", args = ["--stdio"] }
     '';
     programs.helix = {
       enable = true;
@@ -152,6 +155,17 @@
             fg = base0A;
             modifiers = [ "bold" ];
           };
+          "markup.bold" = { modifiers = [ "bold" ]; };
+          "markup.italic" = { modifiers = [ "italic" ]; };
+          "markup.link" = {
+            underline.style = "line";
+            fg = base0D;
+          };
+          "markup.quote" = {
+            bg = base01;
+            modifiers = [ "italic" ];
+          };
+          "markup.raw" = { bg = base01; };
           "label" = base0B;
           "namespace" = base0F;
           "diff.plus" = base0B;

@@ -51,9 +51,9 @@ in {
     themes.colors = {
       # H = 0, S = 0%
       base00 = "000000"; # L = 0%
-      base01 = "333333"; # L = 20%
-      base02 = "666666"; # L = 40%
-      base03 = "999999"; # L = 60%
+      base01 = "1a1a1a"; # L = 10%
+      base02 = "333333"; # L = 20%
+      base03 = "808080"; # L = 50%
       base04 = "cccccc"; # L = 80%
       base05 = "ffffff"; # L = 100%
       base06 = "e6e6e6"; # L = 90%
