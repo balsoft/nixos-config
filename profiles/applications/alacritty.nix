@@ -6,8 +6,13 @@
   home-manager.users.balsoft.programs.alacritty = {
     enable = true;
     settings = {
+      key_bindings = [{
+        key = "Return";
+        mods = "Control";
+        action = "SpawnNewInstance";
+      }];
 
-      font = rec {
+      font = {
         normal.family = config.themes.fonts.mono.family;
         size = config.themes.fonts.mono.size;
         bold = { style = "Bold"; };
