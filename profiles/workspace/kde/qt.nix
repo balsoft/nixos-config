@@ -18,8 +18,21 @@ with pkgs.my-lib; {
     KDEDIRS =
       "/run/current-system/sw:/run/current-system/sw/share/kservices5:/run/current-system/sw/share/kservicetypes5:/run/current-system/sw/share/kxmlgui5";
   };
+
+  defaultApplications = {
+    fm = {
+      cmd = "${pkgs.dolphin}/bin/dolphin";
+      desktop = "org.kde.dolphin";
+    };
+    archive = {
+      cmd = "${pkgs.ark}/bin/ark";
+      desktop = "org.kde.ark";
+    };
+  };
+
   home-manager.users.balsoft = let fonts = config.themes.fonts;
   in {
+    home.packages = [ pkgs.ark pkgs.dolphin ];
 
     xdg.configFile."kdeglobals".text = with (thmDec config.themes.colors); lib.generators.toGitINI {
       "Colors:Button" = {

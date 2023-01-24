@@ -16,7 +16,7 @@
 
   environment.systemPackages = [ pkgs.pass-secret-service ];
 
-  environment.gnome.excludePackages = [ pkgs.gnome-console ];
+  environment.gnome.excludePackages = [ pkgs.gnome-console pkgs.gnome.evince pkgs.gnome.eog ];
 
   services.dbus.packages = [ pkgs.pass-secret-service ];
   xdg.portal.extraPortals = [ pkgs.pass-secret-service ];
@@ -31,17 +31,9 @@
     }) (state.directories ++ cache.directories ++ derivative.directories)));
 
   defaultApplications = {
-    fm = {
-      cmd = "${pkgs.gnome.nautilus}/bin/nautilus";
-      desktop = "org.gnome.Nautilus";
-    };
     monitor = {
       cmd = "${pkgs.gnome.gnome-system-monitor}/bin/gnome-system-monitor";
       desktop = "gnome-system-monitor";
-    };
-    archive = {
-      cmd = "${pkgs.gnome.file-roller}/bin/file-roller";
-      desktop = "org.gnome.FileRoller";
     };
   };
 
