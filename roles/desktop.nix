@@ -1,11 +1,6 @@
 { inputs, ... }: {
-  imports = with inputs.self.nixosModules; with inputs.self.nixosProfiles; [
+  imports = with inputs.self.nixosProfiles; [
     ./base.nix
-
-    # MODULES
-    themes
-    ezwg
-
 
     # PROFILES
     applications-setup

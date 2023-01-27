@@ -138,7 +138,7 @@
               pkgs = pkgsFor system;
             in nixosSystem {
               inherit system;
-              modules = [
+              modules = __attrValues self.nixosModules ++ [
                 (import (./machines + "/${name}"))
                 { nixpkgs.pkgs = pkgs; }
                 { device = name; }

@@ -1,21 +1,12 @@
 { inputs, ... }: {
-  imports = with inputs.self.nixosModules; with inputs.self.nixosProfiles; [
+  imports = with inputs.self.nixosProfiles; [
     inputs.home-manager.nixosModules.home-manager
-
-    # MODULES
-    applications
-    secrets
-    secrets-envsubst
-    persist
-    bt-agent
-
 
     # PROFILES
     autoRun
     xdg
 
     boot
-    devices
     git
     gpg
     locale
