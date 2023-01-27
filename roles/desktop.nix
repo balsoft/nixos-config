@@ -28,6 +28,7 @@
     himalaya
     nheko
     packages
+    okular
 
     copyq
     cursor
