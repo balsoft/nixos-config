@@ -1,7 +1,6 @@
 { config, pkgs, ... }: {
   startupApplications = with config.defaultApplications; [
     browser.cmd
-    mail.cmd
     matrix.cmd
   ];
 

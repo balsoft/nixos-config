@@ -12,12 +12,13 @@
     virtualisation
 
     alacritty
+    aerc
     # cantata
     # emacs
     # vscodium
     helix
     firefox
-    geary
+    # geary
     github
     gwenview
     himalaya
