@@ -37,6 +37,7 @@
           "L" = ":expand-folder<Enter>";
 
           "v" = ":mark -t<Enter>";
+          "x" = ":mark -t<Enter>:next<Enter>";
           "V" = ":mark -v<Enter>";
 
           "T" = ":toggle-threads<Enter>";
@@ -99,7 +100,6 @@
         };
 
         compose = {
-
           "$noinherit" = "true";
           "$ex" = "<C-x>";
           "<C-k>" = ":prev-field<Enter>";
@@ -141,11 +141,18 @@
       extraConfig = {
         general.unsafe-accounts-conf = true;
         ui = {
-          this-day-time-format =''"           15:04"'';
+          this-day-time-format = ''"           15:04"'';
           this-year-time-format = "Mon Jan 02 15:04";
-          timestamp-format =      "2006-01-02 15:04";
+          timestamp-format = "2006-01-02 15:04";
+
+          mouse-enabled = true;
+
           spinner = "[ ⡿ ],[ ⣟ ],[ ⣯ ],[ ⣷ ],[ ⣾ ],[ ⣽ ],[ ⣻ ],[ ⢿ ]";
+          border-char-vertical = "┃";
+          border-char-horizontal = "━";
         };
+        viewer = { always-show-mime = true; };
+        compose = { no-attachment-warning = "^[^>]*attach(ed|ment)"; };
         triggers = {
           new-email = ''exec notify-send "New email from %n" "%s"'';
         };
@@ -156,6 +163,19 @@
           "message/delivery-status" = "colorize";
           "message/rfc822" = "colorize";
           "image/*" = "${pkgs.catimg}/bin/catimg -";
+        };
+      };
+      stylesets = {
+        default = {
+          "border.bg" = 0;
+          "border.fg" = 7;
+          "msglist_default.bg" = 0;
+          "msglist_unread.fg" = 3;
+          "msglist_unread.bold" = "true";
+          "msglist_marked.bg" = 4;
+          "dirlist_default.bg" = 0;
+          "dirlist_unread.fg" = 3;
+          "*.selected.reverse" = "toggle";
         };
       };
     };
