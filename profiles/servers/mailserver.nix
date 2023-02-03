@@ -82,6 +82,12 @@ in {
         aliases =
           [ "balsoft" "admin@balsoft.ru" "patches" "patches@balsoft.ru" "issues" "issues@balsoft.ru" "admin" "root@balsoft.ru" "root" ];
         hashedPasswordFile = config.secrets.mailserver.decrypted;
+        sieveScript = ''
+          if header :is "X-GitHub-Sender" "serokell-bot" {
+            discard;
+            stop;
+          }
+        '';
       };
       "mastodon@balsoft.ru" = {
         aliases = [ "mastodon" ];
