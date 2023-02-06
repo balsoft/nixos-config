@@ -145,8 +145,6 @@
           this-year-time-format = "Mon Jan 02 15:04";
           timestamp-format = "2006-01-02 15:04";
 
-          mouse-enabled = true;
-
           spinner = "[ ⡿ ],[ ⣟ ],[ ⣯ ],[ ⣷ ],[ ⣾ ],[ ⣽ ],[ ⣻ ],[ ⢿ ]";
           border-char-vertical = "┃";
           border-char-horizontal = "━";

@@ -1,6 +1,5 @@
 { pkgs, config, lib, inputs, ... }:
-let
-  module = toString inputs.simple-nixos-mailserver;
+let module = toString inputs.simple-nixos-mailserver;
 in {
   imports = [ module ];
   secrets.mailserver = {
@@ -70,17 +69,73 @@ in {
     dnsBlacklistOverrides = ''
       balsoft.ru OK
       192.168.0.0/16 OK
-      ${lib.concatMapStringsSep "\n" (machine: "${machine}.lan OK") (builtins.attrNames inputs.self.nixosConfigurations)}
+      ${lib.concatMapStringsSep "\n" (machine: "${machine}.lan OK")
+      (builtins.attrNames inputs.self.nixosConfigurations)}
     '';
   };
+  services.dovecot2 = {
+    mailPlugins.globally.enable = [ "virtual" ];
+    extraConfig = ''
+      namespace {
+        prefix = virtual.
+        separator = .
+        location = virtual:~/Maildir/virtual
+      }
+    '';
+  };
+  systemd.tmpfiles.rules = [
+    "d /var/vmail/Maildir 700 virtualMail virtualMail - -"
+    "d /var/vmail/Maildir/virtual 700 virtualMail virtualMail - -"
+    "d /var/vmail/Maildir/virtual/all 700 virtualMail virtualMail - -"
+    "d /var/vmail/Maildir/virtual/INBOX 700 virtualMail virtualMail - -"
+    "L+ /var/vmail/Maildir/virtual/all/dovecot-virtual - - - - ${
+      pkgs.writeText "virtual.all" ''
+        *
+          all
+      ''
+    }"
+    "L+ /var/vmail/Maildir/virtual/INBOX/dovecot-virtual - - - - ${
+      pkgs.writeText "virtual.INBOX" ''
+        virtual.all
+          inthread refs x-mailbox INBOX
+      ''
+    }"
+  ];
   mailserver = {
     enable = true;
     fqdn = "balsoft.ru";
     domains = [ "balsoft.ru" ];
+    mailboxes = {
+      Trash = {
+        auto = "no";
+        specialUse = "Trash";
+      };
+      Junk = {
+        auto = "subscribe";
+        specialUse = "Junk";
+      };
+      Drafts = {
+        auto = "subscribe";
+        specialUse = "Drafts";
+      };
+      Sent = {
+        auto = "subscribe";
+        specialUse = "Sent";
+      };
+    };
     loginAccounts = {
       "balsoft@balsoft.ru" = {
-        aliases =
-          [ "balsoft" "admin@balsoft.ru" "patches" "patches@balsoft.ru" "issues" "issues@balsoft.ru" "admin" "root@balsoft.ru" "root" ];
+        aliases = [
+          "balsoft"
+          "admin@balsoft.ru"
+          "patches"
+          "patches@balsoft.ru"
+          "issues"
+          "issues@balsoft.ru"
+          "admin"
+          "root@balsoft.ru"
+          "root"
+        ];
         hashedPasswordFile = config.secrets.mailserver.decrypted;
         sieveScript = ''
           if header :is "X-GitHub-Sender" "serokell-bot" {
