@@ -250,6 +250,8 @@ in {
           "XF86AudioLowerVolume" = "exec ${pkgs.pamixer}/bin/pamixer -d 2";
           "XF86AudioRaiseVolume" = "exec ${pkgs.pamixer}/bin/pamixer -i 2";
           "XF86AudioMute" = "exec ${pkgs.pamixer}/bin/pamixer -t";
+          "button2" = "kill";
+          "--whole-window button2" = "kill";
         };
 
       keycodebindings = { };
