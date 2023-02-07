@@ -133,4 +133,6 @@ in rec {
   });
 
   remapper = inputs.remapper.packages.${final.system}.default;
+
+  helix = inputs.helix.packages.${final.system}.default;
 }
