@@ -2,8 +2,8 @@
 let
   thm = pkgs.my-lib.thmHash config.themes.colors;
   apps = config.defaultApplications;
-  lock_fork =
-    pkgs.writeShellScript "lock_fork" "sudo /run/current-system/sw/bin/lock all &";
+  lock_fork = pkgs.writeShellScript "lock_fork"
+    "sudo /run/current-system/sw/bin/lock all &";
   lock = pkgs.writeShellScript "lock"
     "swaymsg 'output * dpms off'; sudo /run/current-system/sw/bin/lock all; swaymsg 'output * dpms on'";
   htmlify = pkgs.writeShellScript "htmlify" ''
@@ -105,127 +105,153 @@ in {
               "dbus-update-activation-environment --systemd WAYLAND_DISPLAY GDK_BACKEND";
           }
         ];
+      modes = {
 
-      keybindings = let
-        script = name: content: "exec ${pkgs.writeScript name content}";
-        workspaces = (builtins.genList (x: [ (toString x) (toString x) ]) 10)
-          ++ [ [ "c" "" ] [ "t" "" ] [ "m" "ﱘ" ] ];
-      in ({
-        "${modifier}+q" = "kill";
-        "${modifier}+Shift+q" =
-          "move container to workspace temp; [workspace=__focused__] kill; workspace temp; move container to workspace temp; workspace temp";
-        "${modifier}+Return" = "exec ${apps.term.cmd}";
-        "${modifier}+e" = "exec ${apps.editor.cmd}";
-        "${modifier}+o" = "layout toggle all";
+        normal = let
+          script = name: content: "exec ${pkgs.writeScript name content}";
+          workspaces = (builtins.genList (x: [ (toString x) (toString x) ]) 10)
+            ++ [ [ "c" "" ] [ "t" "" ] [ "m" "ﱘ" ] ];
+        in ({
+          "Escape" = "mode default";
+          "Return" = "mode default";
+          "i" = "mode default";
+          "r" = "mode resize";
 
-        "${modifier}+Left" = "focus child; focus left";
-        "${modifier}+Right" = "focus child; focus right";
-        "${modifier}+Up" = "focus child; focus up";
-        "${modifier}+Down" = "focus child; focus down";
-        "${modifier}+Control+Left" = "focus parent; focus left";
-        "${modifier}+Control+Right" = "focus parent; focus right";
-        "${modifier}+Control+Up" = "focus parent; focus up";
-        "${modifier}+Control+Down" = "focus parent; focus down";
-        "${modifier}+Shift+Up" = "move up";
-        "${modifier}+Shift+Down" = "move down";
-        "${modifier}+Shift+Right" = "move right";
-        "${modifier}+Shift+Left" = "move left";
+          "q" = "kill";
+          "Shift+q" =
+            "move container to workspace temp; [workspace=__focused__] kill; workspace temp; move container to workspace temp; workspace temp";
+          "o" = "layout toggle all";
 
-        "${modifier}+Comma" = "workspace prev";
-        "${modifier}+Period" = "workspace next";
+          "Left" = "focus child; focus left";
+          "Right" = "focus child; focus right";
+          "Up" = "focus child; focus up";
+          "Down" = "focus child; focus down";
+          "Control+Left" = "focus parent; focus left";
+          "Control+Right" = "focus parent; focus right";
+          "Control+Up" = "focus parent; focus up";
+          "Control+Down" = "focus parent; focus down";
+          "Shift+Up" = "move up";
+          "Shift+Down" = "move down";
+          "Shift+Right" = "move right";
+          "Shift+Left" = "move left";
 
-        "${modifier}+a" = "focus child; focus left";
-        "${modifier}+d" = "focus child; focus right";
-        "${modifier}+w" = "focus child; focus up";
-        "${modifier}+s" = "focus child; focus down";
-        "${modifier}+Control+a" = "focus parent; focus left";
-        "${modifier}+Control+d" = "focus parent; focus right";
-        "${modifier}+Control+w" = "focus parent; focus up";
-        "${modifier}+Control+s" = "focus parent; focus down";
-        "${modifier}+Shift+w" = "move up";
-        "${modifier}+Shift+s" = "move down";
-        "${modifier}+Shift+d" = "move right";
-        "${modifier}+Shift+a" = "move left";
+          "Comma" = "workspace prev";
+          "Period" = "workspace next";
 
-        "${modifier}+f" = "fullscreen toggle; floating toggle";
-        "${modifier}+r" = "mode resize";
-        "${modifier}+Shift+f" = "floating toggle";
+          "h" = "focus child; focus left";
+          "l" = "focus child; focus right";
+          "k" = "focus child; focus up";
+          "j" = "focus child; focus down";
+          "Control+h" = "focus parent; focus left";
+          "Control+l" = "focus parent; focus right";
+          "Control+k" = "focus parent; focus up";
+          "Control+j" = "focus parent; focus down";
+          "Shift+k" = "move up";
+          "Shift+j" = "move down";
+          "Shift+l" = "move right";
+          "Shift+h" = "move left";
 
-        "${modifier}+Escape" =
-          ''exec ${apps.monitor.cmd}; [app_id="gnome-system-monitor"] focus'';
-        "${modifier}+F1" = ''
-          exec ${pkgs.pavucontrol}/bin/pavucontrol; [app_id="pavucontrol"] focus'';
-        "${modifier}+Shift+F1" = ''
-          exec ${pkgs.helvum}/bin/helvum; [app_id="org.freedesktop.ryuukyu.Helvum"] focus'';
-        "${modifier}+F3" = "exec ${pkgs.alsa-utils}/bin/amixer set Capture cap";
-        "${modifier}+Shift+F3" = "exec ${pkgs.alsa-utils}/bin/amixer set Capture nocap";
-        "${modifier}+F5" = "reload";
-        "${modifier}+Shift+F5" = "exit";
-        "${modifier}+z" = "exec ${pkgs.mako}/bin/makoctl dismiss";
-        "${modifier}+Shift+z" = "exec ${pkgs.mako}/bin/makoctl restore";
-        "${modifier}+Control+z" = "exec ${pkgs.mako}/bin/makoctl dismiss -a";
-        "${modifier}+F9" = "exec ${pkgs.libnotify}/bin/notify-send \"Do not disturb: on\"; exec ${pkgs.mako}/bin/makoctl set-mode do-not-disturb";
-        "${modifier}+Shift+F9" = "exec ${pkgs.libnotify}/bin/notify-send \"Do not disturb: off\"; exec ${pkgs.mako}/bin/makoctl set-mode default";
-        "${modifier}+F11" = "output * dpms off";
-        "${modifier}+F12" = "output * dpms on";
-        "${modifier}+End" = "exec ${lock}";
+          "f" = "fullscreen toggle; floating toggle";
+          "Shift+f" = "floating toggle";
 
-        "${modifier}+j" = "exec ${pkgs.playerctl}/bin/playerctl previous";
-        "${modifier}+k" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
-        "${modifier}+l" = "exec ${pkgs.playerctl}/bin/playerctl next";
+          "Shift+Escape" =
+            ''exec ${apps.monitor.cmd}; [app_id="gnome-system-monitor"] focus'';
+          "F1" = ''
+            exec ${pkgs.pavucontrol}/bin/pavucontrol; [app_id="pavucontrol"] focus'';
+          "Shift+F1" = ''
+            exec ${pkgs.helvum}/bin/helvum; [app_id="org.freedesktop.ryuukyu.Helvum"] focus'';
+          "F3" = "exec ${pkgs.alsa-utils}/bin/amixer set Capture cap";
+          "Shift+F3" = "exec ${pkgs.alsa-utils}/bin/amixer set Capture nocap";
+          "F5" = "reload";
+          "Shift+F5" = "exit";
+          "z" = "exec ${pkgs.mako}/bin/makoctl dismiss";
+          "Shift+z" = "exec ${pkgs.mako}/bin/makoctl restore";
+          "Control+z" = "exec ${pkgs.mako}/bin/makoctl dismiss -a";
+          "F9" = ''
+            exec ${pkgs.libnotify}/bin/notify-send "Do not disturb: on"; exec ${pkgs.mako}/bin/makoctl set-mode do-not-disturb'';
+          "Shift+F9" = ''
+            exec ${pkgs.libnotify}/bin/notify-send "Do not disturb: off"; exec ${pkgs.mako}/bin/makoctl set-mode default'';
+          "F11" = "output * dpms off";
+          "F12" = "output * dpms on";
+          "End" = "exec ${lock}";
 
-        "${modifier}+Slash" = "exec ${pkgs.copyq}/bin/copyq menu";
-        "${modifier}+Shift+Slash" = "exec ${htmlify}";
+          "Slash" = "exec ${pkgs.copyq}/bin/copyq menu";
+          "Shift+Slash" = "exec ${htmlify}";
 
-        "${modifier}+Print" = script "screenshot"
-          "${pkgs.grim}/bin/grim Pictures/$(date +'%Y-%m-%d+%H:%M:%S').png";
+          "Print" = script "screenshot"
+            "${pkgs.grim}/bin/grim Pictures/$(date +'%Y-%m-%d+%H:%M:%S').png";
 
-        "${modifier}+Control+Print" = script "screenshot-copy"
-          "${pkgs.grim}/bin/grim - | ${pkgs.wl-clipboard}/bin/wl-copy";
+          "Control+Print" = script "screenshot-copy"
+            "${pkgs.grim}/bin/grim - | ${pkgs.wl-clipboard}/bin/wl-copy";
 
-        "--release ${modifier}+Shift+Print" = script "screenshot-area" ''
-          ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" Pictures/$(date +'%Y-%m-%d+%H:%M:%S').png'';
+          "--release Shift+Print" = script "screenshot-area" ''
+            ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" Pictures/$(date +'%Y-%m-%d+%H:%M:%S').png'';
 
-        "--release ${modifier}+Control+Shift+Print" =
-          script "screenshot-area-copy" ''
+          "--release Control+Shift+Print" = script "screenshot-area-copy" ''
             ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.wl-clipboard}/bin/wl-copy'';
 
-        "--release ${modifier}+Insert" =
-          script "screenshot-ocr"
-            "${pkgs.grim}/bin/grim -g \"$(${pkgs.slurp}/bin/slurp)\" - | ${pkgs.tesseract5}/bin/tesseract -l eng - - | ${pkgs.wl-clipboard}/bin/wl-copy";
+          "--release Insert" = script "screenshot-ocr" ''
+            ${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.tesseract5}/bin/tesseract -l eng - - | ${pkgs.wl-clipboard}/bin/wl-copy'';
 
-        "${modifier}+x" = "focus output right";
-        "${modifier}+Shift+x" = "move workspace to output right";
-        "${modifier}+Shift+h" = "layout splith";
-        "${modifier}+Shift+v" = "layout splitv";
-        "${modifier}+h" = "split h";
-        "${modifier}+v" = "split v";
-        "${modifier}+i" = "move to scratchpad";
-        "${modifier}+Shift+i" = "scratchpad show";
-        "${modifier}+p" = "sticky toggle";
-        "${modifier}+b" = "focus mode_toggle";
-        "${modifier}+Space" = script "lambda-launcher"
-          "${pkgs.lambda-launcher}/bin/lambda-launcher";
-        "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
-        "XF86AudioPause" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
-        "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
-        "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
-        "XF86AudioLowerVolume" = "exec ${pkgs.pamixer}/bin/pamixer -d 2";
-        "XF86AudioRaiseVolume" = "exec ${pkgs.pamixer}/bin/pamixer -i 2";
-        "XF86AudioMute" = "exec ${pkgs.pamixer}/bin/pamixer -t";
-        "${modifier}+XF86AudioLowerVolume" =
-          "exec ${pkgs.pamixer}/bin/pamixer -d 1";
-        "${modifier}+XF86AudioRaiseVolume" =
-          "exec ${pkgs.pamixer}/bin/pamixer -i 1";
-        "button2" = "kill";
-        "--whole-window ${modifier}+button2" = "kill";
-      } // builtins.listToAttrs (builtins.map (x: {
-        name = "${modifier}+${builtins.elemAt x 0}";
-        value = "workspace ${builtins.elemAt x 1}";
-      }) workspaces) // builtins.listToAttrs (builtins.map (x: {
-        name = "${modifier}+Shift+${builtins.elemAt x 0}";
-        value = "move container to workspace ${builtins.elemAt x 1}";
-      }) workspaces));
+          "x" = "focus output right";
+          "Shift+x" = "move workspace to output right";
+          "quotedbl" = "layout splith";
+          "apostrophe" = "layout splitv";
+          "minus" = "move to scratchpad";
+          "underscore" = "scratchpad show";
+          "p" = "sticky toggle";
+          "b" = "focus mode_toggle";
+          "Space" = script "lambda-launcher"
+            "${pkgs.lambda-launcher}/bin/lambda-launcher";
+          "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
+          "XF86AudioPause" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
+          "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
+          "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
+          "XF86AudioLowerVolume" = "exec ${pkgs.pamixer}/bin/pamixer -d 2";
+          "XF86AudioRaiseVolume" = "exec ${pkgs.pamixer}/bin/pamixer -i 2";
+          "XF86AudioMute" = "exec ${pkgs.pamixer}/bin/pamixer -t";
+          "button2" = "kill";
+          "--whole-window button2" = "kill";
+        } // builtins.listToAttrs (builtins.map (x: {
+          name = "${builtins.elemAt x 0}";
+          value = "workspace ${builtins.elemAt x 1}";
+        }) workspaces) // builtins.listToAttrs (builtins.map (x: {
+          name = "Shift+${builtins.elemAt x 0}";
+          value = "move container to workspace ${builtins.elemAt x 1}";
+        }) workspaces));
+
+        resize = {
+          Down = "resize grow height 50 px";
+          Escape = "mode default";
+          Left = "resize shrink width 50 px";
+          Return = "mode default";
+          Right = "resize grow width 50 px";
+          Up = "resize shrink height 50 px";
+          h = "resize shrink width 50 px";
+          j = "resize grow height 50 px";
+          k = "resize shrink height 50 px";
+          l = "resize grow width 50 px";
+        };
+      };
+
+      keybindings = lib.mapAttrs' (name:
+        let
+          s = lib.splitString " " name;
+          flags = lib.init s;
+        in lib.nameValuePair "${builtins.concatStringsSep " " flags}${
+          lib.optionalString (builtins.length flags != 0) " "
+        }${modifier}+${lib.last s}") modes.normal // {
+          "${modifier}+Escape" = "mode normal";
+          "${modifier}+Return" = "exec ${apps.term.cmd}";
+          "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
+          "XF86AudioPause" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
+          "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
+          "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
+          "XF86AudioLowerVolume" = "exec ${pkgs.pamixer}/bin/pamixer -d 2";
+          "XF86AudioRaiseVolume" = "exec ${pkgs.pamixer}/bin/pamixer -i 2";
+          "XF86AudioMute" = "exec ${pkgs.pamixer}/bin/pamixer -t";
+        };
+
       keycodebindings = { };
       workspaceLayout = "tabbed";
       workspaceAutoBackAndForth = true;
@@ -246,8 +272,8 @@ in {
       } // lib.optionalAttrs (config.device == "AMD-Workstation") {
         # DP-1.position = "0 400";
         # HDMI-A-1 = {
-          #   transform = "90";
-          #   position = "2560 0";
+        #   transform = "90";
+        #   position = "2560 0";
         # };
       } // lib.optionalAttrs (config.device == "X2100-Laptop") {
         "Unknown 0x0000 0x00000000".scale = "2";
