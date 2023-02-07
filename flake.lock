@@ -1022,7 +1022,8 @@
         "rycee": "rycee",
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "simple-osd-daemons": "simple-osd-daemons",
-        "sonoff-lan": "sonoff-lan"
+        "sonoff-lan": "sonoff-lan",
+        "tridactyl-native-messenger": "tridactyl-native-messenger"
       }
     },
     "rust-overlay": {
@@ -1147,6 +1148,22 @@
       "original": {
         "owner": "fizruk",
         "repo": "telegram-bot-simple",
+        "type": "github"
+      }
+    },
+    "tridactyl-native-messenger": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1663952229,
+        "narHash": "sha256-YGDVcfFcI9cRCCZ4BrO5xTuI9mrGq1lfbEITB7o3vQQ=",
+        "owner": "tridactyl",
+        "repo": "native_messenger",
+        "rev": "62f19dba573b924703829847feb1bfee68885514",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tridactyl",
+        "repo": "native_messenger",
         "type": "github"
       }
     },

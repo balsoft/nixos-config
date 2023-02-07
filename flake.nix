@@ -99,6 +99,12 @@
     remapper.url = "github:balsoft/remapper";
 
     helix.url = "github:helix-editor/helix";
+
+    tridactyl-native-messenger = {
+      url = "github:tridactyl/native_messenger";
+      flake = false;
+    };
+
   };
 
   outputs = { nixpkgs, self, nix, deploy-rs, ... }@inputs:
@@ -119,9 +125,7 @@
         import inputs.nixpkgs {
           overlays = [ self.overlay ];
           localSystem = { inherit system; };
-          config = {
-            android_sdk.accept_license = true;
-          };
+          config = { android_sdk.accept_license = true; };
         };
     in {
       nixosModules = builtins.listToAttrs (findModules ./modules);
