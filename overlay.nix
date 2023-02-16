@@ -56,27 +56,27 @@ in rec {
 
   nerdfonts = nur.balsoft.pkgs.roboto-mono-nerd;
 
-  pass-secret-service =
-    prev.pass-secret-service.overrideAttrs (_: { 
-      installCheckPhase = null;
-      postInstall = ''
-        mkdir -p $out/share/{dbus-1/services,xdg-desktop-portal/portals}
-        cat > $out/share/dbus-1/services/org.freedesktop.secrets.service << EOF
-        [D-BUS Service]
-        Name=org.freedesktop.secrets
-        Exec=/run/current-system/sw/bin/systemctl --user start pass-secret-service
-        EOF
-        cp $out/share/dbus-1/services/{org.freedesktop.secrets.service,org.freedesktop.impl.portal.Secret.service}
-        cat > $out/share/xdg-desktop-portal/portals/pass-secret-service.portal << EOF
-        [portal]
-        DBusName=org.freedesktop.secrets
-        Interfaces=org.freedesktop.impl.portal.Secrets
-        UseIn=gnome
-        EOF
-      '';
-    });
+  pass-secret-service = prev.pass-secret-service.overrideAttrs (_: {
+    installCheckPhase = null;
+    postInstall = ''
+      mkdir -p $out/share/{dbus-1/services,xdg-desktop-portal/portals}
+      cat > $out/share/dbus-1/services/org.freedesktop.secrets.service << EOF
+      [D-BUS Service]
+      Name=org.freedesktop.secrets
+      Exec=/run/current-system/sw/bin/systemctl --user start pass-secret-service
+      EOF
+      cp $out/share/dbus-1/services/{org.freedesktop.secrets.service,org.freedesktop.impl.portal.Secret.service}
+      cat > $out/share/xdg-desktop-portal/portals/pass-secret-service.portal << EOF
+      [portal]
+      DBusName=org.freedesktop.secrets
+      Interfaces=org.freedesktop.impl.portal.Secrets
+      UseIn=gnome
+      EOF
+    '';
+  });
 
-  nix-direnv = inputs.nix-direnv.packages.${system}.default.override { pkgs = final; };
+  nix-direnv =
+    inputs.nix-direnv.packages.${system}.default.override { pkgs = final; };
 
   # For nix-direnv
   nixFlakes = final.nix;
@@ -92,8 +92,13 @@ in rec {
   mtxclient = prev.mtxclient.overrideAttrs (oa: {
     src = inputs.mtxclient;
     cmakeFlags = oa.cmakeFlags ++ [ "-DCMAKE_CXX_FLAGS=-DSPDLOG_FMT_EXTERNAL" ];
-    buildInputs = oa.buildInputs
-      ++ [ final.libevent final.curl.all final.coeurl final.spdlog.dev final.re2 ];
+    buildInputs = oa.buildInputs ++ [
+      final.libevent
+      final.curl.all
+      final.coeurl
+      final.spdlog.dev
+      final.re2
+    ];
     patches = [ ];
   });
 
@@ -116,23 +121,29 @@ in rec {
     cmakeFlags = oa.cmakeFlags ++ [ "-DBUILD_SHARED_LIBS=OFF" ];
   })).override { mtxclient = final.mtxclient; };
 
-  nix = inputs.nix.packages.${system}.default.overrideAttrs (oa: {
-    doInstallCheck = false;
-    patches = [ ./profiles/nix/nix.patch ./profiles/nix/expr-context.patch ] ++ oa.patches or [ ];
-  });
+  nix = inputs.nix.packages.${system}.default;
 
-  nil = prev.nil.overrideAttrs (_: { doCheck = false; doInstallCheck = false; });
+  nil = prev.nil.overrideAttrs (_: {
+    doCheck = false;
+    doInstallCheck = false;
+  });
 
   mako = prev.mako.overrideAttrs (_: {
     postInstall =
       "sed 's|Exec=.*|Exec=/run/current-system/sw/bin/systemctl --user start mako|' -i $out/share/dbus-1/services/fr.emersion.mako.service";
   });
 
-  codebraid = prev.codebraid.overrideAttrs (_: {
-    src = inputs.codebraid;
-  });
+  codebraid = prev.codebraid.overrideAttrs (_: { src = inputs.codebraid; });
 
   remapper = inputs.remapper.packages.${final.system}.default;
 
   helix = inputs.helix.packages.${final.system}.default;
+
+  plasma5Packages = prev.plasma5Packages.overrideScope' (final': _: {
+    qmlkonsole = final'.callPackage (final.fetchurl {
+      url =
+        "https://raw.githubusercontent.com/NixOS/nixpkgs/551245d6c4636862f91ba4a0e94b8120b7e8d4d4/pkgs/applications/plasma-mobile/qmlkonsole.nix";
+      sha256 = "04vy12x0wjhr1c77dlhvghmlkb6aaq5dfqg1fwc5p6ma9nxqdwic";
+    }) { };
+  });
 }

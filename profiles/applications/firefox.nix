@@ -3,6 +3,8 @@ let
   thm = pkgs.my-lib.thmHash config.themes.colors;
   fonts = config.themes.fonts;
 in {
+  services.dbus.packages = [ pkgs.firefox-wayland ];
+
   environment.sessionVariables = {
     MOZ_USE_XINPUT2 = "1";
     MOZ_DBUS_REMOTE = "1";

@@ -66,7 +66,7 @@ let
     with cfg; {
       "${name}-secrets" = rec {
 
-        wantedBy = ["multi-user.target"];
+        wantedBy = [ "multi-user.target" ];
 
         requires = [ "user@1000.service" ];
         after = requires;
@@ -115,73 +115,78 @@ let
     ++ map (name: "${name}-secrets.service")
     (builtins.attrNames config.secrets));
 in {
-  options.secrets = lib.mkOption {
-    type = attrsOf (submodule secret);
-    default = { };
+  options = {
+    secrets = lib.mkOption {
+      type = attrsOf (submodule secret);
+      default = { };
+    };
+
+    secretsConfig = {
+      password-store = lib.mkOption {
+        type = lib.types.path;
+        default = "/home/balsoft/.local/share/password-store";
+      };
+      repo = lib.mkOption {
+        type = str;
+        default = "ssh://git@github.com/balsoft/pass";
+      };
+    };
   };
 
-  options.secretsConfig = {
-    password-store = lib.mkOption {
-      type = lib.types.path;
-      default = "/home/balsoft/.local/share/password-store";
-    };
-    repo = lib.mkOption {
-      type = str;
-      default = "ssh://git@github.com/balsoft/pass";
-    };
-  };
+  config = {
 
-  config.systemd.services =
-    mkMerge (concatLists (mapAttrsToList mkServices config.secrets));
+    systemd.services =
+      mkMerge (concatLists (mapAttrsToList mkServices config.secrets));
 
-  config.security.sudo.extraRules = [{
-    users = [ "balsoft" ];
-    commands = [{
-      command = "/run/current-system/sw/bin/systemctl restart ${allServices}";
-      options = [ "NOPASSWD" ];
+    security.sudo.extraRules = [{
+      users = [ "balsoft" ];
+      commands = [{
+        command = "/run/current-system/sw/bin/systemctl restart ${allServices}";
+        options = [ "NOPASSWD" ];
+      }];
     }];
-  }];
 
-  config.persist.derivative.directories = [ "/var/secrets" password-store ];
+    persist.derivative.directories = [ "/var/secrets" password-store ];
 
-  config.home-manager.users.balsoft = {
-    systemd.user.services.activate-secrets = {
-      Service = {
-        ExecStart = "${activate-secrets}/bin/activate-secrets";
-        Type = "oneshot";
+    home-manager.users.balsoft = {
+      systemd.user.services.activate-secrets = {
+        Service = {
+          ExecStart = "${activate-secrets}/bin/activate-secrets";
+          Type = "oneshot";
+        };
+        Unit = { PartOf = [ "graphical-session-pre.target" ]; };
+        Install.WantedBy = [ "graphical-session-pre.target" ];
       };
-      Unit = {
-        PartOf = [ "graphical-session-pre.target" ];
+      systemd.user.services.pass-store-sync = {
+        Service = {
+          Environment = [
+            "PASSWORD_STORE_DIR=${password-store}"
+            "PATH=${
+              lib.makeBinPath [ pkgs.pass pkgs.inotify-tools pkgs.gnupg ]
+            }"
+          ];
+          ExecStart = toString (pkgs.writeShellScript "pass-store-sync" ''
+            export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+            while inotifywait "$PASSWORD_STORE_DIR" -r -e move -e close_write -e create -e delete --exclude .git; do
+              sleep 0.1
+              pass git add --all
+              pass git commit -m "Change"
+              pass git pull --rebase
+              pass git push
+            done
+          '');
+        };
+        Unit = rec {
+          After = [ "activate-secrets.service" ];
+          Wants = After;
+        };
+        Install.WantedBy = [ "graphical-session-pre.target" ];
       };
-      Install.WantedBy = [ "graphical-session-pre.target" ];
-    };
-    systemd.user.services.pass-store-sync = {
-      Service = {
-        Environment = [
-          "PASSWORD_STORE_DIR=${password-store}"
-          "PATH=${lib.makeBinPath [ pkgs.pass pkgs.inotify-tools pkgs.gnupg ]}"
-        ];
-        ExecStart = toString (pkgs.writeShellScript "pass-store-sync" ''
-          export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-          while inotifywait "$PASSWORD_STORE_DIR" -r -e move -e close_write -e create -e delete --exclude .git; do
-            sleep 0.1
-            pass git add --all
-            pass git commit -m "Change"
-            pass git pull --rebase
-            pass git push
-          done
-        '');
+      programs.password-store = {
+        enable = true;
+        package = pkgs.pass-wayland;
+        settings.PASSWORD_STORE_DIR = password-store;
       };
-      Unit = rec {
-        After = [ "activate-secrets.service" ];
-        Wants = After;
-      };
-      Install.WantedBy = [ "graphical-session-pre.target" ];
-    };
-    programs.password-store = {
-      enable = true;
-      package = pkgs.pass-wayland;
-      settings.PASSWORD_STORE_DIR = password-store;
     };
   };
 }

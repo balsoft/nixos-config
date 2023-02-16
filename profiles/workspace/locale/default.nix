@@ -1,7 +1,4 @@
 { pkgs, config, lib, ... }: {
-  console.font = "cyr-sun16";
-  console.keyMap = "ruwin_cplk-UTF-8";
-
   environment.sessionVariables = {
     XKB_DEFAULT_LAYOUT = "us,ru";
     XKB_DEFAULT_OPTIONS =

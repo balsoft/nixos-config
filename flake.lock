@@ -635,11 +635,11 @@
         "nixpkgs-regression": "nixpkgs-regression"
       },
       "locked": {
-        "lastModified": 1672935906,
-        "narHash": "sha256-YYxhjBppTVEsqElmuBxDrBwqYe/nLXdkMzMQI8gRA8E=",
+        "lastModified": 1676450680,
+        "narHash": "sha256-wOd+EPkY6VpxeIf+bCuV2lHleSoK0hI/hTsvJ6Ntf6Q=",
         "owner": "nixos",
         "repo": "nix",
-        "rev": "d02c5a41da68908bd88d7a697abc52a04826894e",
+        "rev": "601849b95afc3d173ea34ff5dba6353f9b71b495",
         "type": "github"
       },
       "original": {
@@ -698,6 +698,22 @@
       "original": {
         "owner": "balsoft",
         "repo": "nixos-fhs-compat",
+        "type": "github"
+      }
+    },
+    "nixos-hardware": {
+      "locked": {
+        "lastModified": 1676478725,
+        "narHash": "sha256-tiuxFhkGt0UADAGm4YXuETk9R8TsTZSUSTFJgDMxebo=",
+        "owner": "balsoft",
+        "repo": "nixos-hardware",
+        "rev": "8488234ec45c71456d3eae0329b1cc56caa40799",
+        "type": "github"
+      },
+      "original": {
+        "owner": "balsoft",
+        "ref": "add-librem-5",
+        "repo": "nixos-hardware",
         "type": "github"
       }
     },
@@ -941,11 +957,11 @@
     },
     "nixpkgs_9": {
       "locked": {
-        "lastModified": 1672791794,
-        "narHash": "sha256-mqGPpGmwap0Wfsf3o2b6qHJW1w2kk/I6cGCGIU+3t6o=",
+        "lastModified": 1675942811,
+        "narHash": "sha256-/v4Z9mJmADTpXrdIlAjFa1e+gkpIIROR670UVDQFwIw=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "9813adc7f7c0edd738c6bdd8431439688bb0cb3d",
+        "rev": "724bfc0892363087709bd3a5a1666296759154b1",
         "type": "github"
       },
       "original": {
@@ -1015,6 +1031,7 @@
         "nix-direnv": "nix-direnv",
         "nix-vscode-marketplace": "nix-vscode-marketplace",
         "nixos-fhs-compat": "nixos-fhs-compat",
+        "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_9",
         "nixpkgs-old": "nixpkgs-old",
         "nixpkgs-wayland": "nixpkgs-wayland",

@@ -2,6 +2,8 @@
   imports = with inputs.self.nixosProfiles; [
     ./base.nix
 
+    boot
+
     # PROFILES
     applications-setup
     bluetooth
@@ -10,6 +12,9 @@
     hardware
     sound
     virtualisation
+
+    yubikey
+    vlock
 
     alacritty
     aerc
@@ -26,6 +31,7 @@
     packages
     okular
 
+    pass-secret-service
     copyq
     cursor
     direnv

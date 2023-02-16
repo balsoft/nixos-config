@@ -159,7 +159,7 @@ in {
           "F1" = ''
             exec ${pkgs.pavucontrol}/bin/pavucontrol; [app_id="pavucontrol"] focus'';
           "Shift+F1" = ''
-            exec ${pkgs.helvum}/bin/helvum; [app_id="org.freedesktop.ryuukyu.Helvum"] focus'';
+            exec ${pkgs.qpwgraph}/bin/qpwgraph; [app_id="org.freedesktop.ryuukyu.Helvum"] focus'';
           "F3" = "exec ${pkgs.alsa-utils}/bin/amixer set Capture cap";
           "Shift+F3" = "exec ${pkgs.alsa-utils}/bin/amixer set Capture nocap";
           "F5" = "reload";
@@ -211,7 +211,6 @@ in {
           "XF86AudioRaiseVolume" = "exec ${pkgs.pamixer}/bin/pamixer -i 2";
           "XF86AudioMute" = "exec ${pkgs.pamixer}/bin/pamixer -t";
           "button2" = "kill";
-          "--whole-window button2" = "kill";
         } // builtins.listToAttrs (builtins.map (x: {
           name = "${builtins.elemAt x 0}";
           value = "workspace ${builtins.elemAt x 1}";
@@ -251,7 +250,7 @@ in {
           "XF86AudioRaiseVolume" = "exec ${pkgs.pamixer}/bin/pamixer -i 2";
           "XF86AudioMute" = "exec ${pkgs.pamixer}/bin/pamixer -t";
           "button2" = "kill";
-          "--whole-window button2" = "kill";
+          "--whole-window ${modifier}+button2" = "kill";
         };
 
       keycodebindings = { };

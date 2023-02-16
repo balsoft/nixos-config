@@ -1,5 +1,5 @@
 { pkgs, config, lib, ... }: {
-  hardware.pulseaudio.enable = false;
+  hardware.pulseaudio.enable = lib.mkForce false;
 
   security.rtkit.enable = true;
 

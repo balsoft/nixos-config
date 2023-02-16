@@ -35,7 +35,8 @@
       lambda-launcher
       nix-patch
       gopass
-      papirus-icon-theme
+      # papirus-icon-theme
+      breeze-icons
       shellcheck
       proselint
       ripgrep

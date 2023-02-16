@@ -15,7 +15,7 @@
 
     systemd.user.startServices = true;
 
-    home.stateVersion = "20.09";
+    home.stateVersion = lib.mkDefault "20.09";
   };
 
   home-manager.useGlobalPkgs = true;

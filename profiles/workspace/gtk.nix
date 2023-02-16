@@ -25,8 +25,8 @@ in {
     gtk = {
       enable = true;
       iconTheme = {
-        name = "Papirus-Dark";
-        package = pkgs.papirus-icon-theme;
+        name = "breeze-dark";
+        package = pkgs.breeze-icons;
       };
       theme = {
         name = "Generated";
