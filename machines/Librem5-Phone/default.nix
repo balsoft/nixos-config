@@ -21,6 +21,7 @@
       helix
       angelfish
       nix
+      qmlkonsole
 
       kdeconnect
       cursor

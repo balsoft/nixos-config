@@ -139,11 +139,49 @@ in rec {
 
   helix = inputs.helix.packages.${final.system}.default;
 
-  plasma5Packages = prev.plasma5Packages.overrideScope' (final': _: {
-    qmlkonsole = final'.callPackage (final.fetchurl {
-      url =
-        "https://raw.githubusercontent.com/NixOS/nixpkgs/551245d6c4636862f91ba4a0e94b8120b7e8d4d4/pkgs/applications/plasma-mobile/qmlkonsole.nix";
-      sha256 = "04vy12x0wjhr1c77dlhvghmlkb6aaq5dfqg1fwc5p6ma9nxqdwic";
-    }) { };
+  plasma5Packages = prev.plasma5Packages.overrideScope' (final': prev': {
+    qmltermwidget = prev'.qmltermwidget.overrideAttrs (_: {
+      src = final.fetchFromGitHub {
+        owner = "balsoft";
+        repo = "qmltermwidget";
+        rev = "39911727b7ce70a100aad84c1cdae9ab0ead1d6b";
+        hash = "sha256-Y+e9WjkXl38tbJq5D2BH0wJ0157yBiQ3vfRYO6rwnoU=";
+      };
+      patches = [ ];
+    });
+
+    qmlkonsole = final'.callPackage ({ lib, mkDerivation, cmake
+      , extra-cmake-modules, kconfig, ki18n, kirigami-addons, kirigami2
+      , kcoreaddons, qtquickcontrols2, kwindowsystem, qmltermwidget }:
+
+      mkDerivation {
+        pname = "qmlkonsole";
+
+        inherit ((final.callPackage
+          "${inputs.nixpkgs}/pkgs/applications/plasma-mobile/srcs.nix" {
+            mirror = "mirror://kde";
+          }).qmlkonsole)
+          version src;
+
+        nativeBuildInputs = [ cmake extra-cmake-modules ];
+
+        buildInputs = [
+          kconfig
+          ki18n
+          kirigami-addons
+          kirigami2
+          qtquickcontrols2
+          kcoreaddons
+          kwindowsystem
+          qmltermwidget
+        ];
+
+        meta = with lib; {
+          description = "Terminal app for Plasma Mobile";
+          homepage = "https://invent.kde.org/plasma-mobile/qmlkonsole";
+          license = with licenses; [ gpl2Plus gpl3Plus cc0 ];
+          maintainers = with maintainers; [ balsoft ];
+        };
+      }) { };
   });
 }

@@ -7,8 +7,6 @@
   home-manager.users.balsoft = {
     xdg.configFile.angelfishrc.text = pkgs.lib.generators.toGitINI {
       NavigationBar = {
-        navBarBack = true;
-        navBarForward = true;
         navBarReload = true;
       };
     };

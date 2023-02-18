@@ -8,16 +8,11 @@
 
     optimise.automatic = true;
 
-    extraOptions = ''
-      builders-use-substitutes = true
-      # Enable flakes
-      experimental-features = nix-command flakes
-      # Prevent Nix from fetching the registry every time
-      flake-registry = ${inputs.flake-registry}/flake-registry.json
-    '';
-
     settings = {
       use-xdg-base-directories = true;
+      builders-use-substitutes = true;
+      flake-registry = "${inputs.flake-registry}/flake-registry.json";
+      experimental-features = [ "nix-command" "flakes" ];
       trusted-users = [ "root" "balsoft" "@wheel" ];
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="

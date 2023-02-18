@@ -25,6 +25,12 @@
   powerManagement.enable = true;
 
   home-manager.users.balsoft = {
+    home.activation.removeGtkRc = {
+      data = "rm $HOME/.gtkrc-2.0";
+      before = [ "checkLinkTargets" ];
+      after = [];
+    };
+
     xdg.configFile."autostart/org_kde_powerdevil.desktop".text = ''
       [Desktop Entry]
       DBusActivatable=true
