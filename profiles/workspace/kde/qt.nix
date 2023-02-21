@@ -197,6 +197,7 @@ in {
     QT_SCALE_FACTOR = "1";
     QT_AUTO_SCREEN_SCALE_FACTOR = "0";
     QT_QPA_PLATFORMTHEME = "kde";
+    QT_QUICK_CONTROLS_STYLE = "org.kde.breeze";
     KDEDIRS =
       "/run/current-system/sw:/run/current-system/sw/share/kservices5:/run/current-system/sw/share/kservicetypes5:/run/current-system/sw/share/kxmlgui5";
   };
@@ -216,6 +217,6 @@ in {
     home.packages = [ pkgs.ark pkgs.dolphin ];
 
     xdg.configFile."kdeglobals".text = lib.generators.toGitINI
-      (builtins.foldl' lib.recursiveUpdate { } [ colorTheme misc ]);
+      (builtins.foldl' lib.recursiveUpdate { } [ colorTheme effects misc ]);
   };
 }

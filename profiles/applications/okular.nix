@@ -1,7 +1,12 @@
 { pkgs, lib, config, ... }:
 with (pkgs.my-lib.thmDec config.themes.colors); {
   home-manager.users.balsoft = {
-    home.packages = [ pkgs.okular ];
+    home.packages = [
+      (if config.deviceSpecific.isPhone then
+        pkgs.okularMobile
+      else
+        pkgs.okular)
+    ];
     xdg.configFile."okularpartrc".text = pkgs.my-lib.genIni {
       "Dlg Accessibility" = {
         RecolorBackground = base00;

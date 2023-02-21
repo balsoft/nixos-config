@@ -19,6 +19,7 @@
       "wireshark"
       "lp"
       "scanner"
+      "feedbackd"
     ];
     description = "Александр Бантьев";
     uid = 1000;

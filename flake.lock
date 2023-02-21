@@ -1040,7 +1040,8 @@
         "simple-nixos-mailserver": "simple-nixos-mailserver",
         "simple-osd-daemons": "simple-osd-daemons",
         "sonoff-lan": "sonoff-lan",
-        "tridactyl-native-messenger": "tridactyl-native-messenger"
+        "tridactyl-native-messenger": "tridactyl-native-messenger",
+        "yt-dlp": "yt-dlp"
       }
     },
     "rust-overlay": {
@@ -1211,6 +1212,22 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "yt-dlp": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1676639476,
+        "narHash": "sha256-+rVcHpSCu2Wa8Noy4uINdx4S5iftYKrh1wQqpb67RQg=",
+        "owner": "yt-dlp",
+        "repo": "yt-dlp",
+        "rev": "18d295c9e0f95adc179eef345b7af64d6372db78",
+        "type": "github"
+      },
+      "original": {
+        "owner": "yt-dlp",
+        "repo": "yt-dlp",
         "type": "github"
       }
     }

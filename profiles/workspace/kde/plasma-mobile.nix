@@ -1,5 +1,13 @@
 { config, pkgs, lib, ... }: {
 
+  nixpkgs.overlays = [
+    (final: prev: {
+      kwallet = null;
+      kwallet-pam = null;
+      kwalletmanager = null;
+    })
+  ];
+
   services.xserver = {
     enable = true;
     desktopManager.plasma5 = {
@@ -22,7 +30,9 @@
     libinput.enable = true;
   };
 
-  powerManagement.enable = true;
+  programs.feedbackd.enable = true;
+
+  services.upower.enable = true;
 
   home-manager.users.balsoft = {
     home.activation.removeGtkRc = {

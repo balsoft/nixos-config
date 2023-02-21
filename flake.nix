@@ -106,6 +106,9 @@
     };
 
     nixos-hardware.url = "github:balsoft/nixos-hardware/add-librem-5";
+
+    yt-dlp.url = "github:yt-dlp/yt-dlp";
+    yt-dlp.flake = false;
   };
 
   outputs = { nixpkgs, self, nix, deploy-rs, ... }@inputs:

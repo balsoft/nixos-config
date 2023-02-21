@@ -12,7 +12,9 @@
       power
       hardware
       sound
+
       plasma-mobile
+      # phosh
 
       nheko
       okular
@@ -28,6 +30,7 @@
       fonts
       gtk
       qt
+      shadowsocks
 
       pass-secret-service
     ];

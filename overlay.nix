@@ -21,28 +21,9 @@ in rec {
 
       propagatedBuildInputs = [
         mopidy
-        (python3Packages.ytmusicapi.overrideAttrs (oa: rec {
-          name = "python3.9-ytmusicapi-${version}";
-          version = "0.19.1";
-          src = fetchFromGitHub {
-            owner = "sigma67";
-            repo = "ytmusicapi";
-            rev = "fd9f57750de103202106f02be1696bd440f2c05b";
-            sha256 = "/NMy2cGe0K/14OZd+/dXKA6Ez1ivrtrZ6Lwl0P8dioA=";
-            fetchSubmodules = true;
-          };
-        }))
-        (python3Packages.pytube.overrideAttrs (oa: rec {
-          name = "python3.9-pytube-${version}";
-          version = "11.0.1";
-          src = fetchFromGitHub {
-            owner = "pytube";
-            repo = "pytube";
-            rev = "f06e0710dcf5089e582487fee94f7bb0afbf7ba9";
-            sha256 = "sha256-yQCgrnoPOSdTnTPEsVkgLYpPLiHq7kXRUO72TxD152k=";
-            fetchSubmodules = true;
-          };
-        }))
+        python3Packages.ytmusicapi
+        python3Packages.pytube
+
       ];
 
       doCheck = false;
@@ -183,5 +164,23 @@ in rec {
           maintainers = with maintainers; [ balsoft ];
         };
       }) { };
+
+    audiotube = prev'.audiotube.overrideAttrs (_: {
+      desktopItem = final.makeDesktopItem {
+        name = "Audiotube";
+        exec = "https_proxy=socks5://localhost:5555 audiotube";
+        icon = "org.kde.audiotube";
+        type = "Application";
+        categories = [ "Qt" "KDE" "AudioVideo" "Player" ];
+      };
+    });
+
   });
+  okularMobile = final.okular.overrideAttrs
+    (oa: { cmakeFlags = oa.cmakeFlags or [ ] ++ [ "-DOKULAR_UI=mobile" ]; });
+
+  python3Packages = prev.python3Packages.overrideScope (final': prev': {
+    yt-dlp = prev'.yt-dlp.overrideAttrs (_: { src = inputs.yt-dlp; });
+  });
+
 }

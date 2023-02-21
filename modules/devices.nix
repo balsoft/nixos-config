@@ -9,6 +9,10 @@ with types; {
         default =
           !isNull (builtins.match ".*Laptop" config.networking.hostName);
       };
+      isPhone = mkOption {
+        type = bool;
+        default = !isNull (builtins.match ".*Phone" config.networking.hostName);
+      };
       devInfo = {
         cpu = {
           arch = mkOption { type = enum [ "x86_64" "aarch64" ]; };

@@ -45,23 +45,28 @@ let
     };
   };
 
-  activate-secrets = pkgs.writeShellScriptBin "activate-secrets" ''
-    set -euo pipefail
-    # Make sure card is available and unlocked
-    echo fetch | gpg --card-edit --no-tty --command-fd=0
-    ${pkgs.gnupg}/bin/gpg --card-status
-    export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-    if [ -d "${password-store}/.git" ]; then
-      cd "${password-store}"; ${pkgs.git}/bin/git pull
-    else
-      ${pkgs.git}/bin/git clone ${
-        lib.escapeShellArg config.secretsConfig.repo
-      } "${password-store}"
-    fi
-    cat ${password-store}/email/balsoft@balsoft.ru.gpg | ${pkgs.gnupg}/bin/gpg --decrypt > /dev/null
-    sudo systemctl restart ${allServices}
-  '';
+  activate-secrets = pkgs.writeShellApplication {
+    name = "activate-secrets";
+    text = ''
+      set -euo pipefail
+      # Make sure card is available and unlocked
+      echo fetch | gpg --card-edit --no-tty --command-fd=0
+      gpg --card-status
+      SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+      export SSH_AUTH_SOCK
+      if [ -d "${password-store}/.git" ]; then
+        cd "${password-store}"; git pull
+      else
+        git clone ${
+          lib.escapeShellArg config.secretsConfig.repo
+        } "${password-store}"
+      fi
+      gpg --decrypt < ${password-store}/email/balsoft@balsoft.ru.gpg > /dev/null
+      /run/wrappers/bin/sudo systemctl restart ${allServices}
+    '';
+    runtimeInputs = [ pkgs.gnupg pkgs.git pkgs.systemd pkgs.openssh ];
 
+  };
   decrypt = name: cfg:
     with cfg; {
       "${name}-secrets" = rec {
