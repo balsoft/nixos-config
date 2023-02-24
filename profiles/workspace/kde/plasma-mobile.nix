@@ -1,10 +1,19 @@
 { config, pkgs, lib, ... }: {
 
+  environment.sessionVariables = {
+    _JAVA_AWT_WM_NONREPARENTING = "1";
+    XDG_SESSION_TYPE = "wayland";
+    QT_QPA_PLATFORM = "wayland";
+    QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+  };
+
   nixpkgs.overlays = [
     (final: prev: {
-      kwallet = null;
-      kwallet-pam = null;
-      kwalletmanager = null;
+      libsForQt5 = prev.libsForQt5 // {
+        kwallet = null;
+        kwallet-pam = null;
+        kwalletmanager = null;
+      };
     })
   ];
 
@@ -34,11 +43,13 @@
 
   services.upower.enable = true;
 
+  services.geoclue2.enable = true;
+
   home-manager.users.balsoft = {
     home.activation.removeGtkRc = {
-      data = "rm $HOME/.gtkrc-2.0";
+      data = "rm -f $HOME/.gtkrc-2.0";
       before = [ "checkLinkTargets" ];
-      after = [];
+      after = [ ];
     };
 
     xdg.configFile."autostart/org_kde_powerdevil.desktop".text = ''
@@ -56,10 +67,13 @@
         actionDrawerTopRightMode = "0";
         vibrationDuration = "100";
         vibrationIntensity = "0.5";
+        vibrationsEnabled = "true";
+        navigationPanelEnabled = "false";
+        taskSwitcherPreviewsEnabled = "false";
+        animationsEnabled = "false";
       };
       QuickSettings = {
-        disabledQuickSettings = builtins.concatStringsSep ","
-          [ "org.kde.plasma.quicksetting.record" ];
+        disabledQuickSettings = builtins.concatStringsSep "," [ ];
         enabledQuickSettings = builtins.concatStringsSep "," [
           "org.kde.plasma.quicksetting.wifi"
           "org.kde.plasma.quicksetting.mobiledata"
@@ -77,8 +91,11 @@
           "org.kde.plasma.quicksetting.donotdisturb"
           "org.kde.plasma.quicksetting.caffeine"
           "org.kde.plasma.quicksetting.keyboardtoggle"
+          "org.kde.plasma.quicksetting.record"
         ];
       };
     };
+    xdg.configFile."plasmaparc".text =
+      lib.generators.toGitINI { General.VolumeStep = 2; };
   };
 }

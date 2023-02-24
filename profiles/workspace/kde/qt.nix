@@ -114,7 +114,7 @@ let
       widgetStyle = "Breeze";
     };
     General = {
-      TerminalApplication = "alacritty";
+      TerminalApplication = config.defaultApplications.term.cmd;
       fixed =
         "${fonts.mono.family},${toString fonts.mono.size},-1,5,50,0,0,0,0,0";
       font =

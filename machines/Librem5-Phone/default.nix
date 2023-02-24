@@ -48,8 +48,55 @@
   themes.fonts = {
     main.size = 10;
     serif.size = 10;
-    mono.size = 10;
+    mono.size = 11;
   };
 
-  environment.systemPackages = [ pkgs.pure-maps ];
+  environment.systemPackages = [ pkgs.pure-maps pkgs.plasma5Packages.elisa ];
+
+  environment.etc."gnss-share.conf".text = ''
+    # Socket to sent NMEA location to
+    socket="/var/run/gnss-share.sock"
+    # Group to set as owner for the socket
+    group="geoclue"
+
+    # GPS device driver to use
+    # Supported values: stm, stm_serial
+    device_driver="stm"
+
+    # Path to GPS device to use
+    device_path="/dev/gnss0"
+
+    # Baud rate for GPS serial device
+    device_baud_rate=9600
+
+    # Directory to load/store almanac and ephemeris data
+    agps_directory="/var/cache/gnss-share"
+  '';
+
+  systemd.services.gnss-share = {
+    script = "gnss-share";
+    description = "GNSS location manager";
+    path = [ pkgs.gnss-share ];
+    wantedBy = [ "multi-user.target" ];
+    before = [ "geoclue.service" ];
+  };
+
+  environment.etc."geoclue/geoclue.conf".text = lib.mkForce
+    (lib.generators.toINI { } {
+      network-nmea = {
+        enable = true;
+        nmea-socket = "/var/run/gnss-share.sock";
+      };
+      modem-gps.enable = true;
+      cdma.enable = true;
+      "3g".enable = true;
+      agent.whitelist = "geoclue-demo-agent";
+      wifi = {
+        enable = true;
+        url = "https://location.services.mozilla.com/v1/geolocate?key=geoclue";
+      };
+    });
+
+  home-manager.users.balsoft.programs.git.signing.signByDefault =
+    lib.mkForce false;
 }

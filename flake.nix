@@ -151,6 +151,11 @@
               modules = __attrValues self.nixosModules ++ [
                 inputs.home-manager.nixosModules.home-manager
 
+                {
+                  disabledModules =
+                    [ "services/x11/desktop-managers/plasma5.nix" ];
+                }
+
                 (import (./machines + "/${name}"))
                 { nixpkgs.pkgs = pkgs; }
                 { device = name; }

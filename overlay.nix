@@ -37,7 +37,16 @@ in rec {
 
   nerdfonts = nur.balsoft.pkgs.roboto-mono-nerd;
 
-  pass-secret-service = prev.pass-secret-service.overrideAttrs (_: {
+  pass-secret-service = (prev.pass-secret-service.override {
+    python3 = final.python3 // { pkgs = final.python3Packages; };
+  }).overrideAttrs (_: {
+
+    src = final.fetchFromGitHub {
+      owner = "mdellweg";
+      repo = "pass_secret_service";
+      rev = "fadc09be718ae1e507eeb8719f3a2ea23edb6d7a";
+      hash = "sha256-lrNU5bkG4/fMu5rDywfiI8vNHyBsMf/fiWIeEHug03c=";
+    };
     installCheckPhase = null;
     postInstall = ''
       mkdir -p $out/share/{dbus-1/services,xdg-desktop-portal/portals}
@@ -131,43 +140,17 @@ in rec {
       patches = [ ];
     });
 
-    qmlkonsole = final'.callPackage ({ lib, mkDerivation, cmake
-      , extra-cmake-modules, kconfig, ki18n, kirigami-addons, kirigami2
-      , kcoreaddons, qtquickcontrols2, kwindowsystem, qmltermwidget }:
-
-      mkDerivation {
-        pname = "qmlkonsole";
-
-        inherit ((final.callPackage
-          "${inputs.nixpkgs}/pkgs/applications/plasma-mobile/srcs.nix" {
-            mirror = "mirror://kde";
-          }).qmlkonsole)
-          version src;
-
-        nativeBuildInputs = [ cmake extra-cmake-modules ];
-
-        buildInputs = [
-          kconfig
-          ki18n
-          kirigami-addons
-          kirigami2
-          qtquickcontrols2
-          kcoreaddons
-          kwindowsystem
-          qmltermwidget
-        ];
-
-        meta = with lib; {
-          description = "Terminal app for Plasma Mobile";
-          homepage = "https://invent.kde.org/plasma-mobile/qmlkonsole";
-          license = with licenses; [ gpl2Plus gpl3Plus cc0 ];
-          maintainers = with maintainers; [ balsoft ];
-        };
-      }) { };
-
-    audiotube = prev'.audiotube.overrideAttrs (_: {
+    audiotube = prev'.audiotube.overrideAttrs (oa: {
+      patches = oa.patches or [ ] ++ [
+        (final.fetchpatch {
+          url =
+            "https://invent.kde.org/multimedia/audiotube/-/commit/c42e2f3b42d62e889182fa2b7d831363f9d9d74d.diff";
+          hash = "sha256-gO0yqeJp3iaug7sFwlXwNgR9qrnnldkLuEqxj2d7hTQ=";
+        })
+      ];
       desktopItem = final.makeDesktopItem {
-        name = "Audiotube";
+        name = "audiotube";
+        desktopName = "Audiotube (proxy)";
         exec = "https_proxy=socks5://localhost:5555 audiotube";
         icon = "org.kde.audiotube";
         type = "Application";
@@ -181,6 +164,39 @@ in rec {
 
   python3Packages = prev.python3Packages.overrideScope (final': prev': {
     yt-dlp = prev'.yt-dlp.overrideAttrs (_: { src = inputs.yt-dlp; });
+
+    pypass = prev'.pypass.overrideAttrs (o:
+      let
+        version = "f86cf0ba0e5cb6a1236ff16d8f238b92bc49c517";
+        sha256 = "sha256-PEPgWdsBjyHpgqPx2MNtYnn0wxI0KtlE+uCD7xO0pvE=";
+      in {
+        inherit version;
+
+        src = final.fetchFromGitHub {
+          owner = "nazarewk";
+          # see https://github.com/aviau/python-pass/pull/34
+          repo = "python-pass";
+          rev = version;
+          inherit sha256;
+        };
+        doInstallCheck = false;
+        # Set absolute nix store paths to the executables that pypass uses
+        patches = [
+          (with final;
+            substituteAll {
+              src = final.fetchpatch {
+                url =
+                  "https://raw.githubusercontent.com/nazarewk-iac/nix-configs/4eb0baf5e5b3692c07e626316257c115b7c79b3a/packages/overlays/pypass-mark-executables.patch";
+                hash = "sha256-V8HIeaK+EYX8bgodFumki10xynNqS3u6RCkHnsyxTCg=";
+              };
+              git_exec = "${git}/bin/git";
+              grep_exec = "${gnugrep}/bin/grep";
+              gpg_exec = "${gnupg}/bin/gpg2";
+              tree_exec = "${tree}/bin/tree";
+              xclip_exec = "${xclip}/bin/xclip";
+            })
+        ];
+      });
   });
 
 }
