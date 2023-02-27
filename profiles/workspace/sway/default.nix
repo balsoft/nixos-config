@@ -98,10 +98,6 @@ in {
         ++ [
           {
             command =
-              "swayidle -w before-sleep '${lock_fork}' lock '${lock_fork}' unlock 'pkill -9 swaylock'";
-          }
-          {
-            command =
               "dbus-update-activation-environment --systemd WAYLAND_DISPLAY GDK_BACKEND";
           }
         ];
@@ -271,11 +267,10 @@ in {
       output = {
         "*".bg = "${thm.base00} solid_color";
       } // lib.optionalAttrs (config.device == "AMD-Workstation") {
-        # DP-1.position = "0 400";
-        # HDMI-A-1 = {
-        #   transform = "90";
-        #   position = "2560 0";
-        # };
+        DP-1 = {transform = "270"; position = "0 0"; };
+        HDMI-A-1 = {
+          position = "1440 1280";
+        };
       } // lib.optionalAttrs (config.device == "X2100-Laptop") {
         "Unknown 0x0000 0x00000000".scale = "2";
       } // lib.optionalAttrs (config.device == "T490s-Laptop") {

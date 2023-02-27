@@ -141,13 +141,6 @@ in rec {
     });
 
     audiotube = prev'.audiotube.overrideAttrs (oa: {
-      patches = oa.patches or [ ] ++ [
-        (final.fetchpatch {
-          url =
-            "https://invent.kde.org/multimedia/audiotube/-/commit/c42e2f3b42d62e889182fa2b7d831363f9d9d74d.diff";
-          hash = "sha256-gO0yqeJp3iaug7sFwlXwNgR9qrnnldkLuEqxj2d7hTQ=";
-        })
-      ];
       desktopItem = final.makeDesktopItem {
         name = "audiotube";
         desktopName = "Audiotube (proxy)";
