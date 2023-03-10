@@ -1,7 +1,7 @@
 { pkgs, config, lib, ... }: {
 
   environment.pathsToLink = [ "/share/zsh" ];
-  environment.sessionVariables.SHELL = "zsh";
+  environment.sessionVariables.SHELL = "${pkgs.zsh}/bin/zsh";
 
   # A history file is screwed up otherwise :(
   persist.state.directories = [ "/home/balsoft/.local/share/zsh" ];
