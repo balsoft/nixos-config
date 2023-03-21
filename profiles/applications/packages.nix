@@ -45,5 +45,7 @@
 
       pandoc
       codebraid
+
+      sioyek
     ];
 }

@@ -1,7 +1,6 @@
 { config, pkgs, ... }: {
   startupApplications = with config.defaultApplications; [
     browser.cmd
-    matrix.cmd
   ];
 
   environment.sessionVariables = {
