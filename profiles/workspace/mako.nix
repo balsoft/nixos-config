@@ -11,7 +11,7 @@
         WantedBy = [ "sway-session.target" ];
       };
     };
-    programs.mako = with (pkgs.my-lib.thmHash config.themes.colors); {
+    services.mako = with (pkgs.my-lib.thmHash config.themes.colors); {
       enable = true;
       layer = "overlay";
       font = with config.themes.fonts; "${main.family} ${toString main.size}";

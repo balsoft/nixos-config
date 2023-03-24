@@ -78,7 +78,7 @@ in {
         smartBorders = "on";
       };
       focus.followMouse = false;
-      focus.forceWrapping = true;
+      focus.wrapping = "force";
       modifier = "Mod4";
       window = {
         border = 1;

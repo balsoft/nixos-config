@@ -1,7 +1,7 @@
 { pkgs, lib, config, inputs, ... }: {
 
   environment.sessionVariables =
-    config.home-manager.users.balsoft.home.sessionVariables // rec {
+    builtins.mapAttrs (_: toString) config.home-manager.users.balsoft.home.sessionVariables // rec {
       LESS = "MR";
       LESSHISTFILE = "~/.local/share/lesshist";
 

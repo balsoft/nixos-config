@@ -45,13 +45,14 @@ in {
     };
 
     home.file.".mozilla/native-messaging-hosts/tridactyl.json".text = let
-      tridactyl = with pkgs.nimPackages; buildNimPackage {
-        pname = "tridactyl_native";
-        version = "dev";
-        nimBinOnly = true;
-        src = inputs.tridactyl-native-messenger;
-        buildInputs = [ tempfile ];
-      };
+      tridactyl = with pkgs.nimPackages;
+        buildNimPackage {
+          pname = "tridactyl_native";
+          version = "dev";
+          nimBinOnly = true;
+          src = inputs.tridactyl-native-messenger;
+          buildInputs = [ tempfile ];
+        };
     in builtins.toJSON {
       name = "tridactyl";
       description = "Tridactyl native command handler";
@@ -73,6 +74,12 @@ in {
       enable = true;
       package = pkgs.firefox-wayland;
       profiles.default = {
+        extensions = with pkgs.nur.rycee.firefox-addons; [
+          adsum-notabs
+          ublock-origin
+          browserpass
+          tridactyl
+        ];
         id = 0;
         userChrome = ''
           #TabsToolbar {
@@ -138,12 +145,6 @@ in {
           "network.allow-experiments" = false;
         };
       };
-      extensions = with pkgs.nur.rycee.firefox-addons; [
-        adsum-notabs
-        ublock-origin
-        browserpass
-        tridactyl
-      ];
     };
   };
 }
