@@ -135,6 +135,8 @@ in {
           "admin"
           "root@balsoft.ru"
           "root"
+          "paypal@balsoft.ru"
+          "paypal"
         ];
         hashedPasswordFile = config.secrets.mailserver.decrypted;
         sieveScript = ''
