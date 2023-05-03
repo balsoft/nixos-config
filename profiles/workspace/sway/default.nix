@@ -101,6 +101,9 @@ in {
               "dbus-update-activation-environment --systemd WAYLAND_DISPLAY GDK_BACKEND";
           }
         ];
+
+      bindkeysToCode = true;
+
       modes = {
 
         normal = let
@@ -207,6 +210,8 @@ in {
           "XF86AudioRaiseVolume" = "exec ${pkgs.pamixer}/bin/pamixer -i 2";
           "XF86AudioMute" = "exec ${pkgs.pamixer}/bin/pamixer -t";
           "button2" = "kill";
+          "Next" = "input * xkb_layout 'us,ru'";
+          "Prior" = "input * xkb_layout 'ge'";
         } // builtins.listToAttrs (builtins.map (x: {
           name = "${builtins.elemAt x 0}";
           value = "workspace ${builtins.elemAt x 1}";
