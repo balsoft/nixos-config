@@ -66,7 +66,7 @@ in rec {
   });
 
   nix-direnv =
-    inputs.nix-direnv.packages.${system}.default.override { pkgs = final; };
+    inputs.nix-direnv.packages.${system}.default.override { nix = final.nix; };
 
   # For nix-direnv
   nixFlakes = final.nix;

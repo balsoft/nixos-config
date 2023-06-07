@@ -82,8 +82,6 @@
       flake = false;
     };
 
-    direnv-vscode.url = "github:direnv/direnv-vscode";
-
     codebraid = {
       url = "github:gpoore/codebraid";
       flake = false;
