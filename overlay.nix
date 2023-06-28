@@ -79,37 +79,37 @@ in rec {
       [ final.meson final.ninja final.pkg-config final.cmake ];
   };
 
-  mtxclient = prev.mtxclient.overrideAttrs (oa: {
-    src = inputs.mtxclient;
-    cmakeFlags = oa.cmakeFlags ++ [ "-DCMAKE_CXX_FLAGS=-DSPDLOG_FMT_EXTERNAL" ];
-    buildInputs = oa.buildInputs ++ [
-      final.libevent
-      final.curl.all
-      final.coeurl
-      final.spdlog.dev
-      final.re2
-    ];
-    patches = [ ];
-  });
+  # mtxclient = prev.mtxclient.overrideAttrs (oa: {
+  #   src = inputs.mtxclient;
+  #   cmakeFlags = oa.cmakeFlags ++ [ "-DCMAKE_CXX_FLAGS=-DSPDLOG_FMT_EXTERNAL" ];
+  #   buildInputs = oa.buildInputs ++ [
+  #     final.libevent
+  #     final.curl.all
+  #     final.coeurl
+  #     final.spdlog.dev
+  #     final.re2
+  #   ];
+  #   patches = [ ];
+  # });
 
-  nheko = (prev.nheko.overrideAttrs (oa: {
-    src = inputs.nheko;
-    postPatch = ''
-      substituteInPlace CMakeLists.txt --replace "# Fixup bundled keychain include dirs" "find_package(Boost COMPONENTS iostreams system  thread REQUIRED)"
-    '';
-    buildInputs = oa.buildInputs ++ [
-      final.xorg.libXdmcp
-      final.pcre
-      final.libunwind
-      final.elfutils
-      final.coeurl
-      final.curl
-      final.libevent
-      final.asciidoc
-      final.re2
-    ];
-    cmakeFlags = oa.cmakeFlags ++ [ "-DBUILD_SHARED_LIBS=OFF" ];
-  })).override { mtxclient = final.mtxclient; };
+  # nheko = final.qt6.callPackage (prev.nheko.overrideAttrs (oa: {
+  #   src = inputs.nheko;
+  #   postPatch = ''
+  #     substituteInPlace CMakeLists.txt --replace "# Fixup bundled keychain include dirs" "find_package(Boost COMPONENTS iostreams system  thread REQUIRED)"
+  #   '';
+  #   buildInputs = oa.buildInputs ++ [
+  #     final.xorg.libXdmcp
+  #     final.pcre
+  #     final.libunwind
+  #     final.elfutils
+  #     final.coeurl
+  #     final.curl
+  #     final.libevent
+  #     final.asciidoc
+  #     final.re2
+  #   ];
+  #   cmakeFlags = oa.cmakeFlags ++ [ "-DBUILD_SHARED_LIBS=OFF" ];
+  # })).override { mtxclient = final.mtxclient; };
 
   nix = inputs.nix.packages.${system}.default;
 
