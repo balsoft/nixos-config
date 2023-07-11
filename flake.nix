@@ -127,7 +127,10 @@
         import inputs.nixpkgs {
           overlays = [ self.overlay ];
           localSystem = { inherit system; };
-          config = { android_sdk.accept_license = true; };
+          config = {
+            android_sdk.accept_license = true;
+            permittedInsecurePackages = [ "openssl-1.1.1u" ];
+          };
         };
     in {
       nixosModules = builtins.listToAttrs (findModules ./modules);

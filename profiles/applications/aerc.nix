@@ -152,7 +152,7 @@
         viewer = { always-show-mime = true; };
         compose = { no-attachment-warning = "^[^>]*attach(ed|ment)"; };
         triggers = {
-          new-email = ''exec notify-send "New email from %n" "%s"'';
+          email-received = ''exec notify-send "New email from %n" "%s"'';
         };
         filters = {
           "text/plain" = "colorize";

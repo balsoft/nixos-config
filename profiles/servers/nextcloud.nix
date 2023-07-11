@@ -1,9 +1,9 @@
-{ config, pkgs, lib, ... }: {
+{ config, pkgs, ... }: {
   services.nextcloud = {
     enable = true;
     hostName = "nextcloud.balsoft.ru";
     config.adminpassFile = config.secrets.nextcloud.decrypted;
-    package = pkgs.nextcloud24;
+    package = pkgs.nextcloud27;
     https = true;
   };
   secrets.nextcloud = {
