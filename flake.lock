@@ -1005,11 +1005,11 @@
         "telegram-bot-monadic": "telegram-bot-monadic"
       },
       "locked": {
-        "lastModified": 1673034410,
-        "narHash": "sha256-vOxWOtVzs873RONg+s21BNa7woeKIlVqK2JXOOfAS/0=",
+        "lastModified": 1689171936,
+        "narHash": "sha256-VczSkBAaRHzkx7xXVwD0j7C8ZhKUHKj1DOVC0wn75Ec=",
         "owner": "balsoft",
         "repo": "remapper",
-        "rev": "575f8a1e59d965c1ede4a3a4e2a2ffafa7305318",
+        "rev": "62353416b103c7e6cbdb6ce3296e3e8e401cd2b1",
         "type": "github"
       },
       "original": {
