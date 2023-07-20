@@ -1,4 +1,4 @@
-{ pkgs, config, lib, inputs, ... }:
+{ pkgs, config, inputs, ... }:
 let
   thm = config.themes.colors;
   thm' = builtins.mapAttrs (name: value: { hex.rgb = value; }) thm;
