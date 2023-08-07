@@ -12,7 +12,7 @@
       # steam
       haskellPackages.hoogle
       nixfmt
-      nil
+      # nil
       nixpkgs-fmt
       stdman
       libqalculate

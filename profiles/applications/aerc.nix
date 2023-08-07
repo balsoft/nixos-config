@@ -188,6 +188,8 @@
 
         userName = "balsoft@balsoft.ru";
         passwordCommand = "pass email/balsoft@balsoft.ru";
+
+        folders.inbox = "virtual.all";
       };
       Work = {
         aerc.enable = true;
@@ -198,6 +200,8 @@
 
         userName = "alexander.bantyev@tweag.io";
         passwordCommand = "pass aerc/alexander.bantyev@tweag.io";
+
+        folders.inbox = "[Gmail]/All Mail";
       };
     };
   };

@@ -1,19 +1,4 @@
 { config, pkgs, lib, ... }: {
-  services.gnome = {
-    core-os-services.enable = true;
-    core-utilities.enable = true;
-    evolution-data-server.enable = true;
-    sushi.enable = true;
-    tracker.enable = true;
-    tracker-miners.enable = true;
-    gnome-settings-daemon.enable = true;
-    glib-networking.enable = true;
-    # pass-secret-service is used instead
-    gnome-keyring.enable = lib.mkForce false;
-    gnome-online-accounts.enable = true;
-    gnome-online-miners.enable = true;
-  };
-
   environment.systemPackages = [ pkgs.pass-secret-service ];
 
   environment.gnome.excludePackages = [ pkgs.gnome-console pkgs.gnome.evince pkgs.gnome.eog ];

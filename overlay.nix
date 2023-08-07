@@ -137,7 +137,6 @@ in rec {
         rev = "39911727b7ce70a100aad84c1cdae9ab0ead1d6b";
         hash = "sha256-Y+e9WjkXl38tbJq5D2BH0wJ0157yBiQ3vfRYO6rwnoU=";
       };
-      patches = [ ];
     });
 
     audiotube = prev'.audiotube.overrideAttrs (oa: {

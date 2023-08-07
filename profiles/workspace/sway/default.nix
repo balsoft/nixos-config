@@ -2,8 +2,6 @@
 let
   thm = pkgs.my-lib.thmHash config.themes.colors;
   apps = config.defaultApplications;
-  lock_fork = pkgs.writeShellScript "lock_fork"
-    "sudo /run/current-system/sw/bin/lock all &";
   lock = pkgs.writeShellScript "lock"
     "swaymsg 'output * dpms off'; sudo /run/current-system/sw/bin/lock all; swaymsg 'output * dpms on'";
   htmlify = pkgs.writeShellScript "htmlify" ''
@@ -31,6 +29,9 @@ in {
       sway
     }
   '';
+
+  xdg.portal.wlr.enable = true;
+  xdg.portal.xdgOpenUsePortal = true;
 
   home-manager.users.balsoft.wayland.windowManager.sway = {
     enable = true;
@@ -149,6 +150,7 @@ in {
           "Shift+j" = "move down";
           "Shift+l" = "move right";
           "Shift+h" = "move left";
+          "u" = "focus parent";
 
           "f" = "fullscreen toggle; floating toggle";
           "Shift+f" = "floating toggle";

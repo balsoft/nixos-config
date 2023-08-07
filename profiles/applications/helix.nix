@@ -52,6 +52,7 @@
             normal = "block";
             select = "underline";
           };
+          color-modes = true;
         };
         keys = {
           insert = {
@@ -108,8 +109,8 @@
             bg = base02;
           };
           "ui.statusline.inactive" = {
-            fg = base02;
-            bg = base05;
+            fg = base03;
+            bg = base01;
           };
           "ui.help" = {
             fg = base01;
