@@ -29,6 +29,10 @@
         play = sound:
           "mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/${sound}.oga";
       in ''
+        [urgency=high]
+        border-color=${base09}AA
+        [urgency=critical]
+        border-color=${base09}AA
         on-notify=exec ${play "message"}
         [app-name=yubikey-touch-detector]
         on-notify=exec ${play "service-login"}
