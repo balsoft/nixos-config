@@ -3,10 +3,12 @@
   services.gitea = {
     enable = true;
     appName = "code.balsoft.ru";
-    cookieSecure = true;
-    rootUrl = "https://code.balsoft.ru";
-    domain = "code.balsoft.ru";
-    httpPort = 6000;
-    disableRegistration = true;
+    settings.server = {
+      HTTP_PORT = 6000;
+      ROOT_URL = "https://code.balsoft.ru";
+      DISABLE_REGISTRATION = true;
+      COOKIE_SECURE = true;
+      DOMAIN = "code.balsoft.ru";
+    };
   };
 }

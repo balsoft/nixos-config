@@ -152,7 +152,7 @@ in {
       };
     };
     localDnsResolver = false;
-    certificateScheme = 1;
+    certificateScheme = "manual";
     certificateFile = "/var/lib/acme/balsoft.ru/fullchain.pem";
     keyFile = "/var/lib/acme/balsoft.ru/key.pem";
     enableImap = true;

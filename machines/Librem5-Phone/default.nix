@@ -35,6 +35,8 @@
       pass-secret-service
     ];
 
+  hardware.librem5.audio = false;
+
   programs.ssh.askPassword =
     "${pkgs.plasma5Packages.ksshaskpass.out}/bin/ksshaskpass";
 
@@ -51,7 +53,7 @@
     mono.size = 11;
   };
 
-  environment.systemPackages = [ pkgs.pure-maps pkgs.plasma5Packages.elisa ];
+  environment.systemPackages = [ pkgs.pure-maps (pkgs.organicmaps.overrideAttrs (_: {meta = {};})) pkgs.plasma5Packages.elisa ];
 
   environment.etc."gnss-share.conf".text = ''
     # Socket to sent NMEA location to

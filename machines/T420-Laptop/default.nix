@@ -6,7 +6,7 @@
     # jitsi
     mailserver
     matrix-synapse
-    minidlna
+    # minidlna
     nextcloud
     nginx
     vsftpd
@@ -24,7 +24,7 @@
     systemd-boot.enable = lib.mkForce false;
     grub = {
       enable = lib.mkForce true;
-      device = "/dev/sda";
+      device = "/dev/disk/by-path/pci-0000:06:00.0-scsi-0:0:0:0";
     };
   };
 

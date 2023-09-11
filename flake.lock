@@ -552,16 +552,15 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1680096111,
-        "narHash": "sha256-iPnnmH/v5tCZhvoB8zLI3qzMZ5HVG81zuVQm1xADXro=",
-        "owner": "balsoft",
+        "lastModified": 1694432324,
+        "narHash": "sha256-bo3Gv6Cp40vAXDBPi2XiDejzp/kyz65wZg4AnEWxAcY=",
+        "owner": "nixos",
         "repo": "nixos-hardware",
-        "rev": "1b90b22936ca018a6683e4715e2b774efbbf1747",
+        "rev": "ca41b8a227dd235b1b308217f116c7e6e84ad779",
         "type": "github"
       },
       "original": {
-        "owner": "balsoft",
-        "ref": "add-librem-5",
+        "owner": "nixos",
         "repo": "nixos-hardware",
         "type": "github"
       }

@@ -103,7 +103,7 @@
       flake = false;
     };
 
-    nixos-hardware.url = "github:balsoft/nixos-hardware/add-librem-5";
+    nixos-hardware.url = "github:nixos/nixos-hardware";
 
     yt-dlp.url = "github:yt-dlp/yt-dlp";
     yt-dlp.flake = false;
@@ -129,7 +129,8 @@
           localSystem = { inherit system; };
           config = {
             android_sdk.accept_license = true;
-            permittedInsecurePackages = [ "openssl-1.1.1u" ];
+            permittedInsecurePackages = [ "openssl-1.1.1v" ];
+            allowUnfreePredicate = (pkg: pkg.pname == "firmware-imx");
           };
         };
     in {
