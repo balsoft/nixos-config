@@ -75,7 +75,7 @@
       "o" = "xdg-open";
       "post" = ''curl -F"file=@-" https://0x0.st'';
       "cat" = "${pkgs.bat}/bin/bat";
-      "ls" = "${pkgs.exa}/bin/exa";
+      "ls" = "${pkgs.eza}/bin/eza";
       "hpc" = "bluetoothctl connect CC:98:8B:C0:FC:D2";
       "hpd" = "bluetoothctl disconnect CC:98:8B:C0:FC:D2";
     };

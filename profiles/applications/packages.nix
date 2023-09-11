@@ -5,7 +5,7 @@
       wget
       curl
 
-      exa
+      eza
       jq
     ] ++ lib.optionals config.deviceSpecific.goodMachine [
       # steamcmd

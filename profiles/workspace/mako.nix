@@ -16,7 +16,7 @@
       layer = "overlay";
       font = with config.themes.fonts; "${main.family} ${toString main.size}";
       width = 500;
-      height = 80;
+      height = 160;
       defaultTimeout = 10000;
       maxVisible = 10;
       backgroundColor = "${base00}AA";

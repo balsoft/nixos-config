@@ -31,7 +31,7 @@ in {
   '';
 
   xdg.portal.wlr.enable = true;
-  xdg.portal.xdgOpenUsePortal = true;
+  # xdg.portal.xdgOpenUsePortal = true;
 
   home-manager.users.balsoft.wayland.windowManager.sway = {
     enable = true;

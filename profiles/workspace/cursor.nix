@@ -16,7 +16,7 @@
       "${lib.getBin pkgs.breeze-qt5}/share/icons/breeze_cursors";
 
 
-    home.file."/home/balsoft/.icons/Breeze".source =
-      "${lib.getBin pkgs.breeze-qt5}/share/icons/breeze_cursors";
+    # home.file."/home/balsoft/.icons/Breeze".source =
+    #   "${lib.getBin pkgs.breeze-qt5}/share/icons/breeze_cursors";
   };
 }
