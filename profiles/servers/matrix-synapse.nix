@@ -112,8 +112,11 @@
     };
   };
 
-  systemd.services.mautrix-telegram.serviceConfig.DynamicUser =
-    lib.mkForce false;
+  systemd.services.mautrix-telegram.serviceConfig = {
+    DynamicUser = lib.mkForce false;
+    Restart = "always";
+    RuntimeMaxSec = "1d";
+  };
 
   systemd.services.mautrix-telegram.serviceConfig.User = "mautrix-telegram";
 
