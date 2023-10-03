@@ -8,7 +8,7 @@
 
     home.pointerCursor = {
       package = pkgs.breeze-qt5;
-      name = "Breeze";
+      name = "breeze_cursors";
       size = 16;
     };
 
@@ -16,7 +16,7 @@
       "${lib.getBin pkgs.breeze-qt5}/share/icons/breeze_cursors";
 
 
-    # home.file."/home/balsoft/.icons/Breeze".source =
-    #   "${lib.getBin pkgs.breeze-qt5}/share/icons/breeze_cursors";
+    home.file."/home/balsoft/.icons/Breeze".source =
+      "${lib.getBin pkgs.breeze-qt5}/share/icons/breeze_cursors";
   };
 }
