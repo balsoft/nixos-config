@@ -1777,7 +1777,7 @@
   function get_github_status() {
     local cachefile="$3/$1/$2"
 
-    if [[ -f "$cachefile" ]] && ( ( ! grep -q "" "$cachefile" ) || [[ "$(( $(stat -c %Y "$cachefile") + 60 ))" -gt "$(date +%s)" ]] ) && [[ -n "$(cat "$cachefile")" ]]; then
+    if [[ -f "$cachefile" ]] && [[ "$(( $(stat -c %Y "$cachefile") + 60 ))" -gt "$(date +%s)" ]] && [[ -n "$(cat "$cachefile")" ]]; then
       cat "$cachefile"
     else
       mkdir -p "$(dirname "$cachefile")"
@@ -1872,7 +1872,8 @@
       _github_status_cache="${ZSH_CACHE_DIR-$HOME/.cache/zsh}/github-status"
       typeset -g github_status
       _github_status_rev="$(git rev-parse HEAD)"
-      _github_status_repo="${$(git remote get-url origin)%/}"
+      _github_status_repo="${$(git rev-parse --abbrev-ref --symbolic-full-name @{u})%%/*}"
+      _github_status_repo="${$(git remote get-url "$_github_status_repo")%/}"
       _github_status_repo="${$(echo "$_github_status_repo" | rev | cut -d/ -f1-2 | rev)%.git}"
       local url="$repo/$_github_status_rev"
       if [[ "${github_status_previous_url-}" != "$url" ]]; then
