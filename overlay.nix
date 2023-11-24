@@ -123,8 +123,6 @@ in rec {
       "sed 's|Exec=.*|Exec=/run/current-system/sw/bin/systemctl --user start mako|' -i $out/share/dbus-1/services/fr.emersion.mako.service";
   });
 
-  codebraid = prev.codebraid.overrideAttrs (_: { src = inputs.codebraid; });
-
   remapper = inputs.remapper.packages.${final.system}.default;
 
   helix = inputs.helix.packages.${final.system}.default;

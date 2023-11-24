@@ -18,7 +18,7 @@
     dotDir = ".config/zsh";
 
     history = rec {
-      size = 1000000;
+      size = 10000000;
       save = size;
       path = "$HOME/.local/share/zsh/history";
     };
@@ -78,6 +78,8 @@
       "ls" = "${pkgs.eza}/bin/eza";
       "hpc" = "bluetoothctl connect CC:98:8B:C0:FC:D2";
       "hpd" = "bluetoothctl disconnect CC:98:8B:C0:FC:D2";
+      "gp" = "{ sleep 5; github_status_reset } & git push";
+      "gpf!" = "{ sleep 5; github_status_reset } & git push --force-with-lease";
     };
     initExtra = ''
       cmdignore=(htop tmux top vim)
@@ -142,6 +144,8 @@
       function bs() { nix build "self#$1" }
       function is() { nix search "self#$1" }
       function rs() { repl self }
+
+      zle_highlight=(default:bg=white,fg=black)
 
       PS1="$PS1
       $ "

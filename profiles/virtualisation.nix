@@ -12,6 +12,8 @@
 
   virtualisation.spiceUSBRedirection.enable = true;
 
+  virtualisation.waydroid.enable = true;
+
   networking.nat = {
     enable = true;
     internalInterfaces = ["ve-+"];

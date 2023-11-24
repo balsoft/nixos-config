@@ -44,8 +44,6 @@
       jless
 
       pandoc
-      codebraid
-
       sioyek
     ];
 }
