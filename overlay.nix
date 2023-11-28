@@ -125,7 +125,7 @@ in rec {
 
   remapper = inputs.remapper.packages.${final.system}.default;
 
-  helix = inputs.helix.packages.${final.system}.default;
+  # helix = inputs.helix.packages.${final.system}.default;
 
   plasma5Packages = prev.plasma5Packages.overrideScope' (final': prev': {
     qmltermwidget = prev'.qmltermwidget.overrideAttrs (_: {
