@@ -44,27 +44,27 @@ in {
       ];
     };
 
-    home.file.".mozilla/native-messaging-hosts/tridactyl.json".text = let
-      tridactyl = with pkgs.nimPackages;
-        buildNimPackage {
-          pname = "tridactyl_native";
-          version = "dev";
-          nimBinOnly = true;
-          src = inputs.tridactyl-native-messenger;
-          buildInputs = [ tempfile regex unicodedb ];
-        };
-    in builtins.toJSON {
-      name = "tridactyl";
-      description = "Tridactyl native command handler";
-      path = "${tridactyl}/bin/native_main";
-      type = "stdio";
+    # home.file.".mozilla/native-messaging-hosts/tridactyl.json".text = let
+    #   tridactyl = with pkgs.nimPackages;
+    #     buildNimPackage {
+    #       pname = "tridactyl_native";
+    #       version = "dev";
+    #       nimBinOnly = true;
+    #       src = inputs.tridactyl-native-messenger;
+    #       buildInputs = [ tempfile regex unicodedb ];
+    #     };
+    # in builtins.toJSON {
+    #   name = "tridactyl";
+    #   description = "Tridactyl native command handler";
+    #   path = "${tridactyl}/bin/native_main";
+    #   type = "stdio";
 
-      allowed_extensions = [
-        "tridactyl.vim@cmcaine.co.uk"
-        "tridactyl.vim.betas@cmcaine.co.uk"
-        "tridactyl.vim.betas.nonewtab@cmcaine.co.uk"
-      ];
-    };
+    #   allowed_extensions = [
+    #     "tridactyl.vim@cmcaine.co.uk"
+    #     "tridactyl.vim.betas@cmcaine.co.uk"
+    #     "tridactyl.vim.betas.nonewtab@cmcaine.co.uk"
+    #   ];
+    # };
 
     xdg.configFile."tridactyl/tridactylrc".text = ''
       js tri.config.set("editorcmd", "alacritty -e hx")

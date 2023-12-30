@@ -216,7 +216,7 @@ in {
   home-manager.users.balsoft = {
     home.packages = [ pkgs.ark pkgs.dolphin ];
 
-    xdg.configFile."kdeglobals".text = lib.generators.toGitINI
+    xdg.configFile."kdeglobals".text = pkgs.my-lib.genIni
       (builtins.foldl' lib.recursiveUpdate { } [ colorTheme effects misc ]);
   };
 }
