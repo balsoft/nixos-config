@@ -6,7 +6,7 @@
   home-manager.users.balsoft.programs.alacritty = {
     enable = true;
     settings = {
-      key_bindings = [{
+      keyboard.bindings = [{
         key = "Return";
         mods = "Control";
         action = "SpawnNewInstance";
