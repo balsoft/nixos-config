@@ -153,8 +153,6 @@ in rec {
     (oa: { cmakeFlags = oa.cmakeFlags or [ ] ++ [ "-DOKULAR_UI=mobile" ]; });
 
   python3Packages = prev.python3Packages.overrideScope (final': prev': {
-    yt-dlp = prev'.yt-dlp.overrideAttrs (_: { src = inputs.yt-dlp; });
-
     pypass = prev'.pypass.overrideAttrs (o:
       let
         version = "f86cf0ba0e5cb6a1236ff16d8f238b92bc49c517";

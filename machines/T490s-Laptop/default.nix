@@ -1,5 +1,5 @@
 { inputs, ... }: {
-  imports = [ ./hardware-configuration.nix inputs.self.nixosRoles.desktop ];
+  imports = [ ./hardware-configuration.nix inputs.self.nixosRoles.desktop inputs.self.nixosProfiles.print-scan ];
   deviceSpecific.devInfo = {
     cpu = {
       vendor = "intel";

@@ -125,7 +125,8 @@
           config = {
             android_sdk.accept_license = true;
             permittedInsecurePackages = [ "openssl-1.1.1v" ];
-            allowUnfreePredicate = (pkg: pkg.pname == "firmware-imx");
+            allowUnfreePredicate = (pkg: pkg.pname or null == "firmware-imx");
+            allowlistedLicenses = with inputs.nixpkgs.lib.licenses; [ epson ];
           };
         };
     in {

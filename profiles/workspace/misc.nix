@@ -3,6 +3,7 @@
   environment.sessionVariables =
     builtins.mapAttrs (_: toString) config.home-manager.users.balsoft.home.sessionVariables // rec {
       LESS = "MR";
+      LESSCHARSET = "utf-8";
       LESSHISTFILE = "~/.local/share/lesshist";
 
       CARGO_HOME = "${config.home-manager.users.balsoft.xdg.dataHome}/cargo";
