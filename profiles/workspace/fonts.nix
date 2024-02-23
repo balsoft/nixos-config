@@ -1,6 +1,6 @@
 { pkgs, config, lib, ... }: {
   fonts = {
-    fonts = with pkgs; [
+    packages = with pkgs; [
       ibm-plex
       nerdfonts
       material-design-icons
@@ -17,7 +17,7 @@
         serif = [ "${fonts.serif.family} ${toString fonts.serif.size}" ];
       };
     };
-    enableDefaultFonts = true;
+    enableDefaultPackages = true;
   };
   themes.fonts = {
     main = {
