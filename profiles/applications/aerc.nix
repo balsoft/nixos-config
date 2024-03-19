@@ -193,13 +193,13 @@
       };
       Work = {
         aerc.enable = true;
-        address = "alexander.bantyev@tweag.io";
+        address = "alexander.bantyev@moduscreate.com";
         realName = "Alexander Bantyev";
         imap.host = "imap.gmail.com";
         smtp.host = "smtp.gmail.com";
 
-        userName = "alexander.bantyev@tweag.io";
-        passwordCommand = "pass aerc/alexander.bantyev@tweag.io";
+        userName = "alexander.bantyev@moduscreate.com";
+        passwordCommand = "pass aerc/alexander.bantyev@moduscreate.com";
 
         folders.inbox = "[Gmail]/All Mail";
       };
