@@ -8,7 +8,7 @@
     services.gpg-agent = {
       enable = true;
       enableSshSupport = true;
-      pinentryFlavor = "qt";
+      pinentryPackage = pkgs.pinentry-qt;
     };
 
     systemd.user.services.gpg-agent = {
