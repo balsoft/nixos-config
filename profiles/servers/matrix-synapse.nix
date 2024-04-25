@@ -24,13 +24,13 @@
       server_name = "balsoft.ru";
       turn_uris =
         [ "turn:balsoft.ru?transport=udp" "turn:balsoft.ru?transport=tcp" ];
-      extraConfigFiles = [
-        config.secrets-envsubst.coturn.substituted
-        config.secrets-envsubst.matrix.substituted
-      ];
       app_service_config_files =
         [ config.secrets-envsubst.mautrix-telegram-registration.substituted ];
     };
+    extraConfigFiles = [
+      config.secrets-envsubst.coturn.substituted
+      config.secrets-envsubst.matrix.substituted
+    ];
   };
 
   services.postgresql.enable = true;
