@@ -66,10 +66,6 @@ in {
     #   ];
     # };
 
-    xdg.configFile."tridactyl/tridactylrc".text = ''
-      js tri.config.set("editorcmd", "alacritty -e hx")
-    '';
-
     programs.firefox = {
       enable = true;
       package = pkgs.firefox-wayland;
@@ -77,20 +73,21 @@ in {
         extensions = with pkgs.nur.rycee.firefox-addons; [
           adsum-notabs
           ublock-origin
+          sponsorblock
           browserpass
-          tridactyl
+          darkreader
         ];
         id = 0;
         userChrome = ''
           #TabsToolbar {
             visibility: collapse;
           }
-          toolbar#nav-bar, nav-bar-customization-target {
-            background: ${thm.base00} !important;
-          }
-          @-moz-document url("about:newtab") {
-            * { background-color: ${thm.base00}  !important; }
-          }
+          // toolbar#nav-bar, nav-bar-customization-target {
+          //   background: ${thm.base00} !important;
+          // }
+          // @-moz-document url("about:newtab") {
+          //   * { background-color: ${thm.base00}  !important; }
+          // }
         '';
         settings = {
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
@@ -111,9 +108,6 @@ in {
           "font.name.sans-serif.x-western" = "${fonts.main.family}";
           "font.name.serif.x-western" = "${fonts.serif.family}";
 
-          "browser.display.background_color" = thm.base00;
-          "browser.display.foreground_color" = thm.base05;
-          "browser.display.document_color_use" = 2;
           "browser.anchor_color" = thm.base0D;
           "browser.visited_color" = thm.base0C;
           "browser.display.use_document_fonts" = true;
