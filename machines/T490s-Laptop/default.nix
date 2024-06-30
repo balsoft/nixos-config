@@ -19,6 +19,8 @@
     cache.clean.enable = true;
   };
 
+  home-manager.users.balsoft.wayland.windowManager.sway.config.input."*".natural_scroll = "enable";
+
   services.throttled = {
     enable = true;
     extraConfig = ''
