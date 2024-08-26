@@ -127,7 +127,7 @@ in rec {
 
   # helix = inputs.helix.packages.${final.system}.default;
 
-  plasma5Packages = prev.plasma5Packages.overrideScope' (final': prev': {
+  plasma5Packages = prev.plasma5Packages.overrideScope (final': prev': {
     qmltermwidget = prev'.qmltermwidget.overrideAttrs (_: {
       src = final.fetchFromGitHub {
         owner = "balsoft";

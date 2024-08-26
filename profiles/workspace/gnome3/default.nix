@@ -17,7 +17,7 @@
 
   defaultApplications = {
     monitor = {
-      cmd = "${pkgs.gnome.gnome-system-monitor}/bin/gnome-system-monitor";
+      cmd = "${pkgs.gnome-system-monitor}/bin/gnome-system-monitor";
       desktop = "gnome-system-monitor";
     };
   };

@@ -28,5 +28,5 @@ in {
   hardware.sane.enable = true;
   services.saned.enable = true;
 
-  environment.systemPackages = [ pkgs.gnome.simple-scan ];
+  environment.systemPackages = [ pkgs.simple-scan ];
 }

@@ -3,7 +3,7 @@ let
   thm = config.themes.colors;
   thm' = builtins.mapAttrs (name: value: { hex.rgb = value; }) thm;
 in {
-  services.xserver.gdk-pixbuf.modulePackages = [ pkgs.librsvg ];
+  programs.gdk-pixbuf.modulePackages = [ pkgs.librsvg ];
   nixpkgs.overlays = [
     (self: super: {
       generated-gtk-theme =

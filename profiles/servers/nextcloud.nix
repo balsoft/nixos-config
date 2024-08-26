@@ -3,13 +3,15 @@
     enable = true;
     hostName = "nextcloud.balsoft.ru";
     config.adminpassFile = config.secrets.nextcloud.decrypted;
-    package = pkgs.nextcloud27;
+    package = pkgs.nextcloud28;
     https = true;
+    phpOptions.memory_limit = lib.mkForce "1G";
     extraOptions = {
       "memories.exiftool" = "${lib.getExe pkgs.exiftool}";
       "memories.vod.ffmpeg" = "${lib.getExe pkgs.ffmpeg-headless}";
       "memories.vod.ffprobe" = "${pkgs.ffmpeg-headless}/bin/ffprobe";
     };
+    phpExtraExtensions = all: [ ((all.pdlib.override {dlib = (pkgs.dlib.override { blas = pkgs.openblas; });}).overrideAttrs (oa: {buildInputs = oa.buildInputs ++ [  pkgs.openblas pkgs.liblapack];})) ];
   };
   secrets.nextcloud = {
     owner = "nextcloud:nextcloud";
