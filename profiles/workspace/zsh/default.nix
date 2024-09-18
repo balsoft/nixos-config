@@ -145,7 +145,7 @@
       function is() { nix search "self#$1" }
       function rs() { repl self }
 
-      zle_highlight=(default:bg=white,fg=black)
+      zle_highlight=(default:bg=#333333,fg=white)
 
       PS1="$PS1
       $ "

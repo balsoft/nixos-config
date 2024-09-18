@@ -124,7 +124,7 @@
           localSystem = { inherit system; };
           config = {
             android_sdk.accept_license = true;
-            permittedInsecurePackages = [ "openssl-1.1.1v" ];
+            permittedInsecurePackages = [ "openssl-1.1.1v" "olm-3.2.16" ];
             allowUnfreePredicate = (pkg: pkg.pname or null == "firmware-imx");
             allowlistedLicenses = with inputs.nixpkgs.lib.licenses; [ epson ];
           };
