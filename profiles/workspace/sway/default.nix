@@ -25,6 +25,10 @@ in {
 
   environment.loginShellInit = lib.mkAfter ''
     [[ "$(tty)" == /dev/tty1 ]] && {
+      echo fetch | gpg --card-edit --no-tty --command-fd=0
+      gpg --card-status
+      SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+      export SSH_AUTH_SOCK
       pass unlock
       sway
     }
