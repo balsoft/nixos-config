@@ -11,6 +11,7 @@
     [ "nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod" ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
+  powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
 
   fileSystems."/persist" = {
     device = "/dev/nvme0n1p2";
