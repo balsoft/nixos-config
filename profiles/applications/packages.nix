@@ -7,6 +7,8 @@
 
       eza
       jq
+
+      file
     ] ++ lib.optionals config.deviceSpecific.goodMachine [
       # steamcmd
       # steam
