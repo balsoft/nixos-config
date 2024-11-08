@@ -1830,10 +1830,10 @@
   function github_status_reset() {
     if [[ -n "$_github_status_cache" ]] && [[ -n "$_github_status_repo" ]] && [[ -n "$_github_status_rev" ]]; then
       local cachefile="$_github_status_cache/$_github_status_repo/$_github_status_rev"
-      printf "Removing %s\n" "$cachefile" > /dev/stderr
+      printf "Removing %s\n" "$cachefile" >&2
       rm "$cachefile"
     else
-      echo "No cache at the moment" > /dev/stderr
+      echo "No cache at the moment" >&2
     fi
   }
 

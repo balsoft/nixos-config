@@ -78,8 +78,8 @@
       "ls" = "${pkgs.eza}/bin/eza";
       "hpc" = "bluetoothctl connect CC:98:8B:C0:FC:D2";
       "hpd" = "bluetoothctl disconnect CC:98:8B:C0:FC:D2";
-      "gp" = "{ sleep 5; github_status_reset } & git push";
-      "gpf!" = "{ sleep 5; github_status_reset } & git push --force-with-lease";
+      "gp" = "{ sleep 5; github_status_reset 2>/dev/null } & git push";
+      "gpf!" = "{ sleep 5; github_status_reset 2>/dev/null } & git push --force-with-lease";
     };
     initExtra = ''
       cmdignore=(htop tmux top vim)
