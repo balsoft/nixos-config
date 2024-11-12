@@ -86,6 +86,7 @@ in {
         inherit pkgs lib;
         config = lib.recursiveUpdate config.home-manager.users.balsoft {
           home.persistence."${cfg.persistRoot}${cfg.homeDir}" = {
+            enable = true;
             directories = [ ];
             files = allHomeFiles;
             allowOther = false;

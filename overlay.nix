@@ -177,7 +177,7 @@ in rec {
                   "https://raw.githubusercontent.com/nazarewk-iac/nix-configs/4eb0baf5e5b3692c07e626316257c115b7c79b3a/packages/overlays/pypass-mark-executables.patch";
                 hash = "sha256-V8HIeaK+EYX8bgodFumki10xynNqS3u6RCkHnsyxTCg=";
               };
-              VERSION = version;
+              # VERSION = version;
               git_exec = "${git}/bin/git";
               grep_exec = "${gnugrep}/bin/grep";
               gpg_exec = "${gnupg}/bin/gpg2";

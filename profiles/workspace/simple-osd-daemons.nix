@@ -17,7 +17,7 @@ let
     }) names);
 in {
   home-manager.users.balsoft = {
-    systemd.user.services = daemons [ "pulseaudio" "mpris" ]
+    systemd.user.services = daemons [ "pulseaudio" "mpris" "bluetooth" ]
       // pkgs.lib.optionalAttrs (config.deviceSpecific.isLaptop)
       (daemons [ "battery" "brightness" ]);
     xdg.configFile = {
