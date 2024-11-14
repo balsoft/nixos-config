@@ -23,7 +23,7 @@
         y = 2;
       };
 
-      shell.program = "${pkgs.zsh}/bin/zsh";
+      terminal.shell.program = "${pkgs.zsh}/bin/zsh";
 
       cursor.style = "Beam";
 
