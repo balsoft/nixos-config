@@ -47,5 +47,7 @@
 
       pandoc
       sioyek
+
+      nil
     ];
 }

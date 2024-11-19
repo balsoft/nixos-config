@@ -13,7 +13,7 @@ in rec {
   }).repos;
 
   mopidy-ytmusic = with final;
-    python3Packages.buildPythonApplication rec {
+    python3Packages.buildPythonApplication {
       pname = "mopidy-ytmusic";
       version = "3.2";
 
@@ -111,7 +111,9 @@ in rec {
   #   cmakeFlags = oa.cmakeFlags ++ [ "-DBUILD_SHARED_LIBS=OFF" ];
   # })).override { mtxclient = final.mtxclient; };
 
-  nix = inputs.nix.packages.${system}.default;
+  # nix = lib.recursiveUpdate inputs.nix.packages.${system}.default {
+  #   meta.platforms = [ "x86_64-linux" ];
+  # };
 
   nil = prev.nil.overrideAttrs (_: {
     doCheck = false;

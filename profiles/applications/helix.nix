@@ -36,6 +36,10 @@
       })
     ];
     xdg.configFile."helix/languages.toml".text = ''
+      [language-server.nil]
+      command = "nil"
+      args = ["--stdio"]
+      config = { nix = { autoEvalInputs = true } }
       [[language]]
       name = "nix"
       formatter = { command = "nixfmt", args = [] }

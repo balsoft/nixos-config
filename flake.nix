@@ -176,6 +176,7 @@
             nix.packages.x86_64-linux.default
             deploy-rs.defaultPackage.x86_64-linux
             nixfmt
+            nil
           ];
           shellHook = ''
             linkFile() {
