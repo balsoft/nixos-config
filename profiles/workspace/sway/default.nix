@@ -176,7 +176,8 @@ in {
             exec ${pkgs.libnotify}/bin/notify-send "Do not disturb: on"; exec ${pkgs.mako}/bin/makoctl set-mode do-not-disturb'';
           "Shift+F9" = ''
             exec ${pkgs.libnotify}/bin/notify-send "Do not disturb: off"; exec ${pkgs.mako}/bin/makoctl set-mode default'';
-          "F11" = "output * dpms off";
+          "F11" = "exec ${pkgs.systemd}/bin/systemctl suspend";
+          "Shift+F11" = "output * dpms off";
           "F12" = "output * dpms on";
           "End" = "exec ${lock}";
 
