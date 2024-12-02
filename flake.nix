@@ -6,7 +6,14 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nix.url = "github:nixos/nix";
+    # For NUR
+    nixpkgs-old = {
+      url = "github:nixos/nixpkgs/nixos-19.09";
+      flake = false;
+    };
+    # For aerc
+    nixpkgs-24-05.url = "github:nixos/nixpkgs/nixos-24.05";
+
     lambda-launcher.url = "github:balsoft/lambda-launcher";
     deploy-rs.url = "github:serokell/deploy-rs";
     flake-compat = {
@@ -26,10 +33,6 @@
       url = "github:nana-4/materia-theme";
       flake = false;
     };
-    nixpkgs-old = {
-      url = "github:nixos/nixpkgs/nixos-19.09";
-      flake = false;
-    };
     simple-nixos-mailserver = {
       url = "gitlab:simple-nixos-mailserver/nixos-mailserver";
       flake = false;
@@ -40,14 +43,6 @@
     };
     nixos-fhs-compat.url = "github:balsoft/nixos-fhs-compat";
     simple-osd-daemons.url = "github:balsoft/simple-osd-daemons";
-    sonoff-lan = {
-      url = "github:AlexxIT/SonoffLAN";
-      flake = false;
-    };
-    crdt = {
-      url = "git+https://code.librehq.com/qhong/crdt.el";
-      flake = false;
-    };
     impermanence.url = "github:nix-community/impermanence";
 
     rycee = {
@@ -57,51 +52,16 @@
 
     nix-direnv = { url = "github:nix-community/nix-direnv"; };
 
-    nheko = {
-      url = "github:nheko-reborn/nheko";
-      flake = false;
-    };
-
-    mtxclient = {
-      url = "github:nheko-reborn/mtxclient";
-      flake = false;
-    };
-
-    coeurl = {
-      url = "git+https://nheko.im/nheko-reborn/coeurl";
-      flake = false;
-    };
-
-    mopidy-ytmusic = {
-      url = "github:OzymandiasTheGreat/mopidy-ytmusic";
-      flake = false;
-    };
-
-    brother-hl-3170cdw-driver = {
-      url = "github:balsoft/brother-hl-3170cdw-driver";
-      flake = false;
-    };
-
     flake-registry = {
       url = "github:nixos/flake-registry";
       flake = false;
     };
 
-    nix-vscode-marketplace.url = "github:AmeerTaweel/nix-vscode-marketplace";
-
     remapper.url = "github:balsoft/remapper";
 
     helix.url = "github:helix-editor/helix";
 
-    tridactyl-native-messenger = {
-      url = "github:tridactyl/native_messenger";
-      flake = false;
-    };
-
     nixos-hardware.url = "github:nixos/nixos-hardware";
-
-    yt-dlp.url = "github:yt-dlp/yt-dlp";
-    yt-dlp.flake = false;
   };
 
   outputs = { nixpkgs, self, nix, deploy-rs, ... }@inputs:
