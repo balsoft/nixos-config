@@ -73,13 +73,13 @@ in rec {
   # For nix-direnv
   nixFlakes = final.nix;
 
-  coeurl = final.stdenv.mkDerivation {
-    name = "coeurl";
-    src = inputs.coeurl;
-    buildInputs = [ final.curl.all final.libevent final.spdlog ];
-    nativeBuildInputs =
-      [ final.meson final.ninja final.pkg-config final.cmake ];
-  };
+  # coeurl = final.stdenv.mkDerivation {
+  #   name = "coeurl";
+  #   src = inputs.coeurl;
+  #   buildInputs = [ final.curl.all final.libevent final.spdlog ];
+  #   nativeBuildInputs =
+  #     [ final.meson final.ninja final.pkg-config final.cmake ];
+  # };
 
   # mtxclient = prev.mtxclient.overrideAttrs (oa: {
   #   src = inputs.mtxclient;

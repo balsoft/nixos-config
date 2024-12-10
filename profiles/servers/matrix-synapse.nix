@@ -34,6 +34,7 @@
   };
 
   services.postgresql.enable = true;
+  services.postgresql.package = pkgs.postgresql_15;
 
   services.mautrix-telegram = {
     enable = true;
