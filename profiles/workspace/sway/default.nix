@@ -114,7 +114,7 @@ in {
         normal = let
           script = name: content: "exec ${pkgs.writeScript name content}";
           workspaces = (builtins.genList (x: [ (toString x) (toString x) ]) 10)
-            ++ [ [ "c" "" ] [ "t" "" ] [ "m" "ﱘ" ] ];
+            ++ [ [ "c" "" ] [ "t" "󰍩" ] [ "m" "ﱘ" ] ];
         in ({
           "Escape" = "mode default";
           "Return" = "mode default";
@@ -284,7 +284,7 @@ in {
           position = "1440 1000";
         };
       } // lib.optionalAttrs (config.device == "X2100-Laptop") {
-        "Unknown 0x0000 0x00000000".scale = "2";
+        eDP-1.scale = "1.9";
       } // lib.optionalAttrs (config.device == "T490s-Laptop") {
         DP-2.position = "0 0";
       };

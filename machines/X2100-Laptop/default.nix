@@ -41,7 +41,4 @@
         "refresh interval" = 1000;
       };
     };
-  boot.extraModprobeConfig = ''
-    options iwlwifi bt_coex_active=0
-  '';
 }

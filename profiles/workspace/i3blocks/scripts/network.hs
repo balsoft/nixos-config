@@ -7,6 +7,7 @@ import Data.Bool (bool)
 import Language.Haskell.TH.Syntax (liftString, runIO)
 import System.Environment (getEnv)
 import Control.Monad.IO.Class (liftIO)
+import Text.Printf (printf)
 
 path :: String
 path = "/sys/class/net/"
@@ -33,9 +34,8 @@ readInterfaces interfaces = mconcat <$> (mapM readInterface interfaces)
 
 renderSpeed :: Float -> String
 renderSpeed bits
-  | bits < 1e3 = (show . round) (bits / 1e0) ++ "bps"
   | bits < 1e6 = (show . round) (bits / 1e3) ++ "kbps"
-  | otherwise  = (show . round) (bits / 1e6) ++ "Mbps"
+  | otherwise  = printf "%0.*f" (1 :: Int) (bits / 1e6) ++ "Mbps"
 
 main :: IO ()
 main = do
