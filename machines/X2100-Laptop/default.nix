@@ -16,17 +16,29 @@
     };
     ram = 16;
   };
+  
+  fileSystems."/persist" =
+    { device = "/dev/disk/by-uuid/e50bd1d6-3613-465e-895a-9dde6ffaad46";
+      fsType = "ext4";
+      neededForBoot = true;
+    };
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/621A-6414";
+      fsType = "vfat";
+    };
 
   persist = {
     enable = true;
     cache.clean.enable = true;
   };
 
+  nix.settings.max-jobs = lib.mkDefault 8;
+
   home-manager.users.balsoft.xdg.configFile."simple-osd/brightness".text =
     pkgs.my-lib.genIni {
       default = {
-        "backlight backend" = "/sys/class/backlight/intel_backlight";
-        "refresh interval" = 100;
+        "backlight backend" = "/sys/class/backlight/acpi_video0";
+        "refresh interval" = 1000;
       };
     };
   boot.extraModprobeConfig = ''
