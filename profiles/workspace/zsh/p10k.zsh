@@ -1837,6 +1837,17 @@
     fi
   }
 
+
+  # Reset the github status cache but wait a bit first, to allow github to update
+  function github_status_reset_bg {
+    setopt NO_MONITOR NO_NOTIFY
+    {
+      sleep 5;
+      github_status_reset 2>/dev/null
+      setopt MONITOR NOTIFY
+    } &
+  }
+
   function github_status_unfinished() {
     [[ "$github_status" =~ "" ]]
   }
