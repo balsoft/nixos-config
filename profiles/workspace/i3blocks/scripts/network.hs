@@ -31,11 +31,17 @@ readInterface interface = do
 readInterfaces :: [FilePath] -> IO Statistics
 readInterfaces interfaces = mconcat <$> (mapM readInterface interfaces)
 
+renderSpeed :: Float -> String
+renderSpeed bits
+  | bits < 1e3 = (show . round) (bits / 1e0) ++ "bps"
+  | bits < 1e6 = (show . round) (bits / 1e3) ++ "kbps"
+  | otherwise  = (show . round) (bits / 1e6) ++ "Mbps"
+
 main :: IO ()
 main = do
   interfaces <- listDirectory path
   Statistics rx tx <- readInterfaces interfaces
   threadDelay 1000000
   Statistics rx' tx' <- readInterfaces interfaces
-  putStrLn $ (icon "\58052") ++ (show $ round $ (rx' - rx) / 10^3)
-          ++ (icon "\58054") ++ (show $ round $ (tx' - tx) / 10^3)
+  putStrLn $ (icon "\58052") ++ renderSpeed (rx' - rx)
+          ++ (icon "\58054") ++ renderSpeed (tx' - tx)

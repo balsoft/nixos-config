@@ -12,6 +12,7 @@
       if [ -n "$PERCENTAGE" ]; then
           TIME="$(echo "$INFO" | grep 'time to' | tr -s ' ' | cut -d' ' -f5-6)"
           STATE="$(echo "$INFO" | grep 'state:' | tr -s ' ' | cut -d' ' -f3)"
+          MODEL="$(echo "$INFO" | grep 'model:' | tr -s ' ' | cut -d' ' -f3)"
           if [[ "x$STATE" == "xfully-charged" ]] || [[ "x$STATE" == "xcharging" ]]; then
               case $PERCENTAGE in
                   [0-9]|1[0-9]) icon=;;
@@ -50,7 +51,8 @@
           fi
           echo -n "$icon</span>"
           if [ -n "$BLOCK_BUTTON" ]; then
-              echo -n " $PERCENTAGE% "
+              echo -n " $MODEL "
+              echo -n "$PERCENTAGE% "
               if [ -n "$TIME" ]; then echo -n "($TIME) "; fi
           fi
       fi

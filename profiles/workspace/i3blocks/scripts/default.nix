@@ -39,7 +39,7 @@ builtins.mapAttrs buildHaskellScript {
   sound = ./sound.nix;
   music = ./music.nix;
   youtrack-wage = ./youtrack-wage.nix;
-  cpu = {...}: ''${procps}/bin/top -b -n1 -p 1 | ${gnugrep}/bin/fgrep "Cpu(s)" | ${coreutils}/bin/tail -1 | ${gawk}/bin/awk -F'id,' -v prefix="$prefix" '{ split($1, vs, ","); v=vs[length(vs)]; sub("%", "", v); printf "%s%.1f%%\n", prefix, 100 - v }' '';
+  cpu = {...}: ''${procps}/bin/top -b -n1 -p 1 | ${gnugrep}/bin/fgrep "Cpu(s)" | ${coreutils}/bin/tail -1 | ${gawk}/bin/awk -F'id,' -v prefix="$prefix" '{ split($1, vs, ","); v=vs[length(vs)]; sub("%", "", v); printf "󰍛%s%.1f%%\n", prefix, 100 - v }' '';
   freq = {...}: ''echo $(${pkgs.bc}/bin/bc -l <<< "scale=2; `${coreutils}/bin/cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_cur_freq|${coreutils}/bin/sort|${coreutils}/bin/tail -1`/1000000") GHz'';
   df = {...}: ''echo '<span font="${iconfont}"></span>' `${coreutils}/bin/df / | ${coreutils}/bin/tail -1 | ${gnugrep}/bin/grep -o '..%'`'';
   date = {...}: "${pkgs.coreutils}/bin/date +'<span font=\"${iconfont}\"></span> %a %y-%m-%d'";
