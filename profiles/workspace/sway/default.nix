@@ -173,9 +173,9 @@ in {
           "Shift+z" = "exec ${pkgs.mako}/bin/makoctl restore";
           "Control+z" = "exec ${pkgs.mako}/bin/makoctl dismiss -a";
           "F9" = ''
-            exec ${pkgs.libnotify}/bin/notify-send "Do not disturb: on"; exec ${pkgs.mako}/bin/makoctl set-mode do-not-disturb'';
+            exec ${pkgs.libnotify}/bin/notify-send "Do not disturb: on"; exec ${pkgs.mako}/bin/makoctl set-mode do-not-disturb; bar mode invisible'';
           "Shift+F9" = ''
-            exec ${pkgs.libnotify}/bin/notify-send "Do not disturb: off"; exec ${pkgs.mako}/bin/makoctl set-mode default'';
+            exec ${pkgs.libnotify}/bin/notify-send "Do not disturb: off"; exec ${pkgs.mako}/bin/makoctl set-mode default; bar mode hide'';
           "F11" = "exec ${pkgs.systemd}/bin/systemctl suspend";
           "Shift+F11" = "output * dpms off";
           "F12" = "output * dpms on";
