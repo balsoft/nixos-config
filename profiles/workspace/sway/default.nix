@@ -46,8 +46,7 @@ in {
           { app_id = "firefox"; }
           { class = "Firefox"; }
         ];
-        "" =
-          [ { app_id = "geary"; } { title = "nheko"; } { title = "Slack.*"; } ];
+        "󰍩" = [ { title = "nheko"; } { title = "Slack.*"; } ];
       };
       fonts = {
         names = [ config.themes.fonts.main.family ];
@@ -100,12 +99,10 @@ in {
         ];
       };
       startup = (map (command: { inherit command; }) config.startupApplications)
-        ++ [
-          {
-            command =
-              "dbus-update-activation-environment --systemd WAYLAND_DISPLAY GDK_BACKEND";
-          }
-        ];
+        ++ [{
+          command =
+            "dbus-update-activation-environment --systemd WAYLAND_DISPLAY GDK_BACKEND";
+        }];
 
       bindkeysToCode = true;
 
@@ -279,10 +276,11 @@ in {
       output = {
         "*".bg = "${thm.base00} solid_color";
       } // lib.optionalAttrs (config.device == "AMD-Workstation") {
-        DP-1 = {transform = "270"; position = "0 0"; };
-        HDMI-A-1 = {
-          position = "1440 1000";
+        DP-1 = {
+          transform = "270";
+          position = "0 0";
         };
+        HDMI-A-1 = { position = "1440 1000"; };
       } // lib.optionalAttrs (config.device == "X2100-Laptop") {
         eDP-1.scale = "1.9";
       } // lib.optionalAttrs (config.device == "T490s-Laptop") {
