@@ -4,6 +4,9 @@
     cmd = "${pkgs.nheko}/bin/nheko";
     desktop = "nheko";
   };
+  startupApplications = [
+    "${pkgs.nheko}/bin/nheko"
+  ];
   persist.state.directories =
     [ "/home/balsoft/.local/share/nheko" "/home/balsoft/.config/nheko" ];
 }

@@ -24,10 +24,10 @@
     programs.gpg = {
       enable = true;
       homedir = "${config.home-manager.users.balsoft.xdg.dataHome}/gnupg";
-      # scdaemonSettings = {
-      #   disable-ccid = true;
-      #   reader-port = "Yubico Yubi";
-      # };
+      scdaemonSettings = {
+        disable-ccid = true;
+        reader-port = "Yubico Yubi";
+      };
     };
   };
 }

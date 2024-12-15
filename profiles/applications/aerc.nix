@@ -3,6 +3,7 @@
     cmd = "${pkgs.aerc}/bin/aerc";
     desktop = "aerc";
   };
+  startupApplications = [ "${config.defaultApplications.term.cmd} -T aerc -e ${pkgs.aerc}/bin/aerc" ];
   home-manager.users.balsoft = {
     programs.aerc = {
       enable = true;
