@@ -33,7 +33,7 @@ in rec {
 
   inherit (nur.balsoft.pkgs) termNote nix-patch;
 
-  lambda-launcher = inputs.lambda-launcher.defaultPackage.${system};
+  lambda-launcher = inputs.lambda-launcher.packages.${system}.default;
 
   simple-osd = inputs.simple-osd-daemons.packages.${system};
 
