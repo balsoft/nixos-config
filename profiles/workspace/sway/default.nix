@@ -157,7 +157,9 @@ in {
           "Shift+f" = "floating toggle";
 
           "Shift+Escape" =
-            ''exec ${apps.monitor.cmd}; [app_id="gnome-system-monitor"] focus'';
+            ''exec ${apps.monitor.cmd}; [title="gotop"] focus'';
+          "Control+Escape" =
+            ''exec ${apps.term.cmd} -T systemctl-tui -e ${pkgs.systemctl-tui}/bin/systemctl-tui; [title="systemctl-tui"] focus'';
           "F1" = ''
             exec ${pkgs.pavucontrol}/bin/pavucontrol; [app_id="pavucontrol"] focus'';
           "Shift+F1" = ''

@@ -15,13 +15,6 @@
       value.options = [ "x-gvfs-hide" ];
     }) (state.directories ++ cache.directories ++ derivative.directories)));
 
-  defaultApplications = {
-    monitor = {
-      cmd = "${pkgs.gnome-system-monitor}/bin/gnome-system-monitor";
-      desktop = "gnome-system-monitor";
-    };
-  };
-
   home-manager.users.balsoft = {
 
     home.activation.gnome = ''

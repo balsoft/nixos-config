@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }: {
+{ config, pkgs, ... }: {
   defaultApplications.term = {
     cmd = "${pkgs.alacritty}/bin/alacritty";
     desktop = "alacritty";
@@ -31,6 +31,7 @@
         primary = {
           background = base00;
           foreground = base05;
+          dim_foreground = base04;
         };
         cursor = {
           text = base02;

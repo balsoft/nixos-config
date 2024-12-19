@@ -31,7 +31,7 @@ let
   inherit (lib)
     getBin optionalString literalExpression
     mkRemovedOptionModule mkRenamedOptionModule
-    mkDefault mkIf mkMerge mkOption mkPackageOptionMD types;
+    mkDefault mkIf mkMerge mkOption mkPackageOption types;
 
   activationScript = ''
     ${set_XDG_CONFIG_HOME}
@@ -126,7 +126,7 @@ in
       example = literalExpression "[ pkgs.plasma5Packages.oxygen ]";
     };
 
-    notoPackage = mkPackageOptionMD pkgs "Noto fonts" {
+    notoPackage = mkPackageOption pkgs "Noto fonts" {
       default = [ "noto-fonts" ];
       example = "noto-fonts-lgc-plus";
     };
