@@ -50,5 +50,6 @@
     sway
     yubikey-touch-detector
     shadowsocks
+    btop
   ];
 }

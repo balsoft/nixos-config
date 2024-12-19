@@ -19,13 +19,6 @@
     home.stateVersion = lib.mkDefault "20.09";
   };
 
-  defaultApplications = {
-    monitor = {
-      cmd = "${config.defaultApplications.term.cmd} -T gotop -e ${pkgs.btop}/bin/btop";
-      desktop = "alacritty";
-    };
-  };
-
 
   home-manager.useGlobalPkgs = true;
 

@@ -157,7 +157,7 @@ in {
           "Shift+f" = "floating toggle";
 
           "Shift+Escape" =
-            ''exec ${apps.monitor.cmd}; [title="gotop"] focus'';
+            ''exec ${apps.monitor.cmd}; [title="btop"] focus'';
           "Control+Escape" =
             ''exec ${apps.term.cmd} -T systemctl-tui -e ${pkgs.systemctl-tui}/bin/systemctl-tui; [title="systemctl-tui"] focus'';
           "F1" = ''
