@@ -127,6 +127,17 @@ in rec {
       "sed 's|Exec=.*|Exec=/run/current-system/sw/bin/systemctl --user start mako|' -i $out/share/dbus-1/services/fr.emersion.mako.service";
   });
 
+
+  # Nheko has an annoying bug where it sometimes un-logins you if it can't access its secret storage.
+  # Make sure that the yubi is unlocked before proceeding.
+  nheko = final.writeShellApplication ({
+    name = "nheko";
+
+    runtimeInputs = [ final.gnupg final.pass prev.nheko ];
+
+    text = "pass unlock && nheko";
+  });
+
   remapper = inputs.remapper.packages.${final.system}.default;
 
   # helix = inputs.helix.packages.${final.system}.default;
