@@ -11,7 +11,7 @@ let
       };
       decrypted = mkOption {
         type = path;
-        default = "/var/secrets/${name}";
+        default = "${config.secretsConfig.decryptedDir}/${name}";
       };
       decrypt = mkOption {
         default = pkgs.writeShellScript "gpg-decrypt" ''
@@ -45,10 +45,14 @@ let
     };
   };
 
+  restartAll = "${pkgs.systemd}/bin/systemctl restart ${allServices}";
+
   activate-secrets = pkgs.writeShellApplication {
     name = "activate-secrets";
     text = ''
       set -euo pipefail
+      # wait for network
+      while ! ping -c1 github.com; do sleep 1; done
       # Make sure card is available and unlocked
       echo fetch | gpg --card-edit --no-tty --command-fd=0
       gpg --card-status
@@ -61,10 +65,10 @@ let
           lib.escapeShellArg config.secretsConfig.repo
         } "${password-store}"
       fi
-      gpg --decrypt < ${password-store}/email/balsoft@balsoft.ru.gpg > /dev/null
-      /run/wrappers/bin/sudo systemctl restart ${allServices}
+      gpg --decrypt < ${password-store}/unlock.gpg > /dev/null
+      /run/wrappers/bin/sudo ${restartAll}
     '';
-    runtimeInputs = [ pkgs.gnupg pkgs.git pkgs.systemd pkgs.openssh ];
+    runtimeInputs = [ pkgs.gnupg pkgs.git pkgs.systemd pkgs.openssh pkgs.iputils pkgs.coreutils ];
 
   };
   decrypt = name: cfg:
@@ -135,6 +139,10 @@ in {
         type = str;
         default = "ssh://git@github.com/balsoft/pass";
       };
+      decryptedDir = lib.mkOption {
+        type = lib.types.path;
+        default = "/var/secrets";
+      };
     };
   };
 
@@ -146,12 +154,12 @@ in {
     security.sudo.extraRules = [{
       users = [ "balsoft" ];
       commands = [{
-        command = "/run/current-system/sw/bin/systemctl restart ${allServices}";
+        command = restartAll;
         options = [ "NOPASSWD" ];
       }];
     }];
 
-    persist.derivative.directories = [ "/var/secrets" password-store ];
+    persist.derivative.directories = [ config.secretsConfig.decryptedDir password-store ];
 
     home-manager.users.balsoft = {
       systemd.user.services.activate-secrets = {
@@ -174,11 +182,13 @@ in {
             export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
             while inotifywait "$PASSWORD_STORE_DIR" -r -e move -e close_write -e create -e delete --exclude .git; do
               sleep 0.1
-              pass git add --all
-              pass git commit -m "Change"
-              pass git pull --rebase
-              pass git push
-            done
+              {
+                pass git add --all
+                pass git commit -m "Change"
+                pass git pull --rebase
+                pass git push
+              } &
+             done
           '');
         };
         Unit = rec {

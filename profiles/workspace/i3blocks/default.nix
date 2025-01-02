@@ -2,11 +2,6 @@
 with lib; with pkgs.my-lib;
 let scripts = import ./scripts pkgs config;
 in {
-  secrets.wage = {
-    owner = "balsoft:users";
-    services = [ ];
-  };
-
   secrets.email = {
     owner = "balsoft:users";
     services = [ ];
