@@ -135,7 +135,7 @@
           buildInputs = [
             nix.packages.x86_64-linux.default
             deploy-rs.defaultPackage.x86_64-linux
-            nixfmt
+            nixfmt-rfc-style
             nil
           ];
           shellHook = ''
