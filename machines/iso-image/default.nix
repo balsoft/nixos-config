@@ -9,4 +9,6 @@
     alacritty
   ];
   nix.settings.max-jobs = 4;
+  isoImage.makeEfiBootable = true;
+  isoImage.makeUsbBootable = true;
 }
