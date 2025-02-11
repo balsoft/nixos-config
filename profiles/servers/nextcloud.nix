@@ -13,7 +13,7 @@
     };
     phpExtraExtensions = all: [ ((all.pdlib.override {dlib = (pkgs.dlib.override { blas = pkgs.openblas; });}).overrideAttrs (oa: {buildInputs = oa.buildInputs ++ [  pkgs.openblas pkgs.liblapack];})) ];
   };
-  services.phpfpm.pools.nextcloud.phpEnv.PATH = lib.mkForce "/run/wrappers/bin:${pkgs.ffmpeg-headless}/bin:/usr/bin:/bin";
+  services.phpfpm.pools.nextcloud.phpEnv.PATH = lib.mkForce "/run/wrappers/bin:${pkgs.ffmpeg-headless}/bin:${pkgs.exiftool}/bin:${pkgs.perl}/bin:/usr/bin:/bin";
   secrets.nextcloud = {
     owner = "nextcloud:nextcloud";
     services = [ "nextcloud-setup" ];
