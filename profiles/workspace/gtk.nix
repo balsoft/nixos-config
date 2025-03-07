@@ -26,7 +26,7 @@ in {
       enable = true;
       iconTheme = {
         name = "breeze-dark";
-        package = pkgs.breeze-icons;
+        package = pkgs.kdePackages.breeze-icons;
       };
       theme = {
         name = "Generated";

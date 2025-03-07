@@ -184,8 +184,8 @@ in {
   environment.systemPackages = [ desktopTheme ];
 
   xdg.portal.enable = true;
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-kde ];
-  services.dbus.packages = [ pkgs.systemd pkgs.breeze-icons ];
+  xdg.portal.extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
+  services.dbus.packages = [ pkgs.systemd pkgs.kdePackages.breeze-icons ];
   services.udev.packages = [ pkgs.libmtp pkgs.media-player-info ];
 
   qt.enable = false;
@@ -203,17 +203,17 @@ in {
 
   defaultApplications = {
     fm = {
-      cmd = "${pkgs.dolphin}/bin/dolphin";
+      cmd = "${pkgs.kdePackages.dolphin}/bin/dolphin";
       desktop = "org.kde.dolphin";
     };
     archive = {
-      cmd = "${pkgs.ark}/bin/ark";
+      cmd = "${pkgs.kdePackages.ark}/bin/ark";
       desktop = "org.kde.ark";
     };
   };
 
   home-manager.users.balsoft = {
-    home.packages = [ pkgs.ark pkgs.dolphin ];
+    home.packages = [ pkgs.kdePackages.ark pkgs.kdePackages.dolphin ];
 
     xdg.configFile."kdeglobals".text = pkgs.my-lib.genIni
       (builtins.foldl' lib.recursiveUpdate { } [ colorTheme effects misc ]);

@@ -3,6 +3,7 @@
     enable = true;
     hostName = "nextcloud.balsoft.ru";
     config.adminpassFile = config.secrets.nextcloud.decrypted;
+    config.dbtype = "sqlite";
     package = pkgs.nextcloud30;
     https = true;
     phpOptions.memory_limit = lib.mkForce "1G";

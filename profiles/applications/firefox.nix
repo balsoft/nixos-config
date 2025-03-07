@@ -70,7 +70,7 @@ in {
       enable = true;
       package = pkgs.firefox-wayland;
       profiles.default = {
-        extensions = with pkgs.nur.rycee.firefox-addons; [
+        extensions.packages = with pkgs.nur.rycee.firefox-addons; [
           adsum-notabs
           ublock-origin
           sponsorblock

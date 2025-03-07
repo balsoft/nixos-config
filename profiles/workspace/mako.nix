@@ -23,7 +23,7 @@
       textColor = base05;
       borderColor = "${base0D}AA";
       progressColor = "over ${base0B}";
-      iconPath = "${pkgs.breeze-icons}/share/icons/breeze-dark";
+      iconPath = "${pkgs.kdePackages.breeze-icons}/share/icons/breeze-dark";
       maxIconSize = 24;
       extraConfig = let
         play = sound:

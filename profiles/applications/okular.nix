@@ -5,7 +5,7 @@ with (pkgs.my-lib.thmDec config.themes.colors); {
       (if config.deviceSpecific.isPhone then
         pkgs.okularMobile
       else
-        pkgs.okular)
+        pkgs.kdePackages.okular)
     ];
     xdg.configFile."okularpartrc".text = pkgs.my-lib.genIni {
       "Dlg Accessibility" = {

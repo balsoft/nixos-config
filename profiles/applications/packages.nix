@@ -26,7 +26,7 @@
       pavucontrol
       # Tools
       zip
-      plasma-systemmonitor
+      kdePackages.plasma-systemmonitor
       wl-clipboard
       grim
       slurp
@@ -38,7 +38,7 @@
       nix-patch
       gopass
       # papirus-icon-theme
-      breeze-icons
+      kdePackages.breeze-icons
       shellcheck
       proselint
       ripgrep
