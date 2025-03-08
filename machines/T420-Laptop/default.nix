@@ -14,6 +14,7 @@
     # mastodon
     irc
     remapper
+    ntfy
   ];
 
   services.logind.lidSwitch = "ignore";
