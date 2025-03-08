@@ -42,8 +42,6 @@
 
   users.users.balsoft.password = lib.mkForce "0";
 
-  boot.kernelPackages = pkgs.linuxPackages_librem5;
-
   system.stateVersion = "23.05";
   home-manager.users.balsoft.home.stateVersion = "22.11";
 

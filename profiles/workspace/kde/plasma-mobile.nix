@@ -55,7 +55,7 @@
     xdg.configFile."autostart/org_kde_powerdevil.desktop".text = ''
       [Desktop Entry]
       DBusActivatable=true
-      Exec=${pkgs.powerdevil}/libexec/org_kde_powerdevil
+      Exec=${pkgs.kdePackages.powerdevil}/libexec/org_kde_powerdevil
       Name=org_kde_powerdevil
       Type=Application
     '';

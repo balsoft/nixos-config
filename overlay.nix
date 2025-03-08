@@ -164,7 +164,7 @@ in rec {
     });
 
   });
-  okularMobile = final.okular.overrideAttrs
+  okularMobile = final.kdePackages.okular.overrideAttrs
     (oa: { cmakeFlags = oa.cmakeFlags or [ ] ++ [ "-DOKULAR_UI=mobile" ]; });
 
   python3Packages = prev.python3Packages.overrideScope (final': prev': {

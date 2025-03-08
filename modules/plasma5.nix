@@ -309,7 +309,7 @@ in
         ++ lib.optional config.networking.networkmanager.enable plasma-nm
         ++ lib.optional config.hardware.pulseaudio.enable plasma-pa
         ++ lib.optional config.services.pipewire.pulse.enable plasma-pa
-        ++ lib.optional config.powerManagement.enable powerdevil
+        ++ lib.optional config.powerManagement.enable pkgs.kdePackages.powerdevil
         ++ lib.optional config.services.colord.enable pkgs.colord-kde
         ++ lib.optional config.services.hardware.bolt.enable pkgs.plasma5Packages.plasma-thunderbolt
         ++ lib.optionals config.services.samba.enable [ kdenetwork-filesharing pkgs.samba ]
@@ -393,8 +393,6 @@ in
 
       # Update the start menu for each user that is currently logged in
       system.userActivationScripts.plasmaSetup = activationScript;
-
-      nixpkgs.config.firefox.enablePlasmaBrowserIntegration = true;
     })
 
     (mkIf (cfg.kwinrc != {}) {
@@ -424,6 +422,7 @@ in
       services.xserver.displayManager.defaultSession = mkDefault "plasma";
 
       environment.systemPackages =
+        with pkgs.kdePackages;
         with libsForQt5;
         with plasma5; with kdeGear; with kdeFrameworks;
         let
