@@ -26,6 +26,7 @@
         [ "turn:balsoft.ru?transport=udp" "turn:balsoft.ru?transport=tcp" ];
       app_service_config_files =
         [ config.secrets-envsubst.mautrix-telegram-registration.substituted ];
+      allow_public_rooms_over_federation = true;
     };
     extraConfigFiles = [
       config.secrets-envsubst.coturn.substituted

@@ -7,30 +7,30 @@
 
       inputs.nixos-hardware.nixosModules.purism-librem-5r4
 
-      applications-setup
+      # applications-setup
       bluetooth
       power
       hardware
       sound
 
-      plasma-mobile
+      # plasma-mobile
       # phosh
 
-      nheko
-      okular
-      gwenview
-      aerc
-      helix
-      angelfish
+      # nheko
+      # okular
+      # gwenview
+      # aerc
+      # helix
+      # angelfish
       nix
-      qmlkonsole
+      # qmlkonsole
 
-      kdeconnect
-      cursor
-      fonts
-      gtk
-      qt
-      shadowsocks
+      # kdeconnect
+      # cursor
+      # fonts
+      # gtk
+      # qt
+      # shadowsocks
 
       pass-secret-service
     ];

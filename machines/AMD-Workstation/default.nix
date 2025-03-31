@@ -20,7 +20,7 @@
     ram = 32;
   };
   deviceSpecific.isHost = true;
-  # boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   # services.apcupsd = {
   #   enable = true;
