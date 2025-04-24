@@ -202,18 +202,18 @@ in {
   };
 
   defaultApplications = {
-    fm = {
-      cmd = "${pkgs.kdePackages.dolphin}/bin/dolphin";
-      desktop = "org.kde.dolphin";
-    };
-    archive = {
-      cmd = "${pkgs.kdePackages.ark}/bin/ark";
-      desktop = "org.kde.ark";
-    };
+    # fm = {
+    #   cmd = "${pkgs.kdePackages.dolphin}/bin/dolphin";
+    #   desktop = "org.kde.dolphin";
+    # };
+    # archive = {
+    #   cmd = "${pkgs.kdePackages.ark}/bin/ark";
+    #   desktop = "org.kde.ark";
+    # };
   };
 
   home-manager.users.balsoft = {
-    home.packages = [ pkgs.kdePackages.ark pkgs.kdePackages.dolphin ];
+    # home.packages = [ pkgs.kdePackages.ark pkgs.kdePackages.dolphin ];
 
     xdg.configFile."kdeglobals".text = pkgs.my-lib.genIni
       (builtins.foldl' lib.recursiveUpdate { } [ colorTheme effects misc ]);

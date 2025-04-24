@@ -1,7 +1,7 @@
 { pkgs, config, lib, ... }:
 {
   services.gitea = {
-    enable = true;
+    enable = false;
     appName = "code.balsoft.ru";
     settings.server = {
       HTTP_PORT = 6000;

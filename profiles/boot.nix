@@ -5,7 +5,7 @@
       grub.enable = false;
       systemd-boot.enable = pkgs.system == "x86_64-linux";
     };
-    kernelParams = [ "modeset" "nofb" ]
+    kernelParams = [ "modeset" "nofb" "preempt=full" ]
       ++ lib.optionals (pkgs.system == "x86_64-linux") [
         "pti=off"
         "spectre_v2=off"

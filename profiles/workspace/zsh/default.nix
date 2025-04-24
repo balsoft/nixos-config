@@ -76,8 +76,6 @@
       "post" = ''curl -F"file=@-" https://0x0.st'';
       "cat" = "${pkgs.bat}/bin/bat";
       "ls" = "${pkgs.eza}/bin/eza";
-      "hpc" = "bluetoothctl connect CC:98:8B:C0:FC:D2";
-      "hpd" = "bluetoothctl disconnect CC:98:8B:C0:FC:D2";
       "gp" = "git push && github_status_reset_bg";
       "gpf!" = "git push --force-with-lease && github_status_reset_bg";
     };

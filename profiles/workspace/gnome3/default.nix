@@ -15,6 +15,16 @@
       value.options = [ "x-gvfs-hide" ];
     }) (state.directories ++ cache.directories ++ derivative.directories)));
 
+  defaultApplications = {
+    fm = {
+      cmd = "${pkgs.nautilus}/bin/nautilus";
+      desktop = "org.gnome.Nautilus";
+    };
+    archive = {
+      cmd = "${pkgs.file-roller}/bin/file-roller";
+      desktop = "org.gnome.FileRoller";
+    };
+  };
   home-manager.users.balsoft = {
 
     home.activation.gnome = ''
@@ -27,6 +37,8 @@
         ./nextcloud.source
       } "$XDG_CONFIG_HOME/evolution/sources/nextcloud.source"
     '';
+
+    home.packages = with pkgs; [ nautilus file-roller ];
 
     dconf.settings = {
       "org/gnome/nautilus/icon-view" = {

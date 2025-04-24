@@ -44,6 +44,7 @@ in {
           { class = "Chromium"; }
           { app_id = "firefox"; }
           { class = "Firefox"; }
+          { app_id = "librewolf"; }
         ];
         "󰍩" =
           [ { app_id = "nheko"; } { title = "Slack.*"; } { title = "aerc"; } ];
@@ -172,9 +173,9 @@ in {
           "Shift+z" = "exec ${pkgs.mako}/bin/makoctl restore";
           "Control+z" = "exec ${pkgs.mako}/bin/makoctl dismiss -a";
           "F9" = ''
-            exec ${pkgs.libnotify}/bin/notify-send "Do not disturb: on"; exec ${pkgs.mako}/bin/makoctl set-mode do-not-disturb; bar mode invisible'';
+            exec ${pkgs.libnotify}/bin/notify-send "Do not disturb: on"; exec ${pkgs.mako}/bin/makoctl mode -s do-not-disturb; bar mode invisible'';
           "Shift+F9" = ''
-            exec ${pkgs.libnotify}/bin/notify-send "Do not disturb: off"; exec ${pkgs.mako}/bin/makoctl set-mode default; bar mode hide'';
+            exec ${pkgs.libnotify}/bin/notify-send "Do not disturb: off"; exec ${pkgs.mako}/bin/makoctl mode -s default; bar mode hide'';
           "F11" = "exec ${pkgs.systemd}/bin/systemctl suspend";
           "Shift+F11" = "output * dpms off";
           "F12" = "output * dpms on";
@@ -249,8 +250,8 @@ in {
         }${modifier}+${lib.last s}") modes.normal // {
           "${modifier}+Escape" = "mode normal";
           "${modifier}+Return" = "exec ${apps.term.cmd}";
-          "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
-          "XF86AudioPause" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
+          "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play";
+          "XF86AudioPause" = "exec ${pkgs.playerctl}/bin/playerctl pause";
           "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
           "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
           "XF86AudioLowerVolume" = "exec ${pkgs.pamixer}/bin/pamixer -d 2";
@@ -260,7 +261,7 @@ in {
           "--whole-window ${modifier}+button2" = "kill";
         };
 
-      keycodebindings = { };
+      keycodebindings = { "172" = "exec ${pkgs.playerctl}/bin/playerctl play-pause"; };
       workspaceLayout = "tabbed";
       workspaceAutoBackAndForth = true;
       input = {

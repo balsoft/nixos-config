@@ -3,7 +3,7 @@ let
   thm = pkgs.my-lib.thmHash config.themes.colors;
   fonts = config.themes.fonts;
 in {
-  services.dbus.packages = [ pkgs.firefox-wayland ];
+  services.dbus.packages = [ pkgs.librewolf ];
 
   environment.sessionVariables = {
     MOZ_USE_XINPUT2 = "1";
@@ -11,17 +11,17 @@ in {
   };
   programs.browserpass.enable = true;
 
-  persist.state.directories = [ "/home/balsoft/.mozilla/firefox/default" ];
+  persist.state.directories = [ "/home/balsoft/.librewolf/default" ];
 
   defaultApplications.browser = {
-    cmd = "${pkgs.firefox-wayland}/bin/firefox";
-    desktop = "firefox";
+    cmd = "${pkgs.librewolf}/bin/librewolf";
+    desktop = "librewolf";
   };
 
   home-manager.users.balsoft = {
     programs.browserpass = {
       enable = true;
-      browsers = [ "firefox" ];
+      browsers = [ "librewolf" ];
     };
     wayland.windowManager.sway.config = {
       window.commands = [
@@ -66,9 +66,9 @@ in {
     #   ];
     # };
 
-    programs.firefox = {
+    programs.librewolf = {
       enable = true;
-      package = pkgs.firefox-wayland;
+      package = pkgs.librewolf;
       profiles.default = {
         extensions.packages = with pkgs.nur.rycee.firefox-addons; [
           adsum-notabs
@@ -137,6 +137,8 @@ in {
           "experiments.enabled" = false;
           "experiments.supported" = false;
           "network.allow-experiments" = false;
+
+          "privacy.clearOnShutdown_v2.cookiesAndStorage" = false;
         };
       };
     };
