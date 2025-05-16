@@ -5,6 +5,7 @@
       sleep 5
       swaymsg '[title=Slack.*] move to workspace 󰍩'
       swaymsg '[title=Slack.*] fullscreen disable'
+      librewolf https://calendar.google.com
     '');
   }];
 }

@@ -19,6 +19,7 @@
     home.stateVersion = lib.mkDefault "20.09";
   };
 
+  home.preferXdgDirectories = true;
 
   home-manager.useGlobalPkgs = true;
 

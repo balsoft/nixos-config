@@ -142,6 +142,9 @@
       extraConfig = {
         general.unsafe-accounts-conf = true;
         ui = {
+          reverse-thread-order = true;
+          threading-enabled = true;
+          show-thread-context = true;
           this-day-time-format = ''"           15:04"'';
           this-year-time-format = "Mon Jan 02 15:04";
           timestamp-format = "2006-01-02 15:04";
@@ -153,7 +156,7 @@
         viewer = { always-show-mime = true; };
         compose = { no-attachment-warning = "^[^>]*attach(ed|ment)"; };
         triggers = {
-          email-received = ''exec notify-send "New email from %n" "%s"'';
+          email-received = ''exec notify-send --icon=mail-message "Mail from %n" "%s"'';
         };
         filters = {
           "text/plain" = "colorize";
