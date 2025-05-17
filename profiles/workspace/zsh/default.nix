@@ -79,7 +79,7 @@
       "gp" = "git push && github_status_reset_bg";
       "gpf!" = "git push --force-with-lease && github_status_reset_bg";
     };
-    initExtra = ''
+    initContent = ''
       cmdignore=(htop tmux top vim)
 
       export GITHUB_TOKEN=$(cat /var/secrets/github_token)
