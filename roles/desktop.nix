@@ -30,6 +30,7 @@
     nheko
     packages
     okular
+    josm
 
     pass-secret-service
     copyq
