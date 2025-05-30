@@ -1,7 +1,17 @@
-{ pkgs, lib, config, inputs, ... }: {
+{
+  pkgs,
+  lib,
+  config,
+  inputs,
+  ...
+}:
+{
 
   environment.sessionVariables =
-    builtins.mapAttrs (_: toString) config.home-manager.users.balsoft.home.sessionVariables // rec {
+    builtins.mapAttrs (_: toString) (
+      lib.removeAttrs config.home-manager.users.balsoft.home.sessionVariables [ "GIO_EXTRA_MODULES" ]
+    )
+    // rec {
       LESS = "MR";
       LESSCHARSET = "utf-8";
       LESSHISTFILE = "~/.local/share/lesshist";
@@ -22,15 +32,24 @@
 
   home-manager.useGlobalPkgs = true;
 
-  persist.cache.directories = [ "/home/balsoft/.cache" "/home/balsoft/.local/share/cargo" "/var/cache" ];
+  persist.cache.directories = [
+    "/home/balsoft/.cache"
+    "/home/balsoft/.local/share/cargo"
+    "/var/cache"
+  ];
 
-  persist.state.directories = [ "/var/lib/nixos" "/var/lib/systemd" ];
+  persist.state.directories = [
+    "/var/lib/nixos"
+    "/var/lib/systemd"
+  ];
 
   system.stateVersion = lib.mkDefault "18.03";
 
   systemd.services.systemd-timesyncd.wantedBy = [ "multi-user.target" ];
 
-  systemd.timers.systemd-timesyncd = { timerConfig.OnCalendar = "hourly"; };
+  systemd.timers.systemd-timesyncd = {
+    timerConfig.OnCalendar = "hourly";
+  };
 
   services.avahi.enable = true;
 
