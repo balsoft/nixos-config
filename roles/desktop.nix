@@ -33,6 +33,7 @@
     josm
 
     pass-secret-service
+    rclone
     copyq
     cursor
     direnv
