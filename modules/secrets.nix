@@ -167,8 +167,8 @@ in {
           ExecStart = "${activate-secrets}/bin/activate-secrets";
           Type = "oneshot";
         };
-        Unit = { PartOf = [ "graphical-session-pre.target" ]; };
-        Install.WantedBy = [ "graphical-session-pre.target" ];
+        # Unit = { PartOf = [ "graphical-session-pre.target" ]; };
+        # Install.WantedBy = [ "graphical-session-pre.target" ];
       };
       systemd.user.services.pass-store-sync = {
         Service = {

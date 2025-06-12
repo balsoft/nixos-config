@@ -51,7 +51,7 @@
       bridge = {
         alias_template = "tg_{groupname}";
         allow_matrix_login = true;
-        bot_messages_as_notices = true;
+        bot_messages_as_notices = false;
         catch_up = true;
         command_prefix = "!tg";
         image_as_file_size = 10;
