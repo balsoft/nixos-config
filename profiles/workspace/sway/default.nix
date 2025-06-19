@@ -279,11 +279,11 @@ in {
       output = {
         "*".bg = "${thm.base00} solid_color";
       } // lib.optionalAttrs (config.device == "AMD-Workstation") {
-        DP-1 = {
+        DP-2 = {
           transform = "270";
           position = "0 0";
         };
-        HDMI-A-1 = { position = "1440 1000"; };
+        HDMI-A-2 = { position = "1440 1000"; };
       } // lib.optionalAttrs (config.device == "X2100-Laptop") {
         eDP-1.scale = "1.9";
       } // lib.optionalAttrs (config.device == "T490s-Laptop") {
