@@ -124,7 +124,7 @@
 
       legacyPackages.x86_64-linux = pkgsFor "x86_64-linux";
 
-      defaultApp = deploy-rs.defaultApp;
+      apps.x86_64-linux.default = deploy-rs.apps.x86_64-linux.default;
 
       overlay = import ./overlay.nix inputs;
 
@@ -134,7 +134,7 @@
         mkShell {
           buildInputs = [
             nix.packages.x86_64-linux.default
-            deploy-rs.defaultPackage.x86_64-linux
+            deploy-rs.packages.x86_64-linux.default
             nixfmt-rfc-style
             nil
           ];
