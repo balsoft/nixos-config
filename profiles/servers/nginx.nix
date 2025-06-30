@@ -2,7 +2,6 @@
   services.nginx = {
     enable = true;
     appendHttpConfig = "charset utf-8;";
-    additionalModules = [ pkgs.nginxModules.dav ];
     virtualHosts = let
       default = {
         forceSSL = true;
@@ -38,21 +37,11 @@
       "share.balsoft.ru" = {
         locations."/" = { root = "/var/lib/share"; };
       } // default;
-      "calendar.balsoft.ru" = {
-        locations."/" = {
-          root = "/var/lib/calendar";
-          extraConfig = ''
-            dav_methods off;
-            dav_ext_methods OPTIONS PROPFIND;
-          '';
-        };
-      } // default;
       "things.balsoft.ru" = {
         locations."/" = { root = "/nix/var/nix/profiles/per-user/nginx/random-things/www"; };
       } // default;
     };
   };
-
   security.acme.defaults.email = "balsoft@balsoft.ru";
   security.acme.acceptTerms = true;
 }
