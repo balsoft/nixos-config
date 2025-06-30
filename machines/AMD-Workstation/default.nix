@@ -1,4 +1,10 @@
-{ config, inputs, pkgs, ... }: {
+{
+  config,
+  inputs,
+  pkgs,
+  ...
+}:
+{
   imports = [
     ./hardware-configuration.nix
     inputs.self.nixosRoles.desktop
@@ -34,8 +40,7 @@
 
   secrets.wireguard-wg0 = { };
 
-  environment.sessionVariables.WINEPREFIX =
-    "/home/balsoft/.local/share/wineprefixes/default";
+  environment.sessionVariables.WINEPREFIX = "/home/balsoft/.local/share/wineprefixes/default";
 
   services.bt-agent = {
     enable = true;
@@ -67,11 +72,25 @@
       ${pkgs.git}/bin/git config unset --global safe.directory
     '';
     repository = "s3:s3.eu-central-003.backblazeb2.com/balsoft-backups";
-    pruneOpts = [ "--keep-daily 7" "--keep-weekly 3" "--keep-monthly 3" ];
+    pruneOpts = [
+      "--keep-daily 7"
+      "--keep-weekly 3"
+      "--keep-monthly 3"
+    ];
     # Typically I'm done writing stuff by then, save the day's work
     timerConfig = {
       OnCalendar = "22:00";
       Persistent = true;
+    };
+  };
+
+  home-manager.users.balsoft.wayland.windowManager.sway.config.output = {
+    DP-1 = {
+      transform = "270";
+      position = "0 0";
+    };
+    HDMI-A-1 = {
+      position = "1440 1000";
     };
   };
 
@@ -92,7 +111,6 @@
 
     state.directories = [ "/home/balsoft/.local/share/Steam" ];
 
-    derivative.directories =
-      [ "/home/balsoft/.local/share/wineprefixes/default" ];
+    derivative.directories = [ "/home/balsoft/.local/share/wineprefixes/default" ];
   };
 }

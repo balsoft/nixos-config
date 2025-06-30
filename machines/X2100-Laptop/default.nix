@@ -55,10 +55,13 @@
 
   nix.settings.max-jobs = lib.mkDefault 8;
 
-  home-manager.users.balsoft.xdg.configFile."simple-osd/brightness".text = pkgs.my-lib.genIni {
-    default = {
-      "backlight backend" = "/sys/class/backlight/acpi_video0";
-      "refresh interval" = 1000;
+  home-manager.users.balsoft = {
+    xdg.configFile."simple-osd/brightness".text = pkgs.my-lib.genIni {
+      default = {
+        "backlight backend" = "/sys/class/backlight/acpi_video0";
+        "refresh interval" = 1000;
+      };
     };
+    wayland.windowManager.sway.config.output.eDP-1.scale = "1.9";
   };
 }

@@ -114,7 +114,6 @@ let
     genAttrs services (service: rec {
       requires = [ "${name}-secrets.service" ];
       after = requires;
-      bindsTo = requires;
     });
 
   mkServices = name: cfg: [ (decrypt name cfg) (addDependencies name cfg) ];
