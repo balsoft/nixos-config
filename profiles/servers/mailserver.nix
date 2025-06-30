@@ -103,6 +103,7 @@ in {
   ];
   mailserver = {
     enable = true;
+    stateVersion = 3;
     fqdn = "balsoft.ru";
     domains = [ "balsoft.ru" ];
     mailboxes = {
