@@ -27,6 +27,7 @@
       # app_service_config_files =
       #   [ config.secrets-envsubst.mautrix-telegram-registration.substituted ];
       allow_public_rooms_over_federation = true;
+      media_retention.remote_media_lifetime = "14d";
     };
     extraConfigFiles = [
       config.secrets-envsubst.coturn.substituted
