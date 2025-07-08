@@ -137,8 +137,8 @@ in {
           "Shift+Right" = "move right";
           "Shift+Left" = "move left";
 
-          "Comma" = "workspace prev";
-          "Period" = "workspace next";
+          "p" = "workspace prev";
+          "n" = "workspace next";
 
           "h" = "focus child; focus left";
           "l" = "focus child; focus right";
@@ -205,7 +205,7 @@ in {
           "apostrophe" = "layout splitv";
           "minus" = "move to scratchpad";
           "underscore" = "scratchpad show";
-          "p" = "sticky toggle";
+          "s" = "sticky toggle";
           "b" = "focus mode_toggle";
           "Space" = script "lambda-launcher"
             "${pkgs.lambda-launcher}/bin/lambda-launcher";
