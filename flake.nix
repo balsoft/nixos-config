@@ -138,25 +138,6 @@
             nixfmt-rfc-style
             nil
           ];
-          shellHook = ''
-            linkFile() {
-              source="$(nix build --print-out-paths "$1.source" || nix eval --raw "$1.source")"
-              target="$(nix eval --raw "$1.target")"
-              ln -fs "$source" "$HOME/$target"
-            }
-            linkHomeManagerFile() {
-              linkFile ".#nixosConfigurations.$(hostname).config.home-manager.users.$(whoami).$1"
-            }
-            linkConfigFile() {
-              linkHomeManagerFile "xdg.configFile.\"$1\""
-            }
-            linkDataFile() {
-              linkHomeManagerFile "xdg.dataFile.\"$1\""
-            }
-            linkHomeFile() {
-              linkHomeManagerFile "home.file.\"$1\""
-            }
-          '';
         };
 
       deploy = {

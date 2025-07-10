@@ -4,11 +4,11 @@ in {
   imports = [ module ];
   secrets.mailserver = {
     owner = "dovecot2:dovecot2";
-    services = [ "dovecot2" ];
+    services = [ "dovecot" ];
   };
   secrets.mailserver-mastodon = {
     owner = "dovecot2:dovecot2";
-    services = [ "dovecot2" ];
+    services = [ "dovecot" ];
   };
   services.postfix = {
     dnsBlacklists = [
