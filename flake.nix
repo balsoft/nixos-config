@@ -137,6 +137,23 @@
             deploy-rs.packages.x86_64-linux.default
             nixfmt-rfc-style
             nil
+            (writeShellScriptBin "link-file" ''
+              source="$(nix build --print-out-paths "$1.source" || nix eval --raw "$1.source")"
+              target="$(nix eval --raw "$1.target")"
+              ln -fs "$source" "$HOME/$target"
+            '')
+            (writeShellScriptBin "link-hm-file" ''
+              link-file ".#nixosConfigurations.$(hostname).config.home-manager.users.$(whoami).$1"
+            '')
+            (writeShellScriptBin "link-config-file" ''
+              link-hm-file "xdg.configFile.\"$1\""
+            '')
+            (writeShellScriptBin "link-data-file" ''
+              link-hm-file "xdg.dataFile.\"$1\""
+            '')
+            (writeShellScriptBin "link-home-file" ''
+              link-hm-file "home.file.\"$1\""
+            '')
           ];
         };
 
