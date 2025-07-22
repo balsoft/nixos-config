@@ -1,24 +1,32 @@
 { config, pkgs, lib, ... }: {
-  secrets-envsubst.rclone = {
-    owner = "balsoft:users";
-    secrets = [ "nextcloud" ];
+
+  secrets.nextcloud = {
+    encrypted = "${config.secretsConfig.password-store}/nextcloud.balsoft.ru/balsoft.gpg";
     services = [ "home-manager-balsoft" ];
-    template = lib.generators.toINI {} {
-      nextcloud = {
-        type = "webdav";
-        url = "https://nextcloud.balsoft.ru/remote.php/dav/files/balsoft";
-        vendor = "nextcloud";
-        user = "balsoft";
-        pass = "$nextcloud";
-      };
-    };
+    owner = "balsoft:users";
   };
 
-  home-manager.users.balsoft.home = {
-    activation.rclone = ''
-      mkdir -p $XDG_CONFIG_HOME/rclone
-      ln -sf ${config.secrets-envsubst.rclone.substituted} $XDG_CONFIG_HOME/rclone/rclone.conf
-    '';
-    packages = [ pkgs.rclone ];
+  home-manager.users.balsoft = {
+    programs.rclone = {
+      enable = true;
+      remotes.nextcloud = {
+        config = {
+          type = "webdav";
+          url = "https://nextcloud.balsoft.ru/remote.php/dav/files/balsoft";
+          vendor = "nextcloud";
+          user = "balsoft";
+        };
+        secrets = {
+          pass = config.secrets.nextcloud.decrypted;
+        };
+        mounts."" = {
+          enable = true;
+          mountPoint = "/home/balsoft/nextcloud.balsoft.ru";
+          options = {
+            vfs-cache-mode = "full";
+          };
+        };
+      };
+    };
   };
 }
