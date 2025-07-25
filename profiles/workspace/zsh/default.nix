@@ -78,6 +78,7 @@
       "ls" = "${pkgs.eza}/bin/eza";
       "gp" = "git push && github_status_reset_bg";
       "gpf!" = "git push --force-with-lease && github_status_reset_bg";
+      "b." = "nix build -f .";
     };
     initContent = ''
       cmdignore=(htop tmux top vim)
