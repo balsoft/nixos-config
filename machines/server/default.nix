@@ -1,6 +1,7 @@
 { inputs, lib, ... }: {
   imports = with inputs.self.nixosModules; with inputs.self.nixosProfiles; [
     inputs.self.nixosRoles.base
+    helix
   ];
 
   nix.nrBuildUsers = lib.mkForce 16;
