@@ -4,7 +4,7 @@
     XKB_DEFAULT_OPTIONS =
       "grp:lctrl_toggle,grp_led:caps,ctrl:nocaps,compose:ralt";
     LANG = lib.mkForce "C.UTF-8";
-    LC_ALL = "C.UTF-8";
+    LC_ALL = lib.mkForce "C.UTF-8";
     XCOMPOSEFILE = "${config.home-manager.users.balsoft.xdg.configHome}/XCompose";
   };
 
