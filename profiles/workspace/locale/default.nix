@@ -3,11 +3,12 @@
     XKB_DEFAULT_LAYOUT = "us,ru";
     XKB_DEFAULT_OPTIONS =
       "grp:lctrl_toggle,grp_led:caps,ctrl:nocaps,compose:ralt";
-    LANG = lib.mkForce "en_GB.UTF-8";
+    LANG = lib.mkForce "C.UTF-8";
+    LC_ALL = "C.UTF-8";
     XCOMPOSEFILE = "${config.home-manager.users.balsoft.xdg.configHome}/XCompose";
   };
 
-  i18n.defaultLocale = "en_GB.UTF-8";
+  i18n.defaultLocale = "C.UTF-8";
 
   time.timeZone = "Asia/Tbilisi";
   home-manager.users.balsoft = {
@@ -15,14 +16,14 @@
     xdg.configFile."gtk-3.0/Compose".source = ./compose;
     xdg.configFile."XCompose".source = ./compose;
     home.language = let
-      en = "en_GB.UTF-8";
+      C = "C.UTF-8";
       ru = "ru_RU.UTF-8";
     in {
-      address = ru;
-      monetary = ru;
+      address = C;
+      monetary = C;
       paper = ru;
-      time = en;
-      base = en;
+      time = C;
+      base = C;
     };
   };
 }
