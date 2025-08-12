@@ -31,6 +31,7 @@
     packages
     okular
     josm
+    mosh
 
     pass-secret-service
     rclone
