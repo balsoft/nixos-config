@@ -36,8 +36,9 @@
 
   boot.resumeDevice = config.fileSystems."/persist".device;
   boot.kernelParams = [ "resume_offset=4294656" ]; # from sudo filefrag -v /persist/swapfile
-  services.logind.lidSwitch = "hibernate";
-  services.logind.powerKey = "hibernate";
+  services.logind.lidSwitch = "suspend";
+  services.logind.powerKey = lib.mkForce "hibernate";
+  services.logind.powerKeyLongPress = "poweroff";
 
   # boot.initrd.systemd.enable = true;
 

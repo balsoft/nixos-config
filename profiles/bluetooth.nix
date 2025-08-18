@@ -8,6 +8,7 @@
   hardware.bluetooth = {
     enable = true;
     package = pkgs.bluez;
+    input.General.ClassicBondedOnly = false;
   };
 
   systemd.services.bluetooth.serviceConfig.ExecStart = lib.mkForce [
