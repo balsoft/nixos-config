@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }: {
+{ pkgs, lib, ... }: {
   options = with lib;
     with types; {
       defaultApplications = mkOption {
@@ -16,7 +16,7 @@
         description = "Applications to run on startup";
       };
     };
-  config = rec {
+  config = {
     defaultApplications = {
       text_processor = {
         cmd = "${pkgs.abiword}/bin/abiword";

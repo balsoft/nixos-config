@@ -12,4 +12,9 @@
     };
   };
 
+  defaultApplications.image_viewer = {
+    desktop = "org.kde.gwenview";
+    cmd = "${pkgs.gwenview}/bin/gwenview";
+  };
+
 }

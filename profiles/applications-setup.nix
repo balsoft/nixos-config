@@ -22,7 +22,13 @@
           if value ? desktop then [ "${value.desktop}.desktop" ] else value) {
             "inode/directory" = fm;
             "text/html" = browser;
-            "image/*" = { desktop = "org.kde.gwenview"; };
+            "image/*" = image_viewer;
+            "image/jpeg" = image_viewer;
+            "image/png" = image_viewer;
+            "image/x-nikon-nef" = image_viewer;
+            "image/tiff" = image_viewer;
+            "image/gif" = image_viewer;
+            "image/webp" = image_viewer;
             "application/zip" = archive;
             "application/rar" = archive;
             "application/7z" = archive;
