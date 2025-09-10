@@ -21,7 +21,7 @@
         };
         mounts."" = {
           enable = true;
-          mountPoint = "/home/balsoft/nextcloud.balsoft.ru";
+          mountPoint = "/home/balsoft/cloud/nextcloud.balsoft.ru";
           options = {
             vfs-cache-mode = "full";
           };

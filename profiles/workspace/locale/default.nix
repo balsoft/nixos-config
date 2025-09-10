@@ -3,8 +3,8 @@
     XKB_DEFAULT_LAYOUT = "us,ru";
     XKB_DEFAULT_OPTIONS =
       "grp:lctrl_toggle,grp_led:caps,ctrl:nocaps,compose:ralt";
-    LANG = lib.mkForce "C.UTF-8";
-    LC_ALL = lib.mkForce "C.UTF-8";
+    LANG = lib.mkOverride 99 "C.UTF-8";
+    LC_ALL = lib.mkOverride 99 "C.UTF-8";
     XCOMPOSEFILE = "${config.home-manager.users.balsoft.xdg.configHome}/XCompose";
   };
 

@@ -15,7 +15,7 @@
       plugins = [ "git" "dirhistory" ];
     };
 
-    dotDir = ".config/zsh";
+    dotDir = "${config.home-manager.users.balsoft.xdg.configHome}/zsh";
 
     history = rec {
       size = 10000000;

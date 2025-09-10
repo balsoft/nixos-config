@@ -29,6 +29,13 @@
     };
   };
 
+  i18n.defaultLocale = lib.mkForce "en_GB.UTF-8";
+
+  environment.sessionVariables = {
+    LANG = lib.mkForce "en_GB.UTF-8";
+    LC_ALL = lib.mkForce "en_GB.UTF-8";
+  };
+
   deviceSpecific.devInfo = {
     legacy = true;
     cpu = {
