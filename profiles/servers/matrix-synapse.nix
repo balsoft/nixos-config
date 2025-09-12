@@ -62,6 +62,7 @@
         permissions = {
           "*" = "relaybot";
           "@balsoft:balsoft.ru" = "admin";
+          "@lyona:balsoft.ru" = "full";
         };
         plaintext_highlights = true;
         startup_sync = true;
