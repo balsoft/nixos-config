@@ -1,4 +1,4 @@
-{ pkgs, config, lib, ... }: {
+{
   services.openssh = {
     enable = true;
     settings = {
@@ -30,6 +30,7 @@
 
   home-manager.users.balsoft.programs.ssh = {
     enable = true;
+    enableDefaultConfig = false;
     matchBlocks = { "*" = { compression = false; }; };
   };
 }
