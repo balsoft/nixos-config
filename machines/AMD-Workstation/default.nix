@@ -83,14 +83,19 @@
       Persistent = true;
     };
   };
-
-  home-manager.users.balsoft.wayland.windowManager.sway.config.output = {
-    DP-1 = {
-      transform = "90";
-      position = "0 0";
+  home-manager.users.balsoft.wayland.windowManager.sway.config = {
+    input."*" = {
+      pointer_accel = "0.5";
+      accel_profile = "flat";
     };
-    HDMI-A-1 = {
-      position = "1440 1000";
+    output = {
+      DP-1 = {
+        transform = "90";
+        position = "0 0";
+      };
+      HDMI-A-1 = {
+        position = "1440 1000";
+      };
     };
   };
 
