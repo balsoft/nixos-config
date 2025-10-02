@@ -74,6 +74,13 @@
               "goto_prev_paragraph"
               "goto_next_paragraph"
               "trim_selections"
+              ":reflow"
+              "collapse_selection"
+            ];
+            "A-Q" = [
+              "goto_prev_paragraph"
+              "goto_next_paragraph"
+              "trim_selections"
               ":reflow 80"
               "collapse_selection"
             ];
