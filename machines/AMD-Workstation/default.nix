@@ -86,7 +86,7 @@
 
   home-manager.users.balsoft.wayland.windowManager.sway.config.output = {
     DP-1 = {
-      transform = "270";
+      transform = "90";
       position = "0 0";
     };
     HDMI-A-1 = {
