@@ -62,6 +62,8 @@
     helix.url = "github:helix-editor/helix";
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
+
+    RobertCraigie.url = "github:RobertCraigie/nixpkgs?ref=feat/glide-browser";
   };
 
   outputs = { nixpkgs, self, nix, deploy-rs, ... }@inputs:

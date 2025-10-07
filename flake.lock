@@ -16,6 +16,22 @@
         "type": "github"
       }
     },
+    "RobertCraigie": {
+      "locked": {
+        "lastModified": 1759510288,
+        "narHash": "sha256-TUP5z2T/gJvD9SO1758MIjlDbUWPuXuhfdU0cBitCJQ=",
+        "owner": "RobertCraigie",
+        "repo": "nixpkgs",
+        "rev": "56707d850d663197845e77c47862f34a71220315",
+        "type": "github"
+      },
+      "original": {
+        "owner": "RobertCraigie",
+        "ref": "feat/glide-browser",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "base16-black-metal-scheme": {
       "flake": false,
       "locked": {
@@ -693,6 +709,7 @@
     "root": {
       "inputs": {
         "NUR": "NUR",
+        "RobertCraigie": "RobertCraigie",
         "base16-black-metal-scheme": "base16-black-metal-scheme",
         "deploy-rs": "deploy-rs",
         "flake-compat": "flake-compat_2",

@@ -197,7 +197,7 @@
       };
       Work = {
         aerc.enable = true;
-        address = "alexander.bantyev@moduscreate.com";
+        address = "alexander.bantyev@tweag.io";
         realName = "Alexander Bantyev";
         imap.host = "imap.gmail.com";
         smtp.host = "smtp.gmail.com";

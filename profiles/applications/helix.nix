@@ -39,7 +39,7 @@
       [language-server.nil]
       command = "nil"
       args = ["--stdio"]
-      config = { nix = { maxMemoryMB = 5000, flake = { autoArchive = false, autoEvalInputs = true } } }
+      config = { nix = { maxMemoryMB = 1000 } }
       [[language]]
       name = "nix"
       formatter = { command = "nixfmt", args = [] }
