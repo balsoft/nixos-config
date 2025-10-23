@@ -169,15 +169,17 @@
       };
       stylesets = {
         default = {
-          "border.bg" = 0;
-          "border.fg" = 7;
-          "border.reverse" = "false";
-          "msglist_default.bg" = 0;
-          "msglist_unread.fg" = 3;
-          "msglist_unread.bold" = "true";
-          "msglist_marked.bg" = 4;
-          "dirlist_default.bg" = 0;
-          "dirlist_unread.fg" = 3;
+          global = {
+            "border.bg" = "0";
+            "border.fg" = "7";
+            "border.reverse" = "false";
+            "msglist_default.bg" = "0";
+            "msglist_unread.fg" = "3";
+            "msglist_unread.bold" = "true";
+            "msglist_marked.bg" = "4";
+            "dirlist_default.bg" = "0";
+            "dirlist_unread.fg" = "3";
+          };
         };
       };
     };
