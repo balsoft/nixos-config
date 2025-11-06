@@ -155,8 +155,9 @@ in
 
           "privacy.clearOnShutdown_v2.cookiesAndStorage" = false;
         };
+
         search = {
-          default = "ddg";
+          default = "wikipedia";
           engines = {
             # hide bullshit
             amazon.metaData.hidden = true;
@@ -167,7 +168,6 @@ in
             policy-Mojeek.metaData.hidden = true;
             mojeek.metaData.hidden = true;
             bing.metaData.hidden = true;
-
 
             # Assign aliases to internal engines
             ddg.metaData.alias = "@d";
@@ -187,6 +187,18 @@ in
               iconMapObj."16" = "https://ru.wikipedia.org/favicon.ico";
 
               definedAliases = [ "@wr" ];
+            };
+
+            wiktionary = {
+              name = "Wiktionary";
+              urls = [
+                {
+                  template = "https://en.wiktionary.org/w/index.php?search={searchTerms}";
+                }
+              ];
+              iconMapObj."16" = "https://en.wiktionary.org/favicon.ico";
+
+              definedAliases = [ "@wkt" ];
             };
 
             nixos-wiki = {
@@ -250,6 +262,20 @@ in
             };
           };
           force = true;
+        };
+
+        containersForce = true;
+        containers = {
+          work = {
+            id = 0;
+            color = "orange";
+            icon = "briefcase";
+          };
+          personal = {
+            id = 1;
+            color = "blue";
+            icon = "chill";
+          };
         };
       };
     };
