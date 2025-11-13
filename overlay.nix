@@ -9,7 +9,7 @@ rec {
 
   nur =
     (import inputs.NUR {
-      pkgs = old;
+      pkgs = final;
       nurpkgs = final;
     }).repos;
 
@@ -145,7 +145,7 @@ rec {
     text = "pass unlock && nheko";
   });
 
-  remapper = inputs.remapper.packages.${final.system}.default;
+  remapper = inputs.remapper.packages.${final.stdenv.hostPlatform.system}.default;
 
   # helix = inputs.helix.packages.${final.system}.default;
 

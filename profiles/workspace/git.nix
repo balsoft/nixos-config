@@ -2,9 +2,11 @@
   home-manager.users.balsoft.programs = {
     git = {
       enable = true;
-      userEmail = "balsoft@balsoft.ru";
-      userName = "Alexander Bantyev";
-      extraConfig.pull.rebase = true;
+      settings = {
+        user.email = "balsoft@balsoft.ru";
+        user.name = "Alexander Bantyev";
+        pull.rebase = true;
+      };
       ignores = [ ".envrc" ".direnv" ".shell.nix" ".balsoft" "*~" ".#*" "#*#" ];
       signing = {
         signByDefault = true;

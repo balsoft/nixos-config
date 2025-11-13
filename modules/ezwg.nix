@@ -60,7 +60,7 @@ in {
           n2 = ipaddress.ip_network('${cfg.serverIP}/32')
           print(':'.join(list(map(lambda x: str(x), list(n1.address_exclude(n2))))), end="")
         '';
-      rangesOutput = pkgs.runCommandNoCC "exclusionary-wildcard-ranges" { } ''
+      rangesOutput = pkgs.runCommand "exclusionary-wildcard-ranges" { } ''
         ${pkgs.python3}/bin/python3 ${generateRangesScript} > $out
       '';
       generateSubnetScript =
@@ -71,7 +71,7 @@ in {
           }', False)
           print(n1, end="")
         '';
-      subnetOutput = pkgs.runCommandNoCC "subnet-without-host-bits" { } ''
+      subnetOutput = pkgs.runCommand "subnet-without-host-bits" { } ''
         ${pkgs.python3}/bin/python3 ${generateSubnetScript} > $out
       '';
       ranges = lib.splitString ":" (builtins.readFile "${rangesOutput}");
