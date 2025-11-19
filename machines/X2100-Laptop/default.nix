@@ -65,4 +65,18 @@
     };
     wayland.windowManager.sway.config.output.eDP-1.scale = "1.9";
   };
+
+  hardware.graphics = {
+    enable = true;
+    extraPackages = [
+      pkgs.intel-media-driver
+      pkgs.intel-vaapi-driver
+    ];
+  };
+
+  environment.sessionVariables = {
+    LIBVA_DRIVER_NAME = "iHD"; # Prefer the modern iHD backend
+  };
+
+  hardware.enableRedistributableFirmware = true;
 }
