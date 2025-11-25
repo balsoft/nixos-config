@@ -197,6 +197,18 @@
 
         folders.inbox = "virtual.all";
       };
+      Gmail = {
+        aerc.enable = true;
+        realName = "Alexander Bantyev";
+        address = "balsoft75@gmail.com";
+        imap.host = "imap.gmail.com";
+        smtp.host = "smtp.gmail.com";
+
+        userName = "balsoft75@gmail.com";
+        passwordCommand = "pass aerc/balsoft75@gmail.com";
+
+        folders.inbox = "[Gmail]/All Mail";
+      };
       Work = {
         aerc.enable = true;
         address = "alexander.bantyev@tweag.io";
