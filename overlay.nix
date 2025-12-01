@@ -228,8 +228,4 @@ rec {
       );
     }
   );
-
-  glide-browser =
-    final.callPackage "${inputs.RobertCraigie}/pkgs/by-name/gl/glide-browser/package.nix"
-      { };
 }
