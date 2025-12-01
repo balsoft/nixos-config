@@ -10,7 +10,7 @@
 
   i18n.defaultLocale = "C.UTF-8";
 
-  time.timeZone = "Asia/Tbilisi";
+  time.timeZone = "Europe/Madrid";
   home-manager.users.balsoft = {
     home.file.".XCompose".source = ./compose;
     xdg.configFile."gtk-3.0/Compose".source = ./compose;
