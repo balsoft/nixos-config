@@ -9,6 +9,8 @@
       jq
 
       file
+
+      cliphist
     ] ++ lib.optionals config.deviceSpecific.goodMachine [
       # steamcmd
       # steam
