@@ -85,24 +85,46 @@ in
       enable = true;
       package = pkgs.librewolf;
       profiles.default = {
-        extensions.packages = with pkgs.nur.rycee.firefox-addons; [
-          adsum-notabs
-          ublock-origin
-          sponsorblock
-          browserpass
-          darkreader
-        ];
+        extensions = {
+          force = true;
+          packages = with pkgs.nur.rycee.firefox-addons; [
+            ublock-origin
+            sponsorblock
+            browserpass
+            darkreader
+            tree-style-tab
+            tab-counter-plus
+            translate-web-pages
+          ];
+          settings = {
+            "uBlock0@raymondhill.net".settings = {
+              selectedFilterLists = [
+                "user-filters"
+                "ublock-filters"
+                "ublock-badware"
+                "ublock-privacy"
+                "ublock-quick-fixes"
+                "ublock-unbreak"
+                "easylist"
+                "easyprivacy"
+                "LegitimateURLShortener"
+                "adguard-spyware-url"
+                "urlhaus-1"
+                "curben-phishing"
+                "plowe-0"
+                "fanboy-cookiemonster"
+                "ublock-cookies-easylist"
+                "adguard-cookies"
+                "ublock-cookies-adguard"
+              ];
+            };
+          };
+        };
         id = 0;
         userChrome = ''
           #TabsToolbar {
             visibility: collapse;
           }
-          // toolbar#nav-bar, nav-bar-customization-target {
-          //   background: ${thm.base00} !important;
-          // }
-          // @-moz-document url("about:newtab") {
-          //   * { background-color: ${thm.base00}  !important; }
-          // }
         '';
         settings = {
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
@@ -154,6 +176,63 @@ in
           "network.allow-experiments" = false;
 
           "privacy.clearOnShutdown_v2.cookiesAndStorage" = false;
+
+          "browser.uiCustomization.state" = builtins.toJSON {
+            currentVersion = 23;
+            newElementCount = 9;
+            placements = {
+              PersonalToolbar = [
+                "import-button"
+                "personal-bookmarks"
+              ];
+              TabsToolbar = [
+              ];
+              nav-bar = [
+                "treestyletab_piro_sakura_ne_jp-browser-action"
+                "tab-counter-plus_loirooriol-browser-action"
+                "back-button"
+                "forward-button"
+                "stop-reload-button"
+                "vertical-spacer"
+                "urlbar-container"
+                "panic-button"
+                "downloads-button"
+                "fxa-toolbar-menu-button"
+                "unified-extensions-button"
+                "browserpass_maximbaz_com-browser-action"
+                "addon_darkreader_org-browser-action"
+              ];
+              toolbar-menubar = [ "menubar-items" ];
+              unified-extensions-area = [
+                "sponsorblocker_ajay_app-browser-action"
+                "ublock0_raymondhill_net-browser-action"
+                "_036a55b4-5e72-4d05-a06c-cba2dfcc134a_-browser-action"
+                "webextension_metamask_io-browser-action"
+                "jid1-tsgsxbhncspbwq_jetpack-browser-action"
+                "_9a41dee2-b924-4161-a971-7fb35c053a4a_-browser-action"
+              ];
+              vertical-tabs = [ ];
+              widget-overflow-fixed-list = [ ];
+            };
+            seen = [
+              "browserpass_maximbaz_com-browser-action"
+              "addon_darkreader_org-browser-action"
+              "sponsorblocker_ajay_app-browser-action"
+              "ublock0_raymondhill_net-browser-action"
+              "developer-button"
+              "_036a55b4-5e72-4d05-a06c-cba2dfcc134a_-browser-action"
+              "screenshot-button"
+              "webextension_metamask_io-browser-action"
+              "passff_invicem_pro-browser-action"
+              "jid1-tsgsxbhncspbwq_jetpack-browser-action"
+              "_9a41dee2-b924-4161-a971-7fb35c053a4a_-browser-action"
+              "treestyletab_piro_sakura_ne_jp-browser-action"
+              "tab-counter_daawesomep_addons_mozilla_org-browser-action"
+              "tab-counter_vhfmag_addons_mozilla_org-browser-action"
+              "tabcounter_waldemar_b-browser-action"
+              "tab-counter-plus_loirooriol-browser-action"
+            ];
+          };
         };
 
         search = {
