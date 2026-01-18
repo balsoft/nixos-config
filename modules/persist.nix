@@ -111,9 +111,7 @@ in {
       fsType = "tmpfs";
     };
 
-    boot.initrd.postMountCommands = assert config.fileSystems
-      ? ${cfg.persistRoot}
-      && config.fileSystems.${cfg.persistRoot}.neededForBoot; ''
+    boot.initrd.postMountCommands = ''
         mkdir -p /mnt-root/nix
         mount --bind /mnt-root${cfg.persistRoot}/nix /mnt-root/nix
         chmod 755 /mnt-root

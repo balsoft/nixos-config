@@ -15,7 +15,7 @@
       # steamcmd
       # steam
       haskellPackages.hoogle
-      nixfmt-rfc-style
+      nixfmt
       # nil
       nixpkgs-fmt
       stdman

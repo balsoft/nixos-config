@@ -9,12 +9,6 @@
   services.gvfs.enable = true;
   services.geoclue2.enable = true;
 
-  fileSystems = with config.persist;
-    lib.mkIf enable (builtins.listToAttrs (map (name: {
-      inherit name;
-      value.options = [ "x-gvfs-hide" ];
-    }) (state.directories ++ cache.directories ++ derivative.directories)));
-
   defaultApplications = {
     fm = {
       cmd = "${pkgs.nautilus}/bin/nautilus";
