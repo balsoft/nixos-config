@@ -1,33 +1,58 @@
-{ pkgs, config, lib, ... }: {
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
+let
+  livekitKeyFile = "/run/livekit.key";
+in
+{
   services.matrix-synapse = {
     enable = true;
     settings = {
       allow_guest_access = false;
-      listeners = [{
-        # bind_address = "0.0.0.0";
-        port = 13748;
-        resources = [
-          {
-            compress = true;
-            names = [ "client" ];
-          }
-          {
-            compress = false;
-            names = [ "federation" ];
-          }
-        ];
-        type = "http";
-        tls = false;
-        x_forwarded = true;
-      }];
+      listeners = [
+        {
+          # bind_address = "0.0.0.0";
+          port = 13748;
+          resources = [
+            {
+              compress = true;
+              names = [ "client" ];
+            }
+            {
+              compress = false;
+              names = [ "federation" ];
+            }
+          ];
+          type = "http";
+          tls = false;
+          x_forwarded = true;
+        }
+      ];
       public_baseurl = "https://balsoft.ru";
       server_name = "balsoft.ru";
-      turn_uris =
-        [ "turn:balsoft.ru?transport=udp" "turn:balsoft.ru?transport=tcp" ];
+      turn_uris = [
+        "turn:balsoft.ru:3478?transport=udp"
+        "turn:balsoft.ru:3478?transport=tcp"
+      ];
       # app_service_config_files =
       #   [ config.secrets-envsubst.mautrix-telegram-registration.substituted ];
       allow_public_rooms_over_federation = true;
       media_retention.remote_media_lifetime = "14d";
+
+      experimental_features = {
+        # MSC3266: Room summary API. Used for knocking over federation
+        msc3266_enabled = true;
+        # MSC4222: needed for syncv2 state_after. This allows clients to
+        # correctly track the state of the room.
+        msc4222_enabled = true;
+        # MSC4140: Delayed events are required for proper call participation signalling. If disabled it is very likely that you end up with stuck calls in Matrix rooms
+        msc4140_enabled = true;
+      };
+
+      max_event_delay_duration = "24h";
     };
     extraConfigFiles = [
       config.secrets-envsubst.coturn.substituted
@@ -82,7 +107,13 @@
   };
 
   secrets-envsubst.mautrix-telegram = {
-    secrets = [ "as_token" "hs_token" "api_id" "api_hash" "bot_token" ];
+    secrets = [
+      "as_token"
+      "hs_token"
+      "api_id"
+      "api_hash"
+      "bot_token"
+    ];
     template = ''
       MAUTRIX_TELEGRAM_APPSERVICE_AS_TOKEN=$as_token
       MAUTRIX_TELEGRAM_APPSERVICE_HS_TOKEN=$hs_token
@@ -94,21 +125,28 @@
 
   secrets-envsubst.mautrix-telegram-registration = {
     directory = "mautrix-telegram";
-    secrets = [ "as_token" "hs_token" ];
+    secrets = [
+      "as_token"
+      "hs_token"
+    ];
     owner = "matrix-synapse";
     template = builtins.toJSON {
       as_token = "$as_token";
       hs_token = "$hs_token";
       id = "telegram";
       namespaces = {
-        aliases = [{
-          exclusive = true;
-          regex = "#tg_.+:balsoft.ru";
-        }];
-        users = [{
-          exclusive = true;
-          regex = "@tg_.+:balsoft.ru";
-        }];
+        aliases = [
+          {
+            exclusive = true;
+            regex = "#tg_.+:balsoft.ru";
+          }
+        ];
+        users = [
+          {
+            exclusive = true;
+            regex = "@tg_.+:balsoft.ru";
+          }
+        ];
       };
       rate_limited = false;
       sender_localpart = "telegrambot";
@@ -140,31 +178,12 @@
     no-tls = true;
     realm = "balsoft.ru";
     extraConfig = ''
-      external-ip=94.25.150.197
-
-      denied-peer-ip=10.0.0.0-10.255.255.255
-      denied-peer-ip=192.168.0.0-192.168.255.255
-      denied-peer-ip=172.16.0.0-172.31.255.255
-
-      denied-peer-ip=0.0.0.0-0.255.255.255
-      denied-peer-ip=100.64.0.0-100.127.255.255
-      denied-peer-ip=127.0.0.0-127.255.255.255
-      denied-peer-ip=169.254.0.0-169.254.255.255
-      denied-peer-ip=192.0.0.0-192.0.0.255
-      denied-peer-ip=192.0.2.0-192.0.2.255
-      denied-peer-ip=192.88.99.0-192.88.99.255
-      denied-peer-ip=198.18.0.0-198.19.255.255
-      denied-peer-ip=198.51.100.0-198.51.100.255
-      denied-peer-ip=203.0.113.0-203.0.113.255
-      denied-peer-ip=240.0.0.0-255.255.255.255
-
-      allowed-peer-ip=192.168.8.236
+      allowed-peer-ip=167.235.153.141
     '';
   };
 
   secrets.coturn = {
-    encrypted =
-      "/home/balsoft/.local/share/password-store/coturn/shared_secret.gpg";
+    encrypted = "/home/balsoft/.local/share/password-store/coturn/shared_secret.gpg";
     services = [ "coturn" ];
     owner = "turnserver:turnserver";
   };
@@ -183,13 +202,72 @@
     };
   };
 
+  services.livekit = {
+    enable = true;
+    openFirewall = true;
+    settings.room.auto_create = false;
+    keyFile = livekitKeyFile;
+  };
+  services.lk-jwt-service = {
+    enable = true;
+    # can be on the same virtualHost as synapse
+    livekitUrl = "wss://balsoft.ru/livekit/sfu";
+    keyFile = livekitKeyFile;
+  };
+  # generate the key when needed
+  systemd.services.livekit-key = {
+    before = [
+      "lk-jwt-service.service"
+      "livekit.service"
+    ];
+    wantedBy = [ "multi-user.target" ];
+    path = with pkgs; [
+      livekit
+      coreutils
+      gawk
+    ];
+    script = ''
+      echo "Key missing, generating key"
+      echo "lk-jwt-service: $(livekit-server generate-keys | tail -1 | awk '{print $3}')" > "${livekitKeyFile}"
+    '';
+    serviceConfig.Type = "oneshot";
+    unitConfig.ConditionPathExists = "!${livekitKeyFile}";
+  };
+  # restrict access to livekit room creation to a homeserver
+  systemd.services.lk-jwt-service.environment.LIVEKIT_FULL_ACCESS_HOMESERVERS = "balsoft.ru";
+  services.nginx.virtualHosts."balsoft.ru".locations = {
+    "^~ /livekit/jwt/" = {
+      priority = 400;
+      proxyPass = "http://[::1]:${toString config.services.lk-jwt-service.port}/";
+    };
+    "^~ /livekit/sfu/" = {
+      extraConfig = ''
+        proxy_send_timeout 120;
+        proxy_read_timeout 120;
+        proxy_buffering off;
+
+        proxy_set_header Accept-Encoding gzip;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+      '';
+      priority = 400;
+      proxyPass = "http://[::1]:${toString config.services.livekit.settings.port}/";
+      proxyWebsockets = true;
+    };
+  };
   networking.firewall = rec {
-    allowedTCPPorts = [ 3478 5349 ];
+    allowedTCPPorts = [
+      3478
+      3479
+      5349
+    ];
     allowedUDPPorts = allowedTCPPorts;
-    allowedUDPPortRanges = [{
-      from = 49152;
-      to = 65535;
-    }];
+    allowedUDPPortRanges = [
+      {
+        from = 49152;
+        to = 65535;
+      }
+    ];
   };
 
 }
