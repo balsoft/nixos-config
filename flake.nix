@@ -135,7 +135,7 @@
           buildInputs = [
             nix.packages.x86_64-linux.default
             deploy-rs.packages.x86_64-linux.default
-            nixfmt-rfc-style
+            nixfmt
             nil
             (writeShellScriptBin "link-file" ''
               source="$(nix build --print-out-paths "$1.source" || nix eval --raw "$1.source")"

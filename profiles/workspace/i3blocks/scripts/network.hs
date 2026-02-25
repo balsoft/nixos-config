@@ -8,6 +8,7 @@ import Language.Haskell.TH.Syntax (liftString, runIO)
 import System.Environment (getEnv)
 import Control.Monad.IO.Class (liftIO)
 import Text.Printf (printf)
+import Data.Time (getCurrentTime, nominalDiffTimeToSeconds, diffUTCTime)
 
 path :: String
 path = "/sys/class/net/"
@@ -34,14 +35,17 @@ readInterfaces interfaces = mconcat <$> (mapM readInterface interfaces)
 
 renderSpeed :: Float -> String
 renderSpeed bits
-  | bits < 1e6 = (show . round) (bits / 1e3) ++ "kbps"
-  | otherwise  = printf "%0.*f" (1 :: Int) (bits / 1e6) ++ "Mbps"
+  | bits < 1e6 = (show . round) (bits / 1e3) ++ "k"
+  | otherwise  = printf "%0.*f" (1 :: Int) (bits / 1e6) ++ "M"
 
 main :: IO ()
 main = do
   interfaces <- listDirectory path
+  time <- getCurrentTime
   Statistics rx tx <- readInterfaces interfaces
-  threadDelay 1000000
+  threadDelay 1_000_000
+  time' <- getCurrentTime
+  let delta = realToFrac $ nominalDiffTimeToSeconds $ diffUTCTime time' time
   Statistics rx' tx' <- readInterfaces interfaces
-  putStrLn $ (icon "\58052") ++ renderSpeed (rx' - rx)
-          ++ (icon "\58054") ++ renderSpeed (tx' - tx)
+  putStrLn $ (icon "\58052") ++ renderSpeed ((rx' - rx) / delta)
+          ++ (icon "\58054") ++ renderSpeed ((tx' - tx) / delta)
