@@ -52,5 +52,7 @@
     sway
     yubikey-touch-detector
     btop
+
+    autofirma
   ];
 }

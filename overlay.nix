@@ -12,7 +12,7 @@ rec {
       nurpkgs = final;
     }).repos;
 
-  aerc = inputs.nixpkgs-24-05.legacyPackages.${system}.aerc;
+  # aerc = inputs.nixpkgs-24-05.legacyPackages.${system}.aerc;
 
   mopidy-ytmusic =
     with final;

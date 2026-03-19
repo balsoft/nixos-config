@@ -62,6 +62,8 @@
     helix.url = "github:helix-editor/helix";
 
     nixos-hardware.url = "github:nixos/nixos-hardware";
+
+    autofirma-nix.url = "github:balsoft/autofirma-nix/autofirma-freeform-config";
   };
 
   outputs = { nixpkgs, self, nix, deploy-rs, ... }@inputs:
