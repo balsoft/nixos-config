@@ -66,7 +66,7 @@
     autofirma-nix.url = "github:balsoft/autofirma-nix/autofirma-freeform-config";
   };
 
-  outputs = { nixpkgs, self, nix, deploy-rs, ... }@inputs:
+  outputs = { nixpkgs, self, deploy-rs, ... }@inputs:
     let
       findModules = dir:
         builtins.concatLists (builtins.attrValues (builtins.mapAttrs
@@ -135,7 +135,7 @@
       devShell.x86_64-linux = with nixpkgs.legacyPackages.x86_64-linux;
         mkShell {
           buildInputs = [
-            nix.packages.x86_64-linux.default
+            nix
             deploy-rs.packages.x86_64-linux.default
             nixfmt
             nil

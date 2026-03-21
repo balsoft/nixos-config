@@ -84,17 +84,21 @@ in {
     '';
   };
   systemd.tmpfiles.rules = [
-    "d /var/vmail/Maildir 700 virtualMail virtualMail - -"
-    "d /var/vmail/Maildir/virtual 700 virtualMail virtualMail - -"
-    "d /var/vmail/Maildir/virtual/all 700 virtualMail virtualMail - -"
-    "d /var/vmail/Maildir/virtual/INBOX 700 virtualMail virtualMail - -"
-    "L+ /var/vmail/Maildir/virtual/all/dovecot-virtual - - - - ${
+    "d /var/vmail/balsoft.ru/balsoft/Maildir 700 virtualMail virtualMail - -"
+    "d /var/vmail/balsoft.ru/balsoft/Maildir/virtual 700 virtualMail virtualMail - -"
+    "d /var/vmail/balsoft.ru/balsoft/Maildir/virtual/all 700 virtualMail virtualMail - -"
+    "d /var/vmail/balsoft.ru/balsoft/Maildir/virtual/INBOX 700 virtualMail virtualMail - -"
+    "L+ /var/vmail/balsoft.ru/balsoft/Maildir/virtual/all/dovecot-virtual - - - - ${
       pkgs.writeText "virtual.all" ''
-        *
+        INBOX
+        Sent
+        Drafts
           all
+        *
+          unseen
       ''
     }"
-    "L+ /var/vmail/Maildir/virtual/INBOX/dovecot-virtual - - - - ${
+    "L+ /var/vmail/balsoft.ru/balsoft/Maildir/virtual/INBOX/dovecot-virtual - - - - ${
       pkgs.writeText "virtual.INBOX" ''
         virtual.all
           inthread refs x-mailbox INBOX

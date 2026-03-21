@@ -13,7 +13,7 @@
     # home-assistant
     # mastodon
     irc
-    remapper
+    # remapper
     ntfy
   ];
 

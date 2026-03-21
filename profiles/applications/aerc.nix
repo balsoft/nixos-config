@@ -44,8 +44,9 @@
           "T" = ":toggle-threads<Enter>";
 
           "<Enter>" = ":view<Enter>";
-          "d" = ":prompt 'Really delete this message?' 'delete-message'<Enter>";
-          "D" = ":delete<Enter>";
+          "<C-r>" = ":read<Enter>";
+          "d" = ":move ";
+          "D" = ":prompt 'Really delete this message?' 'delete-message'<Enter>";
           "A" = ":archive flat<Enter>";
 
           "C" = ":compose<Enter>";
@@ -146,6 +147,7 @@
           threading-enabled = true;
           show-thread-context = true;
           this-day-time-format = ''"           15:04"'';
+          this-week-time-format = "Mon Jan 02 15:04";
           this-year-time-format = "Mon Jan 02 15:04";
           timestamp-format = "2006-01-02 15:04";
 
@@ -170,23 +172,27 @@
       stylesets = {
         default = {
           global = {
-            "border.bg" = "0";
-            "border.fg" = "7";
-            "border.reverse" = "false";
             "msglist_default.bg" = "0";
             "msglist_unread.fg" = "3";
             "msglist_unread.bold" = "true";
-            "msglist_marked.bg" = "4";
+            "msglist_marked.bg" = "0";
+            "msglist_marked.fg" = "4";
             "dirlist_default.bg" = "0";
             "dirlist_unread.fg" = "3";
+            "*.selected.bold" = "false";
+            "*.selected.reverse" = "true";
+            "msglist_unread.selected.bold" = "true";
+            "dirlist_unread.selected.bold" = "true";
+            "*.selected.bg" = "0";
           };
         };
       };
     };
     accounts.email.accounts = {
-      Personal = {
+      Personal = rec {
         primary = true;
         aerc.enable = true;
+        aerc.extraBinds.messages.d = ":move ${folders.trash}<Enter>";
         realName = "Alexander Bantyev";
         address = "balsoft@balsoft.ru";
         imap.host = "balsoft.ru";
@@ -196,9 +202,11 @@
         passwordCommand = "pass email/balsoft@balsoft.ru";
 
         folders.inbox = "virtual.all";
+        folders.trash = "Trash";
       };
-      Gmail = {
+      Gmail = rec {
         aerc.enable = true;
+        aerc.extraBinds.messages.d = ":move ${folders.trash}<Enter>";
         realName = "Alexander Bantyev";
         address = "balsoft75@gmail.com";
         imap.host = "imap.gmail.com";
@@ -208,9 +216,11 @@
         passwordCommand = "pass aerc/balsoft75@gmail.com";
 
         folders.inbox = "[Gmail]/All Mail";
+        folders.trash = "[Gmail]/Bin";
       };
-      Work = {
+      Work = rec {
         aerc.enable = true;
+        aerc.extraBinds.messages.d = ":move ${folders.trash}<Enter>";
         address = "alexander.bantyev@tweag.io";
         realName = "Alexander Bantyev";
         imap.host = "imap.gmail.com";
@@ -220,6 +230,7 @@
         passwordCommand = "pass aerc/alexander.bantyev@moduscreate.com";
 
         folders.inbox = "[Gmail]/All Mail";
+        folders.trash = "[Gmail]/Trash";
       };
     };
   };
