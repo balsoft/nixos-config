@@ -45,6 +45,8 @@
 
           "<Enter>" = ":view<Enter>";
           "<C-r>" = ":read<Enter>";
+          "<C-v>" = ":vsplit<Enter>";
+
           "d" = ":move ";
           "D" = ":prompt 'Really delete this message?' 'delete-message'<Enter>";
           "A" = ":archive flat<Enter>";
@@ -80,7 +82,7 @@
           "D" = ":delete<Enter>";
           "A" = ":archive flat<Enter>";
 
-          "<C-l>" = ":open-link <space>";
+          "<C-l>" = ":open-link<space>";
 
           "f" = ":forward<Enter>";
           "rr" = ":reply -a<Enter>";
@@ -145,7 +147,7 @@
         ui = {
           reverse-thread-order = true;
           threading-enabled = true;
-          show-thread-context = true;
+          # show-thread-context = true;
           this-day-time-format = ''"           15:04"'';
           this-week-time-format = "Mon Jan 02 15:04";
           this-year-time-format = "Mon Jan 02 15:04";

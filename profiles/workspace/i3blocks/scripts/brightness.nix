@@ -1,9 +1,9 @@
-{ iconfont, light, config, ... }: ''
+{ iconfont, brightnessctl, lib, config, ... }: ''
   case $BLOCK_BUTTON in
-       4) sudo ${light}/bin/light -A 5;;
-       5) sudo ${light}/bin/light -U 5;;
+       4) sudo ${lib.getExe brightnessctl} s '10%+';;
+       5) sudo ${lib.getExe brightnessctl} s '10%-';;
   esac
-  LIGHT=`${light}/bin/light | cut -f 1 -d '.'`
+  LIGHT=$(${lib.getExe brightnessctl} | grep "Current brighness" | head -1 | cut -d'(' -f 2 | cut -d')' -f 1)
   if [[ $LIGHT -lt 33 ]]
   then
     icon=

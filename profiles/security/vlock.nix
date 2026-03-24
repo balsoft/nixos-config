@@ -20,8 +20,8 @@
     extraConfig = ''
       balsoft ALL = (root) NOPASSWD: /run/current-system/sw/bin/lock
       balsoft ALL = (root) NOPASSWD: /run/current-system/sw/bin/lock this
-      balsoft ALL = (root) NOPASSWD: ${pkgs.light}/bin/light -A 5
-      balsoft ALL = (root) NOPASSWD: ${pkgs.light}/bin/light -U 5
+      balsoft ALL = (root) NOPASSWD: ${lib.getExe pkgs.brightnessctl} s '10%+'
+      balsoft ALL = (root) NOPASSWD: ${lib.getExe pkgs.brightnessctl} s '10%-'
     '';
   };
 }
