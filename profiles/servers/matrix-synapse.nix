@@ -42,6 +42,8 @@ in
       allow_public_rooms_over_federation = true;
       media_retention.remote_media_lifetime = "14d";
 
+      auto_accept_invites.only_from_local_users = true;
+
       experimental_features = {
         # MSC3266: Room summary API. Used for knocking over federation
         msc3266_enabled = true;
