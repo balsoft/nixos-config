@@ -47,6 +47,8 @@
           "<C-r>" = ":read<Enter>";
           "<C-v>" = ":vsplit<Enter>";
 
+          "<Tab>" = ":fold -t<Enter>";
+
           "d" = ":move ";
           "D" = ":prompt 'Really delete this message?' 'delete-message'<Enter>";
           "A" = ":archive flat<Enter>";
@@ -145,9 +147,12 @@
       extraConfig = {
         general.unsafe-accounts-conf = true;
         ui = {
+          # reverse-msglist-order = true;
+          force-client-threads = true;
           reverse-thread-order = true;
+          threading-by-subject = true;
           threading-enabled = true;
-          # show-thread-context = true;
+          show-thread-context = true;
           this-day-time-format = ''"           15:04"'';
           this-week-time-format = "Mon Jan 02 15:04";
           this-year-time-format = "Mon Jan 02 15:04";
