@@ -89,6 +89,10 @@
             "A-k" = "expand_selection";
             "A-l" = "select_next_sibling";
             "V" = [ "select_mode" "extend_to_line_bounds" ];
+            space = {
+              "B" = ":echo %sh{git blame -L %{cursor_line},+1 %{buffer_name}}";
+              "L" = ":sh ${./get_line.py} %{buffer_name} %{cursor_line} | wl-copy";
+            };
           };
         };
       };

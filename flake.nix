@@ -140,12 +140,17 @@
             nixfmt
             nil
             (writeShellScriptBin "link-file" ''
-              source="$(nix build --print-out-paths "$1.source" || nix eval --raw "$1.source")"
-              target="$(nix eval --raw "$1.target")"
-              ln -fs "$source" "$HOME/$target"
+              set -euo pipefail
+              set -x
+              source "$(
+                nix build --impure --no-link --print-out-paths --expr \
+                  'let self = builtins.getFlake "git+file://''${builtins.getEnv "PWD"}"; in
+                    self.legacyPackages.''${builtins.currentSystem}.writeText "output"
+                      "ln -fs ''${self.'"$1"'.source} \"$HOME/''${self.'"$1"'.target}\""'
+              )"
             '')
             (writeShellScriptBin "link-hm-file" ''
-              link-file ".#nixosConfigurations.$(hostname).config.home-manager.users.$(whoami).$1"
+              link-file "nixosConfigurations.$(hostname).config.home-manager.users.$(whoami).$1"
             '')
             (writeShellScriptBin "link-config-file" ''
               link-hm-file "xdg.configFile.\"$1\""

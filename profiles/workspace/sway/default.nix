@@ -220,7 +220,6 @@ in
               "F12" = "output * dpms on";
               "End" = "exec ${lock}";
 
-              "Slash" = "exec ${pkgs.copyq}/bin/copyq menu";
               "Shift+Slash" = "exec ${htmlify}";
 
               "Print" = script "screenshot" "${pkgs.grim}/bin/grim Pictures/$(date +'%Y-%m-%d+%H:%M:%S').png";
