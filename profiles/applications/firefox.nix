@@ -346,12 +346,12 @@ in
         containersForce = true;
         containers = {
           work = {
-            id = 0;
+            id = 1;
             color = "orange";
             icon = "briefcase";
           };
           personal = {
-            id = 1;
+            id = 2;
             color = "blue";
             icon = "chill";
           };

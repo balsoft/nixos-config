@@ -1,7 +1,11 @@
-{ config, pkgs, lib, ... }: {
+{
+  ...
+}:
+{
   home-manager.users.balsoft = {
     xdg.enable = true;
     xdg.userDirs.enable = true;
+    xdg.userDirs.setSessionVariables = true;
   };
 
   environment.sessionVariables = {

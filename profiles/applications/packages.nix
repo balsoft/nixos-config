@@ -14,7 +14,7 @@
     ] ++ lib.optionals config.deviceSpecific.goodMachine [
       # steamcmd
       # steam
-      haskellPackages.hoogle
+      # haskellPackages.hoogle
       nixfmt
       # nil
       nixpkgs-fmt
@@ -25,30 +25,21 @@
       # Audio/Video
       mpv
       vlc
-      pavucontrol
       # Tools
-      zip
-      kdePackages.plasma-systemmonitor
+      p7zip
       wl-clipboard
       grim
       slurp
-      abiword
-      gnumeric
-      gcalcli
       xdg-utils
       lambda-launcher
-      nix-patch
       gopass
       # papirus-icon-theme
       kdePackages.breeze-icons
-      shellcheck
-      proselint
       ripgrep
       bat
       jless
 
       pandoc
-      sioyek
 
       nil
     ];

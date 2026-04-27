@@ -1,4 +1,10 @@
-{ config, pkgs, lib, ... }: {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+{
   users.mutableUsers = false;
   users.users.balsoft = {
     isNormalUser = true;
@@ -26,7 +32,11 @@
     password = "";
   };
 
-  systemd.services."user@" = { serviceConfig = { Restart = "always"; }; };
+  systemd.services."user@" = {
+    serviceConfig = {
+      Restart = "always";
+    };
+  };
 
   home-manager.users.balsoft = {
     systemd.user.services.polkit-agent = {
@@ -37,10 +47,11 @@
 
       Install.WantedBy = [ "sway-session.target" ];
 
-      Service = { ExecStart = "${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1"; };
+      Service = {
+        ExecStart = "${pkgs.mate-polkit}/libexec/polkit-mate-authentication-agent-1";
+      };
     };
   };
-
 
   services.getty.autologinUser = "balsoft";
 

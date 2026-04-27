@@ -138,6 +138,7 @@
             nix
             deploy-rs.packages.x86_64-linux.default
             nixfmt
+            treefmt
             nil
             (writeShellScriptBin "link-file" ''
               set -euo pipefail

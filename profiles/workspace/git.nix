@@ -9,6 +9,7 @@
       };
       ignores = [ ".envrc" ".direnv" ".shell.nix" ".balsoft" "*~" ".#*" "#*#" ];
       signing = {
+        format = "openpgp";
         signByDefault = true;
         key = "687558B21E04FE92B255BED0E081FF12ADCB4AD5";
       };
