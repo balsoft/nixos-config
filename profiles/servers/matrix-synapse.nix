@@ -8,69 +8,14 @@ let
   livekitKeyFile = "/run/livekit.key";
 in
 {
-  # services.matrix-synapse = {
-  #   enable = true;
-  #   settings = {
-  #     allow_guest_access = false;
-  #     listeners = [
-  #       {
-  #         # bind_address = "0.0.0.0";
-  #         port = 13748;
-  #         resources = [
-  #           {
-  #             compress = true;
-  #             names = [ "client" ];
-  #           }
-  #           {
-  #             compress = false;
-  #             names = [ "federation" ];
-  #           }
-  #         ];
-  #         type = "http";
-  #         tls = false;
-  #         x_forwarded = true;
-  #       }
-  #     ];
-  #     public_baseurl = "https://balsoft.ru";
-  #     server_name = "balsoft.ru";
-  #     turn_uris = [
-  #       "turn:balsoft.ru:3478?transport=udp"
-  #       "turn:balsoft.ru:3478?transport=tcp"
-  #     ];
-  #     # app_service_config_files =
-  #     #   [ config.secrets-envsubst.mautrix-telegram-registration.substituted ];
-  #     allow_public_rooms_over_federation = true;
-  #     media_retention.remote_media_lifetime = "14d";
-
-  #     auto_accept_invites.only_from_local_users = true;
-
-  #     experimental_features = {
-  #       # MSC3266: Room summary API. Used for knocking over federation
-  #       msc3266_enabled = true;
-  #       # MSC4222: needed for syncv2 state_after. This allows clients to
-  #       # correctly track the state of the room.
-  #       msc4222_enabled = true;
-  #       # MSC4140: Delayed events are required for proper call participation signalling. If disabled it is very likely that you end up with stuck calls in Matrix rooms
-  #       msc4140_enabled = true;
-  #     };
-
-  #     max_event_delay_duration = "24h";
-  #   };
-  #   extraConfigFiles = [
-  #     config.secrets-envsubst.coturn.substituted
-  #     config.secrets-envsubst.matrix.substituted
-  #   ];
-  # };
-
-  # services.postgresql.enable = true;
-  # services.postgresql.package = pkgs.postgresql_15;
-
   services.matrix-continuwuity = {
     enable = true;
     settings = {
       global = {
         server_name = "balsoft.eu";
-        port = [ 13748 ];
+        # port = [ 13748 ];
+        cache_capacity_modifier = 2.0;
+        unix_socket_path = "/run/continuwuity/continuwuity.sock";
         admins_list = [ "@balsoft:balsoft.eu" ];
         well_known = {
           client = "https://balsoft.eu";
@@ -88,6 +33,8 @@ in
       };
     };
   };
+
+  users.users.nginx.extraGroups = [ "continuwuity" ];
 
   services.mautrix-telegram = {
     enable = true;
@@ -293,5 +240,4 @@ in
       }
     ];
   };
-
 }

@@ -169,6 +169,7 @@ in
           "toolkit.telemetry.shutdownPingSender.enabled" = false;
           "toolkit.telemetry.unified" = false;
           "toolkit.telemetry.updatePing.enabled" = false;
+          "browser.tabs.splitView.enabled" = false;
 
           "experiments.activeExperiment" = false;
           "experiments.enabled" = false;

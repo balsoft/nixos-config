@@ -1,7 +1,16 @@
 {
   description = "A collection of crap, hacks and copy-paste to make my localhosts boot";
 
-  nixConfig.substituters = [ "https://cache.nixos.org" ];
+  nixConfig = {
+    substituters = [
+      "https://cache.nixos.org"
+      "https://xaltsc-c10y.cachix.org"
+    ];
+    trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "xaltsc-c10y.cachix.org-1:8WuuzitAVZl+z9L94JH/tPoi8y7ny29bX2Ys07oDCBI="
+    ];
+  };
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -65,6 +74,8 @@
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
     autofirma-nix.url = "github:balsoft/autofirma-nix/autofirma-freeform-config";
+
+    continuwuity.url = "github:xaltsc/c10y-nightly";
   };
 
   outputs =

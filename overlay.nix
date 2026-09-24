@@ -32,6 +32,8 @@ rec {
       doCheck = false;
     };
 
+  matrix-continuwuity = inputs.continuwuity.packages.${system}.default;
+
   inherit (nur.balsoft.pkgs) termNote nix-patch;
 
   lambda-launcher = inputs.lambda-launcher.packages.${system}.default;

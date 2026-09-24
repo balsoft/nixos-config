@@ -6,6 +6,7 @@
     # jitsi
     mailserver
     matrix-synapse
+    unbound
     # minidlna
     nextcloud
     nginx

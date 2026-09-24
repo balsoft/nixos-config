@@ -11,16 +11,17 @@ in {
     firewall = {
       enable = true;
       allowedTCPPorts = [ 13748 13722 5000 22 80 443 51820 ];
+      allowedUDPPorts = [ 443 ];
       interfaces.wlan0.allowedTCPPortRanges = localRanges;
       interfaces.wlan0.allowedUDPPortRanges = localRanges;
       interfaces.eth0.allowedUDPPortRanges = localRanges;
       interfaces.eth0.allowedTCPPortRanges = localRanges;
     };
-    resolvconf.extraConfig = ''
-      local_nameservers=""
-      name_server_blacklist="0.0.0.0 127.0.0.1"
-      resolv_conf_local_only=NO
-    '';
+    # resolvconf.extraConfig = ''
+    #   local_nameservers=""
+    #   name_server_blacklist="0.0.0.0 127.0.0.1"
+    #   resolv_conf_local_only=NO
+    # '';
     usePredictableInterfaceNames = false;
     hostName = config.device;
   };

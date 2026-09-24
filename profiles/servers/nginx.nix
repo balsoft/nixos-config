@@ -18,28 +18,35 @@
       {
         "balsoft.eu" = {
           default = true;
+          quic = true;
+          http3 = true;
           locations."/" = {
             root = "/var/lib/balsoft.eu";
             index = "index.txt";
           };
           locations."/.well-known/matrix" = {
-            proxyPass = "http://localhost:13748";
+            # proxyPass = "http://localhost:13748";
+            proxyPass = "http://unix:/run/continuwuity/continuwuity.sock";
           };
           locations."/_matrix" = {
-            proxyPass = "http://localhost:13748";
+            # proxyPass = "http://localhost:13748";
+            proxyPass = "http://unix:/run/continuwuity/continuwuity.sock";
           };
           locations."/_conduwuit" = {
-            proxyPass = "http://localhost:13748";
+            # proxyPass = "http://localhost:13748";
+            proxyPass = "http://unix:/run/continuwuity/continuwuity.sock";
           };
           locations."/_continuwuity" = {
-            proxyPass = "http://localhost:13748";
+            # proxyPass = "http://localhost:13748";
+            proxyPass = "http://unix:/run/continuwuity/continuwuity.sock";
           };
           enableACME = true;
           forceSSL = true;
         };
         "matrix.balsoft.eu" = {
           locations."/" = {
-            proxyPass = "http://localhost:13748";
+            # proxyPass = "http://localhost:13748";
+            proxyPass = "http://unix:/run/continuwuity/continuwuity.sock";
           };
         }
         // default;
