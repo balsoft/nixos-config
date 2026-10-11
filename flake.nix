@@ -75,7 +75,7 @@
 
     autofirma-nix.url = "github:balsoft/autofirma-nix/autofirma-freeform-config";
 
-    continuwuity.url = "github:xaltsc/c10y-nightly";
+    continuwuity.url = "github:xaltsc/c10y-nightly/weekly";
   };
 
   outputs =
@@ -216,7 +216,11 @@
               activateable = name == "T420-Laptop" || name == "RasPi-Server";
             in
             {
-              hostname = machine.config.networking.hostName;
+              hostname = if name == "T420-Laptop" then "balsoft.eu" else machine.config.networking.hostName;
+              activationTimeout = 1200;
+              confirmTimeout = 600;
+
+
               profiles.system = {
                 user = if activateable then "root" else "balsoft";
                 path =
