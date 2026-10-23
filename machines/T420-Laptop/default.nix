@@ -16,6 +16,7 @@
     irc
     # remapper
     ntfy
+    ff-sync
   ];
 
   services.logind.lidSwitch = "ignore";

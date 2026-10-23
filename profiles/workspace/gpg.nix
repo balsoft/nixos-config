@@ -9,6 +9,7 @@
       enable = true;
       enableSshSupport = true;
       pinentry.package = pkgs.pinentry-qt;
+      extraConfig = "allow-preset-passphrase";
     };
 
     systemd.user.services.gpg-agent = {

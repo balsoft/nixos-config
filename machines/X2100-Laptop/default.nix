@@ -24,6 +24,8 @@
     ram = 16;
   };
 
+  hardware.steam-hardware.enable = true;
+
   fileSystems."/persist" = {
     device = "/dev/disk/by-uuid/e50bd1d6-3613-465e-895a-9dde6ffaad46";
     fsType = "ext4";
