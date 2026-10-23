@@ -32,6 +32,7 @@
     okular
     josm
     mosh
+    yazi
 
     pass-secret-service
     rclone

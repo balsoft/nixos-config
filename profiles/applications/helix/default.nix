@@ -9,7 +9,12 @@
         name = "helix";
         desktopName = "Helix editor";
         terminal = true;
-        categories = [ "Utility" "TextEditor" "Development" "IDE" ];
+        categories = [
+          "Utility"
+          "TextEditor"
+          "Development"
+          "IDE"
+        ];
         mimeTypes = [
           "inode/directory"
           "text/english"
@@ -92,114 +97,154 @@
             "A-j" = "shrink_selection";
             "A-k" = "expand_selection";
             "A-l" = "select_next_sibling";
-            "V" = [ "select_mode" "extend_to_line_bounds" ];
+            "V" = [
+              "select_mode"
+              "extend_to_line_bounds"
+            ];
             space = {
               "B" = ":echo %sh{git blame -L %{cursor_line},+1 %{buffer_name}}";
               "L" = ":sh ${./get_line.py} %{buffer_name} %{cursor_line} | wl-copy";
+              "E" = [
+                ":sh rm -f /tmp/yazi-helix"
+                ":insert-output yazi \"%{buffer_name}\" --chooser-file=/tmp/yazi-helix"
+                ":sh printf \"\\x1b[?1049h\\x1b[?2004h\" > /dev/tty"
+                ":open %sh{cat /tmp/yazi-helix}"
+                ":redraw"
+              ];
             };
+
           };
         };
       };
-      themes.base16 =
-        with (builtins.mapAttrs (_: v: "#${v}") config.themes.colors); rec {
-          "ui.menu" = { bg = base01; };
-          "ui.menu.selected" = {
-            bg = base00;
-            modifiers = [ "reversed" ];
-          };
-          "ui.linenr" = {
-            fg = base02;
-            bg = base00;
-          };
-          "ui.popup" = { modifiers = [ "reversed" ]; };
-          "ui.linenr.selected" = {
-            fg = base05;
-            bg = base00;
-            modifiers = [ "bold" ];
-          };
-          "ui.selection" = {
-            fg = base00;
-            bg = base0D;
-          };
-          "ui.selection.primary" = { modifiers = [ "reversed" ]; };
-          "comment" = { fg = base03; };
-          "ui.statusline" = {
-            fg = base05;
-            bg = base02;
-          };
-          "ui.statusline.inactive" = {
-            fg = base03;
-            bg = base01;
-          };
-          "ui.help" = {
-            fg = base01;
-            bg = base05;
-          };
-          "ui.cursor" = { modifiers = [ "reversed" ]; };
-          "ui.cursor.insert" = {
-            bg = base01;
-            modifiers = [ "reversed" ];
-          };
-          "variable" = base05;
-          "variable.builtin" = {
-            fg = base06;
-            modifiers = [ "bold" ];
-          };
-          "constant.numeric" = base0C;
-          "constant" = base0A;
-          "constant.builtin" = base0A;
-          "constant.character" = {
-            fg = base0C;
-            modifiers = [ "bold" ];
-          };
-          "attributes" = base0A;
-          "type" = {
-            fg = base05;
-            modifiers = [ "bold" ];
-          };
-          "ui.cursor.match" = { bg = base01; };
-          "string" = base0B;
-          # "variable.other.member" = base0B;
-          "constant.character.escape" = base0E;
-          "function" = base05;
-          "constructor" = base0A;
-          "special" = base0F;
-          "keyword" = {
-            fg = base0D;
-            modifiers = [ "bold" ];
-          };
-          "markup.heading" = {
-            fg = base0A;
-            modifiers = [ "bold" ];
-          };
-          "markup.bold" = { modifiers = [ "bold" ]; };
-          "markup.italic" = { modifiers = [ "italic" ]; };
-          "markup.link" = {
-            underline.style = "line";
-            fg = base0D;
-          };
-          "markup.quote" = {
-            bg = base01;
-            modifiers = [ "italic" ];
-          };
-          "markup.raw" = { bg = base01; };
-          "label" = base0B;
-          "namespace" = base0F;
-          "diff.plus" = base0B;
-          "diff.delta" = base0A;
-          "diff.minus" = base08;
-          "diagnostic" = { underline = { style = "line"; }; };
-          "diagnostic.error" = { fg = base08; } // diagnostic;
-          "diagnostic.warning" = { fg = base09; } // diagnostic;
-          "ui.gutter" = { bg = base00; };
-          "info" = base0D;
-          "hint" = base02;
-          "debug" = base02;
-          "warning" = base09;
-          "error" = base08;
-          "ui.virtual.indent-guide" = base01;
-          "highlight" = base09;
+      themes.base16 = with (builtins.mapAttrs (_: v: "#${v}") config.themes.colors); rec {
+        "ui.menu" = {
+          bg = base01;
         };
+        "ui.menu.selected" = {
+          bg = base00;
+          modifiers = [ "reversed" ];
+        };
+        "ui.linenr" = {
+          fg = base02;
+          bg = base00;
+        };
+        "ui.popup" = {
+          modifiers = [ "reversed" ];
+        };
+        "ui.linenr.selected" = {
+          fg = base05;
+          bg = base00;
+          modifiers = [ "bold" ];
+        };
+        "ui.selection" = {
+          fg = base00;
+          bg = base0D;
+        };
+        "ui.selection.primary" = {
+          modifiers = [ "reversed" ];
+        };
+        "comment" = {
+          fg = base03;
+        };
+        "ui.statusline" = {
+          fg = base05;
+          bg = base02;
+        };
+        "ui.statusline.inactive" = {
+          fg = base03;
+          bg = base01;
+        };
+        "ui.help" = {
+          fg = base01;
+          bg = base05;
+        };
+        "ui.cursor" = {
+          modifiers = [ "reversed" ];
+        };
+        "ui.cursor.insert" = {
+          bg = base01;
+          modifiers = [ "reversed" ];
+        };
+        "variable" = base05;
+        "variable.builtin" = {
+          fg = base06;
+          modifiers = [ "bold" ];
+        };
+        "constant.numeric" = base0C;
+        "constant" = base0A;
+        "constant.builtin" = base0A;
+        "constant.character" = {
+          fg = base0C;
+          modifiers = [ "bold" ];
+        };
+        "attributes" = base0A;
+        "type" = {
+          fg = base05;
+          modifiers = [ "bold" ];
+        };
+        "ui.cursor.match" = {
+          bg = base01;
+        };
+        "string" = base0B;
+        # "variable.other.member" = base0B;
+        "constant.character.escape" = base0E;
+        "function" = base05;
+        "constructor" = base0A;
+        "special" = base0F;
+        "keyword" = {
+          fg = base0D;
+          modifiers = [ "bold" ];
+        };
+        "markup.heading" = {
+          fg = base0A;
+          modifiers = [ "bold" ];
+        };
+        "markup.bold" = {
+          modifiers = [ "bold" ];
+        };
+        "markup.italic" = {
+          modifiers = [ "italic" ];
+        };
+        "markup.link" = {
+          underline.style = "line";
+          fg = base0D;
+        };
+        "markup.quote" = {
+          bg = base01;
+          modifiers = [ "italic" ];
+        };
+        "markup.raw" = {
+          bg = base01;
+        };
+        "label" = base0B;
+        "namespace" = base0F;
+        "diff.plus" = base0B;
+        "diff.delta" = base0A;
+        "diff.minus" = base08;
+        "diagnostic" = {
+          underline = {
+            style = "line";
+          };
+        };
+        "diagnostic.error" = {
+          fg = base08;
+        }
+        // diagnostic;
+        "diagnostic.warning" = {
+          fg = base09;
+        }
+        // diagnostic;
+        "ui.gutter" = {
+          bg = base00;
+        };
+        "info" = base0D;
+        "hint" = base02;
+        "debug" = base02;
+        "warning" = base09;
+        "error" = base08;
+        "ui.virtual.indent-guide" = base01;
+        "highlight" = base09;
+      };
     };
   };
 }
