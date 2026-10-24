@@ -28,6 +28,12 @@
         "hpd" = "bluetoothctl disconnect ${headphones}";
       };
 
+      home.packages = [ pkgs.bluetui ];
+
+      xdg.dataFile."bluetui/favorites.txt".text = lib.concatStringsSep "\n" [
+        headphones
+      ];
+
       wayland.windowManager.sway.config.keybindings =
         let
           inherit (config.home-manager.users.balsoft.wayland.windowManager.sway.config)
@@ -35,7 +41,7 @@
             ;
         in
         {
-          "${modifier}+F2" = "exec bluetoothctl connect ${headphones}";
+          "${modifier}+F2" = "exec ${config.defaultApplications.term.cmd} -e bluetui";
           "${modifier}+Shift+F2" = "exec bluetoothctl disconnect ${headphones}";
         };
     };

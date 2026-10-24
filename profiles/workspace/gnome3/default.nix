@@ -9,16 +9,6 @@
   services.gvfs.enable = true;
   services.geoclue2.enable = true;
 
-  defaultApplications = {
-    fm = {
-      cmd = "${pkgs.nautilus}/bin/nautilus";
-      desktop = "org.gnome.Nautilus";
-    };
-    archive = {
-      cmd = "${pkgs.file-roller}/bin/file-roller";
-      desktop = "org.gnome.FileRoller";
-    };
-  };
   home-manager.users.balsoft = {
 
     home.activation.gnome = ''

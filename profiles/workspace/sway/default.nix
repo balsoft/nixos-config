@@ -198,6 +198,8 @@ in
               "f" = "fullscreen toggle; floating toggle";
               "Shift+f" = "floating toggle";
 
+              "y" = "exec ${apps.fm.cmd}";
+
               "Shift+Escape" = ''exec ${apps.monitor.cmd}; [title="btop"] focus'';
               "Control+Escape" =
                 ''exec ${apps.term.cmd} -T systemctl-tui -e ${pkgs.systemctl-tui}/bin/systemctl-tui; [title="systemctl-tui"] focus'';

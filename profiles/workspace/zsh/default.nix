@@ -144,6 +144,15 @@
       function is() { nix search "self#$1" }
       function rs() { repl self }
 
+      function yy() {
+        local chosen="$(yazi --chooser-file=/dev/stdout)"
+        if [ -d "$chosen" ]; then
+          cd "$chosen";
+        else
+          xdg-open "$chosen";
+        fi
+      }
+
       zle_highlight=(default:bg=#333333,fg=white)
 
       PS1="$PS1

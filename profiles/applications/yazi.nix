@@ -1,9 +1,18 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
+  defaultApplications = {
+    fm = {
+      cmd = "${config.defaultApplications.term.cmd} -e yazi";
+      desktop = "yazi";
+    };
+    archive = {
+      cmd = "${config.defaultApplications.term.cmd} -e yazi";
+      desktop = "yazi";
+    };
+  };
   home-manager.users.balsoft = {
     programs.yazi = {
       enable = true;
-      enableZshIntegration = true;
 
       keymap = {
         mgr.prepend_keymap = [
