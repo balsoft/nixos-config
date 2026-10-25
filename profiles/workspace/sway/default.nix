@@ -203,7 +203,7 @@ in
               "Shift+Escape" = ''exec ${apps.monitor.cmd}; [title="btop"] focus'';
               "Control+Escape" =
                 ''exec ${apps.term.cmd} -T systemctl-tui -e ${pkgs.systemctl-tui}/bin/systemctl-tui; [title="systemctl-tui"] focus'';
-              "F1" = ''exec ${pkgs.lxqt.pavucontrol-qt}/bin/pavucontrol-qt; [title="Volume Control"] focus'';
+              "F1" = ''exec ${apps.term.cmd} -T wiremix -e ${pkgs.wiremix}/bin/wiremix; [title="wiremix"] focus'';
               "Shift+F1" =
                 ''exec ${pkgs.qpwgraph}/bin/qpwgraph; [app_id="org.freedesktop.ryuukyu.Helvum"] focus'';
               "F3" = "exec ${pkgs.alsa-utils}/bin/amixer set Capture cap";

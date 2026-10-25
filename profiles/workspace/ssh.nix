@@ -31,6 +31,5 @@
   home-manager.users.balsoft.programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
-    matchBlocks = { "*" = { compression = false; }; };
   };
 }
