@@ -184,7 +184,6 @@ in {
   environment.systemPackages = [ desktopTheme ];
 
   xdg.portal.enable = true;
-  xdg.portal.extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
   services.dbus.packages = [ pkgs.systemd pkgs.kdePackages.breeze-icons ];
   services.udev.packages = [ pkgs.libmtp pkgs.media-player-info ];
 

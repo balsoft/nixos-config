@@ -3,11 +3,8 @@
 
   environment.gnome.excludePackages = [ pkgs.gnome-console pkgs.gnome.evince pkgs.gnome.eog ];
 
-  services.dbus.packages = [ pkgs.pass-secret-service ];
-  xdg.portal.extraPortals = [ pkgs.pass-secret-service ];
-
-  services.gvfs.enable = true;
-  services.geoclue2.enable = true;
+  services.gvfs.enable = false;
+  services.geoclue2.enable = false;
 
   home-manager.users.balsoft = {
 

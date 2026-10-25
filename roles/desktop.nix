@@ -39,7 +39,7 @@
     cursor
     direnv
     fonts
-    gnome3
+    # gnome3
     gtk
     i3blocks
     qt
