@@ -8,7 +8,7 @@
     matrix-synapse
     unbound
     # minidlna
-    nextcloud
+    # nextcloud
     nginx
     vsftpd
     # home-assistant

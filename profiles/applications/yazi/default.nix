@@ -21,7 +21,7 @@
 
     xdg.configFile."xdg-desktop-portal-termfilechooser/config".text = pkgs.my-lib.genIni {
       filechooser = {
-        cmd = "${pkgs.xdg-desktop-portal-termfilechooser}/share/xdg-desktop-portal-termfilechooser/yazi-wrapper.sh";
+        cmd = ./yazi-termfilechooser.sh;
         default_dir = "$HOME";
         env = [ "TERMCMD=xdg-terminal-exec" ];
         open_mode = "suggested";
