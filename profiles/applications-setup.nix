@@ -15,6 +15,15 @@
       data = "rm -f /home/balsoft/.config/mimeapps.list";
     };
 
+    xdg.terminal-exec = {
+      enable = true;
+      settings = {
+        default = [
+          "${config.defaultApplications.term.desktop}.desktop"
+        ];
+      };
+    };
+
     xdg.mimeApps = {
       enable = true;
       defaultApplications = with config.defaultApplications;

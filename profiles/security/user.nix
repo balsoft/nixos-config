@@ -38,6 +38,11 @@
     };
   };
 
+  security.polkit = {
+    enable = true;
+    enablePkexecWrapper = true;
+  };
+  
   home-manager.users.balsoft = {
     systemd.user.services.polkit-agent = {
       Unit = {

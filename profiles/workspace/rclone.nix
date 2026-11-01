@@ -1,10 +1,10 @@
 { config, pkgs, lib, ... }: {
 
-  secrets.nextcloud = {
-    encrypted = "${config.secretsConfig.password-store}/nextcloud.balsoft.eu/balsoft.gpg";
-    services = [ "home-manager-balsoft" ];
-    owner = "balsoft:users";
-  };
+  # secrets.nextcloud = {
+  #   encrypted = "${config.secretsConfig.password-store}/nextcloud.balsoft.eu/balsoft.gpg";
+  #   services = [ "home-manager-balsoft" ];
+  #   owner = "balsoft:users";
+  # };
 
   home-manager.users.balsoft = {
     programs.rclone = {

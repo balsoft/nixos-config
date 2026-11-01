@@ -208,7 +208,7 @@
         userName = "balsoft@balsoft.eu";
         passwordCommand = "pass email/balsoft@balsoft.eu";
 
-        folders.inbox = "virtual.all";
+        folders.inbox = "INBOX";
         folders.trash = "Trash";
       };
       Gmail = rec {

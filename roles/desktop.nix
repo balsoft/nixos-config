@@ -16,7 +16,8 @@
     yubikey
     vlock
 
-    alacritty
+    # alacritty
+    kitty
     aerc
     # cantata
     # emacs

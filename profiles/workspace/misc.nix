@@ -28,6 +28,8 @@
 
     home.stateVersion = lib.mkDefault "20.09";
     home.preferXdgDirectories = true;
+
+    systemd.user.services.set-SSH_AUTH_SOCK.Service.Type = "oneshot";
   };
 
   home-manager.useGlobalPkgs = true;
@@ -51,9 +53,9 @@
     timerConfig.OnCalendar = "hourly";
   };
 
-  services.avahi.enable = true;
-
   environment.systemPackages = [ pkgs.ntfs3g ];
 
   console.useXkbConfig = true;
+
+  services.input-remapper.enable = true;
 }
