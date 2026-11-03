@@ -137,11 +137,17 @@ in
     boot.initrd.systemd.services.create-nix-store = {
       enable = true;
       wantedBy = [ "initrd.target" ];
-      before = [ "initrd.target" "initrd-find-nixos-closure.service" ];
+      before = [
+        "initrd.target"
+        "initrd-find-nixos-closure.service"
+      ];
       after = [ "initrd-fs.target" ];
       serviceConfig.Type = "oneshot";
       unitConfig.DefaultDependencies = false;
-      path = [ pkgs.coreutils pkgs.util-linux ];
+      path = [
+        pkgs.coreutils
+        pkgs.util-linux
+      ];
       script = ''
         mkdir -p /sysroot/nix
         /bin/mount --bind /sysroot${cfg.persistRoot}/nix /sysroot/nix
@@ -169,13 +175,34 @@ in
       startAt = cfg.cache.clean.dates;
     };
 
-    system.activationScripts = {
-      homedir.text = builtins.concatStringsSep "\n" (
-        map (dir: ''
-          mkdir -p ${cfg.persistRoot}${dir}
-          chown balsoft:users ${cfg.persistRoot}${dir}
-        '') (builtins.filter (lib.hasPrefix "/home/balsoft") allDirectories)
-      );
-    };
+    # system.activationScripts = {
+    #   homedir.text = builtins.concatStringsSep "\n" (
+    #     map (dir: ''
+    #       mkdir -p ${cfg.persistRoot}${dir}
+    #       chown balsoft:users ${cfg.persistRoot}${dir}
+    #     '') (builtins.filter (lib.hasPrefix "/home/balsoft") allDirectories)
+    #   );
+    # };
+
+    systemd.tmpfiles.settings."1-create-home-dir" = builtins.listToAttrs (
+      map (dir: {
+        name = "${cfg.persistRoot}${dir}";
+        value.d = {
+          user = "balsoft";
+          group = "users";
+          mode = "0700";
+        };
+      }) (builtins.filter (lib.hasPrefix "/home/balsoft") allDirectories)
+    );
+    systemd.tmpfiles.settings."2-create-home-dir-real" = builtins.listToAttrs (
+      map (dir: {
+        name = dir;
+        value.d = {
+          user = "balsoft";
+          group = "users";
+          mode = "0700";
+        };
+      }) (builtins.filter (lib.hasPrefix "/home/balsoft") allDirectories)
+    );
   };
 }

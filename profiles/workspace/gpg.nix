@@ -8,8 +8,15 @@
     services.gpg-agent = {
       enable = true;
       enableSshSupport = true;
-      pinentry.package = pkgs.pinentry-qt;
-      extraConfig = "allow-preset-passphrase";
+      extraConfig = ''
+        pinentry-program ${pkgs.writeShellScript "pinentry" ''
+          if [[ $TTY =~ '/dev/tty.*' ]]; then
+            ${pkgs.pinentry-curses}/bin/pinentry-curses
+          else
+            ${pkgs.pinentry-qt}/bin/pinentry-qt
+          fi
+        ''}
+      '';
     };
 
     systemd.user.services.gpg-agent = {

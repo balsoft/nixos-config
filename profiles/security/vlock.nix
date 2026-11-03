@@ -1,7 +1,4 @@
 { config, pkgs, lib, ... }: {
-  environment.loginShellInit = lib.mkBefore ''
-    [[ "$(tty)" == /dev/tty? ]] && sudo /run/current-system/sw/bin/lock this
-  '';
 
   environment.systemPackages = [
     (pkgs.writeShellScriptBin "lock" ''

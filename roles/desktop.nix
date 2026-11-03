@@ -54,6 +54,6 @@
     yubikey-touch-detector
     btop
 
-    autofirma
+    # autofirma
   ];
 }

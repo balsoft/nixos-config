@@ -58,7 +58,5 @@
     };
   };
 
-  services.getty.autologinUser = "balsoft";
-
   home-manager.useUserPackages = true;
 }

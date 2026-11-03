@@ -171,7 +171,6 @@ in {
       };
       systemd.user.services.pass-store-sync = {
         Service = {
-          Type = "oneshot";
           Environment = [
             "PASSWORD_STORE_DIR=${password-store}"
             "PATH=${
@@ -187,7 +186,7 @@ in {
                 pass git commit -m "Change"
                 pass git pull --rebase
                 pass git push
-              } &
+              }
              done
           '');
         };
