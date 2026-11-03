@@ -9,14 +9,15 @@
     unbound
     # minidlna
     # nextcloud
+    radicale
     nginx
-    vsftpd
+    # vsftpd
     # home-assistant
     # mastodon
     irc
     # remapper
     ntfy
-    ff-sync
+    # ff-sync
   ];
 
   services.logind.lidSwitch = "ignore";
