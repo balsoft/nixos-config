@@ -4,7 +4,7 @@
     wantedBy = [ "multi-user.target" ];
     requires = [
       "systemd-tmpfiles-setup.service"
-      "systemd-udevd.service"
+      "smartcard.target"
     ]; # Make sure the home directory exists already
     before = [ "getty-pre.target" ];
     wants = [ "getty-pre.target" ];

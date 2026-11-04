@@ -47,12 +47,6 @@
     "/var/lib/systemd"
   ];
 
-  systemd.tmpfiles.settings."10-balsoft-profile"."/home/balsoft/.local/state/nix/profiles".d = {
-    user = "balsoft";
-    group = "users";
-    mode = "0700";
-  };
-
   system.stateVersion = lib.mkDefault "18.03";
 
   systemd.services.systemd-timesyncd.wantedBy = [ "multi-user.target" ];

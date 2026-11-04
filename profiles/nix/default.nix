@@ -44,6 +44,8 @@
   };
 
   persist.state.homeDirectories = [ ".local/share/nix" ];
+  persist.cache.homeDirectories = [ ".local/state/nix/profiles" ];
+
 
   environment.etc.nixpkgs.source = inputs.nixpkgs;
   environment.etc.self.source = inputs.self;
