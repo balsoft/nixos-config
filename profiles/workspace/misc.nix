@@ -21,6 +21,8 @@
       SYSTEMD_LESS = LESS;
     };
 
+  home-manager.backupFileExtension = ".hm-bkp";
+
   home-manager.users.balsoft = {
     news.display = "silent";
 

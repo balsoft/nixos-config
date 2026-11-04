@@ -55,5 +55,6 @@
     btop
 
     # autofirma
+    slk
   ];
 }

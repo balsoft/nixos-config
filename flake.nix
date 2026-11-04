@@ -76,6 +76,8 @@
     autofirma-nix.url = "github:balsoft/autofirma-nix/autofirma-freeform-config";
 
     continuwuity.url = "github:xaltsc/c10y-nightly/weekly";
+
+    slk.url = "github:gammons/slk";
   };
 
   outputs =

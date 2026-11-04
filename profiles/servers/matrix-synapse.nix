@@ -13,7 +13,6 @@ in
     settings = {
       global = {
         server_name = "balsoft.eu";
-        # port = [ 13748 ];
         cache_capacity_modifier = 2.0;
         unix_socket_path = "/run/continuwuity/continuwuity.sock";
         admins_list = [ "@balsoft:balsoft.eu" ];
