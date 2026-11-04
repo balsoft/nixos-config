@@ -18,13 +18,15 @@ let
 
   absoluteHomeFiles = map (x: "${cfg.homeDir}/${x}");
 
-  allHomeFiles = takeAll "homeFiles" persists;
-
   absoluteEtcFiles = map (x: "/etc/${x}");
 
   allEtcFiles = absoluteEtcFiles (takeAll "etcFiles" persists);
 
   allDirectories = takeAll "directories" persists;
+
+  allHomeFiles = takeAll "homeFiles" persists;
+
+  allHomeDirectories = takeAll "homeDirectories" persists;
 
   inherit (builtins) concatMap;
   inherit (lib) mkIf;
@@ -45,6 +47,10 @@ in
           default = [ ];
         };
         homeFiles = mkOption {
+          type = listOf str;
+          default = [ ];
+        };
+        homeDirectories = mkOption {
           type = listOf str;
           default = [ ];
         };
@@ -94,28 +100,6 @@ in
 
   imports = [
     inputs.impermanence.nixosModules.impermanence
-    # Eugh
-    (
-      let
-        module = (
-          import "${inputs.impermanence}/home-manager.nix" {
-            inherit pkgs lib;
-            config = lib.recursiveUpdate config.home-manager.users.balsoft {
-              home.persistence."${cfg.persistRoot}${cfg.homeDir}" = {
-                enable = true;
-                directories = [ ];
-                files = allHomeFiles;
-                allowOther = false;
-                removePrefixDirectory = false;
-              };
-            };
-          }
-        );
-      in
-      {
-        config.home-manager.users.balsoft = lib.mkIf cfg.enable module.config;
-      }
-    )
   ];
 
   config = mkIf cfg.enable {
@@ -204,5 +188,10 @@ in
         };
       }) (builtins.filter (lib.hasPrefix "/home/balsoft") allDirectories)
     );
+
+    home-manager.users.balsoft.home.persistence."${cfg.persistRoot}" = {
+      directories = allHomeDirectories;
+      files = allHomeFiles;
+    };
   };
 }

@@ -43,7 +43,7 @@
     ];
   };
 
-  persist.state.directories = [ "/home/balsoft/.local/share/nix" ];
+  persist.state.homeDirectories = [ ".local/share/nix" ];
 
   environment.etc.nixpkgs.source = inputs.nixpkgs;
   environment.etc.self.source = inputs.self;

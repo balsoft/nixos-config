@@ -4,7 +4,7 @@
   environment.sessionVariables.SHELL = "${pkgs.zsh}/bin/zsh";
 
   # A history file is screwed up otherwise :(
-  persist.state.directories = [ "/home/balsoft/.local/share/zsh" ];
+  persist.state.homeDirectories = [ ".local/share/zsh" ];
 
   home-manager.users.balsoft.programs.zsh = {
     enable = true;

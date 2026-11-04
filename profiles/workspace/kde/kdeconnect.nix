@@ -7,5 +7,5 @@
       ];
     };
   };
-  persist.state.directories = [ "/home/balsoft/.config/kdeconnect" ];
+  persist.state.homeDirectories = [ ".config/kdeconnect" ];
 }

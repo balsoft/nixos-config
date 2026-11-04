@@ -2,11 +2,23 @@
   systemd.services.pam-u2f-setup = {
     description = "Initial setup for pam_u2f - trust the key that is currently plugged in";
     wantedBy = [ "multi-user.target" ];
-    requires = [ "systemd-tmpfiles-setup.service" ]; # Make sure the home directory exists already
+    requires = [
+      "systemd-tmpfiles-setup.service"
+      "systemd-udevd.service"
+    ]; # Make sure the home directory exists already
     before = [ "getty-pre.target" ];
     wants = [ "getty-pre.target" ];
     script = ''
-      [ -f /home/balsoft/.config/Yubico/u2f_keys ] || (pamu2fcfg > /home/balsoft/.config/Yubico/u2f_keys)
+      [ -f /home/balsoft/.config/Yubico/u2f_keys ] || {
+        config="$(mktemp)"
+        trap "rm $config" exit
+        if pamu2fcfg > "$config"; then
+          cp "$config" /home/balsoft/.config/Yubico/u2f_keys;
+        else
+          echo "Failed to run pamu2fcfg"
+          exit 1
+        fi
+      }
     '';
 
     path = [ pkgs.pam_u2f ];
@@ -16,7 +28,7 @@
       Type = "oneshot";
     };
   };
-  persist.state.directories = [ "/home/balsoft/.config/Yubico" ];
+  persist.state.homeDirectories = [ ".config/Yubico" ];
 
   security.pam.services = builtins.listToAttrs (
     builtins.map
@@ -35,15 +47,15 @@
         "groupmod"
         "i3lock"
         "i3lock-color"
-        "login"
+        #"login"
         "passwd"
         "polkit-1"
         "runuser"
         "runuser-l"
         "su"
-        "sudo"
+        #"sudo"
         "swaylock"
-        "systemd-user"
+        #"systemd-user"
         "useradd"
         "userdel"
         "usermod"

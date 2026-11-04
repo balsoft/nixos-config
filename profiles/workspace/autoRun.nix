@@ -3,7 +3,7 @@
     programs.nix-index.enable = true;
   };
 
-  persist.cache.directories = [ "/home/balsoft/.cache/nix-index" ];
+  persist.cache.homeDirectories = [ ".cache/nix-index" ];
 
   environment.sessionVariables = {
     NIX_AUTO_RUN = "1";

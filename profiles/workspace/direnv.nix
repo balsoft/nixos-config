@@ -7,6 +7,6 @@
       };
     };
   };
-  persist.state.directories =
-    [ "/home/balsoft/.local/share/direnv" ];
+  persist.state.homeDirectories =
+    [ ".local/share/direnv" ];
 }

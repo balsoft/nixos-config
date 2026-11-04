@@ -21,8 +21,11 @@
         BusName = "org.freedesktop.secrets";
       };
       Unit = rec {
-        Wants = [ "gpg-agent.service" ];
-        After = Wants;
+        Requires = [
+          "gpg-agent.service"
+          "activate-secrets.service"
+        ];
+        After = Requires;
         PartOf = [ "graphical-session-pre.target" ];
       };
     };

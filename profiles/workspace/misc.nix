@@ -34,9 +34,11 @@
 
   home-manager.useGlobalPkgs = true;
 
+  persist.cache.homeDirectories = [
+    ".cache"
+    ".local/share/cargo"
+  ];
   persist.cache.directories = [
-    "/home/balsoft/.cache"
-    "/home/balsoft/.local/share/cargo"
     "/var/cache"
   ];
 

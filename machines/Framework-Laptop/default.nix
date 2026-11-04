@@ -25,12 +25,12 @@
   };
 
   fileSystems."/persist" = {
-    device = "/dev/disk/by-uuid/5143bdf2-7ba9-45bf-bc89-18e6bf282b07";
+    device = "/dev/nvme0n1p2";
     fsType = "ext4";
     neededForBoot = true;
   };
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/693D-03B8";
+    device = "/dev/nvme0n1p1";
     fsType = "vfat";
   };
 

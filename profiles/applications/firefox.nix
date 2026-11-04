@@ -18,7 +18,7 @@ in
   };
   programs.browserpass.enable = true;
 
-  persist.state.directories = [ "/home/balsoft/.librewolf/default" ];
+  persist.state.homeDirectories = [ ".librewolf/default" ];
 
   defaultApplications.browser = {
     cmd = "${pkgs.librewolf}/bin/librewolf";

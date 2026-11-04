@@ -13,7 +13,7 @@
     DE = "generic";
   };
 
-  persist.state.directories = map (x: "/home/balsoft/${x}") [
+  persist.state.homeDirectories = [
     "Pictures"
     "Documents"
     "Downloads"

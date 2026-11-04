@@ -1,4 +1,10 @@
-{ pkgs, config, lib, inputs, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  inputs,
+  ...
+}:
 with lib;
 with types;
 let
@@ -30,8 +36,7 @@ let
         default = "root:root";
       };
       permissions = mkOption {
-        type = lib.types.addCheck lib.types.str
-          (perm: !isNull (builtins.match "[0-7]{3}" perm));
+        type = lib.types.addCheck lib.types.str (perm: !isNull (builtins.match "[0-7]{3}" perm));
         default = "400";
       };
       services = mkOption {
@@ -61,18 +66,24 @@ let
       if [ -d "${password-store}/.git" ]; then
         cd "${password-store}"; git pull
       else
-        git clone ${
-          lib.escapeShellArg config.secretsConfig.repo
-        } "${password-store}"
+        ssh-keyscan github.com >> /home/balsoft/.ssh/known-hosts
+        git clone ${lib.escapeShellArg config.secretsConfig.repo} "${password-store}"
       fi
       gpg --decrypt < ${password-store}/unlock.gpg > /dev/null
       /run/wrappers/bin/sudo ${restartAll}
     '';
-    runtimeInputs = [ pkgs.gnupg pkgs.git pkgs.systemd pkgs.openssh pkgs.iputils pkgs.coreutils ];
+    runtimeInputs = [
+      pkgs.gnupg
+      pkgs.git
+      pkgs.systemd
+      pkgs.openssh
+      pkgs.iputils
+      pkgs.coreutils
+    ];
 
   };
-  decrypt = name: cfg:
-    with cfg; {
+  decrypt =
+    name: cfg: with cfg; {
       "${name}-secrets" = rec {
 
         wantedBy = [ "multi-user.target" ];
@@ -109,20 +120,25 @@ let
       };
     };
 
-  addDependencies = name: cfg:
+  addDependencies =
+    name: cfg:
     with cfg;
     genAttrs services (service: rec {
       requires = [ "${name}-secrets.service" ];
       after = requires;
     });
 
-  mkServices = name: cfg: [ (decrypt name cfg) (addDependencies name cfg) ];
+  mkServices = name: cfg: [
+    (decrypt name cfg)
+    (addDependencies name cfg)
+  ];
 
-  allServices = toString (map (name: "${name}-envsubst.service")
-    (builtins.attrNames config.secrets-envsubst)
-    ++ map (name: "${name}-secrets.service")
-    (builtins.attrNames config.secrets));
-in {
+  allServices = toString (
+    map (name: "${name}-envsubst.service") (builtins.attrNames config.secrets-envsubst)
+    ++ map (name: "${name}-secrets.service") (builtins.attrNames config.secrets)
+  );
+in
+{
   options = {
     secrets = lib.mkOption {
       type = attrsOf (submodule secret);
@@ -147,18 +163,22 @@ in {
 
   config = {
 
-    systemd.services =
-      mkMerge (concatLists (mapAttrsToList mkServices config.secrets));
+    systemd.services = mkMerge (concatLists (mapAttrsToList mkServices config.secrets));
 
-    security.sudo.extraRules = [{
-      users = [ "balsoft" ];
-      commands = [{
-        command = restartAll;
-        options = [ "NOPASSWD" ];
-      }];
-    }];
+    security.sudo.extraRules = [
+      {
+        users = [ "balsoft" ];
+        commands = [
+          {
+            command = restartAll;
+            options = [ "NOPASSWD" ];
+          }
+        ];
+      }
+    ];
 
-    persist.derivative.directories = [ config.secretsConfig.decryptedDir password-store ];
+    persist.derivative.directories = [ config.secretsConfig.decryptedDir ];
+    persist.derivative.homeDirectories = [ ".local/share/password-store" ];
 
     home-manager.users.balsoft = {
       systemd.user.services.activate-secrets = {
@@ -174,21 +194,27 @@ in {
           Environment = [
             "PASSWORD_STORE_DIR=${password-store}"
             "PATH=${
-              lib.makeBinPath [ pkgs.pass pkgs.inotify-tools pkgs.gnupg ]
+              lib.makeBinPath [
+                pkgs.pass
+                pkgs.inotify-tools
+                pkgs.gnupg
+              ]
             }"
           ];
-          ExecStart = toString (pkgs.writeShellScript "pass-store-sync" ''
-            export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
-            while inotifywait "$PASSWORD_STORE_DIR" -r -e move -e close_write -e create -e delete --exclude .git; do
-              sleep 0.1
-              {
-                pass git add --all
-                pass git commit -m "Change"
-                pass git pull --rebase
-                pass git push
-              }
-             done
-          '');
+          ExecStart = toString (
+            pkgs.writeShellScript "pass-store-sync" ''
+              export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+              while inotifywait "$PASSWORD_STORE_DIR" -r -e move -e close_write -e create -e delete --exclude .git; do
+                sleep 0.1
+                {
+                  pass git add --all
+                  pass git commit -m "Change"
+                  pass git pull --rebase
+                  pass git push
+                }
+               done
+            ''
+          );
         };
         Unit = rec {
           After = [ "activate-secrets.service" ];
