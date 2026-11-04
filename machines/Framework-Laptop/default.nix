@@ -70,4 +70,14 @@
     };
     wayland.windowManager.sway.config.output.eDP-1.scale = "1.9";
   };
+
+  services.fprintd = {
+    enable = true;
+    enablePam = true;
+  };
+
+  security.pam.services.sudo.fprintAuth = true;
+
+  security.pam.services.sudo.rules.auth.u2f.order =
+    config.security.pam.services.sudo.rules.auth.fprintd.order + 1;
 }
