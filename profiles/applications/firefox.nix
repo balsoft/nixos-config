@@ -178,6 +178,8 @@ in
 
           "privacy.clearOnShutdown_v2.cookiesAndStorage" = false;
 
+          "sidebar.revamp" = false;
+
           "browser.uiCustomization.state" = builtins.toJSON {
             currentVersion = 23;
             newElementCount = 9;
