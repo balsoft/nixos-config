@@ -66,7 +66,7 @@ let
       if [ -d "${password-store}/.git" ]; then
         cd "${password-store}"; git pull
       else
-        ssh-keyscan github.com >> /home/balsoft/.ssh/known-hosts
+        ssh-keyscan github.com >> /home/balsoft/.ssh/known_hosts
         git clone ${lib.escapeShellArg config.secretsConfig.repo} "${password-store}"
       fi
       gpg --decrypt < ${password-store}/unlock.gpg > /dev/null
