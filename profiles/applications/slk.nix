@@ -7,12 +7,8 @@ in
     home.packages = [ pkgs.slk ];
     xdg.configFile."slk/config.toml" = {
       force = true;
-      text = with pkgs.lib.generators; toINI {
-        mkKeyValue = mkKeyValueDefault {
-          mkValueString = value: "\"${pkgs.lib.escape [ "\"" ] value}\"";
-        } "=";
-      } {
-        "workspaces.${team_id}" = {
+      source = (pkgs.formats.toml { }).generate "slk.toml" {
+        workspaces.${team_id} = {
           theme = "ANSI Dark";
           version_ts = "1793810257";
         };
@@ -22,13 +18,26 @@ in
           surface_dark = base00;
           text_muted = base04;
         };
+
+        appearance = {
+          colored_usernames = true;
+          compact = true;
+          reply_avatars = true;
+          timestamp_format = "15:04";
+        };
+
+        notifications = {
+          enabled = true;
+          on_mention = true;
+          on_dm = true;
+        };
       };
     };
   };
 
   startupApplications = [ "${config.defaultApplications.term.cmd} -e ${pkgs.slk}/bin/slk" ];
 
-  persist.state.homeDirectories = [ ".local/state/slk" ];
+  persist.state.homeDirectories = [ ".local/share/slk" ];
 
   systemd.tmpfiles.settings."50-slk"."/home/balsoft/.local/share/slk/tokens/${team_id}.json"."L+" = {
     user = "balsoft";
