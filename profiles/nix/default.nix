@@ -4,7 +4,7 @@
     registry.self.flake = inputs.self;
     registry.np.flake = inputs.nixpkgs;
 
-    nrBuildUsers = config.nix.settings.max-jobs;
+    nrBuildUsers = lib.mkIf (builtins.isInt config.nix.settings.max-jobs) config.nix.settings.max-jobs;
 
     optimise.automatic = true;
 

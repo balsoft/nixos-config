@@ -9,6 +9,7 @@
   imports = [
     ./hardware-configuration.nix
     inputs.self.nixosRoles.desktop
+    inputs.self.nixosProfiles.fprintd
   ];
   deviceSpecific.devInfo = {
     cpu = {
@@ -34,9 +35,8 @@
     fsType = "vfat";
   };
 
-  services.logind.settings.Login.HandleLidSwitch = "suspend";
-  services.logind.settings.Login.HandlePowerKey = lib.mkForce "hibernate";
-  services.logind.settings.Login.HandlePowerKeyLongPress = "poweroff";
+  # services.logind.settings.Login.HandleLidSwitch = "suspend";
+  # services.logind.settings.Login.HandlePowerKey = "poweroff";
 
   persist = {
     enable = true;
@@ -55,29 +55,77 @@
     ];
   };
 
-  home-manager.users.balsoft.wayland.windowManager.sway.config = {
-    input."*".natural_scroll = "enabled";
-    output = {
-      eDP-1.mode = "2880x1920@60Hz"; # 60 Hz to save a bit of power
-    };
+  environment.systemPackages = [ config.boot.kernelPackages.cpupower ];
+
+  environment.variables = {
+    LIBVA_DRIVER_NAME = "iHD";
+    ANV_DEBUG = "video-decode,video-encode";
   };
+
   home-manager.users.balsoft = {
+    wayland.windowManager.sway.config = {
+      input."*".natural_scroll = "enabled";
+      output = {
+        eDP-1.mode = "2880x1920@60Hz"; # 60 Hz by default to save a bit of power
+      };
+    };
     xdg.configFile."simple-osd/brightness".text = pkgs.my-lib.genIni {
       default = {
         "backlight backend" = "/sys/class/backlight/acpi_video0";
         "refresh interval" = 1000;
       };
     };
-    wayland.windowManager.sway.config.output.eDP-1.scale = "1.9";
+    wayland.windowManager.sway.config.output.eDP-1.scale = "1.75";
   };
 
-  services.fprintd = {
-    enable = true;
-    enablePam = true;
-  };
+  powerManagement.powertop.enable = true;
 
-  security.pam.services.sudo.fprintAuth = true;
+  systemd.services =
+    let
+      sudo = "/run/wrappers/bin/sudo -u balsoft";
+      swaymsg = ''${sudo} SWAYSOCK="$(echo /run/user/1000/sway-ipc.*.sock)" ${pkgs.sway}/bin/swaymsg'';
+      cpupower = "${config.boot.kernelPackages.cpupower}/bin/cpupower";
+      # Apply a "histeresis" to the output mode switching to prevent blinking when the battery switches between "fully charged" and "charging"
+      histeresis = 5;
+    in
+    {
+      powersave = {
+        description = "Save us much power as possible";
+        serviceConfig = {
+          RemainAfterExit = true;
+        };
+        conflicts = [ "performance.service" ];
+        script = ''
+          sleep ${toString histeresis}
+          ${swaymsg} "output eDP-1 mode 2880x1920@60Hz adaptive_sync off"
+          ${cpupower} frequency-set -g powersave
+          ${cpupower} set -b 15 -e power -t 0
+        '';
+      };
 
-  security.pam.services.sudo.rules.auth.u2f.order =
-    config.security.pam.services.sudo.rules.auth.fprintd.order + 1;
+      performance = {
+        description = "Max performance";
+        serviceConfig = {
+          RemainAfterExit = true;
+        };
+        conflicts = [ "powersave.service" ];
+        script = ''
+          sleep ${toString histeresis}
+          ${swaymsg} "output eDP-1 mode 2880x1920@120Hz adaptive_sync on"
+          ${cpupower} frequency-set -g performance
+          ${cpupower} set -b 0 -e performance -t 1
+        '';
+      };
+    };
+
+  services.udev.extraRules =
+    let
+      systemctl = "${pkgs.systemd}/bin/systemctl";
+      # powersave = pkgs.writeShellScript "powersave" "${systemctl} stop performance; ${systemctl} start powersave";
+      # performance = pkgs.writeShellScript "performance" "${systemctl} stop powersave; ${systemctl} start performance";
+    in
+    ''
+      SUBSYSTEM=="power_supply",ENV{POWER_SUPPLY_TYPE}=="USB",ENV{POWER_SUPPLY_ONLINE}=="0",RUN+="${systemctl} start powersave"
+      SUBSYSTEM=="power_supply",ENV{POWER_SUPPLY_TYPE}=="USB",ENV{POWER_SUPPLY_ONLINE}=="1",RUN+="${systemctl} start performance"
+    '';
 }
