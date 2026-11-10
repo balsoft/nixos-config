@@ -123,8 +123,6 @@
             permittedInsecurePackages = [
               "openssl-1.1.1v"
               "olm-3.2.16"
-              "librewolf-151.0.2-1"
-              "librewolf-unwrapped-151.0.2-1"
             ];
             allowUnfreePredicate = (pkg: pkg.pname or null == "firmware-imx");
             allowlistedLicenses = with inputs.nixpkgs.lib.licenses; [ epson ];

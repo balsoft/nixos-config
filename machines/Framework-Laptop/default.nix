@@ -87,45 +87,80 @@
       cpupower = "${config.boot.kernelPackages.cpupower}/bin/cpupower";
       # Apply a "histeresis" to the output mode switching to prevent blinking when the battery switches between "fully charged" and "charging"
       histeresis = 5;
+      mkUnit =
+        {
+          description,
+          hz,
+          adaptiveSync,
+          governor,
+          bias,
+          epp,
+          turbo,
+          conflicts,
+        }:
+        {
+          inherit description conflicts;
+          serviceConfig.RemainAfterExit = true;
+          script = ''
+            sleep ${toString histeresis}
+            ${swaymsg} "output eDP-1 mode 2880x1920@${toString hz}Hz adaptive_sync ${
+              if adaptiveSync then "yes" else "no"
+            }"
+            ${cpupower} frequency-set -g ${governor}
+            ${cpupower} set -b ${toString bias} -e ${epp} -t ${if turbo then "1" else "0"}
+          '';
+        };
     in
     {
-      powersave = {
+      powersave = mkUnit {
         description = "Save us much power as possible";
-        serviceConfig = {
-          RemainAfterExit = true;
-        };
-        conflicts = [ "performance.service" ];
-        script = ''
-          sleep ${toString histeresis}
-          ${swaymsg} "output eDP-1 mode 2880x1920@60Hz adaptive_sync off"
-          ${cpupower} frequency-set -g powersave
-          ${cpupower} set -b 15 -e power -t 0
-        '';
+        hz = 60;
+        adaptiveSync = false;
+        governor = "powersave";
+        bias = 15;
+        epp = "power";
+        turbo = false;
+        conflicts = [
+          "performance.service"
+          "balanced.service"
+        ];
       };
 
-      performance = {
-        description = "Max performance";
-        serviceConfig = {
-          RemainAfterExit = true;
-        };
-        conflicts = [ "powersave.service" ];
-        script = ''
-          sleep ${toString histeresis}
-          ${swaymsg} "output eDP-1 mode 2880x1920@120Hz adaptive_sync on"
-          ${cpupower} frequency-set -g performance
-          ${cpupower} set -b 0 -e performance -t 1
-        '';
+      balanced = mkUnit {
+        description = "Balanced power profile";
+        hz = 60;
+        adaptiveSync = false;
+        governor = "powersave";
+        bias = 7;
+        epp = "balance_power";
+        turbo = true;
+        conflicts = [
+          "performance.service"
+          "powersave.service"
+        ];
+      };
+
+      performance = mkUnit {
+        description = "Maximum power!";
+        hz = 120;
+        adaptiveSync = true;
+        governor = "performance";
+        bias = 0;
+        epp = "performance";
+        turbo = true;
+        conflicts = [
+          "powersave.service"
+          "balanced.service"
+        ];
       };
     };
 
   services.udev.extraRules =
     let
       systemctl = "${pkgs.systemd}/bin/systemctl";
-      # powersave = pkgs.writeShellScript "powersave" "${systemctl} stop performance; ${systemctl} start powersave";
-      # performance = pkgs.writeShellScript "performance" "${systemctl} stop powersave; ${systemctl} start performance";
     in
     ''
-      SUBSYSTEM=="power_supply",ENV{POWER_SUPPLY_TYPE}=="USB",ENV{POWER_SUPPLY_ONLINE}=="0",RUN+="${systemctl} start powersave"
-      SUBSYSTEM=="power_supply",ENV{POWER_SUPPLY_TYPE}=="USB",ENV{POWER_SUPPLY_ONLINE}=="1",RUN+="${systemctl} start performance"
+      SUBSYSTEM=="power_supply",ENV{POWER_SUPPLY_ONLINE}=="0",RUN+="${systemctl} start powersave"
+      SUBSYSTEM=="power_supply",ENV{POWER_SUPPLY_ONLINE}=="1",RUN+="${systemctl} start performance"
     '';
 }
