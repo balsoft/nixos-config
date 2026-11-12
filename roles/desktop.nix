@@ -27,7 +27,6 @@
     # geary
     github
     gwenview
-    himalaya
     nheko
     packages
     okular

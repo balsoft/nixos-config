@@ -104,7 +104,7 @@
             space = {
               "B" = ":echo %sh{git blame -L %{cursor_line},+1 %{buffer_name}}";
               "L" = ":sh ${./get_line.py} %{buffer_name} %{cursor_line} | wl-copy";
-              "E" = [
+              "y" = [
                 ":sh rm -f /tmp/yazi-helix"
                 ":insert-output yazi \"%{buffer_name}\" --chooser-file=/tmp/yazi-helix"
                 ":sh printf \"\\x1b[?1049h\\x1b[?2004h\" > /dev/tty"

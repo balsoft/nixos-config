@@ -178,12 +178,12 @@ in
     settings.room.auto_create = false;
     keyFile = livekitKeyFile;
   };
-  services.lk-jwt-service = {
-    enable = true;
-    # can be on the same virtualHost as synapse
-    livekitUrl = "wss://balsoft.eu/livekit/sfu";
-    keyFile = livekitKeyFile;
-  };
+  # services.lk-jwt-service = {
+  #   enable = true;
+  #   # can be on the same virtualHost as synapse
+  #   livekitUrl = "wss://balsoft.eu/livekit/sfu";
+  #   keyFile = livekitKeyFile;
+  # };
   # generate the key when needed
   systemd.services.livekit-key = {
     before = [
