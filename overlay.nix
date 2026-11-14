@@ -14,24 +14,6 @@ rec {
 
   # aerc = inputs.nixpkgs-24-05.legacyPackages.${system}.aerc;
 
-  mopidy-ytmusic =
-    with final;
-    python3Packages.buildPythonApplication {
-      pname = "mopidy-ytmusic";
-      version = "3.2";
-
-      src = inputs.mopidy-ytmusic;
-
-      propagatedBuildInputs = [
-        mopidy
-        python3Packages.ytmusicapi
-        python3Packages.pytube
-
-      ];
-
-      doCheck = false;
-    };
-
   matrix-continuwuity = inputs.continuwuity.packages.${system}.default;
 
   slk = inputs.slk.packages.${system}.default;
@@ -43,6 +25,10 @@ rec {
   simple-osd = inputs.simple-osd-daemons.packages.${system};
 
   nerdfonts = nur.balsoft.pkgs.roboto-mono-nerd;
+
+  framework-tool-tui = prev.framework-tool-tui.overrideAttrs(oa: {
+    buildInputs = oa.buildInputs ++ [ final.libgit2 ];
+  });
 
   pass-secret-service =
     (prev.pass-secret-service.override {

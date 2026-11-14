@@ -292,7 +292,7 @@ in
                   template = "https://search.nixos.org/packages?query={searchTerms}";
                 }
               ];
-              iconMapObj."16" = "https://search.nixos.org/favicon.png";
+              iconMapObj."16" = "https://nixos.org/favicon.png";
               definedAliases = [ "@np" ];
             };
 
@@ -303,7 +303,7 @@ in
                   template = "https://search.nixos.org/options?query={searchTerms}";
                 }
               ];
-              iconMapObj."16" = "https://search.nixos.org/favicon.png";
+              iconMapObj."16" = "https://nixos.org/favicon.png";
               definedAliases = [ "@no" ];
             };
 
@@ -314,7 +314,7 @@ in
                   template = "https://search.nixos.org/flakes?query={searchTerms}";
                 }
               ];
-              iconMapObj."16" = "https://search.nixos.org/favicon.png";
+              iconMapObj."16" = "https://nixos.org/favicon.png";
               definedAliases = [ "@nf" ];
             };
 

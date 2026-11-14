@@ -64,6 +64,7 @@
 
   home-manager.users.balsoft = {
     wayland.windowManager.sway.config = {
+      keybindings."Mod4+Alt+Escape" = "exec xdg-terminal-exec sudo ${pkgs.framework-tool-tui}/bin/framework-tool-tui";
       input."*".natural_scroll = "enabled";
       output = {
         eDP-1.mode = "2880x1920@60Hz"; # 60 Hz by default to save a bit of power
