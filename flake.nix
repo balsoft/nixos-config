@@ -208,6 +208,8 @@
         };
 
       deploy = {
+        skipChecks = true;
+        autoRollback = false;
         user = "root";
         nodes =
           (builtins.mapAttrs (

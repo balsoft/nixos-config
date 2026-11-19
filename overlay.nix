@@ -26,9 +26,8 @@ rec {
 
   nerdfonts = nur.balsoft.pkgs.roboto-mono-nerd;
 
-  framework-tool-tui = prev.framework-tool-tui.overrideAttrs(oa: {
-    buildInputs = oa.buildInputs ++ [ final.libgit2 ];
-  });
+  # framework-tool-tui = prev.framework-tool-tui.overrideAttrs(oa: { buildInputs = oa.buildInputs ++ [ final.libgit2 ];
+  # });
 
   pass-secret-service =
     (prev.pass-secret-service.override {

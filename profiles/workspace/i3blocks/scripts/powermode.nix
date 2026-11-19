@@ -1,7 +1,7 @@
 { iconfont, bash, systemd, ... }:
 ''
   #!${bash}/bin/bash
-  if [ -n "$BLOCK_BUTTON" ]; then
+  if [ "$BLOCK_BUTTON" == "1" ]; then
     if ! ${systemd}/bin/systemctl is-active -q powersave; then ${systemd}/bin/systemctl start powersave;
     elif ! ${systemd}/bin/systemctl is-active -q performance; then ${systemd}/bin/systemctl start performance;
     else ${systemd}/bin/systemctl start balanced; fi

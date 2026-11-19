@@ -55,5 +55,7 @@
 
     # autofirma
     slk
+
+    atuin
   ];
 }

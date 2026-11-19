@@ -7,6 +7,7 @@
       inputs.self.nixosRoles.base
       helix
       direnv
+      kitty
     ];
   home-manager.users.balsoft = {
     home.uid = lib.mkForce 1024;

@@ -18,6 +18,7 @@
     # remapper
     ntfy
     # ff-sync
+    atuin-server
   ];
 
   services.logind.lidSwitch = "ignore";
