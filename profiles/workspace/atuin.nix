@@ -5,13 +5,29 @@
   };
   persist.derivative.homeDirectories = [ ".local/share/atuin" ];
   home-manager.users.balsoft = {
-    home.activation.atuin = ''
-      ${config.home-manager.users.balsoft.programs.atuin.package}/bin/atuin login \
-        -u balsoft \
-        -p "$(${pkgs.pass}/bin/pass atuin.balsoft.eu/balsoft)" \
-        -k "$(${pkgs.pass}/bin/pass atuin.balsoft.eu/key)"
-      ${config.home-manager.users.balsoft.programs.atuin.package}/bin/atuin sync
-    '';
+    systemd.user.services.atuin-setup = {
+      Install.WantedBy = [ "sway-session.target" ];
+      Service = {
+        Environment = [
+          "GPG_TTY=/dev/tty1"
+          "GNUPGHOME=${config.home-manager.users.balsoft.xdg.dataHome}/gnupg"
+          "PATH=${pkgs.lib.makeBinPath [
+            config.home-manager.users.balsoft.programs.atuin.package
+            pkgs.pass
+          ]}"
+          "ATUIN_HOME=${config.home-manager.users.balsoft.xdg.dataHome}/atuin"
+          "ATUIN_CONFIG_DIR=${config.home-manager.users.balsoft.xdg.configHome}/atuin"
+        ];
+        Type = "oneshot";
+        ExecStart = pkgs.writeShellScript "atuin-setup" ''
+          atuin login \
+            -u balsoft \
+            -p "$(pass atuin.balsoft.eu/balsoft)" \
+            -k "$(pass atuin.balsoft.eu/key)"
+          atuin sync
+        '';
+      };
+    };
     programs.atuin = {
       enable = true;
       enableZshIntegration = true;
