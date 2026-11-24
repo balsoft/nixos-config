@@ -173,7 +173,6 @@ in
         hashedPasswordFile = config.secrets.mailserver-mastodon.decrypted;
       };
     };
-    localDnsResolver = false;
     certificateFile = "/var/lib/acme/balsoft.eu/fullchain.pem";
     keyFile = "/var/lib/acme/balsoft.eu/key.pem";
     enableImap = true;

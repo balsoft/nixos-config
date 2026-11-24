@@ -19,6 +19,8 @@
     ntfy
     # ff-sync
     atuin-server
+
+    atuin
   ];
 
   services.logind.lidSwitch = "ignore";

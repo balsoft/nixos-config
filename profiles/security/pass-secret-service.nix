@@ -6,7 +6,7 @@
 }:
 {
   services.dbus.packages = [ pkgs.pass-secret-service ];
-  xdg.portal.extraPortals = lib.mkForce [ pkgs.pass-secret-service ];
+  xdg.portal.extraPortals = [ pkgs.pass-secret-service ];
 
   home-manager.users.balsoft = {
     services.pass-secret-service.enable = true;

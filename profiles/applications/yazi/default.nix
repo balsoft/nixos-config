@@ -30,7 +30,7 @@
     };
     xdg.portal = {
       enable = true;
-      extraPortals = lib.mkForce [ pkgs.xdg-desktop-portal-termfilechooser ];
+      extraPortals = [ pkgs.xdg-desktop-portal-termfilechooser ];
 
       config = {
         common = {
