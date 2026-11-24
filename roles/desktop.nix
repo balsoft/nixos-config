@@ -57,5 +57,7 @@
     slk
 
     atuin
+
+    zellij
   ];
 }

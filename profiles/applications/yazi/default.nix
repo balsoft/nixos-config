@@ -31,14 +31,7 @@
     xdg.portal = {
       enable = true;
       extraPortals = [ pkgs.xdg-desktop-portal-termfilechooser ];
-
-      config = {
-        common = {
-          default = "wlr";
-          "org.freedesktop.impl.portal.FileChooser" = [ "termfilechooser" ];
-          "org.freedesktop.impl.portal.Secrets" = [ "pass-secret-service" ];
-        };
-      };
+      config.common."org.freedesktop.impl.portal.FileChooser" = [ "termfilechooser" ];
     };
 
     systemd.user.services.org-freedesktop-filemanager1-common = {

@@ -165,43 +165,60 @@ rec {
 
   python3Packages = prev.python3Packages.overrideScope (
     final': prev': {
-      pypass = prev'.pypass.overrideAttrs (
-        o:
-        {
-          version = "0.2.1";
-          src = final.fetchFromGitHub {
-            owner = "nazarewk";
-            # see https://github.com/aviau/python-pass/pull/34
-            repo = "python-pass";
-            rev = "f86cf0ba0e5cb6a1236ff16d8f238b92bc49c517";
-            sha256 = "sha256-PEPgWdsBjyHpgqPx2MNtYnn0wxI0KtlE+uCD7xO0pvE=";
-          };
-          doInstallCheck = false;
-          # Set absolute nix store paths to the executables that pypass uses
-          patches = [
-            (
-              with final;
-              replaceVars
-                (final.fetchpatch {
-                  url = "https://raw.githubusercontent.com/nazarewk-iac/nix-configs/4eb0baf5e5b3692c07e626316257c115b7c79b3a/packages/overlays/pypass-mark-executables.patch";
-                  hash = "sha256-V8HIeaK+EYX8bgodFumki10xynNqS3u6RCkHnsyxTCg=";
-                })
-                {
-                  # VERSION = version;
-                  git_exec = "${git}/bin/git";
-                  grep_exec = "${gnugrep}/bin/grep";
-                  gpg_exec = "${gnupg}/bin/gpg2";
-                  tree_exec = "${tree}/bin/tree";
-                  xclip_exec = "${xclip}/bin/xclip";
-                  VERSION = "0.2.1";
-                }
-            )
-          ];
-          postPatch = ''
-            sed -i 's/enum34//' requirements.txt
-          '';
-        }
-      );
+      pypass = prev'.pypass.overrideAttrs (o: {
+        version = "0.2.1";
+        src = final.fetchFromGitHub {
+          owner = "nazarewk";
+          # see https://github.com/aviau/python-pass/pull/34
+          repo = "python-pass";
+          rev = "f86cf0ba0e5cb6a1236ff16d8f238b92bc49c517";
+          sha256 = "sha256-PEPgWdsBjyHpgqPx2MNtYnn0wxI0KtlE+uCD7xO0pvE=";
+        };
+        doInstallCheck = false;
+        # Set absolute nix store paths to the executables that pypass uses
+        patches = [
+          (
+            with final;
+            replaceVars
+              (final.fetchpatch {
+                url = "https://raw.githubusercontent.com/nazarewk-iac/nix-configs/4eb0baf5e5b3692c07e626316257c115b7c79b3a/packages/overlays/pypass-mark-executables.patch";
+                hash = "sha256-V8HIeaK+EYX8bgodFumki10xynNqS3u6RCkHnsyxTCg=";
+              })
+              {
+                # VERSION = version;
+                git_exec = "${git}/bin/git";
+                grep_exec = "${gnugrep}/bin/grep";
+                gpg_exec = "${gnupg}/bin/gpg2";
+                tree_exec = "${tree}/bin/tree";
+                xclip_exec = "${xclip}/bin/xclip";
+                VERSION = "0.2.1";
+              }
+          )
+        ];
+        postPatch = ''
+          sed -i 's/enum34//' requirements.txt
+        '';
+      });
     }
   );
+
+  xdg-desktop-portal-wlr = prev.xdg-desktop-portal-wlr.overrideAttrs (_: {
+    postInstall = ''
+      wrapProgram $out/libexec/xdg-desktop-portal-wlr --prefix PATH ":" ${
+        lib.makeBinPath (
+          with final;
+          [
+            bash
+            grim
+            slurp
+            wmenu
+            wofi
+            bemenu
+            mew
+            fuzzel
+          ]
+        )
+      }
+    '';
+  });
 }

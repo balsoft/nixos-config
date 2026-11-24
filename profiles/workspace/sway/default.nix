@@ -45,303 +45,311 @@ in
   '';
 
   xdg.portal.wlr.enable = true;
+  services.dbus.packages = [ pkgs.xdg-desktop-portal-wlr ];
   xdg.portal.xdgOpenUsePortal = true;
 
-  home-manager.users.balsoft.wayland.windowManager.sway = {
-    enable = true;
-    config = rec {
-      assigns = {
-        "" = [
-          { class = "Chromium"; }
-          { app_id = "firefox"; }
-          { class = "Firefox"; }
-          { app_id = "librewolf"; }
-        ];
-        "󰍩" = [
-          { app_id = "nheko"; }
-          { title = "Slack.*"; }
-          { title = "aerc"; }
-        ];
-      };
-      fonts = {
-        names = [ config.themes.fonts.main.family ];
-        style = "Regular";
-        size = 9.0;
-      };
+  home-manager.users.balsoft = {
+    xdg.portal = {
+      extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
+      config.common.default = [ "wlr" ];
+    };
+    wayland.windowManager.sway = {
+      enable = true;
+      config = rec {
+        assigns = {
+          "" = [
+            { class = "Chromium"; }
+            { app_id = "firefox"; }
+            { class = "Firefox"; }
+            { app_id = "librewolf"; }
+          ];
+          "󰍩" = [
+            { app_id = "nheko"; }
+            { title = "Slack.*"; }
+            { title = "slk MC.*"; }
+            { title = "aerc"; }
+          ];
+        };
+        fonts = {
+          names = [ config.themes.fonts.main.family ];
+          style = "Regular";
+          size = 9.0;
+        };
 
-      colors = rec {
-        background = thm.base00;
-        unfocused = {
-          text = thm.base03;
-          border = thm.base01;
+        colors = rec {
           background = thm.base00;
-          childBorder = thm.base01;
-          indicator = thm.base07;
+          unfocused = {
+            text = thm.base03;
+            border = thm.base01;
+            background = thm.base00;
+            childBorder = thm.base01;
+            indicator = thm.base07;
+          };
+          focusedInactive = unfocused;
+          urgent = unfocused // {
+            text = thm.base05;
+            border = thm.base09;
+            childBorder = thm.base09;
+          };
+          focused = unfocused // {
+            childBorder = thm.base03;
+            border = thm.base03;
+            background = thm.base01;
+            text = thm.base05;
+          };
         };
-        focusedInactive = unfocused;
-        urgent = unfocused // {
-          text = thm.base05;
-          border = thm.base09;
-          childBorder = thm.base09;
+        gaps = {
+          inner = 6;
+          smartGaps = true;
+          smartBorders = "on";
         };
-        focused = unfocused // {
-          childBorder = thm.base03;
-          border = thm.base03;
-          background = thm.base01;
-          text = thm.base05;
+        focus.followMouse = false;
+        focus.wrapping = "force";
+        modifier = "Mod4";
+        window = {
+          border = 1;
+          titlebar = true;
+          commands = [
+            {
+              command = "border pixel 2px";
+              criteria = {
+                window_role = "popup";
+              };
+            }
+            {
+              command = "sticky enable";
+              criteria = {
+                floating = "";
+              };
+            }
+          ];
         };
-      };
-      gaps = {
-        inner = 6;
-        smartGaps = true;
-        smartBorders = "on";
-      };
-      focus.followMouse = false;
-      focus.wrapping = "force";
-      modifier = "Mod4";
-      window = {
-        border = 1;
-        titlebar = true;
-        commands = [
+        startup = (map (command: { inherit command; }) config.startupApplications) ++ [
           {
-            command = "border pixel 2px";
-            criteria = {
-              window_role = "popup";
-            };
+            command = "dbus-update-activation-environment --systemd WAYLAND_DISPLAY GDK_BACKEND";
           }
           {
-            command = "sticky enable";
-            criteria = {
-              floating = "";
-            };
+            command = "wl-paste --watch cliphist store";
           }
         ];
-      };
-      startup = (map (command: { inherit command; }) config.startupApplications) ++ [
-        {
-          command = "dbus-update-activation-environment --systemd WAYLAND_DISPLAY GDK_BACKEND";
-        }
-        {
-          command = "wl-paste --watch cliphist store";
-        }
-      ];
 
-      bindkeysToCode = true;
+        bindkeysToCode = true;
 
-      modes = {
+        modes = {
 
-        normal =
-          let
-            script = name: content: "exec ${pkgs.writeScript name content}";
-            workspaces =
-              (builtins.genList (x: [
-                (toString x)
-                (toString x)
-              ]) 10)
-              ++ [
-                [
-                  "c"
-                  ""
-                ]
-                [
-                  "t"
-                  "󰍩"
-                ]
-                [
-                  "m"
-                  "ﱘ"
-                ]
-              ];
-          in
-          (
-            {
-              "Escape" = "mode default";
-              "Return" = "mode default";
-              "i" = "mode default";
-              "r" = "mode resize";
+          normal =
+            let
+              script = name: content: "exec ${pkgs.writeScript name content}";
+              workspaces =
+                (builtins.genList (x: [
+                  (toString x)
+                  (toString x)
+                ]) 10)
+                ++ [
+                  [
+                    "c"
+                    ""
+                  ]
+                  [
+                    "t"
+                    "󰍩"
+                  ]
+                  [
+                    "m"
+                    "ﱘ"
+                  ]
+                ];
+            in
+            (
+              {
+                "Escape" = "mode default";
+                "Return" = "mode default";
+                "i" = "mode default";
+                "r" = "mode resize";
 
-              "q" = "kill";
-              "Shift+q" =
-                "move container to workspace temp; [workspace=__focused__] kill; workspace temp; move container to workspace temp; workspace temp";
-              "o" = "layout toggle all";
+                "q" = "kill";
+                "Shift+q" =
+                  "move container to workspace temp; [workspace=__focused__] kill; workspace temp; move container to workspace temp; workspace temp";
+                "o" = "layout toggle all";
 
-              "Left" = "focus child; focus left";
-              "Right" = "focus child; focus right";
-              "Up" = "focus child; focus up";
-              "Down" = "focus child; focus down";
-              "Control+Left" = "focus parent; focus left";
-              "Control+Right" = "focus parent; focus right";
-              "Control+Up" = "focus parent; focus up";
-              "Control+Down" = "focus parent; focus down";
-              "Shift+Up" = "move up";
-              "Shift+Down" = "move down";
-              "Shift+Right" = "move right";
-              "Shift+Left" = "move left";
+                "Left" = "focus child; focus left";
+                "Right" = "focus child; focus right";
+                "Up" = "focus child; focus up";
+                "Down" = "focus child; focus down";
+                "Control+Left" = "focus parent; focus left";
+                "Control+Right" = "focus parent; focus right";
+                "Control+Up" = "focus parent; focus up";
+                "Control+Down" = "focus parent; focus down";
+                "Shift+Up" = "move up";
+                "Shift+Down" = "move down";
+                "Shift+Right" = "move right";
+                "Shift+Left" = "move left";
 
-              "p" = "workspace prev";
-              "n" = "workspace next";
+                "p" = "workspace prev";
+                "n" = "workspace next";
 
-              "h" = "focus child; focus left";
-              "l" = "focus child; focus right";
-              "k" = "focus child; focus up";
-              "j" = "focus child; focus down";
-              "Control+h" = "focus parent; focus left";
-              "Control+l" = "focus parent; focus right";
-              "Control+k" = "focus parent; focus up";
-              "Control+j" = "focus parent; focus down";
-              "Shift+k" = "move up";
-              "Shift+j" = "move down";
-              "Shift+l" = "move right";
-              "Shift+h" = "move left";
-              "u" = "focus parent";
+                "h" = "focus child; focus left";
+                "l" = "focus child; focus right";
+                "k" = "focus child; focus up";
+                "j" = "focus child; focus down";
+                "Control+h" = "focus parent; focus left";
+                "Control+l" = "focus parent; focus right";
+                "Control+k" = "focus parent; focus up";
+                "Control+j" = "focus parent; focus down";
+                "Shift+k" = "move up";
+                "Shift+j" = "move down";
+                "Shift+l" = "move right";
+                "Shift+h" = "move left";
+                "u" = "focus parent";
 
-              "f" = "fullscreen toggle; floating toggle";
-              "Shift+f" = "floating toggle";
+                "f" = "fullscreen toggle; floating toggle";
+                "Shift+f" = "floating toggle";
 
-              "y" = "exec ${apps.fm.cmd}";
+                "y" = "exec ${apps.fm.cmd}";
 
-              "Shift+Escape" = ''exec ${apps.monitor.cmd}; [title="btop"] focus'';
-              "Control+Escape" =
-                ''exec ${apps.term.cmd} -T systemctl-tui -e ${pkgs.systemctl-tui}/bin/systemctl-tui; [title="systemctl-tui"] focus'';
-              "F1" = ''exec ${apps.term.cmd} -T wiremix -e ${pkgs.wiremix}/bin/wiremix; [title="wiremix"] focus'';
-              "Shift+F1" =
-                ''exec ${pkgs.qpwgraph}/bin/qpwgraph; [app_id="org.freedesktop.ryuukyu.Helvum"] focus'';
-              "F3" = "exec ${pkgs.alsa-utils}/bin/amixer set Capture cap";
-              "Shift+F3" = "exec ${pkgs.alsa-utils}/bin/amixer set Capture nocap";
-              "F5" = "reload";
-              "Shift+F5" = "exit";
-              "z" = "exec ${pkgs.mako}/bin/makoctl dismiss";
-              "Shift+z" = "exec ${pkgs.mako}/bin/makoctl restore";
-              "Control+z" = "exec ${pkgs.mako}/bin/makoctl dismiss -a";
-              "F9" =
-                ''exec ${pkgs.libnotify}/bin/notify-send "Do not disturb: on"; exec ${pkgs.mako}/bin/makoctl mode -s do-not-disturb; bar mode invisible'';
-              "Shift+F9" =
-                ''exec ${pkgs.libnotify}/bin/notify-send "Do not disturb: off"; exec ${pkgs.mako}/bin/makoctl mode -s default; bar mode hide'';
-              "F11" = "exec ${pkgs.systemd}/bin/systemctl suspend";
-              "Shift+F11" = "output * dpms off";
-              "F12" = "output * dpms on";
-              "End" = "exec ${lock}";
+                "Shift+Escape" = ''exec ${apps.monitor.cmd}; [title="btop"] focus'';
+                "Control+Escape" =
+                  ''exec ${apps.term.cmd} -T systemctl-tui -e ${pkgs.systemctl-tui}/bin/systemctl-tui; [title="systemctl-tui"] focus'';
+                "F1" = ''exec ${apps.term.cmd} -T wiremix -e ${pkgs.wiremix}/bin/wiremix; [title="wiremix"] focus'';
+                "Shift+F1" =
+                  ''exec ${pkgs.qpwgraph}/bin/qpwgraph; [app_id="org.freedesktop.ryuukyu.Helvum"] focus'';
+                "F3" = "exec ${pkgs.alsa-utils}/bin/amixer set Capture cap";
+                "Shift+F3" = "exec ${pkgs.alsa-utils}/bin/amixer set Capture nocap";
+                "F5" = "reload";
+                "Shift+F5" = "exit";
+                "z" = "exec ${pkgs.mako}/bin/makoctl dismiss";
+                "Shift+z" = "exec ${pkgs.mako}/bin/makoctl restore";
+                "Control+z" = "exec ${pkgs.mako}/bin/makoctl dismiss -a";
+                "F9" =
+                  ''exec ${pkgs.libnotify}/bin/notify-send "Do not disturb: on"; exec ${pkgs.mako}/bin/makoctl mode -s do-not-disturb; bar mode invisible'';
+                "Shift+F9" =
+                  ''exec ${pkgs.libnotify}/bin/notify-send "Do not disturb: off"; exec ${pkgs.mako}/bin/makoctl mode -s default; bar mode hide'';
+                "F11" = "exec ${pkgs.systemd}/bin/systemctl suspend";
+                "Shift+F11" = "output * dpms off";
+                "F12" = "output * dpms on";
+                "End" = "exec ${lock}";
 
-              "Shift+Slash" = "exec ${htmlify}";
+                "Shift+Slash" = "exec ${htmlify}";
 
-              "Print" = script "screenshot" "${pkgs.grim}/bin/grim Pictures/$(date +'%Y-%m-%d+%H:%M:%S').png";
+                "Print" = script "screenshot" "${pkgs.grim}/bin/grim Pictures/$(date +'%Y-%m-%d+%H:%M:%S').png";
 
-              "Control+Print" =
-                script "screenshot-copy" "${pkgs.grim}/bin/grim - | ${pkgs.wl-clipboard}/bin/wl-copy";
+                "Control+Print" =
+                  script "screenshot-copy" "${pkgs.grim}/bin/grim - | ${pkgs.wl-clipboard}/bin/wl-copy";
 
-              "--release Shift+Print" =
-                script "screenshot-area" ''${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" Pictures/$(date +'%Y-%m-%d+%H:%M:%S').png'';
+                "--release Shift+Print" =
+                  script "screenshot-area" ''${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" Pictures/$(date +'%Y-%m-%d+%H:%M:%S').png'';
 
-              "--release Control+Shift+Print" =
-                script "screenshot-area-copy" ''${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.wl-clipboard}/bin/wl-copy'';
+                "--release Control+Shift+Print" =
+                  script "screenshot-area-copy" ''${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.wl-clipboard}/bin/wl-copy'';
 
-              "--release Insert" =
-                script "screenshot-ocr" ''${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.tesseract5}/bin/tesseract -l eng - - | ${pkgs.wl-clipboard}/bin/wl-copy'';
+                "--release Insert" =
+                  script "screenshot-ocr" ''${pkgs.grim}/bin/grim -g "$(${pkgs.slurp}/bin/slurp)" - | ${pkgs.tesseract5}/bin/tesseract -l eng - - | ${pkgs.wl-clipboard}/bin/wl-copy'';
 
-              "x" = "focus output right";
-              "Shift+x" = "move workspace to output right";
-              "quotedbl" = "layout splith";
-              "apostrophe" = "layout splitv";
-              "minus" = "move to scratchpad";
-              "underscore" = "scratchpad show";
-              "s" = "sticky toggle";
-              "b" = "focus mode_toggle";
-              "Space" = script "lambda-launcher" "${pkgs.lambda-launcher}/bin/lambda-launcher";
-              "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
-              "XF86AudioPause" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
-              "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
-              "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
-              "XF86AudioLowerVolume" = "exec ${pkgs.pamixer}/bin/pamixer -d 2";
-              "XF86AudioRaiseVolume" = "exec ${pkgs.pamixer}/bin/pamixer -i 2";
-              "XF86AudioMute" = "exec ${pkgs.pamixer}/bin/pamixer -t";
-              "button2" = "kill";
-              "Next" = "input * xkb_layout 'us,ru'";
-              "Prior" = "input * xkb_layout 'ge'";
-            }
-            // builtins.listToAttrs (
-              builtins.map (x: {
-                name = "${builtins.elemAt x 0}";
-                value = "workspace ${builtins.elemAt x 1}";
-              }) workspaces
-            )
-            // builtins.listToAttrs (
-              builtins.map (x: {
-                name = "Shift+${builtins.elemAt x 0}";
-                value = "move container to workspace ${builtins.elemAt x 1}";
-              }) workspaces
-            )
-          );
+                "x" = "focus output right";
+                "Shift+x" = "move workspace to output right";
+                "quotedbl" = "layout splith";
+                "apostrophe" = "layout splitv";
+                "minus" = "move to scratchpad";
+                "underscore" = "scratchpad show";
+                "s" = "sticky toggle";
+                "b" = "focus mode_toggle";
+                "Space" = script "lambda-launcher" "${pkgs.lambda-launcher}/bin/lambda-launcher";
+                "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
+                "XF86AudioPause" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
+                "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
+                "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
+                "XF86AudioLowerVolume" = "exec ${pkgs.pamixer}/bin/pamixer -d 2";
+                "XF86AudioRaiseVolume" = "exec ${pkgs.pamixer}/bin/pamixer -i 2";
+                "XF86AudioMute" = "exec ${pkgs.pamixer}/bin/pamixer -t";
+                "button2" = "kill";
+                "Next" = "input * xkb_layout 'us,ru'";
+                "Prior" = "input * xkb_layout 'ge'";
+              }
+              // builtins.listToAttrs (
+                builtins.map (x: {
+                  name = "${builtins.elemAt x 0}";
+                  value = "workspace ${builtins.elemAt x 1}";
+                }) workspaces
+              )
+              // builtins.listToAttrs (
+                builtins.map (x: {
+                  name = "Shift+${builtins.elemAt x 0}";
+                  value = "move container to workspace ${builtins.elemAt x 1}";
+                }) workspaces
+              )
+            );
 
-        resize = {
-          Down = "resize grow height 50 px";
-          Escape = "mode default";
-          Left = "resize shrink width 50 px";
-          Return = "mode default";
-          Right = "resize grow width 50 px";
-          Up = "resize shrink height 50 px";
-          h = "resize shrink width 50 px";
-          j = "resize grow height 50 px";
-          k = "resize shrink height 50 px";
-          l = "resize grow width 50 px";
-        };
-      };
-
-      keybindings =
-        lib.mapAttrs' (
-          name:
-          let
-            s = lib.splitString " " name;
-            flags = lib.init s;
-          in
-          lib.nameValuePair "${builtins.concatStringsSep " " flags}${
-            lib.optionalString (builtins.length flags != 0) " "
-          }${modifier}+${lib.last s}"
-        ) modes.normal
-        // {
-          "${modifier}+Escape" = "mode normal";
-          "${modifier}+Return" = "exec ${apps.term.cmd}";
-          "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play";
-          "XF86AudioPause" = "exec ${pkgs.playerctl}/bin/playerctl pause";
-          "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
-          "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
-          "XF86AudioLowerVolume" = "exec ${pkgs.pamixer}/bin/pamixer -d 2";
-          "XF86AudioRaiseVolume" = "exec ${pkgs.pamixer}/bin/pamixer -i 2";
-          "XF86AudioMute" = "exec ${pkgs.pamixer}/bin/pamixer -t";
-          "button2" = "kill";
-          "--whole-window ${modifier}+button2" = "kill";
+          resize = {
+            Down = "resize grow height 50 px";
+            Escape = "mode default";
+            Left = "resize shrink width 50 px";
+            Return = "mode default";
+            Right = "resize grow width 50 px";
+            Up = "resize shrink height 50 px";
+            h = "resize shrink width 50 px";
+            j = "resize grow height 50 px";
+            k = "resize shrink height 50 px";
+            l = "resize grow width 50 px";
+          };
         };
 
-      keycodebindings = {
-        "172" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
-      };
-      workspaceLayout = "tabbed";
-      workspaceAutoBackAndForth = true;
-      input = {
-        "2:14:ETPS/2_Elantech_Touchpad" = {
-          tap = "enabled";
-          natural_scroll = "enabled";
-          dwt = "enabled";
+        keybindings =
+          lib.mapAttrs' (
+            name:
+            let
+              s = lib.splitString " " name;
+              flags = lib.init s;
+            in
+            lib.nameValuePair "${builtins.concatStringsSep " " flags}${
+              lib.optionalString (builtins.length flags != 0) " "
+            }${modifier}+${lib.last s}"
+          ) modes.normal
+          // {
+            "${modifier}+Escape" = "mode normal";
+            "${modifier}+Return" = "exec ${apps.term.cmd}";
+            "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play";
+            "XF86AudioPause" = "exec ${pkgs.playerctl}/bin/playerctl pause";
+            "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
+            "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
+            "XF86AudioLowerVolume" = "exec ${pkgs.pamixer}/bin/pamixer -d 2";
+            "XF86AudioRaiseVolume" = "exec ${pkgs.pamixer}/bin/pamixer -i 2";
+            "XF86AudioMute" = "exec ${pkgs.pamixer}/bin/pamixer -t";
+            "button2" = "kill";
+            "--whole-window ${modifier}+button2" = "kill";
+          };
+
+        keycodebindings = {
+          "172" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
         };
-        "2:14:ETPS/2_Elantech_TrackPoint" = {
-          pointer_accel = "-0.7";
+        workspaceLayout = "tabbed";
+        workspaceAutoBackAndForth = true;
+        input = {
+          "2:14:ETPS/2_Elantech_Touchpad" = {
+            tap = "enabled";
+            natural_scroll = "enabled";
+            dwt = "enabled";
+          };
+          "2:14:ETPS/2_Elantech_TrackPoint" = {
+            pointer_accel = "-0.7";
+          };
+          "2:10:TPPS/2_IBM_TrackPoint" = {
+            pointer_accel = "0.4";
+            accel_profile = "adaptive";
+          };
         };
-        "2:10:TPPS/2_IBM_TrackPoint" = {
-          pointer_accel = "0.4";
-          accel_profile = "adaptive";
+        output = {
+          "*".bg = "${thm.base00} solid_color";
         };
       };
-      output = {
-        "*".bg = "${thm.base00} solid_color";
+      wrapperFeatures = {
+        gtk = true;
       };
+      extraConfig = ''
+        default_border pixel 1
+        mouse_warping container
+        hide_edge_borders --i3 smart
+        exec pkill swaynag
+      '';
     };
-    wrapperFeatures = {
-      gtk = true;
-    };
-    extraConfig = ''
-      default_border pixel 1
-      mouse_warping container
-      hide_edge_borders --i3 smart
-      exec pkill swaynag
-    '';
   };
 }

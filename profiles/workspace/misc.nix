@@ -62,4 +62,5 @@
   console.useXkbConfig = true;
 
   services.input-remapper.enable = true;
+  systemd.services.input-remapper.wantedBy = lib.mkForce [];
 }

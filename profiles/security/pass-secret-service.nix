@@ -6,9 +6,13 @@
 }:
 {
   services.dbus.packages = [ pkgs.pass-secret-service ];
-  xdg.portal.extraPortals = [ pkgs.pass-secret-service ];
 
   home-manager.users.balsoft = {
+    xdg.portal = {
+      extraPortals = [ pkgs.pass-secret-service ];
+      config.common."org.freedesktop.impl.portal.Secrets" = [ "pass-secret-service" ];
+    };
+
     services.pass-secret-service.enable = true;
 
     systemd.user.services.pass-secret-service = {
